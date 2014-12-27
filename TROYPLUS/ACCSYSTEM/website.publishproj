@@ -20,8 +20,8 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     <SourceWebPhysicalPath>$(MSBuildThisFileDirectory)</SourceWebPhysicalPath>
     <SourceWebVirtualPath>/ACCSYSTEM</SourceWebVirtualPath>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <SourceWebProject>http://localhost:9828</SourceWebProject>
-    <SourceWebMetabasePath>/IISExpress/7.5/LM/W3SVC/2/ROOT</SourceWebMetabasePath>
+    <SourceWebProject>C:\Users\win7\Documents\GitHub\TroyLite\TROYPLUS\ACCSYSTEM</SourceWebProject>
+    <SourceWebMetabasePath>/IISExpress/7.5/LM/W3SVC/7/ROOT</SourceWebMetabasePath>
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -40,6 +40,20 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     <AssemblyAttributes Include="AssemblyVersion">
       <Value>$(AssemblyVersion)</Value>
     </AssemblyAttributes>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FtpClient\FtpClient.csproj">
+      <Project>{A6B477F2-A457-479B-B46C-7556ADFAEB45}</Project>
+      <Name>FtpClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReportsBL\ReportsBL.csproj">
+      <Project>{ABAA4AD3-483E-4EB6-9C34-B429E3CDF015}</Project>
+      <Name>ReportsBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SMSLibrary\SMSLibrary.csproj">
+      <Project>{7E565940-017B-4D54-A2DC-69A7762AE169}</Project>
+      <Name>SMSLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(_WebPublishTargetsPath)\Web\Microsoft.WebSite.Publishing.targets" />
 </Project>
