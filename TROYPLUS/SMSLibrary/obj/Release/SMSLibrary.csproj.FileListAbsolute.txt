@@ -1,0 +1,6 @@
+D:\ACCSYSTEM\SMSLibrary\bin\Release\SMSLibrary.dll
+D:\ACCSYSTEM\SMSLibrary\obj\Release\ResolveAssemblyReference.cache
+D:\ACCSYSTEM\SMSLibrary\obj\Release\SMSLibrary.dll
+C:\ACCSYSTEM\SMSLibrary\bin\Release\SMSLibrary.dll
+C:\ACCSYSTEM\SMSLibrary\obj\Release\ResolveAssemblyReference.cache
+C:\ACCSYSTEM\SMSLibrary\obj\Release\SMSLibrary.dll

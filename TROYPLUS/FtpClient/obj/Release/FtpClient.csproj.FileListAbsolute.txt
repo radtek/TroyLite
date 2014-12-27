@@ -1,0 +1,10 @@
+C:\ACCSYSTEM\FtpClient\bin\Release\FtpClient.dll
+C:\ACCSYSTEM\FtpClient\bin\Release\FtpClient.pdb
+C:\ACCSYSTEM\FtpClient\obj\Release\ResolveAssemblyReference.cache
+C:\ACCSYSTEM\FtpClient\obj\Release\FtpClient.dll
+C:\ACCSYSTEM\FtpClient\obj\Release\FtpClient.pdb
+D:\ACCSYSTEM\FtpClient\bin\Release\FtpClient.dll
+D:\ACCSYSTEM\FtpClient\bin\Release\FtpClient.pdb
+D:\ACCSYSTEM\FtpClient\obj\Release\ResolveAssemblyReference.cache
+D:\ACCSYSTEM\FtpClient\obj\Release\FtpClient.dll
+D:\ACCSYSTEM\FtpClient\obj\Release\FtpClient.pdb
