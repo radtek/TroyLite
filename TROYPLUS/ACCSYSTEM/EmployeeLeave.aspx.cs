@@ -68,21 +68,21 @@ public partial class EmployeeLeave : System.Web.UI.Page
                 }
             }
         }
-    }
-
+    }    
+    
     protected void lnkBtnApplyLeave_Click(object sender, EventArgs e)
     {
         try
-        {
+        {            
             ModalPopupExtender1.Show();
             LeaveDetailPopUp.Visible = true;
             BusinessLogic bl = new BusinessLogic(sDataSource);
             UserInfo userInfo = bl.GetUserInfoByName(Request.Cookies["LoggedUserName"].Value);
 
-            lblApproverName.Text = userInfo.ManagerEmpName;
-            hdfApproverEmpNo.Value = userInfo.ManagerEmpNo.ToString();
+           lblApproverName.Text = userInfo.ManagerUserName;
+           hdfApproverEmpNo.Value = userInfo.ManagerEmpNo.ToString();
 
-            ViewState["PopupMode"] = "NEW";
+           ViewState["PopupMode"] = "NEW";
         }
         catch (Exception ex)
         {
@@ -94,26 +94,40 @@ public partial class EmployeeLeave : System.Web.UI.Page
     {
         try
         {
-            int leaveId = 0;
+            int leaveId=0;
             if (e.CommandName.Equals("EditLeave"))
             {
                 if (int.TryParse(e.CommandArgument.ToString(), out leaveId))
                 {
-                    PopupDialogBindData(leaveId);
-                    ModalPopupExtender1.Show();
-                    LeaveDetailPopUp.Visible = true;
-                    ViewState["PopupMode"] = "UPDATE";
+                    if (!IsLeaveApprovedOrRejected(leaveId))
+                    {
+                        PopupDialogBindData(leaveId);
+                        ModalPopupExtender1.Show();
+                        LeaveDetailPopUp.Visible = true;
+                        ViewState["PopupMode"] = "UPDATE";
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Leave request which is Accecpted/Rejected/Cancelled could not be edited');", true);
+                    }
                 }
             }
             else if (e.CommandName.Equals("CancelLeave"))
             {
                 if (int.TryParse(e.CommandArgument.ToString(), out leaveId))
                 {
-                    if (CancelLeave(leaveId))
+                    if (!IsLeaveApprovedOrRejected(leaveId))
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Your leave request has been cancelled successfully');", true);
-                        BindLeaveSummaryGrid();
-                        UpdatePanelMain.Update();
+                        if (CancelLeave(leaveId))
+                        {
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Your leave request has been cancelled successfully');", true);
+                            BindLeaveSummaryGrid();
+                            UpdatePanelMain.Update();
+                        }
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Leave request which is Accecpted/Rejected/Cancelled could not be cancelled');", true);
                     }
                 }
             }
@@ -124,6 +138,22 @@ public partial class EmployeeLeave : System.Web.UI.Page
         }
     }
 
+    private bool IsLeaveApprovedOrRejected(int leaveId)
+    {
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataTable dtLeaveDetails = bl.GetLeaveDetailsById(leaveId);
+        if (dtLeaveDetails != null && dtLeaveDetails.Rows.Count > 0)
+        {
+            string status = dtLeaveDetails.Rows[0]["Status"].ToString();
+            if (status.Equals("Approved") || status.Equals("Rejected") || status.Equals("Cancelled"))
+            {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+  
     protected void btnApplyLeave_Click(object sender, EventArgs e)
     {
         try
@@ -135,7 +165,7 @@ public partial class EmployeeLeave : System.Web.UI.Page
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Your leave request has been submitted successfully');", true);
                     ClearPopupData();
                     BindLeaveSummaryGrid();
-                    UpdatePanelMain.Update();
+                    UpdatePanelMain.Update();                    
                 }
             }
             else if (ViewState["PopupMode"] != null && ViewState["PopupMode"].ToString() == "UPDATE")
@@ -146,7 +176,7 @@ public partial class EmployeeLeave : System.Web.UI.Page
                     ClearPopupData();
                     BindLeaveSummaryGrid();
                     UpdatePanelMain.Update();
-
+                    
                 }
             }
         }
@@ -240,7 +270,7 @@ public partial class EmployeeLeave : System.Web.UI.Page
         string usernam = Request.Cookies["LoggedUserName"].Value;
         BusinessLogic bl = new BusinessLogic(sDataSource);
 
-        DataSet ds = bl.GetLeaveSummary(usernam, txtSearchInput.Text.Trim());
+        DataSet ds = bl.GetLeaveSummary(usernam,txtSearchInput.Text.Trim());
         if (ds != null && ds.Tables.Count > 0)
         {
             grdViewLeaveSummary.DataSource = ds.Tables[0];
@@ -358,11 +388,11 @@ public partial class EmployeeLeave : System.Web.UI.Page
         ddlEndDateSession.SelectedValue = "AN";
         txtTotalLeaveDays.Text = string.Empty;
         txtBalanceLeaves.Text = string.Empty;
-        txtReason.Text = string.Empty;
-        lblApproverName.Text = string.Empty;
+        txtReason.Text =string.Empty;
+        lblApproverName.Text =string.Empty;
         hdfApproverEmpNo.Value = string.Empty;
-        txtEmailContact.Text = string.Empty;
-        txtPhoneContact.Text = string.Empty;
+        txtEmailContact.Text =string.Empty;
+        txtPhoneContact.Text =string.Empty;
     }
-    #endregion
+    #endregion    
 }

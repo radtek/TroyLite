@@ -194,6 +194,62 @@ public partial class BrandMaster : System.Web.UI.Page
         }
     }
 
+    protected void drpIsActiveAdd_DataBound(object sender, EventArgs e)
+    {
+        try
+        {
+            DropDownList ddl = (DropDownList)sender;
+
+            BusinessLogic bl = new BusinessLogic(GetConnectionString());
+            string connection = Request.Cookies["Company"].Value;
+
+            FormView frmV = (FormView)ddl.NamingContainer;
+
+            if (frmV.DataItem != null)
+            {
+                string trans = ((DataRowView)frmV.DataItem)["IsActive"].ToString();
+
+                ddl.ClearSelection();
+
+                ListItem li = ddl.Items.FindByValue(trans);
+                if (li != null) li.Selected = true;
+
+            }
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+    protected void drpIsActive_DataBound(object sender, EventArgs e)
+    {
+        try
+        {
+            DropDownList ddl = (DropDownList)sender;
+
+            BusinessLogic bl = new BusinessLogic(GetConnectionString());
+            string connection = Request.Cookies["Company"].Value;
+
+            FormView frmV = (FormView)ddl.NamingContainer;
+
+            if (frmV.DataItem != null)
+            {
+                string trans = ((DataRowView)frmV.DataItem)["IsActive"].ToString();
+
+                ddl.ClearSelection();
+
+                ListItem li = ddl.Items.FindByValue(trans);
+                if (li != null) li.Selected = true;
+
+            }
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
     protected void GrdViewLedger_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
         try
@@ -490,6 +546,9 @@ public partial class BrandMaster : System.Web.UI.Page
         if (((TextBox)this.frmViewAdd.FindControl("txtDeviationAdd")).Text != "")
             e.InputParameters["Deviation"] = ((TextBox)this.frmViewAdd.FindControl("txtDeviationAdd")).Text;
 
+        if (((DropDownList)this.frmViewAdd.FindControl("drpIsActiveAdd")) != null)
+            e.InputParameters["IsActive"] = ((DropDownList)this.frmViewAdd.FindControl("drpIsActiveAdd")).SelectedValue;
+
         e.InputParameters["Username"] = Request.Cookies["LoggedUserName"].Value;
         
     }
@@ -508,6 +567,8 @@ public partial class BrandMaster : System.Web.UI.Page
 
         e.InputParameters["BrandID"] = GrdViewLedger.SelectedDataKey.Value;
 
+        if (((DropDownList)this.frmViewAdd.FindControl("drpIsActive")) != null)
+            e.InputParameters["IsActive"] = ((DropDownList)this.frmViewAdd.FindControl("drpIsActive")).SelectedValue;
 
         e.InputParameters["Username"] = Request.Cookies["LoggedUserName"].Value;
     }

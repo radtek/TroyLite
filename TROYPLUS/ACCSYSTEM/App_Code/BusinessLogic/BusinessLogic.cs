@@ -3354,23 +3354,23 @@ public class BusinessLogic
 
         if (dropDown == "ItemCode")
         {
-            dbQry = "select ItemCode,ProductName, Model,CST, tblCategories.CategoryID, tblCategories.CategoryName, ProductDesc,Stock,ROL, Rate, Unit, VAT, Discount,BuyUnit, BuyRate, BuyVAT, BuyDiscount,DealerUnit, DealerRate, DealerVAT, DealerDiscount,Complex,Measure_Unit,Accept_Role,block,NLC,Productlevel,MRPEffDate,DPEffDate,NLCEffDate, Outdated,tblProductMaster.Deviation from tblProductMaster inner join tblCategories on tblProductMaster.CategoryID = tblCategories.CategoryID Where ItemCode like '" + txtSearch + "' Order By ItemCode";
+            dbQry = "select ItemCode,ProductName, Model,CST, tblCategories.CategoryID, tblCategories.CategoryName, ProductDesc,Stock,ROL, Rate, Unit, VAT, Discount,BuyUnit, BuyRate, BuyVAT, BuyDiscount,DealerUnit, DealerRate, DealerVAT, DealerDiscount,Complex,Measure_Unit,Accept_Role,block,NLC,Productlevel,MRPEffDate,DPEffDate,NLCEffDate, Outdated,tblProductMaster.Deviation, tblProductMaster.IsActive from tblProductMaster inner join tblCategories on tblProductMaster.CategoryID = tblCategories.CategoryID Where ItemCode like '" + txtSearch + "' Order By ItemCode";
         }
         else if (dropDown == "ProductName")
         {
-            dbQry = "select ItemCode,ProductName, Model,CST, tblCategories.CategoryID, tblCategories.CategoryName, ProductDesc,Stock,ROL, Rate, Unit, VAT, Discount,BuyUnit, BuyRate, BuyVAT, BuyDiscount,DealerUnit, DealerRate, DealerVAT, DealerDiscount,Complex,Measure_Unit,Accept_Role,block,NLC,Productlevel,MRPEffDate,DPEffDate,NLCEffDate, Outdated, tblProductMaster.Deviation from tblProductMaster inner join tblCategories on tblProductMaster.CategoryID = tblCategories.CategoryID Where ProductName like '" + txtSearch + "' Order By ItemCode";
+            dbQry = "select ItemCode,ProductName, Model,CST, tblCategories.CategoryID, tblCategories.CategoryName, ProductDesc,Stock,ROL, Rate, Unit, VAT, Discount,BuyUnit, BuyRate, BuyVAT, BuyDiscount,DealerUnit, DealerRate, DealerVAT, DealerDiscount,Complex,Measure_Unit,Accept_Role,block,NLC,Productlevel,MRPEffDate,DPEffDate,NLCEffDate, Outdated, tblProductMaster.Deviation, tblProductMaster.IsActive from tblProductMaster inner join tblCategories on tblProductMaster.CategoryID = tblCategories.CategoryID Where ProductName like '" + txtSearch + "' Order By ItemCode";
         }
         else if (dropDown == "Model")
         {
-            dbQry = "select ItemCode,ProductName, Model,CST, tblCategories.CategoryID, tblCategories.CategoryName, ProductDesc,Stock,ROL, Rate, Unit, VAT, Discount,BuyUnit, BuyRate, BuyVAT, BuyDiscount,DealerUnit, DealerRate, DealerVAT, DealerDiscount,Complex,Measure_Unit,Accept_Role,block,NLC,Productlevel,MRPEffDate,DPEffDate,NLCEffDate, Outdated, tblProductMaster.Deviation from tblProductMaster inner join tblCategories on tblProductMaster.CategoryID = tblCategories.CategoryID Where Model like '" + txtSearch + "' Order By ItemCode";
+            dbQry = "select ItemCode,ProductName, Model,CST, tblCategories.CategoryID, tblCategories.CategoryName, ProductDesc,Stock,ROL, Rate, Unit, VAT, Discount,BuyUnit, BuyRate, BuyVAT, BuyDiscount,DealerUnit, DealerRate, DealerVAT, DealerDiscount,Complex,Measure_Unit,Accept_Role,block,NLC,Productlevel,MRPEffDate,DPEffDate,NLCEffDate, Outdated, tblProductMaster.Deviation, tblProductMaster.IsActive from tblProductMaster inner join tblCategories on tblProductMaster.CategoryID = tblCategories.CategoryID Where Model like '" + txtSearch + "' Order By ItemCode";
         }
         else if (dropDown == "Brand")
         {
-            dbQry = "select ItemCode,ProductName, Model,CST, tblCategories.CategoryID, tblCategories.CategoryName, ProductDesc,Stock,ROL, Rate, Unit, VAT, Discount,BuyUnit, BuyRate, BuyVAT, BuyDiscount,DealerUnit, DealerRate, DealerVAT, DealerDiscount,Complex,Measure_Unit,Accept_Role,block,NLC,Productlevel,MRPEffDate,DPEffDate,NLCEffDate, Outdated, tblProductMaster.Deviation from tblProductMaster inner join tblCategories on tblProductMaster.CategoryID = tblCategories.CategoryID Where ProductDesc like '" + txtSearch + "' Order By ItemCode";
+            dbQry = "select ItemCode,ProductName, Model,CST, tblCategories.CategoryID, tblCategories.CategoryName, ProductDesc,Stock,ROL, Rate, Unit, VAT, Discount,BuyUnit, BuyRate, BuyVAT, BuyDiscount,DealerUnit, DealerRate, DealerVAT, DealerDiscount,Complex,Measure_Unit,Accept_Role,block,NLC,Productlevel,MRPEffDate,DPEffDate,NLCEffDate, Outdated, tblProductMaster.Deviation, tblProductMaster.IsActive from tblProductMaster inner join tblCategories on tblProductMaster.CategoryID = tblCategories.CategoryID Where ProductDesc like '" + txtSearch + "' Order By ItemCode";
         }
         else
         {
-            dbQry = string.Format("select ItemCode,ProductName, CST,Model, tblCategories.CategoryID, tblCategories.CategoryName, ProductDesc,Stock,ROL, Rate, Unit, VAT, Discount,BuyUnit, BuyRate, BuyVAT, BuyDiscount,DealerUnit, DealerRate, DealerVAT, DealerDiscount,Complex,Measure_Unit,Accept_Role,block,NLC,Productlevel,MRPEffDate,DPEffDate,NLCEffDate, Outdated, tblProductMaster.Deviation from tblProductMaster inner join tblCategories on tblProductMaster.CategoryID = tblCategories.CategoryID Order By ItemCode");
+            dbQry = string.Format("select ItemCode,ProductName, CST,Model, tblCategories.CategoryID, tblCategories.CategoryName, ProductDesc,Stock,ROL, Rate, Unit, VAT, Discount,BuyUnit, BuyRate, BuyVAT, BuyDiscount,DealerUnit, DealerRate, DealerVAT, DealerDiscount,Complex,Measure_Unit,Accept_Role,block,NLC,Productlevel,MRPEffDate,DPEffDate,NLCEffDate, Outdated, tblProductMaster.Deviation, tblProductMaster.IsActive from tblProductMaster inner join tblCategories on tblProductMaster.CategoryID = tblCategories.CategoryID Order By ItemCode");
         }
 
         try
@@ -7594,7 +7594,7 @@ public class BusinessLogic
 
         try
         {
-            dbQry = "select ItemCode,ProductName, Model,CST, tblCategories.CategoryID, tblCategories.CategoryName, ProductDesc,Stock,ROL, Rate, Unit, VAT, Discount, BuyRate,BuyVAT, BuyDiscount,BuyUnit,DealerUnit, DealerRate, DealerVAT, DealerDiscount,Complex,Measure_Unit,Accept_Role,Barcode,ExecutiveCommission,CommodityCode,NLC,block,Productlevel,mrpeffdate,dpeffdate,nlceffdate,OutDated, Deviation  from tblProductMaster inner join tblCategories on tblProductMaster.CategoryID = tblCategories.CategoryID where ItemCode = '" + ItemCode.Trim() + "'"; //Jolo Barcode
+            dbQry = "select ItemCode,ProductName, Model,CST, tblCategories.CategoryID, tblCategories.CategoryName, ProductDesc,Stock,ROL, Rate, Unit, VAT, Discount, BuyRate,BuyVAT, BuyDiscount,BuyUnit,DealerUnit, DealerRate, DealerVAT, DealerDiscount,Complex,Measure_Unit,Accept_Role,Barcode,ExecutiveCommission,CommodityCode,NLC,block,Productlevel,mrpeffdate,dpeffdate,nlceffdate,OutDated, Deviation, tblProductMaster.IsActive  from tblProductMaster inner join tblCategories on tblProductMaster.CategoryID = tblCategories.CategoryID where ItemCode = '" + ItemCode.Trim() + "'"; //Jolo Barcode
             manager.Open();
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
@@ -7643,7 +7643,7 @@ public class BusinessLogic
         }
     }
 
-    public void UpdateProduct(string connection, string ItemCode, string ProductName, string Model, int CategoryID, string ProductDesc, int ROL, double Stock, double Rate, int Unit, double VAT, int Discount, double BuyRate, double BuyVAT, int BuyDiscount, int BuyUnit, int DealerUnit, double DealerRate, double DealerVAT, int DealerDiscount, string Complex, string Measure_Unit, string Accept_Role, double CST, string Barcode, Double ExecutiveCommission, string CommodityCode, double NLC, string block, int Productlevel, DateTime MRPEffDate, DateTime DPEffDate, DateTime NLCEffDate, string Username, string Outdated, int Deviation)
+    public void UpdateProduct(string connection, string ItemCode, string ProductName, string Model, int CategoryID, string ProductDesc, int ROL, double Stock, double Rate, int Unit, double VAT, int Discount, double BuyRate, double BuyVAT, int BuyDiscount, int BuyUnit, int DealerUnit, double DealerRate, double DealerVAT, int DealerDiscount, string Complex, string Measure_Unit, string Accept_Role, double CST, string Barcode, Double ExecutiveCommission, string CommodityCode, double NLC, string block, int Productlevel, DateTime MRPEffDate, DateTime DPEffDate, DateTime NLCEffDate, string Username, string Outdated, int Deviation, string IsActive)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(connection);
@@ -7772,8 +7772,8 @@ public class BusinessLogic
             }
 
 
-            dbQry = string.Format("UPDATE tblProductMaster SET ProductName='{0}', Model='{1}', CategoryID={2}, ProductDesc='{3}',Stock ={4},ROL={5}, Rate={6}, Unit={7}, VAT={8}, Discount={9},BuyRate={10},BuyVAT={11},BuyDiscount={12},BuyUnit={13},DealerUnit='{15}', DealerRate={16}, DealerVAT={17}, DealerDiscount={18},Complex='{19}',Measure_Unit='{20}',Accept_Role='{21}', CST={22}, barcode = '{23}',ExecutiveCommission={24},CommodityCode='{25}',NLC={26},block='{27}',Productlevel={28},MRPEffDate=Format('{29}', 'dd/mm/yyyy'),DPEffDate=Format('{30}', 'dd/mm/yyyy'),NLCEffDate=Format('{31}', 'dd/mm/yyyy'),mrpstartdate=Format('{32}', 'dd/mm/yyyy'),dpstartdate=Format('{33}', 'dd/mm/yyyy'),nlcstartdate=Format('{34}', 'dd/mm/yyyy'),mrpenddate=Format('{35}', 'dd/mm/yyyy'),dpenddate=Format('{36}', 'dd/mm/yyyy'),nlcenddate=Format('{37}', 'dd/mm/yyyy'), Outdated ='{38}' , Deviation = {39} where ItemCode = '{14}' ", //Jolo Barcode
-                 ProductName, Model, CategoryID, ProductDesc, Stock, ROL, Rate, Unit, VAT, Discount, BuyRate, BuyVAT, BuyDiscount, BuyUnit, ItemCode, DealerUnit, DealerRate, DealerVAT, DealerDiscount, Complex, Measure_Unit, Accept_Role, CST, Barcode, ExecutiveCommission, CommodityCode, NLC, block, Productlevel, MRPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), NLCEffDate.ToShortDateString(), mrpdat.ToShortDateString(), mrpprevdat.ToShortDateString(), dpdat.ToShortDateString(), dpprevdat.ToShortDateString(), nlcdat.ToShortDateString(), nlcprevdat.ToShortDateString(), Outdated, Deviation); //Jolo Barcode
+            dbQry = string.Format("UPDATE tblProductMaster SET ProductName='{0}', Model='{1}', CategoryID={2}, ProductDesc='{3}',Stock ={4},ROL={5}, Rate={6}, Unit={7}, VAT={8}, Discount={9},BuyRate={10},BuyVAT={11},BuyDiscount={12},BuyUnit={13},DealerUnit='{15}', DealerRate={16}, DealerVAT={17}, DealerDiscount={18},Complex='{19}',Measure_Unit='{20}',Accept_Role='{21}', CST={22}, barcode = '{23}',ExecutiveCommission={24},CommodityCode='{25}',NLC={26},block='{27}',Productlevel={28},MRPEffDate=Format('{29}', 'dd/mm/yyyy'),DPEffDate=Format('{30}', 'dd/mm/yyyy'),NLCEffDate=Format('{31}', 'dd/mm/yyyy'),mrpstartdate=Format('{32}', 'dd/mm/yyyy'),dpstartdate=Format('{33}', 'dd/mm/yyyy'),nlcstartdate=Format('{34}', 'dd/mm/yyyy'),mrpenddate=Format('{35}', 'dd/mm/yyyy'),dpenddate=Format('{36}', 'dd/mm/yyyy'),nlcenddate=Format('{37}', 'dd/mm/yyyy'), Outdated ='{38}' , Deviation = {39}, IsActive='{40}' where ItemCode = '{14}' ", //Jolo Barcode
+                 ProductName, Model, CategoryID, ProductDesc, Stock, ROL, Rate, Unit, VAT, Discount, BuyRate, BuyVAT, BuyDiscount, BuyUnit, ItemCode, DealerUnit, DealerRate, DealerVAT, DealerDiscount, Complex, Measure_Unit, Accept_Role, CST, Barcode, ExecutiveCommission, CommodityCode, NLC, block, Productlevel, MRPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), NLCEffDate.ToShortDateString(), mrpdat.ToShortDateString(), mrpprevdat.ToShortDateString(), dpdat.ToShortDateString(), dpprevdat.ToShortDateString(), nlcdat.ToShortDateString(), nlcprevdat.ToShortDateString(), Outdated, Deviation, IsActive); //Jolo Barcode
             
             manager.ExecuteDataSet(CommandType.Text, dbQry);
 
@@ -7874,7 +7874,7 @@ public class BusinessLogic
         }
     }
 
-    public void InsertProduct(string connection, string ItemCode, string ProductName, string Model, int CategoryID, string ProductDesc, int ROL, double Stock, double Rate, int Unit, int BuyUnit, double VAT, int Discount, double BuyRate, double BuyVAT, int BuyDiscount, int DealerUnit, double DealerRate, double DealerVAT, int DealerDiscount, string Complex, string Measure_Unit, string Accept_Role, double CST, string Barcode, Double ExecutiveCommission, string CommodityCode, double NLC, string block, int productlevel, DateTime MRPEffDate, DateTime DPEffDate, DateTime NLCEffDate, string Username, string Outdated, int deviation) //Jolo Barcode
+    public void InsertProduct(string connection, string ItemCode, string ProductName, string Model, int CategoryID, string ProductDesc, int ROL, double Stock, double Rate, int Unit, int BuyUnit, double VAT, int Discount, double BuyRate, double BuyVAT, int BuyDiscount, int DealerUnit, double DealerRate, double DealerVAT, int DealerDiscount, string Complex, string Measure_Unit, string Accept_Role, double CST, string Barcode, Double ExecutiveCommission, string CommodityCode, double NLC, string block, int productlevel, DateTime MRPEffDate, DateTime DPEffDate, DateTime NLCEffDate, string Username, string Outdated, int deviation, string IsActive) //Jolo Barcode
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(connection);
@@ -7982,8 +7982,8 @@ public class BusinessLogic
                 manager.ExecuteNonQuery(CommandType.Text, description);
             }
 
-            dbQry = string.Format("INSERT INTO tblProductMaster VALUES('{0}','{1}', '{2}',{3},'{4}',{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},'{19}','{20}','{21}',{22},'{23}',{24},'{25}',{26},'{27}',{28},Format('{29}', 'dd/mm/yyyy'),Format('{30}', 'dd/mm/yyyy'),Format('{31}', 'dd/mm/yyyy'),Format('{32}', 'dd/mm/yyyy'),Format('{33}', 'dd/mm/yyyy'),Format('{34}', 'dd/mm/yyyy'),Format('{35}', 'dd/mm/yyyy'),Format('{36}', 'dd/mm/yyyy'),Format('{37}', 'dd/mm/yyyy'),{38}, {39},'{40}')",//Jolo Barcode
-                ItemCode, ProductName, Model, CategoryID, ProductDesc, Stock, ROL, Rate, Unit, VAT, Discount, BuyUnit, BuyRate, BuyVAT, BuyDiscount, DealerUnit, DealerRate, DealerVAT, DealerDiscount, Complex, Measure_Unit, Accept_Role, CST, Barcode, ExecutiveCommission, CommodityCode, NLC, block, productlevel, MRPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), NLCEffDate.ToShortDateString(), MRPEffDate.ToShortDateString(), MRPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), NLCEffDate.ToShortDateString(), NLCEffDate.ToShortDateString(),0, deviation, Outdated);//Jolo Barcode
+            dbQry = string.Format("INSERT INTO tblProductMaster VALUES('{0}','{1}', '{2}',{3},'{4}',{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},'{19}','{20}','{21}',{22},'{23}',{24},'{25}',{26},'{27}',{28},Format('{29}', 'dd/mm/yyyy'),Format('{30}', 'dd/mm/yyyy'),Format('{31}', 'dd/mm/yyyy'),Format('{32}', 'dd/mm/yyyy'),Format('{33}', 'dd/mm/yyyy'),Format('{34}', 'dd/mm/yyyy'),Format('{35}', 'dd/mm/yyyy'),Format('{36}', 'dd/mm/yyyy'),Format('{37}', 'dd/mm/yyyy'),{38}, {39},'{40}','{41}')",//Jolo Barcode
+                ItemCode, ProductName, Model, CategoryID, ProductDesc, Stock, ROL, Rate, Unit, VAT, Discount, BuyUnit, BuyRate, BuyVAT, BuyDiscount, DealerUnit, DealerRate, DealerVAT, DealerDiscount, Complex, Measure_Unit, Accept_Role, CST, Barcode, ExecutiveCommission, CommodityCode, NLC, block, productlevel, MRPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), NLCEffDate.ToShortDateString(), MRPEffDate.ToShortDateString(), MRPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), NLCEffDate.ToShortDateString(), NLCEffDate.ToShortDateString(), 0, deviation, Outdated, IsActive);//Jolo Barcode
             
                      
             manager.ExecuteDataSet(CommandType.Text, dbQry);
@@ -11986,7 +11986,7 @@ public class BusinessLogic
                         manager.ExecuteNonQuery(CommandType.Text, description);
                     }
 
-                    dbQry = string.Format("Insert Into tblReceipt(CreditorID,JournalID,Paymode) Values({0},{1},'{2}')", dr["CreditorID"].ToString(), ReceiptTransNo, dr["Paymode"].ToString());
+                    dbQry = string.Format("Insert Into tblReceipt(CreditorID,JournalID,Paymode,SFRefNo) Values({0},{1},'{2}','{3}')", dr["CreditorID"].ToString(), ReceiptTransNo, dr["Paymode"].ToString(), dr["SFRefNo"].ToString());
 
                     manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -13178,7 +13178,7 @@ public class BusinessLogic
 
                         int ReceiptTransNo = (Int32)manager.ExecuteScalar(CommandType.Text, "SELECT MAX(TransNo) FROM tblDayBook");
 
-                        dbQry = string.Format("Insert Into tblReceipt(CreditorID,JournalID,Paymode) Values({0},{1},'{2}')", dr["CreditorID"].ToString(), ReceiptTransNo, dr["Paymode"].ToString());
+                        dbQry = string.Format("Insert Into tblReceipt(CreditorID,JournalID,Paymode,SFRefNo) Values({0},{1},'{2}','{3}')", dr["CreditorID"].ToString(), ReceiptTransNo, dr["Paymode"].ToString(), dr["SFRefNo"].ToString());
 
                         manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -41469,7 +41469,7 @@ public class BusinessLogic
          }
      }
 
-     public void InsertBrandInfo(string connection, string BrandName, int brandlevel, int Deviation, string Username)
+     public void InsertBrandInfo(string connection, string BrandName, int brandlevel, int Deviation, string IsActive, string Username)
      {
          DBManager manager = new DBManager(DataProvider.OleDb);
          manager.ConnectionString = CreateConnectionString(connection);
@@ -41516,8 +41516,8 @@ public class BusinessLogic
                  manager.ExecuteNonQuery(CommandType.Text, description);
              }
 
-             dbQry = string.Format("INSERT INTO tblBrand(BrandName,Brandlevel, Deviation) VALUES('{0}',{1},{2})",
-                 BrandName, brandlevel, Deviation);
+             dbQry = string.Format("INSERT INTO tblBrand(BrandName,Brandlevel, Deviation,IsActive) VALUES('{0}',{1},{2},'{3}')",
+                 BrandName, brandlevel, Deviation, IsActive);
 
              manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -41538,7 +41538,7 @@ public class BusinessLogic
 
      }
 
-     public void InsertCategoryInfo(string connection, string CategoryName, int Categorylevel, string Username)
+     public void InsertCategoryInfo(string connection, string CategoryName, int Categorylevel, string IsActive, string Username)
      {
          DBManager manager = new DBManager(DataProvider.OleDb);
          manager.ConnectionString = CreateConnectionString(connection);
@@ -41585,8 +41585,8 @@ public class BusinessLogic
                  manager.ExecuteNonQuery(CommandType.Text, description);
              }
 
-             dbQry = string.Format("INSERT INTO tblCategories(CategoryName,Categorylevel) VALUES('{0}',{1})",
-                 CategoryName, Categorylevel);
+             dbQry = string.Format("INSERT INTO tblCategories(CategoryName,Categorylevel,IsActive) VALUES('{0}',{1},'{2}')",
+                 CategoryName, Categorylevel, IsActive);
 
              manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -41616,11 +41616,11 @@ public class BusinessLogic
 
          if (dropDown == "BrandName")
          {
-             dbQry = "select Brandname,brandlevel,brandid,Deviation from tblBrand Where Brandname like '" + txtSearch + "'" + " Order By Brandname";
+             dbQry = "select Brandname,brandlevel,brandid,Deviation,IsActive from tblBrand Where Brandname like '" + txtSearch + "'" + " Order By Brandname";
          }
          else
          {
-             dbQry = string.Format("select Brandname,brandlevel,brandid,Deviation from tblBrand Where (Brandname like '{0}' or BrandLevel like '{0}') Order By Brandname", txtSearch);
+             dbQry = string.Format("select Brandname,brandlevel,brandid,Deviation,IsActive from tblBrand Where (Brandname like '{0}' or BrandLevel like '{0}') Order By Brandname", txtSearch);
          }
 
          try
@@ -41653,11 +41653,11 @@ public class BusinessLogic
 
          if (dropDown == "CategoryName")
          {
-             dbQry = "select Categoryname,Categorylevel,Categoryid from tblCategories Where Categoryname like '" + txtSearch + "'" + " Order By Categoryname";
+             dbQry = "select Categoryname,Categorylevel,Categoryid,IsActive from tblCategories Where Categoryname like '" + txtSearch + "'" + " Order By Categoryname";
          }
          else
          {
-             dbQry = string.Format("select Categoryname,Categorylevel,Categoryid from tblCategories Where (Categoryname like '{0}' or CategoryLevel like '{0}') Order By Categoryname", txtSearch);
+             dbQry = string.Format("select Categoryname,Categorylevel,Categoryid,IsActive from tblCategories Where (Categoryname like '{0}' or CategoryLevel like '{0}') Order By Categoryname", txtSearch);
          }
 
          try
@@ -41680,7 +41680,7 @@ public class BusinessLogic
          }
      }
 
-     public void UpdateBrandInfo(string connection, int BrandId, string BrandName, int Brandlevel, int Deviation, string Username)
+     public void UpdateBrandInfo(string connection, int BrandId, string BrandName, int Brandlevel, int Deviation, string IsActive, string Username)
      {
          DBManager manager = new DBManager(DataProvider.OleDb);
          manager.ConnectionString = CreateConnectionString(connection);
@@ -41724,9 +41724,9 @@ public class BusinessLogic
                       DateTime.Now.ToString(), logdescription.ToString(), Username, "", "UpdateBrandInfo");
                  manager.ExecuteNonQuery(CommandType.Text, description);
              }
-            
 
-             dbQry = string.Format("Update tblBrand SET BrandName='{0}', Brandlevel={1}, Deviation={2} WHERE BrandID={3}", BrandName, Brandlevel, Deviation, BrandId);
+
+             dbQry = string.Format("Update tblBrand SET BrandName='{0}', Brandlevel={1}, Deviation={2},IsActive='{4}' WHERE BrandID={3}", BrandName, Brandlevel, Deviation, BrandId, IsActive);
 
              manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -41748,7 +41748,7 @@ public class BusinessLogic
          }
      }
 
-     public void UpdateCategoryInfo(string connection, int CategoryId, string CategoryName, int Categorylevel, string Username)
+     public void UpdateCategoryInfo(string connection, int CategoryId, string CategoryName, int Categorylevel, string IsActive, string Username)
      {
          DBManager manager = new DBManager(DataProvider.OleDb);
          manager.ConnectionString = CreateConnectionString(connection);
@@ -41794,7 +41794,7 @@ public class BusinessLogic
              }
 
 
-             dbQry = string.Format("Update tblCategories SET CategoryName='{0}', Categorylevel={1} WHERE CategoryID={2}", CategoryName, Categorylevel, CategoryId);
+             dbQry = string.Format("Update tblCategories SET CategoryName='{0}', Categorylevel={1}, IsActive = '{3}' WHERE CategoryID={2}", CategoryName, Categorylevel, CategoryId, IsActive);
 
              manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -41825,7 +41825,7 @@ public class BusinessLogic
 
          try
          {
-             dbQry = "select BrandID,BrandName,BrandLevel,deviation from tblBrand where BrandID = " + BrandID.ToString();
+             dbQry = "select BrandID,BrandName,BrandLevel,deviation,IsActive from tblBrand where BrandID = " + BrandID.ToString();
              manager.Open();
              ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
@@ -41854,7 +41854,7 @@ public class BusinessLogic
 
          try
          {
-             dbQry = "select CategoryID,CategoryName,CategoryLevel from tblCategories where CategoryID = " + CategoryID.ToString();
+             dbQry = "select CategoryID,CategoryName,CategoryLevel,IsActive from tblCategories where CategoryID = " + CategoryID.ToString();
              manager.Open();
              ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
@@ -42341,7 +42341,7 @@ public class BusinessLogic
 
 
              dbQry.Append("SELECT  tblDayBook.TransNo, tblDayBook.TransDate,tblDayBook.DebtorID, Debitor.LedgerName AS Debi, R.Amount, tblDayBook.Narration, ");
-             dbQry.Append(" tblDayBook.RefNo, tblDayBook.ChequeNo, Receipt.Paymode FROM  (((tblDayBook INNER JOIN ");
+             dbQry.Append(" tblDayBook.RefNo, tblDayBook.ChequeNo, Receipt.Paymode, Receipt.SFRefNo FROM  (((tblDayBook INNER JOIN ");
              dbQry.Append("tblLedger Debitor ON tblDayBook.DebtorID = Debitor.LedgerID) INNER JOIN  tblReceivedAmount R ON R.ReceiptNo = tblDayBook.TransNo) LEFT JOIN ");
              dbQry.Append("tblReceipt Receipt ON tblDayBook.TransNo = Receipt.JournalID) ");
              dbQry.AppendFormat("Where tblDayBook.VoucherType= 'Receipt' AND R.BillNo={0} ", billNo);
@@ -48171,11 +48171,11 @@ public class BusinessLogic
              }
              else if (Method == "Absolute")
              {
-                 dbQry2 = "select itemcode,productname,model,productdesc as brand,block,CategoryID,rate,dealerrate,nlc,mrpeffdate,dpeffdate,nlceffdate,ROL from tblproductmaster where tblproductmaster.rol = 0 order by productdesc";
+                 dbQry2 = "select itemcode,productname,model,productdesc as brand,block,CategoryID,rate,dealerrate,nlc,mrpeffdate,dpeffdate,nlceffdate,ROL from tblproductmaster where tblproductmaster.Outdated = 'Y' order by productdesc";
              }
              else if (Method == "NotAbsolute")
              {
-                 dbQry2 = "select itemcode,productname,model,productdesc as brand,block,rate,dealerrate,CategoryID,nlc,ROL,mrpeffdate,dpeffdate,nlceffdate from tblproductmaster  where tblproductmaster.rol <> 0 order by productdesc";
+                 dbQry2 = "select itemcode,productname,model,productdesc as brand,block,rate,dealerrate,CategoryID,nlc,ROL,mrpeffdate,dpeffdate,nlceffdate from tblproductmaster  where tblproductmaster.Outdated = 'N' order by productdesc";
              }
 
              ds = manager.ExecuteDataSet(CommandType.Text, dbQry2.ToString());
@@ -49459,8 +49459,8 @@ public class BusinessLogic
          DataSet ds = new DataSet();
 
          string dbQry = string.Empty;
-         
-         dbQry = "select tblStock.ItemCode,tblStock.ProductName, tblStock.Model, tblCategories.CategoryID, tblCategories.CategoryName, tblStock.ProductDesc,tblStock.OpeningStock,tblproductmaster.stock from (tblStock inner join tblCategories on tblStock.CategoryID = tblCategories.CategoryID) inner join tblproductmaster on tblStock.itemcode = tblproductmaster.itemcode Where tblStock.ItemCode = '" + ItemCode + "' Order By tblStock.ItemCode";
+
+         dbQry = "select tblStock.ItemCode,tblStock.ProductName, tblStock.Model, tblCategories.CategoryID, tblCategories.CategoryName,tblStock.DueDate, tblStock.ProductDesc,tblStock.OpeningStock,tblproductmaster.stock from (tblStock inner join tblCategories on tblStock.CategoryID = tblCategories.CategoryID) inner join tblproductmaster on tblStock.itemcode = tblproductmaster.itemcode Where tblStock.ItemCode = '" + ItemCode + "' Order By tblStock.ItemCode";
          
          try
          {
@@ -49659,7 +49659,7 @@ public class BusinessLogic
          }
      }
 
-     public double InsertOpeningStock(string connection, string itemCode, string ProductName, string ProductDesc, string model, int catid, int opening, string Username)
+     public double InsertOpeningStock(string connection, string itemCode, string ProductName, string ProductDesc, string model, int catid, int opening, string Username, DateTime DueDate)
      {
          DBManager manager = new DBManager(DataProvider.OleDb);
          manager.ConnectionString = CreateConnectionString(connection);
@@ -49676,8 +49676,8 @@ public class BusinessLogic
 
              manager.BeginTransaction();
 
-             dbQry = string.Format("INSERT INTO tblStock(itemCode,ProductName,ProductDesc,model,categoryid,OpeningStock) VALUES('{0}','{1}','{2}','{3}',{4},{5})",
-                 itemCode,ProductName,ProductDesc,model,catid,opening);
+             dbQry = string.Format("INSERT INTO tblStock(itemCode,ProductName,ProductDesc,model,categoryid,OpeningStock,DueDate) VALUES('{0}','{1}','{2}','{3}',{4},{5},Format('{6}', 'dd/mm/yyyy'))",
+                 itemCode,ProductName,ProductDesc,model,catid,opening,DueDate.ToShortDateString());
 
              manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -49714,7 +49714,7 @@ public class BusinessLogic
          }
      }
 
-     public double UpdateOpeningStock(string connection, string itemCode, string ProductName, string ProductDesc, string model, int catid, int opening, int CurrentStock, int adjustedStock, string Username)
+     public double UpdateOpeningStock(string connection, string itemCode, string ProductName, string ProductDesc, string model, int catid, int opening, int CurrentStock, int adjustedStock, string Username, DateTime DueDate)
      {
          DBManager manager = new DBManager(DataProvider.OleDb);
          manager.ConnectionString = CreateConnectionString(connection);
@@ -61591,11 +61591,12 @@ public class BusinessLogic
             DataTable dtAttendanceDetail = new DataTable();
             _connectionstring = connection;
 
-            List<string> rowDefaultAttendanceData = GetAttendanceDataForTheMonth(year, month, dtAttendanceDetail);
+
 
             Dictionary<string, string> reportees = GetReporteesBySupervisorId(userId);
             foreach (string empNo in reportees.Keys)
             {
+                List<string> rowDefaultAttendanceData = GetAttendanceDataForTheMonth(empNo, year, month, dtAttendanceDetail);
                 rowDefaultAttendanceData[0] = empNo;
                 rowDefaultAttendanceData[1] = reportees[empNo];
                 dtAttendanceDetail.Rows.Add(rowDefaultAttendanceData.ToArray());
@@ -61604,12 +61605,12 @@ public class BusinessLogic
             return dsResult;
         }
 
-        private List<string> GetAttendanceDataForTheMonth(int year, int month, DataTable dtAttendanceDetail = null)
+        private List<string> GetAttendanceDataForTheMonth(string empNo, int year, int month, DataTable dtAttendanceDetail = null)
         {
             List<string> rowDefaultAttendanceData = new List<string>();
 
             // Add Employee Column
-            if (dtAttendanceDetail != null)
+            if (dtAttendanceDetail != null && dtAttendanceDetail.Columns.Count == 0)
             {
                 dtAttendanceDetail.Columns.Add(new DataColumn("EmployeeNo", typeof(string)));
                 dtAttendanceDetail.Columns.Add(new DataColumn("Employee", typeof(string)));
@@ -61625,18 +61626,21 @@ public class BusinessLogic
                 {
                     DataColumn column = new DataColumn("Day" + index.ToString(), typeof(string));
                     column.Caption = dateValue.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
-                    if (dtAttendanceDetail != null)
+                    if (dtAttendanceDetail != null && dtAttendanceDetail.Columns.Count < 33)
                     {
                         dtAttendanceDetail.Columns.Add(column);
                     }
-
-                    if (dateValue.DayOfWeek.ToString().Equals("Sunday"))
+                    if (IsHoliday(dateValue, year))
+                    {
+                        rowDefaultAttendanceData.Add("Holiday");
+                    }
+                    else if (dateValue.DayOfWeek.ToString().Equals("Sunday"))
                     {
                         rowDefaultAttendanceData.Add("Week Off");
                     }
-                    else if (IsHoliday(dateValue, year))
+                    else if (HasAppliedleave(dateValue, empNo))
                     {
-                        rowDefaultAttendanceData.Add("Holiday");
+                        rowDefaultAttendanceData.Add("Leave");
                     }
                     else
                     {
@@ -61664,12 +61668,45 @@ public class BusinessLogic
             return rowDefaultAttendanceData;
         }
 
+        private bool HasAppliedleave(DateTime dateValue, string empNo)
+        {
+            DBManager manager = new DBManager(DataProvider.OleDb);
+            manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+            DataSet ds = new DataSet();
+            string dbQry = string.Empty;
+
+
+            dbQry = string.Format(@"SELECT a.LeaveId, a.EmployeeNo, a.StartDate,a.StartDateSession, a.EndDate,a.EndDateSession
+                                FROM tblEmployeeLeave a
+                                WHERE a.EmployeeNo ={0}
+                                AND (a.StartDate <= #{1}# AND a.EndDate >= #{1}#)", empNo.ToString(), dateValue.ToShortDateString());
+
+            try
+            {
+                manager.Open();
+                ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+                if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                manager.Dispose();
+            }
+        }
+
         private bool IsHoliday(DateTime dateValue, int year)
         {
             //Get holidays list
             DataTable dtHolidaysList = GetHolidayListForTheYear(year);
 
-            DataRow[] drHolidays = dtHolidaysList.Select(string.Format("HolidayDate = '{0}'", dateValue.ToShortDateString()));
+            DataRow[] drHolidays = dtHolidaysList.Select(string.Format("Date = '{0}'", dateValue.ToShortDateString()));
             if (drHolidays.Length > 0)
             {
                 return true;
@@ -61898,7 +61935,7 @@ public class BusinessLogic
 
                 foreach (DataRow dr in dtAttendanceDetail.Rows)
                 {
-                    dbQry = string.Format(@"Insert into tblAttendanceDetail (EmployeeNo,AttendanceDate,Remarks)Values({0},""{1}"",""{2}"")", dr[0], dr[1], dr[2]);
+                    dbQry = string.Format(@"Insert into tblAttendanceDetail (EmployeeNo,AttendanceDate,Remarks)Values({0},Format('{1}', 'dd/mm/yyyy'),""{2}"")", dr[0], dr[1], dr[2]);
                     manager.ExecuteNonQuery(CommandType.Text, dbQry);
                 }
 
@@ -62018,7 +62055,7 @@ public class BusinessLogic
                 string tempQuery = "EmployeeNo = '" + emp + "'";
                 if (dtAvailableReportees.Select(tempQuery).Length == 0)
                 {
-                    List<string> defaultAttendanceRow = GetAttendanceDataForTheMonth(year, month);
+                    List<string> defaultAttendanceRow = GetAttendanceDataForTheMonth(emp, year, month);
                     defaultAttendanceRow[0] = emp;
                     defaultAttendanceRow[1] = reportees[emp];
                     dtAvailableReportees.Rows.Add(defaultAttendanceRow.ToArray());
@@ -62146,7 +62183,7 @@ public class BusinessLogic
 
             }
         }
-        public DataSet GetLeaveRequestsSummary(string userName)
+        public DataSet GetLeaveRequestsSummaryForTheSupervisor(string userName)
         {
             DBManager manager = new DBManager(DataProvider.OleDb);
             manager.ConnectionString = CreateConnectionString(this.ConnectionString);
@@ -62159,7 +62196,7 @@ public class BusinessLogic
                                 INNER JOIN tblLeaveTypes l ON a.LeaveTypeId = l.Id)
                                 INNER JOIN tblEmployee e ON a.Approver = e.EmpNo)
                                 INNER JOIN tblEmployee e1 ON a.EmployeeNo = e1.EmpNo
-                                WHERE a.Approver ={0}", empNo);
+                                WHERE a.Approver ={0} AND (a.Status <> 'Rejected' OR a.Status <>'Cancelled')", empNo);
 
             try
             {
@@ -62454,9 +62491,11 @@ public class BusinessLogic
         #endregion
 
         #region Payroll Methods
-        public bool QueuePayrollForTheMonth(int year, int month)
+
+        public bool QueuePayrollForTheMonth(int year, int month, out int payrollId)
         {
-            int payrollId = InsertPayrollDetails(year, month, false, "Queued", DateTime.Now);
+            payrollId = 0;
+            payrollId = InsertPayrollDetails(year, month, false, "Queued", DateTime.Now);
             if (payrollId > 0)
             {
                 return true;
@@ -62542,7 +62581,10 @@ public class BusinessLogic
             {
                 manager.Open();
 
-                dbQry = string.Format(@"SELECT * FROM tblEmployeePayslip WHERE PayrollId = {0}", payrolId);
+                dbQry = string.Format(@"SELECT *,e.empFirstName,e.empDesig,e.empDOJ,(Payments-Deductions) as TotalPayable 
+                                    FROM (tblEmployeePayslip ep INNER JOIN
+                                                tblEmployee e ON ep.EmployeeId = e.empno)
+                                    WHERE PayrollId = {0}", payrolId);
                 DataSet ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
                 manager.Close();
 
@@ -62700,7 +62742,7 @@ public class BusinessLogic
                 manager.Open();
                 manager.ProviderType = DataProvider.OleDb;
 
-                dbQry = string.Format(@"SELECT Holiday_Id, HolidayDate, Holiday_Name FROM tblHolidayList WHERE YEAR(HolidayDate)={0}", year);
+                dbQry = string.Format(@"SELECT Holiday_Id, Date, Holiday_Name FROM tblHolidayList WHERE YEAR(Date)={0}", year);
 
                 DataSet ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
@@ -62721,7 +62763,6 @@ public class BusinessLogic
             }
         }
         #endregion
-
         
 
         
@@ -63903,4 +63944,98 @@ public class BusinessLogic
             manager.Dispose();
         }
     }
+
+    public void InsertContras(string sPath, string Username, DataSet ds)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(sPath);
+        //DataSet ds = new DataSet();
+
+        string dbQry = string.Empty;
+        string sAuditStr = string.Empty;
+        string dbQry2 = string.Empty;
+        DataSet dsd = new DataSet();
+        string logdescription = string.Empty;
+        string description = string.Empty;
+        string Logsave = string.Empty;
+
+        try
+        {
+
+            //if (!IsValidDate(sPath, TransDate))
+            //{
+            //    throw new Exception("Invalid Date");
+            //}
+
+            //if (DebitorID == CreditorID)
+            //{
+            //    throw new Exception("Same Creditor Debtor");
+            //}
+
+            manager.Open();
+            manager.ProviderType = DataProvider.OleDb;
+
+            manager.BeginTransaction();
+
+
+            dbQry2 = "SELECT KeyValue From tblSettings WHERE key='SAVELOG'";
+            dsd = manager.ExecuteDataSet(CommandType.Text, dbQry2.ToString());
+            if (dsd.Tables[0].Rows.Count > 0)
+                Logsave = dsd.Tables[0].Rows[0]["KeyValue"].ToString();
+
+            if (Logsave == "YES")
+            {
+                //logdescription = string.Format("INSERT INTO tblDayBook(TransDate,DebtorID,CreditorID,Amount,Narration,VoucherType,RefNo) VALUES({0},{1},{2},{3},{4},{5},{6})",
+                //    TransDate.ToShortDateString(), DebitorID, CreditorID, Amount, Narration, VoucherType, RefNo);
+                //logdescription = logdescription.Trim();
+                //description = string.Format("INSERT INTO tblLog(LogDate,LogDescription,LogUsername,LogKey,LogMethod) VALUES(Format('{0}', 'dd/mm/yyyy'),'{1}','{2}','{3}','{4}')",
+                //     DateTime.Now.ToString(), logdescription.ToString(), Username, "", "InsertJournal");
+                //manager.ExecuteNonQuery(CommandType.Text, description);
+            }
+
+
+            if (ds != null)
+            {
+                if (ds.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        dbQry = string.Format("INSERT INTO tblDayBook(TransDate,DebtorID,CreditorID,Amount,Narration,VoucherType,RefNo) VALUES(Format('{0}', 'dd/mm/yyyy'),{1},{2},{3},'{4}','{5}',{6})",
+                        Convert.ToDateTime(dr["Date"]), Convert.ToInt32(dr["Debtor"]), Convert.ToInt32(dr["Creditor"]), Convert.ToDouble(dr["Amount"]), Convert.ToString(dr["Narration"]), Convert.ToString(dr["VoucherType"]), Convert.ToInt32(dr["RefNo"]));
+                        manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                        int TransNo = 0;
+                        object retVal = manager.ExecuteScalar(CommandType.Text, "SELECT MAX(TransNo) FROM tblDayBook");
+
+                        if ((retVal != null) && (retVal != DBNull.Value))
+                        {
+                            TransNo = (Int32)manager.ExecuteScalar(CommandType.Text, "SELECT MAX(TransNo) FROM tblDayBook");
+                        }
+                        else
+                        {
+                            TransNo = TransNo + 1;
+                        }
+                    }
+                }
+            }
+            
+            sAuditStr = "Journal Transaction added. Record Details :  User :" + Username + " DateTime: " + DateTime.Now.ToString();
+            dbQry = string.Format("INSERT INTO  tblAudit(Description,Command,auditdate) VALUES('{0}','{1}',Format('{2}', 'dd/mm/yyyy'))", sAuditStr, "Add New", DateTime.Now.ToString());
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+            manager.CommitTransaction();
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+
+    }
+
 }

@@ -257,6 +257,33 @@
                                                                 </td>
                                                                 <td  style="width: 10%"></td>
                                                             </tr>
+                                                            <tr style="height:2px">
+                                                            </tr>
+                                                            <tr>
+                            
+                                                                <td class="ControlLabel"  style="width:25%;">
+                                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtOpeningStock"
+                                                                                                    Display="Dynamic" ErrorMessage="Opening Stock is mandatory.">*</asp:RequiredFieldValidator>
+                                                                    Opening Due Date *
+                                                                </td>
+                                                                <td class="ControlTextBox3" style="width: 25%">
+                                                                     <asp:TextBox ID="txtDueDate" runat="server" BackColor = "#e7e7e7" SkinID="skinTxtBoxGrid"
+                                                                        Width="100px"
+                                                                        ></asp:TextBox>          
+                                                                    <cc1:CalendarExtender ID="calExtender3" runat="server" Animated="true" Format="dd/MM/yyyy"
+                                                                                                    PopupButtonID="btnDate3" PopupPosition="BottomLeft" TargetControlID="txtDueDate">
+                                                                                                </cc1:CalendarExtender>                         
+                                                                </td>
+                                                                <td style="width: 15%" align="left">
+                                                                     <asp:ImageButton ID="btnDate3" ImageUrl="App_Themes/NewTheme/images/cal.gif" CausesValidation="false"
+                                                                                                    Width="20px" runat="server" />                                                                                                                                    
+                                                                </td>
+                                                                <td style="width: 25%">
+                                                                    
+                                                                </td>
+                                                                <td  style="width: 10%"></td>
+                                                            </tr>
+                                                            
                                                             <tr style="height:8px">
                                                             </tr>
                                                             <tr>
@@ -266,15 +293,16 @@
                                                                             <td style="width:30%">
                                                                             </td>
                                                                             <td align="center" style="width:18%">
-                                                                                <asp:Button ID="CancelButton" runat="server" CausesValidation="False" CommandName="Cancel" AccessKey="c"
-                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
-                                                                                </asp:Button>
-                                                                            </td>
-                                                                            <td align="center" style="width:18%">
                                                                                 <asp:Button ID="SaveButton" runat="server" CommandName="Update" SkinID="skinBtnSave" AccessKey="s"
                                                                                     CssClass="savebutton1231" EnableTheming="false" OnClick="SaveButton_Click"></asp:Button>
                                                                                 <asp:Button ID="UpdateButton" runat="server" CommandName="Update" SkinID="skinBtnSave" AccessKey="u"
                                                                                     CssClass="Updatebutton1231" EnableTheming="false" OnClick="UpdateButton_Click"></asp:Button>
+                                                                            </td>
+                                                                            <td align="center" style="width:18%">
+                                                                                
+                                                                                <asp:Button ID="CancelButton" runat="server" CausesValidation="False" CommandName="Cancel" AccessKey="c"
+                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
+                                                                                </asp:Button>
                                                                             </td>
                                                                             <td style="width:30%">
                                                                             </td>

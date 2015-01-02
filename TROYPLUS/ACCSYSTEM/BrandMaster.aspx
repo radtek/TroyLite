@@ -57,12 +57,12 @@
                                 </tr>
                             </table>--%>
                             <div class="mainConBody">
-                                <table style="width: 100.3%; margin: -3px 0px 0px 2px;" cellpadding="3" cellspacing="2" class="searchbg">
+                                <table style="width: 99.8%; margin: -2px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
                                     <tr style="height: 25px; vertical-align: middle">
                                         <td style="width: 2%;" >
                                                
                                         </td>
-                                        <td style="width: 18%; font-size: 22px; color: #000000;" >
+                                        <td style="width: 18%; font-size: 22px; color: White;" >
                                                 Brand Master
                                         </td>
                                         <td style="width: 13%">
@@ -73,15 +73,15 @@
                                                 </asp:Panel>
                                             </div>
                                         </td>
-                                        <td style="width: 13%; color: #000000;" align="right">
+                                        <td style="width: 13%; color: White;" align="right">
                                                 Search
                                             </td>
-                                        <td style="width: 20%" class="Box1">
+                                        <td style="width: 20%" class="NewBox">
                                             <asp:TextBox ID="txtSearch" runat="server" SkinID="skinTxtBoxSearch"></asp:TextBox>
                                         </td>
-                                        <td style="width: 20%" class="Box1">
+                                        <td style="width: 20%" class="NewBox">
                                             <div style="width: 160px; font-family: 'Trebuchet MS';">
-                                                <asp:DropDownList ID="ddCriteria" runat="server" Width="153px" BackColor="#BBCAFB" Height="23px" style="text-align:center;border:1px solid #BBCAFB ">
+                                                <asp:DropDownList ID="ddCriteria" runat="server" Width="153px" BackColor="White" Height="23px" style="text-align:center;border:1px solid White ">
                                                     <asp:ListItem Value="0">All</asp:ListItem>
                                                     <asp:ListItem Value="BrandName">Brand Name</asp:ListItem>
                                                     
@@ -186,6 +186,25 @@
                                                                 </td>
                                                                 
                                                             </tr>
+                                                            <tr style="height:3px">
+                                                                                    </tr>
+                                                            <tr>
+                                                                <td class="ControlLabel" style="width:40%">
+                                                                    Is Active *
+                                                                </td>
+                                                                <td class="ControlTextBox3" style="width:30%">
+                                                                    <asp:DropDownList ID="drpIsActive" TabIndex="10" AutoPostBack="false" runat="server" BackColor = "#e7e7e7" OnDataBound="drpIsActive_DataBound" CssClass="drpDownListMedium"
+                                                                                    Width="100%" style="border: 1px solid #e7e7e7" height="26px" SelectedValue='<%# Bind("IsActive") %>'>
+                                                                                    <asp:ListItem Text="NO" Value="NO"></asp:ListItem>
+                                                                                    <asp:ListItem Text="YES" Value="YES" Selected="True"></asp:ListItem>
+                                                                                </asp:DropDownList>
+                                                                </td>
+                                                                <td style="width:30%">
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                                
+                                                            </tr>
                                                             <tr style="height:10px">
                                                             </tr> 
                                                             <tr>
@@ -196,14 +215,15 @@
                                                                             
                                                                             </td>
                                                                             <td style="width:30%" align="center">
-                                                                            <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
-                                                                                </asp:Button>
-                                                                            </td>
-                                                                            <td style="width:30%" align="center">
                                                                                 <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update"
                                                                                     CssClass="Updatebutton1231" EnableTheming="false" SkinID="skinBtnSave"
                                                                                     OnClick="UpdateButton_Click"></asp:Button>
+                                                                            
+                                                                            </td>
+                                                                            <td style="width:30%" align="center">
+                                                                                <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
+                                                                                </asp:Button>
                                                                             </td>
                                                                             <td style="width:20%">
                                                                             </td>
@@ -303,6 +323,25 @@
                                                                 <td>
                                                                 </td>
                                                             </tr>
+                                                            <tr style="height:3px">
+                                                                                    </tr>
+                                                            <tr>
+                                                                <td class="ControlLabel" style="width:40%">
+                                                                    Is Active *
+                                                                </td>
+                                                                <td class="ControlTextBox3" style="width:30%">
+                                                                    <asp:DropDownList ID="drpIsActiveAdd" TabIndex="10" AutoPostBack="false" runat="server" BackColor = "#e7e7e7" OnDataBound="drpIsActiveAdd_DataBound" CssClass="drpDownListMedium"
+                                                                                    Width="100%" style="border: 1px solid #e7e7e7" height="26px" SelectedValue='<%# Bind("IsActive") %>'>
+                                                                                    <asp:ListItem Text="NO" Value="NO"></asp:ListItem>
+                                                                                    <asp:ListItem Text="YES" Value="YES" Selected="True"></asp:ListItem>
+                                                                                </asp:DropDownList>
+                                                                </td>
+                                                                <td style="width:30%">
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                                
+                                                            </tr>
                                                             <tr style="height:10px"> 
                                                             </tr>
                                                             <tr>
@@ -313,14 +352,15 @@
                                                                             
                                                                             </td>
                                                                             <td style="width:30%" align="center">
-                                                                                <asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="InsertCancelButton_Click">
-                                                                                </asp:Button>
-                                                                            </td>
-                                                                            <td style="width:30%" align="center">
                                                                                 <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert"
                                                                                     CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave"
                                                                                     OnClick="InsertButton_Click"></asp:Button>
+                                                                                
+                                                                            </td>
+                                                                            <td style="width:30%" align="center">
+                                                                                <asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="InsertCancelButton_Click">
+                                                                                </asp:Button>
                                                                         
                                                                             </td>
                                                                             <td style="width:20%">
@@ -372,8 +412,9 @@
                                 OnRowDeleted="GrdViewLedger_RowDeleted">
                                 <Columns>
                                     <asp:BoundField DataField="BrandName" HeaderText="Brand Name"  HeaderStyle-BorderColor="Gray" HeaderStyle-Width="690px"/>
-                                    <asp:BoundField DataField="BrandLevel" HeaderText="Brand Level"  HeaderStyle-BorderColor="Gray" HeaderStyle-Width="200px"/>
-                                    <asp:BoundField DataField="Deviation" HeaderText="Deviation"  HeaderStyle-BorderColor="Gray" HeaderStyle-Width="200px"/>
+                                    <asp:BoundField DataField="BrandLevel" HeaderText="Brand %"  HeaderStyle-BorderColor="Gray" HeaderStyle-Width="200px"/>
+                                    <asp:BoundField DataField="Deviation" HeaderText="Allowed Price %"  HeaderStyle-BorderColor="Gray" HeaderStyle-Width="200px"/>
+                                    <asp:BoundField DataField="IsActive" HeaderText="IsActive"  HeaderStyle-BorderColor="Gray" HeaderStyle-Width="200px"/>
                                     <asp:TemplateField ItemStyle-CssClass="command" HeaderText="Edit" ItemStyle-Width="50px" HeaderStyle-BorderColor="Gray"
                                         ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
@@ -397,9 +438,9 @@
                                     </asp:TemplateField>
                                 </Columns>
                                 <PagerTemplate>
-                                    <table style=" border-color:white">
-                                        <tr style=" border-color:white">
-                                            <td style=" border-color:white">
+                                    <table style="border-color:white">
+                                        <tr style="border-color:white">
+                                            <td style="border-color:white">
                                                 Goto Page
                                             </td>
                                             <td style=" border-color:white">
@@ -466,6 +507,7 @@
                                 <asp:Parameter Name="BrandName" Type="String" />
                                 <asp:Parameter Name="Brandlevel" Type="String" />
                                 <asp:Parameter Name="Deviation" Type="Int32" />
+                                <asp:Parameter Name="IsActive" Type="String" />
                                 <asp:Parameter Name="Username" Type="String" />
                             </UpdateParameters>
                             <SelectParameters>
@@ -477,7 +519,8 @@
                                 <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
                                 <asp:Parameter Name="BrandName" Type="String" />
                                 <asp:Parameter Name="Brandlevel" Type="String" /> 
-                                <asp:Parameter Name="Deviation" Type="Int32" />        
+                                <asp:Parameter Name="Deviation" Type="Int32" />      
+                                <asp:Parameter Name="IsActive" Type="String" />  
                                 <asp:Parameter Name="Username" Type="String" />                     
                             </InsertParameters>
                         </asp:ObjectDataSource>

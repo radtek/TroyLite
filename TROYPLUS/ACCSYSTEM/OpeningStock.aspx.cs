@@ -124,6 +124,14 @@ public partial class OpeningStock : System.Web.UI.Page
                 dCurrentStock = Convert.ToInt32(txtCurrentStock.Text);
                 dadjustedStock = Convert.ToInt32(txtadjusted.Text);
 
+                string[] sDate;
+                DateTime sDueDate;
+                string delim = "/";
+                char[] delimA = delim.ToCharArray();
+                //CultureInfo culture = new CultureInfo("pt-BR");
+
+                sDate = txtDueDate.Text.Trim().Split(delimA);
+                sDueDate = new DateTime(Convert.ToInt32(sDate[2].ToString()), Convert.ToInt32(sDate[1].ToString()), Convert.ToInt32(sDate[0].ToString()));
                 //dopening = dopening + dadjustedStock;
                 BusinessLogic bl = new BusinessLogic(sDataSource);
 
@@ -164,7 +172,7 @@ public partial class OpeningStock : System.Web.UI.Page
 
                 try
                 {
-                    double Stock = bl.UpdateOpeningStock(connection, ditemCode, dProductName, dProductDesc, dmodel, dcatid, dopening, dCurrentStock, dadjustedStock, Username);
+                    double Stock = bl.UpdateOpeningStock(connection, ditemCode, dProductName, dProductDesc, dmodel, dcatid, dopening, dCurrentStock, dadjustedStock, Username, sDueDate);
 
                     pnlVisitDetails.Visible = false;
                     lnkBtnAdd.Visible = true;
@@ -218,11 +226,13 @@ public partial class OpeningStock : System.Web.UI.Page
         txtCurrentStock.Text = "";
         txtadjusted.Text = "";
 
+        txtDueDate.Text = "";
         cmbProdAdd.Enabled=true;
         cmbModel.Enabled=true;
         cmbBrand.Enabled=true;
         cmbCategory.Enabled = true;
         cmbProdName.Enabled = true;
+        txtDueDate.Enabled = true;
 
         cmbCategory.SelectedIndex = 0;
 
@@ -597,7 +607,11 @@ public partial class OpeningStock : System.Web.UI.Page
                         cmbProdName.Enabled = false;
                         cmbCategory.Enabled = false;
                         LoadProducts(this, null);
+                        txtDueDate.Enabled = false;
                     }
+
+                    if (ds.Tables[0].Rows[0]["DueDate"] != null)
+                        txtDueDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["DueDate"].ToString()).ToString("dd/MM/yyyy");
 
                     if ((catData.Tables[0].Rows[0]["ItemCode"] != null) && (catData.Tables[0].Rows[0]["ItemCode"].ToString() != ""))
                     {
@@ -737,6 +751,14 @@ public partial class OpeningStock : System.Web.UI.Page
                 string dProductDesc = string.Empty;
                 string dmodel = string.Empty;
 
+                BusinessLogic bl = new BusinessLogic(sDataSource);
+
+                string[] sDate;
+                DateTime sDueDate;
+                string delim = "/";
+                char[] delimA = delim.ToCharArray();
+                //CultureInfo culture = new CultureInfo("pt-BR");
+
                 string Username = Request.Cookies["LoggedUserName"].Value;
                 ditemCode = Convert.ToString(cmbProdAdd.SelectedValue);
                 dProductName = cmbProdName.SelectedItem.Text;
@@ -744,9 +766,9 @@ public partial class OpeningStock : System.Web.UI.Page
                 dmodel = cmbModel.SelectedItem.Text;
                 dcatid = Convert.ToInt32(cmbCategory.SelectedValue);
                 dopening = Convert.ToInt32(txtOpeningStock.Text);
-
-                BusinessLogic bl = new BusinessLogic(sDataSource);
-
+                sDate = txtDueDate.Text.Trim().Split(delimA);
+                sDueDate = new DateTime(Convert.ToInt32(sDate[2].ToString()), Convert.ToInt32(sDate[1].ToString()), Convert.ToInt32(sDate[0].ToString()));
+                
                 if (bl.IsItemAlreadyInOpening(connection, ditemCode))
                 {
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product code " + ditemCode + " already added in opening stock');", true);
@@ -770,7 +792,7 @@ public partial class OpeningStock : System.Web.UI.Page
 
                 try
                 {
-                    double Stock = bl.InsertOpeningStock(connection, ditemCode, dProductName, dProductDesc, dmodel, dcatid, dopening, Username);
+                    double Stock = bl.InsertOpeningStock(connection, ditemCode, dProductName, dProductDesc, dmodel, dcatid, dopening, Username, sDueDate);
 
                     pnlVisitDetails.Visible = false;
                     lnkBtnAdd.Visible = true;

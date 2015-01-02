@@ -49,7 +49,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr style="width: 100%; height:100%">
+                <tr style="width: 100%;">
                     <td style="width: 100%">
                         <table width="100%" style="margin: -3px 0px 0px 0px;">
                             <tr style="width: 100%">

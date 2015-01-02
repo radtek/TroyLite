@@ -655,7 +655,8 @@ public partial class CustomerSales : System.Web.UI.Page
         try
         { 
             txtCCard1.Text = "0";
-            txtCCard1.Focus();
+            txtRefNo1.Text = "0";
+            txtRefNo1.Focus();
         }
         catch (Exception ex)
         {
@@ -668,7 +669,8 @@ public partial class CustomerSales : System.Web.UI.Page
         try
         { 
             txtCCard2.Text = "0";
-            txtCCard2.Focus();
+            txtRefNo2.Text = "0";
+            txtRefNo2.Focus();
         }
         catch (Exception ex)
         {
@@ -681,7 +683,8 @@ public partial class CustomerSales : System.Web.UI.Page
         try
         { 
             txtCCard3.Text = "0";
-            txtCCard3.Focus();
+            txtRefNo3.Text = "0";
+            txtRefNo3.Focus();
         }
         catch (Exception ex)
         {
@@ -2877,6 +2880,7 @@ public partial class CustomerSales : System.Web.UI.Page
                         dr["Narration"] = "";
                         dr["VoucherType"] = "Receipt";
                         dr["ChequeNo"] = txtCCard1.Text;
+                        dr["SFRefNo"] = txtRefNo1.Text;
                         dr["Paymode"] = "Cheque";
 
                         receiptData.Tables[0].Rows.Add(dr);
@@ -2894,6 +2898,7 @@ public partial class CustomerSales : System.Web.UI.Page
                         dr["VoucherType"] = "Receipt";
                         dr["ChequeNo"] = txtCCard2.Text;
                         dr["Paymode"] = "Cheque";
+                        dr["SFRefNo"] = txtRefNo2.Text;
 
                         receiptData.Tables[0].Rows.Add(dr);
                     }
@@ -2910,6 +2915,7 @@ public partial class CustomerSales : System.Web.UI.Page
                         dr["VoucherType"] = "Receipt";
                         dr["ChequeNo"] = txtCCard3.Text;
                         dr["Paymode"] = "Cheque";
+                        dr["SFRefNo"] = txtRefNo3.Text;
 
                         receiptData.Tables[0].Rows.Add(dr);
                     }
@@ -2926,6 +2932,7 @@ public partial class CustomerSales : System.Web.UI.Page
                         dr["VoucherType"] = "Receipt";
                         dr["ChequeNo"] = "";
                         dr["Paymode"] = "Cash";
+                        dr["SFRefNo"] = TextBox5.Text;
 
                         receiptData.Tables[0].Rows.Add(dr);
                     }
@@ -3666,6 +3673,7 @@ public partial class CustomerSales : System.Web.UI.Page
                         dr["VoucherType"] = "Receipt";
                         dr["ChequeNo"] = txtCCard1.Text;
                         dr["Paymode"] = "Cheque";
+                        dr["SFRefNo"] = txtRefNo1.Text;
 
                         receiptData.Tables[0].Rows.Add(dr);
                     }
@@ -3682,6 +3690,7 @@ public partial class CustomerSales : System.Web.UI.Page
                         dr["VoucherType"] = "Receipt";
                         dr["ChequeNo"] = txtCCard2.Text;
                         dr["Paymode"] = "Cheque";
+                        dr["SFRefNo"] = txtRefNo2.Text;
 
                         receiptData.Tables[0].Rows.Add(dr);
                     }
@@ -3698,6 +3707,7 @@ public partial class CustomerSales : System.Web.UI.Page
                         dr["VoucherType"] = "Receipt";
                         dr["ChequeNo"] = txtCCard3.Text;
                         dr["Paymode"] = "Cheque";
+                        dr["SFRefNo"] = txtRefNo3.Text;
 
                         receiptData.Tables[0].Rows.Add(dr);
                     }
@@ -3714,6 +3724,7 @@ public partial class CustomerSales : System.Web.UI.Page
                         dr["VoucherType"] = "Receipt";
                         dr["ChequeNo"] = "";
                         dr["Paymode"] = "Cash";
+                        dr["SFRefNo"] = TextBox5.Text;
 
                         receiptData.Tables[0].Rows.Add(dr);
                     }
@@ -5180,6 +5191,9 @@ public partial class CustomerSales : System.Web.UI.Page
         dc = new DataColumn("Paymode");
         dt.Columns.Add(dc);
 
+        dc = new DataColumn("SFRefNo");
+        dt.Columns.Add(dc);
+
         ds.Tables.Add(dt);
 
         return ds;
@@ -6132,6 +6146,7 @@ public partial class CustomerSales : System.Web.UI.Page
                                 if (dr["Paymode"].ToString() == "Cash")
                                 {
                                     txtCashAmount.Text = dr["Amount"].ToString();
+                                    TextBox5.Text = dr["SFRefNo"].ToString();
                                 }
                                 else if (dr["Paymode"].ToString() == "Cheque")
                                 {
@@ -6142,7 +6157,7 @@ public partial class CustomerSales : System.Web.UI.Page
                                         ListItem lli = ddBank1.Items.FindByValue(sDebitor);
                                         if (lli != null) lli.Selected = true;
 
-
+                                        txtRefNo1.Text = dr["SFRefNo"].ToString();
                                         txtAmount1.Text = dr["Amount"].ToString();
                                         txtCCard1.Text = dr["ChequeNo"].ToString();
                                     }
@@ -6156,6 +6171,7 @@ public partial class CustomerSales : System.Web.UI.Page
 
                                         txtAmount2.Text = dr["Amount"].ToString();
                                         txtCCard2.Text = dr["ChequeNo"].ToString();
+                                        txtRefNo2.Text = dr["SFRefNo"].ToString();
                                     }
                                     if (gg == 3)
                                     {
@@ -6167,6 +6183,7 @@ public partial class CustomerSales : System.Web.UI.Page
 
                                         txtAmount3.Text = dr["Amount"].ToString();
                                         txtCCard3.Text = dr["ChequeNo"].ToString();
+                                        txtRefNo3.Text = dr["SFRefNo"].ToString();
                                     }
                                     gg = gg + 1;
                                 }

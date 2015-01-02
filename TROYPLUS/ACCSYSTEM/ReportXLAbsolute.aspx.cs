@@ -73,11 +73,11 @@ public partial class ReportXLAbsolute : System.Web.UI.Page
          {
              Method = "All";
          }
-         else if (chkoption.SelectedValue == "Absolute ItemList")
+         else if (chkoption.SelectedValue == "Absolete ItemList")
          {
              Method = "Absolute";
          }
-         else if (chkoption.SelectedValue == "Other Than Absolute")
+         else if (chkoption.SelectedValue == "Other Than Absolete")
          {
              Method = "NotAbsolute";
          }

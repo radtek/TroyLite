@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -10,6 +11,7 @@ using System.Web.UI.WebControls;
 public partial class EmployeePayroll : System.Web.UI.Page
 {
     public string sDataSource = string.Empty;
+    private static string conStrIdentifier = string.Empty;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -19,6 +21,7 @@ public partial class EmployeePayroll : System.Web.UI.Page
             url = url.Remove(0, url.LastIndexOf("/") + 1);
 
             sDataSource = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+            conStrIdentifier = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
 
             if (!Page.IsPostBack)
             {
@@ -116,11 +119,26 @@ public partial class EmployeePayroll : System.Web.UI.Page
                 int.TryParse(ddlMonth.SelectedValue, out month);
 
                 BusinessLogic bl = new BusinessLogic(sDataSource);
-                if (bl.QueuePayrollForTheMonth(year, month))
+                int payrollId = 0;
+                DataTable dtPayrollQueue = bl.GetPayrollQueueForTheMonth(year, month);
+                if (dtPayrollQueue != null && dtPayrollQueue.Rows.Count > 0)
+                {
+                    int.TryParse(dtPayrollQueue.Rows[0][0].ToString(), out payrollId);
+                    btnQueuePayroll.Enabled = false;
+                    btnViewPayslips.Enabled = false;
+                    lblPayrollStatus.Text = string.Format("Queue status: {0}", "Queued");
+                    // Run the GeneratePayroll async
+                    Task taskGeneratePayroll = Task.Factory.StartNew(() => GeneratePayroll(payrollId, year, month));
+                    Task.WaitAny(new Task[] { taskGeneratePayroll });
+                }
+                else if (bl.QueuePayrollForTheMonth(year, month, out payrollId))
                 {
                     btnQueuePayroll.Enabled = false;
                     btnViewPayslips.Enabled = false;
                     lblPayrollStatus.Text = string.Format("Queue status: {0}", "Queued");
+                    // Run the GeneratePayroll async
+                    Task taskGeneratePayroll = Task.Factory.StartNew(() => GeneratePayroll(payrollId, year, month));
+                    Task.WaitAny(new Task[] { taskGeneratePayroll });
                 }
             }
         }
@@ -129,6 +147,36 @@ public partial class EmployeePayroll : System.Web.UI.Page
             TroyLiteExceptionManager.HandleException(ex);
         }
     }
+
+    private void BindPaySlips()
+    {
+        grdViewPaySlipInfo.DataSource = null;
+        grdViewPaySlipInfo.DataBind();
+        if (Session["EmpPaySlipDt"] != null)
+        {            
+            grdViewPaySlipInfo.DataSource = (Session["EmpPaySlipDt"] as DataTable);
+            grdViewPaySlipInfo.DataBind();
+            grdViewPaySlipInfo.Visible = true;
+        }
+    }
+
+    private static void GeneratePayroll(int payrollId, int year, int month)
+    {
+        try
+        {
+            AdminBusinessLogic bl = new AdminBusinessLogic(conStrIdentifier);
+            if (bl.GeneratePayRoll(payrollId, year, month))
+            {
+
+            }
+        }
+        
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
     protected void btnViewPayslips_Click(object sender, EventArgs e)
     {
         try
@@ -140,6 +188,7 @@ public partial class EmployeePayroll : System.Web.UI.Page
                 {
                     BusinessLogic bl = new BusinessLogic(sDataSource);
                     DataTable dtPayslips = bl.GetAllPaySlipForThePayroll(payrollId);
+                    Session["EmpPaySlipDt"] = dtPayslips;
 
                     grdViewPaySlipInfo.DataSource = dtPayslips;
                     grdViewPaySlipInfo.DataBind();
@@ -179,15 +228,68 @@ public partial class EmployeePayroll : System.Web.UI.Page
                     {
                         hdfPayrollId.Value = dtPayrollQueue.Rows[0][0].ToString();
                         btnViewPayslips.Enabled = true;
+                        lblPayrollStatus.Text = string.Format("Payroll status: {0}.", queueStatus);
                     }
-                   
-                    lblPayrollStatus.Text = string.Format("Payroll status: {0}", queueStatus);
+                    else if (queueStatus == "Failed")
+                    {
+                        lblPayrollStatus.Text = string.Format("Payroll status: {0}. Please Contact Administrator.", queueStatus);
+                        btnQueuePayroll.Enabled = true;
+                    }
+                    else if (queueStatus == "Queued")
+                    {
+                        lblPayrollStatus.Text = string.Format("Payroll status: {0}. Please wait till the payroll generation process initiated.", queueStatus);
+                        btnQueuePayroll.Enabled = true;
+                    }
+                    else if (queueStatus == "In Progress")
+                    {
+                        lblPayrollStatus.Text = string.Format("Payroll status: {0}. Please wait till the payroll generation process gets completed.", queueStatus);
+                        btnQueuePayroll.Enabled = true;
+                    }
                 }
                 else
                 {
                     lblPayrollStatus.Text = string.Format("Payroll Not Initiated");
                     btnQueuePayroll.Enabled = true;
                 }
+            }
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+    
+    protected void grdViewPaySlipInfo_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+            grdViewPaySlipInfo.PageIndex = e.NewPageIndex;
+            BindPaySlips();
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+    protected void ddlPageSelector_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            grdViewPaySlipInfo.PageIndex = ((DropDownList)sender).SelectedIndex;
+            BindPaySlips();
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+    protected void grdViewPaySlipInfo_RowCreated(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.Pager)
+            {
+                PresentationUtils.SetPagerButtonStates(grdViewPaySlipInfo, e.Row, this);
             }
         }
         catch (Exception ex)

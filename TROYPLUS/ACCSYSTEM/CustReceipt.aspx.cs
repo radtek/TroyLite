@@ -96,6 +96,289 @@ public partial class CustReceipt : System.Web.UI.Page
         return (refDate.Date != today) && (refDate > today);
     }
 
+    protected void txtDate_TextChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void chkcash_CheckedChanged(object sender, EventArgs e)
+    {
+        DataSet ds = new DataSet();
+
+        DataTable dt = new DataTable();
+        DataColumn dc;
+        DataRow drNew;
+
+        if (chkcash.Checked == false)
+        {
+            if (Session["Ds"] == null)
+            {
+            }
+            else
+            {
+                DataSet dst = (DataSet)Session["Ds"];
+                if (dst != null)
+                {
+                    if (dst.Tables.Count > 0)
+                    {
+                        for (int i = 0; i < dst.Tables[0].Rows.Count; i++)
+                        {
+                            if (dst.Tables[0].Rows[i]["Type"].ToString() == "Cash")
+                            {
+                                dst.Tables[0].Rows[i].Delete();
+                            }
+                        }
+                        GrdViewItems.DataSource = dst;
+                        GrdViewItems.DataBind();
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (Session["Ds"] == null)
+            {
+               
+                dc = new DataColumn("Type");
+                dt.Columns.Add(dc);
+
+                dc = new DataColumn("RefNo");
+                dt.Columns.Add(dc);
+
+                dc = new DataColumn("Amount");
+                dt.Columns.Add(dc);
+
+                dc = new DataColumn("ChequeNo");
+                dt.Columns.Add(dc);
+
+                dc = new DataColumn("Narration");
+                dt.Columns.Add(dc);
+
+                ds.Tables.Add(dt);
+
+                drNew = dt.NewRow();
+
+
+                drNew["Type"] = "Cash";
+                drNew["RefNo"] = "";
+                drNew["Amount"] = "";
+                drNew["ChequeNo"] = "";
+                drNew["Narration"] = "";
+                
+                ds.Tables[0].Rows.Add(drNew);
+                Session["Ds"] = ds;
+
+            }
+            else
+            {
+                ds = (DataSet)Session["Ds"];
+                drNew = ds.Tables[0].NewRow();
+
+                drNew["Type"] = "Cash";
+                drNew["RefNo"] = "";
+                drNew["Amount"] = "";
+                drNew["ChequeNo"] = "";
+                drNew["Narration"] = "";
+
+                ds.Tables[0].Rows.Add(drNew);
+
+            }
+
+            //cmdSaveProduct.Visible = true;
+            //cmdUpdateProduct.Visible = false;
+            //cmdCancelProduct.Visible = false;
+            GrdViewItems.DataSource = ds;
+            GrdViewItems.DataBind();
+        }
+        //UpdatePanel21.Update();
+    }
+
+    protected void chkcheque_CheckedChanged(object sender, EventArgs e)
+    {
+        DataSet ds = new DataSet();
+
+        DataTable dt = new DataTable();
+        DataColumn dc;
+        DataRow drNew;
+
+        if (chkcheque.Checked == false)
+        {
+            if (Session["Ds"] == null)
+            {
+
+            }
+            else
+            {
+                DataSet dst = (DataSet)Session["Ds"];
+                if(dst != null)
+                {
+                    if (dst.Tables.Count > 0)
+                    {
+                        for (int i = 0; i < dst.Tables[0].Rows.Count; i++)
+                        {
+                            if (dst.Tables[0].Rows[i]["Type"].ToString() == "Cheque")
+                            {
+                                dst.Tables[0].Rows[i].Delete();
+                            }
+                        }
+                        GrdViewItems.DataSource = dst;
+                        GrdViewItems.DataBind();
+                    }
+                }
+               
+            }
+        }
+        else
+        {
+            if (Session["Ds"] == null)
+            {
+
+                dc = new DataColumn("Type");
+                dt.Columns.Add(dc);
+
+                dc = new DataColumn("RefNo");
+                dt.Columns.Add(dc);
+
+                dc = new DataColumn("Amount");
+                dt.Columns.Add(dc);
+
+                dc = new DataColumn("ChequeNo");
+                dt.Columns.Add(dc);
+
+                dc = new DataColumn("Narration");
+                dt.Columns.Add(dc);
+
+                ds.Tables.Add(dt);
+
+                drNew = dt.NewRow();
+
+
+                drNew["Type"] = "Cheque";
+                drNew["RefNo"] = "";
+                drNew["Amount"] = "";
+                drNew["ChequeNo"] = "";
+                drNew["Narration"] = "";
+
+                ds.Tables[0].Rows.Add(drNew);
+                Session["Ds"] = ds;
+
+            }
+            else
+            {
+                ds = (DataSet)Session["Ds"];
+                drNew = ds.Tables[0].NewRow();
+
+                drNew["Type"] = "Cheque";
+                drNew["RefNo"] = "";
+                drNew["Amount"] = "";
+                drNew["ChequeNo"] = "";
+                drNew["Narration"] = "";
+
+                ds.Tables[0].Rows.Add(drNew);
+
+            }
+
+            //cmdSaveProduct.Visible = true;
+            //cmdUpdateProduct.Visible = false;
+            //cmdCancelProduct.Visible = false;
+            GrdViewItems.DataSource = ds;
+            GrdViewItems.DataBind();
+        }
+        //UpdatePanel21.Update();
+    }
+
+    protected void chkcard_CheckedChanged(object sender, EventArgs e)
+    {
+        DataSet ds = new DataSet();
+
+        DataTable dt = new DataTable();
+        DataColumn dc;
+        DataRow drNew;
+
+        if (chkcard.Checked == false)
+        {
+            if (Session["Ds"] == null)
+            {
+            }
+            else
+            {
+                DataSet dst = (DataSet)Session["Ds"];
+                if (dst != null)
+                {
+                    if (dst.Tables.Count > 0)
+                    {
+                        for (int i = 0; i < dst.Tables[0].Rows.Count; i++)
+                        {
+                            if (dst.Tables[0].Rows[i]["Type"].ToString() == "Card")
+                            {
+                                dst.Tables[0].Rows[i].Delete();
+                            }
+                        }
+                        GrdViewItems.DataSource = dst;
+                        GrdViewItems.DataBind();
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (Session["Ds"] == null)
+            {
+
+                dc = new DataColumn("Type");
+                dt.Columns.Add(dc);
+
+                dc = new DataColumn("RefNo");
+                dt.Columns.Add(dc);
+
+                dc = new DataColumn("Amount");
+                dt.Columns.Add(dc);
+
+                dc = new DataColumn("ChequeNo");
+                dt.Columns.Add(dc);
+
+                dc = new DataColumn("Narration");
+                dt.Columns.Add(dc);
+
+                ds.Tables.Add(dt);
+
+                drNew = dt.NewRow();
+
+
+                drNew["Type"] = "Card";
+                drNew["RefNo"] = "";
+                drNew["Amount"] = "";
+                drNew["ChequeNo"] = "";
+                drNew["Narration"] = "";
+
+                ds.Tables[0].Rows.Add(drNew);
+                Session["Ds"] = ds;
+
+            }
+            else
+            {
+                ds = (DataSet)Session["Ds"];
+                drNew = ds.Tables[0].NewRow();
+
+                drNew["Type"] = "Card";
+                drNew["RefNo"] = "";
+                drNew["Amount"] = "";
+                drNew["ChequeNo"] = "";
+                drNew["Narration"] = "";
+
+                ds.Tables[0].Rows.Add(drNew);
+
+            }
+
+            //cmdSaveProduct.Visible = true;
+            //cmdUpdateProduct.Visible = false;
+            //cmdCancelProduct.Visible = false;
+            GrdViewItems.DataSource = ds;
+            GrdViewItems.DataBind();
+        }
+        //UpdatePanel21.Update();
+    }
+
     protected void txtTransDate_TextChanged(object sender, EventArgs e)
     {
         try
@@ -604,7 +887,9 @@ public partial class CustReceipt : System.Web.UI.Page
             //    return;
             //}
             ModalPopupExtender2.Show();
+            ModalPopupExtender3.Show();
             pnlEdit.Visible = true;
+            Session["Ds"] = null;
             //lnkBtnAdd.Visible = false;
             ////MyAccordion.Visible = false;
             //GrdViewReceipt.Visible = false;
@@ -646,6 +931,178 @@ public partial class CustReceipt : System.Web.UI.Page
             TroyLiteExceptionManager.HandleException(ex);
         }
     }
+
+    protected void GrdViewItems_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+            DataSet ds = new DataSet();
+
+            ds = bl.ListBanks();
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                var ddl = (DropDownList)e.Row.FindControl("drpBank");
+                ddl.Items.Clear();
+                ListItem lifzzh = new ListItem("Select Ledger", "0");
+                lifzzh.Attributes.Add("style", "color:Black");
+                ddl.Items.Add(lifzzh);
+                ddl.DataSource = ds;
+                ddl.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+                ddl.DataBind();
+                ddl.DataTextField = "LedgerName";
+                ddl.DataValueField = "LedgerID";
+            }
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+    protected void UpdCancelButton_Click(object sender, EventArgs e)
+    {
+        ModalPopupExtender1.Hide();
+        ModalPopupExtender2.Hide();
+    }
+
+    protected void UpdButton_Click(object sender, EventArgs e)
+    {
+        string connection = string.Empty;
+        connection = Request.Cookies["Company"].Value;
+
+        string[] sDate;
+        DateTime sBilldate;
+
+        string delim = "/";
+        char[] delimA = delim.ToCharArray();
+        //CultureInfo culture = new CultureInfo("pt-BR");
+        string sPath = string.Empty;
+
+        if (Request.Cookies["Company"] != null)
+            sDataSource = Request.Cookies["Company"].Value;
+
+        sPath = sDataSource;
+        string usernam = Request.Cookies["LoggedUserName"].Value;
+
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+
+        for (int vLoop = 0; vLoop < GrdViewItems.Rows.Count; vLoop++)
+        {
+            TextBox txttt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtRefNo");
+            TextBox txt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtAmount");
+            TextBox txtt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtNarration");
+            DropDownList txttd = (DropDownList)GrdViewItems.Rows[vLoop].FindControl("drpCreditor");
+            TextBox txttdd = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtDate");
+
+            int col = vLoop + 1;
+
+            if (txttt.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill RefNo in row " + col + " ')", true);
+                return;
+            }
+            else if (txt.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Amount in row " + col + " ')", true);
+                return;
+            }
+            else if (txtt.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Narration in row " + col + " ')", true);
+                return;
+            }
+            else if (txttd.SelectedValue == "0")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Creditor in row " + col + " ')", true);
+                return;
+            }
+            else if (txttdd.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill date in row " + col + " ')", true);
+                return;
+
+            }
+
+            if (!bl.IsValidDate(connection, Convert.ToDateTime(txttdd.Text)))
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Date is invalid in row " + col + " ')", true);
+                return;
+            }
+
+            
+        }
+
+
+
+        DataSet ds;
+        DataTable dt;
+        DataRow drNew;
+
+        DataColumn dc;
+
+        ds = new DataSet();
+
+        dt = new DataTable();
+
+        dc = new DataColumn("RefNo");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Date");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Debtor");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Creditor");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Amount");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Narration");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("VoucherType");
+        dt.Columns.Add(dc);
+
+        ds.Tables.Add(dt);
+
+        for (int vLoop = 0; vLoop < GrdViewItems.Rows.Count; vLoop++)
+        {
+            TextBox txttt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtRefNo");
+            TextBox txt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtAmount");
+            TextBox txtt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtNarration");
+            DropDownList txttd = (DropDownList)GrdViewItems.Rows[vLoop].FindControl("drpCreditor");
+            TextBox txttdd = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtDate");
+
+            sDate = txttdd.Text.Trim().Split(delimA);
+            sBilldate = new DateTime(Convert.ToInt32(sDate[2].ToString()), Convert.ToInt32(sDate[1].ToString()), Convert.ToInt32(sDate[0].ToString()));
+
+            drNew = dt.NewRow();
+            drNew["RefNo"] = txttt.Text;
+            drNew["Date"] = sBilldate;
+            //drNew["Debtor"] = Convert.ToInt32(drpDebtor.SelectedItem.Value);
+            drNew["Creditor"] = Convert.ToInt32(txttd.SelectedItem.Value);
+            drNew["Amount"] = txt.Text;
+            drNew["Narration"] = txtt.Text;
+            drNew["VoucherType"] = "Journal";
+            ds.Tables[0].Rows.Add(drNew);
+        }
+
+        bl.InsertContras(sPath, usernam, ds);
+
+        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Journal Saved Successfully.')", true);
+
+        ModalPopupExtender1.Hide();
+        ModalPopupExtender2.Hide();
+
+        GrdViewReceipt.DataBind();
+        ClearPanel();
+        UpdatePanelPage.Update();
+    }
+
 
     private void ClearPanel()
     {

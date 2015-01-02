@@ -25,28 +25,25 @@
                                             </asp:Panel>
                                         </div>
                                     </td>
-                                    <td style="width: 13%; color: #000080;" align="right">
-                                        
-                                    </td>
-                                    <td style="width: 20%; color: #000080;" align="right">
-                                        Filter by year:
+                                    <td style="width: 13%; color: #000080;" align="right"></td>
+                                    <td style="width: 20%; color: #000080;" align="right">Filter by year:
                                         <asp:TextBox ID="txtSearchInput" runat="server" SkinID="skinTxtBoxSearch" Visible="false"></asp:TextBox>
                                     </td>
-                                    <td style="width: 20%" >
+                                    <td style="width: 20%">
                                         <div style="width: 160px; font-family: 'Trebuchet MS';">
-                                            <asp:DropDownList ID="ddlSearchCriteria" runat="server" Width="154px" BackColor="#BBCAFB" Height="23px" 
+                                            <asp:DropDownList ID="ddlSearchCriteria" runat="server" Width="154px" BackColor="#BBCAFB" Height="23px"
                                                 Style="text-align: center; border: 1px solid #BBCAFB" Visible="true" DataTextField="AttendanceYear" DataValueField="AttendanceYear"
                                                 OnSelectedIndexChanged="ddlSearchCriteria_SelectedIndexChanged" AutoPostBack="true">
-                                                <asp:ListItem Value="All" Text="All" Selected="True"></asp:ListItem>                                                
+                                                <asp:ListItem Value="All" Text="All" Selected="True"></asp:ListItem>
                                             </asp:DropDownList>
                                         </div>
                                     </td>
                                     <td style="width: 17%" class="tblLeftNoPad">
-                                        <asp:Button ID="btnFilterAttendance" runat="server" Text="" CssClass="ButtonSearch6" EnableTheming="false" ForeColor="White" Visible="false"/>
+                                        <asp:Button ID="btnFilterAttendance" runat="server" Text="" CssClass="ButtonSearch6" EnableTheming="false" ForeColor="White" Visible="false" />
                                     </td>
 
                                     <td style="width: 20%" class="tblLeftNoPad">
-                                        <asp:Button ID="btnClearFilter" runat="server" EnableTheming="false" Text="" CssClass="ClearFilter6" Visible="false"/>
+                                        <asp:Button ID="btnClearFilter" runat="server" EnableTheming="false" Text="" CssClass="ClearFilter6" Visible="false" />
                                     </td>
                                 </tr>
                             </table>
@@ -64,9 +61,9 @@
                                             EmptyDataText="No Attendance Data Found." OnRowCommand="grdViewAttendanceSummary_RowCommand" Font-Names="Trebuchet MS" CssClass="someClass">
                                             <Columns>
                                                 <asp:BoundField DataField="AttendanceID" HeaderText="AttendanceID" Visible="false" HeaderStyle-BorderColor="Gray" />
-                                                <asp:BoundField DataField="AttendanceYear" HeaderText ="Year" Visible="false" />
-                                                <asp:BoundField DataField="AttendanceMonthId" HeaderText ="Month" Visible="false" />
-                                                <asp:BoundField DataField="Period" HeaderText="Month" HeaderStyle-BorderColor="Gray" />                                                                                               
+                                                <asp:BoundField DataField="AttendanceYear" HeaderText="Year" Visible="false" />
+                                                <asp:BoundField DataField="AttendanceMonthId" HeaderText="Month" Visible="false" />
+                                                <asp:BoundField DataField="Period" HeaderText="Month" HeaderStyle-BorderColor="Gray" />
                                                 <asp:BoundField DataField="Status" HeaderText="Status" HeaderStyle-BorderColor="Gray" />
                                                 <asp:BoundField DataField="DateSubmitted" HeaderText="Date submitted" HeaderStyle-BorderColor="Gray" NullDisplayText="NA" />
                                                 <asp:BoundField DataField="Approver" HeaderText="Approver" HeaderStyle-BorderColor="Gray" />
@@ -170,187 +167,187 @@
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day1">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button1" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day1") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day1")%>' ID="Button1" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day1") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day2">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button2" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day2") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day2") %>' ID="Button2" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day2") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day3">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button3" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day3") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day3") %>' ID="Button3" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day3") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day4">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button4" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day4") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day4") %>' ID="Button4" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day4") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day5">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button5" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day5") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day5") %>' ID="Button5" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day5") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day6">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button6" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day6") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day6") %>' ID="Button6" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day6") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day7">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button7" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day7") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day7") %>' ID="Button7" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day7") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day8">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button8" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day8") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day8") %>' ID="Button8" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day8") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day9">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button9" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day9") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day9") %>' ID="Button9" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day9") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day10">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button10" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day10") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day10") %>' ID="Button10" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day10") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day11">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button11" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day11") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day11") %>' ID="Button11" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day11") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day12">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button12" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day12") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day12") %>' ID="Button12" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day12") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day13">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button13" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day13") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day13") %>' ID="Button13" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day13") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day14">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button14" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day14") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day14") %>' ID="Button14" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day14") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day15">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button15" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day15") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day15") %>' ID="Button15" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day15") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day16">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button16" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day16") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day16") %>' ID="Button16" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day16") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day17">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button17" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day17") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day17") %>' ID="Button17" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day17") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day18">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button18" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day18") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day18") %>' ID="Button18" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day18") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day19">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button19" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day19") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day19") %>' ID="Button19" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day19") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day20">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button20" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day20") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day20") %>' ID="Button20" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day20") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day21">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button21" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day21") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day21") %>' ID="Button21" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day21") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day22">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button22" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day22") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day22") %>' ID="Button22" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day22") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day23">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button23" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day23") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day23") %>' ID="Button23" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day23") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day24">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button24" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day24") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day24") %>' ID="Button24" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day24") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day25">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button25" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day25") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day25") %>' ID="Button25" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day25") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day26">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button26" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day26") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day26") %>' ID="Button26" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day26") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day27">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button27" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day27") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day27") %>' ID="Button27" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day27") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day28">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button28" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day28") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day28") %>' ID="Button28" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day28") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day29">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button29" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day29") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day29") %>' ID="Button29" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day29") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day30">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button30" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day30") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day30") %>' ID="Button30" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day30") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField ItemStyle-Width="60px" ItemStyle-HorizontalAlign="Center"
                                                                                     HeaderText="Day31">
                                                                                     <ItemTemplate>
-                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" ID="Button31" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day31") %>' UseSubmitBehavior="false" />
+                                                                                        <asp:Button runat="server" CssClass="btnBts btnBts-default" CommandArgument='<%#Eval("EmployeeNo").ToString()+"//"+Eval("Employee").ToString()+"//"+ Eval("Day31") %>' ID="Button31" OnClick="ToggleAttendance_Click" Text='<%#Eval("Day31") %>' UseSubmitBehavior="false" />
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                             </Columns>
@@ -403,7 +400,61 @@
 
                     </td>
                 </tr>
-
+                <tr>
+                    <td>
+                        <input id="btnFakeModalTarget" type="button" style="display: none" runat="server" />
+                        <cc1:ModalPopupExtender ID="CompOffModalPopupExtender" runat="server" PopupControlID="pnlCompOffContentPopUp"
+                            BackgroundCssClass="modalBackground" TargetControlID="btnFakeModalTarget" CancelControlID="btnCancelCompOff">
+                            
+                        </cc1:ModalPopupExtender>
+                        <asp:Panel runat="server" ID="pnlCompOffContentPopUp" Style="width: 55%; border-color:green; border-width:thick">
+                            <div id="CompOffContentPopUp" class="divBody">
+                                <table style="width: 100%;" align="center">
+                                    <tr>
+                                        <td class="headerPopUp">Approve Compensatory Off
+                                        </td>
+                                    </tr>
+                                    <tr style="width: 100%">
+                                        <td style="width: 100%">
+                                            <div id="divGridContainer2" style="overflow: scroll; width: 100%">
+                                                <table width="100%" style="margin: 5px;">
+                                                    <tr style="width: 100%; height: 25px;">
+                                                        <td>
+                                                            Please enter the reason for providing the Compensatory Off
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <asp:TextBox ID="txtCompOffReason" runat="server" ></asp:TextBox>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                      <tr>
+                                        <td>
+                                            <table width="100%" align="left">
+                                                <tr>
+                                                    <td align="right" style="width: 20%;"></td>
+                                                    <td style="width: 20%;">
+                                                        <asp:Button ID="btnCancelCompOff" runat="server" CausesValidation="False"
+                                                            Text="Cancel" EnableTheming="false" ></asp:Button>
+                                                    </td>
+                                                    <td style="width: 20%;">
+                                                        <asp:Button ID="btnApproveCompOff" runat="server" CausesValidation="True"
+                                                            Text="Approve" ToolTip="Approve CompOff" EnableTheming="false"  OnClick="btnApproveCompOff_Click"></asp:Button>
+                                                    </td>                                                    
+                                                    <td style="width: 20%;" colspan="2"></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </asp:Panel>
+                    </td>
+                </tr>
             </table>
         </ContentTemplate>
     </asp:UpdatePanel>
