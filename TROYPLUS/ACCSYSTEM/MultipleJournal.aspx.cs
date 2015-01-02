@@ -92,19 +92,6 @@ public partial class MultipleJournal : System.Web.UI.Page
 
     }
 
-    protected void BtnClearFilter_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            txtSearch.Text = "";
-            ddCriteria.SelectedIndex = 0;
-        }
-        catch (Exception ex)
-        {
-            TroyLiteExceptionManager.HandleException(ex);
-        }
-    }
-
     protected void cmdSearch_Click(object sender, EventArgs e)
     {
         try
@@ -2179,13 +2166,13 @@ public partial class MultipleJournal : System.Web.UI.Page
                     dr_final1312["Narration"] = "";
 
                     dt.Rows.Add(dr_final1312);
-            }
+                }
 
                 ds.Tables.Add(dt);
 
                 GrdViewItems.DataSource = ds;
                 GrdViewItems.DataBind();
-        }
+            }
             else if (optionmethod.SelectedValue == "CreditContra")
             {
                 //updatePnlPurchase.Update();
@@ -3076,7 +3063,7 @@ public partial class MultipleJournal : System.Web.UI.Page
             {
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Creditor and Debtor should not be same in row " + col + " ')", true);
                 return;
-    }
+            }
         }
 
 

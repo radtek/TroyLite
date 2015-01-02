@@ -1,10 +1,7 @@
 ﻿<%@ Page Title="Customer > Customer / Dealer Receipt" Language="C#" MasterPageFile="~/PageMaster.master"
     AutoEventWireup="true" CodeFile="CustReceipt.aspx.cs" Inherits="CustReceipt" %>
 
-<<<<<<< HEAD
-=======
 <%@ Register Assembly="RealWorld.Grids" Namespace="RealWorld.Grids" TagPrefix="rwg" %>
->>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">
 </asp:Content>
@@ -342,17 +339,10 @@
                                         <tr>
                                             <td style="width: 2%">
                                             </td>
-<<<<<<< HEAD
-                                            <td style="width: 30%; font-size: 22px; color: White;" >
-                                                Customers Receipts
-                                            </td>
-                                            <td style="width: 10%">
-=======
                                             <td style="width: 25%; font-size: 22px; color: White;" >
                                                 Customers Receipts
                                             </td>
                                             <td style="width: 15%">
->>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                                                 <div style="text-align: right;">
                                                     <asp:Panel ID="pnlSearch" runat="server" Width="60px">
                                                         <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click"  CssClass="ButtonAdd66" ForeColor="White" EnableTheming="false"
@@ -360,11 +350,7 @@
                                                     </asp:Panel>
                                                 </div>
                                             </td>
-<<<<<<< HEAD
-                                            <td style="width: 13%; color: White;" align="right">
-=======
                                             <td style="width: 10%; color: White;" align="right">
->>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                                                 Search
                                             </td>
                                             <td style="width: 18%" class="NewBox">
@@ -386,23 +372,14 @@
                                                     EnableTheming="false" ForeColor="White" OnClick="btnSearch_Click"
                                                      />
                                             </td>
-<<<<<<< HEAD
-                                             <td style="width: 20%" class="tblLeftNoPad">
-                                            <asp:Button ID="BtnClearFilter" runat="server"  OnClick="BtnClearFilter_Click"  EnableTheming="false" Text="" CssClass="ClearFilter6" />
-                                        </td>
-=======
->>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                                         </tr>
                                     </table>
                                 
                             </div>
                         
-<<<<<<< HEAD
-=======
                         
 
 
->>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                         <input id="dummy" type="button" style="display: none" runat="server" />
                         <input id="Button1" type="button" style="display: none" runat="server" />
                         <cc1:ModalPopupExtender ID="ModalPopupExtender2" runat="server" BackgroundCssClass="modalBackground"
@@ -414,13 +391,8 @@
                                 <ContentTemplate>
                                     <div id="contentPopUp">
                                         <asp:Panel ID="pnlEdit" runat="server">
-<<<<<<< HEAD
-                                            <table class="tblLeft" cellpadding="0" cellspacing="0" style="border: 0px solid #5078B3;
-                                                background-color: #fff; color: #000;" width="100%">
-=======
                                             <table class="tblLeft" cellpadding="0" cellspacing="0" style="border:0px solid #5078B3;
                                                 background-color:#fff; color: #000;" width="100%">
->>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                                                 <tr>
                                                     <td>
                                                         <div class="divArea">
@@ -865,32 +837,18 @@
                                                                                 <tr>
                                                                                     <td style="width: 23%">
                                                                                     </td>
-<<<<<<< HEAD
-                                                                                    <td style="width: 18%">                                                                                        
-                                                                                         <asp:Button ID="UpdateButton" runat="server" SkinID="skinBtnSave" OnClientClick="javascript:CheckDate();CheckPendingBill();EditMobile_Validator();ConfirmSMS();"
-                                                                                            OnClick="UpdateButton_Click" CssClass="Updatebutton1231" EnableTheming="false"></asp:Button>
-                                                                                        <asp:Button ID="SaveButton" runat="server" SkinID="skinBtnSave" OnClientClick="javascript:CheckDate();CheckPendingBill();EditMobile_Validator();ConfirmSMS();"
-                                                                                            OnClick="SaveButton_Click" CssClass="savebutton1231" EnableTheming="false"></asp:Button>
-                                                                                    </td>
-                                                                                    <td style="width: 18%">
-                                                                                       <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
-=======
                                                                                     <td style="width: 18%">
                                                                                         <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
->>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                                                                                             OnClick="UpdateCancelButton_Click" SkinID="skinBtnCancel" CssClass="cancelbutton6"
                                                                                             EnableTheming="false"></asp:Button>
                                                                                     </td>
                                                                                     <td style="width: 18%">
-<<<<<<< HEAD
-=======
                                                                                         <asp:Button ID="UpdateButton" runat="server" SkinID="skinBtnSave" OnClientClick="javascript:CheckDate();CheckPendingBill();EditMobile_Validator();ConfirmSMS();"
                                                                                             OnClick="UpdateButton_Click" CssClass="Updatebutton1231" EnableTheming="false"></asp:Button>
                                                                                         <asp:Button ID="SaveButton" runat="server" SkinID="skinBtnSave" OnClientClick="javascript:CheckDate();CheckPendingBill();EditMobile_Validator();ConfirmSMS();"
                                                                                             OnClick="SaveButton_Click" CssClass="savebutton1231" EnableTheming="false"></asp:Button>
                                                                                     </td>
                                                                                     <td style="width: 18%">
->>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                                                                                         <input id="ShowPopUp" type="button" class="pendingbillbutton6" style="width: 110px;
                                                                                             vertical-align: middle" runat="server" value="" />
                                                                                         <asp:Button ID="BtnSales" Text="" CausesValidation="False" Visible="False" OnClick="ShowPendingSales_Click"
@@ -931,11 +889,6 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-<<<<<<< HEAD
-                                            </table>
-                                        </asp:Panel>
-                                    </div>
-=======
                                                 <tr>
                                                     <td colspan="4">
                                                         <input id="Button2" type="button" style="display: none" runat="server" />
@@ -1153,7 +1106,6 @@
                                     <div>
 
                                     </div>
->>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </asp:Panel>
@@ -1161,20 +1113,12 @@
                 </tr>
                 <tr style="width: 100%;  margin: -4px 0px 0px 0px;">
                     <td style="width: 100%">
-<<<<<<< HEAD
-                        <table width="100%" style="margin: -3px 0px 0px 0px;">
-=======
                         <table width="100%" style="margin: -6px 0px 0px 0px;">
->>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                             <tr style="width: 100%">
                                 <td>
                         <div class="mainGridHold" id="searchGrid">
                             <asp:GridView ID="GrdViewReceipt" runat="server" AllowSorting="false" AutoGenerateColumns="False"
-<<<<<<< HEAD
-                                OnRowCreated="GrdViewReceipt_RowCreated" Width="100.4%" DataSourceID="GridSource"
-=======
                                 OnRowCreated="GrdViewReceipt_RowCreated" Width="100.3%" DataSourceID="GridSource"
->>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                                 AllowPaging="True" DataKeyNames="TransNo" EmptyDataText="No Receipts found!"
                                 OnRowCommand="GrdViewReceipt_RowCommand" OnRowDataBound="GrdViewReceipt_RowDataBound"
                                 OnSelectedIndexChanged="GrdViewReceipt_SelectedIndexChanged" OnRowDeleting="GrdViewReceipt_RowDeleting"

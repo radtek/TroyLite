@@ -405,19 +405,6 @@ public partial class CustReceipt : System.Web.UI.Page
         }
     }
 
-    protected void BtnClearFilter_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            txtSearch.Text = "";
-            ddCriteria.SelectedIndex = 0;
-        }
-        catch (Exception ex)
-        {
-            TroyLiteExceptionManager.HandleException(ex);
-        }
-    }
-
     private void ShowPendingBills()
     {
         string connStr = string.Empty;
