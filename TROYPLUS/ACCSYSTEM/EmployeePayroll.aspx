@@ -21,7 +21,7 @@
                                 </tr>
                                 <tr style="height: 25px; vertical-align: middle">
                                     <td style="width: 5%"></td>
-                                    <td style="width: 20%;  color:black;">Choose payroll year:</td>
+                                    <td style="width: 20%; color: black;">Choose payroll year:</td>
                                     <td style="width: 60%;">
                                         <div style="width: 160px; font-family: 'Trebuchet MS';">
                                             <asp:DropDownList ID="ddlYear" runat="server" Width="154px" BackColor="#BBCAFB" Height="23px"
@@ -37,25 +37,31 @@
 
                                 <tr style="height: 25px; vertical-align: middle">
                                     <td style="width: 5%"></td>
-                                    <td style="width: 20%; color:black;">Choose payroll month:</td>
-                                    <td style="width: 60%;">
-                                        <div style="width: 160px; font-family: 'Trebuchet MS';">
-                                            <asp:DropDownList ID="ddlMonth" runat="server" Width="154px" BackColor="#BBCAFB" Height="23px"
-                                                Style="text-align: center; border: 1px solid #BBCAFB" Visible="true" DataTextField="MonthName" DataValueField="MonthId"
-                                                AutoPostBack="true">
-                                            </asp:DropDownList>
-                                        </div>
+                                    <td style="width: 20%; color: black;">Choose payroll month:</td>
+                                    <td style="width: 60%;" align="left">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <asp:DropDownList ID="ddlMonth" runat="server" Width="154px" BackColor="#BBCAFB" Height="23px"
+                                                        Style="text-align: center; border: 1px solid #BBCAFB" Visible="true" DataTextField="MonthName" DataValueField="MonthId"
+                                                        AutoPostBack="true">
+                                                    </asp:DropDownList>
+                                                </td>
+                                                <td style="width: 10px;"></td>
+                                                <td>
+                                                    <asp:Button ID="btnSearchpayroll" runat="server" Text="Search Payroll" EnableTheming="false" OnClick="btnSearchpayroll_Click" />
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </td>
-                                    <td style="width: 15%;"></td>
+                                    <td style="width: 15%;" align="left"></td>
                                 </tr>
                                 <tr style="height: 25px; vertical-align: middle">
                                     <td style="width: 5%"></td>
-                                    <td style="width: 20%">                                        
-
-                                    </td>
+                                    <td style="width: 20%"></td>
                                     <td style="width: 60%;">
                                         <div style="text-align: left;">
-                                            <asp:Label ID="lblPayrollStatus" runat="server" Text="Status" ForeColor="Black"></asp:Label>
+                                            <asp:Label ID="lblPayrollStatus" runat="server" Text="" ForeColor="Black"></asp:Label>
                                             <asp:HiddenField ID="hdfPayrollId" runat="server" Value="" />
                                         </div>
                                     </td>
@@ -64,14 +70,23 @@
 
                                 <tr style="height: 25px; vertical-align: middle">
                                     <td style="width: 5%"></td>
-                                    <td style="width: 20%">
-                                        <asp:Button ID="btnSearchpayroll" runat="server" Text="Search Payroll" EnableTheming="false" OnClick="btnSearchpayroll_Click" />
-                                        <asp:Button ID="btnQueuePayroll" runat="server" Text="Queue Payroll" Enabled="false" EnableTheming="false" OnClick="btnQueuePayroll_Click" />
-                                        </td>
-                                        <td style="width: 60%;" align="left">
-                                            <asp:Button ID="btnViewPayslips" runat="server" Text="View Payslip" Enabled="false" EnableTheming="false" OnClick="btnViewPayslips_Click" />
-                                        </td>
-                                        <td style="width: 15%;"></td>
+                                    <td style="width: 20%"></td>
+                                    <td style="width: 60%;" align="left">
+                                        <table>
+                                            <tr>
+                                                <td style="width:155px;">
+                                                    <asp:Button ID="btnQueuePayroll" runat="server" Text="Generate Payroll" Enabled="false" EnableTheming="false" OnClick="btnQueuePayroll_Click" />
+                                                </td>
+                                                <td style="width: 10px;"></td>
+
+                                                <td>
+                                                    <asp:Button ID="btnViewPayslips" runat="server" Text="View Payslip" Enabled="false" EnableTheming="false" OnClick="btnViewPayslips_Click" />
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </td>
+                                    <td style="width: 15%;"></td>
                                 </tr>
                             </table>
                         </div>
@@ -84,15 +99,18 @@
                                 <td>
                                     <div class="mainGridHold" id="searchGrid">
                                         <asp:GridView ID="grdViewPaySlipInfo" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                                            Width="99.9%" AllowPaging="True" DataKeyNames="PayslipId"
+                                            Width="99.9%" AllowPaging="true" DataKeyNames="PayslipId" OnPageIndexChanging="grdViewPaySlipInfo_PageIndexChanging"
+                                            OnRowCreated="grdViewPaySlipInfo_RowCreated"
                                             EmptyDataText="No payslip associated with this payroll." Font-Names="Trebuchet MS" CssClass="someClass">
                                             <Columns>
                                                 <asp:BoundField DataField="PayslipId" HeaderText="PayslipId" Visible="false" HeaderStyle-BorderColor="Gray" />
-                                                <asp:BoundField DataField="EmployeeName" HeaderText="Employee Name" Visible="false" />
+                                                <asp:BoundField DataField="EmpFirstName" HeaderText="Employee Name" Visible="true" />
+                                                <asp:BoundField DataField="EmpDesig" HeaderText="Designation" Visible="true" />
+                                                <asp:BoundField DataField="EmpDOJ" HeaderText="Date of Joining" Visible="true" />
                                                 <asp:BoundField DataField="PayrollDate" HeaderText="PayrollDate" Visible="false" />
-                                                <asp:BoundField DataField="Deductions" HeaderText="Deductions" HeaderStyle-BorderColor="Gray" />
-                                                <asp:BoundField DataField="Payments" HeaderText="Payements" HeaderStyle-BorderColor="Gray" />
-                                                <asp:BoundField DataField="TotalPayable" HeaderText="Total Payable" HeaderStyle-BorderColor="Gray" NullDisplayText="NA" />
+                                                <asp:BoundField DataField="Payments" HeaderText="Payments" HeaderStyle-BorderColor="Gray" />
+                                                <asp:BoundField DataField="Deductions" HeaderText="Deductions" HeaderStyle-BorderColor="Gray" />                                                
+                                                <asp:BoundField DataField="TotalPayable" HeaderText="Total Salary" HeaderStyle-BorderColor="Gray" NullDisplayText="NA" />
                                             </Columns>
                                             <PagerTemplate>
                                                 <table style="border-color: white">
@@ -100,7 +118,7 @@
                                                         <td style="border-color: white">Goto Page
                                                         </td>
                                                         <td style="border-color: white">
-                                                            <asp:DropDownList ID="ddlPageSelector" runat="server" AutoPostBack="true" Style="border: 1px solid blue" BackColor="#BBCAFB" Width="75px" Height="25px">
+                                                            <asp:DropDownList ID="ddlPageSelector" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlPageSelector_SelectedIndexChanged" Style="border: 1px solid blue" BackColor="#BBCAFB" Width="75px" Height="25px">
                                                             </asp:DropDownList>
                                                         </td>
                                                         <td style="border-color: white; width: 5px"></td>

@@ -582,10 +582,10 @@ public partial class PageMaster : System.Web.UI.MasterPage
         {
             lnkLeadManagement.Visible = false;
         }
-        if (!this.Page.User.IsInRole("COMMNGT"))
-        {
-            lnkCommissionMngmt.Visible = false;
-        }
+        //if (!this.Page.User.IsInRole("COMMNGT"))
+        //{
+        //    lnkCommissionMngmt.Visible = false;
+        //}
         if (!this.Page.User.IsInRole("HIPUR"))
         {
             lnkHirePurchaseNew.Visible = false;
@@ -704,10 +704,10 @@ public partial class PageMaster : System.Web.UI.MasterPage
         {
             lnkTimeSheet.Visible = false;
         }
-        if (!this.Page.User.IsInRole("TMAPP"))
-        {
-            lnkTimeSheetApproval.Visible = false;
-        }
+        //if (!this.Page.User.IsInRole("TMAPP"))
+        //{
+        //    lnkTimeSheetApproval.Visible = false;
+        //}
         //if (!this.Page.User.IsInRole("WMENTRY"))
         //{
         //    lnkWorkManagement.Visible = false;
@@ -740,10 +740,10 @@ public partial class PageMaster : System.Web.UI.MasterPage
         //{
         //lnkInterestCalculation.Visible = false;
         //}
-        if (!this.Page.User.IsInRole("SMSDRFT"))
-        {
-            lnkSmsText.Visible = false;
-        }
+        //if (!this.Page.User.IsInRole("SMSDRFT"))
+        //{
+        //    lnkSmsText.Visible = false;
+        //}
         //if (!this.Page.User.IsInRole("ITMTRK"))
         //{
         //    lnkQtyReturns.Visible = false;
@@ -814,14 +814,14 @@ public partial class PageMaster : System.Web.UI.MasterPage
         //{
         //    lnkUserMaintenance.Visible = false;
         //}
-        //if (!this.Page.User.IsInRole("ULOCK"))
-        //{
-        //    lnkuserlock.Visible = false;
-        //}
+        if (!this.Page.User.IsInRole("ULOCK"))
+        {
+            lnkuserlock.Visible = false;
+        }
 
         //if (Helper.GetDecryptedKey("InstallationType") != "ONLINE-OFFLINE-CLIENT")
         //{
-        //    lnkConfiguration.Visible = false;
+            lnkConfiguration.Visible = true;
         //}
     }
 

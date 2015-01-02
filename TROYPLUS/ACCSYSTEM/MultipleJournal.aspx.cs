@@ -2057,6 +2057,7 @@ public partial class MultipleJournal : System.Web.UI.Page
                 ModalPopupMethod.Show();
                 ModalPopupPurchase.Show();
                 ModalPopupContact.Show();
+                //ModalPopupExtender1.Hide();
 
                 //cmbDebtorAdd2.Enabled = false;
             }
@@ -2120,6 +2121,133 @@ public partial class MultipleJournal : System.Web.UI.Page
                 updatePnlPurchase.Update();
                 ModalPopupMethod.Show();
                 ModalPopupPurchase.Show();
+                ModalPopupExtender1.Hide();
+            }
+            else if (optionmethod.SelectedValue == "DebitContra")
+            {
+                //updatePnlPurchase.Update();
+                ModalPopupMethod.Show();
+                ModalPopupPurchase.Show();
+                ModalPopupExtender1.Show();
+
+                if(txtEntries.Text == "")
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Entries number.')", true);
+                    return;
+                }
+                drpDebtor.SelectedIndex = 0;
+
+                int Entries = Convert.ToInt32(txtEntries.Text);
+
+                DataSet ds = new DataSet();
+                DataTable dt;
+                DataRow drNew;
+                dt = new DataTable();
+                DataColumn dc;
+                int ii = 1;
+                string dtaa1 = string.Empty;
+
+                dc = new DataColumn("RefNo");
+                dt.Columns.Add(dc);
+
+                dc = new DataColumn("Date");
+                dt.Columns.Add(dc);
+
+                //dc = new DataColumn("Creditor");
+                //dt.Columns.Add(dc);
+
+                dc = new DataColumn("Amount");
+                dt.Columns.Add(dc);
+                
+                dc = new DataColumn("Narration");
+                dt.Columns.Add(dc);
+
+                for (int i = 0; i < Convert.ToInt32(txtEntries.Text); i++)
+                {
+
+                    DataRow dr_final1312 = dt.NewRow();
+                    dr_final1312["RefNo"] = "";
+
+                    DateTime indianStd = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "India Standard Time");
+                    string dtaa = Convert.ToDateTime(indianStd).ToString("dd/MM/yyyy");
+
+                    dr_final1312["Date"] = dtaa;
+
+                    dr_final1312["Amount"] = "";
+
+                    //dr_final1312["Creditor"] = 0;
+                    dr_final1312["Narration"] = "";
+
+                    dt.Rows.Add(dr_final1312);
+            }
+
+                ds.Tables.Add(dt);
+
+                GrdViewItems.DataSource = ds;
+                GrdViewItems.DataBind();
+        }
+            else if (optionmethod.SelectedValue == "CreditContra")
+            {
+                //updatePnlPurchase.Update();
+                ModalPopupMethod.Show();
+                ModalPopupPurchase.Show();
+                ModalPopupExtender2.Show();
+
+                if (txtEntries.Text == "")
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Entries number.')", true);
+                    return;
+                }
+                drpCreditor1.SelectedIndex = 0;
+
+                int Entries = Convert.ToInt32(txtEntries.Text);
+
+                DataSet ds = new DataSet();
+                DataTable dt;
+                DataRow drNew;
+                dt = new DataTable();
+                DataColumn dc;
+                int ii = 1;
+                string dtaa1 = string.Empty;
+
+                dc = new DataColumn("RefNo");
+                dt.Columns.Add(dc);
+
+                dc = new DataColumn("Date");
+                dt.Columns.Add(dc);
+
+                //dc = new DataColumn("Creditor");
+                //dt.Columns.Add(dc);
+
+                dc = new DataColumn("Amount");
+                dt.Columns.Add(dc);
+
+                dc = new DataColumn("Narration");
+                dt.Columns.Add(dc);
+
+                for (int i = 0; i < Convert.ToInt32(txtEntries.Text); i++)
+                {
+
+                    DataRow dr_final1312 = dt.NewRow();
+                    dr_final1312["RefNo"] = "";
+
+                    DateTime indianStd = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "India Standard Time");
+                    string dtaa = Convert.ToDateTime(indianStd).ToString("dd/MM/yyyy");
+
+                    dr_final1312["Date"] = dtaa;
+
+                    dr_final1312["Amount"] = "";
+
+                    //dr_final1312["Creditor"] = 0;
+                    dr_final1312["Narration"] = "";
+
+                    dt.Rows.Add(dr_final1312);
+                }
+
+                ds.Tables.Add(dt);
+
+                BulkEditGridView1.DataSource = ds;
+                BulkEditGridView1.DataBind();
             }
         }
         catch (Exception ex)
@@ -2132,6 +2260,7 @@ public partial class MultipleJournal : System.Web.UI.Page
     {
         try
         {
+            txtEntries.Text = "";
             ModalPopupMethod.Show();
         }
         catch (Exception ex)
@@ -2328,6 +2457,100 @@ public partial class MultipleJournal : System.Web.UI.Page
         cmbDebtor.DataTextField = "LedgerName";
         cmbDebtor.DataValueField = "LedgerID";
 
+        drpDebtor.Items.Clear();
+        ListItem lifzhzz = new ListItem("Select Ledger", "0");
+        lifzhzz.Attributes.Add("style", "color:Black");
+        drpDebtor.Items.Add(lifzhzz);
+        drpDebtor.DataSource = ds;
+        drpDebtor.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+        drpDebtor.DataBind();
+        drpDebtor.DataTextField = "LedgerName";
+        drpDebtor.DataValueField = "LedgerID";
+
+        drpCreditor1.Items.Clear();
+        ListItem lifzhzzd = new ListItem("Select Ledger", "0");
+        lifzhzzd.Attributes.Add("style", "color:Black");
+        drpCreditor1.Items.Add(lifzhzzd);
+        drpCreditor1.DataSource = ds;
+        drpCreditor1.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+        drpCreditor1.DataBind();
+        drpCreditor1.DataTextField = "LedgerName";
+        drpCreditor1.DataValueField = "LedgerID";
+
+        //((DropDownList)this.FindControl("GrdViewItems").FindControl("drpCreditor")).Items.Clear();
+        ////drpCreditor.Items.Clear();
+        //ListItem lifzzhd = new ListItem("Select Ledger", "0");
+        //lifzzhd.Attributes.Add("style", "color:Black");
+        //((DropDownList)this.FindControl("GrdViewItems").FindControl("drpCreditor")).Items.Add(lifzzhd);
+        //((DropDownList)this.FindControl("GrdViewItems").FindControl("drpCreditor")).DataSource = ds;
+        //((DropDownList)this.FindControl("GrdViewItems").FindControl("drpCreditor")).Items[0].Attributes.Add("background-color", "color:#bce1fe");
+        //((DropDownList)this.FindControl("GrdViewItems").FindControl("drpCreditor")).DataBind();
+        //((DropDownList)this.FindControl("GrdViewItems").FindControl("drpCreditor")).DataTextField = "LedgerName";
+        //((DropDownList)this.FindControl("GrdViewItems").FindControl("drpCreditor")).DataValueField = "LedgerID";
+        //drpCreditor.Items.Add(lifzzhd);
+        //drpCreditor.DataSource = ds;
+        //drpCreditor.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+        //drpCreditor.DataBind();
+        //drpCreditor.DataTextField = "LedgerName";
+        //drpCreditor.DataValueField = "LedgerID";
+    }
+
+    protected void GrdViewItems_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+            DataSet ds = new DataSet();
+
+            ds = bl.ListCreditorDebitorJ(sDataSource);
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                var ddl = (DropDownList)e.Row.FindControl("drpCreditor");
+                ddl.Items.Clear();
+                ListItem lifzzh = new ListItem("Select Ledger", "0");
+                lifzzh.Attributes.Add("style", "color:Black");
+                ddl.Items.Add(lifzzh);
+                ddl.DataSource = ds;
+                ddl.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+                ddl.DataBind();
+                ddl.DataTextField = "LedgerName";
+                ddl.DataValueField = "LedgerID";
+            }
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+    protected void BulkEditGridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+            DataSet ds = new DataSet();
+
+            ds = bl.ListCreditorDebitorJ(sDataSource);
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                var ddl = (DropDownList)e.Row.FindControl("drpDebtor1");
+                ddl.Items.Clear();
+                ListItem lifzzh = new ListItem("Select Ledger", "0");
+                lifzzh.Attributes.Add("style", "color:Black");
+                ddl.Items.Add(lifzzh);
+                ddl.DataSource = ds;
+                ddl.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+                ddl.DataBind();
+                ddl.DataTextField = "LedgerName";
+                ddl.DataValueField = "LedgerID";
+            }
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
     }
 
     private void loadBilts(string ID)
@@ -2645,6 +2868,288 @@ public partial class MultipleJournal : System.Web.UI.Page
         }
     }
 
+    protected void UpdButton_Click(object sender, EventArgs e)
+    {
+        string connection = string.Empty;
+        connection = Request.Cookies["Company"].Value;
+        
+        string[] sDate;
+        DateTime sBilldate;
+        
+        string delim = "/";
+        char[] delimA = delim.ToCharArray();
+        CultureInfo culture = new CultureInfo("pt-BR");
+        string sPath = string.Empty;
+
+        if (Request.Cookies["Company"] != null)
+            sDataSource = Request.Cookies["Company"].Value;
+
+        sPath = sDataSource;
+        string usernam = Request.Cookies["LoggedUserName"].Value;
+
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+
+        for (int vLoop = 0; vLoop < GrdViewItems.Rows.Count; vLoop++)
+        {
+            TextBox txttt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtRefNo");
+            TextBox txt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtAmount");
+            TextBox txtt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtNarration");
+            DropDownList txttd = (DropDownList)GrdViewItems.Rows[vLoop].FindControl("drpCreditor");
+            TextBox txttdd = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtDate");
+
+            int col = vLoop + 1;
+
+            if(txttt.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill RefNo in row " + col + " ')", true);
+                return;
+            }
+            else if (txt.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Amount in row " + col + " ')", true);
+                return;
+            }
+            else if (txtt.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Narration in row " + col + " ')", true);
+                return;
+            }
+            else if (txttd.SelectedValue == "0")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Creditor in row " + col + " ')", true);
+                return;
+            }
+            else if (txttdd.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill date in row " + col + " ')", true);
+                return;
+                
+            }
+
+            if (!bl.IsValidDate(connection, Convert.ToDateTime(txttdd.Text)))
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Date is invalid in row " + col + " ')", true);
+                return;
+            }
+
+            if (txttd.SelectedItem.Text == drpDebtor.SelectedItem.Text)
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Creditor and Debtor should not be same in row " + col + " ')", true);
+                return;
+            }
+        }
+
+        
+
+        DataSet ds;
+        DataTable dt;
+        DataRow drNew;
+
+        DataColumn dc;
+
+        ds = new DataSet();
+
+        dt = new DataTable();
+
+        dc = new DataColumn("RefNo");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Date");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Debtor");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Creditor");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Amount");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Narration");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("VoucherType");
+        dt.Columns.Add(dc);
+
+        ds.Tables.Add(dt);
+
+        for (int vLoop = 0; vLoop < GrdViewItems.Rows.Count; vLoop++)
+        {
+            TextBox txttt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtRefNo");
+            TextBox txt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtAmount");
+            TextBox txtt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtNarration");
+            DropDownList txttd = (DropDownList)GrdViewItems.Rows[vLoop].FindControl("drpCreditor");
+            TextBox txttdd = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtDate");
+
+            sDate = txttdd.Text.Trim().Split(delimA);
+            sBilldate = new DateTime(Convert.ToInt32(sDate[2].ToString()), Convert.ToInt32(sDate[1].ToString()), Convert.ToInt32(sDate[0].ToString()));
+
+            drNew = dt.NewRow();
+            drNew["RefNo"] = txttt.Text;
+            drNew["Date"] = sBilldate;
+            drNew["Debtor"] = Convert.ToInt32(drpDebtor.SelectedItem.Value);
+            drNew["Creditor"] = Convert.ToInt32(txttd.SelectedItem.Value);
+            drNew["Amount"] = txt.Text;
+            drNew["Narration"] = txtt.Text;
+            drNew["VoucherType"] = "Journal";
+            ds.Tables[0].Rows.Add(drNew);
+        }
+
+        bl.InsertContras(sPath, usernam, ds);
+
+        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Journal Saved Successfully.')", true);
+
+        ModalPopupExtender1.Hide();
+        ModalPopupMethod.Hide();
+        ModalPopupPurchase.Hide();
+        BindGrid();
+        GrdViewJournal.DataBind();
+        UpdatePnlMaster.Update();
+    }
+
+    protected void Button6_Click(object sender, EventArgs e)
+    {
+        string connection = string.Empty;
+        connection = Request.Cookies["Company"].Value;
+
+        string[] sDate;
+        DateTime sBilldate;
+
+        string delim = "/";
+        char[] delimA = delim.ToCharArray();
+        CultureInfo culture = new CultureInfo("pt-BR");
+        string sPath = string.Empty;
+
+        if (Request.Cookies["Company"] != null)
+            sDataSource = Request.Cookies["Company"].Value;
+
+        sPath = sDataSource;
+        string usernam = Request.Cookies["LoggedUserName"].Value;
+
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+
+        for (int vLoop = 0; vLoop < BulkEditGridView1.Rows.Count; vLoop++)
+        {
+            TextBox txttt = (TextBox)BulkEditGridView1.Rows[vLoop].FindControl("txtRefNo");
+            TextBox txt = (TextBox)BulkEditGridView1.Rows[vLoop].FindControl("txtAmount");
+            TextBox txtt = (TextBox)BulkEditGridView1.Rows[vLoop].FindControl("txtNarration");
+            DropDownList txttd = (DropDownList)BulkEditGridView1.Rows[vLoop].FindControl("drpDebtor1");
+            TextBox txttdd = (TextBox)BulkEditGridView1.Rows[vLoop].FindControl("txtDate");
+
+            int col = vLoop + 1;
+
+            if (txttt.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill RefNo in row " + col + " ')", true);
+                return;
+            }
+            else if (txt.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Amount in row " + col + " ')", true);
+                return;
+            }
+            else if (txtt.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Narration in row " + col + " ')", true);
+                return;
+            }
+            else if (txttd.SelectedValue == "0")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select debtor in row " + col + " ')", true);
+                return;
+            }
+            else if (txttdd.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill date in row " + col + " ')", true);
+                return;
+
+            }
+
+            if (!bl.IsValidDate(connection, Convert.ToDateTime(txttdd.Text)))
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Date is invalid in row " + col + " ')", true);
+                return;
+            }
+
+            if (txttd.SelectedItem.Text == drpCreditor1.SelectedItem.Text)
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Creditor and Debtor should not be same in row " + col + " ')", true);
+                return;
+    }
+        }
+
+
+
+        DataSet ds;
+        DataTable dt;
+        DataRow drNew;
+
+        DataColumn dc;
+
+        ds = new DataSet();
+
+        dt = new DataTable();
+
+        dc = new DataColumn("RefNo");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Date");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Debtor");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Creditor");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Amount");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Narration");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("VoucherType");
+        dt.Columns.Add(dc);
+
+        ds.Tables.Add(dt);
+
+        for (int vLoop = 0; vLoop < BulkEditGridView1.Rows.Count; vLoop++)
+        {
+            TextBox txttt = (TextBox)BulkEditGridView1.Rows[vLoop].FindControl("txtRefNo");
+            TextBox txt = (TextBox)BulkEditGridView1.Rows[vLoop].FindControl("txtAmount");
+            TextBox txtt = (TextBox)BulkEditGridView1.Rows[vLoop].FindControl("txtNarration");
+            DropDownList txttd = (DropDownList)BulkEditGridView1.Rows[vLoop].FindControl("drpDebtor1");
+            TextBox txttdd = (TextBox)BulkEditGridView1.Rows[vLoop].FindControl("txtDate");
+
+            sDate = txttdd.Text.Trim().Split(delimA);
+            sBilldate = new DateTime(Convert.ToInt32(sDate[2].ToString()), Convert.ToInt32(sDate[1].ToString()), Convert.ToInt32(sDate[0].ToString()));
+
+            drNew = dt.NewRow();
+            drNew["RefNo"] = txttt.Text;
+            drNew["Date"] = sBilldate;
+            drNew["Debtor"] = Convert.ToInt32(txttd.SelectedItem.Value);
+            drNew["Creditor"] = Convert.ToInt32(drpCreditor1.SelectedItem.Value);
+            drNew["Amount"] = txt.Text;
+            drNew["Narration"] = txtt.Text;
+            drNew["VoucherType"] = "Journal";
+            ds.Tables[0].Rows.Add(drNew);
+        }
+
+        bl.InsertContras(sPath, usernam, ds);
+
+        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Journal Saved Successfully.')", true);
+
+        ModalPopupExtender1.Hide();
+        ModalPopupExtender2.Hide();
+        ModalPopupMethod.Hide();
+        ModalPopupPurchase.Hide();
+        BindGrid();
+        GrdViewJournal.DataBind();
+        UpdatePnlMaster.Update();
+    }
+
+
     protected void UpdateButton_Click(object sender, EventArgs e)
     {
         try
@@ -2775,6 +3280,24 @@ public partial class MultipleJournal : System.Web.UI.Page
         }
     }
 
+    protected void UpdCancelButton_Click(object sender, EventArgs e)
+    {
+        ModalPopupMethod.Show();
+        ModalPopupPurchase.Hide();
+        ModalPopupExtender1.Hide();
+        ModalPopupExtender2.Hide();
+        txtEntries.Text = "";
+    }
+
+    protected void Button7_Click(object sender, EventArgs e)
+    {
+        ModalPopupMethod.Show();
+        ModalPopupPurchase.Hide();
+        ModalPopupExtender2.Hide();
+        ModalPopupExtender1.Hide();
+        txtEntries.Text = "";
+    }
+
     protected void UpdateCancelButton_Click(object sender, EventArgs e)
     {
         try
@@ -2793,6 +3316,7 @@ public partial class MultipleJournal : System.Web.UI.Page
             }
 
             lblBillNo.Text = "";
+            txtEntries.Text = "";
         }
         catch (Exception ex)
         {

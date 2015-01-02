@@ -139,7 +139,7 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
         {
             TroyLiteExceptionManager.HandleException(ex);
         }
-    }
+    }    
 
     protected void GridViewAttendanceDetail_RowDataBound(object sender, GridViewRowEventArgs e)
     {
@@ -229,7 +229,7 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
     {
         try
         {
-            if (SaveAttendanceDetails() > 0)
+            if(SaveAttendanceDetails()>0)
             {
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(),
                     @"alert('Attendance has been saved successfully');", true);
@@ -316,17 +316,18 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
             {
                 if (isUpdate)
                 {
+                    
                     btnSender.Text = "Leave";
                     btnSender.CssClass = "btnBts btnBts-warning";
                 }
                 else
                     btnSender.CssClass = "btnBts btnBts-default";
-                //btnSender.BackColor = Color.AntiqueWhite;
             }
             else if (btnSender.Text == "Leave")
             {
                 if (isUpdate)
                 {
+                    string preState = btnSender.CommandArgument;                 
                     btnSender.Text = "Week Off";
                     btnSender.CssClass = "btnBts btnBts-success";
                 }
@@ -347,8 +348,11 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
             {
                 if (isUpdate)
                 {
-                    btnSender.Text = "Present";
-                    btnSender.CssClass = "btnBts btnBts-default";
+                    if (!IsEligibleForCompOff(btnSender))
+                    {
+                        btnSender.Text = "Present";
+                        btnSender.CssClass = "btnBts btnBts-default";
+                    }
                 }
                 else
                     btnSender.CssClass = "btnBts btnBts-info";
@@ -361,6 +365,16 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
         }
     }
 
+    private bool IsEligibleForCompOff(Button btnSender)
+    {
+        if (btnSender != null)
+        {
+            CompOffModalPopupExtender.Show();
+            return true;
+        }
+        return false;
+    }
+      
     private void ChangeGridColumnHeaderText()
     {
         DataTable dtGridSrc = GridViewAttendanceDetail.DataSource as DataTable;
@@ -448,10 +462,10 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
             BusinessLogic bl = new BusinessLogic(connection);
             bool createSummary = false;
             if (hdnfIsNewAttendance.Value.Equals("1"))
-                createSummary = true;
+                createSummary = true;            
 
             if (bl.SaveAttendanceDetail(dtAttendanceDetail, username, string.Empty, ViewState["AttendanceYear"].ToString(),
-                ViewState["AttendanceMonth"].ToString(), createSummary, out attendanceId))
+                ViewState["AttendanceMonth"].ToString(), createSummary,out attendanceId))
             {
                 if (!createSummary)
                     int.TryParse(hdnfAttendanceID.Value, out attendanceId);
@@ -477,7 +491,7 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
         string usernam = Request.Cookies["LoggedUserName"].Value;
         BusinessLogic bl = new BusinessLogic(sDataSource);
 
-        DataSet ds = bl.GetAttendanceSummary(attendanceYear, usernam);
+        DataSet ds= bl.GetAttendanceSummary(attendanceYear,  usernam);
         if (ds != null && ds.Tables.Count > 0)
         {
             grdViewAttendanceSummary.DataSource = ds.Tables[0];
@@ -511,4 +525,8 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
     #endregion
 
 
+    protected void btnApproveCompOff_Click(object sender, EventArgs e)
+    {
+
+    }
 }

@@ -125,7 +125,7 @@ public partial class EmployeeLeaveApproval : System.Web.UI.Page
         string usernam = Request.Cookies["LoggedUserName"].Value;
         BusinessLogic bl = new BusinessLogic(sDataSource);
 
-        DataSet ds = bl.GetLeaveRequestsSummary(usernam);
+        DataSet ds = bl.GetLeaveRequestsSummaryForTheSupervisor(usernam);
         if (ds != null && ds.Tables.Count > 0)
         {
             grdViewLeaveSummary.DataSource = ds.Tables[0];

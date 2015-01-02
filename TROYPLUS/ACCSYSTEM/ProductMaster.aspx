@@ -513,6 +513,31 @@
                                                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                                                 </td>
                                                                                             </tr>
+                                                                                        <tr style="height:3px">
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td style="width: 20%" class="ControlLabel">
+                                                                                                    IsActive *
+                                                                                                    <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="drpIsActive"
+                                                                                                    Display="Dynamic" ErrorMessage="IsActive is Mandatory" Operator="GreaterThan"
+                                                                                                    Text="*" ValueToCompare="0"></asp:CompareValidator>
+                                                                                                    
+                                                                                                </td>
+                                                                                                <td style="width: 25%" class="ControlDrpBorder">
+                                                                                                    <asp:DropDownList ID="drpIsActive" TabIndex="10" runat="server" BackColor = "#e7e7e7" CssClass="drpDownListMedium"
+                                                                                                                Width="100%" style="border: 1px solid #e7e7e7" height="26px" SelectedValue='<%# Bind("IsActive") %>'>
+                                                                                                                <asp:ListItem Text="NO" Value="NO"></asp:ListItem>
+                                                                                                                <asp:ListItem Text="YES" Value="YES" Selected="True"></asp:ListItem>
+                                                                                                            </asp:DropDownList>
+                                                                                                </td>
+                                                                                                <td style="width: 20%" class="ControlLabel">
+                                                                                                    
+                                                                                                </td>
+                                                                                                <td style="width: 25%">
+                                                                                                    
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        
                                                                                             <tr>
                                                                                                 <td>
                                                                                                 <asp:DropDownList ID="drpblock" runat="server" Width="100%" CssClass="drpDownListMedium" BackColor = "#e7e7e7" SelectedValue='<%# Bind("block") %>'
@@ -786,14 +811,15 @@
                                                                             <td style="width: 35%">
                                                                             </td>
                                                                             <td style="width: 18%" align="center">
-                                                                                <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                                                                    Text="" CssClass="cancelbutton6" EnableTheming="false"
-                                                                                    OnClick="UpdateCancelButton_Click"></asp:Button>
-                                                                            </td>
-                                                                            <td style="width: 18%" align="center">
                                                                                 <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update" OnClientClick="javascript:CheckorderLevel();"
                                                                                     Text="" CssClass="Updatebutton1231" EnableTheming="false" OnClick="UpdateButton_Click">
                                                                                 </asp:Button>
+                                                                                
+                                                                            </td>
+                                                                            <td style="width: 18%" align="center">
+                                                                                <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                                    Text="" CssClass="cancelbutton6" EnableTheming="false"
+                                                                                    OnClick="UpdateCancelButton_Click"></asp:Button>
                                                                             </td>
                                                                             <td style="width: 5%" align="center">
                                                                                 <asp:Button ID="cmdshowhistory" runat="server" Text="" EnableTheming="false" CausesValidation="False" cssclass="ShowHistory" OnClick="cmdshowhistory_click" Visible="False" />
@@ -1112,6 +1138,32 @@
                                                                                                         <td style="width: 25%" class="ControlTextBox3">
                                                                                                             <asp:TextBox ID="txtAllowedPriceAdd" runat="server" Text="0"
                                                                                                                 SkinID="skinTxtBoxGrid"></asp:TextBox>
+                                                                                                        </td>
+                                                                                                        <td style="width: 10%">
+                                                                                                            
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr style="height:3px">
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td style="width: 20%" class="ControlLabel">
+                                                                                                            IsActive *
+                                                                                                            <asp:CompareValidator ID="CompareValidator5" runat="server" ControlToValidate="drpIsActiveAdd"
+                                                                                                                Display="Dynamic" ErrorMessage="IsActive is Mandatory" Operator="GreaterThan"
+                                                                                                                Text="*" ValueToCompare="0"></asp:CompareValidator>
+                                                                                                        </td>
+                                                                                                        <td style="width: 25%;" class="ControlDrpBorder">
+                                                                                                            <asp:DropDownList ID="drpIsActiveAdd" TabIndex="10" runat="server" BackColor = "#e7e7e7" CssClass="drpDownListMedium"
+                                                                                                                Width="100%" style="border: 1px solid #e7e7e7" height="26px" SelectedValue='<%# Bind("IsActive") %>'>
+                                                                                                                <asp:ListItem Text="NO" Value="NO"></asp:ListItem>
+                                                                                                                <asp:ListItem Text="YES" Value="YES" Selected="True"></asp:ListItem>
+                                                                                                            </asp:DropDownList>
+                                                                                                        </td>
+                                                                                                        <td style="width: 20%" class="ControlLabel">
+                                                                                                            
+                                                                                                        </td>
+                                                                                                        <td style="width: 25%">
+                                                                                                           
                                                                                                         </td>
                                                                                                         <td style="width: 10%">
                                                                                                             
@@ -1596,6 +1648,7 @@
                                 <asp:Parameter Name="Username" Type="String" />
                                 <asp:Parameter Name="Outdated" Type="String" />
                                 <asp:Parameter Name="Deviation" Type="Int32" />
+                                <asp:Parameter Name="IsActive" Type="String" />
                             </UpdateParameters>
                             <InsertParameters>
                                 <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
@@ -1633,6 +1686,7 @@
                                 <asp:Parameter Name="Username" Type="String" />
                                 <asp:Parameter Name="Outdated" Type="String" />
                                 <asp:Parameter Name="Deviation" Type="Int32" />
+                                <asp:Parameter Name="IsActive" Type="String" />
                             </InsertParameters>
                             <SelectParameters>
                                 <asp:ControlParameter ControlID="GrdViewProduct" Name="ItemCode" PropertyName="SelectedValue"

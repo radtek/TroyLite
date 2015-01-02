@@ -99,7 +99,7 @@ Default skin template. The following skins are provided as examples only.
 <asp:ImageButton SkinID="Restore" runat="server" ImageUrl="~/img/restore.gif" AlternateText="Restore" ToolTip="Click to Restore this item" />
 
 <asp:TextBox runat="server" CssClass="cssTextBox" SkinID="skinTxtBoxSearch" Width="92%"></asp:TextBox>
-<asp:TextBox runat="server" CssClass="cssTextBox" SkinID="skinTxtBoxGrid" Width="95.6%"></asp:TextBox>
+<asp:TextBox runat="server" CssClass="cssTextBox" SkinID="skinTxtBoxGrid" Width="100%"></asp:TextBox>
 <asp:TextBox runat="server" CssClass="cssTextBox2" SkinID="skinTxtBoxGrid2" Width="100px"></asp:TextBox>
 <asp:TextBox runat="server" CssClass="cssTextBox33" SkinID="skinTxtBoxGrid33" Width="53%"></asp:TextBox>
 <asp:TextBox runat="server" CssClass="cssTextBox" SkinID="skinTxtBoxGridBank" Width="95.7%"></asp:TextBox>

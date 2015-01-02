@@ -726,7 +726,7 @@ public partial class ProductMaster : System.Web.UI.Page
                 if (e.Exception != null)
                 {
                     StringBuilder script = new StringBuilder();
-                    script.Append("alert('Product with this name already exists, Please try with a different Name.');");
+                    script.Append("alert('Product with this code already exists, Please try with a different code.');");
 
                     if (e.Exception.InnerException != null)
                     {
@@ -779,7 +779,7 @@ public partial class ProductMaster : System.Web.UI.Page
                 if (e.Exception != null)
                 {
                     StringBuilder script = new StringBuilder();
-                    script.Append("alert('Product with this name already exists, Please try with a different name.');");
+                    script.Append("alert('Product with this code already exists, Please try with a different code.');");
 
                     if (e.Exception.InnerException != null)
                     {
@@ -1275,31 +1275,31 @@ public partial class ProductMaster : System.Web.UI.Page
             
             
 
-            if (ds != null)
-            {
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                    {
-                        drNew = dtt.NewRow();
-                        drNew["ID"] = Convert.ToInt32(ds.Tables[0].Rows[i]["ID"]);
-                        drNew["PriceName"] = Convert.ToString(ds.Tables[0].Rows[i]["PriceName"]);
-                        drNew["Price"] = "";
-                        drNew["EffDate"] = "";
-                        drNew["Discount"] = "";
-                        dst.Tables[0].Rows.Add(drNew);
-                    }
-                }
+            //if (ds != null)
+            //{
+            //    if (ds.Tables[0].Rows.Count > 0)
+            //    {
+            //        for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            //        {
+            //            drNew = dtt.NewRow();
+            //            drNew["ID"] = Convert.ToInt32(ds.Tables[0].Rows[i]["ID"]);
+            //            drNew["PriceName"] = Convert.ToString(ds.Tables[0].Rows[i]["PriceName"]);
+            //            drNew["Price"] = "";
+            //            drNew["EffDate"] = "";
+            //            drNew["Discount"] = "";
+            //            dst.Tables[0].Rows.Add(drNew);
+            //        }
+            //    }
 
-                ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).DataSource = dst.Tables[0].DefaultView;
-                ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).DataBind();
-            }
-            else
-            {
-                ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).EmptyDataText = "No Price List found";
-                ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).DataSource = null;
-                ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).DataBind();
-            }
+            //    ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).DataSource = dst.Tables[0].DefaultView;
+            //    ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).DataBind();
+            //}
+            //else
+            //{
+            //    ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).EmptyDataText = "No Price List found";
+            //    ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).DataSource = null;
+            //    ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).DataBind();
+            //}
 
 
             /*
@@ -1492,6 +1492,9 @@ public partial class ProductMaster : System.Web.UI.Page
         else
             e.InputParameters["Deviation"] = "0";
 
+        if (((DropDownList)this.frmViewAdd.FindControl("tablInsertControl").FindControl("tabInsProdMaster").FindControl("drpIsActiveAdd")) != null)
+            e.InputParameters["IsActive"] = ((DropDownList)this.frmViewAdd.FindControl("tablInsertControl").FindControl("tabInsProdMaster").FindControl("drpIsActiveAdd")).SelectedValue;
+
         e.InputParameters["Username"] = Request.Cookies["LoggedUserName"].Value;
 
     }
@@ -1613,6 +1616,9 @@ public partial class ProductMaster : System.Web.UI.Page
 
         if (((DropDownList)this.frmViewAdd.FindControl("tabEditContol").FindControl("tabEditProdMaster").FindControl("drpOutdated")) != null)
             e.InputParameters["Outdated"] = ((DropDownList)this.frmViewAdd.FindControl("tabEditContol").FindControl("tabEditProdMaster").FindControl("drpOutdated")).SelectedValue;
+
+        if (((DropDownList)this.frmViewAdd.FindControl("tabEditContol").FindControl("tabEditProdMaster").FindControl("drpIsActive")) != null)
+            e.InputParameters["IsActive"] = ((DropDownList)this.frmViewAdd.FindControl("tabEditContol").FindControl("tabEditProdMaster").FindControl("drpIsActive")).SelectedValue;
 
         e.InputParameters["Username"] = Request.Cookies["LoggedUserName"].Value;
 

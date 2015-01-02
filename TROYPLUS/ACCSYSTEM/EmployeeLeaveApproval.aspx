@@ -49,7 +49,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr style="width: 100%; height:100%">
+                <tr style="width: 100%;">
                     <td style="width: 100%">
                         <table width="100%" style="margin: -3px 0px 0px 0px;">
                             <tr style="width: 100%">
@@ -304,8 +304,8 @@
                                                                     <table style="width: 100%">
                                                                         <tr>
                                                                             <td align="right" style="width: 15%"></td>
-                                                                            <td align="right" style="width: 30%">                                                                               
-                                                                                 <asp:Button ID="btnSubmit" runat="server" CausesValidation="True" 
+                                                                            <td align="right" style="width: 30%">
+                                                                                <asp:Button ID="btnSubmit" runat="server" CausesValidation="True" 
                                                                                     CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClick="btnSubmit_Click"></asp:Button>
                                                                                 <cc1:ConfirmButtonExtender ID="ConfirmApprove" TargetControlID="btnSubmit" ConfirmText="Are you sure to Approve/Reject this Leave ?"
                                                                                 runat="server"></cc1:ConfirmButtonExtender>

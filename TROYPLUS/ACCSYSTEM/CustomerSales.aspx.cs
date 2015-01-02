@@ -35,21 +35,33 @@ public partial class CustomerSales : System.Web.UI.Page
     string EnableVat = string.Empty;
 
     protected void Page_Load(object sender, EventArgs e)
+<<<<<<< HEAD
     {
+=======
+    {      
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
         try
         {
             sDataSource = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
             dbfileName = sDataSource.Remove(0, sDataSource.LastIndexOf(@"App_Data\") + 9);
             dbfileName = dbfileName.Remove(dbfileName.LastIndexOf(";Persist Security Info"));
 
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
             if (!IsPostBack)
             {
                 BusinessLogic objChk = new BusinessLogic(sDataSource);
 
                 CheckSMSRequired();
                 GrdViewSales.PageSize = 8;
+<<<<<<< HEAD
 
+=======
+               
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                 if (!objChk.CheckSalesSeriesRequired())
                 {
                     lblBillNo.Visible = true;
@@ -64,7 +76,11 @@ public partial class CustomerSales : System.Web.UI.Page
                 mrBillDate.MinimumValue = System.DateTime.Now.AddYears(-100).ToShortDateString();
                 mrBillDate.MaximumValue = System.DateTime.Now.ToShortDateString();
 
+<<<<<<< HEAD
                 DateTime indianStd = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "India Standard Time");
+=======
+		        DateTime indianStd = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "India Standard Time");
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                 string dtaa = Convert.ToDateTime(indianStd).ToString("dd/MM/yyyy");
                 mrBillDate.MaximumValue = dtaa;
 
@@ -202,7 +218,11 @@ public partial class CustomerSales : System.Web.UI.Page
                 ModalPopupSales.Hide();
                 ModalPopupProduct.Hide();
                 CheckOffline(objChk);
+<<<<<<< HEAD
                 BindGridPrd("", "");
+=======
+
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                 ModalPopupMethod.Hide();
 
 
@@ -247,7 +267,11 @@ public partial class CustomerSales : System.Web.UI.Page
     {
         updatePnlSales.Update();
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
     private void CheckOffline(BusinessLogic objChk)
     {
@@ -466,8 +490,13 @@ public partial class CustomerSales : System.Web.UI.Page
         object usernam = Session["LoggedUserName"];
 
         //if (textSearch == "")
+<<<<<<< HEAD
         //ds = bl.GetSales();
         ds = bl.GetSalesList(connection, textSearch, dropDown);
+=======
+            //ds = bl.GetSales();
+            ds = bl.GetSalesList(connection, textSearch, dropDown);
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
         //else
         //    ds = bl.GetSalesForId(textSearch, dropDown);
 
@@ -488,6 +517,7 @@ public partial class CustomerSales : System.Web.UI.Page
         }
     }
 
+<<<<<<< HEAD
     private void BindGridPrd(string textSearch, string dropDown)
     {
         string connection = Request.Cookies["Company"].Value;
@@ -520,6 +550,8 @@ public partial class CustomerSales : System.Web.UI.Page
         }
     }
 
+=======
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
     private DataSet BindGridData(int strBillno)
     {
         DataSet ds = new DataSet();
@@ -652,6 +684,7 @@ public partial class CustomerSales : System.Web.UI.Page
 
     }
 
+<<<<<<< HEAD
     protected void ddlPageSelector1_SelectedIndexChanged(object sender, EventArgs e)
     {
 
@@ -673,6 +706,12 @@ public partial class CustomerSales : System.Web.UI.Page
     {
         try
         {
+=======
+    protected void drpPurchaseReturn_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        { 
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
             if (drpPurchaseReturn.SelectedValue == "NO")
             {
                 rowReason.Visible = false;
@@ -702,9 +741,16 @@ public partial class CustomerSales : System.Web.UI.Page
     protected void ddBank1_SelectedIndexChanged(object sender, EventArgs e)
     {
         try
+<<<<<<< HEAD
         {
             txtCCard1.Text = "0";
             txtCCard1.Focus();
+=======
+        { 
+            txtCCard1.Text = "0";
+            txtRefNo1.Text = "0";
+            txtRefNo1.Focus();
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
         }
         catch (Exception ex)
         {
@@ -715,9 +761,16 @@ public partial class CustomerSales : System.Web.UI.Page
     protected void ddBank2_SelectedIndexChanged(object sender, EventArgs e)
     {
         try
+<<<<<<< HEAD
         {
             txtCCard2.Text = "0";
             txtCCard2.Focus();
+=======
+        { 
+            txtCCard2.Text = "0";
+            txtRefNo2.Text = "0";
+            txtRefNo2.Focus();
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
         }
         catch (Exception ex)
         {
@@ -728,9 +781,16 @@ public partial class CustomerSales : System.Web.UI.Page
     protected void ddBank3_SelectedIndexChanged(object sender, EventArgs e)
     {
         try
+<<<<<<< HEAD
         {
             txtCCard3.Text = "0";
             txtCCard3.Focus();
+=======
+        { 
+            txtCCard3.Text = "0";
+            txtRefNo3.Text = "0";
+            txtRefNo3.Focus();
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
         }
         catch (Exception ex)
         {
@@ -1280,6 +1340,7 @@ public partial class CustomerSales : System.Web.UI.Page
     {
         try
         {
+<<<<<<< HEAD
             //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
             BusinessLogic bl = new BusinessLogic(sDataSource);
             bool dupFlag = false;
@@ -1301,6 +1362,29 @@ public partial class CustomerSales : System.Web.UI.Page
             DataSet roleDs = new DataSet();
             cmdDelete.Enabled = false;
 
+=======
+        //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        bool dupFlag = false;
+        DataSet checkDs;
+        string itemCode = string.Empty;
+        DataSet ds = new DataSet();
+        string connection = System.Configuration.ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+
+        itemCode = bl.GetItemCode(connection, this.txtBarcode.Text);
+
+        if ((itemCode == string.Empty) || (itemCode == "0"))
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product not found. Please try again.');", true);
+            return;
+        }
+
+        cmbProdAdd.SelectedValue = itemCode;
+
+        DataSet roleDs = new DataSet();
+        cmdDelete.Enabled = false;
+        
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
             if (cmbProdAdd.SelectedIndex != 0)
             {
@@ -1416,6 +1500,7 @@ public partial class CustomerSales : System.Web.UI.Page
     {
         try
         {
+<<<<<<< HEAD
             ModalPopupSales.Show();
             ModalPopupProduct.Show();
             ModalPopupMethod.Show();
@@ -1427,6 +1512,19 @@ public partial class CustomerSales : System.Web.UI.Page
             bool dupFlag = false;
             cmdDelete.Enabled = false;
 
+=======
+        ModalPopupSales.Show();
+        ModalPopupProduct.Show();
+        ModalPopupMethod.Show();
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataSet ds = new DataSet();
+        DataSet roleDs = new DataSet();
+        string itemCode = string.Empty;
+        DataSet checkDs;
+        bool dupFlag = false;
+        cmdDelete.Enabled = false;
+        
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
             if (true)
             {
@@ -1711,6 +1809,7 @@ public partial class CustomerSales : System.Web.UI.Page
         try
         {
 
+<<<<<<< HEAD
             string connection = string.Empty;
             string recondate = string.Empty;
             BusinessLogic bl = new BusinessLogic(sDataSource);
@@ -1739,6 +1838,36 @@ public partial class CustomerSales : System.Web.UI.Page
             string itemCode = string.Empty;
             int curRow = 0;
 
+=======
+        string connection = string.Empty;
+        string recondate = string.Empty;
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        double stock = 0;
+        DataTable dt;
+        DataRow drNew;
+        DataColumn dc;
+
+        string sDiscount = "";
+        string sVat = "";
+        string sCST = "";
+        double dTotal = 0;
+        string vatamt = "";
+        string sTotalmrp = "";
+
+        double sVatamount = 0;
+        string sSubtot = "";
+        string roleFlag = string.Empty;
+        DataSet dsRole = new DataSet();
+        string strRole = string.Empty;
+        string strQty = string.Empty;
+        string strExecutive = string.Empty;// krishnavelu 26 June
+        string strExecName = string.Empty;
+        string execCharge = "";// krishnavelu 26 June
+        bool dupFlag = false;
+        string itemCode = string.Empty;
+        int curRow = 0;
+        
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
             if (Page.IsValid)
             {
                 stock = bl.getStockInfo(cmbProdAdd.SelectedItem.Value);
@@ -1914,11 +2043,19 @@ public partial class CustomerSales : System.Web.UI.Page
 
                 BillingMethod = bl.getConfigInfoMethod();
                 double vatper;
+<<<<<<< HEAD
                 double vatinclusiverate = 0;
 
                 if (Labelll.Text == "VAT INCLUSIVE")
                 {
 
+=======
+                double vatinclusiverate = 0 ;
+
+                if (Labelll.Text == "VAT INCLUSIVE")
+                {
+                    
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                     if (lblVATAdd.Text == "14.5")
                     {
                         vatper = 1.145;
@@ -2014,7 +2151,11 @@ public partial class CustomerSales : System.Web.UI.Page
                 if (Labelll.Text == "VAT INCLUSIVE")
                 {
                     double incrate = vatinclusiverate / Convert.ToDouble(txtQtyAdd.Text);
+<<<<<<< HEAD
                     ds.Tables[0].Rows[curRow]["Rate"] = incrate.ToString("#0.00");
+=======
+                    ds.Tables[0].Rows[curRow]["Rate"] = incrate.ToString("#0.00") ;
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                 }
                 else
                 {
@@ -2181,6 +2322,7 @@ public partial class CustomerSales : System.Web.UI.Page
     protected void cmdSaveProduct_Click(object sender, EventArgs e)
     {
         try
+<<<<<<< HEAD
         {
 
             string connection = string.Empty;
@@ -2216,6 +2358,43 @@ public partial class CustomerSales : System.Web.UI.Page
             hdOpr.Value = "New";
             string itemCode = string.Empty;
 
+=======
+        { 
+
+        string connection = string.Empty;
+        string recondate = string.Empty;
+        double stock = 0;
+        DataTable dt;
+        DataRow drNew;
+        DataColumn dc;
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        string sDiscount = "";
+        string sVat = "";
+        //string sVatamount = "";
+        string sTotalmrp = "";
+
+        string sSubtot = "";
+        string sCST = "";
+        double dTotal = 0;
+        string[] prodItem;
+        string roleFlag = string.Empty;
+        DataSet dsRole = new DataSet();
+        string strRole = string.Empty;
+        string strQty = string.Empty;
+        string strMeasureUnit = string.Empty;
+        string strExecutive = string.Empty;// krishnavelu 26 June
+        string strExecName = string.Empty;
+        string execCharge = "";// krishnavelu 26 June
+
+        string vatamt = string.Empty;
+        double sVatamount = 0;
+
+        bool dupFlag = false;
+        DataSet ds;
+        hdOpr.Value = "New";
+        string itemCode = string.Empty;
+        
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
             if (Page.IsValid)
             {
                 ModalPopupSales.Show();
@@ -2304,7 +2483,11 @@ public partial class CustomerSales : System.Web.UI.Page
                 string usernam = Request.Cookies["LoggedUserName"].Value;
                 if (bl.CheckIfUserCanDoDeviation(usernam))
                 {
+<<<<<<< HEAD
 
+=======
+                    
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                 }
                 else
                 {
@@ -2427,23 +2610,39 @@ public partial class CustomerSales : System.Web.UI.Page
 
                 BillingMethod = bl.getConfigInfoMethod();
                 double vatper;
+<<<<<<< HEAD
                 double vatinclusiverate = 0;
 
                 if (Labelll.Text == "VAT INCLUSIVE")
+=======
+                double vatinclusiverate=0;
+
+                if ( Labelll.Text == "VAT INCLUSIVE")
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                 {
 
                     if (lblVATAdd.Text == "14.5")
                     {
                         vatper = 1.145;
+<<<<<<< HEAD
                         vatinclusiverate = (((Convert.ToDouble(txtRateAdd.Text) * (Convert.ToDouble(txtQtyAdd.Text))) - Convert.ToDouble(lblDisAdd.Text)) / vatper);
                         //sVatamount = ((Convert.ToDouble(txtRateAdd.Text) * (Convert.ToDouble(txtQtyAdd.Text))) - vatinclusiverate);
                         sVatamount = (vatinclusiverate * 14.5) / 100;
+=======
+                        vatinclusiverate = (((Convert.ToDouble(txtRateAdd.Text)*(Convert.ToDouble(txtQtyAdd.Text))) - Convert.ToDouble(lblDisAdd.Text)) / vatper);
+                        //sVatamount = ((Convert.ToDouble(txtRateAdd.Text) * (Convert.ToDouble(txtQtyAdd.Text))) - vatinclusiverate);
+                        sVatamount = (vatinclusiverate * 14.5) / 100 ;
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                         vatamt = sVatamount.ToString("#0.00");
                     }
                     else if (lblVATAdd.Text == "5")
                     {
                         vatper = 1.05;
+<<<<<<< HEAD
                         vatinclusiverate = (((Convert.ToDouble(txtRateAdd.Text) * (Convert.ToDouble(txtQtyAdd.Text))) - Convert.ToDouble(lblDisAdd.Text)) / vatper);
+=======
+                        vatinclusiverate = (((Convert.ToDouble(txtRateAdd.Text)*(Convert.ToDouble(txtQtyAdd.Text))) - Convert.ToDouble(lblDisAdd.Text)) / vatper);
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                         //sVatamount = ((Convert.ToDouble(txtRateAdd.Text) * (Convert.ToDouble(txtQtyAdd.Text))) - vatinclusiverate);
                         sVatamount = (vatinclusiverate * 5) / 100;
                         vatamt = sVatamount.ToString("#0.00");
@@ -2713,6 +2912,7 @@ public partial class CustomerSales : System.Web.UI.Page
 
         try
         {
+<<<<<<< HEAD
             string checkdate = txtBillDate.Text.Trim(); ;
 
             //if (checkdate == "01/12/2013")
@@ -2789,6 +2989,84 @@ public partial class CustomerSales : System.Web.UI.Page
             DataSet billData = null;
 
 
+=======
+        string checkdate = txtBillDate.Text.Trim(); ;
+
+        //if (checkdate == "01/12/2013")
+        //{
+        //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Cannot make Sales bill for this Date')", true);
+        //    return;
+        //}
+
+        //DateTime checkdate2 = Convert.ToDateTime(txtBillDate.Text.Trim());
+        //if (checkdate2 >= Convert.ToDateTime("01/12/2014"))
+        //{
+        //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Cannot make Sales bill for this Date')", true);
+        //    return;
+        //}
+
+
+        string connection = Request.Cookies["Company"].Value;
+        ModalPopupSales.Show();
+
+
+        //////if (!Helper.IsLicenced(connection))
+        //////{
+        //////    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('This is Trial Version, Please upgrade to Full Version of this Software. Thank You.');", true);
+        //////    return;
+        //////}
+
+        if (Session["productDs"] == null)
+        {
+            cmdSaveProduct.Enabled = true;
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select the products for the bill before save')", true);
+            return;
+        }
+
+        string smsTEXT = string.Empty;
+        string serType = string.Empty;
+        string MultiPayment = string.Empty;
+        string recondate = string.Empty;
+        string purchaseReturn = string.Empty;
+        string intTrans = string.Empty;
+        string prReason = string.Empty;
+        string executive = string.Empty;
+        string sBilldate = string.Empty;
+        string sCustomerAddress = string.Empty;
+
+        //Senthil
+        string sCustomerAddress2 = string.Empty;
+        string sCustomerAddress3 = string.Empty;
+        string executivename = string.Empty;
+        
+        string sCustomerContact = string.Empty;
+        string sOtherCusName = string.Empty;// krishnavelu 26 June
+        int sCustomerID = 0;
+        double dTotalAmt = 0;
+        string sCustomerName = string.Empty;
+        string deliveryNote = string.Empty;
+        int iPaymode = 0;
+        string sCreditCardno = string.Empty;
+        string snarr = string.Empty;
+        string Types = string.Empty;
+
+        string despatchedfrom = string.Empty;
+        double fixedtotal = 0.0;
+        int manualno = 0;
+
+        double dfixedtotal = 0.0;
+
+        double dFreight = 0;
+        double dLU = 0;
+        int iBank = 0;
+        int iSales = 0;
+        DataSet ds;
+        string Series = "";
+        DataSet receiptData = null;
+        DataSet billData = null;
+
+        
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
             if (Page.IsValid)
             {
                 BusinessLogic bl = new BusinessLogic(sDataSource);
@@ -2835,11 +3113,19 @@ public partial class CustomerSales : System.Web.UI.Page
                 sCustomerAddress3 = txtAddress3.Text.Trim();//Senthil
                 //sCustomerContact = hdContact.Value.Trim();
                 sCustomerContact = txtCustPh.Text;
+<<<<<<< HEAD
 
                 dTotalAmt = Convert.ToDouble(lblNet.Text);
                 executive = drpIncharge.SelectedValue;
 
 
+=======
+                
+                dTotalAmt = Convert.ToDouble(lblNet.Text);
+                executive = drpIncharge.SelectedValue;
+
+                
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
                 Types = Labelll.Text;
                 string NormalSales = string.Empty;
@@ -2926,6 +3212,10 @@ public partial class CustomerSales : System.Web.UI.Page
                         dr["Narration"] = "";
                         dr["VoucherType"] = "Receipt";
                         dr["ChequeNo"] = txtCCard1.Text;
+<<<<<<< HEAD
+=======
+                        dr["SFRefNo"] = txtRefNo1.Text;
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                         dr["Paymode"] = "Cheque";
 
                         receiptData.Tables[0].Rows.Add(dr);
@@ -2943,6 +3233,10 @@ public partial class CustomerSales : System.Web.UI.Page
                         dr["VoucherType"] = "Receipt";
                         dr["ChequeNo"] = txtCCard2.Text;
                         dr["Paymode"] = "Cheque";
+<<<<<<< HEAD
+=======
+                        dr["SFRefNo"] = txtRefNo2.Text;
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
                         receiptData.Tables[0].Rows.Add(dr);
                     }
@@ -2959,6 +3253,10 @@ public partial class CustomerSales : System.Web.UI.Page
                         dr["VoucherType"] = "Receipt";
                         dr["ChequeNo"] = txtCCard3.Text;
                         dr["Paymode"] = "Cheque";
+<<<<<<< HEAD
+=======
+                        dr["SFRefNo"] = txtRefNo3.Text;
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
                         receiptData.Tables[0].Rows.Add(dr);
                     }
@@ -2975,6 +3273,10 @@ public partial class CustomerSales : System.Web.UI.Page
                         dr["VoucherType"] = "Receipt";
                         dr["ChequeNo"] = "";
                         dr["Paymode"] = "Cash";
+<<<<<<< HEAD
+=======
+                        dr["SFRefNo"] = TextBox5.Text;
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
                         receiptData.Tables[0].Rows.Add(dr);
                     }
@@ -3271,7 +3573,11 @@ public partial class CustomerSales : System.Web.UI.Page
                                         }
                                     }
 
+<<<<<<< HEAD
                                     DataSet dsdd = bl.GetDetailsForScreenNo(connection, ScreenNo, "Email");
+=======
+                                    DataSet dsdd = bl.GetDetailsForScreenNo(connection, ScreenNo,"Email");
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                                     if (dsdd != null)
                                     {
                                         if (dsdd.Tables[0].Rows.Count > 0)
@@ -3279,7 +3585,11 @@ public partial class CustomerSales : System.Web.UI.Page
                                             foreach (DataRow dr in dsdd.Tables[0].Rows)
                                             {
                                                 Active = dr["Active"].ToString();
+<<<<<<< HEAD
                                                 if (Active == "YES")
+=======
+                                                if(Active == "YES")
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                                                 {
                                                     if (dr["EmailId"].ToString() == "Customer")
                                                     {
@@ -3320,7 +3630,11 @@ public partial class CustomerSales : System.Web.UI.Page
                                         }
                                     }
 
+<<<<<<< HEAD
 
+=======
+                                                                        
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                                 }
 
 
@@ -3334,7 +3648,11 @@ public partial class CustomerSales : System.Web.UI.Page
                                 //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Sales Details Saved Successfully. Your Bill No. is " + billNo.ToString() + "')", true);
                                 Response.Redirect("PrintProductSalesBill.aspx?SID=" + billNo.ToString() + "&RT=" + purchaseReturn);
 
+<<<<<<< HEAD
 
+=======
+                                
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                             }
                         }
                         else
@@ -3379,6 +3697,7 @@ public partial class CustomerSales : System.Web.UI.Page
     protected void cmdUpdate_Click(object sender, EventArgs e)
     {
         try
+<<<<<<< HEAD
         {
             string checkdate = txtBillDate.Text.Trim(); ;
 
@@ -3447,6 +3766,76 @@ public partial class CustomerSales : System.Web.UI.Page
                 return;
             }
 
+=======
+        { 
+        string checkdate = txtBillDate.Text.Trim(); ;
+
+        //if (checkdate == "01/12/2013")
+        //{
+        //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Cannot make Sales bill for this Date')", true);
+        //    return;
+        //}
+
+        //DateTime checkdate2 = Convert.ToDateTime(txtBillDate.Text.Trim());
+        //if (checkdate2 >= Convert.ToDateTime("01/12/2014"))
+        //{
+        //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Cannot make Sales bill for this Date')", true);
+        //    return;
+        //}
+
+        string connection = Request.Cookies["Company"].Value;
+        string recondate = string.Empty;
+        string purchaseReturn = string.Empty;
+        string intTrans = string.Empty;
+        string deliveryNote = string.Empty;
+        string prReason = string.Empty;
+        string executive = string.Empty;
+        string sBilldate = string.Empty;
+        string sCustomerAddress = string.Empty;
+
+        //Senthil
+        string sCustomerAddress2 = string.Empty;
+        string sCustomerAddress3 = string.Empty;
+
+        string executivename = string.Empty;
+
+        string despatchedfrom = string.Empty;
+        double fixedtotal = 0.0;
+        int manualno = 0;
+
+        string sCustomerContact = string.Empty;
+        int sCustomerID = 0;
+        double dTotalAmt = 0;
+        string sCustomerName = string.Empty;
+        int iPaymode = 0;
+        string sCreditCardno = string.Empty;
+        double dFreight = 0;
+        double dLU = 0;
+        int iBank = 0;
+        int iSales = 0;
+        string userID = string.Empty;
+        DataSet ds;
+        string Types = string.Empty;
+        string sOtherCusName = string.Empty;// krishnavelu 26 June
+
+        if (!Page.IsValid)
+        {
+            StringBuilder msg = new StringBuilder();
+
+            foreach (IValidator validator in Page.Validators)
+            {
+                if (!validator.IsValid)
+                {
+                    msg.Append(" - " + validator.ErrorMessage);
+                    msg.Append("\\n");
+                }
+            }
+
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('" + msg.ToString() + "');", true);
+            return;
+        }
+
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
             if (Page.IsValid)
             {
@@ -3653,7 +4042,11 @@ public partial class CustomerSales : System.Web.UI.Page
 
 
 
+<<<<<<< HEAD
 
+=======
+                
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
                 DataSet receiptData = null;
                 string MultiPayment = string.Empty;
@@ -3715,6 +4108,10 @@ public partial class CustomerSales : System.Web.UI.Page
                         dr["VoucherType"] = "Receipt";
                         dr["ChequeNo"] = txtCCard1.Text;
                         dr["Paymode"] = "Cheque";
+<<<<<<< HEAD
+=======
+                        dr["SFRefNo"] = txtRefNo1.Text;
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
                         receiptData.Tables[0].Rows.Add(dr);
                     }
@@ -3731,6 +4128,10 @@ public partial class CustomerSales : System.Web.UI.Page
                         dr["VoucherType"] = "Receipt";
                         dr["ChequeNo"] = txtCCard2.Text;
                         dr["Paymode"] = "Cheque";
+<<<<<<< HEAD
+=======
+                        dr["SFRefNo"] = txtRefNo2.Text;
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
                         receiptData.Tables[0].Rows.Add(dr);
                     }
@@ -3747,6 +4148,10 @@ public partial class CustomerSales : System.Web.UI.Page
                         dr["VoucherType"] = "Receipt";
                         dr["ChequeNo"] = txtCCard3.Text;
                         dr["Paymode"] = "Cheque";
+<<<<<<< HEAD
+=======
+                        dr["SFRefNo"] = txtRefNo3.Text;
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
                         receiptData.Tables[0].Rows.Add(dr);
                     }
@@ -3763,6 +4168,10 @@ public partial class CustomerSales : System.Web.UI.Page
                         dr["VoucherType"] = "Receipt";
                         dr["ChequeNo"] = "";
                         dr["Paymode"] = "Cash";
+<<<<<<< HEAD
+=======
+                        dr["SFRefNo"] = TextBox5.Text;
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
                         receiptData.Tables[0].Rows.Add(dr);
                     }
@@ -3808,7 +4217,11 @@ public partial class CustomerSales : System.Web.UI.Page
                     datee = bl.ListReceiptsForBillNoOrder(lblBillNo.Text);
 
                     TransN = 0;
+<<<<<<< HEAD
 
+=======
+                    
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
                     if (datee.Tables[0].Rows.Count > 0)
                     {
@@ -3823,7 +4236,11 @@ public partial class CustomerSales : System.Web.UI.Page
                     }
 
 
+<<<<<<< HEAD
 
+=======
+                    
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                 }
                 else
                 {
@@ -3894,7 +4311,11 @@ public partial class CustomerSales : System.Web.UI.Page
                 }
 
 
+<<<<<<< HEAD
 
+=======
+                
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
 
 
@@ -4100,7 +4521,11 @@ public partial class CustomerSales : System.Web.UI.Page
                                         }
                                     }
                                 }
+<<<<<<< HEAD
 
+=======
+                               
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                                 Reset();
                                 ResetProduct();
                                 Session["salesID"] = billNo.ToString();
@@ -4293,6 +4718,7 @@ public partial class CustomerSales : System.Web.UI.Page
         }
     }
 
+<<<<<<< HEAD
     protected void ViewProduct_Click(object sender,EventArgs e)
     {
         ModalPopupMethod.Hide();
@@ -4300,6 +4726,8 @@ public partial class CustomerSales : System.Web.UI.Page
         ModalPopupProductselect.Show();      
     }
 
+=======
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
     protected void lnkAddProduct_Click(object sender, EventArgs e)
     {
         string receivedBill = "";
@@ -4353,6 +4781,7 @@ public partial class CustomerSales : System.Web.UI.Page
     {
         try
         {
+<<<<<<< HEAD
             BusinessLogic objChk = new BusinessLogic(sDataSource);
 
             if (objChk.CheckSalesSeriesRequired())
@@ -4398,6 +4827,53 @@ public partial class CustomerSales : System.Web.UI.Page
             }
 
             ////////////////////////////////////////////////////////////////////////
+=======
+        BusinessLogic objChk = new BusinessLogic(sDataSource);
+
+        if (objChk.CheckSalesSeriesRequired())
+        {
+            if (!objChk.CheckSalesSeriesOpen())
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Sales Bill Series has reached maximum limit. Please increase the Bill Series and try again.');", true);
+                cmdCancel_Click(this, null);
+                return;
+            }
+        }
+
+
+        //////////////////////////////////////////////////////////////////////
+
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        string connection = Request.Cookies["Company"].Value;
+        string usernam = Request.Cookies["LoggedUserName"].Value;
+
+        if (optionmethod.SelectedValue == "InternalTransfer")
+        {
+            if (bl.CheckUserHaveOptions(usernam, "INTSAL"))
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('You are not allowed to make Internal Transfer');", true);
+                return;
+            }
+        }
+        else if (optionmethod.SelectedValue == "DeliveryNote")
+        {
+            if (bl.CheckUserHaveOptions(usernam, "DCSAL"))
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('You are not allowed to make Delivery Note');", true);
+                return;
+            }
+        }
+        else if (optionmethod.SelectedValue == "PurchaseReturn")
+        {
+            if (bl.CheckUserHaveOptions(usernam, "PURRET"))
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('You are not allowed to make Purchase Return');", true);
+                return;
+            }
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
 
             //lnkBtnAdd.Visible = false;
@@ -4485,7 +4961,11 @@ public partial class CustomerSales : System.Web.UI.Page
 
             //SetInitialRow();
 
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
             EmptyRow();
 
@@ -4521,7 +5001,11 @@ public partial class CustomerSales : System.Web.UI.Page
                 rowReason.Visible = false;
                 //lblVATAdd.Enabled = true;
                 rowmanual.Visible = false;
+<<<<<<< HEAD
 
+=======
+                
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
             }
             else if (optionmethod.SelectedValue == "InternalTransfer")
             {
@@ -4851,10 +5335,17 @@ public partial class CustomerSales : System.Web.UI.Page
     {
         try
         {
+<<<<<<< HEAD
             Session["Show"] = "No";
             optionmethod.SelectedIndex = 0;
 
 
+=======
+        Session["Show"] = "No";
+        optionmethod.SelectedIndex = 0;
+
+        
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
             BusinessLogic bl = new BusinessLogic(sDataSource);
 
             BillingMethod = bl.getConfigInfoMethod();
@@ -4965,27 +5456,43 @@ public partial class CustomerSales : System.Web.UI.Page
     //    return tot.ToString("#0.00");
     //}
 
+<<<<<<< HEAD
     public string GetTotal(double qty, double rate, double discount, double VAT, double CST, double Totalmrp)
+=======
+    public string GetTotal(double qty, double rate, double discount, double VAT, double CST,double Totalmrp)
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
     {
         double dis = 0;
         double disRate = 0;
         double vat = 0;
         double cst = 0;
         double tot = 0;
+<<<<<<< HEAD
         double sVatamount = 0;
+=======
+        double sVatamount=0;
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
         BusinessLogic bl = new BusinessLogic(sDataSource);
         BillingMethod = bl.getConfigInfoMethod();
 
         if (Labelll.Text == "VAT INCLUSIVE")
         {
             double vatper = 0;
+<<<<<<< HEAD
             double vatinclusiverate = 0;
+=======
+            double vatinclusiverate=0;
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
             if (VAT == 14.5)
             {
                 vatper = 1.145;
                 vatinclusiverate = ((qty * Totalmrp) - ((qty * Totalmrp) * (discount / 100))) / vatper;
                 //sVatamount = ((qty * rate) - ((qty * rate) * (discount / 100))) - vatinclusiverate;
+<<<<<<< HEAD
                 sVatamount = (vatinclusiverate * 14.5) / 100;
+=======
+                sVatamount = (vatinclusiverate * 14.5) / 100 ;
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
             }
             else if (VAT == 5)
             {
@@ -5044,14 +5551,21 @@ public partial class CustomerSales : System.Web.UI.Page
     {
         //if (Session["myname"] == "Sam")
         //{
+<<<<<<< HEAD
 
         //    string tot = "";
 
+=======
+            
+        //    string tot = "";
+            
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
         //    return tot.ToString();
         //}
         //else
         //{
+<<<<<<< HEAD
         double dis = 0;
         double disRate = 0;
         double vat = 0;
@@ -5074,6 +5588,30 @@ public partial class CustomerSales : System.Web.UI.Page
         hdTotalAmt.Value = amtTotal.ToString("#0.00");
         //lblGrandTotal.Text = Convert.ToString(Convert.ToDecimal(tot) +Convert.ToDecimal(hdTotalAmt.Value));
         return tot.ToString("#0.00");
+=======
+            double dis = 0;
+            double disRate = 0;
+            double vat = 0;
+            double cst = 0;
+            double tot = 0;
+            tot = (qty * rate) - ((qty * rate) * (discount / 100)) + (((qty * rate) - ((qty * rate) * (discount / 100))) * (VAT / 100)) + (((qty * rate) - ((qty * rate) * (discount / 100))) * (CST / 100));
+
+            // tot = (qty * rate) - ((qty * rate) * (discount / 100)) + (((qty * rate) - ((qty * rate) * (discount / 100))) * (VAT / 100)) + (((qty * rate) - ((qty * rate) * (discount / 100))) * (CST / 100));
+            disRate = (qty * rate) - ((qty * rate) * (discount / 100));
+            dis = ((qty * rate) * (discount / 100));
+
+            vat = (disRate * (VAT / 100));
+            cst = (disRate * (CST / 100));
+            amtTotal = amtTotal + Convert.ToDouble(tot);
+            disTotal = dis;
+            rateTotal = rateTotal + rate;
+            vatTotal = vat;
+            cstTotal = cst;
+            disTotalRate = qty * rate;
+            hdTotalAmt.Value = amtTotal.ToString("#0.00");
+            //lblGrandTotal.Text = Convert.ToString(Convert.ToDecimal(tot) +Convert.ToDecimal(hdTotalAmt.Value));
+            return tot.ToString("#0.00");
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
         //}
     }
 
@@ -5236,6 +5774,12 @@ public partial class CustomerSales : System.Web.UI.Page
         dc = new DataColumn("Paymode");
         dt.Columns.Add(dc);
 
+<<<<<<< HEAD
+=======
+        dc = new DataColumn("SFRefNo");
+        dt.Columns.Add(dc);
+
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
         ds.Tables.Add(dt);
 
         return ds;
@@ -5249,6 +5793,7 @@ public partial class CustomerSales : System.Web.UI.Page
     {
         try
         {
+<<<<<<< HEAD
             string strItemCode = string.Empty;
             string strRoleFlag = string.Empty;
             DataSet ds = new DataSet();
@@ -5258,6 +5803,17 @@ public partial class CustomerSales : System.Web.UI.Page
             BusinessLogic bl = new BusinessLogic(sDataSource);
 
 
+=======
+        string strItemCode = string.Empty;
+        string strRoleFlag = string.Empty;
+        DataSet ds = new DataSet();
+        int billno = 0;
+        GridViewRow row = GrdViewItems.SelectedRow;
+
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+
+        
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
             string receivedBill = "";
 
@@ -5534,6 +6090,7 @@ public partial class CustomerSales : System.Web.UI.Page
 
     }
 
+<<<<<<< HEAD
     protected void GrdViewPrdSelection_RowCreated(object sender, GridViewRowEventArgs e)
     {
         try
@@ -5566,6 +6123,22 @@ public partial class CustomerSales : System.Web.UI.Page
                         _TotalSummary = _TotalSummary + Convert.ToDouble(((Label)(e.Row.FindControl("lbltotal"))).Text);
                 }
 
+=======
+    protected void GrdViewItems_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        { 
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRow product = ((System.Data.DataRowView)e.Row.DataItem).Row;
+            
+                    if (e.Row.FindControl("lbltotal") != null)
+                    {
+                        if (((Label)(e.Row.FindControl("lbltotal"))).Text != "")
+                            _TotalSummary = _TotalSummary + Convert.ToDouble(((Label)(e.Row.FindControl("lbltotal"))).Text);
+                    }
+           
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
                 if (product[8] != null)
                 {
@@ -5675,6 +6248,7 @@ public partial class CustomerSales : System.Web.UI.Page
 
     }
 
+<<<<<<< HEAD
     protected void GrdViewPrdSelection_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         try
@@ -5707,6 +6281,8 @@ public partial class CustomerSales : System.Web.UI.Page
         }
     }
 
+=======
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
     protected void GrdViewSales_Sorting(object sender, GridViewSortEventArgs e)
     {
@@ -5791,6 +6367,7 @@ public partial class CustomerSales : System.Web.UI.Page
     {
         try
         {
+<<<<<<< HEAD
             Session["Show"] = "Hide";
             drpIntTrans.Enabled = true;
             drpPurchaseReturn.Enabled = true;
@@ -5833,6 +6410,50 @@ public partial class CustomerSales : System.Web.UI.Page
             //pnlSearch.Visible = false;
             ddSeriesType.Visible = false;
             lblBillNo.Visible = true;
+=======
+        Session["Show"] = "Hide";
+        drpIntTrans.Enabled = true;
+        drpPurchaseReturn.Enabled = true;
+
+        ddDeliveryNote.Enabled = true;
+
+        BusinessLogic objChk = new BusinessLogic(sDataSource);
+
+        if (objChk.CheckSalesSeriesRequired())
+        {
+            if (!objChk.CheckSalesSeriesOpen())
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Sales Bill Series has reached maximum limit. Please increase the Bill Series and try again.');", true);
+                cmdCancel_Click(this, null);
+                return;
+            }
+        }
+
+        string strPaymode = string.Empty;
+        string MultiPaymode = string.Empty;
+        string sCustomer = string.Empty;
+        int salesID = 0;
+        string connection = Request.Cookies["Company"].Value;
+        GridViewRow row = GrdViewSales.SelectedRow;
+        DataSet itemDs = new DataSet();
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        string recondate = row.Cells[2].Text;
+        cmdPrint.Enabled = true;
+        cmdUpdate.Enabled = true;
+        cmdUpdate.Visible = true;
+        cmdDelete.Enabled = true;
+        cmdSave.Visible = false;
+        PanelCmd.Visible = true;
+        //lnkBtnAdd.Visible = false;
+        cmdCancel.Enabled = true;
+        //MyAccordion.Visible = false;
+
+        //PanelBill.Visible = false;
+        //pnlSalesForm.Visible = true;
+        //pnlSearch.Visible = false;
+        ddSeriesType.Visible = false;
+        lblBillNo.Visible = true;
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
 
 
@@ -5890,7 +6511,11 @@ public partial class CustomerSales : System.Web.UI.Page
                     if (ds.Tables[0].Rows[0]["Types"] != null)
                         Labelll.Text = Convert.ToString(ds.Tables[0].Rows[0]["Types"]);
                     else
+<<<<<<< HEAD
                         Labelll.Text = "";
+=======
+                        Labelll.Text = "";                   
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
                     if (ds.Tables[0].Rows[0]["BillDate"] != null)
                         txtBillDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["BillDate"]).ToString("dd/MM/yyyy");
@@ -6008,7 +6633,11 @@ public partial class CustomerSales : System.Web.UI.Page
                         txtmanual.Text = Convert.ToString(ds.Tables[0].Rows[0]["manualno"]);
                         rowmanual.Visible = true;
                     }
+<<<<<<< HEAD
 
+=======
+                    
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
                     //if (ds.Tables[0].Rows[0]["manual"] != null)
                     //{
@@ -6102,7 +6731,11 @@ public partial class CustomerSales : System.Web.UI.Page
                     else
                         drpIncharge.SelectedIndex = 0;
 
+<<<<<<< HEAD
 
+=======
+                    
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
                     if (ds.Tables[0].Rows[0]["Freight"] != null)
                     {
@@ -6238,6 +6871,10 @@ public partial class CustomerSales : System.Web.UI.Page
                                 if (dr["Paymode"].ToString() == "Cash")
                                 {
                                     txtCashAmount.Text = dr["Amount"].ToString();
+<<<<<<< HEAD
+=======
+                                    TextBox5.Text = dr["SFRefNo"].ToString();
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                                 }
                                 else if (dr["Paymode"].ToString() == "Cheque")
                                 {
@@ -6248,7 +6885,11 @@ public partial class CustomerSales : System.Web.UI.Page
                                         ListItem lli = ddBank1.Items.FindByValue(sDebitor);
                                         if (lli != null) lli.Selected = true;
 
+<<<<<<< HEAD
 
+=======
+                                        txtRefNo1.Text = dr["SFRefNo"].ToString();
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                                         txtAmount1.Text = dr["Amount"].ToString();
                                         txtCCard1.Text = dr["ChequeNo"].ToString();
                                     }
@@ -6262,6 +6903,10 @@ public partial class CustomerSales : System.Web.UI.Page
 
                                         txtAmount2.Text = dr["Amount"].ToString();
                                         txtCCard2.Text = dr["ChequeNo"].ToString();
+<<<<<<< HEAD
+=======
+                                        txtRefNo2.Text = dr["SFRefNo"].ToString();
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                                     }
                                     if (gg == 3)
                                     {
@@ -6273,6 +6918,10 @@ public partial class CustomerSales : System.Web.UI.Page
 
                                         txtAmount3.Text = dr["Amount"].ToString();
                                         txtCCard3.Text = dr["ChequeNo"].ToString();
+<<<<<<< HEAD
+=======
+                                        txtRefNo3.Text = dr["SFRefNo"].ToString();
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
                                     }
                                     gg = gg + 1;
                                 }
@@ -6803,7 +7452,11 @@ public partial class CustomerSales : System.Web.UI.Page
                 //GridSource.DeleteParameters.Add("UserID", TypeCode.String, UserID);
                 //GridSource.Delete();
 
+<<<<<<< HEAD
                 //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
+=======
+                    //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
                 bl.DeleteSalesNew(connection, sBillNo, UserID);
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Sales Details Deleted Successfully. Bill No. was " + sBillNo.ToString() + "')", true);
@@ -6840,7 +7493,11 @@ public partial class CustomerSales : System.Web.UI.Page
 
     //protected void GridSource_Deleting(object sender, ObjectDataSourceMethodEventArgs e)
     //{
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 
     //    this.setDeleteParameters(e);
     //}
@@ -7104,7 +7761,11 @@ public partial class CustomerSales : System.Web.UI.Page
         //}
 
         try
+<<<<<<< HEAD
         {
+=======
+        { 
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
             var total = 0.0;
 
             if (txtAmount1.Text != "")
@@ -7128,7 +7789,11 @@ public partial class CustomerSales : System.Web.UI.Page
     protected void cmdcat_click(object sender, EventArgs e)
     {
         try
+<<<<<<< HEAD
         {
+=======
+        { 
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
             Response.Redirect("CustomerInfo.aspx?myname=" + "NEWCUS");
         }
         catch (Exception ex)
@@ -7141,7 +7806,11 @@ public partial class CustomerSales : System.Web.UI.Page
     protected void cmdprod_click(object sender, EventArgs e)
     {
         try
+<<<<<<< HEAD
         {
+=======
+        { 
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
             Response.Redirect("ProductMaster.aspx?myname=" + "NEWP");
         }
         catch (Exception ex)
@@ -7178,7 +7847,11 @@ public partial class CustomerSales : System.Web.UI.Page
         dr["Vat"] = 0;
         dr["CST"] = 0;
         dr["Roles"] = hdCurrRole.Value;
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
         dt.Rows.Add(dr);
         ViewState["CurrentTable"] = dt;
 
@@ -7279,7 +7952,11 @@ public partial class CustomerSales : System.Web.UI.Page
         drNew["Totalmrp"] = Convert.ToDouble(textvalue);
         drNew["Rods"] = "";
         drNew["VatAmount"] = Convert.ToDouble(textvalue);
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
         ds.Tables[0].Rows.Add(drNew);
 
         ds.Tables[0].AcceptChanges();
@@ -7331,6 +8008,7 @@ public partial class CustomerSales : System.Web.UI.Page
         //LoadForTotal();
 
     }
+<<<<<<< HEAD
   
 
     protected void txtselPrd_TextChanged(object sender,EventArgs e)
@@ -7339,5 +8017,7 @@ public partial class CustomerSales : System.Web.UI.Page
         ModalPopupSales.Hide();
         ModalPopupProductselect.Show();   
     }
+=======
+>>>>>>> 8970176488ebf726b4b699303f1d245275e859ec
 }
 
