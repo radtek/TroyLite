@@ -77,6 +77,13 @@ public partial class TaskEntry : System.Web.UI.Page
         }
     }
 
+    protected void BtnClearFilter_Click(object sender, EventArgs e)
+    {
+        txtSearch.Text = "";
+        ddCriteria.SelectedIndex = 0;
+        BindWME("", "");
+    }
+
     private void loadEmp()
     {
         BusinessLogic bl = new BusinessLogic(sDataSource);

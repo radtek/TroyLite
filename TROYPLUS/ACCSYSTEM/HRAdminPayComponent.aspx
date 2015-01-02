@@ -66,10 +66,10 @@
                     <td style="width: 100%">
 
                         <div class="mainConBody">
-                            <table style="width: 100%; margin: -1px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
+                            <table style="width: 99.8%; margin: -2px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
                                 <tr style="height: 25px; vertical-align: middle">
                                     <td style="width: 2%"></td>
-                                    <td style="width: 20%; font-size: 22px; color: #000000;">Pay Component
+                                    <td style="width: 20%; font-size: 22px; color: white;">Pay Component
                                     </td>
                                     <td style="width: 12%">
                                         <div style="text-align: right;">
@@ -80,15 +80,15 @@
                                         </div>
                                     </td>
 
-                                    <td style="width: 11%; color: #000080;" align="right">Search
+                                    <td style="width: 11%; color: white;" align="right">Search
                                     </td>
-                                    <td style="width: 20%" class="Box1">
+                                    <td style="width: 20%" class="NewBox">
                                         <asp:TextBox ID="txtSearchInput" runat="server" SkinID="skinTxtBoxSearch"></asp:TextBox>
                                     </td>
 
-                                    <td style="width: 20%" class="Box1">
+                                    <td style="width: 20%" class="NewBox">
                                         <div style="width: 160px; font-family: 'Trebuchet MS';">
-                                            <asp:DropDownList ID="ddlSearchCriteria" runat="server" Width="154px" BackColor="#BBCAFB" Height="23px" Style="text-align: center; border: 1px solid #BBCAFB">
+                                            <asp:DropDownList ID="ddlSearchCriteria" runat="server" Width="154px" BackColor="White" Height="23px" Style="text-align: center; border: 1px solid white">
                                                 <asp:ListItem Value="All">All</asp:ListItem>
                                                 <asp:ListItem Value="PayComponentName">Pay Component Name</asp:ListItem>
                                                 <asp:ListItem Value="IsDeduction">IsDeduction</asp:ListItem>
@@ -111,12 +111,12 @@
                 </tr>
                 <tr style="width: 100%">
                     <td style="width: 100%">
-                        <table width="100%" style="margin: -3px 0px 0px 0px;">
+                        <table width="100%" style="margin: -4px 0px 0px 0px;">
                             <tr style="width: 100%">
                                 <td>
                                     <div class="mainGridHold" id="searchGrid">
                                         <asp:GridView ID="grdViewPayCompSummary" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                                            Width="99.9%" DataSourceID="PayCompSummaryGridSource" AllowPaging="True" DataKeyNames="PayComponentID"
+                                            Width="100.4%" DataSourceID="PayCompSummaryGridSource" AllowPaging="True" DataKeyNames="PayComponentID"
                                             OnRowCommand="grdViewPayCompSummary_RowCommand" OnRowDataBound="grdViewPayCompSummary_RowDataBound"
                                             OnRowDeleted="grdViewPayCompSummary_RowDeleted" OnRowDeleting="grdViewPayCompSummary_RowDeleting"
                                             EmptyDataText="No Pay Component List Found." Font-Names="Trebuchet MS" CssClass="someClass">
@@ -327,14 +327,14 @@
                                                                     <table width="100%">
                                                                         <tr>
                                                                             <td align="right" style="width: 32%;"></td>
+                                                                            <td style="width: 19%;">                                                                               
+                                                                                 <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update"
+                                                                                    CssClass="Updatebutton1231" EnableTheming="false" SkinID="skinBtnSave"
+                                                                                    OnClick="UpdateButton_Click"></asp:Button>
+                                                                            </td>
                                                                             <td style="width: 19%;">
                                                                                 <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
                                                                                     CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click"></asp:Button>
-                                                                            </td>
-                                                                            <td style="width: 19%;">
-                                                                                <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update"
-                                                                                    CssClass="Updatebutton1231" EnableTheming="false" SkinID="skinBtnSave"
-                                                                                    OnClick="UpdateButton_Click"></asp:Button>
                                                                             </td>
                                                                             <td style="width: 30%;"></td>
                                                                         </tr>
@@ -469,14 +469,14 @@
                                                                     <table width="100%">
                                                                         <tr>
                                                                             <td align="right" style="width: 33%;"></td>
-                                                                            <td style="width: 19%;">
-                                                                                <asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="InsertCancelButton_Click"></asp:Button>
-                                                                            </td>
-                                                                            <td style="width: 19%;">
+                                                                            <td style="width: 19%;">                                                                               
                                                                                 <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert"
                                                                                     CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave"
                                                                                     OnClick="InsertButton_Click"></asp:Button>
+                                                                            </td>
+                                                                            <td style="width: 19%;">
+                                                                                 <asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="InsertCancelButton_Click"></asp:Button>
                                                                             </td>
                                                                             <td style="width: 29%;"></td>
                                                                         </tr>

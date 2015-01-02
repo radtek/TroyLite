@@ -234,14 +234,14 @@
                                                         
                                                          <td align="right" style="width: 10%;">
                                                                             </td>
+                                                                            <td style="width: 10%;">                                                                               
+                                                                                 <asp:Button ID="btnSettingsSave" runat="server" SkinID="skinBtnSave" ValidationGroup="adminInfo"
+                                                                CssClass="Updatebutton1231" EnableTheming="false" OnClick="btnSettingsSave_Click" />
+                                                                            </td>
                                                                             <td style="width: 10%;">
                                                                                 <asp:Button ID="btnSettingsCancel" runat="server" CausesValidation="False" CommandName="Cancel"
                                                                                     CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="btnSettingsCancel_Click">
                                                                                 </asp:Button>
-                                                                            </td>
-                                                                            <td style="width: 10%;">
-                                                                                <asp:Button ID="btnSettingsSave" runat="server" SkinID="skinBtnSave" ValidationGroup="adminInfo"
-                                                                CssClass="Updatebutton1231" EnableTheming="false" OnClick="btnSettingsSave_Click" />
 
                                                             <asp:ValidationSummary ID="valSum" DisplayMode="BulletList" ShowMessageBox="true"
                                                                 ShowSummary="false" HeaderText="Validation Messages" ValidationGroup="adminInfo"

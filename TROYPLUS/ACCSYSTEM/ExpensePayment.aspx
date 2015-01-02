@@ -145,18 +145,21 @@
                                     </tr>
                                 </table>
                             </div>--%>
-                            <table class="mainConHd" style="width: 994px;">
+                          <%--  <table class="mainConHd" style="width: 100%">
                                 <tr valign="middle">
-                                    <td style="font-size: 20px;">
+                                    <td style="font-size: 20px; width:35%">
                                         Expense Payments
                                     </td>
                                 </tr>
-                            </table>
+                            </table>--%>
                             <div class="mainConBody">
-                                <table style="width: 100%;" cellpadding="3" cellspacing="2" class="searchbg">
+                                <table style="width: 99.8%;margin: -2px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
                                     <tr style="height: 25px; vertical-align: middle">
                                         <td style="width: 6%">
 
+                                        </td>
+                                        <td style="width: 40%; font-size: 22px; color: White;" >
+                                              Expense Payments
                                         </td>
                                         <td style="width: 14%">
                                             <div style="text-align: right;">

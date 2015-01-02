@@ -155,7 +155,7 @@
         }
     </style>
 
-    <asp:UpdatePanel ID="UpdatePanelPage" runat="server" UpdateMode="Conditional" >
+    <asp:UpdatePanel ID="UpdatePanelPage" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:ValidationSummary ID="VSContact" runat="server" Font-Names="'Trebuchet MS'" Font-Size="12pt"
                 HeaderText="Validation Messages" ShowMessageBox="true" ShowSummary="true" ValidationGroup="Save" />
@@ -167,7 +167,7 @@
             <input id="Button1" type="button" style="display: none" runat="server" />
 
             <asp:HiddenField ID="hdTse" runat="server" Value="0" />
-            <div align="left" style="vertical-align: top;margin: -3px 0px 0px 5px; width:99.5%" class="mainConBody">
+            <div align="left" style="vertical-align: top; margin: -3px 0px 0px 5px; width: 99.5%" class="mainConBody">
                 <cc1:TabContainer ID="tbMain" Visible="false" OnClientActiveTabChanged="ActiveTabChanged" AutoPostBack="false" runat="server" CssClass="fancy fancy-green">
                     <cc1:TabPanel ID="tblMaster1" runat="server" Width="976px" HeaderText="Daily - Time Sheet Entry">
                         <ContentTemplate>
@@ -185,17 +185,17 @@
                                                             </asp:Panel>
                                                         </div>
                                                     </td>
-                                                    <td style="width: 14%; color: #000080;" align="right">Search
+                                                    <td style="width: 14%; color: white;" align="right">Search
                                                     </td>
-                                                    <td style="width: 15%" class="Box1">
+                                                    <td style="width: 15%" class="NewBox">
                                                         <asp:TextBox ID="txtTimeSheetValueField" runat="server" SkinID="skinTxtBoxSearch" MaxLength="50" />
 
                                                     </td>
                                                     <td id="tdCalendar" style="width: 4%; color: #000080;" align="left" runat="server">
                                                         <script type="text/javascript" language="JavaScript">                                                    new tcal({ 'formname': 'aspnetForm', 'controlname': GettxtBoxName('txtTimeSheetValueField') });</script>
                                                     </td>
-                                                    <td style="width: 14%; text-align: left;" class="Box1">
-                                                        <asp:DropDownList ID="ddlTimeSheetKeyField" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ddlTimeSheetKeyField_SelectedIndexChanged" BackColor="#BBCAFB" Style="text-align: center; border: 1px solid #BBCAFB; margin: 1px; height: 25px; width: 150px;"
+                                                    <td style="width: 14%; text-align: left;" class="NewBox">
+                                                        <asp:DropDownList ID="ddlTimeSheetKeyField" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ddlTimeSheetKeyField_SelectedIndexChanged" BackColor="White" Style="text-align: center; border: 1px solid white; margin: 1px; height: 25px; width: 150px;"
                                                             EnableTheming="False">
                                                             <asp:ListItem>-- All --</asp:ListItem>
                                                             <asp:ListItem Value="DateRange:string">Date Range</asp:ListItem>
@@ -211,6 +211,9 @@
                                                         <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click"
                                                             CssClass="ButtonSearch6" EnableTheming="False" />
                                                     </td>
+                                                     <td style="width: 20%" class="tblLeftNoPad">
+                                            <asp:Button ID="BtnClearFilter" runat="server"  OnClick="BtnClearFilter_Click"  EnableTheming="false" Text="" CssClass="ClearFilter6" />
+                                        </td>
                                                 </tr>
                                                 <tr id="ErrMessage">
                                                     <td colspan="7">
@@ -222,7 +225,7 @@
                                                             <tr>
                                                                 <td>
                                                                     <asp:GridView ID="GrdTse" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                                                                        Width="100%" AllowPaging="True" OnPageIndexChanging="GrdTse_PageIndexChanging" CssClass="someClass" OnRowDataBound="GrdTse_RowDataBound"
+                                                                        Width="117%" AllowPaging="True" OnPageIndexChanging="GrdTse_PageIndexChanging" CssClass="someClass" OnRowDataBound="GrdTse_RowDataBound"
                                                                         OnRowCreated="GrdTse_RowCreated" DataKeyNames="Empno" EmptyDataText="No Time Sheet Entry Details found for the search criteria"
                                                                         OnSelectedIndexChanged="GrdTse_SelectedIndexChanged" PageSize="2">
                                                                         <EmptyDataRowStyle CssClass="GrdContent" />
@@ -308,80 +311,84 @@
                     </cc1:TabPanel>
                     <cc1:TabPanel ID="tblMaster2" runat="server" Width="976px" HeaderText="Time Sheet Approval">
                         <ContentTemplate>
-                                    <asp:Panel runat="server" ID="pnlTimesheetApprove" Width="100%">
-                                            <table  width="976px" style="margin: -1px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
-                                                <tr style="vertical-align: middle">
-                                                    <td style="width: 10%">
-                                                        <div style="text-align: right;">
-                                                        </div>
-                                                    </td>
-                                                    <td style="width: 5%; color: #000080;" align="right">Search
-                                                    </td>
-                                                    <td style="width: 15%" class="Box1">
-                                                        <asp:TextBox ID="txtTimeSheetApproval" runat="server" SkinID="skinTxtBoxSearch" MaxLength="50" />
-                                                    </td>
-                                                    <td style="width: 4%; color: #000080;" align="left">
-                                                        <script type="text/javascript" language="JavaScript">                                                    new tcal({ 'formname': 'aspnetForm', 'controlname': GettxtBoxName('txtTimeSheetApproval') });</script>
-                                                    </td>
-                                                    <td style="width: 14%; text-align: left;" class="Box1">
-                                                        <asp:DropDownList ID="ddlTimeSheetApproval" runat="server" AppendDataBoundItems="True" AutoPostBack="true" OnSelectedIndexChanged="ddlTimeSheetApproval_SelectedIndexChanged" BackColor="#BBCAFB" Style="text-align: center; border: 1px solid #BBCAFB; padding: 1px; margin: 1px; height: 23px; width: 150px;"
-                                                            EnableTheming="False" Visible="True">
-                                                            <asp:ListItem>-- All --</asp:ListItem>
-                                                            <asp:ListItem Value="EmployeeName:string">Employee Name</asp:ListItem>
-                                                            <asp:ListItem Value="DateRange:string">Date Range</asp:ListItem>
-                                                            <asp:ListItem Value="Approved:string">Status</asp:ListItem>
-                                                            <asp:ListItem Value="Rejectreason:string">Reject reason</asp:ListItem>
-                                                        </asp:DropDownList>
-                                                    </td>
-                                                    <td id="td1" style="width: 3%; text-align: left;" runat="server"></td>
-                                                    <td style="width: 10%; text-align: left">
+                            <asp:Panel runat="server" ID="pnlTimesheetApprove" Width="100%">
+                                <table width="976px" style="margin: -1px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
+                                    <tr style="vertical-align: middle">
+                                        <td style="width: 10%">
+                                            <div style="text-align: right;">
+                                            </div>
+                                        </td>
+                                        <td style="width: 5%; color: white;" align="right">Search
+                                        </td>
+                                        
+                                        <td style="width: 15%" class="NewBox">
+                                            <asp:TextBox ID="txtTimeSheetApproval" runat="server" SkinID="skinTxtBoxSearch" MaxLength="50" />
+                                        </td>
+                                        <td style="width: 4%; color: #000080;" align="left">
+                                            <script type="text/javascript" language="JavaScript">                                                    new tcal({ 'formname': 'aspnetForm', 'controlname': GettxtBoxName('txtTimeSheetApproval') });</script>
+                                        </td>
+                                        <td style="width: 14%; text-align: left;" class="NewBox">
+                                            <asp:DropDownList ID="ddlTimeSheetApproval" runat="server" AppendDataBoundItems="True" AutoPostBack="true" OnSelectedIndexChanged="ddlTimeSheetApproval_SelectedIndexChanged" BackColor="White" Style="text-align: center; border: 1px solid white; padding: 1px; margin: 1px; height: 23px; width: 150px;"
+                                                EnableTheming="False" Visible="True">
+                                                <asp:ListItem>-- All --</asp:ListItem>
+                                                <asp:ListItem Value="EmployeeName:string">Employee Name</asp:ListItem>
+                                                <asp:ListItem Value="DateRange:string">Date Range</asp:ListItem>
+                                                <asp:ListItem Value="Approved:string">Status</asp:ListItem>
+                                                <asp:ListItem Value="Rejectreason:string">Reject reason</asp:ListItem>
+                                            </asp:DropDownList>
+                                        </td>
+                                        <td id="td1" style="width: 3%; text-align: left;" runat="server"></td>
+                                        <td style="width: 10%; text-align: left">
 
-                                                        <asp:Button ID="btnApprovalSearch" runat="server" OnClick="btnApprovalSearch_Click"
-                                                            CssClass="ButtonSearch6" EnableTheming="False" />
-                                                    </td>
-                                                </tr>
-                                                <tr id="tblMaster2ErrMessage">
-                                                    <td colspan="7">
-                                                        <asp:Label ID="lblErrorMessage" runat="server" ForeColor="Red" Font-Bold="True"></asp:Label></td>
-                                                </tr>
+                                            <asp:Button ID="btnApprovalSearch" runat="server" OnClick="btnApprovalSearch_Click"
+                                                CssClass="ButtonSearch6" EnableTheming="False" />
+                                        </td>
+                                        <td style="width: 20%" class="tblLeftNoPad">
+                                            <asp:Button ID="BtnClrFilter" runat="server"  OnClick="BtnClrFilter_Click"  EnableTheming="false" Text="" CssClass="ClearFilter6" />
+                                        </td>
+                                    </tr>
+                                    <tr id="tblMaster2ErrMessage">
+                                        <td colspan="7">
+                                            <asp:Label ID="lblErrorMessage" runat="server" ForeColor="Red" Font-Bold="True"></asp:Label></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <table width="100%" style="margin: -1px 0px 0px 0px;">
                                                 <tr>
-                                                    <td colspan="7">
-                                                        <table width="100%" style="margin: -1px 0px 0px 0px;">
-                                                            <tr>
-                                                                <td>
-                                                                    <asp:GridView ID="GrdSubTSe" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                                                                        Width="100%" AllowPaging="True" CssClass="someClass"
-                                                                        EmptyDataText="No Subordinate Details for Approval" OnRowDataBound="GrdSubTSe_RowDataBound">
-                                                                        <%--OnPageIndexChanging="" OnRowCreated=""  OnSelectedIndexChanged="" OnRowDeleting="" OnRowDataBound=""--%>
-                                                                        <EmptyDataRowStyle CssClass="GrdContent" />
-                                                                        <Columns>
-                                                                            <asp:BoundField DataField="EmployeeName" HeaderText="Employee Name">
-                                                                                <HeaderStyle BorderColor="Gray" />
-                                                                            </asp:BoundField>
-                                                                            <asp:BoundField DataField="DateRange" HeaderText="Date range">
-                                                                                <HeaderStyle BorderColor="Gray" />
-                                                                            </asp:BoundField>
-                                                                            <asp:BoundField DataField="Approved" HeaderText="Status">
-                                                                                <HeaderStyle BorderColor="Gray" />
-                                                                            </asp:BoundField>
-                                                                            <asp:BoundField DataField="Rejectreason" HeaderText="Reason">
-                                                                                <HeaderStyle BorderColor="Gray" />
-                                                                            </asp:BoundField>
+                                                    <td>
+                                                        <asp:GridView ID="GrdSubTSe" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+                                                            Width="120%" AllowPaging="True" CssClass="someClass"
+                                                            EmptyDataText="No Subordinate Details for Approval" OnRowDataBound="GrdSubTSe_RowDataBound">
+                                                            <%--OnPageIndexChanging="" OnRowCreated=""  OnSelectedIndexChanged="" OnRowDeleting="" OnRowDataBound=""--%>
+                                                            <EmptyDataRowStyle CssClass="GrdContent" />
+                                                            <Columns>
+                                                                <asp:BoundField DataField="EmployeeName" HeaderText="Employee Name">
+                                                                    <HeaderStyle BorderColor="Gray" />
+                                                                </asp:BoundField>
+                                                                <asp:BoundField DataField="DateRange" HeaderText="Date range">
+                                                                    <HeaderStyle BorderColor="Gray" />
+                                                                </asp:BoundField>
+                                                                <asp:BoundField DataField="Approved" HeaderText="Status">
+                                                                    <HeaderStyle BorderColor="Gray" />
+                                                                </asp:BoundField>
+                                                                <asp:BoundField DataField="Rejectreason" HeaderText="Reason">
+                                                                    <HeaderStyle BorderColor="Gray" />
+                                                                </asp:BoundField>
 
-                                                                            <asp:TemplateField HeaderText="Appr">
-                                                                                <ItemTemplate>
-                                                                                    <%--<cc1:ConfirmButtonExtender ID="CnrfmDel" TargetControlID="lnkB" ConfirmText="Are you sure to Delete this Time Sheet Entry?"
+                                                                <asp:TemplateField HeaderText="Appr">
+                                                                    <ItemTemplate>
+                                                                        <%--<cc1:ConfirmButtonExtender ID="CnrfmDel" TargetControlID="lnkB" ConfirmText="Are you sure to Delete this Time Sheet Entry?"
                                                                                         runat="server">
                                                                                     </cc1:ConfirmButtonExtender>--%>
-                                                                                    <asp:ImageButton ID="lnkAppr" SkinID="Appr" runat="Server" CommandName="DateRange" OnClick="lnkApproveLineItem_Click"></asp:ImageButton>
-                                                                                    <asp:ImageButton ID="lnkApprDisabled" Enabled="false" SkinID="ApprDisable" runat="Server"></asp:ImageButton>
-                                                                                </ItemTemplate>
-                                                                                <HeaderStyle BorderColor="Gray" Width="50px" />
-                                                                                <ItemStyle CssClass="command" HorizontalAlign="Center" />
-                                                                            </asp:TemplateField>
-                                                                        </Columns>
-                                                                        <PagerTemplate>
-                                                                            <%-- <table style="border-color: white">
+                                                                        <asp:ImageButton ID="lnkAppr" SkinID="Appr" runat="Server" CommandName="DateRange" OnClick="lnkApproveLineItem_Click"></asp:ImageButton>
+                                                                        <asp:ImageButton ID="lnkApprDisabled" Enabled="false" SkinID="ApprDisable" runat="Server"></asp:ImageButton>
+                                                                    </ItemTemplate>
+                                                                    <HeaderStyle BorderColor="Gray" Width="50px" />
+                                                                    <ItemStyle CssClass="command" HorizontalAlign="Center" />
+                                                                </asp:TemplateField>
+                                                            </Columns>
+                                                            <PagerTemplate>
+                                                                <%-- <table style="border-color: white">
                                                                                 <tr style="border-color: white">
                                                                                     <td style="border-color: white">Goto Page
                                                                                     </td>
@@ -409,16 +416,16 @@
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>--%>
-                                                                        </PagerTemplate>
-                                                                        <RowStyle ForeColor="Black" />
-                                                                    </asp:GridView>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
+                                                            </PagerTemplate>
+                                                            <RowStyle ForeColor="Black" />
+                                                        </asp:GridView>
                                                     </td>
                                                 </tr>
                                             </table>
-                                        </asp:Panel>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </asp:Panel>
                         </ContentTemplate>
                     </cc1:TabPanel>
                 </cc1:TabContainer>
@@ -473,12 +480,12 @@
                                         <table width="40%">
                                             <tr>
                                                 <td width="25px">
-                                                    <asp:Button ID="btnCancel" runat="server" CssClass="cancelbutton6" EnableTheming="False" SkinID="skinBtnCancel" OnClick="btnCancel_Click" /></td>
-                                                <td width="25px">
                                                     <asp:Button ID="btnSave" ValidationGroup="Save" runat="server" CssClass="savebutton1231"
                                                         EnableTheming="False" SkinID="skinBtnSave" OnClick="btnSave_Click" AccessKey="s" /></td>
                                                 <td width="25px">
-                                                    <asp:Button ID="btnSubmit" runat="server" ValidationGroup="Save" EnableTheming="False" CssClass="AddGetRefNos6" 
+                                                    <asp:Button ID="btnCancel" runat="server" CssClass="cancelbutton6" EnableTheming="False" SkinID="skinBtnCancel" OnClick="btnCancel_Click" /></td>
+                                                <td width="25px">
+                                                    <asp:Button ID="btnSubmit" runat="server" ValidationGroup="Save" EnableTheming="False" CssClass="AddGetRefNos6"
                                                         OnClick="btnSubmit_Click" AccessKey="S" /></td>
                                             </tr>
                                         </table>

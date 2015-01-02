@@ -374,13 +374,13 @@
                                             <table width="100%" align="left">
                                                 <tr>
                                                     <td align="right" style="width: 20%;"></td>
-                                                    <td style="width: 20%;">
-                                                        <asp:Button ID="btnCancelPopup" runat="server" CausesValidation="False"
-                                                            CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel"></asp:Button>
+                                                    <td style="width: 20%;">                                                        
+                                                         <asp:Button ID="btnSaveAttendance" runat="server" CausesValidation="True"
+                                                            CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClick="btnSaveAttendance_Click"></asp:Button>
                                                     </td>
                                                     <td style="width: 20%;">
-                                                        <asp:Button ID="btnSaveAttendance" runat="server" CausesValidation="True"
-                                                            CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClick="btnSaveAttendance_Click"></asp:Button>
+                                                       <asp:Button ID="btnCancelPopup" runat="server" CausesValidation="False"
+                                                            CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel"></asp:Button>
                                                     </td>
                                                     <td style="width: 20%;">
                                                         <asp:Button ID="btnSubmitAttendance" runat="server" Visible="true" CausesValidation="True"

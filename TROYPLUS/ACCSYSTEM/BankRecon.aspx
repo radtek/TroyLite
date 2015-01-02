@@ -35,10 +35,10 @@
                                     <table cellspacing="2px" cellpadding="3px" border="0" width="99.8%"
                                         class="searchbg" style="margin: -2px 0px 0px 1px;">
                                         <tr>
-                                            <td style="width: 23%; font-size: 22px; color: White;" >
+                                            <td style="width: 75%; font-size: 22px; color: White;" >
                                                 Bank Reconciliation
                                             </td>
-                                            <td style="width: 16%">
+                                            <td style="width:0%">
                                                 <div style="text-align: right;">
                                                     <asp:Panel ID="pnlSearch" runat="server">
                                                         <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonDoreconciliation"
@@ -46,26 +46,29 @@
                                                     </asp:Panel>
                                                 </div>
                                             </td>
-                                            <td style="width: 10%; color: White;" align="right">
+                                            <td style="width: 23%; color: White;" align="right">
                                                  Ref No.
                                             </td>
-                                            <td style="width: 18%; text-align: center" class="NewBox">
+                                            <td style="width: 5%; text-align: center" class="NewBox">
                                                 <asp:TextBox ValidationGroup="search" ID="txtBillnoSrc" runat="server" MaxLength="8"
-                                                    CssClass="cssTextBox" Width="92%"></asp:TextBox>
+                                                    CssClass="cssTextBox" Width="75%"></asp:TextBox>
                                                 <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" TargetControlID="txtBillnoSrc"
                                                     FilterType="Numbers" />
                                             </td>
-                                            <td style="width: 8%; color: White;" align="right">
-                                                Trans. No.
+                                            <td style="width: 40%; color: White;" align="right">
+                                                Trans No.
                                             </td>
-                                            <td style="width: 20%" class="NewBox">
+                                            <td style="width: 3%" class="NewBox">
                                                 <asp:TextBox ValidationGroup="search" ID="txtTransNo" runat="server" MaxLength="8"
-                                                    CssClass="cssTextBox" Width="92%"></asp:TextBox>
+                                                    CssClass="cssTextBox" Width="75%"></asp:TextBox>
                                                 <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender10" runat="server" TargetControlID="txtTransNo"
                                                     FilterType="Numbers" />
                                             </td>
-                                            <td style="width: 22%; text-align: left">
+                                            <td style="width: 15%; text-align: left">
                                                 <asp:Button ID="btnSearch" runat="server" Text="" CssClass="ButtonSearch6" EnableTheming="false" OnClick="btnSearch_Click" />
+                                            </td>
+                                            <td style="width: 15%" class="tblLeftNoPad">
+                                                <asp:Button ID="BtnClearFilter" runat="server" OnClick="BtnClearFilter_Click" EnableTheming="false" Text="" CssClass="ClearFilter6" />
                                             </td>
                                         </tr>
                                     </table>

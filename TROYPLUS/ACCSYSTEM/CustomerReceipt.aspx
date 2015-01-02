@@ -398,14 +398,14 @@
                                                             <tr>
                                                                 <td style="width: 25%;">
                                                                 </td>
-                                                                <td>
-                                                                    <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                                                        SkinID="skinBtnCancel" Text="Cancel" OnClick="UpdateCancelButton_Click"></asp:Button>
-                                                                </td>
-                                                                <td>
+                                                                <td>                                                                  
                                                                     <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update"
                                                                         SkinID="skinBtnSave" OnClientClick="javascript:EditMobile_Validator();ConfirmSMS();"
                                                                         Text="Update" OnClick="UpdateButton_Click"></asp:Button>
+                                                                </td>
+                                                                <td>
+                                                                      <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                        SkinID="skinBtnCancel" Text="Cancel" OnClick="UpdateCancelButton_Click"></asp:Button>
                                                                 </td>
                                                                 <td style="width: 25%;">
                                                                 </td>
@@ -611,16 +611,16 @@
                                                                                             <td align="left" style="width: 25%" colspan="2">
                                                                                                 <table cellspacing="0">
                                                                                                     <tr style="width:100%">
+                                                                                                        <td style="height: 26px">                                                                                                           
+                                                                                                             <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert"
+                                                                                                                SkinID="skinBtnSave" OnClientClick="javascript:AddMobile_Validator();ConfirmSMS();"
+                                                                                                                Text="Save" OnClick="InsertButton_Click"></asp:Button>
+                                                                                                        </td>
+                                                                                                        <td style="height: 26px">
+                                                                                                        </td>
                                                                                                         <td style="height: 26px">
                                                                                                             <asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
                                                                                                                 SkinID="skinBtnCancel" Text="Cancel" OnClick="InsertCancelButton_Click"></asp:Button>
-                                                                                                        </td>
-                                                                                                        <td style="height: 26px">
-                                                                                                        </td>
-                                                                                                        <td style="height: 26px">
-                                                                                                            <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert"
-                                                                                                                SkinID="skinBtnSave" OnClientClick="javascript:AddMobile_Validator();ConfirmSMS();"
-                                                                                                                Text="Save" OnClick="InsertButton_Click"></asp:Button>
                                                                                                         </td>
                                                                                                     </tr>
                                                                                                 </table>

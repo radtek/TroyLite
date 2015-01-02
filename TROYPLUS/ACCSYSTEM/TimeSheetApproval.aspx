@@ -84,30 +84,30 @@
                                 </tr>
                             </table>--%>
                                 <div class="mainConBody">
-                                    <table style="width: 100%; margin: -1px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
+                                    <table style="width: 99.8%; margin: -1px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
                                         <tr style=" vertical-align: middle">
                                             
-                                            <td style="width: 25%; font-size: 20px; color: #000000;" >
-                                                Resource Timesheet Approvals
+                                            <td style="width: 55%; font-size: 15px; color: white;" >
+                                                Timesheet Approvals
                                             </td>
-                                            <td style="width: 10%">
+                                            <td style="width: 1%">
                                                 <div style="text-align: right;">
                                                     <asp:Panel ID="Panel2" runat="server">
                                                         <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
-                                                            EnableTheming="false" Width="80px" Text=""></asp:Button>
+                                                            EnableTheming="false" Width="50px" Text=""></asp:Button>
                                                     </asp:Panel>
                                                 </div>
                                             </td>
-                                            <td style="width: 4% ;color: #000080;" align="right">
+                                            <td style="width: 19% ;color: white;" align="right">
                                                 Emp No.
                                             </td>
-                                            <td style="width: 15%" class="Box1">
+                                            <td style="width: 5%" class="NewBox">
                                                 <asp:TextBox ID="txtSEmpno" runat="server" SkinID="skinTxtBoxSearch"></asp:TextBox>
                                             </td>
-                                            <td style="width: 4%; color: #000080;" align="right">
+                                            <td style="width: 25%; color: white;" align="right">
                                                 Date Of TSE
                                             </td>
-                                            <td style="width: 15%" class="Box1">
+                                            <td style="width: 5%" class="NewBox">
                                                 <asp:TextBox ID="txtSDate" runat="server" SkinID="skinTxtBoxSearch" MaxLength="10" />
                                                 <%--<script type="text/javascript" language="JavaScript">
                                                     new tcal({ 'formname': 'aspnetForm', 'controlname': 'ctl00_cplhControlPanel_AccordionPane1_content_txtSDate' });
@@ -129,6 +129,9 @@
                                                     <asp:ListItem Value="YES">Yes</asp:ListItem>
                                                 </asp:DropDownList>
                                             </td>
+                                             <td style="width: 10%" class="tblLeftNoPad">
+                                            <asp:Button ID="BtnClearFilter" runat="server"  OnClick="BtnClearFilter_Click"  EnableTheming="false" Text="" CssClass="ClearFilter6" />
+                                        </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -187,10 +190,10 @@
                                                                                                             ValueToCompare="0" Operator="GreaterThan" Text="*" ValidationGroup="Save"></asp:CompareValidator>
                                                                                                 </td>
                                                                                                 <td style="width: 30%" class="ControlDrpBorder">
-                                                                                                    <asp:DropDownList ID="drpIncharge" TabIndex="4" Enabled="True" AppendDataBoundItems="true" CssClass="drpDownListMedium" BackColor = "#90c9fc"
-                                                                                                        runat="server" Width="100%" DataTextField="empFirstName" style="border: 1px solid #90c9fc" height="26px"
+                                                                                                    <asp:DropDownList ID="drpIncharge" TabIndex="4" Enabled="True" AppendDataBoundItems="true" CssClass="drpDownListMedium"  BackColor = "#e7e7e7"
+                                                                                                        runat="server" Width="100%" DataTextField="empFirstName" style="border: 1px solid #e7e7e7" height="26px"
                                                                                                         DataValueField="empno">
-                                                                                                        <asp:ListItem Text="Select Executive" style="background-color: #90c9fc" Value="0"></asp:ListItem>
+                                                                                                        <asp:ListItem Text="Select Executive" style="background-color: #e7e7e7" Value="0"></asp:ListItem>
                                                                                                     </asp:DropDownList>
                                                                                                 </td>
                                                                                                 <td style="width: 15%" class="ControlLabel">
@@ -215,14 +218,14 @@
                                                                                                     Before 8
                                                                                                 </td>
                                                                                                 <td style="width: 25%" class="ControlTextBox66">
-                                                                                                    <asp:TextBox ID="txtBefore8" runat="server" Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#90c9fc"
+                                                                                                    <asp:TextBox ID="txtBefore8" runat="server" Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#e7e7e7"
                                                                                                         TextMode="MultiLine"></asp:TextBox>
                                                                                                 </td>
                                                                                                 <td style="width: 15%" class="ControlLabel">
                                                                                                     8 To 9
                                                                                                 </td>
                                                                                                 <td style="width: 25%" class="ControlTextBox66">
-                                                                                                    <asp:TextBox ID="txt8to9" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#90c9fc"
+                                                                                                    <asp:TextBox ID="txt8to9" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#e7e7e7"
                                                                                                         TextMode="MultiLine"></asp:TextBox>
                                                                                                 </td>
                                                                                                 <td style="width:10%">
@@ -233,14 +236,14 @@
                                                                                                     9 To 10
                                                                                                 </td>
                                                                                                 <td style="width: 25%" class="ControlTextBox66">
-                                                                                                    <asp:TextBox ID="txt9to10" runat="server"  Width="98%" style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#90c9fc"
+                                                                                                    <asp:TextBox ID="txt9to10" runat="server"  Width="98%" style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#e7e7e7"
                                                                                                         TextMode="MultiLine"> </asp:TextBox>
                                                                                                 </td>
                                                                                                 <td class="ControlLabel" style="width: 15%">
                                                                                                     10 To 11
                                                                                                 </td>
                                                                                                 <td style="width: 25%" class="ControlTextBox66">
-                                                                                                    <asp:TextBox ID="txt10to11" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#90c9fc"
+                                                                                                    <asp:TextBox ID="txt10to11" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#e7e7e7"
                                                                                                         TextMode="MultiLine"> </asp:TextBox>
                                                                                                 </td>
                                                                                                 <td style="width:10%">
@@ -252,14 +255,14 @@
                                                                                                     11 To 12
                                                                                                 </td>
                                                                                                 <td style="width: 25%" class="ControlTextBox66">
-                                                                                                    <asp:TextBox ID="txt11to12" runat="server" Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#90c9fc"
+                                                                                                    <asp:TextBox ID="txt11to12" runat="server" Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#e7e7e7"
                                                                                                         TextMode="MultiLine"> </asp:TextBox>
                                                                                                 </td>
                                                                                                 <td class="ControlLabel" style="width: 15%">
                                                                                                     12 to 1
                                                                                                 </td>
                                                                                                 <td style="width: 25%" class="ControlTextBox66">
-                                                                                                    <asp:TextBox ID="txt12to1" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#90c9fc"
+                                                                                                    <asp:TextBox ID="txt12to1" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#e7e7e7"
                                                                                                         TextMode="MultiLine"> </asp:TextBox>
                                                                                                 </td>
                                                                                                 <td style="width:10%">
@@ -271,14 +274,14 @@
                                                                                                     1 To 2
                                                                                                 </td>
                                                                                                 <td style="width: 25%" class="ControlTextBox66">
-                                                                                                    <asp:TextBox ID="txtPM1to2" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#90c9fc"
+                                                                                                    <asp:TextBox ID="txtPM1to2" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#e7e7e7"
                                                                                                         TextMode="MultiLine"> </asp:TextBox>
                                                                                                 </td>
                                                                                                 <td class="ControlLabel" style="width: 15%">
                                                                                                     2 To 3
                                                                                                 </td>
                                                                                                 <td style="width: 25%" class="ControlTextBox66">
-                                                                                                    <asp:TextBox ID="txtPM2to3" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#90c9fc"
+                                                                                                    <asp:TextBox ID="txtPM2to3" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#e7e7e7"
                                                                                                         TextMode="MultiLine"> </asp:TextBox>
                                                                                                 </td>
                                                                                                 <td style="width:10%">
@@ -290,14 +293,14 @@
                                                                                                     3 To 4
                                                                                                 </td>
                                                                                                 <td style="width: 25%" class="ControlTextBox66">
-                                                                                                    <asp:TextBox ID="txtPM3to4" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#90c9fc"
+                                                                                                    <asp:TextBox ID="txtPM3to4" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#e7e7e7"
                                                                                                         TextMode="MultiLine"> </asp:TextBox>
                                                                                                 </td>
                                                                                                 <td class="ControlLabel" style="width: 15%">
                                                                                                     4 TO 5
                                                                                                 </td>
                                                                                                 <td style="width: 25%" class="ControlTextBox66">
-                                                                                                    <asp:TextBox ID="txtPM4to5" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#90c9fc"
+                                                                                                    <asp:TextBox ID="txtPM4to5" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#e7e7e7"
                                                                                                         TextMode="MultiLine"> </asp:TextBox>
                                                                                                 </td>
                                                                                                 <td style="width:10%">
@@ -309,14 +312,14 @@
                                                                                                     5 TO 6
                                                                                                 </td>
                                                                                                 <td style="width: 25%" class="ControlTextBox66">
-                                                                                                    <asp:TextBox ID="txtPM5to6" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#90c9fc"
+                                                                                                    <asp:TextBox ID="txtPM5to6" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#e7e7e7"
                                                                                                         TextMode="MultiLine"> </asp:TextBox>
                                                                                                 </td>
                                                                                                 <td class="ControlLabel" style="width: 15%">
                                                                                                     6 To 7
                                                                                                 </td>
                                                                                                 <td style="width: 25%" class="ControlTextBox66">
-                                                                                                    <asp:TextBox ID="txtPM6to7" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#90c9fc"
+                                                                                                    <asp:TextBox ID="txtPM6to7" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#e7e7e7"
                                                                                                         TextMode="MultiLine"> </asp:TextBox>
                                                                                                 </td>
                                                                                                 <td style="width:10%">
@@ -328,14 +331,14 @@
                                                                                                     7 To 8
                                                                                                 </td>
                                                                                                 <td style="width: 25%" class="ControlTextBox66">
-                                                                                                    <asp:TextBox ID="txtPM7to8" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#90c9fc"
+                                                                                                    <asp:TextBox ID="txtPM7to8" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#e7e7e7"
                                                                                                         TextMode="MultiLine"> </asp:TextBox>
                                                                                                 </td>
                                                                                                 <td class="ControlLabel" style="width: 15%">
                                                                                                     8 To 9
                                                                                                 </td>
                                                                                                 <td style="width: 25%" class="ControlTextBox66">
-                                                                                                    <asp:TextBox ID="txtPM8to9" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#90c9fc"
+                                                                                                    <asp:TextBox ID="txtPM8to9" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#e7e7e7"
                                                                                                         TextMode="MultiLine"> </asp:TextBox>
                                                                                                 </td>
                                                                                                 <td style="width:10%">
@@ -346,14 +349,14 @@
                                                                                                     9 To 10
                                                                                                 </td>
                                                                                                 <td style="width: 25%" class="ControlTextBox66">
-                                                                                                    <asp:TextBox ID="txtPM9to10" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#90c9fc"
+                                                                                                    <asp:TextBox ID="txtPM9to10" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#e7e7e7"
                                                                                                         TextMode="MultiLine"> </asp:TextBox>
                                                                                                 </td>
                                                                                                 <td class="ControlLabel" style="width: 15%">
                                                                                                     After 10
                                                                                                 </td>
                                                                                                 <td style="width: 25%" class="ControlTextBox66">
-                                                                                                    <asp:TextBox ID="txtPMafter10" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#90c9fc"
+                                                                                                    <asp:TextBox ID="txtPMafter10" runat="server"  Width="98%"  style="height:41px;overflow: hidden;padding: 0px;font-family: 'Trebuchet MS'; font-size: 13px; background-color:#e7e7e7"
                                                                                                         TextMode="MultiLine"> </asp:TextBox>
                                                                                                 </td>
                                                                                                 <td style="width:10%">
@@ -365,7 +368,7 @@
                                                                                                     Approved
                                                                                                 </td>
                                                                                                 <td style="width: 25%" class="ControlDrpBorder">
-                                                                                                    <asp:DropDownList ID="drpapproved" runat="server" width="100%"  CssClass="drpDownListMedium" BackColor = "#90c9fc" AppendDataBoundItems="True" style="border: 1px solid #90c9fc" height="26px">
+                                                                                                    <asp:DropDownList ID="drpapproved" runat="server" width="100%"  CssClass="drpDownListMedium" BackColor = "#e7e7e7" AppendDataBoundItems="True" style="border: 1px solid #e7e7e7" height="26px">
                                                                                                         <asp:ListItem Value="NO">No</asp:ListItem>
                                                                                                         <asp:ListItem Value="YES">Yes</asp:ListItem>
                                                                                                     </asp:DropDownList>
@@ -388,15 +391,15 @@
                                                                                 <tr>
                                                                                     <td style="width: 25%;">
                                                                                     </td>
-                                                                                    <td align="right" style="width: 25%;">
-                                                                                        <asp:Button ID="btnCancel" runat="server" CssClass="cancelbutton6" EnableTheming="false"
-                                                                                            SkinID="skinBtnCancel" OnClick="btnCancel_Click" Enabled="false" />
-                                                                                    </td>
-                                                                                    <td align="left" style="width: 25%;">
-                                                                                        <asp:Button ID="btnSave" ValidationGroup="Save" runat="server" CssClass="savebutton1231"
+                                                                                    <td align="right" style="width: 25%;">                                                                                       
+                                                                                         <asp:Button ID="btnSave" ValidationGroup="Save" runat="server" CssClass="savebutton1231"
                                                                                             EnableTheming="false" SkinID="skinBtnSave" OnClick="btnSave_Click" />
                                                                                         <asp:Button ID="btnUpdate" runat="server" ValidationGroup="Save" CssClass="Updatebutton1231"
                                                                                             EnableTheming="false" SkinID="skinBtnSave" OnClick="btnUpdate_Click" Enabled="false" />
+                                                                                    </td>
+                                                                                    <td align="left" style="width: 25%;">
+                                                                                        <asp:Button ID="btnCancel" runat="server" CssClass="cancelbutton6" EnableTheming="false"
+                                                                                            SkinID="skinBtnCancel" OnClick="btnCancel_Click" Enabled="false" />
                                                                                     </td>
                                                                                     <td style="width: 25%;">
                                                                                     </td>

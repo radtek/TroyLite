@@ -992,6 +992,10 @@ public class LeadBusinessLogic : BaseLogic
             {
                 dbQry = dbQry + " AND Branch like '%" + txtSearch + "%'";
             }
+            else if (dropDown == "All" || dropDown=="0")
+            {
+                
+            }
         }
 
         dbQry = dbQry + " Order By Lead_No, Start_Date Desc";

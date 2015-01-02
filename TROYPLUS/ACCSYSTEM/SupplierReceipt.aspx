@@ -174,10 +174,10 @@
                                     <tr style="height: 25px; vertical-align: middle">
                                         <td style="width: 2%">
                                             </td>
-                                            <td style="width: 23%; font-size: 22px; color: White;" >
+                                            <td style="width: 30%; font-size: 22px; color: White;" >
                                                 Suppliers Receipts
                                             </td>
-                                        <td style="width: 15%">
+                                        <td style="width: 10%">
                                             <div style="text-align: right;">
                                                 <asp:Panel ID="pnlSearch" runat="server" Width="100px">
                                                     <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
@@ -190,10 +190,10 @@
                                             <asp:RequiredFieldValidator ID="rvSearch" runat="server" ControlToValidate="txtSearch"
                                                 Display="Dynamic" EnableClientScript="False" Enabled="false">Search is mandatory</asp:RequiredFieldValidator>
                                         </td>
-                                        <td style="width: 20%" class="NewBox">
+                                        <td style="width: 18%" class="NewBox">
                                             <asp:TextBox ID="txtSearch" runat="server" SkinID="skinTxtBoxSearch"></asp:TextBox>
                                         </td>
-                                        <td style="width: 20%" class="NewBox">
+                                        <td style="width: 18%" class="NewBox">
                                             <div style="width: 160px; font-family: 'Trebuchet MS';">
                                                 <asp:DropDownList ID="ddCriteria" runat="server" Width="154px" Height="23px" BackColor="White"  style="text-align:center;border:1px solid White ">
                                                     <asp:ListItem Value="TransNo">Trans. No.</asp:ListItem>
@@ -204,9 +204,12 @@
                                                 </asp:DropDownList>
                                             </div>
                                         </td>
-                                        <td style="width: 22%; text-align: left">
+                                        <td style="width: 21%; text-align: left">
                                             <asp:Button ID="btnSearch" runat="server" Text="" OnClick="btnSearch_Click"
                                                  CssClass="ButtonSearch6" EnableTheming="false" ForeColor="White" />
+                                        </td>
+                                        <td style="width: 20%" class="tblLeftNoPad">
+                                            <asp:Button ID="BtnClearFilter" runat="server"  OnClick="BtnClearFilter_Click"  EnableTheming="false" Text="" CssClass="ClearFilter6" />
                                         </td>
                                     </tr>
                                 </table>
@@ -405,15 +408,15 @@
                                                                         <tr>
                                                                             <td align="right" style="width: 36%;">
                                                                             </td>
+                                                                            <td align="right" style="width: 17%;">                                                                                
+                                                                                <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update"
+                                                                                    CssClass="Updatebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClientClick="javascript:EditMobile_Validator();ConfirmSMS();"
+                                                                                    OnClick="UpdateButton_Click"></asp:Button>
+                                                                            </td>
                                                                             <td align="right" style="width: 17%;">
                                                                                 <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
                                                                                     CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
                                                                                 </asp:Button>
-                                                                            </td>
-                                                                            <td align="right" style="width: 17%;">
-                                                                                <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update"
-                                                                                    CssClass="Updatebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClientClick="javascript:EditMobile_Validator();ConfirmSMS();"
-                                                                                    OnClick="UpdateButton_Click"></asp:Button>
                                                                             </td>
                                                                             <td align="right" style="width: 30%;">
                                                                             </td>
@@ -622,15 +625,15 @@
                                                                         <tr>
                                                                             <td style="width: 36%;">
                                                                             </td>
-                                                                            <td align="right" style="width: 17%;">
-                                                                                <asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="InsertCancelButton_Click">
-                                                                                </asp:Button>
-                                                                            </td>
-                                                                            <td align="right" style="width: 17%;">
+                                                                            <td align="right" style="width: 17%;">                                                                               
                                                                                 <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert"
                                                                                     CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClientClick="javascript:AddMobile_Validator();ConfirmSMS();"
                                                                                     OnClick="InsertButton_Click"></asp:Button>
+                                                                            </td>
+                                                                            <td align="right" style="width: 17%;">
+                                                                                 <asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="InsertCancelButton_Click">
+                                                                                </asp:Button>
                                                                             </td>
                                                                             <td style="width: 30%;">
                                                                             </td>
@@ -678,12 +681,12 @@
                 </tr>
                 <tr style="width: 100%">
                     <td style="width: 100%">
-                        <table width="100%" style="margin: -6px 0px 0px 0px;">
+                        <table width="100%" style="margin: -3px 0px 0px 0px;">
                                 <tr style="width: 100%">
                                     <td>
                         <div class="mainGridHold" id="searchGrid">
                             <asp:GridView ID="GrdViewReceipt" runat="server" AllowSorting="false" AutoGenerateColumns="False"
-                                OnRowCreated="GrdViewReceipt_RowCreated" Width="100.3%" DataSourceID="GridSource"
+                                OnRowCreated="GrdViewReceipt_RowCreated" Width="100.4%" DataSourceID="GridSource"
                                 AllowPaging="True" DataKeyNames="TransNo" EmptyDataText="No Supplier Receipts found!"
                                 OnRowCommand="GrdViewReceipt_RowCommand" OnRowDataBound="GrdViewReceipt_RowDataBound"
                                 OnSelectedIndexChanged="GrdViewReceipt_SelectedIndexChanged" OnRowDeleting="GrdViewReceipt_RowDeleting"

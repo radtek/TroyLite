@@ -109,7 +109,7 @@
                             </table>--%>
                     <div class="mainConBody">
                         <div style="text-align: left">
-                            <table style="width: 100.3%; margin: -3px 0px 0px 2px;" cellpadding="3" cellspacing="2" class="searchbg">
+                            <table style="width: 99.8%; margin: -2px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
                                 <tr >
                                     <td style="width: 4%;">
                                         
@@ -149,8 +149,11 @@
                                     </td>
                                     <td style="width: 20%" class="tblLeftNoPad">
                                         <asp:Button ID="btnSearch" runat="server" Text="" OnClick="btnSearch_Click"
-                                            CssClass="NewSearchButton" EnableTheming="false" />
+                                            CssClass="ButtonSearch6" EnableTheming="false" />
                                     </td>
+                                    <td style="width: 16%" class="tblLeftNoPad">
+                                            <asp:Button ID="BtnClearFilter" runat="server" OnClick="BtnClearFilter_Click" EnableTheming="false" Text="" CssClass="ClearFilter6" />
+                                        </td>
                                 </tr>
                                 <tr style="display: none">
                                     <td>
@@ -295,6 +298,8 @@
                                                                                             CausesValidation="false" Width="20px" runat="server" TabIndex="9" />
                                                                                     </td>
                                                                                 </tr>    
+                                                                            <tr style="height: 2px">
+                                                                                    </tr>
                                                                             <tr>
                                                                                     <td style="width: 20%" class="ControlLabel">
                                                                                         <asp:RequiredFieldValidator ValidationGroup="Save" ID="RequiredFieldValidator11" runat="server"
@@ -324,6 +329,8 @@
                                                                                             Width="20px" runat="server" TabIndex="3" Visible="false"/>
                                                                                     </td>
                                                                                 </tr> 
+                                                                            <tr style="height: 2px">
+                                                                                    </tr>
                                                                             <tr>
                                                                                      <td style="width: 20%" class="ControlLabel">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator13" InitialValue="0" Text="*"
@@ -333,7 +340,7 @@
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlDrpBorder">
                                                                                         <asp:DropDownList ID="drpTaskStatus" TabIndex="5" Enabled="True" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
-                                                                                            runat="server" Width="100%" DataTextField="Task_Status_Name" backcolor = "#90c9fc" style="border: 1px solid #90c9fc" height="26px"
+                                                                                            runat="server" Width="100%" DataTextField="Task_Status_Name" backcolor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px"
                                                                                             DataValueField="Task_Status_Id" >
                                                                                             <asp:ListItem Text="Select Task Status" Value="0"></asp:ListItem>
                                                                                         </asp:DropDownList>
@@ -351,7 +358,7 @@
                                                                                         <asp:UpdatePanel ID="UpdatePanel15" runat="server" UpdateMode="Conditional">
                                                                                             <ContentTemplate>
                                                                                                 <asp:DropDownList ID="drpBlockedflag" TabIndex="6" Enabled="True" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
-                                                                                                    runat="server" Width="100%" backcolor = "#90c9fc" style="border: 1px solid #90c9fc" height="26px" OnSelectedIndexChanged="drpBlockedflag_SelectedIndexChanged" AutoPostBack="True"
+                                                                                                    runat="server" Width="100%" backcolor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px" OnSelectedIndexChanged="drpBlockedflag_SelectedIndexChanged" AutoPostBack="True"
                                                                                                     >
                                                                                                     <asp:ListItem Text="No" Value="N"></asp:ListItem>
                                                                                                     <asp:ListItem Text="Yes" Value="Y"></asp:ListItem>
@@ -360,6 +367,8 @@
                                                                                         </asp:UpdatePanel>
                                                                                     </td>
                                                                                 </tr>
+                                                                            <tr style="height: 2px">
+                                                                                    </tr>
                                                                             <tr>
                                                                                     <td style="width: 20%" class="ControlLabel">
                                                                                         Blocking Reason
@@ -383,7 +392,8 @@
                                                                                             TabIndex="8" />
                                                                                     </td>
                                                                                 </tr>   
-                                                                            
+                                                                            <tr style="height: 2px">
+                                                                                    </tr>
                                                                             <tr>
                                                                                      <td style="width: 20%" class="ControlLabel">
                                                                                         Task Date
@@ -401,6 +411,8 @@
                                                                                         
                                                                                     </td>
                                                                                 </tr> 
+                                                                            <tr style="height: 2px">
+                                                                                    </tr>
                                                                         </table>
                                                                     </ContentTemplate>
                                                                 </cc1:TabPanel>
@@ -436,9 +448,8 @@
                                                                                             Width="20px" runat="server" TabIndex="3" Visible="false"/>
                                                                                     </td>
                                                                                 </tr>
-                                                                             <tr>
-
-                                                                             </tr>
+                                                                             <tr style="height: 2px">
+                                                                                    </tr>
                                                                                 <tr>
                                                                                     <td style="width: 20%" class="ControlLabel">
                                                                                         <asp:RequiredFieldValidator ValidationGroup="Save" ID="RequiredFieldValidator8" runat="server"
@@ -459,16 +470,15 @@
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlDrpBorder">
                                                                                         <asp:DropDownList ID="drpIsActive" TabIndex="5"  Enabled="false" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
-                                                                                            runat="server" Width="100%" backcolor = "#90c9fc" style="border: 1px solid #90c9fc" height="26px"
+                                                                                            runat="server" Width="100%" backcolor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px"
                                                                                             >
                                                                                             <asp:ListItem Text="Yes" Value="Y"></asp:ListItem>
                                                                                             <asp:ListItem Text="No" Value="N"></asp:ListItem>
                                                                                         </asp:DropDownList>
                                                                                     </td>
                                                                                 </tr> 
-                                                                             <tr>
-
-                                                                             </tr>
+                                                                            <tr style="height: 2px">
+                                                                                    </tr>
                                                                                 <tr>
                                                                                      <td style="width: 20%" class="ControlLabel">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator6" InitialValue="0" Text="*"
@@ -478,7 +488,7 @@
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlDrpBorder">
                                                                                         <asp:DropDownList ID="drpProjectCode" TabIndex="5" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
-                                                                                            runat="server" Width="100%" DataTextField="Project_Name" backcolor = "#90c9fc" style="border: 1px solid #90c9fc" height="26px" Enabled="false"
+                                                                                            runat="server" Width="100%" DataTextField="Project_Name" backcolor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px" Enabled="false"
                                                                                             DataValueField="Project_Id" >
                                                                                             <asp:ListItem Text="Select Project Name" Value="0"></asp:ListItem>
                                                                                         </asp:DropDownList>
@@ -494,16 +504,15 @@
                                                                                     </td>
                                                                                     <td style="width: 25%;" class="ControlDrpBorder">
                                                                                         <asp:DropDownList ID="drpIncharge" TabIndex="5"  EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
-                                                                                            runat="server" Width="100%" DataTextField="empFirstName" backcolor = "#90c9fc" style="border: 1px solid #90c9fc" height="26px" Enabled="false"
+                                                                                            runat="server" Width="100%" DataTextField="empFirstName" backcolor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px" Enabled="false"
                                                                                             DataValueField="empno" >
                                                                                             <asp:ListItem Text="Select Owner" Value="0"></asp:ListItem>
                                                                                         </asp:DropDownList>
                                                                                     </td>
                                                                                     
                                                                                 </tr>
-                                                                             <tr>
-
-                                                                             </tr>
+                                                                             <tr style="height: 2px">
+                                                                                    </tr>
                                                                              <tr>
                                                                                      <td style="width: 20%" class="ControlLabel">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator7" InitialValue="0" Text="*"
@@ -513,7 +522,7 @@
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlDrpBorder">
                                                                                         <asp:DropDownList ID="drpTaskType" TabIndex="5" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
-                                                                                            runat="server" Width="100%" DataTextField="Task_Type_Name" backcolor = "#90c9fc" style="border: 1px solid #90c9fc" height="26px" Enabled="false"
+                                                                                            runat="server" Width="100%" DataTextField="Task_Type_Name" backcolor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px" Enabled="false"
                                                                                             DataValueField="Task_Type_Id" >
                                                                                             <asp:ListItem Text="Select Task Type" Value="0"></asp:ListItem>
                                                                                         </asp:DropDownList>
@@ -529,16 +538,15 @@
                                                                                     </td>
                                                                                     <td style="width: 25%;" class="ControlDrpBorder">
                                                                                         <asp:DropDownList ID="drpDependencyTask" TabIndex="5"  EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
-                                                                                            runat="server" Width="100%" DataTextField="TaskId" backcolor = "#90c9fc" style="border: 1px solid #90c9fc" height="26px" Enabled="false"
+                                                                                            runat="server" Width="100%" DataTextField="TaskId" backcolor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px" Enabled="false"
                                                                                             DataValueField="Task_Id" >
                                                                                             <asp:ListItem Text="Select Dependency Task" Value="0"></asp:ListItem>
                                                                                         </asp:DropDownList>
                                                                                     </td>
                                                                                     
                                                                                 </tr>
-                                                                             <tr>
-
-                                                                             </tr>
+                                                                            <tr style="height: 2px">
+                                                                                    </tr>
                                                                                 <tr>
                                                                                     <td class="ControlLabel" style="width: 20%">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" Text="*" runat="server"
@@ -577,7 +585,8 @@
                                                                                             CausesValidation="false" Width="20px" runat="server" TabIndex="9"  Visible="false"/>
                                                                                     </td>
                                                                                 </tr>     
-                                                                                
+                                                                                <tr style="height: 2px">
+                                                                                    </tr>
                                                                                 <tr>
                                                                                     <td colspan="5">
                                                                                         <table style="width: 100%">
@@ -587,14 +596,15 @@
                                                                                                 </td>
                                                                                                 <td style="width: 82%" class="ControlTextBox66">
                                                                                                     <asp:TextBox ID="txtTaskDesc" runat="server" SkinID="skinTxtBoxGrid" TabIndex="12"
-                                                                                                         style="overflow: hidden; font-family: 'Trebuchet MS'; font-size: 13px; background-color:#90c9fc" Enabled="false"  height="100px" TextMode="MultiLine"/>
+                                                                                                         style="overflow: hidden; font-family: 'Trebuchet MS'; font-size: 13px; background-color:#e7e7e7" Enabled="false"  height="100px" TextMode="MultiLine"/>
                                                                                                 </td>
                                                                                             </tr>
                                                                                         </table>
                                                                                     </td>
                                                                                     
                                                                                 </tr>    
-                                                                                                  
+                                                                                   <tr style="height: 2px">
+                                                                                    </tr>               
                                                                             </table>                                                                                                                                              
                                                                     </ContentTemplate>
                                                                 </cc1:TabPanel>
@@ -667,15 +677,15 @@
                                                                         <td style="width: 25%;">
 
                                                                         </td>
-                                                                        <td style="width: 25%;" align="right">
-                                                                            <asp:Button ID="btnCancel" runat="server" CssClass="cancelbutton6" EnableTheming="false"
-                                                                                SkinID="skinBtnCancel" OnClick="btnCancel_Click" Enabled="false" />
-                                                                        </td>
-                                                                        <td style="width: 25%;" align="left">
+                                                                        <td style="width: 25%;" align="right">                                                                            
                                                                             <asp:Button ID="btnSave" ValidationGroup="Save" runat="server" CssClass="savebutton1231"
                                                                                 EnableTheming="false" SkinID="skinBtnSave" OnClick="btnSave_Click" />
                                                                             <asp:Button ID="btnUpdate" runat="server" ValidationGroup="Save" CssClass="Updatebutton1231"
                                                                                 EnableTheming="false" SkinID="skinBtnSave" OnClick="btnUpdate_Click" Enabled="false" />
+                                                                        </td>
+                                                                        <td style="width: 25%;" align="left">
+                                                                            <asp:Button ID="btnCancel" runat="server" CssClass="cancelbutton6" EnableTheming="false"
+                                                                                SkinID="skinBtnCancel" OnClick="btnCancel_Click" Enabled="false" />
                                                                         </td>
                                                                         <td style="width: 25%;">
 
@@ -697,12 +707,12 @@
                         </div>
                     </asp:Panel>
                 </div>
-                <table width="100%" style="margin: -5px 0px 0px 0px;">
+                <table width="100%" style="margin: -2px 0px 0px 0px;">
                                 <tr style="width: 100%">
                                     <td>
-                                        <div style="margin: -2px 0px 0px 0px;">
+                                        <div style="margin: -1px 0px 0px 0px;">
                 <asp:GridView ID="GrdWME" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                    HeaderStyle-HorizontalAlign="Center" RowStyle-HorizontalAlign="Center" Width="100.8%" CssClass="someClass"
+                    HeaderStyle-HorizontalAlign="Center" RowStyle-HorizontalAlign="Center" Width="100%" CssClass="someClass"
                     AllowPaging="True" OnPageIndexChanging="GrdWME_PageIndexChanging" OnRowCreated="GrdWME_RowCreated"
                     DataKeyNames="Task_Id" EmptyDataText="No Task Details found." OnSelectedIndexChanged="GrdWME_SelectedIndexChanged"
                     >
@@ -786,7 +796,7 @@
                         
                                 </td>
                                 <td style="width:15%">
-                                    <asp:Button ID="cmdhistory" runat="server" Text="" EnableTheming="false" CausesValidation="False" cssclass="ShowHistory"  OnClientClick="window.open('ReportExcelTaskUpdatesHistory.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=310,width=500,left=425,top=220, scrollbars=yes');"/>    
+                                  <%--  <asp:Button ID="cmdhistory" runat="server" Text="" EnableTheming="false" CausesValidation="False" cssclass="ShowHistory"  OnClientClick="window.open('ReportExcelTaskUpdatesHistory.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=310,width=500,left=425,top=220, scrollbars=yes');"/>    --%>
                                 </td>
                                 <td  style="width: 15%">
                                     <asp:Button ID="btnExportToExcel" runat="server" CssClass="exportexl6" OnClientClick="window.open('ReportExcelTaskUpdates.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=310,width=500,left=425,top=220, scrollbars=yes');"

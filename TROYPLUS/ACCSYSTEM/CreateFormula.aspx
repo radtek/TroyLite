@@ -80,11 +80,11 @@
                                 </tr>
                             </table>--%>
                             <div class="mainConBody">
-                                <table style="width: 100.3%;margin: -3px 0px 0px 2px;" cellpadding="3" cellspacing="2" class="searchbg">
+                                <table style="width: 99.8%;margin: -1px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
                                     <tr style=" vertical-align: middle">
                                        
-                                        <td style="width: 52%; font-size: 22px; color: #000000;" >
-                                            Inventory Manufacturing / Transfer Definitions
+                                        <td style="width: 52%; font-size: 22px; color: white;" >
+                                            Manufacturing Definition
                                         </td>
                                         <td style="width: 13%">
                                             <div style="text-align: right;">
@@ -94,16 +94,19 @@
                                                 </asp:Panel>
                                             </div>
                                         </td>
-                                        <td style="width: 7%; color: #000000;" align="right">
+                                        <td style="width: 7%; color: white;" align="right">
                                             Search
                                         </td>
-                                        <td style="width: 18%" class="Box1">
+                                        <td style="width: 18%" class="NewBox">
                                             <asp:TextBox ID="txtSearch" runat="server" SkinID="skinTxtBoxSearch"></asp:TextBox>
                                         </td>
                                         <td style="width: 18%" class="tblLeft">
                                             <asp:Button ValidationGroup="search" ID="btnSearch" OnClick="btnSearch_Click" runat="server"
                                                 Text="" EnableTheming="false" CssClass="ButtonSearch6" />
                                         </td>
+                                         <td style="width: 16%" class="tblLeftNoPad">
+                                        <asp:Button ID="BtnClearFilter" runat="server" OnClick="BtnClearFilter_Click" EnableTheming="false" Text="" CssClass="ClearFilter6" />
+                                    </td>
                                         <%--<td style="width: 25%" class="tblLeftNoPad">--%>
                                             <%--<asp:RequiredFieldValidator ValidationGroup="search" ID="rqSearchBill" runat="server"
                                                 Text="Search Box is Empty" ControlToValidate="txtSearch"></asp:RequiredFieldValidator>--%>
@@ -352,15 +355,15 @@
                                                                                     <tr style="width: 100%">
                                                                                         <td style="width:25%">
                                                                                         </td>
-                                                                                        <td style="width:25%" align="right">
-                                                                                            <asp:Button ID="cmdCancel" runat="server" CssClass="cancelbutton6" EnableTheming="false"
-                                                                                                OnClick="cmdCancel_Click" SkinID="skinBtnCancel" />
-                                                                                        </td>
-                                                                                        <td style="width:25%">
-                                                                                            <asp:Button ID="cmdSave" runat="server" ValidationGroup="salesval" CssClass="savebutton1231"
+                                                                                        <td style="width:25%" align="right">                                                                                           
+                                                                                             <asp:Button ID="cmdSave" runat="server" ValidationGroup="salesval" CssClass="savebutton1231"
                                                                                                 EnableTheming="false" OnClick="cmdSave_Click" SkinID="skinBtnSave" />
                                                                                             <asp:Button ID="cmdUpdate" runat="server" ValidationGroup="salesval" CssClass="Updatebutton1231"
                                                                                                 EnableTheming="false" OnClick="cmdUpdate_Click" SkinID="skinBtnSave" />
+                                                                                        </td>
+                                                                                        <td style="width:25%">
+                                                                                            <asp:Button ID="cmdCancel" runat="server" CssClass="cancelbutton6" EnableTheming="false"
+                                                                                                OnClick="cmdCancel_Click" SkinID="skinBtnCancel" />
                                                                                         </td>
                                                                                         <td style="width:25%">
                                                                                         </td>
@@ -380,12 +383,12 @@
                                 </asp:UpdatePanel>
                             </asp:Panel>
                             <asp:Panel ID="PanelBill" runat="server">
-                            <table width="100%" style="margin: -2px 0px 0px 0px;">
+                            <table width="100%" style="margin: -4px 0px 0px 0px;">
                                 <tr style="width: 100%">
                                     <td>
                                 <div style="margin: -2px 0px 0px 0px;">
                                     <asp:GridView ID="GridViewFormula" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                                        Width="100.8%" AllowPaging="True" CssClass="someClass" DataKeyNames="FormulaName" EmptyDataText="No Stock Management Definition found."
+                                        Width="100%" AllowPaging="True" CssClass="someClass" DataKeyNames="FormulaName" EmptyDataText="No Stock Management Definition found."
                                         OnPageIndexChanging="GridViewFormula_PageIndexChanging" OnSelectedIndexChanged="GridViewFormula_SelectedIndexChanged"
                                         OnRowCreated="GridViewFormula_RowCreated" OnRowDataBound="GridViewFormula_RowDataBound">
                                         <EmptyDataRowStyle CssClass="GrdContent" />

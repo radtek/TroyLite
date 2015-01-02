@@ -328,15 +328,15 @@
                             </table>--%>
                             <div class="mainConBody">
                                 
-                                    <table cellspacing="0" cellpadding="3px" border="0" style="width: 100%; margin: -2px 0px 0px 1px;"
+                                    <table cellspacing="0" cellpadding="3px" border="0" style="width: 99.8%; margin: -2px 0px 0px 1px;"
                                         class="searchbg">
                                         <tr style="height: 25px">
                                             <td style="width: 2%">
                                             </td>
-                                            <td style="width: 23%; font-size: 22px; color: White;" >
+                                            <td style="width: 30%; font-size: 22px; color: White;" >
                                                 Suppliers Payments
                                             </td>
-                                            <td style="width: 15%">
+                                            <td style="width: 10%">
                                                 <div style="text-align: right;">
                                                     <asp:Panel ID="pnlSearch" runat="server" Width="100px">
                                                         <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
@@ -347,10 +347,10 @@
                                             <td style="width: 13%; color: White;" align="right">
                                                 Search
                                             </td>
-                                            <td style="width: 20%" class="NewBox">
+                                            <td style="width: 18%" class="NewBox">
                                                 <asp:TextBox ID="txtSearch" runat="server" CssClass="cssTextBox" Width="92%"></asp:TextBox>
                                             </td>
-                                            <td style="width: 20%" class="NewBox">
+                                            <td style="width: 18%" class="NewBox">
                                                 <div style="width: 160px; font-family: 'Trebuchet MS';">
                                                     <asp:DropDownList ID="ddCriteria" runat="server" Width="154px" BackColor="White"  Height="23px" style="text-align:center;border:1px solid White ">
                                                         <%--<asp:ListItem Value="0" style="background-color: #bce1fe">All</asp:ListItem>--%>
@@ -361,10 +361,13 @@
                                                         <asp:ListItem Value="Narration">Narration</asp:ListItem>
                                                     </asp:DropDownList>
                                             </td>
-                                            <td style="width: 22%; text-align: left">
+                                            <td style="width: 21%; text-align: left">
                                                 <asp:Button ID="btnSearch" runat="server" Text="" OnClick="btnSearch_Click"
                                                      CssClass="ButtonSearch6" EnableTheming="false" ForeColor="White"  />
                                             </td>
+                                            <td style="width: 20%" class="tblLeftNoPad">
+                                            <asp:Button ID="BtnClearFilter" runat="server"  OnClick="BtnClearFilter_Click"  EnableTheming="false" Text="" CssClass="ClearFilter6" />
+                                        </td>
                                         </tr>
                                     </table>
                                 
@@ -853,16 +856,16 @@
                                                                             <tr>
                                                                                 <td style="width: 23%">
                                                                                 </td>
-                                                                                <td style="width: 18%">
-                                                                                    <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                                                                        OnClick="UpdateCancelButton_Click" SkinID="skinBtnCancel" CssClass="cancelbutton6"
-                                                                                        EnableTheming="false"></asp:Button>
-                                                                                </td>
-                                                                                <td style="width: 18%">
+                                                                                <td style="width: 18%">                                                                                   
                                                                                     <asp:Button ID="UpdateButton" runat="server" SkinID="skinBtnSave" OnClientClick="javascript:CheckDate();CheckPendingBill();EditMobile_Validator();ConfirmSMS();"
                                                                                         OnClick="UpdateButton_Click" CssClass="Updatebutton1231" EnableTheming="false"></asp:Button>
                                                                                     <asp:Button ID="SaveButton" runat="server" SkinID="skinBtnSave" OnClientClick="javascript:CheckDate();CheckPendingBill();EditMobile_Validator();ConfirmSMS();"
                                                                                         OnClick="SaveButton_Click" CssClass="savebutton1231" EnableTheming="false"></asp:Button>
+                                                                                </td>
+                                                                                <td style="width: 18%">
+                                                                                     <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                                        OnClick="UpdateCancelButton_Click" SkinID="skinBtnCancel" CssClass="cancelbutton6"
+                                                                                        EnableTheming="false"></asp:Button>
                                                                                 </td>
                                                                                 <td style="width: 18%">
                                                                                     <input id="ShowPopUp" type="button" class="pendingbillbutton6" style="width: 110px;
@@ -922,12 +925,12 @@
                 </tr>
                 <tr style="width: 100%;  margin: -4px 0px 0px 0px;">
                     <td style="width: 100%">
-                        <table width="100%" style="margin: -6px 0px 0px 0px;">
+                        <table width="100%" style="margin: -4px 0px 0px 0px;">
                             <tr style="width: 100%">
                                 <td>
                         <div class="mainGridHold" id="searchGrid">
                             <asp:GridView ID="GrdViewPayment" runat="server" AllowSorting="false" AutoGenerateColumns="False"
-                                OnRowCreated="GrdViewPayment_RowCreated" Width="100.3%" DataSourceID="GridSource"
+                                OnRowCreated="GrdViewPayment_RowCreated" Width="100.4%" DataSourceID="GridSource"
                                 AllowPaging="True" DataKeyNames="TransNo" EmptyDataText="No Payment found!"
                                 OnRowCommand="GrdViewPayment_RowCommand" OnRowDataBound="GrdViewPayment_RowDataBound"
                                 OnSelectedIndexChanged="GrdViewPayment_SelectedIndexChanged" OnRowDeleting="GrdViewPayment_RowDeleting"

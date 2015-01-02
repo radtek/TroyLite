@@ -60,6 +60,13 @@ public partial class TaskUpdates : System.Web.UI.Page
         }
     }
 
+    protected void BtnClearFilter_Click(object sender, EventArgs e)
+    {
+        txtSearch.Text = "";
+        ddCriteria.SelectedIndex = 0;
+        BindWME("", "");
+    }
+
     private void DisableForOffline()
     {
         string dbfileName = sDataSource.Remove(0, sDataSource.LastIndexOf(@"App_Data\") + 9);

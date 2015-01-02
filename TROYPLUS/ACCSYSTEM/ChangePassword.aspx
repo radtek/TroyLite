@@ -116,13 +116,13 @@
                                     <tr>
                                         <td style="width:25%">
                                         </td>
-                                        <td style="width: 25%">
-                                            <asp:Button ID="lnkBtncancel" runat="server" CssClass="cancelbutton6" EnableTheming="false"
-                                                SkinID="skinBtnCancel" CausesValidation="false" DESIGNTIMEDRAGDROP="679" />
+                                        <td style="width: 25%">                                           
+                                             <asp:Button ID="lnkBtnSave" runat="server" CssClass="savebutton1231" EnableTheming="false"
+                                                OnClick="lnkBtnSave_Click" Width="150px" />
                                         </td>
                                         <td style="width: 30%">
-                                            <asp:Button ID="lnkBtnSave" runat="server" CssClass="savebutton1231" EnableTheming="false"
-                                                OnClick="lnkBtnSave_Click" Width="150px" />
+                                            <asp:Button ID="lnkBtncancel" runat="server" CssClass="cancelbutton6" EnableTheming="false"
+                                                SkinID="skinBtnCancel" CausesValidation="false" DESIGNTIMEDRAGDROP="679" />
                                         </td>
                                         <td style="width:20%">
                                         </td>

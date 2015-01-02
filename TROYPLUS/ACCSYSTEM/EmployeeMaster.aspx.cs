@@ -69,6 +69,14 @@ public partial class EmployeeMaster : System.Web.UI.Page
         }
     }
 
+    protected void BtnClearFilter_Click(object sender, EventArgs e)
+    {
+        txtSearch.Text = "";
+        ddCriteria.SelectedIndex = 0;
+        BindEmp();
+        loadEmp();
+    }
+
     private void loadEmp()
     {
         BusinessLogic bl = new BusinessLogic(sDataSource);

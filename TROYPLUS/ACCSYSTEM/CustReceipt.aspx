@@ -338,10 +338,10 @@
                                         <tr>
                                             <td style="width: 2%">
                                             </td>
-                                            <td style="width: 25%; font-size: 22px; color: White;" >
+                                            <td style="width: 30%; font-size: 22px; color: White;" >
                                                 Customers Receipts
                                             </td>
-                                            <td style="width: 15%">
+                                            <td style="width: 10%">
                                                 <div style="text-align: right;">
                                                     <asp:Panel ID="pnlSearch" runat="server" Width="60px">
                                                         <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click"  CssClass="ButtonAdd66" ForeColor="White" EnableTheming="false"
@@ -349,7 +349,7 @@
                                                     </asp:Panel>
                                                 </div>
                                             </td>
-                                            <td style="width: 10%; color: White;" align="right">
+                                            <td style="width: 13%; color: White;" align="right">
                                                 Search
                                             </td>
                                             <td style="width: 18%" class="NewBox">
@@ -371,6 +371,9 @@
                                                     EnableTheming="false" ForeColor="White" OnClick="btnSearch_Click"
                                                      />
                                             </td>
+                                             <td style="width: 20%" class="tblLeftNoPad">
+                                            <asp:Button ID="BtnClearFilter" runat="server"  OnClick="BtnClearFilter_Click"  EnableTheming="false" Text="" CssClass="ClearFilter6" />
+                                        </td>
                                         </tr>
                                     </table>
                                 
@@ -833,16 +836,16 @@
                                                                                 <tr>
                                                                                     <td style="width: 23%">
                                                                                     </td>
-                                                                                    <td style="width: 18%">
-                                                                                        <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                                                                            OnClick="UpdateCancelButton_Click" SkinID="skinBtnCancel" CssClass="cancelbutton6"
-                                                                                            EnableTheming="false"></asp:Button>
-                                                                                    </td>
-                                                                                    <td style="width: 18%">
-                                                                                        <asp:Button ID="UpdateButton" runat="server" SkinID="skinBtnSave" OnClientClick="javascript:CheckDate();CheckPendingBill();EditMobile_Validator();ConfirmSMS();"
+                                                                                    <td style="width: 18%">                                                                                        
+                                                                                         <asp:Button ID="UpdateButton" runat="server" SkinID="skinBtnSave" OnClientClick="javascript:CheckDate();CheckPendingBill();EditMobile_Validator();ConfirmSMS();"
                                                                                             OnClick="UpdateButton_Click" CssClass="Updatebutton1231" EnableTheming="false"></asp:Button>
                                                                                         <asp:Button ID="SaveButton" runat="server" SkinID="skinBtnSave" OnClientClick="javascript:CheckDate();CheckPendingBill();EditMobile_Validator();ConfirmSMS();"
                                                                                             OnClick="SaveButton_Click" CssClass="savebutton1231" EnableTheming="false"></asp:Button>
+                                                                                    </td>
+                                                                                    <td style="width: 18%">
+                                                                                       <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                                            OnClick="UpdateCancelButton_Click" SkinID="skinBtnCancel" CssClass="cancelbutton6"
+                                                                                            EnableTheming="false"></asp:Button>
                                                                                     </td>
                                                                                     <td style="width: 18%">
                                                                                         <input id="ShowPopUp" type="button" class="pendingbillbutton6" style="width: 110px;
@@ -895,12 +898,12 @@
                 </tr>
                 <tr style="width: 100%;  margin: -4px 0px 0px 0px;">
                     <td style="width: 100%">
-                        <table width="100%" style="margin: -6px 0px 0px 0px;">
+                        <table width="100%" style="margin: -3px 0px 0px 0px;">
                             <tr style="width: 100%">
                                 <td>
                         <div class="mainGridHold" id="searchGrid">
                             <asp:GridView ID="GrdViewReceipt" runat="server" AllowSorting="false" AutoGenerateColumns="False"
-                                OnRowCreated="GrdViewReceipt_RowCreated" Width="100.3%" DataSourceID="GridSource"
+                                OnRowCreated="GrdViewReceipt_RowCreated" Width="100.4%" DataSourceID="GridSource"
                                 AllowPaging="True" DataKeyNames="TransNo" EmptyDataText="No Receipts found!"
                                 OnRowCommand="GrdViewReceipt_RowCommand" OnRowDataBound="GrdViewReceipt_RowDataBound"
                                 OnSelectedIndexChanged="GrdViewReceipt_SelectedIndexChanged" OnRowDeleting="GrdViewReceipt_RowDeleting"

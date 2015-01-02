@@ -91,6 +91,8 @@ public partial class BankReconciliation : System.Web.UI.Page
         }
     }
 
+   
+
     protected void txtDate_TextChanged(object sender, EventArgs e)
     {
         try

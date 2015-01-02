@@ -298,11 +298,11 @@
                                                                         <table style="width: 100%">
                                                                             <tr>
                                                                                 <td align="right" style="width: 15%"></td>
-                                                                                <td align="right" style="width: 30%">
-                                                                                    <asp:Button ID="btnCancelNew" runat="server" CausesValidation="False" CommandName="Cancel" CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="btnCancelNew_Click" />
+                                                                                <td align="right" style="width: 30%">                                                                                    
+                                                                                    <asp:Button ID="btnApplyLeave" runat="server" CausesValidation="True" CssClass="savebutton1231" EnableTheming="false" OnClick="btnApplyLeave_Click" SkinID="skinBtnSave" />
                                                                                 </td>
                                                                                 <td align="center" style="width: 30%">
-                                                                                    <asp:Button ID="btnApplyLeave" runat="server" CausesValidation="True" CssClass="savebutton1231" EnableTheming="false" OnClick="btnApplyLeave_Click" SkinID="skinBtnSave" />
+                                                                                    <asp:Button ID="btnCancelNew" runat="server" CausesValidation="False" CommandName="Cancel" CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="btnCancelNew_Click" />
                                                                                 </td>
                                                                                 <td align="right" style="width: 15%"></td>
                                                                             </tr>

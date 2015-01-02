@@ -76,6 +76,20 @@ public partial class CreateFormula : System.Web.UI.Page
 
     }
 
+    protected void BtnClearFilter_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            txtSearch.Text = "";
+            BindGrid("");
+            //ddCriteria.SelectedIndex = 0;
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
     private void loadProducts()
     {
         //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());

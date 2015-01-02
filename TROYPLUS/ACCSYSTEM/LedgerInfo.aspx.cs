@@ -91,6 +91,19 @@ public partial class LedgerInfo : System.Web.UI.Page
         return connStr;
     }
 
+    protected void BtnClearFilter_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            txtSearch.Text = "";
+            ddCriteria.SelectedIndex = 0;
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
     protected void btnSearch_Click(object sender, EventArgs e)
     {
 

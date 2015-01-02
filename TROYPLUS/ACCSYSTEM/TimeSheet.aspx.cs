@@ -1545,6 +1545,34 @@ public partial class TimeSheet : System.Web.UI.Page
     {
 
     }
+
+    protected void BtnClearFilter_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            txtTimeSheetValueField.Text = "";
+            BindTse();
+            //ddCriteria.SelectedIndex = 0;
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+    protected void BtnClrFilter_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            txtTimeSheetApproval.Text = "";
+            //BindTse();
+            //ddCriteria.SelectedIndex = 0;
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
 }
 
 #region Populate Dynamic Grid and Databinding

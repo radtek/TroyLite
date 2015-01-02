@@ -6,22 +6,21 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cplhControlPanel" runat="Server">
-    <script  src="Scripts/JScriptPurchase.js" type="text/javascript">
+    <script src="Scripts/JScriptPurchase.js" type="text/javascript">
 
 
 
     </script>
     <asp:UpdatePanel ID="UpdatePnlMaster" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
-            
+
             <div style="">
                 <table style="width: 100%;" align="center">
                     <tr style="width: 100%">
                         <td style="width: 100%" valign="middle">
                             <table class="mainConHd" style="width: 994px;">
                                 <tr valign="middle">
-                                    <td style="font-size: 20px;">
-                                       Bank Reconciliation
+                                    <td style="font-size: 20px;">Bank Reconciliation
                                     </td>
                                 </tr>
                             </table>
@@ -30,8 +29,7 @@
                                     <table cellspacing="2px" cellpadding="3px" border="0" width="100%"
                                         class="searchbg">
                                         <tr>
-                                            <td style="width: 8%">
-                                            </td>
+                                            <td style="width: 8%"></td>
                                             <td style="width: 15%">
                                                 <div style="text-align: right;">
                                                     <asp:Panel ID="pnlSearch" runat="server" Width="100px">
@@ -40,8 +38,7 @@
                                                     </asp:Panel>
                                                 </div>
                                             </td>
-                                            <td style="width: 8%;" align="center">
-                                                Bill No.
+                                            <td style="width: 8%;" align="center">Bill No.
                                             </td>
                                             <td style="width: 22%; text-align: center" class="tblLeft cssTextBoxbg">
                                                 <asp:TextBox ValidationGroup="search" ID="txtBillnoSrc" runat="server" MaxLength="8"
@@ -49,8 +46,7 @@
                                                 <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" TargetControlID="txtBillnoSrc"
                                                     FilterType="Numbers" />
                                             </td>
-                                            <td style="width: 8%" align="center">
-                                                Trans. No.
+                                            <td style="width: 8%" align="center">Trans. No.
                                             </td>
                                             <td style="width: 22%" class="tblLeft cssTextBoxbg">
                                                 <asp:TextBox ValidationGroup="search" ID="txtTransNo" runat="server" MaxLength="8"
@@ -61,11 +57,12 @@
                                             <td style="width: 28%; text-align: left">
                                                 <asp:Button ID="btnSearch" runat="server" Text="Search" SkinID="skinBtnSearch" OnClick="btnSearch_Click" />
                                             </td>
+                                            
                                         </tr>
                                     </table>
                                 </div>
                             </div>
-                                                                    
+
                             <asp:ValidationSummary ID="valSum" DisplayMode="BulletList" ShowMessageBox="true"
                                 ShowSummary="false" ValidationGroup="product" HeaderText="Validation Messages"
                                 Font-Names="'Trebuchet MS'" Font-Size="12" runat="server" />
@@ -79,7 +76,7 @@
                                 RepositionMode="RepositionOnWindowResizeAndScroll" TargetControlID="dummyPurchase">
                             </cc1:ModalPopupExtender>
                             <asp:Panel ID="purchasePanel" runat="server" Style="width: 63%; display: none">
-                                <asp:UpdatePanel ID="updatePnlPurchase" runat="server" RenderMode="Block" UpdateMode="Conditional" >
+                                <asp:UpdatePanel ID="updatePnlPurchase" runat="server" RenderMode="Block" UpdateMode="Conditional">
                                     <ContentTemplate>
                                         <div id="Div1" class="divArea" style="background-color: White;">
                                             <table style="width: 100%;" align="center">
@@ -90,17 +87,16 @@
                                                                 <td>
                                                                     <table class="headerPopUp" width="100%">
                                                                         <tr>
-                                                                            <td>
-                                                                                Details
+                                                                            <td>Details
                                                                             </td>
                                                                         </tr>
                                                                     </table>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td >
-                                                                    <cc1:TabContainer ID="tabs2" runat="server" Width="100%" >
-                                                                        <cc1:TabPanel ID="tabMaster" runat="server" HeaderText="Purchase Details" >
+                                                                <td>
+                                                                    <cc1:TabContainer ID="tabs2" runat="server" Width="100%">
+                                                                        <cc1:TabPanel ID="tabMaster" runat="server" HeaderText="Purchase Details">
                                                                             <HeaderTemplate>
                                                                                 Details
                                                                             </HeaderTemplate>
@@ -110,14 +106,13 @@
                                                                                         <td>
                                                                                             <table width="730px" cellpadding="3" cellspacing="1">
                                                                                                 <tr>
-                                                                                                    <td class="ControlLabel" style="width:30%">
-                                                                                                        Start Date
+                                                                                                    <td class="ControlLabel" style="width: 30%">Start Date
                                                                                                     </td>
-                                                                                                    <td class="ControlTextBox3" style="width:25%">
+                                                                                                    <td class="ControlTextBox3" style="width: 25%">
                                                                                                         <asp:TextBox ID="txtStartDate" CssClass="cssTextBox" Width="100px" MaxLength="10"
                                                                                                             runat="server" />
                                                                                                     </td>
-                                                                                                    <td style="width:20%">
+                                                                                                    <td style="width: 20%">
                                                                                                         <script type="text/javascript" language="JavaScript">
                                                                                                             new tcal({ 'formname': 'form1', 'controlname': 'txtStartDate' });</script>
                                                                                                     </td>
@@ -127,17 +122,16 @@
                                                                                                     </td>
                                                                                                 </tr>
                                                                                                 <tr>
-                                                                                                    <td class="ControlLabel" style="width:30%">
-                                                                                                        End Date
+                                                                                                    <td class="ControlLabel" style="width: 30%">End Date
                                                                                                     </td>
-                                                                                                    <td class="ControlTextBox3"  style="width:25%">
+                                                                                                    <td class="ControlTextBox3" style="width: 25%">
                                                                                                         <asp:TextBox ID="txtEndDate" CssClass="cssTextBox" Width="100px" MaxLength="10" runat="server" />
                                                                                                     </td>
-                                                                                                    <td style="width:20%">
+                                                                                                    <td style="width: 20%">
                                                                                                         <script type="text/javascript" language="JavaScript">
                                                                                                             new tcal({ 'formname': 'form1', 'controlname': 'txtEndDate' });</script>
                                                                                                     </td>
-                                                                                                    <td align="left" style="width:10%">
+                                                                                                    <td align="left" style="width: 10%">
                                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtEndDate"
                                                                                                             Display="None" ErrorMessage="Please Enter The End Date" CssClass="lblFont"></asp:RequiredFieldValidator>
                                                                                                         <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToCompare="txtStartDate"
@@ -146,89 +140,82 @@
                                                                                                     </td>
                                                                                                 </tr>
                                                                                                 <tr>
+                                                                                                    <td></td>
                                                                                                     <td>
-                                                                                                        
-                                                                                                    </td>
-                                                                                                    <td>
-                                                                                                        <asp:Button ID="Button2" runat="server" CssClass="Start" 
-                                                                                                                EnableTheming="false" OnClick="cmdMetho_Click" Text=""
-                                                                                                                ValidationGroup="contact" />
+                                                                                                        <asp:Button ID="Button2" runat="server" CssClass="Start"
+                                                                                                            EnableTheming="false" OnClick="cmdMetho_Click" Text=""
+                                                                                                            ValidationGroup="contact" />
                                                                                                     </td>
                                                                                                     <td>
                                                                                                         <asp:Button ID="btnCancel" runat="server" Text="" CssClass="cancelbutton" EnableTheming="false"
                                                                                                             Visible="true" OnClick="cmdCancel_Click" SkinID="skinBtnCancel" />
                                                                                                     </td>
-                                                                                                    <td style="width: 15%">
-                                                                                                    </td>
+                                                                                                    <td style="width: 15%"></td>
                                                                                                 </tr>
-                                                                                                <tr style="height:5px">
+                                                                                                <tr style="height: 5px">
                                                                                                 </tr>
                                                                                                 <tr>
                                                                                                     <td align="left" colspan="4">
                                                                                                         <table cellpadding="0" cellspacing="3" class="tblLeft" style="border: 1px solid #5078B3;"
                                                                                                             width="100%">
-                                                                                                                <tr>
-                                                                                                                    <td style="width:100%">
-                                                                                                                        <asp:GridView ID="GrdViewItems" runat="server" BorderWidth="1px" DataKeyNames="itemcode"
-                                                                                                                            EmptyDataText="No Bank Entries Found." OnPageIndexChanging="GrdViewItems_PageIndexChanging"
-                                                                                                                            OnRowCancelingEdit="GrdViewItems_RowCancelingEdit" OnRowCreated="GrdViewItems_RowCreated"
-                                                                                                                            OnRowDataBound="GrdViewItems_RowDataBound" OnRowDeleting="GrdViewItems_RowDeleting" OnPreRender="GrdViewItems_PreRender"  
-                                                                                                                            OnRowEditing="GrdViewItems_RowEditing" OnRowUpdating="GrdViewItems_RowUpdating"
-                                                                                                                            OnSelectedIndexChanged="GrdViewItems_SelectedIndexChanged" ShowFooter="false" CssClass="someClass"
-                                                                                                                            Width="100%" Visible="False">
-                                                                                                                            <EditRowStyle VerticalAlign="Middle" />
-                                                                                                                            <RowStyle Font-Bold="false" />
-                                                                                                                            <FooterStyle CssClass="HeadataRow" Font-Bold="true" Height="27px" />
-                                                                                                                            <Columns>
-                                                                                                                                <asp:BoundField DataField="TransDate" HeaderText="Trans Date" HeaderStyle-BorderColor="blue"  HeaderStyle-Width="60px"/>
-                                                                                                                                <asp:BoundField DataField="Debtor" HeaderText="Debtor"  HeaderStyle-BorderColor="blue" HeaderStyle-Width="60px"/>
-                                                                                                                                <asp:BoundField DataField="Creditor" HeaderText="Creditor" HeaderStyle-BorderColor="blue" HeaderStyle-Width="80px"/>
-                                                                                                                                <asp:BoundField DataField="VoucherType" HeaderText="VoucherType"  HeaderStyle-BorderColor="blue" HeaderStyle-Width="60px"/>
-                                                                                                                                <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Date" HeaderStyle-BorderColor="blue" HeaderStyle-Width="10px">
-                                                                                                                                    <ItemTemplate>
-                                                                                                                                        <asp:TextBox ID="txtDate" runat="server" Width="60px" CssClass="cssTextBox" OnTextChanged="txtDate_TextChanged"
-                                                                                                                                            ></asp:TextBox>
-                                                                                                                                    </ItemTemplate>
-                                                                                                                                </asp:TemplateField>
-                                                                                                                            </Columns>
-                                                                                                                            <PagerTemplate>
-                                                                                                                                <table style=" border-color:white">
-                                                                                                                                    <tr style=" border-color:white">
-                                                                                                                                        <td style=" border-color:white">
-                                                                                                                                            Goto Page
-                                                                                                                                        </td>
-                                                                                                                                        <td style=" border-color:white">
-                                                                                                                                            <asp:DropDownList ID="ddlPageSelector2" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlPageSelector2_SelectedIndexChanged"
-                                                                                                                                                width="65px" style="border:1px solid blue">
-                                                                                                                                            </asp:DropDownList>
-                                                                                                                                        </td>
-                                                                                                                                        <td  style=" border-color:white; Width:5px">
-                                            
-                                                                                                                                        </td>
-                                                                                                                                        <td style=" border-color:white">
-                                                                                                                                            <asp:Button ID="btnFirst" runat="server" CommandArgument="First" CommandName="Page" CssClass="NewFirst" EnableTheming="false" Width="22px" Height="18px"
-                                                                                                                                                Text="" />
-                                                                                                                                        </td>
-                                                                                                                                        <td style=" border-color:white">
-                                                                                                                                            <asp:Button ID="btnPrevious" runat="server" CommandArgument="Prev" CommandName="Page" CssClass="NewPrev" EnableTheming="false" Width="22px" Height="18px"
-                                                                                                                                                Text="" />
-                                                                                                                                        </td>
-                                                                                                                                        <td style=" border-color:white">
-                                                                                                                                            <asp:Button ID="btnNext" runat="server" CommandArgument="Next" CommandName="Page" CssClass="NewNext" EnableTheming="false" Width="22px" Height="18px"
-                                                                                                                                                Text="" />
-                                                                                                                                        </td>
-                                                                                                                                        <td style=" border-color:white">
-                                                                                                                                            <asp:Button ID="btnLast" runat="server" CommandArgument="Last" CommandName="Page" CssClass="NewLast" EnableTheming="false" Width="22px" Height="18px"
-                                                                                                                                                Text="" />
-                                                                                                                                        </td>
-                                                                                                                                        </tr>
-                                                                                                                                                             
-                                                                                                                                    </table>
-                                                                                                                            </PagerTemplate>
-                                                                                                                        </asp:GridView>
-                                                                                                                    </td>
-                                                                                                               </tr>
-                                                                                                         </table>
+                                                                                                            <tr>
+                                                                                                                <td style="width: 100%">
+                                                                                                                    <asp:GridView ID="GrdViewItems" runat="server" BorderWidth="1px" DataKeyNames="itemcode"
+                                                                                                                        EmptyDataText="No Bank Entries Found." OnPageIndexChanging="GrdViewItems_PageIndexChanging"
+                                                                                                                        OnRowCancelingEdit="GrdViewItems_RowCancelingEdit" OnRowCreated="GrdViewItems_RowCreated"
+                                                                                                                        OnRowDataBound="GrdViewItems_RowDataBound" OnRowDeleting="GrdViewItems_RowDeleting" OnPreRender="GrdViewItems_PreRender"
+                                                                                                                        OnRowEditing="GrdViewItems_RowEditing" OnRowUpdating="GrdViewItems_RowUpdating"
+                                                                                                                        OnSelectedIndexChanged="GrdViewItems_SelectedIndexChanged" ShowFooter="false" CssClass="someClass"
+                                                                                                                        Width="100%" Visible="False">
+                                                                                                                        <EditRowStyle VerticalAlign="Middle" />
+                                                                                                                        <RowStyle Font-Bold="false" />
+                                                                                                                        <FooterStyle CssClass="HeadataRow" Font-Bold="true" Height="27px" />
+                                                                                                                        <Columns>
+                                                                                                                            <asp:BoundField DataField="TransDate" HeaderText="Trans Date" HeaderStyle-BorderColor="blue" HeaderStyle-Width="60px" />
+                                                                                                                            <asp:BoundField DataField="Debtor" HeaderText="Debtor" HeaderStyle-BorderColor="blue" HeaderStyle-Width="60px" />
+                                                                                                                            <asp:BoundField DataField="Creditor" HeaderText="Creditor" HeaderStyle-BorderColor="blue" HeaderStyle-Width="80px" />
+                                                                                                                            <asp:BoundField DataField="VoucherType" HeaderText="VoucherType" HeaderStyle-BorderColor="blue" HeaderStyle-Width="60px" />
+                                                                                                                            <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Date" HeaderStyle-BorderColor="blue" HeaderStyle-Width="10px">
+                                                                                                                                <ItemTemplate>
+                                                                                                                                    <asp:TextBox ID="txtDate" runat="server" Width="60px" CssClass="cssTextBox" OnTextChanged="txtDate_TextChanged"></asp:TextBox>
+                                                                                                                                </ItemTemplate>
+                                                                                                                            </asp:TemplateField>
+                                                                                                                        </Columns>
+                                                                                                                        <PagerTemplate>
+                                                                                                                            <table style="border-color: white">
+                                                                                                                                <tr style="border-color: white">
+                                                                                                                                    <td style="border-color: white">Goto Page
+                                                                                                                                    </td>
+                                                                                                                                    <td style="border-color: white">
+                                                                                                                                        <asp:DropDownList ID="ddlPageSelector2" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlPageSelector2_SelectedIndexChanged"
+                                                                                                                                            Width="65px" Style="border: 1px solid blue">
+                                                                                                                                        </asp:DropDownList>
+                                                                                                                                    </td>
+                                                                                                                                    <td style="border-color: white; width: 5px"></td>
+                                                                                                                                    <td style="border-color: white">
+                                                                                                                                        <asp:Button ID="btnFirst" runat="server" CommandArgument="First" CommandName="Page" CssClass="NewFirst" EnableTheming="false" Width="22px" Height="18px"
+                                                                                                                                            Text="" />
+                                                                                                                                    </td>
+                                                                                                                                    <td style="border-color: white">
+                                                                                                                                        <asp:Button ID="btnPrevious" runat="server" CommandArgument="Prev" CommandName="Page" CssClass="NewPrev" EnableTheming="false" Width="22px" Height="18px"
+                                                                                                                                            Text="" />
+                                                                                                                                    </td>
+                                                                                                                                    <td style="border-color: white">
+                                                                                                                                        <asp:Button ID="btnNext" runat="server" CommandArgument="Next" CommandName="Page" CssClass="NewNext" EnableTheming="false" Width="22px" Height="18px"
+                                                                                                                                            Text="" />
+                                                                                                                                    </td>
+                                                                                                                                    <td style="border-color: white">
+                                                                                                                                        <asp:Button ID="btnLast" runat="server" CommandArgument="Last" CommandName="Page" CssClass="NewLast" EnableTheming="false" Width="22px" Height="18px"
+                                                                                                                                            Text="" />
+                                                                                                                                    </td>
+                                                                                                                                </tr>
+
+                                                                                                                            </table>
+                                                                                                                        </PagerTemplate>
+                                                                                                                    </asp:GridView>
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                        </table>
                                                                                                     </td>
                                                                                                 </tr>
                                                                                             </table>
@@ -244,25 +231,22 @@
                                                                                             <asp:HiddenField ID="hdMode" runat="server" Value="New" />
                                                                                             <asp:UpdatePanel ID="UpdatePanel9" runat="server" UpdateMode="Conditional">
                                                                                                 <Triggers>
-                                                                                                    
                                                                                                 </Triggers>
                                                                                                 <ContentTemplate>
                                                                                                     <asp:Panel ID="pnlPurchase" runat="server">
                                                                                                         <table cellpadding="0" cellspacing="1" style="border: 1px solid #86b2d1; text-align: center"
                                                                                                             width="96%">
                                                                                                             <tr>
-                                                                                                                <td>
-                                                                                                                    
-                                                                                                                </td>
+                                                                                                                <td></td>
                                                                                                             </tr>
                                                                                                         </table>
                                                                                                     </asp:Panel>
                                                                                                 </ContentTemplate>
                                                                                             </asp:UpdatePanel>
-                                                                                            
+
                                                                                         </td>
                                                                                     </tr>
-                                                                                    
+
                                                                                 </table>
                                                                             </ContentTemplate>
                                                                         </cc1:TabPanel>
@@ -291,7 +275,7 @@
                             </asp:ObjectDataSource>
                         </td>
                     </tr>
-                   
+
                     <tr style="width: 100%">
                         <td style="width: 90%; text-align: left">
                             <asp:Panel ID="PanelBill" Direction="LeftToRight" runat="server">
@@ -305,25 +289,25 @@
                                                 OnSelectedIndexChanged="GrdViewPurchase_SelectedIndexChanged" OnRowCreated="GrdViewPurchase_RowCreated"
                                                 OnRowDataBound="GrdViewPurchase_RowDataBound" OnRowDeleting="GrdViewPurchase_RowDeleting">
                                                 <Columns>
-                                                    <asp:BoundField DataField="PurchaseID" HeaderText="Voucher No" HeaderStyle-Width="50px" HeaderStyle-Wrap="false" HeaderStyle-BorderColor="blue"/>
+                                                    <asp:BoundField DataField="PurchaseID" HeaderText="Voucher No" HeaderStyle-Width="50px" HeaderStyle-Wrap="false" HeaderStyle-BorderColor="blue" />
                                                     <asp:BoundField DataField="TransNo" HeaderText="Trans. No." HeaderStyle-Wrap="false" HeaderStyle-BorderColor="blue"
                                                         HeaderStyle-Width="50px" />
                                                     <asp:BoundField DataField="Billno" HeaderText="Bill No." HeaderStyle-Width="60px" HeaderStyle-BorderColor="blue"
                                                         HeaderStyle-Wrap="false" />
-                                                    <asp:BoundField DataField="BillDate" HeaderText="Date" HeaderStyle-Width="65px"  HeaderStyle-BorderColor="blue"/>
+                                                    <asp:BoundField DataField="BillDate" HeaderText="Date" HeaderStyle-Width="65px" HeaderStyle-BorderColor="blue" />
                                                     <asp:TemplateField HeaderText="Payment Mode" HeaderStyle-BorderColor="blue">
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblPaymode" runat="server"></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:BoundField DataField="Supplier" HeaderStyle-Width="130px" HeaderText="Supplier"  HeaderStyle-BorderColor="blue"/>
-                                                    <asp:BoundField DataField="Chequeno" Visible="false" HeaderText="Chequeno"  HeaderStyle-BorderColor="blue"/>
-                                                    <asp:BoundField DataField="Creditor" HeaderStyle-Width="130px" HeaderText="Creditor"  HeaderStyle-BorderColor="blue"/>
-                                                    <asp:BoundField DataField="Amount" HeaderText="Amount" HeaderStyle-Width="60px" DataFormatString="{0:F2}"  HeaderStyle-BorderColor="blue"/>
-                                                    <asp:BoundField DataField="SalesReturn" HeaderText="Sales Return" HeaderStyle-Wrap="true"  HeaderStyle-BorderColor="blue"/>
+                                                    <asp:BoundField DataField="Supplier" HeaderStyle-Width="130px" HeaderText="Supplier" HeaderStyle-BorderColor="blue" />
+                                                    <asp:BoundField DataField="Chequeno" Visible="false" HeaderText="Chequeno" HeaderStyle-BorderColor="blue" />
+                                                    <asp:BoundField DataField="Creditor" HeaderStyle-Width="130px" HeaderText="Creditor" HeaderStyle-BorderColor="blue" />
+                                                    <asp:BoundField DataField="Amount" HeaderText="Amount" HeaderStyle-Width="60px" DataFormatString="{0:F2}" HeaderStyle-BorderColor="blue" />
+                                                    <asp:BoundField DataField="SalesReturn" HeaderText="Sales Return" HeaderStyle-Wrap="true" HeaderStyle-BorderColor="blue" />
                                                     <asp:BoundField DataField="SalesReturnReason" HeaderText="Sales Return - Reason" HeaderStyle-BorderColor="blue"
                                                         Visible="false" />
-                                                    <asp:BoundField DataField="SupplierID" HeaderText="Supplier ID" Visible="false"  HeaderStyle-BorderColor="blue" />
+                                                    <asp:BoundField DataField="SupplierID" HeaderText="Supplier ID" Visible="false" HeaderStyle-BorderColor="blue" />
                                                     <asp:TemplateField ItemStyle-CssClass="command" HeaderStyle-Width="45px" HeaderText="Edit" HeaderStyle-BorderColor="blue">
                                                         <ItemTemplate>
                                                             <asp:ImageButton ID="btnEdit" runat="server" SkinID="edit" CommandName="Select" />
@@ -349,32 +333,29 @@
                                                 </Columns>
                                                 <FooterStyle BackColor="#CCCCCC" ForeColor="Black" />
                                                 <PagerTemplate>
-                                                    <table style=" border-color:white">
-                                                        <tr style=" border-color:white">
-                                                            <td style=" border-color:white">
-                                                                Goto Page
+                                                    <table style="border-color: white">
+                                                        <tr style="border-color: white">
+                                                            <td style="border-color: white">Goto Page
                                                             </td>
-                                                            <td style=" border-color:white">
+                                                            <td style="border-color: white">
                                                                 <asp:DropDownList ID="ddlPageSelector" OnSelectedIndexChanged="ddlPageSelector_SelectedIndexChanged"
-                                                                    runat="server" AutoPostBack="true"  Width="70px" Height="24px" style="border:1px solid blue">
+                                                                    runat="server" AutoPostBack="true" Width="70px" Height="24px" Style="border: 1px solid blue">
                                                                 </asp:DropDownList>
                                                             </td>
-                                                            <td style=" border-color:white; Width:5px">
-                                            
-                                                            </td>
-                                                            <td style=" border-color:white">
+                                                            <td style="border-color: white; width: 5px"></td>
+                                                            <td style="border-color: white">
                                                                 <asp:Button Text="" CommandName="Page" CommandArgument="First" runat="server" CssClass="NewFirst" EnableTheming="false" Width="22px" Height="18px"
                                                                     ID="btnFirst" />
                                                             </td>
-                                                            <td style=" border-color:white">
+                                                            <td style="border-color: white">
                                                                 <asp:Button Text="" CommandName="Page" CommandArgument="Prev" runat="server" CssClass="NewPrev" EnableTheming="false" Width="22px" Height="18px"
                                                                     ID="btnPrevious" />
                                                             </td>
-                                                            <td style=" border-color:white">
+                                                            <td style="border-color: white">
                                                                 <asp:Button Text="" CommandName="Page" CommandArgument="Next" runat="server" CssClass="NewNext" EnableTheming="false" Width="22px" Height="18px"
                                                                     ID="btnNext" />
                                                             </td>
-                                                            <td style=" border-color:white">
+                                                            <td style="border-color: white">
                                                                 <asp:Button Text="" CommandName="Page" CommandArgument="Last" runat="server" CssClass="NewLast" EnableTheming="false" Width="22px" Height="18px"
                                                                     ID="btnLast" />
                                                             </td>
@@ -390,8 +371,8 @@
                                 <input type="hidden" id="delFlag" value="0" runat="server" />
                                 <asp:HiddenField ID="hdToDelete" Value="0" runat="server" />
                             </asp:Panel>
-                            <asp:Label ID="err" runat="server" Style="color: Red; font-weight: bold; font-family: 'Trebuchet MS';
-                                font-size: 11px;" Text=""></asp:Label>
+                            <asp:Label ID="err" runat="server" Style="color: Red; font-weight: bold; font-family: 'Trebuchet MS'; font-size: 11px;"
+                                Text=""></asp:Label>
                         </td>
                     </tr>
                 </table>

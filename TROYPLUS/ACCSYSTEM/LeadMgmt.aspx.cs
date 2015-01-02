@@ -2877,4 +2877,10 @@ public partial class LeadMgmt : System.Web.UI.Page
             return;
         }
     }
+    protected void BtnClearFilter_Click(object sender, EventArgs e)
+    {
+        txtSearch.Text = "";
+        ddCriteria.SelectedIndex = 0;
+        BindGrid("", "");
+    }
 }

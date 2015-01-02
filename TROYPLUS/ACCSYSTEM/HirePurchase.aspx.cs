@@ -65,6 +65,20 @@ public partial class HirePurchase : System.Web.UI.Page
         }
     }
 
+    protected void BtnClearFilter_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            txtSearch.Text = "";
+            BindGrid("", "");
+            ddCriteria.SelectedIndex = 0;
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
     private void loadSupplier()
     {
         BusinessLogic bl = new BusinessLogic(sDataSource);

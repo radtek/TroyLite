@@ -38,3 +38,8 @@ E:\TroyLite\TROYPLUS\ReportsBL\bin\Debug\ReportsBL.pdb
 E:\TroyLite\TROYPLUS\ReportsBL\obj\Debug\ReportsBL.csprojResolveAssemblyReference.cache
 E:\TroyLite\TROYPLUS\ReportsBL\obj\Debug\ReportsBL.dll
 E:\TroyLite\TROYPLUS\ReportsBL\obj\Debug\ReportsBL.pdb
+C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\ReportsBL\bin\Debug\ReportsBL.dll
+C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\ReportsBL\bin\Debug\ReportsBL.pdb
+C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\ReportsBL\obj\Debug\ReportsBL.csprojResolveAssemblyReference.cache
+C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\ReportsBL\obj\Debug\ReportsBL.dll
+C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\ReportsBL\obj\Debug\ReportsBL.pdb

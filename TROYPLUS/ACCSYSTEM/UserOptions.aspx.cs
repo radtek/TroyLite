@@ -99,6 +99,20 @@ public partial class UserOptions : System.Web.UI.Page
         }
     }
 
+    protected void BtnClearFilter_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            txtUserName.Text = "";
+            loadEmp();
+            //ddlSearchCriteria.SelectedIndex = 0;
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
     private void CheckSMSRequired()
     {
         DataSet appSettings;

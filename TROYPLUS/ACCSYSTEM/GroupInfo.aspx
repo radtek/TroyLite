@@ -28,13 +28,13 @@
                                 </tr>
                             </table>--%>
                             <div class="mainConBody">
-                            <table style="width: 99.7%; margin: -1px 0px 0px 2px;" cellpadding="3" cellspacing="2" class="searchbg">
+                            <table style="width: 99.8%; margin: -2px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
                                 <tr style="height: 25px; vertical-align: middle">
                                     <td style="width: 2%;"></td>
-                                    <td style="width: 20%; font-size: 22px; color: White;" >
+                                    <td style="width: 23%; font-size: 22px; color: White;" >
                                         Account Groups
                                     </td>
-                                    <td style="width: 14%">
+                                    <td style="width: 10%">
                                         <div style="text-align: left;">
                                             <asp:Panel ID="pnlSearch" runat="server" Width="100px">
                                                 <asp:Button ID="lnkBtnAddGroup" runat="server" OnClick="lnkBtnAddGroup_Click" CssClass="ButtonAdd66"
@@ -46,7 +46,8 @@
                                     <td style="width: 13%; color: White;" align="right">
                                         Search
                                     </td>
-                                    <td style="width: 19%" class="NewBox">
+
+                                    <td style="width: 18%" class="NewBox">
                                         <div style="text-align: left;">
                                             <asp:Panel ID="Panel2" runat="server" Width="100px">
                                                 <asp:TextBox ID="txtSearch" runat="server"
@@ -54,7 +55,8 @@
                                             </asp:Panel> 
                                         </div>
                                     </td>
-                                    <td style="width: 19%;" class="NewBox">
+                                    <td style="width: 1%;"></td>
+                                    <td style="width: 18%;" class="NewBox">
                                         <div style="text-align: left; Width:160px">
                                             <asp:Panel ID="Panel3" runat="server" Width="160px">
                                                 <asp:DropDownList ID="ddCriteria" runat="server"  Width="155px" Height="23px" BackColor="White" style="text-align:center;border:1px solid White "
@@ -73,6 +75,9 @@
                                             </asp:Panel> 
                                         </div>
                                     </td>
+                                    <td style="width: 20%" class="tblLeftNoPad">
+                                            <asp:Button ID="BtnClearFilter" runat="server"  OnClick="BtnClearFilter_Click"  EnableTheming="false" Text="" CssClass="ClearFilter6" />
+                                        </td>
                                 </tr>
                             </table>
                         
@@ -149,14 +154,14 @@
                                                                                 <td align="center" style="width:15%">
 
                                                                                 </td>
-                                                                                <td style="width:30%">
-                                                                                    <asp:Button ID="UpdateCancelButton" runat="server" CommandName="Cancel" CssClass="cancelbutton6"
-                                                                                        EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
-                                                                                    </asp:Button>
+                                                                                <td style="width:30%">                                                                                   
+                                                                                      <asp:Button ID="Button1" runat="server" SkinID="skinBtnSave" CausesValidation="True"
+                                                                                        CssClass="Updatebutton1231" EnableTheming="false" CommandName="Update" OnClick="UpdateButton_Click"></asp:Button>
                                                                                 </td>
                                                                                 <td style="width:30%">
-                                                                                    <asp:Button ID="Button1" runat="server" SkinID="skinBtnSave" CausesValidation="True"
-                                                                                        CssClass="savebutton1231" EnableTheming="false" CommandName="Update" OnClick="UpdateButton_Click"></asp:Button>
+                                                                                   <asp:Button ID="UpdateCancelButton" runat="server" CommandName="Cancel" CssClass="cancelbutton6"
+                                                                                        EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
+                                                                                    </asp:Button>
                                                                                 </td>
                                                                                 <td align="center" style="width:15%">
 
@@ -309,7 +314,7 @@
             </tr>
             <tr style="width: 100%;">
                 <td>
-                    <table width="100%" style="margin: -3px 0px 0px 1px;">
+                    <table width="100%" style="margin: -3px 0px 0px 0px;">
                                                 <tr>
                                                     <td>
                                                 <div id="Div5">

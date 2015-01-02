@@ -466,15 +466,15 @@
                                                                                 <tr>
                                                                                     <td>
                                                                                     </td>
-                                                                                    <td align="right">
-                                                                                        <asp:Button ID="btnDivCancel" runat="server" SkinID="skinBtnCancel" CssClass="cancelbutton6"
-                                                                                            EnableTheming="false" OnClick="btnDivCancel_Click" />
-                                                                                    </td>
-                                                                                    <td align="right">
+                                                                                    <td align="right">                                                                                        
                                                                                         <asp:Button ID="btnDivSave" ValidationGroup="Save" runat="server" SkinID="skinBtnSave"
                                                                                             CssClass="savebutton1231" EnableTheming="false" OnClick="btnDivSave_Click" />
                                                                                         <asp:Button ID="btnDivUpdate" runat="server" ValidationGroup="Save" CssClass="Updatebutton1231"
                                                                                             EnableTheming="false" OnClick="btnDivUpdate_Click" />
+                                                                                    </td>
+                                                                                    <td align="right">
+                                                                                        <asp:Button ID="btnDivCancel" runat="server" SkinID="skinBtnCancel" CssClass="cancelbutton6"
+                                                                                            EnableTheming="false" OnClick="btnDivCancel_Click" />
                                                                                     </td>
                                                                                     <td>
                                                                                     </td>

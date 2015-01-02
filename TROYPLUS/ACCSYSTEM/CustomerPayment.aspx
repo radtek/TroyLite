@@ -200,12 +200,12 @@
                             <div class="mainConBody">
                                 <table style="width: 99.8%; margin: -2px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
                                     <tr style="height: 25px; vertical-align: middle">
-                                        <td style="width: 2%">
+                                        <td style="width: 1%">
                                         </td>
-                                        <td style="width: 23%; font-size: 22px; color: White;" >
+                                        <td style="width: 30%; font-size: 22px; color: White;" >
                                                 Customer Payments
                                         </td>
-                                        <td style="width: 12%">
+                                        <td style="width: 10%">
                                             <div style="text-align: right;">
                                                 <asp:Panel ID="pnlSearch" runat="server" Width="100px">
                                                     <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
@@ -213,7 +213,7 @@
                                                 </asp:Panel>
                                             </div>
                                         </td>
-                                        <td style="width: 15%; color: White;" align="right">
+                                        <td style="width: 13%; color: White;" align="right">
                                             Search
                                             <asp:RequiredFieldValidator ID="rvSearch" runat="server" ControlToValidate="txtSearch"
                                                 Display="Dynamic" EnableClientScript="False" Enabled="false">Search is mandatory</asp:RequiredFieldValidator>
@@ -235,6 +235,9 @@
                                         <td style="width: 21%" class="tblLeftNoPad">
                                             <asp:Button ID="btnSearch" runat="server" CssClass="ButtonSearch6" EnableTheming="false" ForeColor="White" />
                                                     
+                                        </td>
+                                         <td style="width: 20%" class="tblLeftNoPad">
+                                            <asp:Button ID="BtnClearFilter" runat="server"  OnClick="BtnClearFilter_Click"  EnableTheming="false" Text="" CssClass="ClearFilter6" />
                                         </td>
                                     </tr>
                                 </table>
@@ -445,14 +448,14 @@
                                                                         <tr>
                                                                             <td style="width: 30%;">
                                                                             </td>
-                                                                            <td align="center" style="width: 18%;">
-                                                                                <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
+                                                                            <td align="center" style="width: 18%;">                                                                                
+                                                                                 <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update"
+                                                                                    CssClass="Updatebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClick="UpdateButton_Click">
                                                                                 </asp:Button>
                                                                             </td>
                                                                             <td align="center" style="width: 18%;">
-                                                                                <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update"
-                                                                                    CssClass="Updatebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClick="UpdateButton_Click">
+                                                                               <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
                                                                                 </asp:Button>
                                                                             </td>
                                                                             <td style="width: 30%;">
@@ -717,14 +720,14 @@
                                                                         <tr>
                                                                             <td align="right" style="width: 25%;">
                                                                             </td>
-                                                                            <td align="right" style="width: 25%;">
-                                                                                <asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="InsertCancelButton_Click">
+                                                                            <td align="right" style="width: 25%;">                                                                               
+                                                                                 <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert"
+                                                                                    CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClick="InsertButton_Click">
                                                                                 </asp:Button>
                                                                             </td>
                                                                             <td align="center" style="width: 20%;">
-                                                                                <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert"
-                                                                                    CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClick="InsertButton_Click">
+                                                                                <asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="InsertCancelButton_Click">
                                                                                 </asp:Button>
                                                                             </td>
                                                                             <td align="left" style="width: 30%;">
@@ -892,7 +895,7 @@
                 </tr>
                 <tr style="width: 100%">
                     <td style="width: 100%">
-                    <table width="100%" style="margin: -5px 0px 0px 0px;">
+                    <table width="100%" style="margin: -3px 0px 0px 0px;">
                                 <tr style="width: 100%">
                                     <td>
                         <div class="mainGridHold" id="searchGrid">

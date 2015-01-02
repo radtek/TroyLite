@@ -77,12 +77,12 @@
                             </table>--%>
                             <div class="mainConBody">
                                 <div>
-                                    <table cellspacing="2px" cellpadding="3px" border="0" width="100.3%" style="margin: -3px 0px 0px 2px;"
+                                    <table cellspacing="2px" cellpadding="3px" border="0" width="99.8%" style="margin: -1px 0px 0px 1px;"
                                         class="searchbg">
                                         <tr style="vertical-align: middle">
                                            <td style="width: 2%">
                                             </td>
-                                            <td style="width: 30%; font-size: 22px; color: #000000;" >
+                                            <td style="width: 45%; font-size: 22px; color: white;" >
                                                 Commission Management
                                             </td>
                                             <td style="width: 15%">
@@ -96,10 +96,10 @@
                                             <td style="width: 5%" align="center">
                                                 
                                             </td>
-                                            <td style="width: 25%; color: #000000;" align="right">
+                                            <td style="width: 20%; color: white;" align="right">
                                                 Commission No.
                                             </td>
-                                            <td style="width: 20%; text-align: center" class="Box1">
+                                            <td style="width: 20%; text-align: center" class="NewBox">
                                                 <asp:TextBox ValidationGroup="search" ID="txtBillnoSrc" runat="server" CssClass="cssTextBox"
                                                     Width="92%" MaxLength="8"></asp:TextBox>
                                             </td>
@@ -119,6 +119,9 @@
                                                 <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender2" runat="server" TargetControlID="txtTransNo"
                                                     FilterType="Numbers" />
                                             </td>
+                                             <td style="width: 16%" class="tblLeftNoPad">
+                                        <asp:Button ID="Button1" runat="server" OnClick="BtnClearFilter_Click" EnableTheming="false" Text="" CssClass="ClearFilter6" />
+                                    </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -792,15 +795,8 @@
                                                                                                                                         <tr>
                                                                                                                                             <td style="width:26%;">
                                                                                                                                             </td>
-                                                                                                                                            <td style="width:13%;">
-                                                                                                                                                <asp:Panel ID="Panel2" runat="server" Width="120px" Height="32px">
-                                                                                                                                                    <asp:Button ID="cmdCancelProduct" runat="server" CssClass="CloseWindow6" Height="45px"  CausesValidation="false"
-                                                                                                                                                        EnableTheming="false" OnClick="cmdCancelProduct_Click"/>
-                                                                                                                                        
-                                                                                                                                                </asp:Panel>
-                                                                                                                                            </td>
-                                                                                                                                            <td style="width:13%;">
-                                                                                                                                                <asp:Panel ID="Panel3" runat="server" Width="120px" Height="32px">
+                                                                                                                                            <td style="width:13%;">                                                                                                                                               
+                                                                                                                                                 <asp:Panel ID="Panel3" runat="server" Width="120px" Height="32px">
                                                                                                                                                     <asp:Button ID="cmdSaveProduct" runat="server" CssClass="AddProd6" 
                                                                                                                                                         EnableTheming="false" OnClick="cmdSaveProduct_Click" Text="" Height="45px" 
                                                                                                                                                         ValidationGroup="product" />
@@ -811,9 +807,16 @@
                                                                                                                                                 </asp:Panel>
                                                                                                                                             </td>
                                                                                                                                             <td style="width:13%;">
+                                                                                                                                                <asp:Panel ID="Panel2" runat="server" Width="120px" Height="32px">
+                                                                                                                                                    <asp:Button ID="cmdCancelProduct" runat="server" CssClass="CloseWindow6" Height="45px"  CausesValidation="false"
+                                                                                                                                                        EnableTheming="false" OnClick="cmdCancelProduct_Click"/>
+                                                                                                                                        
+                                                                                                                                                </asp:Panel>
+                                                                                                                                            </td>
+                                                                                                                                            <td style="width:13%;">
                                                                                                                                                 <asp:Panel ID="Panel1" runat="server" >
                                                                                                                                                     <asp:Button ID="BtnClearFilter" runat="server" OnClick="btnClearFilter_Click" EnableTheming="false" CssClass="ClearFilter6"
-                                                                                                                                                            Text="" />
+                                                                                                                                                        Visible="false"  Text="" />
                                                                                                                                                 </asp:Panel>
                                                                                                                                             </td>
                                                                                                                                             <td style="width:21%;">
@@ -1560,7 +1563,7 @@
                                         <asp:UpdatePanel ID="UpdatePanelSalesGrid" runat="server" UpdateMode="Conditional">
                                             <ContentTemplate>
                                                 <asp:GridView ID="GrdViewCommission" runat="server" AllowSorting="false" AutoGenerateColumns="False"
-                                                    Width="100.8%" DataKeyNames="CommissionNo" AllowPaging="True" EmptyDataText="No Commission Details Found"
+                                                    Width="100%" DataKeyNames="CommissionNo" AllowPaging="True" EmptyDataText="No Commission Details Found"
                                                     OnRowCreated="GrdViewCommission_RowCreated" OnRowDataBound="GrdViewCommission_RowDataBound"
                                                     OnSelectedIndexChanged="GrdViewCommission_SelectedIndexChanged" OnPageIndexChanging="GrdViewCommission_PageIndexChanging"
                                                     OnRowDeleting="GrdViewCommission_RowDeleting" CssClass="someClass">

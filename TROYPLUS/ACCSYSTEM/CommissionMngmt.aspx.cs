@@ -178,6 +178,19 @@ public partial class CommissionMngmt : System.Web.UI.Page
         }
     }
 
+    protected void BtnClearFilter_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            txtBillnoSrc.Text = "";
+            BindGrid(0, 0);
+            //ddCriteria.SelectedIndex = 0;
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
 
     private void UpdateSalesModel()
     {

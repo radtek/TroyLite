@@ -66,6 +66,14 @@ public partial class FormulaExecution : System.Web.UI.Page
         }
     }
 
+    protected void BtnClearFilter_Click(object sender, EventArgs e)
+    {
+        txtEndDate.Text = "";
+        txtStartDate.Text = "";
+        BindProductsGrid("", "", rdoIsPros.Checked);
+        //ddCriteria.SelectedIndex = 0;
+    }
+
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         try

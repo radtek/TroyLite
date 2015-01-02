@@ -67,6 +67,9 @@
                                         <td style="width: 22%" class="tblLeftNoPad">
                                             <asp:Button ID="btnSearch" runat="server" Text="" EnableTheming="false" CssClass="ButtonSearch6" OnClick="btnSearch_Click" />
                                         </td>
+                                        <td style="width: 20%" class="tblLeftNoPad">
+                                            <asp:Button ID="BtnClearFilter" runat="server"  OnClick="BtnClearFilter_Click"  EnableTheming="false" Text="" CssClass="ClearFilter6" />
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
@@ -190,16 +193,16 @@
                                                                         <tr>
                                                                             <td style="width: 30%">
                                                                             </td>
-                                                                            <td align="center" style="width: 18%">
-                                                                                <asp:Button ID="CancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
-                                                                                </asp:Button>
-                                                                            </td>
-                                                                            <td align="center" style="width: 18%">
-                                                                                <asp:Button ID="SaveButton" runat="server" CommandName="Update" SkinID="skinBtnSave"
+                                                                            <td align="center" style="width: 18%">                                                                                
+                                                                                 <asp:Button ID="SaveButton" runat="server" CommandName="Update" SkinID="skinBtnSave"
                                                                                     CssClass="savebutton1231" EnableTheming="false" OnClick="SaveButton_Click"></asp:Button>
                                                                                 <asp:Button ID="UpdateButton" runat="server" CommandName="Update" SkinID="skinBtnSave"
                                                                                     CssClass="Updatebutton1231" EnableTheming="false" OnClick="UpdateButton_Click"></asp:Button>
+                                                                            </td>
+                                                                            <td align="center" style="width: 18%">
+                                                                               <asp:Button ID="CancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
+                                                                                </asp:Button>
                                                                             </td>
                                                                             <td style="width: 30%">
                                                                             </td>
@@ -231,13 +234,13 @@
                 </tr>
                 <tr style="width: 100%">
                     <td style="width: 100%;">
-                    <table width="100%" style="margin: -6px 0px 0px 0px;">
+                    <table width="100%" style="margin: -4px 0px 0px 0px;">
                                 <tr style="width: 100%">
                                     <td>
                         <asp:HiddenField ID="hdVisitID" runat="server" Value="0" />
                         <div class="mainGridHold" id="searchGrid">
                             <asp:GridView ID="GrdViewSerVisit" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                                OnRowCreated="GrdViewSerVisit_RowCreated" Width="100.3%" DataSourceID="GridSource" CssClass="someClass"
+                                OnRowCreated="GrdViewSerVisit_RowCreated" Width="100.4%" DataSourceID="GridSource" CssClass="someClass"
                                 AllowPaging="True" DataKeyNames="ChequeBookID" EmptyDataText="No Cheque Book found!"
                                 OnRowCommand="GrdViewSerVisit_RowCommand" OnRowDataBound="GrdViewSerVisit_RowDataBound"
                                 OnSelectedIndexChanged="GrdViewSerVisit_SelectedIndexChanged" OnRowDeleting="GrdViewSerVisit_RowDeleting"

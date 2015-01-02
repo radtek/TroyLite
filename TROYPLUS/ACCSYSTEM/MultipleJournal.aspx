@@ -28,7 +28,7 @@
                             </table>--%>
                             <div class="mainConBody">
                                 <%-- class="mainConBody">--%>
-                                <table style="width: 100%; margin: -1px 0px 0px 1px;" class="searchbg">
+                                <table style="width: 99.8%; margin: -2px 0px 0px 1px;" class="searchbg">
                                     <tr style="height: 25px; vertical-align: middle">
                                         <td style="width: 2%;"></td>
                                             <td style="width: 16%; font-size: 22px; color: White;" >
@@ -76,6 +76,9 @@
                                         <td style="width: 20%">
                                             <asp:Button ID="cmdSearch" runat="server" OnClick="cmdSearch_Click" Text=""
                                                 EnableTheming="false" CssClass="ButtonSearch6" />
+                                        </td>
+                                        <td style="width: 20%" class="tblLeftNoPad">
+                                            <asp:Button ID="BtnClearFilter" runat="server"  OnClick="BtnClearFilter_Click"  EnableTheming="false" Text="" CssClass="ClearFilter6" />
                                         </td>
                                     </tr>
                                 </table>
@@ -188,16 +191,16 @@
                                                                                                 
                                                                                                         </td>
                                                                                                         <td>
-                                                                                                            <asp:Panel ID="Panel4" runat="server" Width="120px">
-                                                                                                                <asp:Button ID="cmdCancelMethod" runat="server" CssClass="cancelbutton6" OnClick="cmdCancelMethod_Click" CausesValidation="false"
-                                                                                                                    EnableTheming="false"/>
+                                                                                                            <asp:Panel ID="Panel4" runat="server" Width="120px">                                                                                                                
+                                                                                                                 <asp:Button ID="cmdMethod" runat="server" CssClass="Start6" 
+                                                                                                                    EnableTheming="false" OnClick="cmdMethod_Click" Text=""
+                                                                                                                    ValidationGroup="contact" />
                                                                                                             </asp:Panel>
                                                                                                         </td>
                                                                                                         <td>
                                                                                                             <asp:Panel ID="Panel5" runat="server" Width="120px">
-                                                                                                                <asp:Button ID="cmdMethod" runat="server" CssClass="Start6" 
-                                                                                                                    EnableTheming="false" OnClick="cmdMethod_Click" Text=""
-                                                                                                                    ValidationGroup="contact" />
+                                                                                                               <asp:Button ID="cmdCancelMethod" runat="server" CssClass="cancelbutton6" OnClick="cmdCancelMethod_Click" CausesValidation="false"
+                                                                                                                    EnableTheming="false"/>
                                                                                                             </asp:Panel>
                                                                                                         </td>
                                                                                                     </tr>
@@ -305,7 +308,7 @@
                                                                      
                                                                                         </td>
                                                                                         <td  class="ControlTextBoxSmall" style="width:5%">
-                                                                                            <asp:TextBox ID="txtTransDateAdd1" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal"
+                                                                                            <asp:TextBox ID="txtTransDateAdd1" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" BackColor = "#e7e7e7"
                                                                                                 Width="100px" MaxLength="10"></asp:TextBox>
                                                                                             <cc1:CalendarExtender ID="calExtender32" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                 PopupButtonID="btnDate3" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd1">
@@ -319,7 +322,7 @@
                                                                                             <asp:DropDownList ID="cmbDebtorAdd1" runat="server" BackColor = "#e7e7e7" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
                                                                                                 DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #e7e7e7" height="26px"
                                                                                                 AppendDataBoundItems="true" ValidationGroup="addVal">
-                                                                                                <asp:ListItem Text="Select Debtor" style="background-color: #90c9fc" Value="0"></asp:ListItem>
+                                                                                                <asp:ListItem Text="Select Debtor" style="background-color: #e7e7e7" Value="0"></asp:ListItem>
                                                                                             </asp:DropDownList>
                                                                                         </td>
                                                                                         <td style="width:1%">
@@ -336,7 +339,7 @@
                                                                     
                                                                                         </td>
                                                                                         <td class="ControlTextBoxSmall" style="width:6%">
-                                                                                            <asp:TextBox ID="txtAmountAdd1" runat="server" ValidationGroup="addVal"
+                                                                                            <asp:TextBox ID="txtAmountAdd1" runat="server" ValidationGroup="addVal" BackColor = "#e7e7e7"
                                                                                                 CssClass="cssTextBoxReport2"></asp:TextBox>
                                                                                         </td>
                                                                                         <td style="width:1%">
@@ -354,14 +357,14 @@
                                                                     
                                                                                         </td>
                                                                                         <td class="ControlTextBoxSmall" style="width:5%">
-                                                                                            <asp:TextBox ID="txtRefnumAdd2" ValidationGroup="addVal" runat="server"
+                                                                                            <asp:TextBox ID="txtRefnumAdd2" ValidationGroup="addVal" runat="server" BackColor = "#e7e7e7"
                                                                                                  CssClass="cssTextBoxReport2"></asp:TextBox>
                                                                                         </td>
                                                                                         <td style="width:1%">
                                                                     
                                                                                         </td>
                                                                                         <td  class="ControlTextBoxSmall" style="width:5%">
-                                                                                                    <asp:TextBox ID="txtTransDateAdd2" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" 
+                                                                                                    <asp:TextBox ID="txtTransDateAdd2" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" BackColor = "#e7e7e7"
                                                                                                         Width="100px" MaxLength="10"></asp:TextBox>
                                                                                                     <cc1:CalendarExtender ID="CalendarExtender2" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                         PopupButtonID="ImageButton2" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd2">
@@ -375,7 +378,7 @@
                                                                                             <asp:DropDownList ID="cmbDebtorAdd2" runat="server" BackColor = "#e7e7e7" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
                                                                                                 DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #e7e7e7" height="26px"
                                                                                                 AppendDataBoundItems="true" ValidationGroup="addVal">
-                                                                                                <asp:ListItem Text="Select Debtor" style="background-color: #90c9fc" Value="0"></asp:ListItem>
+                                                                                                <asp:ListItem Text="Select Debtor" style="background-color: #e7e7e7" Value="0"></asp:ListItem>
                                                                                             </asp:DropDownList>
                                                                                         </td>
                                                                 
@@ -386,21 +389,21 @@
                                                                                             <asp:DropDownList ID="cmbCreditorAdd2" runat="server" BackColor = "#e7e7e7" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
                                                                                                 DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #e7e7e7" height="26px"
                                                                                                 AppendDataBoundItems="true" ValidationGroup="addVal">
-                                                                                                <asp:ListItem Text="Select Creditor" style="background-color: #90c9fc" Value="0"></asp:ListItem>
+                                                                                                <asp:ListItem Text="Select Creditor" style="background-color: #e7e7e7" Value="0"></asp:ListItem>
                                                                                             </asp:DropDownList>
                                                                                         </td>
                                                                                         <td style="width:1%">
                                                                     
                                                                                         </td>
                                                                                         <td class="ControlTextBoxSmall" style="width:6%">
-                                                                                            <asp:TextBox ID="txtAmountAdd2" runat="server" ValidationGroup="addVal"
+                                                                                            <asp:TextBox ID="txtAmountAdd2" runat="server" ValidationGroup="addVal" BackColor = "#e7e7e7"
                                                                                                 CssClass="cssTextBoxReport2"></asp:TextBox>
                                                                                         </td>
                                                                                         <td style="width:1%">
                                                                      
                                                                                         </td>
                                                                                         <td class="ControlTextBox3" style="width:34%">
-                                                                                            <asp:TextBox ID="txtNarrAdd2" ValidationGroup="addVal" runat="server" MaxLength="200"
+                                                                                            <asp:TextBox ID="txtNarrAdd2" ValidationGroup="addVal" runat="server" MaxLength="200" BackColor = "#e7e7e7"
                                                                                                  CssClass="cssTextBox"></asp:TextBox>
                                                                                         </td>
                                                                                     </tr>
@@ -411,14 +414,14 @@
                                                                     
                                                                                         </td>
                                                                                         <td class="ControlTextBoxSmall" style="width:5%">
-                                                                                                <asp:TextBox ID="txtRefnumAdd3" ValidationGroup="addVal" runat="server"
+                                                                                                <asp:TextBox ID="txtRefnumAdd3" ValidationGroup="addVal" runat="server" BackColor = "#e7e7e7"
                                                                                                     CssClass="cssTextBoxReport2"></asp:TextBox>
                                                                                         </td>
                                                                                         <td style="width:1%">
                                                                     
                                                                                         </td>
                                                                                         <td  class="ControlTextBoxSmall" style="width:5%">
-                                                                                                <asp:TextBox ID="txtTransDateAdd3" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal"
+                                                                                                <asp:TextBox ID="txtTransDateAdd3" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" BackColor = "#e7e7e7"
                                                                                                         Width="100px" MaxLength="10"></asp:TextBox>
                                                                                                     <cc1:CalendarExtender ID="CalendarExtender3" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                         PopupButtonID="ImageButton3" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd3">
@@ -439,24 +442,24 @@
                                                                      
                                                                                         </td>
                                                                                         <td class="ControlDrpBorder" style="width:15%">
-                                                                                            <asp:DropDownList ID="cmbCreditorAdd3" runat="server" BackColor = "#90c9fc" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
-                                                                                                DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #90c9fc" height="26px"
+                                                                                            <asp:DropDownList ID="cmbCreditorAdd3" runat="server" BackColor = "#e7e7e7" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
+                                                                                                DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #e7e7e7" height="26px"
                                                                                                 AppendDataBoundItems="true" ValidationGroup="addVal">
-                                                                                                <asp:ListItem Text="Select Creditor" style="background-color: #90c9fc" Value="0"></asp:ListItem>
+                                                                                                <asp:ListItem Text="Select Creditor" style="background-color: #e7e7e7" Value="0"></asp:ListItem>
                                                                                             </asp:DropDownList>
                                                                                         </td>
                                                                                         <td style="width:1%">
                                                                      
                                                                                         </td>
                                                                                         <td class="ControlTextBoxSmall" style="width:6%">
-                                                                                            <asp:TextBox ID="txtAmountAdd3" runat="server" ValidationGroup="addVal"
+                                                                                            <asp:TextBox ID="txtAmountAdd3" runat="server" ValidationGroup="addVal" BackColor = "#e7e7e7"
                                                                                                 CssClass="cssTextBoxReport2"></asp:TextBox>
                                                                                         </td>
                                                                                         <td style="width:1%">
                                                                      
                                                                                         </td>
                                                                                         <td class="ControlTextBox3" style="width:34%">
-                                                                                            <asp:TextBox ID="txtNarrAdd3" ValidationGroup="addVal" runat="server" MaxLength="200"
+                                                                                            <asp:TextBox ID="txtNarrAdd3" ValidationGroup="addVal" runat="server" MaxLength="200" BackColor = "#e7e7e7"
                                                                                                 CssClass="cssTextBox"></asp:TextBox>
                                                                                         </td>
                                                                                     </tr>
@@ -467,14 +470,14 @@
                                                                      
                                                                                         </td>
                                                                                         <td class="ControlTextBoxSmall" style="width:5%">
-                                                                                            <asp:TextBox ID="txtRefnumAdd4" ValidationGroup="addVal" runat="server"
+                                                                                            <asp:TextBox ID="txtRefnumAdd4" ValidationGroup="addVal" runat="server" BackColor = "#e7e7e7"
                                                                                                 CssClass="cssTextBoxReport2"></asp:TextBox>
                                                                                         </td>
                                                                                         <td style="width:1%">
                                                                      
                                                                                         </td>
                                                                                         <td class="ControlTextBoxSmall" style="width:5%">
-                                                                                                    <asp:TextBox ID="txtTransDateAdd4" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal"
+                                                                                                    <asp:TextBox ID="txtTransDateAdd4" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" BackColor = "#e7e7e7"
                                                                                                         Width="100px" MaxLength="10"></asp:TextBox>
                                                                                                     <cc1:CalendarExtender ID="CalendarExtender4" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                         PopupButtonID="ImageButton4" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd4">
@@ -487,34 +490,34 @@
                                                                                                 Width="20px" runat="server" />
                                                                                         </td>
                                                                                         <td class="ControlDrpBorder" align="left" style="width:15%">
-                                                                                            <asp:DropDownList ID="cmbDebtorAdd4" runat="server" BackColor = "#90c9fc" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
-                                                                                                DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #90c9fc" height="26px"
+                                                                                            <asp:DropDownList ID="cmbDebtorAdd4" runat="server" BackColor = "#e7e7e7" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
+                                                                                                DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #e7e7e7" height="26px"
                                                                                                 AppendDataBoundItems="true" ValidationGroup="addVal">
-                                                                                                <asp:ListItem Text="Select Debtor" style="background-color: #90c9fc" Value="0"></asp:ListItem>
+                                                                                                <asp:ListItem Text="Select Debtor" style="background-color: #e7e7e7" Value="0"></asp:ListItem>
                                                                                             </asp:DropDownList>
                                                                                         </td>
                                                                                         <td style="width:1%">
                                                                      
                                                                                         </td>
                                                                                         <td class="ControlDrpBorder" style="width:15%">
-                                                                                            <asp:DropDownList ID="cmbCreditorAdd4" runat="server" BackColor = "#90c9fc" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
-                                                                                                DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #90c9fc" height="26px"
+                                                                                            <asp:DropDownList ID="cmbCreditorAdd4" runat="server" BackColor = "#e7e7e7" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
+                                                                                                DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #e7e7e7" height="26px"
                                                                                                 AppendDataBoundItems="true" ValidationGroup="addVal">
-                                                                                                <asp:ListItem Text="Select Creditor" style="background-color: #90c9fc" Value="0"></asp:ListItem>
+                                                                                                <asp:ListItem Text="Select Creditor" style="background-color: #e7e7e7" Value="0"></asp:ListItem>
                                                                                             </asp:DropDownList>
                                                                                         </td>
                                                                                         <td style="width:1%">
                                                                      
                                                                                         </td>
                                                                                         <td class="ControlTextBoxSmall" style="width:6%">
-                                                                                            <asp:TextBox ID="txtAmountAdd4" runat="server" ValidationGroup="addVal"
+                                                                                            <asp:TextBox ID="txtAmountAdd4" runat="server" ValidationGroup="addVal" BackColor = "#e7e7e7"
                                                                                                 CssClass="cssTextBoxReport2"></asp:TextBox>
                                                                                         </td>
                                                                                         <td style="width:1%">
                                                                      
                                                                                         </td>
                                                                                         <td class="ControlTextBox3" style="width:34%">
-                                                                                            <asp:TextBox ID="txtNarrAdd4" ValidationGroup="addVal" runat="server" MaxLength="200"
+                                                                                            <asp:TextBox ID="txtNarrAdd4" ValidationGroup="addVal" runat="server" MaxLength="200" BackColor = "#e7e7e7"
                                                                                                 CssClass="cssTextBox"></asp:TextBox>
                                                                                         </td>
                                                                                     </tr>
@@ -525,14 +528,14 @@
                                                                      
                                                                                         </td>
                                                                                         <td style="width:5%" class="ControlTextBoxSmall">
-                                                                                            <asp:TextBox ID="txtRefnumAdd5" ValidationGroup="addVal" runat="server"
+                                                                                            <asp:TextBox ID="txtRefnumAdd5" ValidationGroup="addVal" runat="server" BackColor = "#e7e7e7"
                                                                                                 CssClass="cssTextBoxReport2"></asp:TextBox>
                                                                                         </td>
                                                                                         <td style="width:1%">
                                                                      
                                                                                         </td>
                                                                                         <td  class="ControlTextBoxSmall" style="width:5%">
-                                                                                            <asp:TextBox ID="txtTransDateAdd5" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" 
+                                                                                            <asp:TextBox ID="txtTransDateAdd5" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" BackColor = "#e7e7e7"
                                                                                                 Width="100px" MaxLength="10"></asp:TextBox>
                                                                                             <cc1:CalendarExtender ID="CalendarExtender5" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                 PopupButtonID="ImageButton5" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd5">
@@ -543,34 +546,34 @@
                                                                                                 Width="20px" runat="server" />
                                                                                         </td>
                                                                                         <td class="ControlDrpBorder" style="width:15%">
-                                                                                            <asp:DropDownList ID="cmbDebtorAdd5" runat="server" BackColor = "#90c9fc" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
-                                                                                                DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #90c9fc" height="26px"
+                                                                                            <asp:DropDownList ID="cmbDebtorAdd5" runat="server" BackColor = "#e7e7e7" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
+                                                                                                DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #e7e7e7" height="26px"
                                                                                                 AppendDataBoundItems="true" ValidationGroup="addVal">
-                                                                                                <asp:ListItem Text="Select Debtor" style="background-color: #90c9fc" Value="0"></asp:ListItem>
+                                                                                                <asp:ListItem Text="Select Debtor" style="background-color: #e7e7e7" Value="0"></asp:ListItem>
                                                                                             </asp:DropDownList>
                                                                                         </td>
                                                                                         <td style="width:1%">
                                                                      
                                                                                         </td>
                                                                                         <td class="ControlDrpBorder" style="width:15%">
-                                                                                            <asp:DropDownList ID="cmbCreditorAdd5" runat="server" BackColor = "#90c9fc" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
-                                                                                                DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #90c9fc" height="26px"
+                                                                                            <asp:DropDownList ID="cmbCreditorAdd5" runat="server" BackColor = "#e7e7e7" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
+                                                                                                DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #e7e7e7" height="26px"
                                                                                                 AppendDataBoundItems="true" ValidationGroup="addVal">
-                                                                                                <asp:ListItem Text="Select Creditor" style="background-color: #90c9fc" Value="0"></asp:ListItem>
+                                                                                                <asp:ListItem Text="Select Creditor" style="background-color: #e7e7e7" Value="0"></asp:ListItem>
                                                                                             </asp:DropDownList>
                                                                                         </td>
                                                                                         <td style="width:1%">
                                                                      
                                                                                         </td>
                                                                                         <td class="ControlTextBoxSmall" style="width:6%">
-                                                                                            <asp:TextBox ID="txtAmountAdd5" runat="server" ValidationGroup="addVal"
+                                                                                            <asp:TextBox ID="txtAmountAdd5" runat="server" ValidationGroup="addVal" BackColor = "#e7e7e7"
                                                                                                 CssClass="cssTextBoxReport2"></asp:TextBox>
                                                                                         </td>
                                                                                         <td style="width:1%">
                                                                      
                                                                                         </td>
                                                                                         <td class="ControlTextBox3" style="width:34%">
-                                                                                            <asp:TextBox ID="txtNarrAdd5" ValidationGroup="addVal" runat="server" MaxLength="200"
+                                                                                            <asp:TextBox ID="txtNarrAdd5" ValidationGroup="addVal" runat="server" MaxLength="200" 
                                                                                                 CssClass="cssTextBox"></asp:TextBox>
                                                                                         </td>
                                                                                     </tr>
@@ -581,14 +584,14 @@
                                                                      
                                                                                         </td>
                                                                                         <td style="width:5%" class="ControlTextBoxSmall">
-                                                                                            <asp:TextBox ID="txtRefnumAdd6" ValidationGroup="addVal" runat="server"
+                                                                                            <asp:TextBox ID="txtRefnumAdd6" ValidationGroup="addVal" runat="server" BackColor = "#e7e7e7"
                                                                                                 CssClass="cssTextBoxReport2"></asp:TextBox>
                                                                                         </td>
                                                                                         <td style="width:1%">
                                                                      
                                                                                         </td>
                                                                                         <td  class="ControlTextBoxSmall" style="width:5%">
-                                                                                            <asp:TextBox ID="txtTransDateAdd6" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" 
+                                                                                            <asp:TextBox ID="txtTransDateAdd6" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" BackColor = "#e7e7e7" 
                                                                                                 Width="100px" MaxLength="10"></asp:TextBox>
                                                                                             <cc1:CalendarExtender ID="CalendarExtender6" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                 PopupButtonID="ImageButton6" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd6">
@@ -599,10 +602,10 @@
                                                                                                 Width="20px" runat="server" />
                                                                                         </td>
                                                                                         <td class="ControlDrpBorder" style="width:15%">
-                                                                                            <asp:DropDownList ID="cmbDebtorAdd6" runat="server" BackColor = "#90c9fc" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
-                                                                                                DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #90c9fc" height="26px"
+                                                                                            <asp:DropDownList ID="cmbDebtorAdd6" runat="server" BackColor = "#e7e7e7" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
+                                                                                                DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #e7e7e7" height="26px"
                                                                                                 AppendDataBoundItems="true" ValidationGroup="addVal">
-                                                                                                <asp:ListItem Text="Select Debtor" style="background-color: #90c9fc" Value="0"></asp:ListItem>
+                                                                                                <asp:ListItem Text="Select Debtor" style="background-color: #e7e7e7" Value="0"></asp:ListItem>
                                                                                             </asp:DropDownList>
                                                                                         </td>
                                                                 
@@ -610,17 +613,17 @@
                                                                      
                                                                                         </td>
                                                                                         <td class="ControlDrpBorder" style="width:15%">
-                                                                                            <asp:DropDownList ID="cmbCreditorAdd6" runat="server" BackColor = "#90c9fc" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
-                                                                                                DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #90c9fc" height="26px"
+                                                                                            <asp:DropDownList ID="cmbCreditorAdd6" runat="server" BackColor = "#e7e7e7" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
+                                                                                                DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #e7e7e7" height="26px"
                                                                                                 AppendDataBoundItems="true" ValidationGroup="addVal">
-                                                                                                <asp:ListItem Text="Select Creditor" style="background-color: #90c9fc" Value="0"></asp:ListItem>
+                                                                                                <asp:ListItem Text="Select Creditor" style="background-color: #e7e7e7" Value="0"></asp:ListItem>
                                                                                             </asp:DropDownList>
                                                                                         </td>
                                                                                         <td style="width:1%">
                                                                      
                                                                                         </td>
                                                                                         <td class="ControlTextBoxSmall" style="width:6%">
-                                                                                            <asp:TextBox ID="txtAmountAdd6" runat="server" ValidationGroup="addVal"
+                                                                                            <asp:TextBox ID="txtAmountAdd6" runat="server" ValidationGroup="addVal" BackColor = "#e7e7e7"
                                                                                                 CssClass="cssTextBoxReport2"></asp:TextBox>
                                                                                         </td>
                                                                                         <td style="width:1%">
@@ -772,8 +775,8 @@
                                                                                             ValidationGroup="editVal" Display="Dynamic" />
                                                                                     </td>
                                                                                     <td align="left" class="ControlDrpBorder" style="width:27%">
-                                                                                        <asp:DropDownList ID="cmbDebtor" runat="server"  BackColor = "#90c9fc" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
-                                                                                            DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #90c9fc" height="26px"
+                                                                                        <asp:DropDownList ID="cmbDebtor" runat="server"  BackColor = "#e7e7e7" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
+                                                                                            DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #e7e7e7" height="26px"
                                                                                             AppendDataBoundItems="true" ValidationGroup="editVal"
                                                                                             >
                                                                                             <asp:ListItem Text="Select Debtor" style="background-color: #90c9fc" Value="0"></asp:ListItem>
@@ -786,10 +789,10 @@
                                                                                             ValidationGroup="editVal" Text="*" Display="Dynamic" />
                                                                                     </td>
                                                                                     <td align="left" class="ControlDrpBorder" style="width:27%">
-                                                                                        <asp:DropDownList ID="cmbCreditor" runat="server"  BackColor = "#90c9fc" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
-                                                                                            DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #90c9fc" height="26px"
+                                                                                        <asp:DropDownList ID="cmbCreditor" runat="server"  BackColor = "#e7e7e7" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
+                                                                                            DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #e7e7e7" height="26px"
                                                                                             AppendDataBoundItems="true" ValidationGroup="editVal">
-                                                                                            <asp:ListItem Text="Select Creditor" style="background-color: #90c9fc" Value="0"></asp:ListItem>
+                                                                                            <asp:ListItem Text="Select Creditor" style="background-color: #e7e7e7" Value="0"></asp:ListItem>
                                                                                         </asp:DropDownList>
                                                                                     </td>
                                                                                     <td>
@@ -831,15 +834,15 @@
                                                                                                 <td  style="width: 37%;">
 
                                                                                                 </td>
-                                                                                                <td  style="width: 18%;">
-                                                                                                    <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                                                                                        CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
-                                                                                                    </asp:Button>
-                                                                                                </td>
-                                                                                                <td  style="width: 18%;">
-                                                                                                    <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update"
+                                                                                                <td  style="width: 18%;">                                                                                                   
+                                                                                                      <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update"
                                                                                                         CssClass="savebutton1231" EnableTheming="false" ValidationGroup="editVal" SkinID="skinBtnSave"
                                                                                                         OnClick="UpdateButton_Click"></asp:Button>
+                                                                                                </td>
+                                                                                                <td  style="width: 18%;">
+                                                                                                   <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                                                        CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
+                                                                                                    </asp:Button>
                                                                                                 </td>
                                                                                                 <td  style="width: 27%;">
 
@@ -903,10 +906,10 @@
                     <tr style="width: 100%">
                         <td style="width: 90%; text-align: left">
                             <asp:Panel ID="PanelBill" Direction="LeftToRight" runat="server">
-                                <table width="100%" style="text-align: left; margin: -3px 0px 0px 0px;">
+                                <table width="100%" style="text-align: left; margin: -4px 0px 0px 0px;">
                                     <tr>
                                         <td>
-                                            <asp:GridView ID="GrdViewJournal" runat="server" AutoGenerateColumns="False" Width="100%"
+                                            <asp:GridView ID="GrdViewJournal" runat="server" AutoGenerateColumns="False" Width="100.4%"
                             DataKeyNames="TransNo" AllowPaging="True" EmptyDataText="No Journals found" OnRowCreated="GrdViewJournal_RowCreated"
                             OnSelectedIndexChanged="GrdViewJournal_SelectedIndexChanged" OnRowCommand="GrdViewJournal_RowCommand"
                             OnPageIndexChanging="GrdViewJournal_PageIndexChanging" OnRowDeleting="GrdViewJournal_RowDeleting"

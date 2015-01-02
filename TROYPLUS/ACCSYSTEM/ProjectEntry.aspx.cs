@@ -445,6 +445,13 @@ public partial class ProjectEntry : System.Web.UI.Page
         }
     }
 
+    protected void BtnClearFilter_Click(object sender, EventArgs e)
+    {
+        txtSearch.Text = "";
+        BindWME("", "");
+        ddCriteria.SelectedIndex = 0;
+    }
+
     protected void txtEWstartDate_TextChanged(object sender, EventArgs e)
     {
         try

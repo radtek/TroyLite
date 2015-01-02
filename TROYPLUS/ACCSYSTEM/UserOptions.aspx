@@ -127,7 +127,7 @@
                     </tr>
                 </table>--%>
                 <div class="mainConBody">
-                    <table style="width: 100.3%; margin: -3px 0px 0px 2px;" cellpadding="3" cellspacing="2" class="searchbg">
+                    <table style="width: 99.8%; margin: -2px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
                         <tr style="height: 25px; vertical-align: middle">
                             <td style="width: 2%;"></td>
                             <td style="width: 15%; font-size: 22px; color: White;" >
@@ -151,6 +151,9 @@
                                 <asp:Button ID="lnkBtnSearchId" runat="server" OnClick="lnkBtnSearch_Click" Text=""
                                     ToolTip="Click here to submit"  CssClass="ButtonSearch6" EnableTheming="false" TabIndex="3" />
                             </td>
+                             <td style="width: 20%" class="tblLeftNoPad">
+                                            <asp:Button ID="BtnClearFilter" runat="server" OnClick="BtnClearFilter_Click" EnableTheming="false" Text="" CssClass="ClearFilter6" />
+                                        </td>
                         </tr>
                     </table>
                 </div>

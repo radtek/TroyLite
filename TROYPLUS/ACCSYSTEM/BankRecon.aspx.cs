@@ -89,6 +89,20 @@ public partial class BankRecon : System.Web.UI.Page
         }
     }
 
+    protected void BtnClearFilter_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            txtTransNo.Text = "";
+            txtBillnoSrc.Text = "";
+           // ddCriteria.SelectedIndex = 0;
+            BindGrid("", "");
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
 
     protected void opnbank_SelectedIndexChanged(object sender, EventArgs e)
     {
