@@ -196,6 +196,16 @@ public partial class CustReceipt : System.Web.UI.Page
             //cmdCancelProduct.Visible = false;
             GrdViewItems.DataSource = ds;
             GrdViewItems.DataBind();
+
+            for (int vLoop = 0; vLoop < GrdViewItems.Rows.Count; vLoop++)
+            {
+                TextBox txtttd = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtType");
+                if(txtttd.Text == "Cash")
+                {
+
+                }
+            }
+
         }
         //UpdatePanel21.Update();
     }
@@ -904,13 +914,17 @@ public partial class CustReceipt : System.Web.UI.Page
             SaveButton.Visible = true;
             ClearPanel();
             ShowPendingBills();
+
+            drpLedger.SelectedIndex = 0;
+
             //txtTransDate.Text = DateTime.Now.ToShortDateString();
 
             DateTime indianStd = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "India Standard Time");
             string dtaa = Convert.ToDateTime(indianStd).ToString("dd/MM/yyyy");
             txtTransDate.Text = dtaa;
+            txtDate.Text = dtaa;
 
-            txtRefNo.Focus();
+            drpLedger.Focus();
             chkPayTo.SelectedValue = "Cash";
 
             if (chkPayTo.SelectedItem != null)
@@ -960,6 +974,16 @@ public partial class CustReceipt : System.Web.UI.Page
                 ddl.DataBind();
                 ddl.DataTextField = "LedgerName";
                 ddl.DataValueField = "LedgerID";
+
+                var ddll = (TextBox)e.Row.FindControl("txtType");
+                if(ddll.Text == "Cash")
+                {
+                    var dd = (TextBox)e.Row.FindControl("txtChequeNo");
+                    dd.Enabled = false;
+
+                    var ddlll = (DropDownList)e.Row.FindControl("drpBank");
+                    ddlll.Enabled = false;
+                }
             }
         }
         catch (Exception ex)
@@ -976,6 +1000,12 @@ public partial class CustReceipt : System.Web.UI.Page
 
     protected void UpdButton_Click(object sender, EventArgs e)
     {
+        if ((chkcard.Checked == false) && (chkcheque.Checked == false) && ( chkcash.Checked == false))
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select any one')", true);
+            return;
+        }
+
         string connection = string.Empty;
         connection = Request.Cookies["Company"].Value;
 
@@ -986,6 +1016,13 @@ public partial class CustReceipt : System.Web.UI.Page
         char[] delimA = delim.ToCharArray();
         //CultureInfo culture = new CultureInfo("pt-BR");
         string sPath = string.Empty;
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+
+        if (!bl.IsValidDate(connection, Convert.ToDateTime(txtDate.Text)))
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Date is invalid')", true);
+            return;
+        }
 
         if (Request.Cookies["Company"] != null)
             sDataSource = Request.Cookies["Company"].Value;
@@ -993,15 +1030,16 @@ public partial class CustReceipt : System.Web.UI.Page
         sPath = sDataSource;
         string usernam = Request.Cookies["LoggedUserName"].Value;
 
-        BusinessLogic bl = new BusinessLogic(sDataSource);
+        
 
         for (int vLoop = 0; vLoop < GrdViewItems.Rows.Count; vLoop++)
         {
+            TextBox txtttd = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtType");
             TextBox txttt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtRefNo");
             TextBox txt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtAmount");
             TextBox txtt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtNarration");
-            DropDownList txttd = (DropDownList)GrdViewItems.Rows[vLoop].FindControl("drpCreditor");
-            TextBox txttdd = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtDate");
+            DropDownList txttd = (DropDownList)GrdViewItems.Rows[vLoop].FindControl("drpBank");
+            TextBox txttdd = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtChequeNo");
 
             int col = vLoop + 1;
 
@@ -1022,23 +1060,20 @@ public partial class CustReceipt : System.Web.UI.Page
             }
             else if (txttd.SelectedValue == "0")
             {
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Creditor in row " + col + " ')", true);
-                return;
+                if (txtttd.Text != "Cash")
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Bank in row " + col + " ')", true);
+                    return;
+                }
             }
             else if (txttdd.Text == "")
             {
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill date in row " + col + " ')", true);
-                return;
-
-            }
-
-            if (!bl.IsValidDate(connection, Convert.ToDateTime(txttdd.Text)))
-            {
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Date is invalid in row " + col + " ')", true);
-                return;
-            }
-
-            
+                if (txtttd.Text != "Cash")
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill ChequeNo in row " + col + " ')", true);
+                    return;
+                }
+            }                       
         }
 
 
@@ -1059,10 +1094,10 @@ public partial class CustReceipt : System.Web.UI.Page
         dc = new DataColumn("Date");
         dt.Columns.Add(dc);
 
-        dc = new DataColumn("Debtor");
+        dc = new DataColumn("DebitorID");
         dt.Columns.Add(dc);
 
-        dc = new DataColumn("Creditor");
+        dc = new DataColumn("Paymode");
         dt.Columns.Add(dc);
 
         dc = new DataColumn("Amount");
@@ -1074,33 +1109,59 @@ public partial class CustReceipt : System.Web.UI.Page
         dc = new DataColumn("VoucherType");
         dt.Columns.Add(dc);
 
+        dc = new DataColumn("ChequeNo");
+        dt.Columns.Add(dc);
+
         ds.Tables.Add(dt);
 
         for (int vLoop = 0; vLoop < GrdViewItems.Rows.Count; vLoop++)
         {
             TextBox txttt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtRefNo");
+            TextBox txtttd = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtType");
             TextBox txt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtAmount");
             TextBox txtt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtNarration");
-            DropDownList txttd = (DropDownList)GrdViewItems.Rows[vLoop].FindControl("drpCreditor");
-            TextBox txttdd = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtDate");
+            DropDownList txttd = (DropDownList)GrdViewItems.Rows[vLoop].FindControl("drpBank");
+            TextBox txttdd = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtChequeNo");
 
-            sDate = txttdd.Text.Trim().Split(delimA);
+            sDate = txtDate.Text.Trim().Split(delimA);
             sBilldate = new DateTime(Convert.ToInt32(sDate[2].ToString()), Convert.ToInt32(sDate[1].ToString()), Convert.ToInt32(sDate[0].ToString()));
 
             drNew = dt.NewRow();
             drNew["RefNo"] = txttt.Text;
             drNew["Date"] = sBilldate;
-            //drNew["Debtor"] = Convert.ToInt32(drpDebtor.SelectedItem.Value);
-            drNew["Creditor"] = Convert.ToInt32(txttd.SelectedItem.Value);
+            drNew["ChequeNo"] = txttdd.Text;
+
+            if (txtttd.Text == "Cash")
+            {
+                drNew["DebitorID"] = 1;
+                drNew["Paymode"] = "Cash";
+            }
+            else if (txtttd.Text == "Cheque")
+            {
+                drNew["DebitorID"] = int.Parse(txttd.SelectedValue);
+                drNew["Paymode"] = "Cheque";
+            }
+            else if (txtttd.Text == "Card")
+            {
+                drNew["DebitorID"] = int.Parse(txttd.SelectedValue);
+                drNew["Paymode"] = "Card";
+            }
+
+            //drNew["Creditor"] = Convert.ToInt32(txttd.SelectedItem.Value);
             drNew["Amount"] = txt.Text;
             drNew["Narration"] = txtt.Text;
-            drNew["VoucherType"] = "Journal";
+            drNew["VoucherType"] = "Receipt";
             ds.Tables[0].Rows.Add(drNew);
         }
 
-        bl.InsertContras(sPath, usernam, ds);
+        string conn = GetConnectionString();
 
-        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Journal Saved Successfully.')", true);
+        DataSet dst = (DataSet)Session["BillData"];
+        int CreditorID = int.Parse(drpLedger.SelectedValue);
+
+        bl.InsertMultipleCustReceipt(conn, ds, CreditorID, dst, usernam);
+
+        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Receipt Saved Successfully.');", true);
 
         ModalPopupExtender1.Hide();
         ModalPopupExtender2.Hide();

@@ -699,6 +699,49 @@ public partial class ProductMaster : System.Web.UI.Page
                 GrdViewProduct.DataBind();
                 pnlRole.Visible = false;
                 StringBuilder scriptMsg = new StringBuilder();
+
+                DataSet ds;
+                DataTable dt;
+                DataRow drNew;
+
+                DataColumn dc;
+
+                ds = new DataSet();
+
+                dt = new DataTable();
+
+                dc = new DataColumn("Price");
+                dt.Columns.Add(dc);
+
+                dc = new DataColumn("EffDate");
+                dt.Columns.Add(dc);
+
+                dc = new DataColumn("Discount");
+                dt.Columns.Add(dc);
+
+                dc = new DataColumn("PriceName");
+                dt.Columns.Add(dc);
+
+                ds.Tables.Add(dt);
+
+                for (int vLoop = 0; vLoop < ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).Rows.Count; vLoop++)
+                {
+                    TextBox txttt = (TextBox)((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).Rows[vLoop].FindControl("txtPrice");
+                    TextBox txtttd = (TextBox)((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).Rows[vLoop].FindControl("txtEffDate");
+                    TextBox txt = (TextBox)((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).Rows[vLoop].FindControl("txtDiscount");
+                    TextBox txtt = (TextBox)((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).Rows[vLoop].FindControl("txtPriceName");
+                    drNew = dt.NewRow();
+                    drNew["Price"] = txttt.Text;
+                    drNew["EffDate"] = txtttd.Text;
+                    drNew["Discount"] = txt.Text;
+                    drNew["PriceName"] = txtt.Text;
+                    ds.Tables[0].Rows.Add(drNew);
+                }
+                string connection = string.Empty;
+                connection = Request.Cookies["Company"].Value;
+
+                //bl.InsertProductPrices(connection, ds, usernam);
+
                 scriptMsg.Append("alert('Product Details Saved Successfully.');");
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), scriptMsg.ToString(), true);
 
@@ -1112,7 +1155,7 @@ public partial class ProductMaster : System.Web.UI.Page
             if (!Page.IsValid)
             {
 
-
+                
 
                 StringBuilder msg = new StringBuilder();
 
@@ -1272,34 +1315,34 @@ public partial class ProductMaster : System.Web.UI.Page
 
             dst.Tables.Add(dtt);
 
-            
-            
 
-            //if (ds != null)
-            //{
-            //    if (ds.Tables[0].Rows.Count > 0)
-            //    {
-            //        for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-            //        {
-            //            drNew = dtt.NewRow();
-            //            drNew["ID"] = Convert.ToInt32(ds.Tables[0].Rows[i]["ID"]);
-            //            drNew["PriceName"] = Convert.ToString(ds.Tables[0].Rows[i]["PriceName"]);
-            //            drNew["Price"] = "";
-            //            drNew["EffDate"] = "";
-            //            drNew["Discount"] = "";
-            //            dst.Tables[0].Rows.Add(drNew);
-            //        }
-            //    }
 
-            //    ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).DataSource = dst.Tables[0].DefaultView;
-            //    ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).DataBind();
-            //}
-            //else
-            //{
-            //    ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).EmptyDataText = "No Price List found";
-            //    ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).DataSource = null;
-            //    ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).DataBind();
-            //}
+
+            if (ds != null)
+            {
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                    {
+                        drNew = dtt.NewRow();
+                        drNew["ID"] = Convert.ToInt32(ds.Tables[0].Rows[i]["ID"]);
+                        drNew["PriceName"] = Convert.ToString(ds.Tables[0].Rows[i]["PriceName"]);
+                        drNew["Price"] = "";
+                        drNew["EffDate"] = "";
+                        drNew["Discount"] = "";
+                        dst.Tables[0].Rows.Add(drNew);
+                    }
+                }
+
+                ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).DataSource = dst.Tables[0].DefaultView;
+                ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).DataBind();
+            }
+            else
+            {
+                ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).EmptyDataText = "No Price List found";
+                ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).DataSource = null;
+                ((GridView)this.frmViewAdd.FindControl("tablInsertControl").FindControl("TabPanel1").FindControl("GrdViewItems")).DataBind();
+            }
 
 
             /*
@@ -1496,6 +1539,10 @@ public partial class ProductMaster : System.Web.UI.Page
             e.InputParameters["IsActive"] = ((DropDownList)this.frmViewAdd.FindControl("tablInsertControl").FindControl("tabInsProdMaster").FindControl("drpIsActiveAdd")).SelectedValue;
 
         e.InputParameters["Username"] = Request.Cookies["LoggedUserName"].Value;
+
+        
+
+        //e.InputParameters["Ds"]=
 
     }
 

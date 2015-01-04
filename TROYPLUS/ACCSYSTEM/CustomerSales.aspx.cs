@@ -1452,7 +1452,8 @@ public partial class CustomerSales : System.Web.UI.Page
                             {
                                 if ((optionmethod.SelectedValue == "NormalSales") || (optionmethod.SelectedValue == "PurchaseReturn") || (optionmethod.SelectedValue == "ManualSales"))
                                 {
-                                    lblDisAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["DealerDiscount"]);
+                                    //lblDisAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["DealerDiscount"]);
+                                    lblDisAdd.Text = "0";
                                     lblVATAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Dealervat"]);
                                     lblCSTAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["CST"]);
                                 }
@@ -1468,7 +1469,8 @@ public partial class CustomerSales : System.Web.UI.Page
                             {
                                 if ((optionmethod.SelectedValue == "NormalSales") || (optionmethod.SelectedValue == "PurchaseReturn") || (optionmethod.SelectedValue == "ManualSales"))
                                 {
-                                    lblDisAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Discount"]);
+                                    //lblDisAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Discount"]);
+                                    lblDisAdd.Text = "0";
                                     lblVATAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["vat"]);
                                     lblCSTAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["CST"]);
                                 }
@@ -1550,7 +1552,8 @@ public partial class CustomerSales : System.Web.UI.Page
                             {
                                 if ((optionmethod.SelectedValue == "NormalSales") || (optionmethod.SelectedValue == "PurchaseReturn") || (optionmethod.SelectedValue == "ManualSales"))
                                 {
-                                    lblDisAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["DealerDiscount"]);
+                                    //lblDisAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["DealerDiscount"]);
+                                    lblDisAdd.Text = "0";
                                     lblVATAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Dealervat"]);
                                     lblCSTAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["CST"]);
                                 }
@@ -1566,7 +1569,8 @@ public partial class CustomerSales : System.Web.UI.Page
                             {
                                 if ((optionmethod.SelectedValue == "NormalSales") || (optionmethod.SelectedValue == "PurchaseReturn") || (optionmethod.SelectedValue == "ManualSales"))
                                 {
-                                    lblDisAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Discount"]);
+                                    //lblDisAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Discount"]);
+                                    lblDisAdd.Text = "0";
                                     lblVATAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["vat"]);
                                     lblCSTAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["CST"]);
                                 }
@@ -1733,6 +1737,36 @@ public partial class CustomerSales : System.Web.UI.Page
                     }
                 }
 
+                if ((drpnormalsales.SelectedItem.Text == "YES") || (drpmanualsales.SelectedItem.Text == "YES"))
+                {
+                    double EXCLUSIVErate1 = 0;
+                    double EXCrate1 = 0;
+                    if (Labelll.Text == "VAT EXCLUSIVE")
+                    {
+                        EXCLUSIVErate1 = (Convert.ToDouble(txtRateAdd.Text)) + ((Convert.ToDouble(txtRateAdd.Text)) * (Convert.ToDouble(lblVATAdd.Text) / 100));
+                    }
+                    else
+                    {
+                        EXCLUSIVErate1 = (Convert.ToDouble(txtRateAdd.Text));
+                    }
+                    DataSet dst = bl.ListSalesProductDetails(cmbProdAdd.SelectedItem.Value.Trim(), lblledgerCategory.Text);
+                    if (dst != null)
+                    {
+                        if (dst.Tables[0].Rows.Count > 0)
+                        {
+                            foreach (DataRow drt in dst.Tables[0].Rows)
+                            {
+                                EXCrate1 = Convert.ToDouble(drt["rate"]);
+                            }
+                        }
+                    }
+                    if (EXCLUSIVErate1 > EXCrate1)
+                    {
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Rate cannot be greater than " + EXCrate1 + "')", true);
+                        ModalPopupProduct.Show();
+                        return;
+                    }
+                }
 
                 string usernam = Request.Cookies["LoggedUserName"].Value;
                 if (bl.CheckIfUserCanDoDeviation(usernam))
@@ -1817,7 +1851,7 @@ public partial class CustomerSales : System.Web.UI.Page
 
                                     if (rate1 < rate2)
                                     {
-                                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Rate cannot be less than dealer rate Rs. " + rate2 + ")", true);
+                                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Rate cannot be less than dealer rate Rs. " + rate2 + "')", true);
                                         ModalPopupProduct.Show();
                                         return;
                                     }
@@ -2217,6 +2251,7 @@ public partial class CustomerSales : System.Web.UI.Page
                     return;
                 }
 
+                
                 prodItem = cmbProdAdd.SelectedItem.Text.Split('-');
                 double chk = bl.getStockInfo(cmbProdAdd.SelectedValue);
                 double curQty = Convert.ToDouble(txtQtyAdd.Text);
@@ -2261,6 +2296,36 @@ public partial class CustomerSales : System.Web.UI.Page
                     }
                 }
 
+                if ((drpnormalsales.SelectedItem.Text == "YES") || (drpmanualsales.SelectedItem.Text == "YES"))
+                {
+                    double EXCLUSIVErate1 = 0;
+                    double EXCrate1 = 0;
+                    if (Labelll.Text == "VAT EXCLUSIVE")
+                    {
+                        EXCLUSIVErate1 = (Convert.ToDouble(txtRateAdd.Text)) + ((Convert.ToDouble(txtRateAdd.Text)) * (Convert.ToDouble(lblVATAdd.Text) / 100));
+                    }
+                    else
+                    {
+                        EXCLUSIVErate1 = (Convert.ToDouble(txtRateAdd.Text));
+                    }
+                    DataSet dst = bl.ListSalesProductDetails(cmbProdAdd.SelectedItem.Value.Trim(), lblledgerCategory.Text);
+                    if (dst != null)
+                    {
+                        if (dst.Tables[0].Rows.Count > 0)
+                        {
+                            foreach (DataRow drt in dst.Tables[0].Rows)
+                            {
+                                EXCrate1 = Convert.ToDouble(drt["rate"]);
+                            }
+                        }
+                    }
+                    if (EXCLUSIVErate1 > EXCrate1)
+                    {
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Rate cannot be greater than " + EXCrate1 + "')", true);
+                        ModalPopupProduct.Show();
+                        return;
+                    }
+                }
 
                 string usernam = Request.Cookies["LoggedUserName"].Value;
                 if (bl.CheckIfUserCanDoDeviation(usernam))

@@ -64039,4 +64039,196 @@ public class BusinessLogic
 
     }
 
+    public void InsertMultipleCustReceipt(string connection,DataSet ds,int CreditorID, DataSet dsBillNos, string usernam)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+
+        string dbQry = string.Empty;
+
+        string sAuditStr = string.Empty;
+
+        string dbQ = string.Empty;
+        DataSet dsd = new DataSet();
+        string logdescription = string.Empty;
+        string description = string.Empty;
+        string Logsave = string.Empty;
+
+        try
+        {
+
+            //if (!IsValidDate(connection, TransDate))
+            //{
+            //    throw new Exception("Invalid Date");
+            //}
+
+            manager.Open();
+            manager.ProviderType = DataProvider.OleDb;
+
+            manager.BeginTransaction();
+
+            dbQ = "SELECT KeyValue From tblSettings WHERE key='SAVELOG'";
+            dsd = manager.ExecuteDataSet(CommandType.Text, dbQ.ToString());
+            if (dsd.Tables[0].Rows.Count > 0)
+                Logsave = dsd.Tables[0].Rows[0]["KeyValue"].ToString();
+
+            if (Logsave == "YES")
+            {
+                //logdescription = string.Format("INSERT INTO tblDayBook(TransDate,DebtorID,CreditorID,Amount,Narration,VoucherType,ChequeNo,Commission,RefNo) VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8})",
+                //TransDate.ToShortDateString(), DebitorID, CreditorID, Amount, Narration, VoucherType, ChequeNo, 0, RefNo);
+                //logdescription = logdescription.Trim();
+                //description = string.Format("INSERT INTO tblLog(LogDate,LogDescription,LogUsername,LogKey,LogMethod) VALUES(Format('{0}', 'dd/mm/yyyy'),'{1}','{2}','{3}','{4}')",
+                //     DateTime.Now.ToString(), logdescription.ToString(), usernam, "", "InsertCustReceipt");
+                //manager.ExecuteNonQuery(CommandType.Text, description);
+            }
+
+            int TransNo = 0;
+            if (ds != null)
+            {
+                if (ds.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        dbQry = string.Format("INSERT INTO tblDayBook(TransDate,DebtorID,CreditorID,Amount,Narration,VoucherType,ChequeNo,Commission,RefNo) VALUES(Format('{0}', 'dd/mm/yyyy'),{1},{2},{3},'{4}','{5}','{6}',{7},{8})",
+                            Convert.ToDateTime(dr["Date"]), Convert.ToInt32(dr["DebitorID"]), CreditorID, Convert.ToDouble(dr["Amount"]), Convert.ToString(dr["Narration"]), Convert.ToString(dr["VoucherType"]), Convert.ToString(dr["ChequeNo"]), 0, Convert.ToInt32(dr["RefNo"]));
+
+                        manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                        TransNo = (Int32)manager.ExecuteScalar(CommandType.Text, "SELECT MAX(TransNo) FROM tblDayBook");
+
+                        dbQry = string.Format("Insert Into tblReceipt(CreditorID,JournalID,Paymode) Values({0},{1},'{2}')", CreditorID, TransNo, Convert.ToString(dr["Paymode"]));
+
+                        manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                    }
+                }
+            }
+            
+            
+
+
+            if (dsBillNos != null)
+            {
+                foreach (DataRow dr in dsBillNos.Tables[0].Rows)
+                {
+                    if (dr["BillNo"].ToString() != "0")
+                    {
+                        if (Logsave == "YES")
+                        {
+                            //logdescription = string.Format("INSERT INTO tblReceivedAmount(ReceiptNo,BillNo,Amount) VALUES({0},{1},{2})", TransNo.ToString(), dr["BillNo"].ToString(), Convert.ToDouble(dr["Amount"]));
+                            //logdescription = logdescription.Trim();
+                            //description = string.Format("INSERT INTO tblLog(LogDate,LogDescription,LogUsername,LogKey,LogMethod) VALUES(Format('{0}', 'dd/mm/yyyy'),'{1}','{2}','{3}','{4}')",
+                            //     DateTime.Now.ToString(), logdescription.ToString(), usernam, TransNo, "InsertCustReceipt");
+                            //manager.ExecuteNonQuery(CommandType.Text, description);
+                        }
+
+                        dbQry = string.Format("INSERT INTO tblReceivedAmount(ReceiptNo,BillNo,Amount) VALUES({0},{1},{2})", TransNo.ToString(), dr["BillNo"].ToString(), Convert.ToDouble(dr["Amount"]));
+                        manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+
+                    }
+                }
+            }
+
+            sAuditStr = "Receipt Transaction added. Record Details : User=" + usernam + " DateTime:" + DateTime.Now.ToString();
+
+            dbQry = string.Format("INSERT INTO  tblAudit(Description,Command,auditdate) VALUES('{0}','{1}',Format('{2}', 'dd/mm/yyyy'))", sAuditStr, "Add New", DateTime.Now.ToString());
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+            manager.CommitTransaction();
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
+
+    public void InsertProductPrices(string connection, DataSet ds, string usernam)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+
+        string dbQry = string.Empty;
+
+        string sAuditStr = string.Empty;
+
+        string dbQ = string.Empty;
+        DataSet dsd = new DataSet();
+        string logdescription = string.Empty;
+        string description = string.Empty;
+        string Logsave = string.Empty;
+
+        try
+        {
+
+            //if (!IsValidDate(connection, TransDate))
+            //{
+            //    throw new Exception("Invalid Date");
+            //}
+
+            manager.Open();
+            manager.ProviderType = DataProvider.OleDb;
+
+            manager.BeginTransaction();
+
+            dbQ = "SELECT KeyValue From tblSettings WHERE key='SAVELOG'";
+            dsd = manager.ExecuteDataSet(CommandType.Text, dbQ.ToString());
+            if (dsd.Tables[0].Rows.Count > 0)
+                Logsave = dsd.Tables[0].Rows[0]["KeyValue"].ToString();
+
+            if (Logsave == "YES")
+            {
+                //logdescription = string.Format("INSERT INTO tblDayBook(TransDate,DebtorID,CreditorID,Amount,Narration,VoucherType,ChequeNo,Commission,RefNo) VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8})",
+                //TransDate.ToShortDateString(), DebitorID, CreditorID, Amount, Narration, VoucherType, ChequeNo, 0, RefNo);
+                //logdescription = logdescription.Trim();
+                //description = string.Format("INSERT INTO tblLog(LogDate,LogDescription,LogUsername,LogKey,LogMethod) VALUES(Format('{0}', 'dd/mm/yyyy'),'{1}','{2}','{3}','{4}')",
+                //     DateTime.Now.ToString(), logdescription.ToString(), usernam, "", "InsertCustReceipt");
+                //manager.ExecuteNonQuery(CommandType.Text, description);
+            }
+
+            int TransNo = 0;
+            if (ds != null)
+            {
+                if (ds.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        //dbQry = string.Format("INSERT INTO tblDayBook(TransDate,DebtorID,CreditorID,Amount,Narration,VoucherType,ChequeNo,Commission,RefNo) VALUES(Format('{0}', 'dd/mm/yyyy'),{1},{2},{3},'{4}','{5}','{6}',{7},{8})",
+                        //    Convert.ToDateTime(dr["Date"]), Convert.ToInt32(dr["DebitorID"]), CreditorID, Convert.ToDouble(dr["Amount"]), Convert.ToString(dr["Narration"]), Convert.ToString(dr["VoucherType"]), Convert.ToString(dr["ChequeNo"]), 0, Convert.ToInt32(dr["RefNo"]));
+
+                        //manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                        //dbQry = string.Format("Insert Into tblProductPrices(PriceName,JournalID,Paymode) Values({0},{1},'{2}')", CreditorID, TransNo, Convert.ToString(dr["Paymode"]));
+
+                        //manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                    }
+                }
+            }
+
+            sAuditStr = "Receipt Transaction added. Record Details : User=" + usernam + " DateTime:" + DateTime.Now.ToString();
+
+            dbQry = string.Format("INSERT INTO  tblAudit(Description,Command,auditdate) VALUES('{0}','{1}',Format('{2}', 'dd/mm/yyyy'))", sAuditStr, "Add New", DateTime.Now.ToString());
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+            manager.CommitTransaction();
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
+
 }
