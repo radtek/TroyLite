@@ -1129,11 +1129,16 @@ h2
     text-align: center;
     border: 1px solid Black;
 }
+.HeadataRow th
+{
 
+    border: 1px solid Gray !important;
+
+}
 .HeadataRow th a
 {
     text-decoration: underline;
-    color: White;
+    color: White !important;
     border: 1px solid Black;
     height:40px;
 }
@@ -1166,7 +1171,7 @@ h2
     /*background-color: #9bddf1;*/
     background-color: #a09d9d;
     text-align: center;
-    color: #000000;
+    color: #FFF;
     font-size: 12px;
     padding: 7px 6px 6px 3px;
     height: 39px !important;
@@ -6195,7 +6200,7 @@ h2
     /*background-color: #9bddf1;*/
     background-color: #a09d9d;
     text-align: center;
-    color: #000000;
+    color: #FFF;
     font-size: 12px;
     padding: 7px 6px 6px 3px;
     height: 39px !important;

@@ -868,6 +868,27 @@
                                                                 <td style="width: 10%;">
                                                                 </td>
                                                             </tr>
+                                                                                    <tr style="height:3px">
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="ControlLabel" style="width:20%">
+                                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDueDate"
+                                                                                                    Display="Dynamic" ErrorMessage="Opening Due Date is mandatory.">*</asp:RequiredFieldValidator>
+                                                                    Opening Due Date *
+                                                                </td>
+                                                                <td class="ControlTextBox3" style="width:28%">
+                                                                    <asp:TextBox ID="txtDueDate" MaxLength="10" TabIndex="13" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("DueDate") %>'
+                                                                        SkinID="skinTxtBoxGrid"></asp:TextBox>
+                                                                </td>
+                                                                <td class="ControlLabel" style="width:14%">
+                                                                    
+                                                                </td>
+                                                                <td style="width:28%" class="ControlDrpBorder">
+                                                                   
+                                                                </td>
+                                                                <td style="width: 10%;">
+                                                                </td>
+                                                            </tr>
                                                             <tr style="height:3px">
                                                             </tr>
                                                             <tr>

@@ -43,7 +43,7 @@
                         <asp:UpdatePanel ID="UpdatePanel21" runat="server" UpdateMode="Conditional">
                              <ContentTemplate>
                                 <asp:DropDownList ID="cmdBill" Width="100%" AppendDataBoundItems="True" CssClass="drpDownListMedium" OnSelectedIndexChanged="cmdBill_SelectedIndexChanged"
-                                     runat="server" DataTextField="Billformat" AutoPostBack="true" DataValueField="Billformat" ValidationGroup="product" style="border: 1px solid #90C9FC" height="25px" Visible="False">
+                                     runat="server" DataTextField="Billformat" AutoPostBack="true" DataValueField="Billformat" ValidationGroup="product" style="border: 1px solid #90C9FC" height="25px">
                                      <%--<asp:ListItem Text="Select Billformat" Value="0"></asp:ListItem>--%>
                                 </asp:DropDownList>
                             </ContentTemplate>

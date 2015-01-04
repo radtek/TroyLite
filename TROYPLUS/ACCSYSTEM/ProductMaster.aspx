@@ -1134,6 +1134,8 @@
                                                                                                             Allowed Price % *
                                                                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtAllowedPriceAdd"
                                                                                                                 Text="*" Display="Dynamic" EnableClientScript="True" ErrorMessage="Allowed Price is mandatory"></asp:RequiredFieldValidator>
+                                                                                                            <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" FilterType="Custom, Numbers"
+                                                                                                                TargetControlID="txtAllowedPriceAdd" ValidChars="." />
                                                                                                         </td>
                                                                                                         <td style="width: 25%" class="ControlTextBox3">
                                                                                                             <asp:TextBox ID="txtAllowedPriceAdd" runat="server" Text="0"
@@ -1220,7 +1222,12 @@
                                                                                                         <FooterStyle CssClass="dataRow" />
                                                                                                         <Columns>
                                                                                                             <asp:BoundField DataField="ID" HeaderText="ID" HeaderStyle-BorderColor="Gray"  ReadOnly="true" ApplyFormatInEditMode="false" HeaderStyle-Width="10%" />
-                                                                                                            <asp:BoundField DataField="PriceName" HeaderText="Price Type" HeaderStyle-BorderColor="Gray"  ReadOnly="true" ApplyFormatInEditMode="false" HeaderStyle-Width="30%" />
+                                                                                                            <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Price Type" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20%">
+                                                                                                                <ItemTemplate>
+                                                                                                                    <asp:TextBox ID="txtPriceName" runat="server" Width="85%"  Text='<%# Eval("PriceName")%>'
+                                                                                                                        ></asp:TextBox>
+                                                                                                                </ItemTemplate>
+                                                                                                            </asp:TemplateField>
                                                                                                             <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Price" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20%">
                                                                                                                 <ItemTemplate>
                                                                                                                     <asp:TextBox ID="txtPrice" runat="server" Width="85%"  Text='<%# Eval("Price")%>'

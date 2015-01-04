@@ -345,7 +345,7 @@
                                             <td style="width: 15%">
                                                 <div style="text-align: right;">
                                                     <asp:Panel ID="pnlSearch" runat="server" Width="60px">
-                                                        <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click"  CssClass="ButtonAdd66" ForeColor="White" EnableTheming="false"
+                                                        <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CausesValidation="false"  CssClass="ButtonAdd66" ForeColor="White" EnableTheming="false"
                                                             Width="60px"></asp:Button>
                                                     </asp:Panel>
                                                 </div>
@@ -897,6 +897,8 @@
                             CancelControlID="Button3" DynamicServicePath="" Enabled="True" PopupControlID="Panel2"
                             TargetControlID="Button2">
                         </cc1:ModalPopupExtender>
+                                                        <asp:ValidationSummary ID="ValidationSummary2" runat="server" Font-Names="'Trebuchet MS'" Font-Size="12pt"
+                                                HeaderText="Validation Messages" ShowMessageBox="true" ShowSummary="true" ValidationGroup="ValidationSummary2" />
                         <asp:Panel runat="server" ID="Panel2" Style="width: 61%; display: none">
                             <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
@@ -941,9 +943,9 @@
                                                                                                                Received From *
                                                                                                                 <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="drpLedger"
                                                                                                                     Display="Dynamic" ErrorMessage="Received From is Mandatory" Operator="GreaterThan"
-                                                                                                                    ValueToCompare="0">*</asp:CompareValidator>
+                                                                                                                    ValueToCompare="0" ValidationGroup="ValidationSummary2">*</asp:CompareValidator>
                                                                                                             </td>
-                                                                                                            <td class="ControlTextBox3" style="width: 25%">
+                                                                                                            <td class="ControlDrpBorder" style="width: 25%">
                                                                                                                 <asp:DropDownList ID="drpLedger" runat="server" AutoPostBack="True" Width="100%" CssClass="drpDownListMedium" BackColor = "#e7e7e7"
                                                                                                                     DataSourceID="srcCreditorDebitor" DataValueField="LedgerID" style="border: 1px solid #e7e7e7" height="26px" 
                                                                                                                     DataTextField="LedgerName" AppendDataBoundItems="True">
@@ -954,8 +956,8 @@
                                                                                                                 <asp:Label ID="Label2" runat="server"
                                                                                                                                 Width="120px" Text="Received Date *" ></asp:Label>
                                                                                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtDate"
-                                                                                                                    ErrorMessage="Trasaction Date is mandatory" Display="Dynamic">*</asp:RequiredFieldValidator>
-                                                                                                                <asp:CompareValidator ControlToValidate="txtDate" Operator="DataTypeCheck" Type="Date"
+                                                                                                                    ErrorMessage="Trasaction Date is mandatory"  ValidationGroup="ValidationSummary2" Display="Dynamic">*</asp:RequiredFieldValidator>
+                                                                                                                <asp:CompareValidator ControlToValidate="txtDate"  ValidationGroup="ValidationSummary2" Operator="DataTypeCheck" Type="Date"
                                                                                                                     ErrorMessage="Please enter a valid date" runat="server" ID="CompareValidator2">*</asp:CompareValidator>
                                                                                                             </td>
                                                                                                             <td class="ControlTextBox3" style="width: 25%">
@@ -963,7 +965,7 @@
                                                                                                                     CssClass="cssTextBox" Width="100px"></asp:TextBox>
                                                                                                                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                                                                                                 <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Animated="true" Format="dd/MM/yyyy"
-                                                                                                                    PopupButtonID="btnDate3" PopupPosition="BottomLeft" TargetControlID="txtDate">
+                                                                                                                    PopupButtonID="ImageButton1" PopupPosition="BottomLeft" TargetControlID="txtDate">
                                                                                                                 </cc1:CalendarExtender>
                                                                                                             </td>
                                                                                                             <td>
@@ -973,11 +975,11 @@
                                                                                                             
                                                                                                             
                                                                                                         </tr>
-                                                                                                        <tr style="height:2px">
+                                                                                                        <tr style="height:3px">
                                                                                                     </tr>
                                                                                             <tr>
                                                                                                 <td>
-
+                                                                                                    
                                                                                                 </td>
                                                                                                 <td class="ControlTextBox3" style="width: 25%">
                                                                                                                 <asp:CheckBox ID="chkcash" runat="server" Text="Cash" OnCheckedChanged="chkcash_CheckedChanged" AutoPostBack="true"/>
@@ -985,10 +987,11 @@
                                                                                                                 <asp:CheckBox ID="chkcard" runat="server" Text="Card" OnCheckedChanged="chkcard_CheckedChanged" AutoPostBack="true" />
                                                                                                             </td>
                                                                                                 <td class="ControlLabel" style="width: 16%">
-                                                                                                                
+                                                                                                                Mobile
                                                                                                             </td>
                                                                                                             <td class="ControlTextBox3" style="width: 25%">
-                                                                                                               
+                                                                                                               <asp:TextBox ID="TextBox1" runat="server"
+                                                                                                                    CssClass="cssTextBox" Width="100px"></asp:TextBox>
                                                                                                             </td>
                                                                                                             <td>
                                                                                                                
@@ -1001,7 +1004,7 @@
                                                                                         <table style="width:100%">
                                                                                             <tr>
                                                                                                 <td>
-                                                                                                    <div id="div" runat="server" style="height:330px; overflow:scroll">
+                                                                                                    <div id="div" runat="server" style="height:220px; overflow:scroll">
                                                                                                         <rwg:BulkEditGridView ID="GrdViewItems" AutoGenerateColumns="False" BorderWidth="1px"
                                                                                                             BorderStyle="Solid" OnRowDataBound="GrdViewItems_RowDataBound" GridLines="Both" SaveButtonID="SaveButton" runat="server" CssClass="someClass"
                                                                                                             Width="100%">
@@ -1012,7 +1015,12 @@
                                                                                                             <HeaderStyle CssClass="HeadataRow" Wrap="false" />
                                                                                                             <FooterStyle CssClass="dataRow" />
                                                                                                             <Columns>
-                                                                                                                <asp:BoundField DataField="Type" HeaderText="Type" HeaderStyle-Wrap="false" HeaderStyle-BorderColor="Gray"  HeaderStyle-Width="10px"/>
+                                                                                                                <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Type" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="10px">
+                                                                                                                    <ItemTemplate>
+                                                                                                                        <asp:TextBox ID="txtType" runat="server" Width="90%" Height="26px" Text='<%# Bind("Type") %>' Enabled="false"
+                                                                                                                            ></asp:TextBox>
+                                                                                                                    </ItemTemplate>
+                                                                                                                </asp:TemplateField>
                                                                                                                 <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="RefNo" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="10px">
                                                                                                                     <ItemTemplate>
                                                                                                                         <asp:TextBox ID="txtRefNo" runat="server" Width="90%" Height="26px" Text='<%# Bind("RefNo") %>'
@@ -1065,7 +1073,7 @@
                                                                                                 </td>
                                                                                                 <td  style="width: 18%;">
                                                                                                     <asp:Button ID="UpdButton" runat="server" CausesValidation="true" CommandName="Update"
-                                                                                                        CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave" ValidationGroup="ValidationSummary3"
+                                                                                                        CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave" ValidationGroup="ValidationSummary2"
                                                                                                         OnClick="UpdButton_Click"></asp:Button>
                                                                                                 </td>
                                                                                                 <td  style="width: 18%;">

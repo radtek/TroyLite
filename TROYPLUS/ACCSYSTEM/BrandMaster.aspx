@@ -159,7 +159,7 @@
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width:30%">
                                                                     <asp:TextBox ID="txtBrandLevel" runat="server" Text='<%# Bind("Brandlevel") %>' SkinID="skinTxtBoxGrid"
-                                                                        TabIndex="4"></asp:TextBox>
+                                                                        TabIndex="2"></asp:TextBox>
                                                                 </td>
                                                                 <td style="width:30%">
                                                                 </td>
@@ -174,11 +174,12 @@
                                                                     Allowed Price % *
                                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDeviation"
                                                                         Display="Dynamic" EnableClientScript="True" ErrorMessage="Allowed Price is mandatory">*</asp:RequiredFieldValidator>
+									<cc1:FilteredTextBoxExtender ID="OBvalid123" runat="server" FilterType="Numbers" TargetControlID="txtDeviation" />
                                                                     
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width:30%">
                                                                     <asp:TextBox ID="txtDeviation" runat="server" Text='<%# Bind("Deviation") %>' SkinID="skinTxtBoxGrid"
-                                                                        TabIndex="5"></asp:TextBox>
+                                                                        TabIndex="3"></asp:TextBox>
                                                                 </td>
                                                                 <td style="width:30%">
                                                                 </td>
@@ -193,7 +194,7 @@
                                                                     Is Active *
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width:30%">
-                                                                    <asp:DropDownList ID="drpIsActive" TabIndex="10" AutoPostBack="false" runat="server" BackColor = "#e7e7e7" OnDataBound="drpIsActive_DataBound" CssClass="drpDownListMedium"
+                                                                    <asp:DropDownList ID="drpIsActive" TabIndex="4" AutoPostBack="false" runat="server" BackColor = "#e7e7e7" OnDataBound="drpIsActive_DataBound" CssClass="drpDownListMedium"
                                                                                     Width="100%" style="border: 1px solid #e7e7e7" height="26px" SelectedValue='<%# Bind("IsActive") %>'>
                                                                                     <asp:ListItem Text="NO" Value="NO"></asp:ListItem>
                                                                                     <asp:ListItem Text="YES" Value="YES" Selected="True"></asp:ListItem>
@@ -294,7 +295,7 @@
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width:30%">
                                                                     <asp:TextBox ID="txtBrandLevelAdd" runat="server" Text="0"
-                                                                        SkinID="skinTxtBoxGrid" TabIndex="4"></asp:TextBox>
+                                                                        SkinID="skinTxtBoxGrid" TabIndex="2"></asp:TextBox>
                                                                 </td>
                                                                 
                                                                 <td style="width:30%">
@@ -311,10 +312,11 @@
                                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtDeviationAdd"
                                                                         Display="Dynamic" EnableClientScript="True" ErrorMessage="Allowed Price % is mandatory">*</asp:RequiredFieldValidator>
                                                                     
-                                                                </td>
+                                                                <cc1:FilteredTextBoxExtender ID="OBvalid12" runat="server" FilterType="Numbers" TargetControlID="txtDeviationAdd" />
+								</td>
                                                                 <td class="ControlTextBox3" style="width:30%">
                                                                     <asp:TextBox ID="txtDeviationAdd" runat="server" Text="0"
-                                                                        SkinID="skinTxtBoxGrid" TabIndex="5"></asp:TextBox>
+                                                                        SkinID="skinTxtBoxGrid" TabIndex="3"></asp:TextBox>
                                                                 </td>
                                                                 
                                                                 <td style="width:30%">
@@ -330,7 +332,7 @@
                                                                     Is Active *
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width:30%">
-                                                                    <asp:DropDownList ID="drpIsActiveAdd" TabIndex="10" AutoPostBack="false" runat="server" BackColor = "#e7e7e7" OnDataBound="drpIsActiveAdd_DataBound" CssClass="drpDownListMedium"
+                                                                    <asp:DropDownList ID="drpIsActiveAdd" TabIndex="4" AutoPostBack="false" runat="server" BackColor = "#e7e7e7" OnDataBound="drpIsActiveAdd_DataBound" CssClass="drpDownListMedium"
                                                                                     Width="100%" style="border: 1px solid #e7e7e7" height="26px" SelectedValue='<%# Bind("IsActive") %>'>
                                                                                     <asp:ListItem Text="NO" Value="NO"></asp:ListItem>
                                                                                     <asp:ListItem Text="YES" Value="YES" Selected="True"></asp:ListItem>
