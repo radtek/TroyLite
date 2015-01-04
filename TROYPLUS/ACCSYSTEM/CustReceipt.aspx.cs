@@ -101,6 +101,13 @@ public partial class CustReceipt : System.Web.UI.Page
 
     }
 
+    protected void BtnClearFilter_Click(object sender, EventArgs e)
+    {
+        txtSearch.Text = "";
+       
+        ddCriteria.SelectedIndex = 0;
+    }
+
     protected void chkcash_CheckedChanged(object sender, EventArgs e)
     {
         DataSet ds = new DataSet();

@@ -76,6 +76,7 @@
                                                 
                                             </td>
                                     </tr>
+                                    <tr style="height: 2px;"/>
                                     <tr>
                                           <td style="width:8%">
                                                 
@@ -85,7 +86,7 @@
                                             </td>
                                             <td class="ControlTextBox3" style="width: 20%;">
                                                 <asp:RadioButtonList ID="opnradio" runat="server"
-                                                    BackColor="#90C9FC" Font-Size="Small" RepeatDirection="Horizontal">
+                                                    BackColor="#e7e7e7" Font-Size="Small" RepeatDirection="Horizontal">
                                                     <asp:ListItem Selected="True">GroupBy</asp:ListItem>
                                                     <asp:ListItem>Normal</asp:ListItem>
                                                </asp:RadioButtonList>
@@ -111,7 +112,7 @@
                             </td>
                             <td align="left" style="width:52%" class="ControlTextBox3">
                                 <asp:RadioButtonList ID="chkoption" runat="server"
-                                        BackColor="#90C9FC" Font-Size="Small">
+                                        BackColor="#e7e7e7" Font-Size="Small">
                                         <asp:ListItem Selected="True">Category Wise</asp:ListItem>
                                         <asp:ListItem>Brand Wise</asp:ListItem>
                                         <asp:ListItem>Product Wise</asp:ListItem>

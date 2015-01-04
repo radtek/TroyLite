@@ -116,7 +116,7 @@
                     </tr>
                 </table>--%>
                 <div class="mainConBody">
-                    <table style="width: 100.3%;margin: -3px 0px 0px 2px;" cellpadding="2px" cellspacing="2px" class="searchbg">
+                    <table style="width: 99.8%;margin: 0px 0px 0px 0px;" cellpadding="2px" cellspacing="2px" class="searchbg">
                         <tr>
                             <td style="width: 1%">
                             </td>
@@ -139,11 +139,11 @@
                             </tr>
                     </table>
                 </div>
-                <table style="text-align: left; border: 0px solid #5078B3; margin: -6px 0px 0px 0px; padding-left:3px; width: 1112px" cellpadding="0"
+                <table style="text-align: left; border: 0px solid #5078B3; margin: -6px 0px 0px 0px; padding-left:3px; width: 980px" cellpadding="0"
                     cellspacing="0">
                     <tr>
                         <td>
-                            <div align="center" style="width: 998px; margin: -6px 0px 0px 0px; text-align: left">
+                            <div align="center" style="width: 980px; margin: -6px 0px 0px 0px; text-align: left">
                                 <cc1:TabContainer ID="tabs2" runat="server" ActiveTabIndex="0" CssClass="fancy fancy-green">
                                     <cc1:TabPanel ID="tabMaster" runat="server" HeaderText="Screen Master">
                                         <ContentTemplate>
@@ -323,8 +323,8 @@
                                                                                     <td style="width: 20%" class="ControlDrpBorder">
                                                                                         <asp:UpdatePanel ID="UpdatePanel21" runat="server" UpdateMode="Conditional">
                                                                                             <ContentTemplate>
-                                                                                                <asp:DropDownList ID="cmbCustomer" runat="server" AppendDataBoundItems="true" AutoPostBack="true" BackColor="#90c9fc" CssClass="drpDownListMedium" height="26px" style="border: 1px solid #90c9fc" TabIndex="3" Width="100%">
-                                                                                                    <asp:ListItem style="background-color: #90c9fc" Text="Select" Value="0"></asp:ListItem>
+                                                                                                <asp:DropDownList ID="cmbCustomer" runat="server" AppendDataBoundItems="true" AutoPostBack="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" height="26px" style="border: 1px solid #e7e7e7" TabIndex="3" Width="100%">
+                                                                                                    <asp:ListItem style="background-color: #e7e7e7" Text="Select" Value="0"></asp:ListItem>
                                                                                                     <asp:ListItem Text="Customer" Value="Customer"></asp:ListItem>
                                                                                                     <asp:ListItem Text="Vendor" Value="Vendor"></asp:ListItem>
                                                                                                     <asp:ListItem Text="Expense" Value="Expense"></asp:ListItem>
@@ -353,8 +353,8 @@
                                                                                         Active *
                                                                                     </td>
                                                                                     <td style="width: 20%" class="ControlDrpBorder">
-                                                                                        <asp:DropDownList ID="drpActive" TabIndex="3" AutoPostBack="false" runat="server" BackColor = "#90c9fc" CssClass="drpDownListMedium"
-                                                                                            Width="100%" style="border: 1px solid #90c9fc" height="26px">
+                                                                                        <asp:DropDownList ID="drpActive" TabIndex="3" AutoPostBack="false" runat="server" BackColor = "#e7e7e7" CssClass="drpDownListMedium"
+                                                                                            Width="100%" style="border: 1px solid #e7e7e7" height="26px">
                                                                                             <asp:ListItem Text="YES" Value="YES" Selected="True"></asp:ListItem>
                                                                                             <asp:ListItem Text="NO" Value="NO"></asp:ListItem>
                                                                                         </asp:DropDownList>
@@ -368,15 +368,15 @@
                                                                                 <tr>
                                                                                     <td style="width: 25%">
                                                                                     </td>
-                                                                                    <td align="right" style="width: 20%">
-                                                                                        <asp:Button ID="btnDivCancel" runat="server" SkinID="skinBtnCancel" CssClass="cancelbutton6"
-                                                                                            EnableTheming="false" OnClick="btnDivCancel_Click" />
-                                                                                    </td>
-                                                                                    <td align="center" style="width: 20%">
-                                                                                        <asp:Button ID="btnDivSave" ValidationGroup="Save" runat="server" SkinID="skinBtnSave"
+                                                                                    <td align="right" style="width: 20%">                                                                                       
+                                                                                         <asp:Button ID="btnDivSave" ValidationGroup="Save" runat="server" SkinID="skinBtnSave"
                                                                                             CssClass="savebutton1231" EnableTheming="false" OnClick="btnDivSave_Click" />
                                                                                         <asp:Button ID="btnDivUpdate" runat="server" ValidationGroup="Save" CssClass="Updatebutton1231"
                                                                                             EnableTheming="false" OnClick="btnDivUpdate_Click" />
+                                                                                    </td>
+                                                                                    <td align="center" style="width: 20%">
+                                                                                        <asp:Button ID="btnDivCancel" runat="server" SkinID="skinBtnCancel" CssClass="cancelbutton6"
+                                                                                            EnableTheming="false" OnClick="btnDivCancel_Click" />
                                                                                     </td>
                                                                                     <td style="width: 30%">
                                                                                     </td>
@@ -506,8 +506,8 @@
                                                                                     <td style="width: 20%" class="ControlDrpBorder">
                                                                                         <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
                                                                                             <ContentTemplate>
-                                                                                                <asp:DropDownList ID="DropDownList2" runat="server" AppendDataBoundItems="true" AutoPostBack="true" BackColor="#90c9fc" CssClass="drpDownListMedium" height="26px" style="border: 1px solid #90c9fc" TabIndex="2" Width="100%">
-                                                                                                    <asp:ListItem style="background-color: #90c9fc" Text="Select" Value="0"></asp:ListItem>
+                                                                                                <asp:DropDownList ID="DropDownList2" runat="server" AppendDataBoundItems="true" AutoPostBack="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" height="26px" style="border: 1px solid #e7e7e7" TabIndex="2" Width="100%">
+                                                                                                    <asp:ListItem style="background-color: #e7e7e7" Text="Select" Value="0"></asp:ListItem>
                                                                                                     <asp:ListItem Text="Customer" Value="Customer"></asp:ListItem>
                                                                                                     <asp:ListItem Text="Vendor" Value="Vendor"></asp:ListItem>
                                                                                                     <asp:ListItem Text="Expense" Value="Expense"></asp:ListItem>
@@ -536,8 +536,8 @@
                                                                                         Active *
                                                                                     </td>
                                                                                     <td style="width: 20%" class="ControlDrpBorder">
-                                                                                        <asp:DropDownList ID="DropDownList1" TabIndex="3" AutoPostBack="false" runat="server" BackColor = "#90c9fc" CssClass="drpDownListMedium"
-                                                                                            Width="100%" style="border: 1px solid #90c9fc" height="26px">
+                                                                                        <asp:DropDownList ID="DropDownList1" TabIndex="3" AutoPostBack="false" runat="server" BackColor = "#e7e7e7" CssClass="drpDownListMedium"
+                                                                                            Width="100%" style="border: 1px solid #e7e7e7" height="26px">
                                                                                             <asp:ListItem Text="YES" Value="YES" Selected="True"></asp:ListItem>
                                                                                             <asp:ListItem Text="NO" Value="NO"></asp:ListItem>
                                                                                         </asp:DropDownList>
@@ -551,15 +551,15 @@
                                                                                 <tr>
                                                                                     <td style="width: 25%">
                                                                                     </td>
-                                                                                    <td align="right" style="width: 20%">
-                                                                                        <asp:Button ID="btnConfigCancel" runat="server" SkinID="skinBtnCancel" CssClass="cancelbutton6"
-                                                                                            EnableTheming="false" OnClick="btnConfigCancel_Click" />
-                                                                                    </td>
-                                                                                    <td align="center" style="width: 20%">
+                                                                                    <td align="right" style="width: 20%">                                                                                        
                                                                                         <asp:Button ID="btnConfigSave" ValidationGroup="Save1" runat="server" SkinID="skinBtnSave"
                                                                                             CssClass="savebutton1231" EnableTheming="false" OnClick="btnConfigSave_Click" />
                                                                                         <asp:Button ID="btnConfigUpdate" runat="server" ValidationGroup="Save1" CssClass="Updatebutton1231"
                                                                                             EnableTheming="false" OnClick="btnConfigUpdate_Click" />
+                                                                                    </td>
+                                                                                    <td align="center" style="width: 20%">
+                                                                                        <asp:Button ID="btnConfigCancel" runat="server" SkinID="skinBtnCancel" CssClass="cancelbutton6"
+                                                                                            EnableTheming="false" OnClick="btnConfigCancel_Click" />
                                                                                     </td>
                                                                                     <td style="width: 30%">
                                                                                     </td>

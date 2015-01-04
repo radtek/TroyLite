@@ -82,7 +82,7 @@
                                         <tr>
                                             <td style="width: 2%">
                                             </td>
-                                            <td style="width: 25%; font-size: 22px; color: White;" >
+                                            <td style="width: 35%; font-size: 22px; color: White;" >
                                                 Supplier Purchases
                                             </td>
                                             <td style="width: 15%">
@@ -127,6 +127,9 @@
                                             <td style="width: 18%; text-align: left">
                                                 <asp:Button ID="btnSearch" runat="server" CssClass="ButtonSearch6" EnableTheming="false" ForeColor="White" OnClick="btnSearch_Click" />
                                             </td>
+                                             <td style="width: 17%" class="tblLeftNoPad">
+                                            <asp:Button ID="BtnClearFilter1" runat="server"  OnClick="BtnClearFilter_Click"  EnableTheming="false" Text="" CssClass="ClearFilter6" />
+                                        </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -208,16 +211,16 @@
                                                                                                 
                                                                                                         </td>
                                                                                                         <td>
-                                                                                                            <asp:Panel ID="Panel4" runat="server" Width="120px">
-                                                                                                                <asp:Button ID="cmdCancelMethod" runat="server" CssClass="cancelbutton6" OnClick="cmdCancelMethod_Click" CausesValidation="false"
-                                                                                                                    EnableTheming="false"/>
+                                                                                                            <asp:Panel ID="Panel4" runat="server" Width="120px">                                                                                                               
+                                                                                                                 <asp:Button ID="cmdMethod" runat="server" CssClass="Start6" 
+                                                                                                                    EnableTheming="false" OnClick="cmdMethod_Click" Text=""
+                                                                                                                    ValidationGroup="contact" />
                                                                                                             </asp:Panel>
                                                                                                         </td>
                                                                                                         <td>
                                                                                                             <asp:Panel ID="Panel5" runat="server" Width="120px">
-                                                                                                                <asp:Button ID="cmdMethod" runat="server" CssClass="Start6" 
-                                                                                                                    EnableTheming="false" OnClick="cmdMethod_Click" Text=""
-                                                                                                                    ValidationGroup="contact" />
+                                                                                                                <asp:Button ID="cmdCancelMethod" runat="server" CssClass="cancelbutton6" OnClick="cmdCancelMethod_Click" CausesValidation="false"
+                                                                                                                    EnableTheming="false"/>
                                                                                                             </asp:Panel>
                                                                                                         </td>
                                                                                                     </tr>
@@ -1369,11 +1372,7 @@
                                                                                 <asp:Button ID="CmdCat" runat="server" Text=""  
                                                                                     OnClick="cmdcat_click"  EnableTheming="false" CssClass="NewSupplierbutton6"  
                                                                                     Width="28px" Height="27px" Visible="false"/>
-                                                                            </td>
-                                                                            <td style="width:17%">
-                                                                                <asp:Button ID="cmdPrint" CausesValidation="false" runat="server" Text="" Enabled="false"
-                                                                                    CssClass="printbutton6" EnableTheming="false" OnClick="cmdPrint_Click" SkinID="skinBtnPrint" />
-                                                                            </td>
+                                                                            </td>                                                                           
                                                                             <td style="width:17%">
                                                                                 <asp:Button ID="cmdUpdate" ValidationGroup="purchaseval" runat="server" Text="" CssClass="Updatebutton1231"
                                                                                     EnableTheming="false" OnClick="cmdUpdate_Click" SkinID="skinBtnSave" />
@@ -1383,6 +1382,10 @@
                                                                             <td style="width:17%">
                                                                                 <asp:Button ID="btnCancel" runat="server" Text="" CssClass="cancelbutton6" EnableTheming="false"
                                                                                     Visible="true" OnClick="cmdCancel_Click" SkinID="skinBtnCancel" />
+                                                                            </td>
+                                                                             <td style="width:17%">
+                                                                                <asp:Button ID="cmdPrint" CausesValidation="false" runat="server" Text="" Enabled="false"
+                                                                                    CssClass="printbutton6" EnableTheming="false" OnClick="cmdPrint_Click" SkinID="skinBtnPrint" />
                                                                             </td>
                                                                             <td style="width:24%">
                                                                             </td>

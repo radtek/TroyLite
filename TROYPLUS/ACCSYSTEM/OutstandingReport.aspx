@@ -44,13 +44,14 @@
                     Ledger Name
                 </td>
                 <td align="left" style="width:35%" class="ControlDrpBorder">
-                    <asp:DropDownList ID="drpLedgerName" runat="server" Width="100%" DataTextField="GroupName" CssClass="drpDownListMedium" BackColor = "#90c9fc"
-                        DataValueField="GroupID"  style="border: 1px solid #90c9fc" height="26px">
+                    <asp:DropDownList ID="drpLedgerName" runat="server" Width="100%" DataTextField="GroupName" CssClass="drpDownListMedium" BackColor = "#e7e7e7"
+                        DataValueField="GroupID"  style="border: 1px solid #e7e7e7" height="26px">
                     </asp:DropDownList>
                 </td>
                 <td style="width:15%">
                 </td>
             </tr>
+            <tr style="height: 2px;"/>
             <tr runat="server" id="hmg" visible="false">
                 <td style="width:35%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                     Option

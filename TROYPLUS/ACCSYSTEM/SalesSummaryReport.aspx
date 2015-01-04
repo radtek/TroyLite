@@ -95,6 +95,7 @@
                         Display="None" CssClass="lblFont" ErrorMessage="Please Enter Start Date"></asp:RequiredFieldValidator>
                 </td>
             </tr>
+            <tr style="height: 2px;"/> 
             <tr>
                 <td style="width:25%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                     End Date
@@ -115,13 +116,14 @@
                         CssClass="lblFont" Operator="GreaterThanEqual" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
                 </td>
             </tr>
+            <tr style="height: 2px;"/> 
             <tr>
                 <td style="width:25%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                     Data Display Mode
                 </td>
                 <td align="left"  style="width:30%" class="ControlDrpBorder">
-                    <asp:DropDownList TabIndex="1" ID="cmbDisplayCat" Width="100%"  CssClass="drpDownListMedium" BackColor = "#90c9fc"
-                        runat="server" style="border: 1px solid #90c9fc" height="26px">
+                    <asp:DropDownList TabIndex="1" ID="cmbDisplayCat" Width="100%"  CssClass="drpDownListMedium" BackColor = "#e7e7e7"
+                        runat="server" style="border: 1px solid #e7e7e7" height="26px">
                         <asp:ListItem Text="Daywise" Value="1"></asp:ListItem>
                         <asp:ListItem Text="Categorywise" Value="2"></asp:ListItem>
                         <asp:ListItem Text="Brandwise" Value="3"></asp:ListItem>
@@ -139,13 +141,14 @@
                 <td>
                 </td>
             </tr>
+            <tr style="height: 2px;"/> 
             <tr>
                 <td style="width:25%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                     Item Display Mode
                 </td>
                 <td align="left"  style="width:30%" class="ControlDrpBorder">
-                    <asp:DropDownList TabIndex="1" ID="cmbDisplayItem" Width="100%"  CssClass="drpDownListMedium" BackColor = "#90c9fc"
-                        runat="server" style="border: 1px solid #90c9fc" height="26px">
+                    <asp:DropDownList TabIndex="1" ID="cmbDisplayItem" Width="100%"  CssClass="drpDownListMedium" BackColor = "#e7e7e7"
+                        runat="server" style="border: 1px solid #e7e7e7" height="26px">
                         <asp:ListItem Text="Brandwise" Value="ProductDesc"></asp:ListItem>
                         <asp:ListItem Text="Modelwise" Value="Model"></asp:ListItem>
                         <asp:ListItem Text="Billwise" Value="BillNo"></asp:ListItem>
@@ -161,6 +164,7 @@
                 
                 </td>
             </tr>
+            <tr style="height: 2px;"/> 
             <tr>
                 <td  style="width:25%">
                 </td>
@@ -180,6 +184,7 @@
                 <td>
                 </td>
             </tr>
+            <tr style="height: 2px;"/> 
             <tr>
                 <td colspan="4">
                     <table width="100%">
@@ -202,6 +207,7 @@
                     </table>
                 </td>
             </tr>
+            <tr style="height: 2px;"/> 
             <tr>
                 <td colspan="3">
                     <asp:Label ID="lblErr" runat="server" CssClass="errorMsg"></asp:Label>

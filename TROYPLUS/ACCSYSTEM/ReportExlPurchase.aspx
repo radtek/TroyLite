@@ -151,6 +151,7 @@
                                                     Width="20px" />
                                         </td>
                                     </tr>
+                                    <tr style="height: 2px;"/> 
                                     <tr>
                                         <td class="ControlLabel" style="width: 40%;">
                                             End Date
@@ -173,13 +174,14 @@
                                                                                                 Width="20px" />
                                         </td>
                                     </tr>
+                                    <tr style="height: 2px;"/> 
                                     <tr>
                                         <td class="ControlLabel"  width="40%">
                                             Category
                                         </td>
                                         <td style="width: 25%;" class="ControlDrpBorder">
-                                             <asp:DropDownList ID="ddlCategory" runat="server" Width="100%" AutoPostBack="true" style="border: 1px solid #90c9fc" height="26px"
-                                                CssClass="drpDownListMedium" BackColor = "#90C9FC" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
+                                             <asp:DropDownList ID="ddlCategory" runat="server" Width="100%" AutoPostBack="true" style="border: 1px solid #e7e7e7" height="26px"
+                                                CssClass="drpDownListMedium" BackColor = "#e7e7e7" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
                                                 <asp:ListItem Selected="True" Value="0" style="background-color: #90c9fc">All</asp:ListItem>
                                              </asp:DropDownList>
                                         </td>
@@ -187,13 +189,14 @@
 
                                         </td>
                                     </tr>
+                                    <tr style="height: 2px;"/> 
                                     <tr>
                                         <td class="ControlLabel"  width="40%">
                                             Brand
                                         </td>
                                         <td style="width: 25%;" class="ControlDrpBorder">
-                                             <asp:DropDownList ID="ddlBrand" runat="server" Width="100%" AutoPostBack="true" style="border: 1px solid #90c9fc" height="26px"
-                                                CssClass="drpDownListMedium" BackColor = "#90C9FC" OnSelectedIndexChanged="ddlBrand_SelectedIndexChanged">
+                                             <asp:DropDownList ID="ddlBrand" runat="server" Width="100%" AutoPostBack="true" style="border: 1px solid #e7e7e7" height="26px"
+                                                CssClass="drpDownListMedium" BackColor = "#e7e7e7" OnSelectedIndexChanged="ddlBrand_SelectedIndexChanged">
                                                 <asp:ListItem Selected="True" Value="All" style="background-color: #90c9fc">All</asp:ListItem>
                                              </asp:DropDownList>
                                         </td>
@@ -201,20 +204,21 @@
 
                                         </td>
                                     </tr>
+                                    <tr style="height: 2px;"/> 
                                     <tr>
                                         <td class="ControlLabel"  width="40%">
                                              Product Name
                                         </td>
                                         <td style="width: 25%;" class="ControlDrpBorder">
-                                             <asp:DropDownList ID="ddlproduct" runat="server" Width="100%"  style="border: 1px solid #90c9fc" height="26px"
-                                                CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                             <asp:DropDownList ID="ddlproduct" runat="server" Width="100%"  style="border: 1px solid #e7e7e7" height="26px"
+                                                CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                 <asp:ListItem Selected="True" Value="All" style="background-color: #90c9fc">All</asp:ListItem>
                                              </asp:DropDownList>
                                         </td>
                                         <td style="width: 35%;">
 
                                         </td>
-                                    </tr>
+                                    </tr>                                    
                                     <%--<tr>--%>
                                         <%--<td class="ControlLabel" style="width: 25%;">
                                             Missed Visits
@@ -310,6 +314,7 @@
                                                 
                                             </td>
                                         </tr>
+                                       <tr style="height: 2px;"/> 
                                         <tr>
                                             <td class="ControlLabel" style="width: 10%;">
                                                 Option
@@ -337,6 +342,7 @@
                                                 
                                             </td>
                                         </tr>
+                                       <tr style="height: 2px;"/> 
                                         <tr>
                                             <td colspan="7">
                                               <table cellpadding="0" cellspacing="0" style="width:100%">
@@ -361,7 +367,7 @@
                                                 </table>
                                             </td>
                                        </tr>
-                                       
+                                       <tr style="height: 2px;"/> 
                                        <tr>
                                           <td colspan="7">
                                               <table cellpadding="1" cellspacing="1" style="width:100%">

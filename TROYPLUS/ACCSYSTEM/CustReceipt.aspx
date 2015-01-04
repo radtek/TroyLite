@@ -339,7 +339,7 @@
                                         <tr>
                                             <td style="width: 2%">
                                             </td>
-                                            <td style="width: 25%; font-size: 22px; color: White;" >
+                                            <td style="width: 28%; font-size: 22px; color: White;" >
                                                 Customers Receipts
                                             </td>
                                             <td style="width: 15%">
@@ -372,6 +372,9 @@
                                                     EnableTheming="false" ForeColor="White" OnClick="btnSearch_Click"
                                                      />
                                             </td>
+                                             <td style="width: 16%" class="tblLeftNoPad">
+                                            <asp:Button ID="BtnClearFilter" runat="server" OnClick="BtnClearFilter_Click" EnableTheming="false" Text="" CssClass="ClearFilter6" />
+                                        </td>
                                         </tr>
                                     </table>
                                 
@@ -1113,12 +1116,12 @@
                 </tr>
                 <tr style="width: 100%;  margin: -4px 0px 0px 0px;">
                     <td style="width: 100%">
-                        <table width="100%" style="margin: -6px 0px 0px 0px;">
+                        <table width="100%" style="margin: -4px 0px 0px 0px;">
                             <tr style="width: 100%">
                                 <td>
                         <div class="mainGridHold" id="searchGrid">
                             <asp:GridView ID="GrdViewReceipt" runat="server" AllowSorting="false" AutoGenerateColumns="False"
-                                OnRowCreated="GrdViewReceipt_RowCreated" Width="100.3%" DataSourceID="GridSource"
+                                OnRowCreated="GrdViewReceipt_RowCreated" Width="100.4%" DataSourceID="GridSource"
                                 AllowPaging="True" DataKeyNames="TransNo" EmptyDataText="No Receipts found!"
                                 OnRowCommand="GrdViewReceipt_RowCommand" OnRowDataBound="GrdViewReceipt_RowDataBound"
                                 OnSelectedIndexChanged="GrdViewReceipt_SelectedIndexChanged" OnRowDeleting="GrdViewReceipt_RowDeleting"

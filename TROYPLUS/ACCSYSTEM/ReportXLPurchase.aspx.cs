@@ -669,6 +669,58 @@ public partial class ReportXLPurchase : System.Web.UI.Page
             }
             field1 += "Phone";
         }
+        if (chkboxVoucherNo.Checked == true)
+        {
+            if (field1 == "")
+            {
+                field1 = "";
+
+            }
+            else
+            {
+                field1 += ",";
+            }
+            field1 += "InvoiceNo";
+        }
+        if (chkboxTransNo.Checked == true)
+        {
+            if (field1 == "")
+            {
+                field1 = "";
+
+            }
+            else
+            {
+                field1 += ",";
+            }
+            field1 += "JournalID";
+        }
+        if (chkboxNarration.Checked == true)
+        {
+            if (field1 == "")
+            {
+                field1 = "";
+
+            }
+            else
+            {
+                field1 += ",";
+            }
+            field1 += "narration2";
+        }
+        if (chkPurEntyDate.Checked == true)
+        {
+            if (field1 == "")
+            {
+                field1 = "";
+
+            }
+            else
+            {
+                field1 += ",";
+            }
+            field1 += "InvoiceDate";
+        }
         if(field1!="")
         {
             field1 +=",";
@@ -1886,7 +1938,7 @@ public partial class ReportXLPurchase : System.Web.UI.Page
 
                 dt.Columns.Add(new DataColumn("Amount"));
             }
-            else if ((chkboxCategory.Checked) || (chkboxBrand.Checked) || (chkboxProductCode.Checked) || (chkboxProductName.Checked) || (chkboxInternalTransfer.Checked) || (chkboxBillDate.Checked) || (chkboxSupplier.Checked)|| (chkboxSalesReturn.Checked) || (chkboxModel.Checked) || (ChkboxCustaddr.Checked) || (ChkboxCustphone.Checked)|| (chkboxBillno.Checked) || (chkboxStock.Checked) || (chkboxRate.Checked) || (chkboxDiscount.Checked) || (chkboxFreight.Checked))
+            else if ((chkboxCategory.Checked) || (chkboxBrand.Checked) || (chkboxProductCode.Checked) || (chkboxProductName.Checked) || (chkboxInternalTransfer.Checked) || (chkboxBillDate.Checked) || (chkboxSupplier.Checked) || (chkboxSalesReturn.Checked) || (chkboxModel.Checked) || (ChkboxCustaddr.Checked) || (ChkboxCustphone.Checked) || (chkboxBillno.Checked) || (chkboxStock.Checked) || (chkboxRate.Checked) || (chkboxDiscount.Checked) || (chkboxFreight.Checked) || (chkboxVoucherNo.Checked) || (chkboxTransNo.Checked) || (chkboxNarration.Checked) || (chkPurEntyDate.Checked))
             {
 
                 if (chkboxCategory.Checked == true)
@@ -1957,6 +2009,22 @@ public partial class ReportXLPurchase : System.Web.UI.Page
                 if (chkboxRate.Checked == true)
                 {
                     dt.Columns.Add(new DataColumn("Rate"));
+                }
+                if (chkboxTransNo.Checked == true)
+                {
+                    dt.Columns.Add(new DataColumn("TransNo"));
+                }
+                if (chkboxNarration.Checked == true)
+                {
+                    dt.Columns.Add(new DataColumn("Narration"));
+                }
+                if (chkboxVoucherNo.Checked == true)
+                {
+                    dt.Columns.Add(new DataColumn("VoucherNo"));
+                }
+                if (chkPurEntyDate.Checked == true)
+                {
+                    dt.Columns.Add(new DataColumn("PurchaseEntryDate"));
                 }
                 dt.Columns.Add(new DataColumn("Amount"));
 
@@ -3637,6 +3705,25 @@ public partial class ReportXLPurchase : System.Web.UI.Page
                         dr_final5["Rate"] = dr["Rate"];
                     }
                     dr_final5["Amount"] = dr["Amount"];
+
+                    if (chkboxTransNo.Checked == true)
+                    {
+                        dr_final5["TransNo"] = dr["JournalID"];
+                    }
+                    if (chkboxNarration.Checked == true)
+                    {
+                        dr_final5["Narration"] = dr["narration2"];
+                    }
+                    if (chkboxVoucherNo.Checked == true)
+                    {
+                        dr_final5["VoucherNo"] = dr["InvoiceNo"];                       
+                    }
+                    if (chkPurEntyDate.Checked == true)
+                    {
+                        dr_final5["PurchaseEntryDate"] = dr["InvoiceDate"];  
+                    }
+
+
                     dt.Rows.Add(dr_final5);
                     if (chkboxStock.Checked == true)
                     {
@@ -3656,7 +3743,7 @@ public partial class ReportXLPurchase : System.Web.UI.Page
                     brandTotal4 = brandTotal4 + Convert.ToDecimal(dr["Amount"]);
 
                 }
-                else if ((chkboxCategory.Checked == true) || (chkboxBrand.Checked == true) || (chkboxProductCode.Checked == true) || (chkboxProductName.Checked == true) || (chkboxInternalTransfer.Checked == true) || (chkboxBillDate.Checked == true) || (chkboxSupplier.Checked == true) || (chkboxSalesReturn.Checked == true) || (chkboxModel.Checked == true) || (ChkboxCustaddr.Checked == true) || (ChkboxCustphone.Checked == true) || (chkboxBillno.Checked == true) || (chkboxStock.Checked == true) || (chkboxRate.Checked == true) || (chkboxDiscount.Checked == true) || (chkboxFreight.Checked == true) || (chkboxpaymode.Checked == true))
+                else if ((chkboxCategory.Checked == true) || (chkboxBrand.Checked == true) || (chkboxProductCode.Checked == true) || (chkboxProductName.Checked == true) || (chkboxInternalTransfer.Checked == true) || (chkboxBillDate.Checked == true) || (chkboxSupplier.Checked == true) || (chkboxSalesReturn.Checked == true) || (chkboxModel.Checked == true) || (ChkboxCustaddr.Checked == true) || (ChkboxCustphone.Checked == true) || (chkboxBillno.Checked == true) || (chkboxStock.Checked == true) || (chkboxRate.Checked == true) || (chkboxDiscount.Checked == true) || (chkboxFreight.Checked == true) || (chkboxpaymode.Checked == true) || (chkboxTransNo.Checked == true) || (chkboxNarration.Checked == true) ||(chkboxVoucherNo.Checked==true) || (chkPurEntyDate.Checked == true))
                 {
 
                     if (chkboxCategory.Checked == true)
@@ -3787,6 +3874,22 @@ public partial class ReportXLPurchase : System.Web.UI.Page
                         dr_final5["Rate"] = dr["Rate"];
                     }
                     dr_final5["Amount"] = dr["Amount"];
+                    if (chkboxTransNo.Checked == true)
+                    {
+                        dr_final5["TransNo"] = dr["JournalID"];
+                    }
+                    if (chkboxNarration.Checked == true)
+                    {
+                        dr_final5["Narration"] = dr["narration2"];
+                    }
+                    if (chkboxVoucherNo.Checked == true)
+                    {
+                        dr_final5["VoucherNo"] = dr["InvoiceNo"];
+                    }
+                    if (chkPurEntyDate.Checked == true)
+                    {
+                        dr_final5["PurchaseEntryDate"] = dr["InvoiceDate"];
+                    }
                     dt.Rows.Add(dr_final5);
                     if (chkboxStock.Checked == true)
                     {
@@ -4317,10 +4420,26 @@ public partial class ReportXLPurchase : System.Web.UI.Page
                     {
                         dr_final6["Amount"] = Convert.ToString(Convert.ToDecimal(Gtotal));
                     }
+                    if (chkboxTransNo.Checked == true)
+                    {
+                        dr_final6["TransNo"] = "";
+                    }
+                    if (chkboxNarration.Checked == true)
+                    {
+                        dr_final6["Narration"] = "";
+                    }
+                    if (chkboxVoucherNo.Checked == true)
+                    {
+                        dr_final6["VoucherNo"] = "";
+                    }
+                    if (chkPurEntyDate.Checked == true)
+                    {
+                        dr_final6["PurchaseEntryDate"] = "";
+                    }
                     dt.Rows.Add(dr_final6);
                 }
 
-                else if ((chkboxCategory.Checked) || (chkboxBrand.Checked) || (chkboxProductCode.Checked) || (chkboxProductName.Checked) || (chkboxInternalTransfer.Checked) || (chkboxBillDate.Checked) || (chkboxSupplier.Checked) || (chkboxSalesReturn.Checked) || (chkboxModel.Checked) || (ChkboxCustaddr.Checked) || (ChkboxCustphone.Checked)|| (chkboxBillno.Checked))
+                else if ((chkboxCategory.Checked) || (chkboxBrand.Checked) || (chkboxProductCode.Checked) || (chkboxProductName.Checked) || (chkboxInternalTransfer.Checked) || (chkboxBillDate.Checked) || (chkboxSupplier.Checked) || (chkboxSalesReturn.Checked) || (chkboxModel.Checked) || (ChkboxCustaddr.Checked) || (ChkboxCustphone.Checked) || (chkboxBillno.Checked) || (chkboxVoucherNo.Checked) || (chkboxTransNo.Checked) || (chkboxNarration.Checked) || (chkPurEntyDate.Checked))
                 {
                     //if (ChkboxCustphone.Checked == true)
                     //{
@@ -5571,6 +5690,24 @@ public partial class ReportXLPurchase : System.Web.UI.Page
                     {
                         dr_final6["Rate"] = Convert.ToString(Convert.ToDecimal(Gtotal));
                     }
+
+                    if (chkboxTransNo.Checked == true)
+                    {
+                        dr_final6["TransNo"] = "";
+                    }
+                    if (chkboxNarration.Checked == true)
+                    {
+                        dr_final6["Narration"] = "";
+                    }
+                    if (chkboxVoucherNo.Checked == true)
+                    {
+                        dr_final6["VoucherNo"] = "";
+                    }
+                    if (chkPurEntyDate.Checked == true)
+                    {
+                        dr_final6["PurchaseEntryDate"] = "";
+                    }
+
                     dt.Rows.Add(dr_final6);
                 }
             }
@@ -5637,6 +5774,10 @@ public partial class ReportXLPurchase : System.Web.UI.Page
                 chkboxDiscount.Checked = true;
                 chkboxStock.Checked = true;
                 chkboxRate.Checked = true;
+                chkboxVoucherNo.Checked = true;
+                chkboxTransNo.Checked = true;
+                chkboxNarration.Checked = true;
+                chkPurEntyDate.Checked = true;
             }
             else
             {
@@ -5660,6 +5801,10 @@ public partial class ReportXLPurchase : System.Web.UI.Page
                 chkboxDiscount.Checked = false;
                 chkboxStock.Checked = false;
                 chkboxRate.Checked = false;
+                chkboxVoucherNo.Checked = false;
+                chkboxTransNo.Checked = false;
+                chkboxNarration.Checked = false;
+                chkPurEntyDate.Checked = false;
             }
         }
         catch (Exception ex)

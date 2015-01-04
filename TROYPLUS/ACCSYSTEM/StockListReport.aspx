@@ -85,6 +85,7 @@
                                     new tcal({ 'formname': 'form1', 'controlname': 'txtEndDate' });</script>
                             </td>
                         </tr>
+                        <tr style="height: 2px;"/> 
                         <tr>
                             <td style="width:20%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                                 Category *
@@ -92,8 +93,8 @@
                             </td>
                             <td class="ControlDrpBorder" style="width:20%;"> 
                                                                                                                                     
-                                    <asp:DropDownList ID="cmbCategory" runat="server" AutoPostBack="true" BackColor = "#90c9fc"
-                                        Width="100%" OnSelectedIndexChanged="LoadProducts" AppendDataBoundItems="True" style="border: 1px solid #90c9fc" height="26px" CssClass="drpDownListMedium">
+                                    <asp:DropDownList ID="cmbCategory" runat="server" AutoPostBack="true" BackColor = "#e7e7e7"
+                                        Width="100%" OnSelectedIndexChanged="LoadProducts" AppendDataBoundItems="True" style="border: 1px solid #e7e7e7" height="26px" CssClass="drpDownListMedium">
                                         <asp:ListItem Selected="True" Value="0" style="background-color: #90c9fc">Select Category</asp:ListItem>
                                     </asp:DropDownList>
                                                                                                                                     
@@ -103,20 +104,21 @@
                                 Brand
                             </td>
                             <td class="ControlDrpBorder" style="width: 20%">
-                                    <asp:DropDownList ID="cmbBrand" runat="server" Width="100%" AutoPostBack="true" BackColor = "#90c9fc"  style="border: 1px solid #90c9fc" height="26px" CssClass="drpDownListMedium"
+                                    <asp:DropDownList ID="cmbBrand" runat="server" Width="100%" AutoPostBack="true" BackColor = "#e7e7e7"  style="border: 1px solid #e7e7e7" height="26px" CssClass="drpDownListMedium"
                                         OnSelectedIndexChanged="LoadForBrand" AppendDataBoundItems="True">
                                         <asp:ListItem Selected="True" Value="0" style="background-color: #90c9fc">Select Brand</asp:ListItem>
                                     </asp:DropDownList>
                             </td>
                             <td  style="width: 5%"></td>
                         </tr>
+                        <tr style="height: 2px;"/> 
                         <tr>
                             
                             <td style="width:20%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                                 Product Name
                             </td>
                             <td class="ControlDrpBorder" style="width:20%;">
-                                <asp:DropDownList ID="cmbProdName" runat="server" Width="100%" BackColor = "#90c9fc" style="border: 1px solid #90c9fc" height="26px" CssClass="drpDownListMedium"
+                                <asp:DropDownList ID="cmbProdName" runat="server" Width="100%" BackColor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px" CssClass="drpDownListMedium"
                                     AutoPostBack="true" OnSelectedIndexChanged="LoadForProductName" AppendDataBoundItems="True">
                                     <asp:ListItem Selected="True" Value="0" style="background-color: #90c9fc">Select Product</asp:ListItem>
                                 </asp:DropDownList>
@@ -126,14 +128,14 @@
                                 Model
                             </td>
                             <td class="ControlDrpBorder" style="width:25%;">
-                                <asp:DropDownList ID="cmbModel" runat="server" OnSelectedIndexChanged="LoadForModel" BackColor = "#90c9fc" style="border: 1px solid #90c9fc" height="26px" CssClass="drpDownListMedium"
+                                <asp:DropDownList ID="cmbModel" runat="server" OnSelectedIndexChanged="LoadForModel" BackColor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px" CssClass="drpDownListMedium"
                                     AutoPostBack="true" Width="100%" AppendDataBoundItems="True">
                                     <asp:ListItem Selected="True" Value="0" style="background-color: #90c9fc">Select Model</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                             <td  style="width: 5%"></td>
                         </tr>
-            
+            <tr style="height: 2px;"/> 
                         <tr>
                             
                             <td style="width:20%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
@@ -141,8 +143,8 @@
                             </td>
                             <td class="ControlDrpBorder" style="width: 20%">
                                                                                                                                     
-                                    <asp:DropDownList ID="cmbProdAdd" runat="server" AppendDataBoundItems="true" AutoPostBack="true" BackColor = "#90c9fc"
-                                        DataTextField="ProductName" DataValueField="ItemCode" OnSelectedIndexChanged="LoadForProduct" style="border: 1px solid #90c9fc" height="26px" CssClass="drpDownListMedium"
+                                    <asp:DropDownList ID="cmbProdAdd" runat="server" AppendDataBoundItems="true" AutoPostBack="true" BackColor = "#e7e7e7"
+                                        DataTextField="ProductName" DataValueField="ItemCode" OnSelectedIndexChanged="LoadForProduct" style="border: 1px solid #e7e7e7" height="26px" CssClass="drpDownListMedium"
                                         ValidationGroup="product" Width="100%">
                                         <asp:ListItem style="background-color: #90c9fc;" Text="Select Product Code" Value="0"></asp:ListItem>
                                     </asp:DropDownList>

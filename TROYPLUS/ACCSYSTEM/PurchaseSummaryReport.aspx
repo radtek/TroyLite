@@ -93,6 +93,7 @@
                     </td>
                     
                 </tr>
+                <tr style="height: 2px;"/> 
                 <tr>
                     <td  style="width:25%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                         End Date
@@ -112,13 +113,14 @@
                     </td>
                    
                 </tr>
+                <tr style="height: 2px;"/> 
                 <tr>
                     <td  style="width:25%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                         Data Display Mode
                     </td>
                     <td align="left" style="width:25%" class="ControlDrpBorder">
-                            <asp:DropDownList TabIndex="1" ID="cmbDisplayCat" CssClass="drpDownListMedium" Width="100%" BackColor = "#90c9fc"
-                                runat="server" style="border: 1px solid #90c9fc" height="26px">
+                            <asp:DropDownList TabIndex="1" ID="cmbDisplayCat" CssClass="drpDownListMedium" Width="100%" BackColor = "#e7e7e7"
+                                runat="server" style="border: 1px solid #e7e7e7" height="26px">
                                 <asp:ListItem Text="Daywise" Value="1"></asp:ListItem>
                                 <asp:ListItem Text="Categorywise" Value="2"></asp:ListItem>
                                 <asp:ListItem Text="Brandwise" Value="3"></asp:ListItem>
@@ -134,13 +136,14 @@
                     </td>
                    
                 </tr>
+                <tr style="height: 2px;"/> 
                 <tr>
                     <td  style="width:25%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                         Item Display Mode
                     </td>
                     <td align="left"  style="width:25%" class="ControlDrpBorder">
-                        <asp:DropDownList TabIndex="1" ID="cmbDisplayItem" Width="100%"  CssClass="drpDownListMedium" BackColor = "#90c9fc"
-                            runat="server" style="border: 1px solid #90c9fc" height="26px">
+                        <asp:DropDownList TabIndex="1" ID="cmbDisplayItem" Width="100%"  CssClass="drpDownListMedium" BackColor = "#e7e7e7"
+                            runat="server" style="border: 1px solid #e7e7e7" height="26px">
                             <asp:ListItem Text="Brandwise" Value="ProductDesc"></asp:ListItem>
                             <asp:ListItem Text="Modelwise" Value="Model"></asp:ListItem>
                             <asp:ListItem Text="Billwise" Value="BillNo"></asp:ListItem>
@@ -154,6 +157,7 @@
                     </td>
                    
                 </tr>
+                <tr style="height: 2px;"/> 
                 <tr>
                     <td class="lblFont" style="width:20%">
                     </td>
@@ -172,6 +176,7 @@
                     </td>
                    
                 </tr>
+                <tr style="height: 2px;"/> 
                 <tr>
                     <td colspan="3">
                         <table width="100%">

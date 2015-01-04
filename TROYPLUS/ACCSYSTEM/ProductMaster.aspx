@@ -810,16 +810,15 @@
                                                                         <tr>
                                                                             <td style="width: 35%">
                                                                             </td>
+                                                                            <td style="width: 18%" align="center">                                                                               
+                                                                                 <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                                    Text="" CssClass="cancelbutton6" EnableTheming="false"
+                                                                                    OnClick="UpdateCancelButton_Click"></asp:Button>
+                                                                            </td>
                                                                             <td style="width: 18%" align="center">
                                                                                 <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update" OnClientClick="javascript:CheckorderLevel();"
                                                                                     Text="" CssClass="Updatebutton1231" EnableTheming="false" OnClick="UpdateButton_Click">
                                                                                 </asp:Button>
-                                                                                
-                                                                            </td>
-                                                                            <td style="width: 18%" align="center">
-                                                                                <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                                                                    Text="" CssClass="cancelbutton6" EnableTheming="false"
-                                                                                    OnClick="UpdateCancelButton_Click"></asp:Button>
                                                                             </td>
                                                                             <td style="width: 5%" align="center">
                                                                                 <asp:Button ID="cmdshowhistory" runat="server" Text="" EnableTheming="false" CausesValidation="False" cssclass="ShowHistory" OnClick="cmdshowhistory_click" Visible="False" />
@@ -1408,14 +1407,14 @@
                                                                             <td style="width: 30%">
                                                                             </td>
                                                                 
-                                                                            <td style="width: 20%" align="center">
-                                                                                <asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="InsertCancelButton_Click">
+                                                                            <td style="width: 20%" align="center">                                                                               
+                                                                                 <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" OnClientClick="javascript:CheckReorderLevel();"
+                                                                                    CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClick="InsertButton_Click">
                                                                                 </asp:Button>
                                                                             </td>
                                                                             <td style="width: 20%" align="center">
-                                                                                <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" OnClientClick="javascript:CheckReorderLevel();"
-                                                                                    CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClick="InsertButton_Click">
+                                                                                <asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="InsertCancelButton_Click">
                                                                                 </asp:Button>
                                                                             </td>
                                                                             <%--<td style="width: 25%"  align="left">

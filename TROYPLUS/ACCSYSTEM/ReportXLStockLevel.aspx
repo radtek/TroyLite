@@ -78,7 +78,7 @@
                                         Date
                                     </td>
                                     <td style="width:35%;" class="ControlTextBox3">
-                                            <asp:TextBox ID="txtStartDate" runat="server" cssclass="cssTextBox" AutoPostBack="True" BackColor = "#90c9fc"
+                                            <asp:TextBox ID="txtStartDate" runat="server" cssclass="cssTextBox" AutoPostBack="True" BackColor = "#e7e7e7"
                                                 Width="100%"
                                                 MaxLength="10" TabIndex="1"></asp:TextBox>
                                             <cc1:CalendarExtender ID="calStartDate" runat="server" Format="dd/MM/yyyy"
@@ -92,14 +92,15 @@
                                     <td>
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/>
                                 <tr>
                                     <td class="ControlLabel2" style="width:35%;">
                                         Range
                                     </td>
                                     <td style="width:35%;" class="ControlDrpBorder">
                                         <asp:DropDownList ID="cmbtrange" runat="server" AppendDataBoundItems="true" AutoCompleteMode="Suggest"
-                                            Width="100%" CssClass="drpDownListMedium" BackColor = "#90c9fc"
-                                            style="border: 1px solid #90c9fc" height="26px">
+                                            Width="100%" CssClass="drpDownListMedium" BackColor = "#e7e7e7"
+                                            style="border: 1px solid #e7e7e7" height="26px">
                                             <asp:ListItem Text="Below" Value="1"></asp:ListItem>
                                             <asp:ListItem Text="Above" Value="2"></asp:ListItem>
                                             <asp:ListItem Text="Equal" Value="3"></asp:ListItem>
@@ -111,14 +112,15 @@
                                     <td>
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/>
                                 <tr>
                                     <td class="ControlLabel2" style="width:35%;">
                                         Option
                                     </td>
                                     <td style="width:35%;" class="ControlDrpBorder">
                                          <asp:DropDownList ID="cmbtoption" runat="server" AppendDataBoundItems="true" AutoCompleteMode="Suggest"
-                                            Width="100%" CssClass="drpDownListMedium" BackColor = "#90c9fc" 
-                                            style="border: 1px solid #90c9fc" height="26px">
+                                            Width="100%" CssClass="drpDownListMedium" BackColor = "#e7e7e7" 
+                                            style="border: 1px solid #e7e7e7" height="26px">
                                             <asp:ListItem Text="Category" Value="1"></asp:ListItem>
                                             <asp:ListItem Text="Brand" Value="2"></asp:ListItem>
                                             <asp:ListItem Text="Product" Value="3"></asp:ListItem>

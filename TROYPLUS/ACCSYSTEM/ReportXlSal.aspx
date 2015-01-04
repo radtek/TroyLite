@@ -150,6 +150,7 @@
                                             new tcal({ 'formname': 'form1', 'controlname': 'txtStartDate' });</script>--%>
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/> 
                                 <tr>
                                     <%--<td class="ControlLabel" style="width: 25%;">
                                         Frequency
@@ -186,6 +187,7 @@
                                             new tcal({ 'formname': 'form1', 'controlname': 'txtEndDate' });</script>--%>
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/> 
                                 <%--<tr>--%>
                                     <%--<td class="ControlLabel" style="width: 25%;">
                                         Missed Visits

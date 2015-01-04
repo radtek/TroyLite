@@ -43,7 +43,7 @@
                                         Start Date
                                     </td>
                                     <td style="width:35%;" class="ControlTextBox3">
-                                            <asp:TextBox ID="txtSrtDate" runat="server"  AutoPostBack="True" BackColor = "#90c9fc" SkinID="skinTxtBoxGrid"
+                                            <asp:TextBox ID="txtSrtDate" runat="server"  AutoPostBack="True" BackColor = "#e7e7e7" SkinID="skinTxtBoxGrid"
                                                 Width="100px"
                                                 MaxLength="10" TabIndex="1"></asp:TextBox>
                                             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Format="dd/MM/yyyy"
@@ -57,12 +57,13 @@
                                     <td>
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/> 
                                 <tr>
                                     <td class="ControlLabel2" style="width:35%;">
                                         End Date
                                     </td>
                                     <td style="width:35%;" class="ControlTextBox3">
-                                            <asp:TextBox ID="txtEdDate" runat="server"  AutoPostBack="True" BackColor = "#90c9fc" SkinID="skinTxtBoxGrid"
+                                            <asp:TextBox ID="txtEdDate" runat="server"  AutoPostBack="True" BackColor = "#e7e7e7" SkinID="skinTxtBoxGrid"
                                                 Width="100px"
                                                 MaxLength="10" TabIndex="1"></asp:TextBox>
                                             <cc1:CalendarExtender ID="CalendarExtender2" runat="server" Format="dd/MM/yyyy"
@@ -76,12 +77,13 @@
                                     <td>
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/> 
                                 <tr>
                                     <td class="ControlLabel2" style="width:35%;">
                                         Value
                                     </td>
                                     <td style="width:35%;" class="ControlTextBox3">
-                                        <asp:TextBox ID="txtvalue" runat="server"  AutoPostBack="True" BackColor = "#90c9fc" SkinID="skinTxtBoxGrid"
+                                        <asp:TextBox ID="txtvalue" runat="server"  AutoPostBack="True" BackColor = "#e7e7e7" SkinID="skinTxtBoxGrid"
                                             Width="100px"
                                             MaxLength="10" TabIndex="1"></asp:TextBox>
                                     </td>
@@ -91,6 +93,7 @@
                                     <td>
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/> 
                                 <tr>
                                     <td class="ControlLabel2" style="width:35%;">
                                         Option

@@ -41018,36 +41018,36 @@ public class BusinessLogic
 
              int ChequeBookId = (Int32)manager.ExecuteScalar(CommandType.Text, "SELECT MAX(ChequeBookID) FROM tblCheque");
 
-             //string Status = "N";
-             //int g = 0;
-             //double ChequeNo = 0;
+             string Status = "N";
+             int g = 0;
+             double ChequeNo = 0;
 
-             //for (int k = 0; k < 200; k++)
-             //{
-             //    if (g == 0)
-             //    {
-             //        dbQry2 = string.Format("INSERT INTO tblChequeItems(ChequeBookId, AccountNo, BankID, ChequeNo, Status) VALUES({0},'{1}',{2},{3},'{4}')",
-             //        ChequeBookId, AccountNo, BankID, FromChequeNo, Status);
-             //        manager.ExecuteNonQuery(CommandType.Text, dbQry2);
+             for (int k = 0; k < 200; k++)
+             {
+                 if (g == 0)
+                 {
+                     dbQry2 = string.Format("INSERT INTO tblChequeItems(ChequeBookId, AccountNo, BankID, ChequeNo, Status) VALUES({0},'{1}',{2},{3},'{4}')",
+                     ChequeBookId, AccountNo, BankID, FromChequeNo, Status);
+                     manager.ExecuteNonQuery(CommandType.Text, dbQry2);
 
-             //        ChequeNo = FromChequeNo + 1;
-             //    }
-             //    else
-             //    {
-             //        dbQry2 = string.Format("INSERT INTO tblChequeItems(ChequeBookId, AccountNo, BankID, ChequeNo, Status) VALUES({0},'{1}',{2},{3},'{4}')",
-             //        ChequeBookId, AccountNo, BankID, ChequeNo, Status);
-             //        manager.ExecuteNonQuery(CommandType.Text, dbQry2);
+                     ChequeNo =Convert.ToDouble(FromChequeNo) + 1;
+                 }
+                 else
+                 {
+                     dbQry2 = string.Format("INSERT INTO tblChequeItems(ChequeBookId, AccountNo, BankID, ChequeNo, Status) VALUES({0},'{1}',{2},{3},'{4}')",
+                     ChequeBookId, AccountNo, BankID, ChequeNo, Status);
+                     manager.ExecuteNonQuery(CommandType.Text, dbQry2);
 
-             //        ChequeNo = ChequeNo + 1;
-             //    }
+                     ChequeNo = ChequeNo + 1;
+                 }
 
-             //    int ChequeId = (Int32)manager.ExecuteScalar(CommandType.Text, "SELECT MAX(ChequeID) FROM tblChequeItems");
+                 int ChequeId = (Int32)manager.ExecuteScalar(CommandType.Text, "SELECT MAX(ChequeID) FROM tblChequeItems");
 
-             //    g = 1;
+                 g = 1;
 
-             //    if (ChequeNo > ToChequeNo)
-             //        k = 201;
-             //}
+                 if (Convert.ToDouble(ChequeNo) >Convert.ToDouble(ToChequeNo))
+                     k = 201;
+             }
 
              if (Types == "New")
              {
@@ -41161,9 +41161,9 @@ public class BusinessLogic
 
              manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
-             //dbQry = string.Format("Delete From tblChequeitems Where ChequeBookId = {0}", ChequeBookId);
+             dbQry = string.Format("Delete From tblChequeitems Where ChequeBookId = {0}", ChequeBookId);
 
-             //manager.ExecuteNonQuery(CommandType.Text, dbQry);
+             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
              if (Types == "Delete")
              {
@@ -47188,7 +47188,8 @@ public class BusinessLogic
                  }
                  else if (dropDown == "0" && txtSearch != "%%")
                  {
-                     dbQry.AppendFormat(" AND 1=1 ");
+                     //dbQry.AppendFormat(" AND 1=1 ");
+                     dbQry.AppendFormat("AND tblSales.Billno = {0} ", txtSearch + "AND tblSales.CustomerName like '{0}' ", txtSearch + "AND 1=1");
                  }
                  else
                  {

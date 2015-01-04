@@ -151,6 +151,7 @@
                                                     Width="20px" />
                                         </td>
                                     </tr>
+                                    <tr style="height: 2px;"/> 
                                     <tr>
                                         <td style="width:40%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                                             End Date
@@ -173,13 +174,14 @@
                                                                                                 Width="20px" />
                                         </td>
                                     </tr>
+                                    <tr style="height: 2px;"/> 
                                     <tr>
                                         <td style="width:40%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                                             Category
                                         </td>
                                         <td style="width: 25%;" class="ControlDrpBorder">
-                                             <asp:DropDownList ID="ddlCategory" runat="server" Width="100%" AutoPostBack="true" style="border: 1px solid #90c9fc" height="26px"
-                                                CssClass="drpDownListMedium" BackColor = "#90C9FC" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
+                                             <asp:DropDownList ID="ddlCategory" runat="server" Width="100%" AutoPostBack="true" style="border: 1px solid #e7e7e7" height="26px"
+                                                CssClass="drpDownListMedium" BackColor = "#e7e7e7" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
                                                 <asp:ListItem Selected="True" Value="0" style="background-color: #90c9fc">All</asp:ListItem>
                                              </asp:DropDownList>
                                         </td>
@@ -187,13 +189,14 @@
 
                                         </td>
                                     </tr>
+                                    <tr style="height: 2px;"/> 
                                     <tr>
                                         <td style="width:40%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                                             Brand
                                         </td>
                                         <td style="width: 25%;" class="ControlDrpBorder">
-                                             <asp:DropDownList ID="ddlBrand" runat="server" Width="100%" AutoPostBack="true" style="border: 1px solid #90c9fc" height="26px"
-                                                CssClass="drpDownListMedium" BackColor = "#90C9FC" OnSelectedIndexChanged="ddlBrand_SelectedIndexChanged">
+                                             <asp:DropDownList ID="ddlBrand" runat="server" Width="100%" AutoPostBack="true" style="border: 1px solid #e7e7e7" height="26px"
+                                                CssClass="drpDownListMedium" BackColor = "#e7e7e7" OnSelectedIndexChanged="ddlBrand_SelectedIndexChanged">
                                                 <asp:ListItem Selected="True" Value="All" style="background-color: #90c9fc">All</asp:ListItem>
                                              </asp:DropDownList>
                                         </td>
@@ -201,13 +204,14 @@
 
                                         </td>
                                     </tr>
+                                    <tr style="height: 2px;"/> 
                                     <tr>
                                         <td style="width:40%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                                              Product Name
                                         </td>
                                         <td style="width: 25%;" class="ControlDrpBorder">
-                                             <asp:DropDownList ID="ddlproduct" runat="server" Width="100%"  style="border: 1px solid #90c9fc" height="26px"
-                                                CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                             <asp:DropDownList ID="ddlproduct" runat="server" Width="100%"  style="border: 1px solid #e7e7e7" height="26px"
+                                                CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                 <asp:ListItem Selected="True" Value="All" style="background-color: #90c9fc">All</asp:ListItem>
                                              </asp:DropDownList>
                                         </td>
@@ -215,6 +219,7 @@
 
                                         </td>
                                     </tr>
+                                    <tr style="height: 2px;"/> 
                                     <%--<tr>--%>
                                         <%--<td class="ControlLabel" style="width: 25%;">
                                             Missed Visits

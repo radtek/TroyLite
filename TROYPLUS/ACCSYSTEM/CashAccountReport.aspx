@@ -55,6 +55,7 @@
                         runat="server" ControlToValidate="txtStartDate" Display="None" ErrorMessage="Please Enter Start Date"></asp:RequiredFieldValidator>
                 </td>
             </tr>
+            <tr style="height: 2px;"/>
             <tr>
                 <td class="ControlLabel2" width="35%">
                     End Date

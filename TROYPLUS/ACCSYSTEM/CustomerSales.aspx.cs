@@ -242,6 +242,13 @@ public partial class CustomerSales : System.Web.UI.Page
         }
     }
 
+    protected void BtnClearFilter_Click(object sender, EventArgs e)
+    {
+        txtSearch.Text = "";
+        BindGrid("", "");
+        ddCriteria.SelectedIndex = 0;
+    }
+
 
     private void UpdateSalesModel()
     {

@@ -87,6 +87,20 @@ public partial class MultipleJournal : System.Web.UI.Page
         }
     }
 
+    protected void BtnClearFilter_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            txtSearch.Text = "";
+            ddCriteria.SelectedIndex = 0;
+            BindGrid();
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
     protected void GrdViewJournal_Sorting(object sender, GridViewSortEventArgs e)
     {
 

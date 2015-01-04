@@ -194,6 +194,20 @@ public partial class Purchase : System.Web.UI.Page
         }
     }
 
+    protected void BtnClearFilter_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            txtSearch.Text = "";
+            ddCriteria.SelectedIndex = 0;
+            BindGrid("","");
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
     protected void chk_CheckedChanged(object sender, EventArgs e)
     {
         if (chk.Checked == false)

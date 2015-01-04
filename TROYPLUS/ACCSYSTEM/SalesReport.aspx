@@ -100,6 +100,7 @@
                         Display="None" ErrorMessage="Please Enter Start Date" CssClass="lblFont"></asp:RequiredFieldValidator>
                 </td>
             </tr>
+             <tr style="height: 2px;"/>                                                                                                                            
             <tr>
                 <td  style="width:35%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                     End Date
@@ -119,13 +120,14 @@
                         CssClass="lblFont" Operator="GreaterThanEqual" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
                 </td>
             </tr>
+            <tr style="height: 2px;"/> 
             <tr>
                 <td colspan="4">
                     <table style="width:100%">
                         <tr>
                             <td class="ControlTextBox3" style="width:100%">
                                 <asp:RadioButtonList ID="optionmethod" runat="server" style="font-size:12px" align="center"
-                                    RepeatDirection="Horizontal" BackColor="#90C9FC">
+                                    RepeatDirection="Horizontal" BackColor="#e7e7e7">
                                     <asp:ListItem Selected="True">All</asp:ListItem>
                                     <asp:ListItem>Sales</asp:ListItem>
                                     <asp:ListItem>Internal Transfer</asp:ListItem>

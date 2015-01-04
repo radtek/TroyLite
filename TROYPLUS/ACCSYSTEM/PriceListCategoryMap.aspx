@@ -60,7 +60,7 @@
                                 <table style="width: 99.8%; margin: -2px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
                                     <tr style="height: 25px; vertical-align: middle">
                                         <td style="width: 1%;"></td>
-                                        <td style="width: 20%; font-size: 22px; color: White;" >
+                                        <td style="width: 35%; font-size: 22px; color: White;" >
                                             Mapping Price List
                                         </td>
                                         <td style="width: 13%">
@@ -90,7 +90,7 @@
                                             <asp:Button ID="btnSearch" runat="server" Text="" CssClass="ButtonSearch6" EnableTheming="false" />
                                         </td>
                                         <td style="width: 2%" class="tblLeftNoPad">
-                                            <asp:Button ID="BtnClearFilter" runat="server" Visible="false"  OnClick="BtnClearFilter_Click"  EnableTheming="false" Text="" CssClass="ClearFilter6" />
+                                            <asp:Button ID="BtnClearFilter" runat="server" Visible="true"  OnClick="BtnClearFilter_Click"  EnableTheming="false" Text="" CssClass="ClearFilter6" />
                                         </td>
                                     </tr>
                                 </table>
@@ -187,15 +187,15 @@
                                                                                     </SelectParameters>
                                                                                 </asp:ObjectDataSource>
                                                                             </td>
-                                                                            <td align="center" style="width:30%">
-                                                                                <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
-                                                                                </asp:Button>
-                                                                            </td>
-                                                                            <td align="center" style="width:30%">
-                                                                                <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update"
+                                                                            <td align="center" style="width:30%">                                                                                
+                                                                                 <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update"
                                                                                     CssClass="Updatebutton1231" EnableTheming="false" SkinID="skinBtnSave"
                                                                                     OnClick="UpdateButton_Click"></asp:Button>
+                                                                            </td>
+                                                                            <td align="center" style="width:30%">
+                                                                               <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
+                                                                                </asp:Button>
                                                                             </td>
                                                                             <td style="width:20%">
                                                                             </td>
@@ -287,16 +287,15 @@
                                                                             <td style="width:20%">
                                                                             
                                                                             </td>
+                                                                            <td align="center" style="width:30%">                                                                               
+                                                                                 <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert"
+                                                                                    CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave"
+                                                                                    OnClick="InsertButton_Click"></asp:Button>
+                                                                            </td>
                                                                             <td align="center" style="width:30%">
                                                                                 <asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
                                                                                     CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="InsertCancelButton_Click">
-                                                                                </asp:Button>
-                                                                            </td>
-                                                                            <td align="center" style="width:30%">
-                                                                                <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert"
-                                                                                    CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave"
-                                                                                    OnClick="InsertButton_Click"></asp:Button>
-                                                                        
+                                                                                </asp:Button>                                                                        
                                                                             </td>
                                                                             <td style="width:20%">
 

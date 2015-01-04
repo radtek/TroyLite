@@ -27,7 +27,7 @@
                             StartDate
                         </td>
                         <td  class="ControlTextBox3" style="width:25%">
-                            <asp:TextBox ID="txtStrtDt" runat="server" CssClass="textbox" style="border: 1px solid #90c9fc"  BackColor = "#90c9fc"></asp:TextBox>
+                            <asp:TextBox ID="txtStrtDt" runat="server" CssClass="textbox" style="border: 1px solid #e7e7e7"  BackColor = "#e7e7e7"></asp:TextBox>
                             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True" 
                                     Format="dd/MM/yyyy"
                                     PopupButtonID="ImageButton2" TargetControlID="txtStrtDt">
@@ -42,17 +42,18 @@
                             
                         </td>
                     </tr>
+                <tr style="height: 2px;"/>
                     <tr>
                         <td class="ControlLabel2" style="width:35%">
                             EndDate
                         </td>
                         <td  class="ControlTextBox3" style="width:25%">
-                            <asp:TextBox ID="txtEndDt" runat="server" CssClass="textbox" style="border: 1px solid #90c9fc"  BackColor = "#90c9fc"></asp:TextBox>
+                            <asp:TextBox ID="txtEndDt" runat="server" CssClass="textbox" style="border: 1px solid #e7e7e7"  BackColor = "#e7e7e7"></asp:TextBox>
                             <cc1:CalendarExtender ID="CalendarExtender123" runat="server" Enabled="True" 
                                     Format="dd/MM/yyyy"
                                     PopupButtonID="ImageButton1" TargetControlID="txtEndDt">
                             </cc1:CalendarExtender>
-                        </td>
+                        </td> 
                         <td style="width:4%" align="left">
                             <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="False" 
                                     ImageUrl="App_Themes/NewTheme/images/cal.gif" 

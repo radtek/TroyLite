@@ -89,15 +89,13 @@
                                                                 <asp:UpdatePanel ID="UpdatePanel8" runat="server" UpdateMode="Conditional">
                                                                     <ContentTemplate>
                                                                         <table style="width:540px; height: 100%;">
-                                                                                <tr style="height:20px">
-                                                                                </tr>
                                                                                 <tr>
                                                                                     <td align="left" class="ControlLabel2" style="width:40%">
                                                                                         Start Date
                                                                                     </td>
                                                                                     <td align="left" style="width:40%" class="ControlTextBox3">
                                                                                         <asp:TextBox ID="txtStrtDt" runat="server" AutoPostBack="True" SkinID="skinTxtBoxGrid"
-                                                                                            BackColor="#90C9FC" Height="25px" Width="150px"></asp:TextBox>
+                                                                                            BackColor="#e7e7e7" Height="25px" Width="150px"></asp:TextBox>
                                                                                         <cc1:CalendarExtender ID="calStartDate" runat="server" Enabled="True" 
                                                                                             Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate" 
                                                                                             PopupButtonID="btnStartDate" TargetControlID="txtStrtDt">
@@ -111,13 +109,14 @@
                                                                                         <%--</asp:Panel>--%>
                                                                                     </td>
                                                                                 </tr>
+                                                                            <tr style="height: 2px;"/> 
                                                                                 <tr>
                                                                                     <td align="left" class="ControlLabel2" width="40%">
                                                                                         End Date
                                                                                     </td>
                                                                                     <td align="left" width="40%" class="ControlTextBox3">
                                                                                         <asp:TextBox ID="txtEndDt" runat="server" AutoPostBack="True"  SkinID="skinTxtBoxGrid"
-                                                                                            BackColor="#90C9FC" Height="25px" Width="150px"></asp:TextBox>
+                                                                                            BackColor="#e7e7e7" Height="25px" Width="150px"></asp:TextBox>
                                                                                         <cc1:CalendarExtender ID="CalEndDate" runat="server" Enabled="True" 
                                                                                             Format="dd/MM/yyyy" OnClientDateSelectionChanged="checkDate" 
                                                                                             PopupButtonID="btnEndDate" TargetControlID="txtEndDt">
@@ -131,6 +130,7 @@
                                                                                         <%--</asp:Panel>--%>
                                                                                     </td>
                                                                                 </tr>
+                                                                            <tr style="height: 2px;"/> 
                                                                                 <tr>
                                                                                     <td align="left" class="ControlLabel2" width="40%">
                                                                                         Purchase Return
@@ -138,7 +138,7 @@
                                                                                     <td align="left" style="width:40%" class="ControlTextBox3">
                                                                                                               
                                                                                         <asp:RadioButtonList ID="rblPurchseRtn" runat="server" CssClass="label" 
-                                                                                            RepeatDirection="Horizontal" BackColor="#90C9FC" Width="150px" Height="25px">
+                                                                                            RepeatDirection="Horizontal" BackColor="#e7e7e7" Width="150px" Height="25px">
                                                                                             <asp:ListItem>Yes</asp:ListItem>
                                                                                             <asp:ListItem>No</asp:ListItem>
                                                                                             <asp:ListItem Selected="True">All</asp:ListItem>
@@ -146,13 +146,14 @@
                                                                                     </td>
                                                                                     <td style="width:20%">&nbsp;</td>
                                                                                 </tr>
+                                                                            <tr style="height: 2px;"/> 
                                                                                 <tr>
                                                                                     <td align="left" class="ControlLabel2" width="40%">
                                                                                         Internal Transfer
                                                                                     </td>
                                                                                     <td align="left" style="width:40%" class="ControlTextBox3">
                                                                                         <asp:RadioButtonList ID="rblIntrnlTrns" runat="server" CssClass="label" 
-                                                                                            RepeatDirection="Horizontal" BackColor="#90C9FC" Width="150px" Height="25px">
+                                                                                            RepeatDirection="Horizontal" BackColor="#e7e7e7" Width="150px" Height="25px">
                                                                                             <asp:ListItem>Yes</asp:ListItem>
                                                                                             <asp:ListItem>No</asp:ListItem>
                                                                                                 <asp:ListItem Selected="True">All</asp:ListItem>
@@ -160,13 +161,8 @@
                                                                                     </td>
                                                                                     <td style="width:20%">&nbsp;</td>
                                                                                 </tr>
-                                                                                <tr style="height:20px">
-                                                                                </tr>
                                                                             </table>
                                                                         </ContentTemplate>
-                                                <%--                <Triggers>
-                                                                    <asp:AsyncPostBackTrigger ControlID="chkboxAll" EventName="CheckedChanged" />
-                                                                </Triggers>--%>
                                                             </asp:UpdatePanel>
                                                         </div>
                                                     </ContentTemplate>
@@ -180,7 +176,7 @@
                                                             <div>
                                                                 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                                                                     <ContentTemplate>
-                                                                        <table style="width:540px; height: 100%; background-color:#90C9FC">
+                                                                        <table style="width:540px; height: 100%; background-color:#e7e7e7">
                                                                <!-- <tr>
                                                                 <td align="center" valign="middle" colspan="4" style="width:100%">
                                                                      <asp:Label ID="Label5" runat="server" style="color:#0567AE" Font-Names ="arial" Font-Size="14px" Font-Bold="true" Text="Select Fields to be Generated"></asp:Label>
@@ -321,9 +317,27 @@
                                                                             <td style="width:10%">&nbsp;</td>
                                                                                           
                                                                     </tr>
+                                                                            <tr>                              
+                                                                    <td style="width:25%">&nbsp;</td>                                                               
+                                                                    <td align="left" style="width:35%">
+                                                                            <asp:CheckBox ID="chkboxTransNo" runat="server" style="color:Black" Text="Trans No" Font-Names="arial" Font-Size="11px" AutoPostBack="true">
+                                                                            </asp:CheckBox>
+                                                                    </td>
+                                                                    <td align="left" style="width:30%">
+                                                                                             
+                                                                        <asp:CheckBox ID="chkboxNarration" runat="server" AutoPostBack="True" style="color: Black" Text="Narration" Font-Names="arial" Font-Size="11px">
+                                                                        </asp:CheckBox>
+                                                                        </td>
+                                                                            <td style="width:10%">&nbsp;</td>
+                                                                                          
+                                                                    </tr>
                                                                     <tr>
                                                                     <td style="width:25%">&nbsp;</td>
-                                                                    <td align="left" style="width:35%">
+                                                                         <td align="left" style="width:35%">
+                                                                            <asp:CheckBox ID="chkboxDesFrom" runat="server" style="color:Black" Text="Despatched From" Font-Names="arial" Font-Size="11px" AutoPostBack="true">
+                                                                            </asp:CheckBox>
+                                                                    </td>
+                                                                    <td align="left" style="width:30%">
                                                                                              
                                                                         <asp:CheckBox ID="chkboxAll" runat="server" AutoPostBack="True" OnCheckedChanged="chkboxAll_CheckedChanged" style="color: Black" Text="Select All" Font-Names="arial" Font-Size="11px">
                                                                         </asp:CheckBox>
@@ -350,7 +364,7 @@
                                             </HeaderTemplate>
                                             <ContentTemplate>
                                                                                           <div>
-                                                                                            <table style="width:540px; height: 100%; background-color:#90C9FC">
+                                                                                            <table style="width:540px; height: 100%; background-color:#e7e7e7">
                                                                                              <!-- <tr>
                                                                                                 <td align="center" colspan="4">
                                                                                                      <asp:Label ID="Label1" runat="server" style="color:#0567AE" Font-Names ="arial" Font-Size="14px" Font-Bold="true" Text="Filter by Particular Item"></asp:Label>
@@ -365,14 +379,14 @@
                                                                                                   <td width="30%" align="left" class="ControlTextBox2">
                                                                                                        <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
                                                                                                         <ContentTemplate>
-                                                                                                      <asp:DropDownList ID="ddlCategory" runat="server" style="border: 1px solid Blue" Height="24px" Width="98%"  CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                      <asp:DropDownList ID="ddlCategory" runat="server" style="border: 2px medium #e7e7e7" Height="24px" Width="98%"  CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                       </asp:DropDownList>
                                                                                                     </td>
                                                                                                     <td class="ControlLabel2"  width="20%">
                                                                                                         Customer Name
                                                                                                     </td>
                                                                                                     <td width="30%" align="left" class="ControlTextBox2">
-                                                                                                           <asp:DropDownList ID="ddlCustNme" AppendDataBoundItems="true" style="border: 1px solid Blue" AutoPostBack="true" runat="server" Height="24px" Width="98%"  CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                           <asp:DropDownList ID="ddlCustNme" AppendDataBoundItems="true" style="border: 2px medium #e7e7e7" AutoPostBack="true" runat="server" Height="24px" Width="98%"  CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                             </asp:DropDownList>
                                                                                                     </td>
                                                                                                  </tr>
@@ -383,15 +397,15 @@
                                                                                                             Product Name
                                                                                                       </td>
                                                                                                       <td width="30%" align="left" class="ControlTextBox2">
-                                                                                                           <asp:DropDownList ID="ddlPrdctNme" runat="server" Height="24px" Width="98%"  style="border: 1px solid Blue" CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                           <asp:DropDownList ID="ddlPrdctNme" runat="server" Height="24px" Width="98%"  style="border: 2px medium #e7e7e7" CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                            </asp:DropDownList>
                                                                                                       </td>
                                                                                                       <td class="ControlLabel2"  width="20%">
                                                                                                             Product Code
                                                                                                       </td>
                                                                                                       <td width="30%" align="left" class="ControlTextBox2">
-                                                                                                           <asp:DropDownList ID="ddlPrdctCode" runat="server" Height="24px" Width="98%"  style="border: 1px solid Blue"
-                                                                                                                CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                           <asp:DropDownList ID="ddlPrdctCode" runat="server" Height="24px" Width="98%"  style="border: 2px medium #e7e7e7"
+                                                                                                                CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                            </asp:DropDownList>
                                                                                                       </td>
                                                                                                       <td class="ControlLabel" width="5%">
@@ -405,16 +419,16 @@
                                                                                                                 Brand
                                                                                                             </td>
                                                                                                             <td width="30%" align="left" class="ControlTextBox2">
-                                                                                                                 <asp:DropDownList ID="ddlBrand" runat="server" Height="24px" Width="98%"  style="border: 1px solid Blue"
-                                                                                                                    CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                 <asp:DropDownList ID="ddlBrand" runat="server" Height="24px" Width="98%"  style="border: 2px medium #e7e7e7"
+                                                                                                                    CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                  </asp:DropDownList>
                                                                                                             </td>
                                                                                                             <td class="ControlLabel2"  width="20%">
                                                                                                                 PayMode
                                                                                                             </td>
                                                                                                             <td width="30%" align="left" class="ControlTextBox2">
-                                                                                                                 <asp:DropDownList ID="ddlPayMode" runat="server" Height="24px" Width="98%"  style="border: 1px solid Blue"
-                                                                                                                    CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                 <asp:DropDownList ID="ddlPayMode" runat="server" Height="24px" Width="98%"  style="border: 2px medium #e7e7e7"
+                                                                                                                    CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                  </asp:DropDownList>
                                                                                                             </td>
                                                                                                         </tr>
@@ -434,7 +448,7 @@
                                                                                             <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
                                                                                                   <ContentTemplate>
                                                                                                      <div>
-                                                                                                        <table style="width:540px; height:100%; background-color:#90C9FC;">
+                                                                                                        <table style="width:540px; height:100%; background-color:#e7e7e7;">
                                                                                                         
                                                                                                          <!--<tr>
                                                                                                               <td align="center" colspan="4">
@@ -450,16 +464,16 @@
                                                                                                                 </td>
                                                                                                                 <td width="30%" align="left" class="ControlTextBox2">
                                                                                                                 
-                                                                                                                    <asp:DropDownList ID="ddlFirstLvl" runat="server" Height="24px" Width="100%"  style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="ddlFirstLvl" runat="server" Height="24px" Width="100%"  style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
                                                                                                                  <td class="ControlLabel2"  width="20%">
                                                                                                                     Fourth Level
                                                                                                                 </td>
                                                                                                                 <td  width="30%" align="left" class="ControlTextBox2">
-                                                                                                                    <asp:DropDownList ID="ddlFourthLvl" runat="server" Height="24px" Width="100%"   style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="ddlFourthLvl" runat="server" Height="24px" Width="100%"   style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -471,16 +485,16 @@
                                                                                                                     Second Level
                                                                                                                 </td>
                                                                                                                 <td  width="30%" align="left" class="ControlTextBox2">
-                                                                                                                    <asp:DropDownList ID="ddlSecondLvl" runat="server" Height="24px" Width="100%"  style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="ddlSecondLvl" runat="server" Height="24px" Width="100%"  style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
                                                                                                                  <td class="ControlLabel2"  width="20%">
                                                                                                                     Fifth Level
                                                                                                                 </td>
                                                                                                                 <td  width="30%" align="left" class="ControlTextBox2">
-                                                                                                                    <asp:DropDownList ID="ddlFifthLvl" runat="server" Height="24px" Width="100%"  style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="ddlFifthLvl" runat="server" Height="24px" Width="100%"  style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
                                                                                                                
@@ -493,16 +507,16 @@
                                                                                                                     Third Level
                                                                                                                 </td>
                                                                                                                 <td  width="30%" align="left" class="ControlTextBox2">
-                                                                                                                    <asp:DropDownList ID="ddlThirdLvl" runat="server" Height="24px" Width="100%"   style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="ddlThirdLvl" runat="server" Height="24px" Width="100%"   style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
                                                                                                                  <td class="ControlLabel2"  width="20%">
                                                                                                                     Sixth Level
                                                                                                                 </td>
                                                                                                                 <td  width="30%" align="left" class="ControlTextBox2">
-                                                                                                                    <asp:DropDownList ID="ddlSixthLvl" runat="server" Height="24px" Width="100%"  style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="ddlSixthLvl" runat="server" Height="24px" Width="100%"  style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
                                                                                                                 <td class="ControlLabel" width="5%">
@@ -516,8 +530,8 @@
                                                                                                                     Seventh Level
                                                                                                                 </td>
                                                                                                                 <td  width="30%" align="left" class="ControlTextBox2">
-                                                                                                                    <asp:DropDownList ID="ddlSeventhLvl" runat="server" Height="24px" Width="100%"   style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="ddlSeventhLvl" runat="server" Height="24px" Width="100%"   style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
                                                                                                                 <td class="ControlLabel" width="20%">
@@ -541,7 +555,7 @@
                                                                                                <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
                                                                                                    <ContentTemplate>
                                                                                                         <div>
-                                                                                                            <table style="width:540px; height:100%; background-color:#90C9FC">
+                                                                                                            <table style="width:540px; height:100%; background-color:#e7e7e7">
                                                                                                              <!--<tr>
                
                                                                                                                 <td align="center" colspan="4">
@@ -557,16 +571,16 @@
                                                                                                                     First Level
                                                                                                                 </td>
                                                                                                                 <td width="30%" align="left" class="ControlTextBox2">
-                                                                                                                    <asp:DropDownList ID="odlfirstlvl" runat="server" Height="24px" Width="100%"  style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="odlfirstlvl" runat="server" Height="24px" Width="100%"  style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
                                                                                                                <td class="ControlLabel2"  width="20%">
                                                                                                                     Fourth Level
                                                                                                                 </td>
                                                                                                                 <td  width="30%" align="left" class="ControlTextBox2">
-                                                                                                                    <asp:DropDownList ID="odlfourlvl" runat="server" Height="24px" Width="100%"  style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="odlfourlvl" runat="server" Height="24px" Width="100%"  style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
                 
@@ -579,16 +593,16 @@
                                                                                                                 Second Level
                                                                                                             </td>
                                                                                                             <td  width="30%" align="left" class="ControlTextBox2">
-                                                                                                                <asp:DropDownList ID="odlsecondlvl" runat="server" Height="24px" Width="100%"   style="border: 1px solid Blue"
-                                                                                                                    CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                <asp:DropDownList ID="odlsecondlvl" runat="server" Height="24px" Width="100%"   style="border: 2px medium #e7e7e7"
+                                                                                                                    CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                 </asp:DropDownList>
                                                                                                             </td>
                                                                                                            <td class="ControlLabel2"  width="20%">
                                                                                                                     Fifth Level
                                                                                                                 </td>
                                                                                                                 <td  width="30%" align="left" class="ControlTextBox2">
-                                                                                                                    <asp:DropDownList ID="odlfifthlvl" runat="server" Height="24px" Width="100%"  style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="odlfifthlvl" runat="server" Height="24px" Width="100%"  style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
             
@@ -601,16 +615,16 @@
                                                                                                                 Third Level
                                                                                                             </td>
                                                                                                             <td  width="30%" align="left" class="ControlTextBox2">
-                                                                                                                <asp:DropDownList ID="odlthirdlvl" runat="server" Height="24px" Width="100%"  style="border: 1px solid Blue"
-                                                                                                                    CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                <asp:DropDownList ID="odlthirdlvl" runat="server" Height="24px" Width="100%"  style="border: 2px medium #e7e7e7"
+                                                                                                                    CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                 </asp:DropDownList>
                                                                                                             </td>
                                                                                                          <td class="ControlLabel2"  width="20%">
                                                                                                                     Sixth Level
                                                                                                                 </td>
                                                                                                                 <td  width="30%" align="left" class="ControlTextBox2">
-                                                                                                                    <asp:DropDownList ID="odlsixthlvl" runat="server" Height="24px" Width="100%"  style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="odlsixthlvl" runat="server" Height="24px" Width="100%"  style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
                                                                                                                 <td class="ControlLabel" width="5%">
@@ -625,8 +639,8 @@
                                                                                                                     Seventh Level
                                                                                                                 </td>
                                                                                                                 <td  width="30%" align="left" class="ControlTextBox2">
-                                                                                                                    <asp:DropDownList ID="odlseventhlvl" runat="server" Height="24px" Width="100%"  style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="odlseventhlvl" runat="server" Height="24px" Width="100%"  style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
                                                                                                                  
@@ -805,7 +819,7 @@
                                                                                           <asp:UpdatePanel ID="UpdatePanel7" runat="server" UpdateMode="Conditional">
                                                                                                <ContentTemplate>
                                                                                                    <div>
-                                                                                                       <table style="width:540px; height:100%; background-color:#90C9FC;">
+                                                                                                       <table style="width:540px; height:100%; background-color:#e7e7e7;">
                                                                                                             <tr style="height:10px">
                                                                                                             </tr>
                                                                                                             <tr>
@@ -813,16 +827,16 @@
                                                                                                                     First Level
                                                                                                                 </td>
                                                                                                                 <td width="30%" class="ControlTextBox2">
-                                                                                                                    <asp:DropDownList ID="firstsub" runat="server" Height="24px" Width="100%"  style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="firstsub" runat="server" Height="24px" Width="100%"  style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
                                                                                                                 <td class="ControlLabel2"  width="20%">
                                                                                                                     Fifth Level
                                                                                                                 </td>
                                                                                                                 <td  width="30%" class="ControlTextBox2">
-                                                                                                                    <asp:DropDownList ID="fivesub" runat="server" Height="24px" Width="100%"  style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="fivesub" runat="server" Height="24px" Width="100%"  style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -833,16 +847,16 @@
                                                                                                                     Second Level
                                                                                                                 </td>
                                                                                                                 <td  width="30%" class="ControlTextBox2">
-                                                                                                                    <asp:DropDownList ID="secondsub" runat="server" Height="24px" Width="100%"  style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="secondsub" runat="server" Height="24px" Width="100%"  style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
                                                                                                                 <td class="ControlLabel2"  width="20%">
                                                                                                                     Sixth Level
                                                                                                                 </td>
                                                                                                                 <td  width="30%" class="ControlTextBox2">
-                                                                                                                    <asp:DropDownList ID="sixsub" runat="server" Height="24px" Width="100%"   style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="sixsub" runat="server" Height="24px" Width="100%"   style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -853,16 +867,16 @@
                                                                                                                     Third Level
                                                                                                                 </td>
                                                                                                                 <td  width="30%" class="ControlTextBox2">
-                                                                                                                    <asp:DropDownList ID="thirdsub" runat="server" Height="24px" Width="100%"   style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="thirdsub" runat="server" Height="24px" Width="100%"   style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
                                                                                                                 <td class="ControlLabel2"  width="20%">
                                                                                                                     Seventh Level
                                                                                                                 </td>
                                                                                                                 <td  width="30%" class="ControlTextBox2">
-                                                                                                                    <asp:DropDownList ID="sevensub" runat="server" Height="24px" Width="100%"   style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="sevensub" runat="server" Height="24px" Width="100%"   style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
                                                                                                                 <td class="ControlLabel" width="5%">
@@ -876,16 +890,16 @@
                                                                                                                     Fourth Level
                                                                                                                 </td>
                                                                                                                 <td  width="30%" class="ControlTextBox2">
-                                                                                                                    <asp:DropDownList ID="foursub" runat="server" Height="24px" Width="100%"   style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="foursub" runat="server" Height="24px" Width="100%"   style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
                                                                                                                 <td class="ControlLabel2"  width="20%">
                                                                                                                     Eighth Level
                                                                                                                 </td>
                                                                                                                 <td  width="30%" class="ControlTextBox2">
-                                                                                                                    <asp:DropDownList ID="eightsub" runat="server" Height="24px" Width="100%"   style="border: 1px solid Blue"
-                                                                                                                        CssClass="drpDownListMedium" BackColor = "#90C9FC">
+                                                                                                                    <asp:DropDownList ID="eightsub" runat="server" Height="24px" Width="100%"   style="border: 2px medium #e7e7e7"
+                                                                                                                        CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                                                                                                                     </asp:DropDownList>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -907,7 +921,7 @@
                                                                                          <div>
                                                                                               <asp:UpdatePanel ID="UpdatePanel22" runat="server" UpdateMode="Conditional">
                                                                                                     <ContentTemplate>
-                                                                                                          <table style="width:540px; height:100%; background-color:#90C9FC">
+                                                                                                          <table style="width:540px; height:100%; background-color:#e7e7e7">
                                                                                                                         <!--  <tr>
                                                                                                               <td align="center" colspan="4">
                                                                                                                   <asp:Label ID="Label4" runat="server" style="color:#0567AE" Font-Names ="arial" Font-Size="14px" Font-Bold="true" Text="Save Selections"></asp:Label>
@@ -922,7 +936,7 @@
                                                                                                                                 </td>
                                                                                                                                 <td style="width:35%;">
                                                                                                                                       <asp:TextBox ID="Savetxtbox" runat="server" Width="95%" BorderColor="Blue" BorderStyle="Solid" BorderWidth="1px"
-                                                                                                                                            BackColor = "#90C9FC"  AutoPostBack="True"></asp:TextBox>
+                                                                                                                                            BackColor = "#e7e7e7"  AutoPostBack="True"></asp:TextBox>
                                                                                                                                       <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="Savetxtbox"
                                                                                                                                             CssClass="lblFont" Display="Dynamic" ErrorMessage="Please enter a name to save selections" Text="*"></asp:RequiredFieldValidator>
                                                                                                                                 </td>
@@ -935,9 +949,9 @@
                                                                                                                                      Retrive Selections
                                                                                                                                  </td>
                                                                                                                                  <td style="width:35%;" align="left">
-                                                                                                                                      <asp:DropDownList ID="ddlretrive" runat="server" AppendDataBoundItems="true" AutoPostBack="true" style="border: 1px solid Blue"
-                                                                                                                                          Width="98%" Height="24px" CssClass="drpDownListMedium" BackColor = "#90c9fc"  TabIndex="2">
-                                                                                                                                      <asp:ListItem style="background-color: #90C9FC" ></asp:ListItem>
+                                                                                                                                      <asp:DropDownList ID="ddlretrive" runat="server" AppendDataBoundItems="true" AutoPostBack="true" style="border: 2px medium #e7e7e7"
+                                                                                                                                          Width="98%" Height="24px" CssClass="drpDownListMedium" BackColor = "#e7e7e7"  TabIndex="2">
+                                                                                                                                      <asp:ListItem style="background-color: #e7e7e7" ></asp:ListItem>
                                                                                                                                       </asp:DropDownList>
                                                                                                                                   </td>
                                                                                                                                   <td style="width:30%;">
@@ -985,9 +999,6 @@
 
                                                                                     
                                                                                     <table>
-                                                                                        <tr style="height:5px">
-                                        
-                                                                                        </tr>
                                                                                         <tr>
                                                                                         <td style="width:12%">&nbsp;</td>
                                                                                             <td align="center" style="width:25%">

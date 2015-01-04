@@ -121,6 +121,7 @@
                                                 Width="20px" />
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/>
                                 <tr>
                                     <td class="ControlLabel2" style="width: 20%;">
                                         End Date
@@ -143,19 +144,21 @@
                                                 Width="20px" />
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/>
                                 <tr>
                                     <td class="ControlLabel2" style="width: 15%;">
                                         Option
                                     </td>
                                     <td class="ControlTextBox3" style="width: 30%;">
                                         <asp:RadioButtonList ID="optionrate" runat="server" CssClass="label" 
-                                                RepeatDirection="Horizontal" BackColor="#90C9FC" Height="25px">
+                                                RepeatDirection="Horizontal" BackColor="#e7e7e7" Height="25px">
                                                 <asp:ListItem>5%</asp:ListItem>
                                                 <asp:ListItem>14.5%</asp:ListItem>
                                                 <asp:ListItem Selected="True">All</asp:ListItem>
                                         </asp:RadioButtonList>
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/>
                                 <tr>
                                     <td colspan="3">
                                         <table width="100%">
@@ -211,6 +214,7 @@
                                                 Width="20px" />
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/>
                                 <tr>
                                     <td class="ControlLabel2" style="width: 20%;">
                                         End Date
@@ -233,19 +237,21 @@
                                                 Width="20px" />
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/>
                                 <tr>
                                     <td class="ControlLabel2" style="width: 15%;">
                                         Option
                                     </td>
                                     <td class="ControlTextBox3" style="width: 30%;">
                                         <asp:RadioButtonList ID="optionsal" runat="server" CssClass="label" 
-                                                RepeatDirection="Horizontal" BackColor="#90C9FC" Height="25px">
+                                                RepeatDirection="Horizontal" BackColor="#e7e7e7" Height="25px">
                                                 <asp:ListItem>5%</asp:ListItem>
                                                 <asp:ListItem>14.5%</asp:ListItem>
                                                 <asp:ListItem Selected="True">All</asp:ListItem>
                                         </asp:RadioButtonList>
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/>
                                 <tr>
                                     <td colspan="3">
                                         <table width="100%">
@@ -301,6 +307,7 @@
                                                 Width="20px" />
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/>
                                 <tr>
                                     <td class="ControlLabel2" style="width: 20%;">
                                         End Date
@@ -323,19 +330,21 @@
                                                 Width="20px" />
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/>
                                 <tr>
                                     <td class="ControlLabel2" style="width: 15%;">
                                         Option
                                     </td>
                                     <td class="ControlTextBox3" style="width: 30%;">
                                         <asp:RadioButtonList ID="optionpurret" runat="server" CssClass="label" 
-                                                RepeatDirection="Horizontal" BackColor="#90C9FC" Height="25px">
+                                                RepeatDirection="Horizontal" BackColor="#e7e7e7" Height="25px">
                                                 <asp:ListItem>5%</asp:ListItem>
                                                 <asp:ListItem>14.5%</asp:ListItem>
                                                 <asp:ListItem Selected="True">All</asp:ListItem>
                                         </asp:RadioButtonList>
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/>
                                 <tr>
                                     <td colspan="3">
                                         <table width="100%">
@@ -391,6 +400,7 @@
                                                 Width="20px" />
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/>
                                 <tr>
                                     <td class="ControlLabel2" style="width: 20%;">
                                         End Date
@@ -413,19 +423,21 @@
                                                 Width="20px" />
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/>
                                 <tr>
                                     <td class="ControlLabel2" style="width: 15%;">
                                         Option
                                     </td>
                                     <td class="ControlTextBox3" style="width: 30%;">
                                         <asp:RadioButtonList ID="optionsalret" runat="server" CssClass="label" 
-                                                RepeatDirection="Horizontal" BackColor="#90C9FC" Height="25px">
+                                                RepeatDirection="Horizontal" BackColor="#e7e7e7" Height="25px">
                                                 <asp:ListItem>5%</asp:ListItem>
                                                 <asp:ListItem>14.5%</asp:ListItem>
                                                 <asp:ListItem Selected="True">All</asp:ListItem>
                                         </asp:RadioButtonList>
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/>
                                 <tr>
                                     <td colspan="3">
                                         <table width="100%">

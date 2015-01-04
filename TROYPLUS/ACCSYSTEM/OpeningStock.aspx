@@ -71,6 +71,9 @@
                                         <td style="width: 22%" class="tblLeftNoPad">
                                             <asp:Button ID="btnSearch" runat="server" Text=""  CssClass="ButtonSearch6" EnableTheming="false" OnClick="btnSearch_Click" />
                                         </td>
+                                        <td style="width: 16%" class="tblLeftNoPad">
+                                            <asp:Button ID="BtnClearFilter" runat="server"  OnClick="BtnClearFilter_Click"  EnableTheming="false" Text="" CssClass="ClearFilter6" />
+                                        </td>
                                     </tr>
                                 </table>
                             </div>

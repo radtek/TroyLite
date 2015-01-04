@@ -50,8 +50,8 @@
                         Operator="GreaterThan" Text="*" ValueToCompare="0"></asp:CompareValidator>
                 </td>
                 <td  style="width:20%" class="ControlDrpBorder">
-                    <asp:DropDownList ID="drpBankName" runat="server" Width="100%" DataTextField="LedgerName" style="border: 1px solid #90c9fc" height="26px"
-                        DataValueField="LedgerID"  CssClass="drpDownListMedium" BackColor = "#90c9fc">
+                    <asp:DropDownList ID="drpBankName" runat="server" Width="100%" DataTextField="LedgerName" style="border: 1px solid #e7e7e7" height="26px"
+                        DataValueField="LedgerID"  CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                         <asp:ListItem Selected="True" Value="0" style="background-color: #bce1fe">Select Bank</asp:ListItem>
                     </asp:DropDownList>
                 </td>
@@ -60,6 +60,7 @@
                 <td  style="width:10%">
                 </td>
             </tr>
+            <tr style="height: 2px;"/>
             <tr>
                 <td  style="width:30%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                     Start Date
@@ -77,6 +78,7 @@
                         Display="None" CssClass="lblFont" ErrorMessage="Please Enter Start Date"></asp:RequiredFieldValidator>
                 </td>
             </tr>
+            <tr style="height: 2px;"/>
             <tr>
                 <td  style="width:30%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                     End Date

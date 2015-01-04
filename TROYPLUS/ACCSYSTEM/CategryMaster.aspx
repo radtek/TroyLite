@@ -60,7 +60,7 @@
                                 <table style="width: 99.8%; margin: -2px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
                                     <tr style="height: 25px; vertical-align: middle">
                                         <td style="width: 1%;"></td>
-                                        <td style="width: 20%; font-size: 22px; color: White;" >
+                                        <td style="width: 25%; font-size: 22px; color: White;" >
                                             Category Master
                                         </td>
                                         <td style="width: 13%">

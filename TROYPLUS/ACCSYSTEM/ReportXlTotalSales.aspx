@@ -149,6 +149,7 @@
                                             new tcal({ 'formname': 'form1', 'controlname': 'txtStartDate' });</script>--%>
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/> 
                                 <tr>
                                     <%--<td class="ControlLabel" style="width: 25%;">
                                         Frequency
@@ -185,6 +186,7 @@
                                             new tcal({ 'formname': 'form1', 'controlname': 'txtEndDate' });</script>--%>
                                     </td>
                                 </tr>
+                                <tr style="height: 2px;"/> 
                                 <%--<tr>--%>
                                     <%--<td class="ControlLabel" style="width: 25%;">
                                         Missed Visits
@@ -208,7 +210,7 @@
                                                 </td>
                                                 <td class="ControlTextBox3" style="width: 90%;">
                                                     <asp:RadioButtonList ID="optionrate" runat="server" CssClass="label" 
-                                                            RepeatDirection="Horizontal" BackColor="#90C9FC" Height="25px">
+                                                            RepeatDirection="Horizontal" BackColor="#e7e7e7" Height="25px">
                                                             <asp:ListItem Selected="True">Item Wise</asp:ListItem>
                                                             <asp:ListItem>Brand Wise</asp:ListItem>
                                                             <asp:ListItem>Category Wise</asp:ListItem>

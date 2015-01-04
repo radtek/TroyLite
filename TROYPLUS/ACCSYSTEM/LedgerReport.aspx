@@ -52,6 +52,7 @@
                         Display="None" ErrorMessage="Please Enter Start Date" CssClass="lblFont"></asp:RequiredFieldValidator>
                 </td>
             </tr>
+            <tr style="height: 2px;"/>
             <tr>
                 <td  style="width:30%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                     End Date
@@ -71,14 +72,15 @@
                         CssClass="lblFont" Operator="GreaterThanEqual" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
                 </td>
             </tr>
+            <tr style="height: 2px;"/>
             <tr>
                 <td  style="width:30%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                     Heading
                 </td>
                 <td align="left" class="ControlDrpBorder" style="width:25%">
                     <asp:DropDownList ID="drpHeading" runat="server" Width="100%" DataTextField="Heading"
-                        AppendDataBoundItems="true" AutoPostBack="true" DataValueField="HeadingID" CssClass="drpDownListMedium" BackColor = "#90c9fc"
-                        OnSelectedIndexChanged="drpHeading_SelectedIndexChanged" style="border: 1px solid #90c9fc" height="26px">
+                        AppendDataBoundItems="true" AutoPostBack="true" DataValueField="HeadingID" CssClass="drpDownListMedium" BackColor = "#e7e7e7"
+                        OnSelectedIndexChanged="drpHeading_SelectedIndexChanged" style="border: 1px solid #e7e7e7" height="26px">
                         <asp:ListItem Text=" -- All -- " Value="0"></asp:ListItem>
                     </asp:DropDownList>
                     
@@ -88,14 +90,15 @@
                     <td style="width:10%">
                     </td>
             </tr>
+            <tr style="height: 2px;"/>
             <tr>
                 <td  style="width:30%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                     Ledger Group
                 </td>
                 <td align="left" class="ControlDrpBorder" style="width:25%">
                     <asp:DropDownList ID="drpGroup" runat="server" Width="100%" DataTextField="GroupName"
-                        AppendDataBoundItems="true" AutoPostBack="true" DataValueField="GroupID" CssClass="drpDownListMedium" BackColor = "#90c9fc"
-                        OnSelectedIndexChanged="drpGroupName_SelectedIndexChanged" style="border: 1px solid #90c9fc" height="26px">
+                        AppendDataBoundItems="true" AutoPostBack="true" DataValueField="GroupID" CssClass="drpDownListMedium" BackColor = "#e7e7e7"
+                        OnSelectedIndexChanged="drpGroupName_SelectedIndexChanged" style="border: 1px solid #e7e7e7" height="26px">
                         <asp:ListItem Text=" -- All -- " Value="0"></asp:ListItem>
                     </asp:DropDownList>
                 </td>
@@ -104,13 +107,14 @@
                     <td style="width:15%">
                     </td>
             </tr>
+            <tr style="height: 2px;"/>
             <tr>
                 <td  style="width:30%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                     Ledger Name
                 </td>
                 <td align="left" class="ControlDrpBorder" style="width:25%">
-                    <asp:DropDownList ID="drpLedgerName" runat="server" Width="100%" DataTextField="LedgerName" CssClass="drpDownListMedium" BackColor = "#90c9fc"
-                        AppendDataBoundItems="true" AutoPostBack="true" DataValueField="LedgerID"  style="border: 1px solid #90c9fc" height="26px"
+                    <asp:DropDownList ID="drpLedgerName" runat="server" Width="100%" DataTextField="LedgerName" CssClass="drpDownListMedium" BackColor = "#e7e7e7"
+                        AppendDataBoundItems="true" AutoPostBack="true" DataValueField="LedgerID"  style="border: 1px solid #e7e7e7" height="26px"
                         OnSelectedIndexChanged="drpLedgerName_SelectedIndexChanged">
                         <asp:ListItem Text=" -- All -- " Value="0"></asp:ListItem>
                     </asp:DropDownList>
@@ -120,6 +124,7 @@
                     <td style="width:10%">
                     </td>
             </tr>
+            <tr style="height: 2px;"/>
             <tr>
                 <td>
                     &nbsp;
@@ -141,6 +146,7 @@
                     </div>
                 </td>
             </tr>
+            <tr style="height: 2px;"/>
             <tr>
                 <td  style="width:30%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                     Display Order
@@ -148,7 +154,7 @@
                     (For Date)
                 </td>
                 <td align="left" class="ControlDrpBorder" style="width:25%">
-                    <asp:DropDownList ID="drpOrder" style="border: 1px solid #90c9fc" height="26px" runat="server" Width="100%" CssClass="drpDownListMedium" BackColor = "#90c9fc">
+                    <asp:DropDownList ID="drpOrder" style="border: 1px solid #e7e7e7" height="26px" runat="server" Width="100%" CssClass="drpDownListMedium" BackColor = "#e7e7e7">
                         <asp:ListItem Value="0">Increasing</asp:ListItem>
                         <asp:ListItem Value="1">Decreasing</asp:ListItem>
                     </asp:DropDownList>
@@ -158,7 +164,7 @@
                     <td style="width:15%">
                     </td>
             </tr>
-            
+            <tr style="height: 2px;"/>
             <tr>
                 <td style="width:25%">
                     <asp:CheckBox ID="chkSummary" runat="server" Text="Summary" />

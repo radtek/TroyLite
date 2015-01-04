@@ -57,11 +57,11 @@
                                 </tr>
                             </table>--%>
                             <div class="mainConBody">
-                                <table style="width: 100%; margin: -1px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
+                                <table style="width: 99.8%; margin: -1px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
                                     <tr style="height: 25px; vertical-align: middle">
                                         <td style="width: 2%">
                                         </td>
-                                        <td style="width: 23%; font-size: 22px; color: #000000;" >
+                                        <td style="width: 23%; font-size: 22px; color:white;" >
                                              Lead Reference
                                         </td>
                                         <td style="width: 12%">
@@ -72,15 +72,15 @@
                                                 </asp:Panel>
                                             </div>
                                         </td>
-                                        <td style="width: 15%; color: #000080;" align="right">
+                                        <td style="width: 15%; color:white;" align="right">
                                             Search
                                         </td>
-                                        <td style="width: 18%" class="Box1">
+                                        <td style="width: 18%" class="NewBox">
                                             <asp:TextBox ID="txtSearch" runat="server" SkinID="skinTxtBoxSearch"></asp:TextBox>
                                         </td>
-                                        <td style="width: 18%" class="Box1">
+                                        <td style="width: 18%" class="NewBox">
                                             <div style="width: 150px; font-family: 'Trebuchet MS';">
-                                                <asp:DropDownList ID="ddCriteria" runat="server" Width="155px" Height="23px"  BackColor="#BBCAFB" style="text-align:center;border:1px solid #BBCAFB ">
+                                                <asp:DropDownList ID="ddCriteria" runat="server" Width="155px" Height="23px"  BackColor="White" style="text-align:center;border:1px solid white">
                                                     <asp:ListItem Value="0" >All</asp:ListItem>
                                                     <asp:ListItem Value="Mode of Contact">Mode of Contact</asp:ListItem>
                                                     <asp:ListItem Value="Personal Responsible">Personal Responsible</asp:ListItem>
@@ -98,6 +98,9 @@
                                         </td>
                                         <td style="width: 20%" class="tblLeftNoPad">
                                             <asp:Button ID="btnSearch" runat="server" Text=""  CssClass="ButtonSearch6" EnableTheming="false" />
+                                        </td>
+                                        <td style="width: 16%" class="tblLeftNoPad">
+                                            <asp:Button ID="BtnClearFilter" runat="server"  OnClick="BtnClearFilter_Click"  EnableTheming="false" Text="" CssClass="ClearFilter6" />
                                         </td>
                                     </tr>
                                 </table>
@@ -162,7 +165,7 @@
                                                                 
                                                                 </td>
                                                                 <td class="ControlDrpBorder" style="width:30%">
-                                                                    <asp:DropDownList ID="ddTypedd" runat="server" Width="100%" BackColor = "#90c9fc"  style="border: 1px solid #90c9fc" height="26px" CssClass="drpDownListMedium" SelectedValue='<%# Bind("TypeName") %>'
+                                                                    <asp:DropDownList ID="ddTypedd" runat="server" Width="100%" BackColor = "#e7e7e7"  style="border: 1px solid #e7e7e7" height="26px" CssClass="drpDownListMedium" SelectedValue='<%# Bind("TypeName") %>'
                                                                         TabIndex="2">
                                                                         <asp:ListItem Text="Mode of Contact" Value="Mode of Contact"></asp:ListItem>
                                                                         <asp:ListItem Text="Personal Responsible" Value="Personal Responsible"></asp:ListItem>
@@ -192,15 +195,15 @@
                                                                             <td  style="width:22%" align="center">
 
                                                                             </td>
-                                                                            <td  style="width:28%" align="center">
-                                                                                <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
-                                                                                </asp:Button>
-                                                                            </td>
-                                                                            <td style="width:28%" align="center">
+                                                                            <td  style="width:28%" align="center">                                                                                
                                                                                 <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update"
                                                                                     CssClass="Updatebutton1231" EnableTheming="false" SkinID="skinBtnSave"
                                                                                     OnClick="UpdateButton_Click"></asp:Button>
+                                                                            </td>
+                                                                            <td style="width:28%" align="center">
+                                                                                <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
+                                                                                </asp:Button>
                                                                             </td>
                                                                             <td style="width:22%">
 
@@ -271,7 +274,7 @@
                                                                     
                                                                 </td>
                                                                 <td class="ControlDrpBorder" style="width:30%">
-                                                                    <asp:DropDownList ID="ddType" runat="server" Width="100%" BackColor = "#90c9fc"  style="border: 1px solid #90c9fc" height="26px" CssClass="drpDownListMedium" SelectedValue='<%# Bind("TypeName") %>'
+                                                                    <asp:DropDownList ID="ddType" runat="server" Width="100%" BackColor = "#e7e7e7"  style="border: 1px solid #e7e7e7" height="26px" CssClass="drpDownListMedium" SelectedValue='<%# Bind("TypeName") %>'
                                                                         TabIndex="2">
                                                                         <asp:ListItem Text="Mode of Contact" Value="Mode of Contact"></asp:ListItem>
                                                                         <asp:ListItem Text="Personal Responsible" Value="Personal Responsible"></asp:ListItem>
@@ -302,15 +305,15 @@
                                                                             <td  style="width:22%" align="center">
 
                                                                             </td>
+                                                                            <td  style="width:28%" align="center">                                                                               
+                                                                                 <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert"
+                                                                                    CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave"
+                                                                                    OnClick="InsertButton_Click"></asp:Button>
+                                                                            </td>
                                                                             <td  style="width:28%" align="center">
                                                                                 <asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
                                                                                     CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="InsertCancelButton_Click">
                                                                                 </asp:Button>
-                                                                            </td>
-                                                                            <td  style="width:28%" align="center">
-                                                                                <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert"
-                                                                                    CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave"
-                                                                                    OnClick="InsertButton_Click"></asp:Button>
                                                                             </td>
                                                                             <td  style="width:22%" align="center">
 
@@ -350,12 +353,12 @@
                 </tr>
                 <tr style="width: 100%;">
                     <td style="width: 100%;">
-                        <table width="100%" style="margin: -3px 0px 0px 0px;">
+                        <table width="100%" style="margin: -4px 0px 0px 0px;">
                                     <tr style="width: 100%">
                                         <td>
                         <div class="mainGridHold" id="searchGrid">
                             <asp:GridView ID="GrdViewLedger" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                                OnRowCreated="GrdViewLedger_RowCreated" Width="99.9%" DataSourceID="GridSource" CssClass="someClass"
+                                OnRowCreated="GrdViewLedger_RowCreated" Width="100.4%" DataSourceID="GridSource" CssClass="someClass"
                                 AllowPaging="True" DataKeyNames="ID" EmptyDataText="No Reference Data Found."
                                 OnRowCommand="GrdViewLedger_RowCommand" OnRowDataBound="GrdViewLedger_RowDataBound" OnRowDeleting="GrdViewLedger_RowDeleting"
                                 OnRowDeleted="GrdViewLedger_RowDeleted">
