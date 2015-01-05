@@ -1136,11 +1136,11 @@
                                         <tr style="height:1px">
                                         </tr>
                                         <tr style=" border-color:white">
-                                            <td style=" border-color:white">
+                                            <td style="border-color:white">
                                                 Goto Page
                                             </td>
                                             <td style=" border-color:white">
-                                                <asp:DropDownList ID="ddlPageSelector" runat="server"  style="border:1px solid blue" AutoPostBack="true" Width="75px"  height="23px" BackColor="#BBCAFB">
+                                                <asp:DropDownList ID="ddlPageSelector" runat="server"  style="border:1px solid blue" AutoPostBack="true" Width="75px"  height="23px" BackColor="#e7e7e7">
                                                 </asp:DropDownList>
                                             </td>
                                             <td style=" border-color:white; Width:5px">

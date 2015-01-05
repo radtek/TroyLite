@@ -80,7 +80,7 @@
                                         <td style="width: 20%" class="NewBox">
                                             <div style="width: 160px; font-family: 'Trebuchet MS';">
                                                 <asp:DropDownList ID="ddCriteria" runat="server" Width="153px" Height="23px" BackColor="White" style="text-align:center;border:1px solid White ">
-                                                    <asp:ListItem Value="0">All</asp:ListItem>
+                                                    <asp:ListItem Value="All">All</asp:ListItem>
                                                     <asp:ListItem Value="PriceListName">PriceList Name</asp:ListItem>
                                                     <asp:ListItem Value="CusCategoryName">Customer Category</asp:ListItem>
                                                 </asp:DropDownList>
@@ -390,7 +390,7 @@
                                                 Goto Page
                                             </td>
                                             <td style=" border-color:white">
-                                                <asp:DropDownList ID="ddlPageSelector" runat="server" AutoPostBack="true" width="65px" style="border:1px solid blue" BackColor="#BBCAFB">
+                                                <asp:DropDownList ID="ddlPageSelector" runat="server" AutoPostBack="true" width="65px" style="border:1px solid blue" BackColor="#e7e7e7">
                                                 </asp:DropDownList>
                                             </td>
                                             <td  style=" border-color:white;Width:5px">

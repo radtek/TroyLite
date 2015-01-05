@@ -609,7 +609,7 @@ public class LeadBusinessLogic : BaseLogic
         }
         else
         {
-            dbQry = string.Format("select Id,Type,TextValue,TypeName from tblLeadReferences Order By TypeName", txtSearch);
+            dbQry = string.Format("select Id,Type,TextValue,TypeName from tblLeadReferences Order By TypeName", txtSearch);            
         }
 
         try

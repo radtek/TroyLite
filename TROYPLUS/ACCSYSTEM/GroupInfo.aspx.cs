@@ -445,7 +445,7 @@ public partial class GroupInfo : System.Web.UI.Page
     protected override void OnInit(EventArgs e)
     {
         base.OnInit(e);
-        //srcGridView.SelectParameters.Add(new CookieParameter("connection", "Company"));
+        grdSource.SelectParameters.Add(new CookieParameter("connection", "Company"));
         grdSource.SelectParameters.Add(new ControlParameter("txtSearch", TypeCode.String, txtSearch.UniqueID, "Text"));
         grdSource.SelectParameters.Add(new ControlParameter("dropDown", TypeCode.String, ddCriteria.UniqueID, "SelectedValue"));
     }

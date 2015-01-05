@@ -1458,7 +1458,7 @@
                                                                 </td> 
                                                                 <td style="border-color: white">
                                                                     <asp:DropDownList ID="ddlPageSelector" OnSelectedIndexChanged="ddlPageSelector_SelectedIndexChanged"
-                                                                        runat="server" AutoPostBack="true" Width="75px" Style="border: 1px solid #8dcaff" Height="23px" BackColor="White">
+                                                                        runat="server" AutoPostBack="true" Width="75px" Style="border: 1px solid #8dcaff" Height="23px" BackColor="#e7e7e7">
                                                                     </asp:DropDownList>
                                                                 </td>
                                                                 <td style="border-color: white; width: 5px"></td>

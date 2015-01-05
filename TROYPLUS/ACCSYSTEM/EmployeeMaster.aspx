@@ -375,7 +375,7 @@
                                                 Goto Page
                                             </td>
                                             <td style=" border-color:white">
-                                                <asp:DropDownList ID="ddlPageSelector" runat="server" AutoPostBack="true" BackColor="#BBCAFB"  Width="70px" Height="24px" style="border:1px solid blue"
+                                                <asp:DropDownList ID="ddlPageSelector" runat="server" AutoPostBack="true" BackColor="#e7e7e7"  Width="70px" Height="24px" style="border:1px solid blue"
                                                     OnSelectedIndexChanged="ddlPageSelector_SelectedIndexChanged">
                                                 </asp:DropDownList>
                                             </td>

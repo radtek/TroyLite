@@ -242,7 +242,7 @@
                                                                                     Goto Page
                                                                                 </td>
                                                                                 <td style="border-color: white">
-                                                                                    <asp:DropDownList ID="ddlPageSelector" runat="server" AutoPostBack="true" SkinID="skinPagerDdlBox2">
+                                                                                    <asp:DropDownList ID="ddlPageSelector" runat="server" AutoPostBack="true" SkinID="skinPagerDdlBox2" BackColor="#e7e7e7">
                                                                                     </asp:DropDownList>
                                                                                 </td>
                                                                                 <td style="border-color: white; width: 5px">
@@ -429,7 +429,7 @@
                                                                                             Goto Page
                                                                                         </td>
                                                                                         <td style="border-color: white">
-                                                                                            <asp:DropDownList ID="ddlPageSelector" runat="server" AutoPostBack="true" SkinID="skinPagerDdlBox2">
+                                                                                            <asp:DropDownList ID="ddlPageSelector" runat="server" AutoPostBack="true" SkinID="skinPagerDdlBox2" BackColor="#e7e7e7">
                                                                                             </asp:DropDownList>
                                                                                         </td>
                                                                                         <td style="border-color: white; width: 5px">
@@ -612,7 +612,7 @@
                                                                                             Goto Page
                                                                                         </td>
                                                                                         <td style="border-color: white">
-                                                                                            <asp:DropDownList ID="ddlPageSelector" runat="server" AutoPostBack="true" SkinID="skinPagerDdlBox2">
+                                                                                            <asp:DropDownList ID="ddlPageSelector" runat="server" AutoPostBack="true" SkinID="skinPagerDdlBox2" BackColor="#e7e7e7">
                                                                                             </asp:DropDownList>
                                                                                         </td>
                                                                                         <td style="border-color: white; width: 5px">
