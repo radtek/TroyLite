@@ -1927,7 +1927,7 @@ public partial class ProdMaster : System.Web.UI.Page
 
                 GrdViewProduct.DataBind();
 
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Hire Purchase Details saved successfully.')", true);
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product Details saved successfully.')", true);
 
                 BindGrid("", "");
                 UpdatePanelPage.Update();
