@@ -2410,16 +2410,31 @@ public class BusinessLogic
 
     #region Group Information
 
-    public DataSet ListGroupInfo(string connection)
+    public DataSet ListGroupInfo1(string connection, string txtSearch, string dropDown)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(connection);
         DataSet ds = new DataSet();
         string dbQry = string.Empty;
+        txtSearch = "%" + txtSearch + "%";
+
+        if (dropDown == "GroupName")
+        {
+            dbQry = "select GroupID, GroupName, Heading, tblGroups.Order from tblGroups inner join tblAccHeading on tblGroups.HeadingID = tblAccHeading.HeadingID Where GroupName like '" + txtSearch + "'" + " Order By GroupName";
+        }
+        else if (dropDown == "Heading")
+        {
+            dbQry = "select GroupID, GroupName, Heading, tblGroups.Order from tblGroups inner join tblAccHeading on tblGroups.HeadingID = tblAccHeading.HeadingID Where Heading like '" + txtSearch + "'" + " Order By GroupName";
+        }
+        else
+        {
+            dbQry = string.Format("select Task_Status_Name,Task_Status_Id from tblTaskStatus Where (Task_Status_Name like '{0}') Order By Task_Status_Name", txtSearch);
+        }
+
 
         try
         {
-            dbQry = "select GroupID, GroupName, Heading, tblGroups.Order from tblGroups inner join tblAccHeading on tblGroups.HeadingID = tblAccHeading.HeadingID Order by GroupName Asc ";
+            //dbQry = "select GroupID, GroupName, Heading, tblGroups.Order from tblGroups inner join tblAccHeading on tblGroups.HeadingID = tblAccHeading.HeadingID Order by GroupName Asc ";
             manager.Open();
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
@@ -15770,6 +15785,11 @@ public class BusinessLogic
              else if (dropDown == "Designation" && txtSearch != null)
             {
                 dbQry.AppendFormat("Where empDesig like '{0}' ", txtSearch);
+            }
+            else if (dropDown == "All" || dropDown == "0" && txtSearch != null)
+            {
+               // dbQry.AppendFormat("Where empDesig like '{0}' ", txtSearch);
+                dbQry.AppendFormat("Where (empno like '" + txtSearch + "'" + " Or empFirstName like '" + txtSearch + "'" + " Or empDesig like '" + txtSearch + "'" + " )");
             }
             else
             {
@@ -33089,32 +33109,19 @@ public class BusinessLogic
     }
 
 
-    public DataSet ListGroupInfo(string connection, string txtSearch, string dropDown)
+    public DataSet ListGroupInfo(string connection)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(connection);
         DataSet ds = new DataSet();
         string dbQry = string.Empty;
 
-        txtSearch = "%" + txtSearch + "%";
-        
-        if (dropDown == "GroupName")
-        {
-            if (txtSearch != null)
-                dbQry = "select GroupID, GroupName, Heading, tblGroups.Order from tblGroups inner join tblAccHeading on tblGroups.HeadingID = tblAccHeading.HeadingID Where GroupName like '" + txtSearch + "' Order by GroupName Asc ";
-            else
-                dbQry = "select GroupID, GroupName, Heading, tblGroups.Order from tblGroups inner join tblAccHeading on tblGroups.HeadingID = tblAccHeading.HeadingID Order by GroupName Asc ";
-        }
-        else
-        {
-            dbQry = "select GroupID, GroupName, Heading, tblGroups.Order from tblGroups inner join tblAccHeading on tblGroups.HeadingID = tblAccHeading.HeadingID Order by GroupName Asc ";
-        }
-
         try
         {
+            dbQry = "select GroupID, GroupName, Heading, tblGroups.Order from tblGroups inner join tblAccHeading on tblGroups.HeadingID = tblAccHeading.HeadingID Order by GroupName Asc ";
             manager.Open();
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
-            
+
             if (ds.Tables[0].Rows.Count > 0)
                 return ds;
             else
@@ -33128,7 +33135,6 @@ public class BusinessLogic
         {
             manager.Dispose();
         }
-
     }
 
 
@@ -37498,7 +37504,7 @@ public class BusinessLogic
 
     //public DataSet generateOutStandingReportDSe(int iGroupID, string sDataSource, DateTime startDate, DateTime endDate)
 
-    public DataSet generateOutStandingReportDSe(int iGroupID, string sDataSource)
+    public DataSet generateOutStandingReportDSe(int iGroupID, string sDataSource, DateTime startDate, DateTime endDate)
     {
         
         Decimal temp_balance;
@@ -37513,10 +37519,10 @@ public class BusinessLogic
         oleConn = new OleDbConnection(CreateConnectionString(sConStr));
         oleCmd = new OleDbCommand();
         oleCmd.Connection = oleConn;
-        //sQry = "SELECT tblLedger.LedgerID,tblLedger.LedgerName,tblLedger.phone,tblLedger.AliasName, (IIF(ISNULL(tblLedger.OpenBalanceDR),0,tblLedger.OpenBalanceDR)+ IIF(ISNULL(debittable.debitamount),0,debittable.debitamount)) - (IIF(ISNULL(tblLedger.OpenBalanceCR),0,tblLedger.OpenBalanceCR)+ IIF(ISNULL(credittable.creditamount),0,credittable.creditamount)) as balance FROM (tblLedger   left  join (SELECT DebtorID,sum(Amount) as debitamount FROM tblDayBook WHERE tblDayBook.TransDate >=#" + startDate.ToString("MM/dd/yyyy") + "# AND tblDayBook.TransDate<=#" + endDate.ToString("MM/dd/yyyy") + "# and  DebtorID > 0 group by DebtorID) debittable  on tblLedger.LedgerID=debittable.DebtorID) left join (SELECT CreditorID,sum(Amount) as creditamount FROM tblDayBook WHERE tblDayBook.TransDate >=#" + startDate.ToString("MM/dd/yyyy") + "# AND tblDayBook.TransDate<=#" + endDate.ToString("MM/dd/yyyy") + "# and  CreditorID > 0 group by CreditorID) credittable on tblLedger.LedgerID= credittable.CreditorID where GroupID=" + iGroupID + " and tblledger.inttrans = 'NO' and tblledger.dc = 'NO' and (IIF(ISNULL(tblLedger.OpenBalanceDR),0,tblLedger.OpenBalanceDR)+ IIF(ISNULL(debittable.debitamount),0,debittable.debitamount)) - (IIF(ISNULL(tblLedger.OpenBalanceCR),0,tblLedger.OpenBalanceCR)+ IIF(ISNULL(credittable.creditamount),0,credittable.creditamount)) <> 0 ORDER BY tblLedger.LedgerName";
+        sQry = "SELECT tblLedger.LedgerID,tblLedger.LedgerName,tblLedger.phone,tblLedger.AliasName, (IIF(ISNULL(tblLedger.OpenBalanceDR),0,tblLedger.OpenBalanceDR)+ IIF(ISNULL(debittable.debitamount),0,debittable.debitamount)) - (IIF(ISNULL(tblLedger.OpenBalanceCR),0,tblLedger.OpenBalanceCR)+ IIF(ISNULL(credittable.creditamount),0,credittable.creditamount)) as balance FROM (tblLedger   left  join (SELECT DebtorID,sum(Amount) as debitamount FROM tblDayBook WHERE tblDayBook.TransDate >=#" + startDate.ToString("MM/dd/yyyy") + "# AND tblDayBook.TransDate<=#" + endDate.ToString("MM/dd/yyyy") + "# and  DebtorID > 0 group by DebtorID) debittable  on tblLedger.LedgerID=debittable.DebtorID) left join (SELECT CreditorID,sum(Amount) as creditamount FROM tblDayBook WHERE tblDayBook.TransDate >=#" + startDate.ToString("MM/dd/yyyy") + "# AND tblDayBook.TransDate<=#" + endDate.ToString("MM/dd/yyyy") + "# and  CreditorID > 0 group by CreditorID) credittable on tblLedger.LedgerID= credittable.CreditorID where GroupID=" + iGroupID + " and tblledger.inttrans = 'NO' and tblledger.dc = 'NO' and (IIF(ISNULL(tblLedger.OpenBalanceDR),0,tblLedger.OpenBalanceDR)+ IIF(ISNULL(debittable.debitamount),0,debittable.debitamount)) - (IIF(ISNULL(tblLedger.OpenBalanceCR),0,tblLedger.OpenBalanceCR)+ IIF(ISNULL(credittable.creditamount),0,credittable.creditamount)) <> 0 ORDER BY tblLedger.LedgerName";
         
 
-	sQry = "SELECT tblLedger.LedgerID,tblLedger.LedgerName,tblLedger.phone,tblLedger.AliasName, (IIF(ISNULL(tblLedger.OpenBalanceDR),0,tblLedger.OpenBalanceDR)+ IIF(ISNULL(debittable.debitamount),0,debittable.debitamount)) - (IIF(ISNULL(tblLedger.OpenBalanceCR),0,tblLedger.OpenBalanceCR)+ IIF(ISNULL(credittable.creditamount),0,credittable.creditamount)) as balance FROM (tblLedger   left  join (SELECT DebtorID,sum(Amount) as debitamount FROM tblDayBook WHERE DebtorID > 0 group by DebtorID) debittable  on tblLedger.LedgerID=debittable.DebtorID) left join (SELECT CreditorID,sum(Amount) as creditamount FROM tblDayBook WHERE CreditorID > 0 group by CreditorID) credittable on tblLedger.LedgerID= credittable.CreditorID where GroupID=" + iGroupID + " and tblledger.inttrans = 'NO' and tblledger.dc = 'NO' and (IIF(ISNULL(tblLedger.OpenBalanceDR),0,tblLedger.OpenBalanceDR)+ IIF(ISNULL(debittable.debitamount),0,debittable.debitamount)) - (IIF(ISNULL(tblLedger.OpenBalanceCR),0,tblLedger.OpenBalanceCR)+ IIF(ISNULL(credittable.creditamount),0,credittable.creditamount)) <> 0 ORDER BY tblLedger.LedgerName";
+	//sQry = "SELECT tblLedger.LedgerID,tblLedger.LedgerName,tblLedger.phone,tblLedger.AliasName, (IIF(ISNULL(tblLedger.OpenBalanceDR),0,tblLedger.OpenBalanceDR)+ IIF(ISNULL(debittable.debitamount),0,debittable.debitamount)) - (IIF(ISNULL(tblLedger.OpenBalanceCR),0,tblLedger.OpenBalanceCR)+ IIF(ISNULL(credittable.creditamount),0,credittable.creditamount)) as balance FROM (tblLedger   left  join (SELECT DebtorID,sum(Amount) as debitamount FROM tblDayBook WHERE DebtorID > 0 group by DebtorID) debittable  on tblLedger.LedgerID=debittable.DebtorID) left join (SELECT CreditorID,sum(Amount) as creditamount FROM tblDayBook WHERE CreditorID > 0 group by CreditorID) credittable on tblLedger.LedgerID= credittable.CreditorID where GroupID=" + iGroupID + " and tblledger.inttrans = 'NO' and tblledger.dc = 'NO' and (IIF(ISNULL(tblLedger.OpenBalanceDR),0,tblLedger.OpenBalanceDR)+ IIF(ISNULL(debittable.debitamount),0,debittable.debitamount)) - (IIF(ISNULL(tblLedger.OpenBalanceCR),0,tblLedger.OpenBalanceCR)+ IIF(ISNULL(credittable.creditamount),0,credittable.creditamount)) <> 0 ORDER BY tblLedger.LedgerName";
 
 	oleCmd.CommandText = sQry;
         oleCmd.CommandType = CommandType.Text;
@@ -59153,13 +59159,14 @@ public class BusinessLogic
             string dbQry = string.Empty;
             txtSearch = "%" + txtSearch + "%";
 
-            if (dropDown == "TaskTypesName")
+            if (dropDown == "TaskTypeName")
             {
                 dbQry = "select Task_Type_Name,Task_Type_Id from tblTaskTypes Where Task_Type_Name like '" + txtSearch + "'" + " Order By Task_Type_Name";
             }
             else
             {
-                dbQry = string.Format("select Task_Type_Name,Task_Type_Id from tblTaskTypes Order By Task_Type_Name");
+                //dbQry = string.Format("select Task_Type_Name,Task_Type_Id from tblTaskTypes Order By Task_Type_Name");
+                dbQry = string.Format("select Task_Type_Name,Task_Type_Id from tblTaskTypes Where (Task_Type_Name like '{0}') Order By Task_Type_Name", txtSearch);
             }
 
             try
@@ -63579,7 +63586,11 @@ public class BusinessLogic
         else if (dropDown == "CusCategoryName")
         {
             dbQry = "select * from tblMapPriceList Where CustomerCategory_Name like '" + txtSearch + "'" + " Order By Id";
-        }
+        }   
+        else if (dropDown == "0" || dropDown == "All" && txtSearch != "%%")
+        {
+            dbQry = "select * from tblMapPriceList Where (PriceList_Name like '" + txtSearch + "'" + " Or CustomerCategory_Name like '" + txtSearch + "'" + " ) Order By Id";
+        }        
         else
         {
             dbQry = string.Format("select * from tblMapPriceList Order By Id");

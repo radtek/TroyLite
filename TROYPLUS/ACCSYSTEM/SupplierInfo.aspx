@@ -929,7 +929,7 @@
                                                 Goto Page
                                             </td>
                                             <td style=" border-color:white">
-                                                <asp:DropDownList ID="ddlPageSelector" runat="server" AutoPostBack="true" style="border:1px solid blue"  BackColor="#BBCAFB" Width="75px" Height="25px">
+                                                <asp:DropDownList ID="ddlPageSelector" runat="server" AutoPostBack="true" style="border:1px solid blue"  BackColor="#e7e7e7" Width="75px" Height="25px">
                                                 </asp:DropDownList>
                                             </td>
                                             <td style=" border-color:white;Width:5px">

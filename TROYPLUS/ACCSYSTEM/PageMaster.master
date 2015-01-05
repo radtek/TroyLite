@@ -443,12 +443,12 @@
                                         </li> 
                                         <li class="color Mainmenu2"><a href="#"><img src="App_Themes/NewTheme/Images/TroySales.png" /></a>
                                             <ul> 
-                                                <li class="color submenumenu"><a href="#">Master Data</a>
+                                                <li class="color submenumenu"><a href="#"><span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle;top:2px; text-align:right; float:right">►</span>Master Data</a>
                                                     <ul> 
                                                         <li class="color submenumenu"><a href="./CustomerInfo.aspx" runat="server" id="lnkCustomerInfo">Customers</a></li>
                                                     </ul>
                                                 </li>
-                                                <li class="color submenumenu"><a href="#">Transactions</a>
+                                                <li class="color submenumenu"><a href="#"><span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle;top:2px; text-align:right; float:right">►</span>Transactions</a>
                                                     <ul>
                                                         <li class="color submenumenu"><a href="./CustomerSales.aspx" runat="server" id="lnkCustomerSales">Sales Invoice</a></li>
                                                         <li class="color submenumenu"><a href="./CustReceipt.aspx" runat="server" id="lnkCustomerReceipt">Receipts from Customer</a></li>
@@ -456,7 +456,7 @@
                                                         <li class="color submenumenu"><a href="./HirePurchase.aspx" runat="server" id="lnkHirePurchaseNew">Hire Sales</a></li>
                                                     </ul>
                                                 </li>
-                                                <li class="color submenumenu"><a href="#">Reports</a>
+                                                <li class="color submenumenu"><a href="#"><span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle;top:2px; text-align:right; float:right">►</span>Reports</a>
                                                     <ul>
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('Salesreport.aspx ','Summary', 'toolbar=no,status=no,menu=no,location=no,height=230,width=500,left=420,top=230,resizable=yes, scrollbars=yes');">Daily sales</a></li>
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('SalesSummaryReport.aspx ','Summary', 'toolbar=no,status=yes,menu=no,location=no,resizable=yes,height=310,width=550,left=425,top=220, scrollbars=yes');">Sales Summary</a></li>
@@ -470,19 +470,19 @@
                                         </li>
                                         <li class="color Mainmenu3"><a href="#"><img src="App_Themes/NewTheme/Images/TroyPurchase.png" /></a>
                                             <ul> 
-                                                <li class="color submenumenu"><a href="#">Master Data</a>
+                                                <li class="color submenumenu"><a href="#"><span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle;top:2px; text-align:right; float:right">►</span>Master Data</a>
                                                     <ul> 
                                                         <li class="color submenumenu"><a href="./SupplierInfo.aspx" runat="server" id="lnkSupplierInfo">Suppliers</a></li>
                                                     </ul>
                                                 </li>
-                                                <li class="color submenumenu"><a href="#">Transactions</a>
+                                                <li class="color submenumenu"><a href="#"><span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle;top:2px; text-align:right; float:right">►</span>Transactions</a>
                                                     <ul>
                                                         <li class="color submenumenu"><a href="./Purchase.aspx" runat="server" id="lnkSupplierPurchase">Purchase Invoice</a></li>
                                                         <li class="color submenumenu"><a href="./SuppPayment.aspx" runat="server" id="lnkSupplierPayment">Payments to supplier</a></li>
                                                         <li class="color submenumenu"><a href="./SupplierReceipt.aspx" runat="server" id="lnkSupplierReceipt">Receipts from supplier</a></li>
                                                     </ul>
                                                 </li>
-                                                <li class="color submenumenu"><a href="#">Reports</a>
+                                                <li class="color submenumenu"><a href="#"><span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle;top:2px; text-align:right; float:right">►</span>Reports</a>
                                                     <ul>
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('PurchaseSummaryReport.aspx ','Summary', 'toolbar=no,status=yes,menu=no,location=no,resizable=yes,height=310,width=500,left=425,top=220, scrollbars=yes');">Purchase Summary</a></li>
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('ReportExlPurchase.aspx','CSTSummary', 'toolbar=no,status=no,menu=no,location=no,height=570,width=805,resizable=yes,left=210,top=100, scrollbars=yes');">Purchase Comprehency</a></li>
@@ -492,7 +492,7 @@
                                         </li>
                                     <li class="color Mainmenu4"><a href="#"><img src="App_Themes/NewTheme/Images/TroyInventory.png" /></a>
                                     <ul> 
-                                    <li class="color submenumenu"><a href="#">Master Data</a>
+                                    <li class="color submenumenu"><a href="#"><span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle;top:2px; text-align:right; float:right">►</span>Master Data</a>
                                     <ul>
                                     <li class="color submenumenu"><a href="./CategryMaster.aspx" runat="server" id="lnkCategoryMast">Product Category</a></li>
                                     <li class="color submenumenu"><a href="./BrandMaster.aspx" runat="server" id="lnkBrandMast">Brand</a></li>
@@ -501,7 +501,7 @@
                                     <li class="color submenumenu"><a href="./ProdMaster.aspx" runat="server" id="lnkProductMast">Products</a></li>
                                     </ul>
                                     </li>
-                                    <li class="color submenumenu"><a href="#">Transactions</a>
+                                    <li class="color submenumenu"><a href="#"><span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle;top:2px; text-align:right; float:right">►</span>Transactions</a>
                                     <ul>
                                     
                                         <li class="color submenumenu"><a href="./OpeningStock.aspx" runat="server" id="lnkOpeningStock">Opening Stock</a></li>
@@ -510,7 +510,8 @@
                                     </ul>
                                     </li>
                                     <li class="color submenumenu"><a href="#">Reports</a>
-                                    <ul><%--<li class="color submenumenu"><a href="#">Inventory</a><ul>--%>
+                                                    <ul>
+                                                        <%--<li class="color submenumenu"><a href="#">Inventory</a><ul>--%>
                                     <li class="color submenumenu"><a href="#" onclick="Popup=window.open('StockReport.aspx','Summary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=180,width=500,left=415,top=270, scrollbars=yes');">Current Stock</a></li>
                                     <li class="color submenumenu"><a href="#" onclick="Popup=window.open('StockListReport.aspx','Summary', 'toolbar=no,status=no,menu=no,location=no,height=280,width=670,left=350,top=220 ,resizable=yes, scrollbars=yes');">Stock Ledger</a></li>
                                     <li class="color submenumenu"><a href="#" onclick="Popup=window.open('StockReconReport.aspx','Summary', 'toolbar=no,status=no,menu=no,location=no,height=180,width=500,left=415,top=270,resizable=yes, scrollbars=yes');">Reconciliation</a></li>
@@ -532,12 +533,12 @@
                                     </li> 
                                         <li class="color Mainmenu5"><a href="#"><img src="App_Themes/NewTheme/Images/TroyBanking.png" /></a>
                                             <ul> 
-                                                <li class="color submenumenu"><a href="#">Master Data</a>
+                                                <li class="color submenumenu"><a href="#"><span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle;top:2px; text-align:right; float:right">►</span>Master Data</a>
                                                     <ul> 
                                                         <li class="color submenumenu"><a href="./BankInfo.aspx" runat="server" id="lnkBankInfo">Bank</a></li>
                                                     </ul>
                                                 </li>
-                                                <li class="color submenumenu"><a href="#">Transactions</a>
+                                                <li class="color submenumenu"><a href="#"><span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle;top:2px; text-align:right; float:right">►</span>Transactions</a>
                                                     <ul>
                                                         <li class="color submenumenu"><a href="./BankPayment.aspx" runat="server" id="lnkBankDeposit">Deposits</a></li>
                                                         <li class="color submenumenu"><a href="./BankReceipt.aspx" runat="server" id="lnkBankReceipt">WithDrawals</a></li>
@@ -554,21 +555,21 @@
                                         </li>
                                         <li class="color Mainmenu6"><a href="#"><img src="App_Themes/NewTheme/Images/TroyFinancials.png" /></a>
                                             <ul> 
-                                                <li class="color submenumenu"><a href="#">Master Data</a>
+                                                <li class="color submenumenu"><a href="#"><span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle;top:2px; text-align:right; float:right">►</span>Master Data</a>
                                                     <ul> 
                                                         <li class="color submenumenu"><a href="./ExpenseInfo.aspx" runat="server" id="lnkExpenseInfo">Expense Heads</a></li>
                                                         <li class="color submenumenu"><a href="./Groupinfo.aspx" runat="server" id="lnkGroupInfo">Groups</a></li>
                                                         <li class="color submenumenu"><a href="./LedgerInfo.aspx" runat="server" id="lnkLedgerInfo">Ledgers</a></li>
                                                     </ul>
                                                 </li>
-                                                <li class="color submenumenu"><a href="#">Transactions</a>
+                                                <li class="color submenumenu"><a href="#"><span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle;top:2px; text-align:right; float:right">►</span>Transactions</a>
                                                     <ul>
                                                         <li class="color submenumenu"><a href="./CreditDebitNote.aspx" runat="server" id="lnkCreditDebitNote">Credit / Debit Note</a></li>
                                                         <li class="color submenumenu"><a href="./MultipleJournal.aspx" runat="server" id="lnkMultipleInfo">Journals</a></li>
                                                         <li class="color submenumenu"><a href="./ExpPayment.aspx" runat="server" id="lnkExpensePayment">Expense payments</a></li>
                                                     </ul>
                                                 </li>
-                                                <li class="color submenumenu"><a href="#">Reports</a>
+                                                <li class="color submenumenu"><a href="#"><span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle;top:2px; text-align:right; float:right">►</span>Reports</a>
                                                     <ul>
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('Trialbalance.aspx ','trialBalance', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=220,width=500,left=425,top=220, scrollbars=yes');">Trial Balance</a></li>
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('BalanceSheet.aspx ','trialBalance', 'toolbar=no,status=no,menu=no,location=no,height=230,width=500,left=425,top=220,resizable=yes, scrollbars=yes');">Balance Sheet</a></li>
@@ -579,7 +580,7 @@
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('LedgerReport.aspx ','Summary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=340,width=500,left=425,top=220, scrollbars=yes');">Ledger</a></li>
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('Salesreport.aspx ','Summary', 'toolbar=no,status=no,menu=no,location=no,height=230,width=500,left=420,top=230,resizable=yes, scrollbars=yes');">Bank reconciliation</a></li>
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('BankStatementReport.aspx ','Summary', 'toolbar=no,status=no,menu=no,location=no,height=260,width=500,left=425,top=220,resizable=yes, scrollbars=yes');">Bank Statement</a></li>
-                                                        <li class="color submenumenu"><a href="#" onclick="Popup=window.open('OutstandingReport.aspx ','Summary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=200,width=500,left=425,top=220, scrollbars=yes');">Outstanding</a></li>
+                                                        <li class="color submenumenu"><a href="#" onclick="Popup=window.open('OutstandingReport.aspx ','Summary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=330,width=500,left=425,top=220, scrollbars=yes');">Outstanding</a></li>
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('OutStandingMasterReport.aspx ','Summary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=350,width=700,left=350,top=220, scrollbars=yes');">Outstanding Ageing</a></li>
                                                     </ul>
                                                 </li>
@@ -587,17 +588,19 @@
                                         </li>
                                         <li class="color Mainmenu7"><a href="#"><img src="App_Themes/NewTheme/Images/TroySalesleads.png" /></a>
                                             <ul> 
-                                                <li class="color submenumenu"><a href="#">Master Data</a>
+                                                <li class="color submenumenu"><a href="#"><span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle;top:2px; text-align:right; float:right">►</span>Master Data</a>
                                                     <ul> 
                                                         <li class="color submenumenu"><a href="./LeadReference.aspx" runat="server" id="A2">Lead Reference</a>
                                                         </li>
                                                     </ul>
                                                 </li>
                                                 <li class="color submenumenu"><a href="#">Transactions</a>
-                                                    <ul><li class="color submenumenu"><a href="./LeadMgmt.aspx" runat="server" id="lnkLeadManagement">Lead Management</a>
-                                                        </li></ul>
+                                                    <ul>
+                                                        <li class="color submenumenu"><a href="./LeadMgmt.aspx" runat="server" id="lnkLeadManagement">Lead Management</a>
+                                                        </li>
+                                                    </ul>
                                                 </li>
-                                                <li class="color submenumenu"><a href="#">Reports</a>
+                                                <li class="color submenumenu"><a href="#"><span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle;top:2px; text-align:right; float:right">►</span>Reports</a>
                                                     <ul>
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('ReportExcelLeadManagement.aspx','Summary', 'toolbar=no,status=no,menu=no,location=no,height=280,width=500,left=405,top=220 ,resizable=yes, scrollbars=yes');">Lead Management</a>
                                                         </li>
@@ -812,6 +815,7 @@
                                     <ul>
                                     <li class="color submenumenu"><a href="./companyinfo.aspx" runat="server" id="lnkCompanyinfo">General Settings</a>
                                     </li>
+                                                <li class="color submenumenu"><a href="./EmailSMSConfig.aspx" runat="server" id="A19">EMail/SMS Config</a></li>
                                     <li class="color submenumenu"><a href="./NewDBCreation.aspx" runat="server" id="A1">Year End Process</a></li>
                                     <li class="color submenumenu"><a href="./Configuration.aspx" runat="server" id="lnkConfiguration">Online & Offline Mode</a></li>
                                     <li class="color submenumenu"><a href="./UserOptions.aspx" runat="server" id="lnkuserlock">User Access Control Settings</a></li>
