@@ -38,6 +38,13 @@ public partial class OutstandingReport : System.Web.UI.Page
                 BusinessLogic bl = new BusinessLogic(sDataSource);
 
                 lblBillDate.Text = DateTime.Now.ToShortDateString();
+
+                txtStartDate.Text = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToShortDateString();
+
+                DateTime indianStd = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "India Standard Time");
+                string dtaa = Convert.ToDateTime(indianStd).ToString("dd/MM/yyyy");
+                txtEndDate.Text = dtaa;
+
                 if (Request.Cookies["Company"] != null)
                 {
                     companyInfo = bl.getCompanyInfo(Request.Cookies["Company"].Value);
@@ -101,9 +108,11 @@ public partial class OutstandingReport : System.Web.UI.Page
     }
     protected void btnReport_Click(object sender, EventArgs e)
     {
+        DateTime startDate, endDate;
         try
         {
             int iGroupID = 0;
+           
             string sGroupName = string.Empty;
             if (opttype.SelectedItem.Text == "All")
             {
@@ -112,6 +121,8 @@ public partial class OutstandingReport : System.Web.UI.Page
                 DataSet ds = new DataSet();
                 iGroupID = Convert.ToInt32(drpLedgerName.SelectedItem.Value);
                 sGroupName = drpLedgerName.SelectedItem.Text;
+                startDate = Convert.ToDateTime(txtStartDate.Text);
+                endDate = Convert.ToDateTime(txtEndDate.Text);
 
                 lblSundry.Text = drpLedgerName.SelectedItem.Text;
                 rptOutstandingReport = new ReportsBL.ReportClass();
@@ -130,8 +141,11 @@ public partial class OutstandingReport : System.Web.UI.Page
                 iGroupID = Convert.ToInt32(drpLedgerName.SelectedItem.Value);
                 sGroupName = drpLedgerName.SelectedItem.Text;
                 lblSundry.Text = drpLedgerName.SelectedItem.Text;
-                ds = bl.generateOutStandingReportDSe(iGroupID, sDataSource);
+                startDate = Convert.ToDateTime(txtStartDate.Text);
+                endDate = Convert.ToDateTime(txtEndDate.Text);
 
+                ds = bl.generateOutStandingReportDSe(iGroupID, sDataSource,startDate,endDate);
+                
                 //gvLedger.DataSource = ds;
                 //gvLedger.DataBind();
             }
@@ -139,7 +153,7 @@ public partial class OutstandingReport : System.Web.UI.Page
             OutPanel.Visible = false;
             div1.Visible = true;
 
-            Response.Write("<script language='javascript'> window.open('OutstandingReport1.aspx?iGroupID=" + iGroupID + "&sGroupName=" + sGroupName + " ' , 'window','height=700,width=1000,left=172,top=10,toolbar=yes,scrollbars=yes,resizable=yes');</script>");
+            Response.Write("<script language='javascript'> window.open('OutstandingReport1.aspx?iGroupID=" + iGroupID + "&sGroupName=" + sGroupName + "&startDate=" + startDate + "&endDate=" + endDate + " ' , 'window','height=700,width=1000,left=172,top=10,toolbar=yes,scrollbars=yes,resizable=yes');</script>");
         }
         catch (Exception ex)
         {
@@ -149,6 +163,7 @@ public partial class OutstandingReport : System.Web.UI.Page
 
     protected void btndetails_Click(object sender, EventArgs e)
     {
+        DateTime startDate, endDate;
         try
         {
             int iGroupID = 0;
@@ -164,8 +179,10 @@ public partial class OutstandingReport : System.Web.UI.Page
             iGroupID = Convert.ToInt32(drpLedgerName.SelectedItem.Value);
             sGroupName = drpLedgerName.SelectedItem.Text;
             lblSundry.Text = drpLedgerName.SelectedItem.Text;
+            startDate = Convert.ToDateTime(txtStartDate.Text);
+            endDate = Convert.ToDateTime(txtEndDate.Text);
             //rptOutstandingReport = new ReportsBL.ReportClass();
-            ds = bl.generateOutStandingReportDSe(iGroupID, sDataSource);
+            ds = bl.generateOutStandingReportDSe(iGroupID, sDataSource,startDate,endDate);
 
             double debit = 0;
             double credit = 0;
