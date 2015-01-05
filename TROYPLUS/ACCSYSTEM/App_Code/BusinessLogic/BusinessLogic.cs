@@ -3313,6 +3313,10 @@ public class BusinessLogic
 
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
+            dbQry = string.Format("Delete From tblProductPrices Where ItemCode = '{0}'", ItemCode);
+
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
             sAuditStr = "Product got deleted : User = " + Username + " old Record Details ItemCode=" + ItemCode;
 
             dbQry = string.Format("INSERT INTO  tblAudit(Description,Command,auditdate) VALUES('{0}','{1}',Format('{2}', 'dd/mm/yyyy'))", sAuditStr, "Delete", DateTime.Now.ToString());
@@ -7658,7 +7662,7 @@ public class BusinessLogic
         }
     }
 
-    public void UpdateProduct(string connection, string ItemCode, string ProductName, string Model, int CategoryID, string ProductDesc, int ROL, double Stock, double Rate, int Unit, double VAT, int Discount, double BuyRate, double BuyVAT, int BuyDiscount, int BuyUnit, int DealerUnit, double DealerRate, double DealerVAT, int DealerDiscount, string Complex, string Measure_Unit, string Accept_Role, double CST, string Barcode, Double ExecutiveCommission, string CommodityCode, double NLC, string block, int Productlevel, DateTime MRPEffDate, DateTime DPEffDate, DateTime NLCEffDate, string Username, string Outdated, int Deviation, string IsActive)
+    public void UpdateProduct(string connection, string ItemCode, string ProductName, string Model, int CategoryID, string ProductDesc, int ROL, double Stock, double Rate, int Unit, double VAT, int Discount, double BuyRate, double BuyVAT, int BuyDiscount, int BuyUnit, int DealerUnit, double DealerRate, double DealerVAT, int DealerDiscount, string Complex, string Measure_Unit, string Accept_Role, double CST, string Barcode, Double ExecutiveCommission, string CommodityCode, double NLC, string block, int Productlevel, DateTime MRPEffDate, DateTime DPEffDate, DateTime NLCEffDate, string Username, string Outdated, int Deviation, string IsActive, DataSet dsprice)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(connection);
@@ -7793,6 +7797,25 @@ public class BusinessLogic
             manager.ExecuteDataSet(CommandType.Text, dbQry);
 
 
+            dbQry = string.Format("Delete From tblProductPrices Where ItemCode = '{0}'", ItemCode);
+
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+            if (dsprice != null)
+            {
+                if (dsprice.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in dsprice.Tables[0].Rows)
+                    {
+                        dbQry = string.Format("INSERT INTO tblProductPrices(EffDate,PriceName,Price,PriceId,Discount,ItemCode) VALUES(Format('{0}', 'dd/mm/yyyy'),'{1}',{2},{3},{4},'{5}')",
+                            Convert.ToDateTime(dr["EffDate"]), Convert.ToString(dr["PriceName"]), Convert.ToDouble(dr["Price"]), Convert.ToInt32(dr["Id"]), Convert.ToDouble(dr["Discount"]), ItemCode);
+
+                        manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                    }
+                }
+            }
+
             if ((mrpdat == MRPEffDate) && (nlcdat == NLCEffDate) && (dpdat == DPEffDate))
             {
             }
@@ -7889,7 +7912,7 @@ public class BusinessLogic
         }
     }
 
-    public void InsertProduct(string connection, string ItemCode, string ProductName, string Model, int CategoryID, string ProductDesc, int ROL, double Stock, double Rate, int Unit, int BuyUnit, double VAT, int Discount, double BuyRate, double BuyVAT, int BuyDiscount, int DealerUnit, double DealerRate, double DealerVAT, int DealerDiscount, string Complex, string Measure_Unit, string Accept_Role, double CST, string Barcode, Double ExecutiveCommission, string CommodityCode, double NLC, string block, int productlevel, DateTime MRPEffDate, DateTime DPEffDate, DateTime NLCEffDate, string Username, string Outdated, int deviation, string IsActive) //Jolo Barcode
+    public void InsertProduct(string connection, string ItemCode, string ProductName, string Model, int CategoryID, string ProductDesc, int ROL, double Stock, double Rate, int Unit, int BuyUnit, double VAT, int Discount, double BuyRate, double BuyVAT, int BuyDiscount, int DealerUnit, double DealerRate, double DealerVAT, int DealerDiscount, string Complex, string Measure_Unit, string Accept_Role, double CST, string Barcode, Double ExecutiveCommission, string CommodityCode, double NLC, string block, int productlevel, DateTime MRPEffDate, DateTime DPEffDate, DateTime NLCEffDate, string Username, string Outdated, int deviation, string IsActive, DataSet dsprice) //Jolo Barcode
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(connection);
@@ -8009,7 +8032,24 @@ public class BusinessLogic
 
             manager.ExecuteDataSet(CommandType.Text, dbQry2);
 
+            double MRate = 0;
+            double NRate = 0;
+            double DRate = 0;
 
+            if (dsprice != null)
+            {
+                if (dsprice.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in dsprice.Tables[0].Rows)
+                    {
+                        dbQry = string.Format("INSERT INTO tblProductPrices(EffDate,PriceName,Price,PriceId,Discount,ItemCode) VALUES(Format('{0}', 'dd/mm/yyyy'),'{1}',{2},{3},{4},'{5}')",
+                            Convert.ToDateTime(dr["EffDate"]), Convert.ToString(dr["PriceName"]), Convert.ToDouble(dr["Price"]), Convert.ToInt32(dr["Id"]), Convert.ToDouble(dr["Discount"]), ItemCode);
+
+                        manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                    }
+                }
+            }
 
             sAuditStr = "Product added. Record Details :  User :" + Username + "Product Name =" + ProductName + " Model=" + Model + ", Brand=" + ProductDesc + " ,CategoryID=" + CategoryID + " ItemCode :" + ItemCode + " DateTime: " + DateTime.Now.ToString();
             dbQry = string.Format("INSERT INTO  tblAudit(Description,Command,auditdate) VALUES('{0}','{1}',Format('{2}', 'dd/mm/yyyy'))", sAuditStr, "Add New", DateTime.Now.ToString());
@@ -58527,7 +58567,7 @@ public class BusinessLogic
         try
         {
             manager.Open();
-            dbQry = "SELECT tblProductMaster.dealerrate,tblbrand.deviation FROM tblProductMaster inner join tblbrand on tblProductMaster.productdesc = tblbrand.brandname Where tblProductMaster.itemcode ='" + itemcode + "'";
+            dbQry = "SELECT tblproductprices.price as dealerrate,tblbrand.deviation FROM (tblProductMaster inner join tblbrand on tblProductMaster.productdesc = tblbrand.brandname) inner join tblproductprices on tblProductMaster.itemCode = tblproductprices.itemCode Where tblProductMaster.itemcode ='" + itemcode + "' and tblproductprices.Pricename = 'DP' ";
 
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
@@ -62785,7 +62825,7 @@ public class BusinessLogic
         try
         {
             manager.Open();
-            dbQry = "SELECT dealerrate,deviation FROM tblProductMaster Where itemcode ='" + itemcode + "'";
+            dbQry = "SELECT tblproductprices.price as dealerrate,tblProductMaster.deviation FROM tblProductMaster inner join tblproductprices on tblProductMaster.itemCode = tblproductprices.itemCode Where tblProductMaster.itemcode = '" + itemcode + "' and tblproductprices.Pricename = 'DP' ";
 
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
@@ -64238,6 +64278,78 @@ public class BusinessLogic
         finally
         {
             manager.Dispose();
+        }
+
+    }
+
+    public DataSet ListProductPrices(string connection, string ItemCode)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+        //txtSearch = "%" + txtSearch + "%";
+
+        dbQry = string.Format("select PriceName,ItemCode,Price,Discount,EffDate, PriceId as id from tblProductPrices where ItemCode = '" + ItemCode + "' Order By PriceId");
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
+    public DataSet ListSalesProductPriceDetails(string itemCode, string CatType)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);// System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        DataSet ds = new DataSet();
+
+        DataSet dsd = new DataSet();
+        string dbQry = string.Empty;
+        string dbQry2 = string.Empty;
+        string PriceList_Name = string.Empty;
+
+        manager.Open();
+
+        dbQry2 = string.Format("SELECT PriceList_Name From tblMapPriceList WHERE CustomerCategory_Value = '" + CatType + "' ");
+        dsd = manager.ExecuteDataSet(CommandType.Text, dbQry2);
+        if (dsd.Tables[0].Rows.Count > 0)
+            PriceList_Name = dsd.Tables[0].Rows[0]["PriceList_Name"].ToString();
+
+        dbQry = "select tblProductMaster.itemcode,ProductName,ProductDesc,Model,tblproductprices.Discount as Discount,Vat,tblproductprices.price as Rate,CST,Stock,Accept_Role,ExecutiveCommission,Measure_Unit from tblProductMaster inner join tblproductprices on tblProductMaster.itemCode = tblproductprices.itemCode Where tblProductMaster.itemCode='" + itemCode + "' and tblproductprices.pricename = '" + PriceList_Name + "' ";
+
+        try
+        {
+            
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
         }
 
     }

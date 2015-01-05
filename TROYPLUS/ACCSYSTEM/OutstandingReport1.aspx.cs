@@ -205,7 +205,7 @@ public partial class OutstandingReport1 : System.Web.UI.Page
                 DataSet ds = new DataSet();
                 iGroupID = Convert.ToInt32(drpLedgerName.SelectedItem.Value);
                 sGroupName = drpLedgerName.SelectedItem.Text;
-               
+
                 lblSundry.Text = drpLedgerName.SelectedItem.Text;
                 rptOutstandingReport = new ReportsBL.ReportClass();
                 ds = rptOutstandingReport.generateOutStandingReportDS(iGroupID, sDataSource);

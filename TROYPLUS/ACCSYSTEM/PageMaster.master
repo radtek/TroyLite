@@ -498,7 +498,7 @@
                                     <li class="color submenumenu"><a href="./BrandMaster.aspx" runat="server" id="lnkBrandMast">Brand</a></li>
                                         <li class="color submenumenu"><a href="./PriceList.aspx" runat="server" id="A18">PriceList</a></li>
                                         <li class="color submenumenu"><a href="./PriceListCategoryMap.aspx" runat="server" id="A17">Mapping PriceList</a></li>
-                                    <li class="color submenumenu"><a href="./ProductMaster.aspx" runat="server" id="lnkProductMast">Products</a></li>
+                                    <li class="color submenumenu"><a href="./ProdMaster.aspx" runat="server" id="lnkProductMast">Products</a></li>
                                     </ul>
                                     </li>
                                     <li class="color submenumenu"><a href="#"><span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle;top:2px; text-align:right; float:right">►</span>Transactions</a>
@@ -509,8 +509,9 @@
                                     
                                     </ul>
                                     </li>
-                                    <li class="color submenumenu"><a href="#"><span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle;top:2px; text-align:right; float:right">►</span>Reports</a>
-                                    <ul><%--<li class="color submenumenu"><a href="#">Inventory</a><ul>--%>
+                                    <li class="color submenumenu"><a href="#">Reports</a>
+                                                    <ul>
+                                                        <%--<li class="color submenumenu"><a href="#">Inventory</a><ul>--%>
                                     <li class="color submenumenu"><a href="#" onclick="Popup=window.open('StockReport.aspx','Summary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=180,width=500,left=415,top=270, scrollbars=yes');">Current Stock</a></li>
                                     <li class="color submenumenu"><a href="#" onclick="Popup=window.open('StockListReport.aspx','Summary', 'toolbar=no,status=no,menu=no,location=no,height=280,width=670,left=350,top=220 ,resizable=yes, scrollbars=yes');">Stock Ledger</a></li>
                                     <li class="color submenumenu"><a href="#" onclick="Popup=window.open('StockReconReport.aspx','Summary', 'toolbar=no,status=no,menu=no,location=no,height=180,width=500,left=415,top=270,resizable=yes, scrollbars=yes');">Reconciliation</a></li>
@@ -593,9 +594,11 @@
                                                         </li>
                                                     </ul>
                                                 </li>
-                                                <li class="color submenumenu"><a href="#"><span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle;top:2px; text-align:right; float:right">►</span>Transactions</a>
-                                                    <ul><li class="color submenumenu"><a href="./LeadMgmt.aspx" runat="server" id="lnkLeadManagement">Lead Management</a>
-                                                        </li></ul>
+                                                <li class="color submenumenu"><a href="#">Transactions</a>
+                                                    <ul>
+                                                        <li class="color submenumenu"><a href="./LeadMgmt.aspx" runat="server" id="lnkLeadManagement">Lead Management</a>
+                                                        </li>
+                                                    </ul>
                                                 </li>
                                                 <li class="color submenumenu"><a href="#"><span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle;top:2px; text-align:right; float:right">►</span>Reports</a>
                                                     <ul>
@@ -812,9 +815,9 @@
                                     <ul>
                                     <li class="color submenumenu"><a href="./companyinfo.aspx" runat="server" id="lnkCompanyinfo">General Settings</a>
                                     </li>
-                                        <li class="color submenumenu"><a href="./EmailSMSConfig.aspx" runat="server" id="A19">Email and SMS Config</a></li>
+                                                <li class="color submenumenu"><a href="./EmailSMSConfig.aspx" runat="server" id="A19">EMail/SMS Config</a></li>
                                     <li class="color submenumenu"><a href="./NewDBCreation.aspx" runat="server" id="A1">Year End Process</a></li>
-                                    <li class="color submenumenu"><a href="./Configuration.aspx" runat="server" id="lnkConfiguration">Set Online & Offline Mode</a></li>
+                                    <li class="color submenumenu"><a href="./Configuration.aspx" runat="server" id="lnkConfiguration">Online & Offline Mode</a></li>
                                     <li class="color submenumenu"><a href="./UserOptions.aspx" runat="server" id="lnkuserlock">User Access Control Settings</a></li>
                                         <li class="color submenumenu"><a href="#">Security<span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle; top:2px; text-align:right; float:right">►</span> </a>
                                     <ul><li class="color submenumenu"><a href="#">Password Administration</a></li>
