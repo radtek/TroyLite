@@ -418,12 +418,12 @@
                                                                         Operator="GreaterThan" ValueToCompare="0">*</asp:CompareValidator>
                                                                 </td>
                                                                 <td style="width:28%" class="ControlDrpBorder">
-                                                                    <asp:DropDownList ID="drpLedgerCat"  ClientIDMode="Static" TabIndex="10" Width="100%" style="border: 1px solid #e7e7e7" height="26px" CssClass="drpDownListMedium" BackColor = "#e7e7e7"
+                                                                    <asp:DropDownList ID="drpLedgerCat"  ClientIDMode="Static" TabIndex="10" Width="100%" DataTextField="CusCategory_Name" DataValueField="CusCategory_Value"  DataSourceID="srccuscat" style="border: 1px solid #e7e7e7" height="26px" CssClass="drpDownListMedium" BackColor = "#e7e7e7"
                                                                         runat="server" OnDataBound="drpLedgerCat_DataBound">
-                                                                        <asp:ListItem Text="Select Category" Value="0"></asp:ListItem>
-                                                                        <asp:ListItem Text="Dealer" Value="Dealer"></asp:ListItem>
+                                                                        <asp:ListItem Text="Select Category" Value="0" style="background-color: #e7e7e7" ></asp:ListItem>
+                                                                        <%--<asp:ListItem Text="Dealer" Value="Dealer"></asp:ListItem>
                                                                         <asp:ListItem Text="Customer" Value="Customer"></asp:ListItem>
-                                                                        <asp:ListItem Text="Others" Value="Others"></asp:ListItem>
+                                                                        <asp:ListItem Text="Others" Value="Others"></asp:ListItem>--%>
                                                                     </asp:DropDownList>
                                                                 </td>
                                                                 <td style="width:10%">
@@ -660,6 +660,12 @@
                                                                     </SelectParameters>
                                                                 </asp:ObjectDataSource>
                                                                 <td>
+                                                                    <asp:ObjectDataSource ID="srccuscat" runat="server" SelectMethod="ListCusCategory"
+                                                                                    TypeName="BusinessLogic">
+                                                                                    <SelectParameters>
+                                                                                        <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
+                                                                                    </SelectParameters>
+                                                                                </asp:ObjectDataSource>
                                                                     <asp:ValidationSummary ID="valSum" DisplayMode="BulletList" ShowMessageBox="true"
                                                                         ShowSummary="false" HeaderText="Validation Messages" Font-Names="Trebuchet MS"
                                                                         Font-Size="12" runat="server" />
@@ -801,13 +807,14 @@
                                                                         Operator="GreaterThan" ValueToCompare="0" />
                                                                 </td>
                                                                 <td style="width:28%" class="ControlDrpBorder">
-                                                                    <asp:DropDownList ID="drpLedgerCatAdd" TabIndex="10" Width="100%" CssClass="drpDownListMedium" BackColor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px"
-                                                                        runat="server" OnDataBound="drpLedgerCatAdd_DataBound">
-                                                                        <asp:ListItem Text="Customer" Value="Customer" Selected="True"></asp:ListItem>
+                                                                    <asp:DropDownList ID="drpLedgerCatAdd" TabIndex="10" Width="100%" CssClass="drpDownListMedium" AppendDataBoundItems="true" BackColor = "#e7e7e7" DataTextField="CusCategory_Name" DataValueField="CusCategory_Value" style="border: 1px solid #e7e7e7" height="26px"
+                                                                        runat="server" OnDataBound="drpLedgerCatAdd_DataBound" DataSourceID="srccuscatadd">
+                                                                        <asp:ListItem style="background-color: #e7e7e7" Text="Select Category" Value="0"></asp:ListItem>
+                                                                        <%--<asp:ListItem Text="Customer" Value="Customer" Selected="True"></asp:ListItem>--%>
                                                                         <%--<asp:ListItem Text="Select Category" Value="0"></asp:ListItem>--%>
-                                                                        <asp:ListItem Text="Dealer" Value="Dealer"></asp:ListItem>
+                                                                        <%--<asp:ListItem Text="Dealer" Value="Dealer"></asp:ListItem>--%>
                                                                         
-                                                                        <asp:ListItem Text="Others" Value="Others"></asp:ListItem>
+                                                                        <%--<asp:ListItem Text="Others" Value="Others"></asp:ListItem>--%>
                                                                         
                                                                     </asp:DropDownList>
                                                                     <%--<cc1:ListSearchExtender id="LSE2" runat="server" TargetControlID="drpLedgerCatAdd" PromptCssClass="ListSearchExtenderPrompt" PromptPosition="Bottom"></cc1:ListSearchExtender>--%>
@@ -870,7 +877,7 @@
                                                             </tr>
                                                                                     <tr style="height:3px">
                                                             </tr>
-                                                            <tr>
+                                                            <%--<tr>
                                                                 <td class="ControlLabel" style="width:20%">
                                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDueDate"
                                                                                                     Display="Dynamic" ErrorMessage="Opening Due Date is mandatory.">*</asp:RequiredFieldValidator>
@@ -890,7 +897,7 @@
                                                                 </td>
                                                             </tr>
                                                             <tr style="height:3px">
-                                                            </tr>
+                                                            </tr>--%>
                                                             <tr>
                                                                 <td>
                                                                 </td>
@@ -1061,6 +1068,12 @@
                                                                         <asp:ValidationSummary ID="valSumAdd" DisplayMode="BulletList" ShowMessageBox="true"
                                                                             ShowSummary="false" HeaderText="Validation Messages" Font-Names="'Trebuchet MS'"
                                                                             Font-Size="12" runat="server" />
+                                                                        <asp:ObjectDataSource ID="srccuscatadd" runat="server" SelectMethod="ListCusCategory"
+                                                                            TypeName="BusinessLogic">
+                                                                            <SelectParameters>
+                                                                                <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
+                                                                            </SelectParameters>
+                                                                        </asp:ObjectDataSource>
                                                                     </td>
                                                                     <td>
                                                                         <asp:ObjectDataSource ID="srcGroupInfoAdd" runat="server" SelectMethod="ListGroupInfoCust"

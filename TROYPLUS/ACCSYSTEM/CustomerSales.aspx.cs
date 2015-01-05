@@ -1352,7 +1352,7 @@ public partial class CustomerSales : System.Web.UI.Page
 
                 ds.Tables[0].Rows[i].BeginEdit();
 
-                NewDs = bl.ListSalesProductDetails(ds.Tables[0].Rows[i]["itemCode"].ToString(), CatType);
+                NewDs = bl.ListSalesProductPriceDetails(ds.Tables[0].Rows[i]["itemCode"].ToString(), CatType);
 
                 DataRow drNew = NewDs.Tables[0].Rows[0];
 
@@ -1437,7 +1437,7 @@ public partial class CustomerSales : System.Web.UI.Page
                     {
                         hdOpr.Value = "New";
                         hdCurrRole.Value = "";
-                        ds = bl.ListSalesProductDetails(cmbProdAdd.SelectedItem.Value.Trim(), lblledgerCategory.Text);
+                        ds = bl.ListSalesProductPriceDetails(cmbProdAdd.SelectedItem.Value.Trim(), lblledgerCategory.Text);
 
                         string category = lblledgerCategory.Text;
 
@@ -1448,25 +1448,25 @@ public partial class CustomerSales : System.Web.UI.Page
                             txtExecCharge.Text = Convert.ToString(ds.Tables[0].Rows[0]["ExecutiveCommission"]);
                             //lblUnitMrmnt.Text = Convert.ToString(ds.Tables[0].Rows[0]["Measure_Unit"]);
 
-                            if (category == "Dealer")
-                            {
-                                if ((optionmethod.SelectedValue == "NormalSales") || (optionmethod.SelectedValue == "PurchaseReturn") || (optionmethod.SelectedValue == "ManualSales"))
-                                {
-                                    //lblDisAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["DealerDiscount"]);
-                                    lblDisAdd.Text = "0";
-                                    lblVATAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Dealervat"]);
-                                    lblCSTAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["CST"]);
-                                }
-                                else
-                                {
-                                    lblDisAdd.Text = "0";
-                                    lblVATAdd.Text = "0";
-                                    lblCSTAdd.Text = "0";
-                                }
-                                txtRateAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["DealerRate"]);
-                            }
-                            else
-                            {
+                            //if (category == "Dealer")
+                            //{
+                            //    if ((optionmethod.SelectedValue == "NormalSales") || (optionmethod.SelectedValue == "PurchaseReturn") || (optionmethod.SelectedValue == "ManualSales"))
+                            //    {
+                            //        //lblDisAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["DealerDiscount"]);
+                            //        lblDisAdd.Text = "0";
+                            //        lblVATAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Dealervat"]);
+                            //        lblCSTAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["CST"]);
+                            //    }
+                            //    else
+                            //    {
+                            //        lblDisAdd.Text = "0";
+                            //        lblVATAdd.Text = "0";
+                            //        lblCSTAdd.Text = "0";
+                            //    }
+                            //    txtRateAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["DealerRate"]);
+                            //}
+                            //else
+                            //{
                                 if ((optionmethod.SelectedValue == "NormalSales") || (optionmethod.SelectedValue == "PurchaseReturn") || (optionmethod.SelectedValue == "ManualSales"))
                                 {
                                     //lblDisAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Discount"]);
@@ -1482,7 +1482,7 @@ public partial class CustomerSales : System.Web.UI.Page
                                 }
                                 txtRateAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Rate"]);
 
-                            }
+                            //}
 
                             txtQtyAdd.Text = "0";
                             txtQtyAdd.Focus();
@@ -1537,7 +1537,7 @@ public partial class CustomerSales : System.Web.UI.Page
 
                         hdOpr.Value = "New";
                         hdCurrRole.Value = "";
-                        ds = bl.ListSalesProductDetails(cmbProdAdd.SelectedItem.Value.Trim(), lblledgerCategory.Text);
+                        ds = bl.ListSalesProductPriceDetails(cmbProdAdd.SelectedItem.Value.Trim(), lblledgerCategory.Text);
 
                         string category = lblledgerCategory.Text;
 
@@ -1548,25 +1548,25 @@ public partial class CustomerSales : System.Web.UI.Page
                             txtExecCharge.Text = Convert.ToString(ds.Tables[0].Rows[0]["ExecutiveCommission"]);
                             //lblUnitMrmnt.Text = Convert.ToString(ds.Tables[0].Rows[0]["Measure_Unit"]);
 
-                            if (category == "Dealer")
-                            {
-                                if ((optionmethod.SelectedValue == "NormalSales") || (optionmethod.SelectedValue == "PurchaseReturn") || (optionmethod.SelectedValue == "ManualSales"))
-                                {
-                                    //lblDisAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["DealerDiscount"]);
-                                    lblDisAdd.Text = "0";
-                                    lblVATAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Dealervat"]);
-                                    lblCSTAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["CST"]);
-                                }
-                                else
-                                {
-                                    lblDisAdd.Text = "0";
-                                    lblVATAdd.Text = "0";
-                                    lblCSTAdd.Text = "0";
-                                }
-                                txtRateAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["DealerRate"]);
-                            }
-                            else
-                            {
+                            //if (category == "Dealer")
+                            //{
+                            //    if ((optionmethod.SelectedValue == "NormalSales") || (optionmethod.SelectedValue == "PurchaseReturn") || (optionmethod.SelectedValue == "ManualSales"))
+                            //    {
+                            //        //lblDisAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["DealerDiscount"]);
+                            //        lblDisAdd.Text = "0";
+                            //        lblVATAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Dealervat"]);
+                            //        lblCSTAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["CST"]);
+                            //    }
+                            //    else
+                            //    {
+                            //        lblDisAdd.Text = "0";
+                            //        lblVATAdd.Text = "0";
+                            //        lblCSTAdd.Text = "0";
+                            //    }
+                            //    txtRateAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["DealerRate"]);
+                            //}
+                            //else
+                            //{
                                 if ((optionmethod.SelectedValue == "NormalSales") || (optionmethod.SelectedValue == "PurchaseReturn") || (optionmethod.SelectedValue == "ManualSales"))
                                 {
                                     //lblDisAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Discount"]);
@@ -1582,7 +1582,7 @@ public partial class CustomerSales : System.Web.UI.Page
                                 }
                                 txtRateAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Rate"]);
 
-                            }
+                            //}
 
                             txtQtyAdd.Text = "0";
                             txtQtyAdd.Focus();

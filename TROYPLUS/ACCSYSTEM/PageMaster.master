@@ -73,14 +73,19 @@
 
 
         $(document).ready(function() {
-            $(".Mainmenu11").children().css("left","-59px");
-            $(".Mainmenu11").children().children().children().css("left","-151px");
-            $(".Mainmenu10").children().css("left","-59px");
-            $(".Mainmenu10").children().children().children().css("left","-151px");
-            $(".Mainmenu11").children().css("left","-59px");
-            $(".Mainmenu11").children().children().children().css("left","-151px");
+            $(".Mainmenu11").children().css("left", "-95px");
+            $(".Mainmenu11").children().children().children().css("left","-158px");            
+
+            $(".Mainmenu10").children().css("left", "-59px");
+            $(".Mainmenu10").children().children().children().css("left", "-150px");
+            $(".Mainmenu10").children().children().children().children().children().css("left", "-150px");
+           
             $(".Mainmenu9").children().css("left","-59px");
-            $(".Mainmenu9").children().children().children().css("left","-151px");
+            $(".Mainmenu9").children().children().children().css("left", "-173px");
+
+            $(".Mainmenu8").children().css("left", "-59px");
+            $(".Mainmenu8").children().children().children().css("left", "-150px");
+            $(".Mainmenu8").children().children().children().children().children().css("left", "-150px");
         });
 
         $(document).ready(function () {
@@ -107,22 +112,27 @@
         <!-- Container Div -->
         <div class="innertube">
             <!-- Inner Div -->
-                <table align="center" style="width: 1001px" cellspacing="0px" cellpadding="0" border="0" style="margin-top: 0px; margin-bottom: 0px">
+            <table align="center" style="width:1001px" cellspacing="0px" cellpadding="0" border="0" style="margin-top: 0px;
+                margin-bottom: 0px">
                 <tr>
                     <td>
                         <div class="headerBackNew">
                             <!-- Header Div -->
                             <div class="headernewBkg">
                                 <div id="Div5">
-                                        <table style="width: 100%">
+                                    <table style="width:100%">
                                         <tr>
-                                                <td style="width: 3%"></td>
-                                                <td style="width: 27%" align="left">
+                                            <td style="width:3%">
+
+                                            </td>
+                                            <td style="width:27%" align="left">
                                                 <%--<asp:ImageButton  ID="Image1" runat="server"  Height="35" Width="220"/>--%>
-                                                    <asp:Image ID="Image1" runat="server" />
+                                                <asp:Image ID="Image1" runat="server"/>
                                                 <%--<img id="Image1" width="220" Height="35" runat="server" alt="#"></img>--%>
                                             </td>
-                                                <td style="width: 1%"></td>
+                                            <td style="width:1%">
+                                                
+                                            </td>
                                             <td align="right">
                                                 <table align="right">
                                                     <tr>
@@ -138,8 +148,8 @@
                                                             <%--<img src="App_Themes/NewTheme/images/SalNew.png" width="15" alt="#"></img>--%>
                                                             <%--</asp:Panel>--%>
                                                         </td>
-                                                            <td>
-                                                                <asp:LinkButton runat="server" ID="LinkButton2" Text="New Sale" OnClick="CmdSales_Click" ForeColor="#0099CC" Font-Bold="True"></asp:LinkButton>
+                                                        <td >
+                                                            <asp:LinkButton runat="server" ID="LinkButton2" Text="New Sale" OnClick="CmdSales_Click"  ForeColor="#0099CC" Font-Bold="True"></asp:LinkButton>
                                                             <%--<asp:Label ID="Label1" runat="server" Text="New Sale" ForeColor="#0099CC" Font-Bold="True"></asp:Label>--%>
                                                         </td>
                                                         <td>
@@ -150,29 +160,29 @@
                                                             <%--</asp:Panel>--%>
                                                         </td>
                                                         <td>
-                                                                <asp:LinkButton runat="server" ID="LinkButton1" Text="New Purchase" OnClick="CmdPurchase_click" ForeColor="#0099CC" Font-Bold="True"></asp:LinkButton>
+                                                            <asp:LinkButton runat="server" ID="LinkButton1" Text="New Purchase" OnClick="CmdPurchase_click"  ForeColor="#0099CC" Font-Bold="True"></asp:LinkButton>
                                                             <%--<asp:Label ID="Label5" runat="server" Text="New Purchase" ForeColor="#0099CC" Font-Bold="True"></asp:Label>--%>
                                                         </td>
-                                                            <td>
+                                                        <td >
                                                             <%--<asp:Panel ID="Panel2" runat="server" Width="80px">--%>
                                                             <asp:Button ID="CmdProduct" runat="server" Text="" OnClick="CmdProduct_click" EnableTheming="false"
                                                                 CssClass="ProdBtn" ToolTip="New Product" Width="15px" Height="13px" />
                                                             <%--<img src="App_Themes/NewTheme/images/ProNew.png" width="15" alt="#"></img>--%>
                                                             <%--</asp:Panel>--%>
                                                         </td>
-                                                            <td>
-                                                                <asp:LinkButton runat="server" ID="LinkButton3" Text="New Product" OnClick="CmdProduct_click" ForeColor="#0099CC" Font-Bold="True"></asp:LinkButton>
+                                                        <td >
+                                                            <asp:LinkButton runat="server" ID="LinkButton3" Text="New Product" OnClick="CmdProduct_click"  ForeColor="#0099CC" Font-Bold="True"></asp:LinkButton>
                                                             <%--<asp:Label ID="Label6" runat="server" Text="New Product" ForeColor="#0099CC" Font-Bold="True"></asp:Label>--%>
                                                         </td>
-                                                            <td>
+                                                        <td >
                                                             <%--<asp:Panel ID="Panel3" runat="server" Width="80px">--%>
                                                             <asp:Button ID="CmdExp" runat="server" Text="" OnClick="CmdExp_click" EnableTheming="false"
                                                                 CssClass="ExpenseBtn" ToolTip="New Expense" Width="15px" Height="13px" />
                                                             <%--<img src="App_Themes/NewTheme/images/ExpNew.png" width="15" alt="#"></img>--%>
                                                             <%--</asp:Panel>--%>
                                                         </td>
-                                                            <td>
-                                                                <asp:LinkButton runat="server" ID="Exp" Text="New Expense" OnClick="CmdExp_click" ForeColor="#0099CC" Font-Bold="True"></asp:LinkButton>
+                                                        <td >
+                                                            <asp:LinkButton runat="server" ID="Exp" Text="New Expense" OnClick="CmdExp_click"  ForeColor="#0099CC" Font-Bold="True"></asp:LinkButton>
                                                             <%--<asp:Label ID="Label7" runat="server" Text="New Expense" Click="CmdExp_click"  ForeColor="#0099CC" Font-Bold="True"></asp:Label>--%>
                                                         </td>
                                                     </tr>
@@ -180,18 +190,19 @@
                                                         <td colspan="9" align="right">
                                                             <table align="right">
                                                                 <tr>
-                                                                        <td align="left" valign="top" class="welcome">Welcome &nbsp;
+                                                                    <td align="left" valign="top" class="welcome">
+                                                                        Welcome &nbsp;
                                             
                                             
                                                                     </td>
                                                                     <td>
-                                                                            <img src="App_Themes/NewTheme/images/usericon.png" width="12" alt="#"></img>
-                                                                            &nbsp;
+                                                                        <img src="App_Themes/NewTheme/images/usericon.png" width="12" alt="#"></img> &nbsp;
                                                                     </td>
                                                                     <td align="left" valign="top" class="welcome">
                                                                          <asp:Label runat="server" ID="lblUser1"></asp:Label>
                                                                     </td>
-                                                                        <td align="left" valign="top">&nbsp; - &nbsp;
+                                                                    <td align="left" valign="top">
+                                                                        &nbsp; - &nbsp;
                                                                         <asp:Label runat="server" ID="lblCompCode"></asp:Label>
                                                                         &nbsp; - &nbsp;
                                                                         <asp:Label runat="server" ID="lbldatetimenew"></asp:Label>
@@ -200,7 +211,8 @@
                                                                     <td align="left" valign="top">
                                                                         <img src="App_Themes/NewTheme/images/logoutbtn.png" width="14" alt="#"></img>
                                                                     </td>
-                                                                        <td align="left" valign="top">&nbsp;
+                                                                    <td align="left" valign="top">
+                                                                        &nbsp;
                                                                     </td>
                                                                     <td align="left" valign="top" class="logout">
                                                                         <a href="#" onclick="return LogOut();" style="color: #0099CC">Logout</a>
@@ -424,14 +436,12 @@
                                     <StaticSelectedStyle BackColor="#1C5E55" />
                                 </asp:Menu>
                             </div>--%>
-                                <div class="menu2" id="chromemenu" style="width: 1001px;">
+                            <div class="menu2" id="chromemenu" style="width:1001px;">
                                     <ul id="custom-nav-menu"> 
-                                        <li class="color Mainmenu1"><a href="#">
-                                            <img src="App_Themes/NewTheme/Images/TroyDashboard.png" /></a>
+                                        <li class="color Mainmenu1"><a href="#"><img src="App_Themes/NewTheme/Images/TroyDashboard.png" /></a>
                                             
                                         </li> 
-                                        <li class="color Mainmenu2"><a href="#">
-                                            <img src="App_Themes/NewTheme/Images/TroySales.png" /></a>
+                                        <li class="color Mainmenu2"><a href="#"><img src="App_Themes/NewTheme/Images/TroySales.png" /></a>
                                             <ul> 
                                                 <li class="color submenumenu"><a href="#">Master Data</a>
                                                     <ul> 
@@ -458,8 +468,7 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li class="color Mainmenu3"><a href="#">
-                                            <img src="App_Themes/NewTheme/Images/TroyPurchase.png" /></a>
+                                        <li class="color Mainmenu3"><a href="#"><img src="App_Themes/NewTheme/Images/TroyPurchase.png" /></a>
                                             <ul> 
                                                 <li class="color submenumenu"><a href="#">Master Data</a>
                                                     <ul> 
@@ -481,8 +490,7 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li class="color Mainmenu4"><a href="#">
-                                            <img src="App_Themes/NewTheme/Images/TroyInventory.png" /></a>
+                                    <li class="color Mainmenu4"><a href="#"><img src="App_Themes/NewTheme/Images/TroyInventory.png" /></a>
                                     <ul> 
                                     <li class="color submenumenu"><a href="#">Master Data</a>
                                     <ul>
@@ -490,7 +498,7 @@
                                     <li class="color submenumenu"><a href="./BrandMaster.aspx" runat="server" id="lnkBrandMast">Brand</a></li>
                                         <li class="color submenumenu"><a href="./PriceList.aspx" runat="server" id="A18">PriceList</a></li>
                                         <li class="color submenumenu"><a href="./PriceListCategoryMap.aspx" runat="server" id="A17">Mapping PriceList</a></li>
-                                    <li class="color submenumenu"><a href="./ProductMaster.aspx" runat="server" id="lnkProductMast">Products</a></li>
+                                    <li class="color submenumenu"><a href="./ProdMaster.aspx" runat="server" id="lnkProductMast">Products</a></li>
                                     </ul>
                                     </li>
                                     <li class="color submenumenu"><a href="#">Transactions</a>
@@ -502,8 +510,7 @@
                                     </ul>
                                     </li>
                                     <li class="color submenumenu"><a href="#">Reports</a>
-                                                    <ul>
-                                                        <%--<li class="color submenumenu"><a href="#">Inventory</a><ul>--%>
+                                    <ul><%--<li class="color submenumenu"><a href="#">Inventory</a><ul>--%>
                                     <li class="color submenumenu"><a href="#" onclick="Popup=window.open('StockReport.aspx','Summary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=180,width=500,left=415,top=270, scrollbars=yes');">Current Stock</a></li>
                                     <li class="color submenumenu"><a href="#" onclick="Popup=window.open('StockListReport.aspx','Summary', 'toolbar=no,status=no,menu=no,location=no,height=280,width=670,left=350,top=220 ,resizable=yes, scrollbars=yes');">Stock Ledger</a></li>
                                     <li class="color submenumenu"><a href="#" onclick="Popup=window.open('StockReconReport.aspx','Summary', 'toolbar=no,status=no,menu=no,location=no,height=180,width=500,left=415,top=270,resizable=yes, scrollbars=yes');">Reconciliation</a></li>
@@ -523,8 +530,7 @@
                                     </li>
                                     </ul>
                                     </li> 
-                                        <li class="color Mainmenu5"><a href="#">
-                                            <img src="App_Themes/NewTheme/Images/TroyBanking.png" /></a>
+                                        <li class="color Mainmenu5"><a href="#"><img src="App_Themes/NewTheme/Images/TroyBanking.png" /></a>
                                             <ul> 
                                                 <li class="color submenumenu"><a href="#">Master Data</a>
                                                     <ul> 
@@ -541,12 +547,12 @@
                                                 </li>
                                                 <li class="color submenumenu"><a href="#">Reports</a>
                                                     <ul>
+                                                        
                                                     </ul>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li class="color Mainmenu6"><a href="#">
-                                            <img src="App_Themes/NewTheme/Images/TroyFinancials.png" /></a>
+                                        <li class="color Mainmenu6"><a href="#"><img src="App_Themes/NewTheme/Images/TroyFinancials.png" /></a>
                                             <ul> 
                                                 <li class="color submenumenu"><a href="#">Master Data</a>
                                                     <ul> 
@@ -579,8 +585,7 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li class="color Mainmenu7"><a href="#">
-                                            <img src="App_Themes/NewTheme/Images/TroySalesleads.png" /></a>
+                                        <li class="color Mainmenu7"><a href="#"><img src="App_Themes/NewTheme/Images/TroySalesleads.png" /></a>
                                             <ul> 
                                                 <li class="color submenumenu"><a href="#">Master Data</a>
                                                     <ul> 
@@ -589,10 +594,8 @@
                                                     </ul>
                                                 </li>
                                                 <li class="color submenumenu"><a href="#">Transactions</a>
-                                                    <ul>
-                                                        <li class="color submenumenu"><a href="./LeadMgmt.aspx" runat="server" id="lnkLeadManagement">Lead Management</a>
-                                                        </li>
-                                                    </ul>
+                                                    <ul><li class="color submenumenu"><a href="./LeadMgmt.aspx" runat="server" id="lnkLeadManagement">Lead Management</a>
+                                                        </li></ul>
                                                 </li>
                                                 <li class="color submenumenu"><a href="#">Reports</a>
                                                     <ul>
@@ -602,8 +605,7 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li class="color Mainmenu8"><a href="#">
-                                            <img src="App_Themes/NewTheme/Images/TroyHumanResources.png" /></a>
+                                        <li class="color Mainmenu8"><a href="#"><img src="App_Themes/NewTheme/Images/TroyHumanResources.png" /></a>
                                             <ul> 
                                                 <li class="color submenumenu"><a href="#">Master Data<span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle; top:2px; text-align:right; float:right">►</span></a>
                                                     <ul> 
@@ -633,6 +635,7 @@
                                                 </li>
                                                 <li class="color submenumenu"><a href="#">Reports</a>
                                                     <ul>
+                                                        
                                                     </ul>
                                                 </li>
                                             </ul>
@@ -712,8 +715,7 @@
                                     </li>
                                     </ul>--%>
                                     <%--</li> --%>
-                                        <li class="color Mainmenu9"><a href="#">
-                                            <img src="App_Themes/NewTheme/Images/TroyManufacturing.png" /></a>
+                                    <li class="color Mainmenu9"><a href="#"><img src="App_Themes/NewTheme/Images/TroyManufacturing.png" /></a>
                                     <ul> 
                                         <li class="color submenumenu"><a href="#">Master Data<span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle; top:2px; text-align:right; float:right">►</span></a>
                                     <ul>
@@ -722,7 +724,7 @@
                                             </li>
                                     <li class="color submenumenu"><a href="#">Transactions<span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle; top:2px; text-align:right; float:right">►</span></a>
                                     <ul>
-                                    <li class="color submenumenu"><a href="./FormulaExecution.aspx" runat="server" id="lnkTransferExecution">Manufacturing Process</a></li></ul></li>
+                                    <li class="color submenumenu"><a href="./FormulaExecution.aspx" runat="server" id="lnkTransferExecution">Manufacturing Process&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li></ul></li>
                                     </ul>
                                     </li> 
                                     <%--<li class="color Mainmenu7"><a href="#"><img src="App_Themes/NewTheme/Images/TroyCommission.png" /></a>
@@ -737,8 +739,7 @@
                                     </li>
                                     </ul>
                                     </li> --%>
-                                        <li class="color Mainmenu10"><a href="#">
-                                            <img src="App_Themes/NewTheme/Images/TroyProjects.png" /></a>
+                                    <li class="color Mainmenu10"><a href="#"><img src="App_Themes/NewTheme/Images/TroyProjects.png" /></a>
                                     <ul> 
                                     <li class="color submenumenu"><a href="#">Master Data<span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle; top:2px; text-align:right; float:right">►</span></a>
                                     <ul>
@@ -746,9 +747,9 @@
                                     <li class="color submenumenu"><a href="./TaskTypes.aspx" runat="server" id="A4">Task Types</a></li>
                                     </ul>
                                     </li>
-                                    <li class="color submenumenu"><a href="#">Transactions</a>
+                                    <li class="color submenumenu"><a href="#">Transactions<span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle; top:2px; text-align:right; float:right">►</span></a>
                                     <ul><li class="color submenumenu"><a href="./ProjectEntry.aspx" runat="server" id="A5">Project</a></li>
-                                        <li class="color submenumenu"><a href="#">Task</a>
+                                        <li class="color submenumenu"><a href="#">Task<span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle; top:2px; text-align:right; float:right">►</span></a>
                                     <ul>
                                     <li class="color submenumenu"><a href="./TaskEntry.aspx" runat="server" id="A6">Task Management</a></li>
                                     <li class="color submenumenu"><a href="./TaskUpdates.aspx" runat="server" id="A7">Task Updates</a></li>
@@ -806,17 +807,15 @@
                                     </li>
                                     </ul>
                                     </li> --%>
-                                        <li class="color Mainmenu11"><a href="#">
-                                            <img src="App_Themes/NewTheme/Images/TroyAdministration.png" /></a>
+                                    <li class="color Mainmenu11"><a href="#"><img src="App_Themes/NewTheme/Images/TroyAdministration.png" /></a>
                                     
                                     <ul>
                                     <li class="color submenumenu"><a href="./companyinfo.aspx" runat="server" id="lnkCompanyinfo">General Settings</a>
                                     </li>
-                                                <li class="color submenumenu"><a href="./EmailSMSConfig.aspx" runat="server" id="A19">EMail/SMS Config</a></li>
                                     <li class="color submenumenu"><a href="./NewDBCreation.aspx" runat="server" id="A1">Year End Process</a></li>
-                                                <li class="color submenumenu"><a href="./Configuration.aspx" runat="server" id="lnkConfiguration">Set Online & Offline Mode</a></li>
+                                    <li class="color submenumenu"><a href="./Configuration.aspx" runat="server" id="lnkConfiguration">Online & Offline Mode</a></li>
                                     <li class="color submenumenu"><a href="./UserOptions.aspx" runat="server" id="lnkuserlock">User Access Control Settings</a></li>
-                                        <li class="color submenumenu"><a href="#">Security</a>
+                                        <li class="color submenumenu"><a href="#">Security<span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle; top:2px; text-align:right; float:right">►</span> </a>
                                     <ul><li class="color submenumenu"><a href="#">Password Administration</a></li>
                                         <li class="color submenumenu"><a href="#">Reset Password</a></li>
                                         <li class="color submenumenu"><a href="./ChangePassword.aspx" runat="server" id="lnkChangePassword">Change Password</a></li>
@@ -988,12 +987,14 @@
                                 <div class="dateDtl">
                                     <table align="left" cellspacing="2px" cellpadding="0" border="0" style="vertical-align: middle">
                                         <tr style="display: none">
-                                                <td colspan="2">Company Code :&nbsp;
+                                            <td colspan="2">
+                                                Company Code :&nbsp;
                                                 <asp:Label ID="lblCompany" runat="server"></asp:Label>
                                             </td>
                                         </tr>
                                         <tr>
-                                                <td colspan="2" style="text-align: left">Welcome&nbsp;
+                                            <td colspan="2" style="text-align: left">
+                                                Welcome&nbsp;
                                                 <asp:Label ID="lblUser" runat="server"></asp:Label>
                                             </td>
                                         </tr>
@@ -1278,13 +1279,13 @@
                                                             </Items>
                                                         </cc1:NavBarBlock>
                                                     </Blocks>
-                                                        <DefaultBlockStyle Closed="closedheader" ItemArea="itemarea" Expanded="openheader"></DefaultBlockStyle>
+                                                    <DefaultBlockStyle Closed="closedheader" ItemArea="itemarea" Expanded="openheader">
+                                                    </DefaultBlockStyle>
                                                 </cc1:NavBar>
                                                 <div style="padding-left: 5px; vertical-align: bottom; height: 10px; border-bottom: 1px solid #86b2d1;">
                                                     <div class="exitHeader" style="padding-left: 8px" onclick="return LogOut();">
                                                         <div style="height: 3px">
-                                                                &nbsp;
-                                                            </div>
+                                                            &nbsp;</div>
                                                         <span style="height: 10px; vertical-align: middle">&nbsp;&nbsp;&nbsp;Log out </span>
                                                     </div>
                                                 </div>
