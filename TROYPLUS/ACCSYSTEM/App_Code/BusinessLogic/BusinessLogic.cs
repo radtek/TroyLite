@@ -8,6 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Data.OleDb;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 /// <summary>
 /// Summary description for BusinessLogic
 /// </summary>
@@ -61705,7 +61706,7 @@ public class BusinessLogic
         private List<string> GetAttendanceDataForTheMonth(string empNo, int year, int month, DataTable dtAttendanceDetail = null)
         {
             List<string> rowDefaultAttendanceData = new List<string>();
-
+            List<string> rotaWeekOffDays = GetRotaWeekOffList(empNo, year, month);
             // Add Employee Column
             if (dtAttendanceDetail != null && dtAttendanceDetail.Columns.Count == 0)
             {
@@ -61721,6 +61722,7 @@ public class BusinessLogic
             {
                 if (dateValue.Month == month)
                 {
+                    string weekOffDaysConfiguration = string.Empty;
                     DataColumn column = new DataColumn("Day" + index.ToString(), typeof(string));
                     column.Caption = dateValue.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
                     if (dtAttendanceDetail != null && dtAttendanceDetail.Columns.Count < 33)
@@ -61731,7 +61733,7 @@ public class BusinessLogic
                     {
                         rowDefaultAttendanceData.Add("Holiday");
                     }
-                    else if (dateValue.DayOfWeek.ToString().Equals("Sunday"))
+                    else if (dateValue.DayOfWeek.ToString().Equals("Sunday") || rotaWeekOffDays.Contains(dateValue.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)))
                     {
                         rowDefaultAttendanceData.Add("Week Off");
                     }
@@ -61763,6 +61765,45 @@ public class BusinessLogic
             rowDefaultAttendanceData.Insert(0, "TempEmpName");
             rowDefaultAttendanceData.Insert(0, "TempEmpNo");
             return rowDefaultAttendanceData;
+        }
+
+        private List<string> GetRotaWeekOffList(string empNo, int year, int month)
+        {
+            DBManager manager = new DBManager(DataProvider.OleDb);
+            manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+            DataSet ds = new DataSet();
+            string dbQry = string.Empty;
+
+
+            dbQry = string.Format(@"SELECT a.ShiftedDate
+                                FROM tblEmployeeWeekOffRota a
+                                WHERE a.EmployeeNo ={0}
+                                AND IsActive=1
+                                AND (YEAR(a.ShiftedDate) = {1} AND MONTH(a.ShiftedDate) = {2})", empNo, year, month);
+
+            try
+            {
+                manager.Open();
+                ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+                List<string> weekOffDaysList = new List<string>();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    Parallel.ForEach(ds.Tables[0].Select("1=1", string.Empty), row =>
+                    {
+                        weekOffDaysList.Add(row[0].ToString());
+                    });
+
+                }
+                return weekOffDaysList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                manager.Dispose();
+            }
         }
 
         private bool HasAppliedleave(DateTime dateValue, string empNo)
@@ -61887,6 +61928,57 @@ public class BusinessLogic
 
             }
             return true;
+        }
+
+        public bool AddCompOffForTheEmployee(string empNo, string supervisorEmpNo, DateTime compOffOrginDate, string compOffReason)
+        {
+            DBManager manager = new DBManager(DataProvider.OleDb);
+            manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+            string dbQry = string.Empty;
+
+            try
+            {
+                manager.Open();
+                dbQry = string.Format(@"Insert into tblEmployeeCompOff (EmployeeNo,CompOffDate,CompOffReason,ApprovedBy,IsActive)
+                                        Values({0},Format('{1}', 'dd/mm/yyyy'),""{2}"",{3},{4})", empNo, compOffOrginDate.ToShortDateString(), compOffReason, supervisorEmpNo, true.ToString());
+                manager.ExecuteNonQuery(CommandType.Text, dbQry);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (manager != null)
+                    manager.Dispose();
+
+            }
+        }
+
+        public bool AddWeekOffRotaForTheEmployee(string empNo, string supervisorEmpNo, DateTime rotaSourceOrginDate, DateTime rotaShiftedDate)
+        {
+            DBManager manager = new DBManager(DataProvider.OleDb);
+            manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+            string dbQry = string.Empty;
+
+            try
+            {
+                manager.Open();
+                dbQry = string.Format(@"Insert into tblEmployeeWeekOffRota (EmployeeNo,SourceDate,ShiftedDate,ApprovedBy,IsActive)
+                                        Values({0},Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),{3},{4})", empNo, rotaSourceOrginDate.ToShortDateString(), rotaShiftedDate.ToShortDateString(), supervisorEmpNo, true.ToString());
+                manager.ExecuteNonQuery(CommandType.Text, dbQry);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (manager != null)
+                    manager.Dispose();
+            }
         }
 
         public DataTable GetAttendanceYearList(string userId)
@@ -62332,7 +62424,7 @@ public class BusinessLogic
 
                 dbQry = string.Format(@"INSERT INTO tblEmployeeLeave (EmployeeNo,StartDate,StartDateSession,EndDate,EndDateSession,TotalDays,DateApplied, 
                                         LeaveTypeID,Reason,Status,Approver,ApproverComments,EmailContact,PhoneContact)
-                                        VALUES ({0},'{1}','{2}','{3}','{4}',{5},'{6}',{7},'{8}','{9}',{10},'{11}','{12}','{13}')"
+                                        VALUES ({0},Format('{1}', 'dd/mm/yyyy'),'{2}',Format('{3}', 'dd/mm/yyyy'),'{4}',{5},'{6}',{7},'{8}','{9}',{10},'{11}','{12}','{13}')"
                                             , EmpNo, StartDate, StartDateSession, EndDate, EndDateSession, totalLeaveDays, DateApplied, LeaveTypeId, Reason
                                             , "Submitted", Approver, "", EmailContact, PhoneContact);
 
@@ -62669,6 +62761,7 @@ public class BusinessLogic
             }
         }
 
+
         public DataTable GetAllPaySlipForThePayroll(int payrolId)
         {
             DBManager manager = new DBManager(DataProvider.OleDb);
@@ -62678,7 +62771,7 @@ public class BusinessLogic
             {
                 manager.Open();
 
-                dbQry = string.Format(@"SELECT *,e.empFirstName,e.empDesig,e.empDOJ,(Payments-Deductions) as TotalPayable 
+                dbQry = string.Format(@"SELECT *,e.empFirstName,e.empDesig,e.empDOJ,Payments,Deductions,(Payments-Deductions) as TotalPayable,LossOfPayDays 
                                     FROM (tblEmployeePayslip ep INNER JOIN
                                                 tblEmployee e ON ep.EmployeeId = e.empno)
                                     WHERE PayrollId = {0}", payrolId);
@@ -62687,6 +62780,7 @@ public class BusinessLogic
 
                 if (ds != null && ds.Tables.Count > 0)
                 {
+                    ReCalculateTotalPayableAmount(ds.Tables[0]);
                     return ds.Tables[0];
                 }
                 else
@@ -62703,6 +62797,22 @@ public class BusinessLogic
             {
                 if (manager != null)
                     manager.Dispose();
+            }
+        }
+
+        private void ReCalculateTotalPayableAmount(DataTable dataTable)
+        {
+            foreach (DataRow drPaySlip in dataTable.Rows)
+            {
+                double initialTotalPayable = 0;
+                double.TryParse(drPaySlip["TotalPayable"].ToString(), out initialTotalPayable);
+                double lopDays = 0;
+                double.TryParse(drPaySlip["LossOfPayDays"].ToString(), out lopDays);
+
+                double totalDaysInMonth = DateTime.DaysInMonth(int.Parse(drPaySlip["PayrollYear"].ToString()), int.Parse(drPaySlip["PayrollMonth"].ToString()));
+
+                double newTotalPayable = (initialTotalPayable * (totalDaysInMonth - lopDays)) / totalDaysInMonth;
+                drPaySlip["TotalPayable"] = newTotalPayable;
             }
         }
         #endregion
@@ -62757,10 +62867,11 @@ public class BusinessLogic
                 manager.Open();
                 manager.ProviderType = DataProvider.OleDb;
 
-                dbQry = string.Format(@"SELECT u.UserID,u.UserName, u.Empno, e.ManagerID AS ManagerEmpNo, mu.UserID AS ManagerUserID, mu.UserName as ManagerUserName
-                                    FROM   ((tblUserInfo u INNER JOIN
+                dbQry = string.Format(@"SELECT u.UserID,u.UserName, u.Empno,e.EmpFirstName, e.ManagerID AS ManagerEmpNo, mu.UserID AS ManagerUserID, mu.UserName as ManagerUserName,me.EmpFirstName as ManagerEmpName
+                                    FROM   (((tblUserInfo u INNER JOIN
                                                 tblEmployee e ON u.Empno = e.empno) LEFT OUTER JOIN
-                                                tblUserInfo mu ON e.ManagerID = mu.Empno) 
+                                                tblUserInfo mu ON e.ManagerID = mu.Empno) LEFT OUTER JOIN 
+                                                tblEmployee me ON mu.Empno = me.empno)
                                     WHERE u.UserName = ""{0}""", userName);
 
                 DataSet ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
@@ -62771,12 +62882,14 @@ public class BusinessLogic
                     userInfo.UserName = ds.Tables[0].Rows[0]["UserName"].ToString();
                     userInfo.UserId = ds.Tables[0].Rows[0]["UserID"].ToString();
                     int.TryParse(ds.Tables[0].Rows[0]["EmpNo"].ToString(), out empNo);
+                    userInfo.EmpName = ds.Tables[0].Rows[0]["EmpFirstName"].ToString();
                     userInfo.EmpNo = empNo;
                     // Manager Info
                     userInfo.ManagerUserName = ds.Tables[0].Rows[0]["ManagerUserName"].ToString();
                     userInfo.ManagerUserId = ds.Tables[0].Rows[0]["ManagerUserID"].ToString();
                     int.TryParse(ds.Tables[0].Rows[0]["ManagerEmpNo"].ToString(), out empNo);
                     userInfo.ManagerEmpNo = empNo;
+                    userInfo.ManagerEmpName = ds.Tables[0].Rows[0]["ManagerEmpName"].ToString();
                     return userInfo;
                 }
                 else

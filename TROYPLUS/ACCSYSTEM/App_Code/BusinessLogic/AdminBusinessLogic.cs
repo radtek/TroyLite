@@ -108,6 +108,7 @@ public class AdminBusinessLogic
                     dtPaySlipInfo.Columns.Add(new DataColumn("EmployeeNo"));
                     dtPaySlipInfo.Columns.Add(new DataColumn("Deductions"));
                     dtPaySlipInfo.Columns.Add(new DataColumn("Payments"));
+                    dtPaySlipInfo.Columns.Add(new DataColumn("LossOfPayDays"));
                     UpdatePayrollStatus(payrollId, "In Progress");
 
                     // Prepare payroll generation logtable.
@@ -131,7 +132,7 @@ public class AdminBusinessLogic
                     }
 
                     manager.BeginTransaction();
-                    if (InsertPayslipInfo(manager, dtPaySlipInfo, payrollId, month))
+                    if (InsertPayslipInfo(manager, dtPaySlipInfo, payrollId, month, year))
                     {
                         manager.CommitTransaction();
                         UpdatePayrollStatus(payrollId, "Completed");
@@ -161,7 +162,7 @@ public class AdminBusinessLogic
 
     }
 
-    private bool InsertPayslipInfo(DBManager manager, DataTable dtPaySlipInfo, int payrollId, int month)
+    private bool InsertPayslipInfo(DBManager manager, DataTable dtPaySlipInfo, int payrollId, int month, int year)
     {
         string dbQry = string.Empty;
 
@@ -171,8 +172,8 @@ public class AdminBusinessLogic
             {
                 int employeeNo = 0;
                 int.TryParse(dr[0].ToString(), out employeeNo);
-                dbQry = string.Format(@"INSERT INTO tblEmployeePayslip (EmployeeId,PayrollDate,PayrollMonth,Deductions,Payments,PayrollId) 
-                                    VALUES ({0},'{1}',{2},{3},{4},{5})", employeeNo, DateTime.Now.Date, month, dr[1], dr[2], payrollId);
+                dbQry = string.Format(@"INSERT INTO tblEmployeePayslip (EmployeeId,PayrollDate,PayrollMonth,Deductions,Payments,PayrollId,PayrollYear,LossOfPayDays) 
+                                    VALUES ({0},'{1}',{2},{3},{4},{5},{6},{7})", employeeNo, DateTime.Now.Date, month, dr[1], dr[2], payrollId, year, dr["LossOfPayDays"]);
 
                 if (manager.ExecuteNonQuery(CommandType.Text, dbQry) > 0)
                 {
@@ -261,12 +262,17 @@ public class AdminBusinessLogic
             int totalDeductions = GetEmployeeTotalDeduction(employeeNo);
 
             // Get loss of pay leaves.
+            DataTable dtEmpLeavesApplied = GetEmployeeLOPLeavesAppliedForTheMonth(employeeNo, year, month);
+            double totalLeavesDaysAppliedLeaves = GetTotalLeavesInTheLeaveSummary(dtEmpLeavesApplied, year, month);
+
+            int totalDaysInTheMonth = DateTime.DaysInMonth(year, month);
 
 
 
             payslipInfoRow[0] = employeeNo;
             payslipInfoRow[1] = totalDeductions;
             payslipInfoRow[2] = totalPayable;
+            payslipInfoRow[3] = totalLeavesDaysAppliedLeaves;
 
             return true;
         }
@@ -281,7 +287,6 @@ public class AdminBusinessLogic
 
         }
     }
-
 
     private int GetEmployeeTotalPayComponent(int employeeNo)
     {
@@ -365,11 +370,208 @@ public class AdminBusinessLogic
 
     public bool ValidatePayrollDetailsForEmployee(int empNo, int year, int month, ref string logMessage)
     {
+        logMessage = string.Empty;
+        if (HaveUnApprovedLeavesForTheMonth(empNo, year, month, ref  logMessage).Equals(false) ||
+            HaveAppliedTheLeavesTaken(empNo, year, month, ref  logMessage).Equals(false))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 
-        string dbQuery = string.Format(@"Select LeaveId,EmployeeNo,StartDate,Status from tblEmployeeLeave 
-                            WHERE EmployeeNo = {0} AND
-                                    ((YEAR(StartDate)={1} OR YEAR(EndDate)={1}) AND (MONTH(StartDate)={2} OR MONTH(EndDate)={2}))
-                                        AND Status<>'{3}'", empNo, year, month, "Approved");
+    private bool HaveUnApprovedAttendanceBySupervisor(int year, int month, ref string logMessage)
+    {
+        string dbQuery = string.Format(@"Select a.Remarks,Count(AttendanceDate) from ((tblAttendanceDetail a
+                                            INNER JOIN tblEmployee e1 ON a.EmployeeNo = e1.EmpNo)
+                                            INNER JOIN tblEmployee e2 ON e1.ManagerID = e2.EmpNo)
+                                        WHERE a.EmployeeNo = {0} AND
+                                            (YEAR(a.AttendanceDate)={1} AND MONTH(a.AttendanceDate)={2})
+                                        GROUP BY a.Remarks", year, month, "Approved");
+
+
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        manager.Open();
+        DataSet ds = manager.ExecuteDataSet(CommandType.Text, dbQuery);
+        if (ds != null && ds.Tables.Count > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private bool HaveAppliedTheLeavesTaken(int empNo, int year, int month, ref string logMessage)
+    {
+        DataTable dtEmpAttendanceSummary = GetEmployeeAttendanceSummaryForTheMonth(empNo, year, month);
+        DataTable dtEmpLeavesApplied = GetEmployeeLeavesAppliedForTheMonth(empNo, year, month);
+        if (dtEmpAttendanceSummary != null && dtEmpAttendanceSummary != null)
+        {
+            double totalLeaveDaysByAttendance = GetTotalLeavesInTheAttendance(dtEmpAttendanceSummary);
+            double totalLeavesDaysAppliedLeaves = Math.Floor(GetTotalLeavesInTheLeaveSummary(dtEmpLeavesApplied, year, month));
+            if (!totalLeaveDaysByAttendance.Equals(totalLeavesDaysAppliedLeaves))
+            {
+                logMessage += string.Format("\r\nLeave entries and attendance mismatching for the employee '{0}{1}' (Attendance-{2} LeavesApplied-{3})", empNo, string.Empty, totalLeaveDaysByAttendance, totalLeavesDaysAppliedLeaves);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        return true;
+    }
+
+    private double GetTotalLeavesInTheAttendance(DataTable dtEmpAttendanceSummary)
+    {
+        double totalLeavesByAttendance = 0;
+        DataRow[] drLeaves = dtEmpAttendanceSummary.Select("Remarks='Leave'");
+        if (drLeaves.Count() > 0)
+        {
+            if (double.TryParse(drLeaves[0][1].ToString(), out totalLeavesByAttendance))
+            {
+                return totalLeavesByAttendance;
+            }
+        }
+        return totalLeavesByAttendance;
+    }
+
+    private double GetTotalLeavesInTheLeaveSummary(DataTable dtEmpLeavesApplied, int year, int month)
+    {
+        double totalLeavesDaysAppliedLeaves = 0;
+        foreach (DataRow drLeaveEntry in dtEmpLeavesApplied.Rows)
+        {
+            DateTime startDate, endDate;
+            string startDateSession, endDateSession;
+            DateTime.TryParse(drLeaveEntry["StartDate"].ToString(), out startDate);
+            DateTime.TryParse(drLeaveEntry["EndDate"].ToString(), out endDate);
+            startDateSession = drLeaveEntry["StartDateSession"].ToString();
+            endDateSession = drLeaveEntry["EndDateSession"].ToString();
+            if (!startDate.Year.Equals(year) || !startDate.Month.Equals(month))
+            {
+                startDate = DateTime.Parse(string.Format("{0}-{1}-{2}", year, month, "01"));
+                startDateSession = "FN";
+            }
+            if (!endDate.Year.Equals(year) || !endDate.Month.Equals(month))
+            {
+                endDate = DateTime.Parse(string.Format("{0}-{1}-{2}", year, month, DateTime.DaysInMonth(year, month)));
+                endDateSession = "AN";
+            }
+            totalLeavesDaysAppliedLeaves += CalculateTotalLeaveDays(startDate, startDateSession, endDate, endDateSession);
+        }
+        return totalLeavesDaysAppliedLeaves;
+    }
+
+    private DataTable GetEmployeeLeavesAppliedForTheMonth(int empNo, int year, int month)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+
+        dbQry = string.Format(@"SELECT a.LeaveId, a.EmployeeNo, a.StartDate,a.StartDateSession, a.EndDate,a.EndDateSession,a.TotalDays
+                                FROM tblEmployeeLeave a
+                                WHERE a.EmployeeNo ={0}
+                                AND (YEAR(a.StartDate) = {1} AND MONTH(a.StartDate) = {2}) 
+                                        OR (YEAR(a.EndDate) = {1} AND MONTH(a.EndDate) = {2})", empNo, year, month);
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                return ds.Tables[0];
+            }
+            return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
+    private DataTable GetEmployeeLOPLeavesAppliedForTheMonth(int empNo, int year, int month)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+
+        dbQry = string.Format(@"SELECT a.LeaveId, a.EmployeeNo, a.StartDate,a.StartDateSession, a.EndDate,a.EndDateSession,a.TotalDays
+                                FROM (tblEmployeeLeave a 
+                                        INNER JOIN tblLeaveTypes l on a.LeaveTypeId = l.ID)
+                                WHERE a.EmployeeNo ={0}
+                                AND l.IsPayable=False
+                                AND (YEAR(a.StartDate) = {1} AND MONTH(a.StartDate) = {2}) 
+                                        OR (YEAR(a.EndDate) = {1} AND MONTH(a.EndDate) = {2})", empNo, year, month);
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                return ds.Tables[0];
+            }
+            return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
+    private DataTable GetEmployeeAttendanceSummaryForTheMonth(int empNo, int year, int month)
+    {
+        string dbQuery = string.Format(@"Select a.Remarks,Count(AttendanceDate) from ((tblAttendanceDetail a
+                                            INNER JOIN tblEmployee e1 ON a.EmployeeNo = e1.EmpNo)
+                                            INNER JOIN tblEmployee e2 ON e1.ManagerID = e2.EmpNo)
+                                        WHERE a.EmployeeNo = {0} AND
+                                            (YEAR(a.AttendanceDate)={1} AND MONTH(a.AttendanceDate)={2})
+                                        GROUP BY a.Remarks", empNo, year, month, "Approved");
+
+
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        manager.Open();
+        DataSet ds = manager.ExecuteDataSet(CommandType.Text, dbQuery);
+        if (ds != null && ds.Tables.Count > 0)
+        {
+            return ds.Tables[0];
+        }
+        else
+        {
+            return null;
+        }
+
+    }
+
+    private bool HaveUnApprovedLeavesForTheMonth(int empNo, int year, int month, ref string logMessage)
+    {
+        string dbQuery = string.Format(@"Select a.EmployeeNo,e1.EmpFirstName as EmpName,a.Approver,e2.EmpFirstName as ApproverName from ((tblEmployeeLeave a
+                                            INNER JOIN tblEmployee e1 ON a.EmployeeNo = e1.EmpNo)
+                                            INNER JOIN tblEmployee e2 ON a.Approver = e2.EmpNo)
+                            WHERE a.EmployeeNo = {0} AND
+                                    ((YEAR(a.StartDate)={1} OR YEAR(a.EndDate)={1}) AND (MONTH(a.StartDate)={2} OR MONTH(a.EndDate)={2}))
+                                        AND a.Status<>'{3}'", empNo, year, month, "Approved");
 
 
         DBManager manager = new DBManager(DataProvider.OleDb);
@@ -380,13 +582,55 @@ public class AdminBusinessLogic
         {
             if (ds.Tables[0].Rows.Count > 0)
             {
-                logMessage = string.Format("Leaves are not approved for the employees:\r\n {0}", string.Join("/ \r\n", ds.Tables[0].Rows[0].ItemArray));
+                DataRow dRow = ds.Tables[0].Rows[0];
+                logMessage += string.Format("\r\n Leaves are not approved for the employee '{0}-{1}'.{Approver: {2}-{3}}", dRow["EmployeeNo"].ToString(), dRow["EmpName"].ToString(), dRow["Approver"].ToString(), dRow["ApproverName"].ToString());
                 return false;
             }
         }
 
+
         return true;
     }
 
+    private double CalculateTotalLeaveDays(DateTime StartDate, string StartDateSession, DateTime EndDate, string EndDateSession)
+    {
+        double totalLeaveDays = 0;
+        int dateDiffDays = new DateTimeHelper.DateDifference(StartDate, EndDate).Days;
+        if (dateDiffDays.Equals(0))
+        {
+            if (StartDateSession.Equals("FN") && EndDateSession.Equals("AN"))
+            {
+                totalLeaveDays = 1.0;
+            }
+            else if (StartDateSession.Equals("FN") && EndDateSession.Equals("FN"))
+            {
+                totalLeaveDays = 0.5;
+            }
+            else if (StartDateSession.Equals("AN") && EndDateSession.Equals("AN"))
+            {
+                totalLeaveDays = 0.5;
+            }
+        }
+        else
+        {
+            if (StartDateSession.Equals("FN") && EndDateSession.Equals("AN"))
+            {
+                totalLeaveDays = dateDiffDays + 1;
+            }
+            else if (StartDateSession.Equals("FN") && EndDateSession.Equals("FN"))
+            {
+                totalLeaveDays = dateDiffDays + 0.5;
+            }
+            else if (StartDateSession.Equals("AN") && EndDateSession.Equals("AN"))
+            {
+                totalLeaveDays = dateDiffDays + 0.5;
+            }
+            else if (StartDateSession.Equals("AN") && EndDateSession.Equals("FN"))
+            {
+                totalLeaveDays = dateDiffDays;
+            }
+        }
+        return totalLeaveDays;
+    }
     #endregion
 }

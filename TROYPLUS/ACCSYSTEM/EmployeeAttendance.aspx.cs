@@ -20,10 +20,7 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
             base.OnInit(e);
             //TextBox search = (TextBox)Accordion1.FindControl("txtSearch");
             //DropDownList dropDown = (DropDownList)Accordion1.FindControl("ddCriteria");
-            AttendanceSummaryGridSource.SelectParameters.Add(new CookieParameter("connection", "Company"));
-            AttendanceSummaryGridSource.SelectParameters.Add(new ControlParameter("txtSearchInput", TypeCode.String, txtSearchInput.UniqueID, "Text"));
-            AttendanceSummaryGridSource.SelectParameters.Add(new ControlParameter("searchCriteria", TypeCode.String, ddlSearchCriteria.UniqueID, "SelectedValue"));
-            AttendanceSummaryGridSource.SelectParameters.Add(new CookieParameter("UserId", "LoggedUserName"));
+
         }
         catch (Exception ex)
         {
@@ -119,8 +116,8 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
                 ViewState["AttendanceMonth"] = DateTime.Today.Month.ToString();
                 Session["DtAttendanceDetails"] = dtAttendanceDetails;
                 GridViewAttendanceDetail.DataSource = dtAttendanceDetails;
-                if (!hdnfIsGridLoaded.Value.Equals("1"))
-                    ChangeGridColumnHeaderText();
+
+                ChangeGridColumnHeaderText();
                 GridViewAttendanceDetail.DataBind();
                 hdnfIsNewAttendance.Value = "1";
 
@@ -139,7 +136,7 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
         {
             TroyLiteExceptionManager.HandleException(ex);
         }
-    }    
+    }
 
     protected void GridViewAttendanceDetail_RowDataBound(object sender, GridViewRowEventArgs e)
     {
@@ -177,7 +174,7 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
             {
                 int attendanceID = 0;
                 string[] args = e.CommandArgument.ToString().Split(new char[] { ':' });
-                if (args.Length == 3)
+                if (args.Length == 4)
                 {
                     if (int.TryParse(args[0], out attendanceID))
                     {
@@ -189,13 +186,18 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
                         if (dtAttendanceDetail != null)
                         {
                             hdnfIsNewAttendance.Value = "0";
+                            string status = args[3];
+
+                            // Make attendance details readonly.
+                            SetAttendanceDetailsAsReadOnly(status.Equals("Submitted"));
+
 
                             ViewState["AttendanceYear"] = args[1];
                             ViewState["AttendanceMonth"] = args[2];
                             Session["DtAttendanceDetails"] = dtAttendanceDetail.Tables[0];
                             GridViewAttendanceDetail.DataSource = dtAttendanceDetail.Tables[0];
-                            if (!hdnfIsGridLoaded.Value.Equals("1"))
-                                ChangeGridColumnHeaderText();
+
+                            ChangeGridColumnHeaderText();
                             GridViewAttendanceDetail.DataBind();
 
                             GridViewAttendanceDetail.Visible = true;
@@ -212,10 +214,28 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
         }
     }
 
+    private void SetAttendanceDetailsAsReadOnly(bool yes)
+    {
+        GridViewAttendanceDetail.Enabled = !yes;
+        btnSaveAttendance.Visible = !yes;
+        btnSubmitAttendance.Visible = !yes;
+        lblUserHint.Visible = !yes;
+        if (yes)
+        {
+            lblStatus.Text = "Submitted attendance could not be modified.";
+        }
+        else
+        {
+            lblStatus.Text = string.Empty;
+        }
+
+    }
+
     protected void ToggleAttendance_Click(object sender, EventArgs e)
     {
         try
         {
+            lblStatus.Text = string.Empty;
             ToggleAttendanceMark(sender as Button, true);
             updPnlAttendanceDeailsGrid.Update();
         }
@@ -229,7 +249,7 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
     {
         try
         {
-            if(SaveAttendanceDetails()>0)
+            if (SaveAttendanceDetails() > 0)
             {
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(),
                     @"alert('Attendance has been saved successfully');", true);
@@ -316,7 +336,6 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
             {
                 if (isUpdate)
                 {
-                    
                     btnSender.Text = "Leave";
                     btnSender.CssClass = "btnBts btnBts-warning";
                 }
@@ -327,7 +346,6 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
             {
                 if (isUpdate)
                 {
-                    string preState = btnSender.CommandArgument;                 
                     btnSender.Text = "Week Off";
                     btnSender.CssClass = "btnBts btnBts-success";
                 }
@@ -348,7 +366,17 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
             {
                 if (isUpdate)
                 {
-                    if (!IsEligibleForCompOff(btnSender))
+                    string preState = btnSender.CommandArgument.Split(new string[] { "//" }, StringSplitOptions.None)[2];
+
+                    if (preState.Equals("Week Off") || preState.Equals("Leave") || preState.Equals("Holiday"))
+                    {
+                        if (!ShowCompOffRotaPopup(btnSender))
+                        {
+                            btnSender.Text = "Present";
+                            btnSender.CssClass = "btnBts btnBts-default";
+                        }
+                    }
+                    else
                     {
                         btnSender.Text = "Present";
                         btnSender.CssClass = "btnBts btnBts-default";
@@ -365,24 +393,64 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
         }
     }
 
-    private bool IsEligibleForCompOff(Button btnSender)
+    private bool ShowCompOffRotaPopup(Button btnSender)
     {
         if (btnSender != null)
         {
-            CompOffModalPopupExtender.Show();
-            return true;
+            // Get the date value for the current request.
+            int year;
+            int.TryParse(ViewState["AttendanceYear"].ToString(), out year);
+            int month;
+            int.TryParse(ViewState["AttendanceMonth"].ToString(), out month);
+            int dayOfMonth;
+            int.TryParse(btnSender.ID.ToLower().Replace("button", string.Empty), out dayOfMonth);
+            DateTime requestDate;
+            if (DateTime.TryParse(string.Format("{0}-{1}-{2}", year, month, dayOfMonth), out requestDate))
+            {
+                hdnfRequestDayInfo.Value = requestDate.ToShortDateString();
+                hdnfCompOffRotaEmployeeNo.Value = btnSender.CommandArgument.Split(new char[] { '/' })[0];
+                hdnfRequestSenderId.Value = btnSender.ID;
+
+                DataTable consequenceDates = GetConsequenceOneWeekDate(requestDate);
+                ddlRotaAlternativeDays.DataSource = consequenceDates;
+                ddlRotaAlternativeDays.DataTextField = "LongDate";
+                ddlRotaAlternativeDays.DataValueField = "ShortDate";
+                ddlRotaAlternativeDays.DataBind();
+
+                updPnlRotaCompOff.Update();
+                CompOffModalPopupExtender.Show();
+                return true;
+            }
         }
         return false;
     }
-      
+
+    private DataTable GetConsequenceOneWeekDate(DateTime requestDate)
+    {
+        int index = 1;
+        DataTable resultDates = new DataTable();
+        resultDates.Columns.Add("ShortDate");
+        resultDates.Columns.Add("LongDate");
+
+        do
+        {
+            DataRow row = resultDates.NewRow();
+            row[0] = requestDate.AddDays(index).ToShortDateString();
+            row[1] = requestDate.AddDays(index).ToLongDateString();
+            resultDates.Rows.Add(row);
+            index++;
+        } while (index <= 7);
+        return resultDates;
+    }
+
     private void ChangeGridColumnHeaderText()
     {
         DataTable dtGridSrc = GridViewAttendanceDetail.DataSource as DataTable;
         foreach (DataControlField column in GridViewAttendanceDetail.Columns)
         {
-            if (dtGridSrc.Columns.Contains(column.HeaderText))
+            if (dtGridSrc.Columns.Contains(column.AccessibleHeaderText))
             {
-                column.HeaderText = GetColumnHeaderTextForCell(column.HeaderText, GridViewAttendanceDetail.DataSource as DataTable);
+                column.HeaderText = GetColumnHeaderTextForCell(column.AccessibleHeaderText, GridViewAttendanceDetail.DataSource as DataTable);
 
                 if (column.HeaderText.Equals("NA"))
                 {
@@ -395,6 +463,20 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
             }
         }
         hdnfIsGridLoaded.Value = "1";
+    }
+
+    private void ResetGridColumnHeaderText()
+    {
+        int dayIndex = 1;
+        foreach (DataControlField column in GridViewAttendanceDetail.Columns)
+        {
+            if (!(column.HeaderText.Equals("EmployeeNo") || column.HeaderText.Equals("Employee")))
+            {
+                column.HeaderText = "Day" + dayIndex.ToString();
+                dayIndex++;
+                column.Visible = true;
+            }
+        }
     }
 
     private string GetColumnHeaderTextForCell(string colHeaderName, DataTable dtSource)
@@ -462,10 +544,10 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
             BusinessLogic bl = new BusinessLogic(connection);
             bool createSummary = false;
             if (hdnfIsNewAttendance.Value.Equals("1"))
-                createSummary = true;            
+                createSummary = true;
 
             if (bl.SaveAttendanceDetail(dtAttendanceDetail, username, string.Empty, ViewState["AttendanceYear"].ToString(),
-                ViewState["AttendanceMonth"].ToString(), createSummary,out attendanceId))
+                ViewState["AttendanceMonth"].ToString(), createSummary, out attendanceId))
             {
                 if (!createSummary)
                     int.TryParse(hdnfAttendanceID.Value, out attendanceId);
@@ -491,7 +573,7 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
         string usernam = Request.Cookies["LoggedUserName"].Value;
         BusinessLogic bl = new BusinessLogic(sDataSource);
 
-        DataSet ds= bl.GetAttendanceSummary(attendanceYear,  usernam);
+        DataSet ds = bl.GetAttendanceSummary(attendanceYear, usernam);
         if (ds != null && ds.Tables.Count > 0)
         {
             grdViewAttendanceSummary.DataSource = ds.Tables[0];
@@ -524,9 +606,208 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
 
     #endregion
 
-
     protected void btnApproveCompOff_Click(object sender, EventArgs e)
     {
+        try
+        {
+            string errorMessage = string.Empty;
+            if (ValidateAndSaveRotaCompOffEntries(hdnfCompOffRotaEmployeeNo.Value, ref errorMessage))
+            {
+                CompOffModalPopupExtender.Hide();
+                if (SaveAttendanceDetails() > 0)
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(),
+                    @"alert('Comp-off/Rota and the attendance details has been saved successfully.');", true);
+                    if (ddlSearchCriteria.SelectedIndex >= 0)
+                    {
+                        BindAttendanceSummaryGrid(ddlSearchCriteria.SelectedValue);
+                    }
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(),
+                   @"alert('Unable to save attendance details, please contact your Administrator.');", true);
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(),
+                 @"alert('" + errorMessage + " /r/nUnable to save comp-off/rota details, please contact your Administrator.');", true);
+            }
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
 
+    private void UpdateCompOffRotaRequestStatus(bool isRotaUpdate = false)
+    {
+        string btnSenderId = hdnfRequestSenderId.Value;
+        foreach (GridViewRow row in GridViewAttendanceDetail.Rows)
+        {
+            Label lblEmployeeNo = row.FindControl("lblEmployeeNo") as Label;
+            if (lblEmployeeNo.Text.Equals(hdnfCompOffRotaEmployeeNo.Value))
+            {
+                Control btnCtrl = row.FindControl(btnSenderId);
+                if (btnCtrl != null)
+                {
+                    Button btnSender = (btnCtrl as Button);
+                    btnSender.Text = "Present";
+                    btnSender.CssClass = "btnBts btnBts-default";
+
+                    if (isRotaUpdate)
+                    {
+                        DateTime dtShiftedDate;
+                        if (DateTime.TryParse(ddlRotaAlternativeDays.SelectedValue, out dtShiftedDate))
+                        {
+                            string shiftedDateControlId = "Button" + dtShiftedDate.Day.ToString();
+                            Control ctrlShiftedDateBtn = row.FindControl(shiftedDateControlId);
+                            if (ctrlShiftedDateBtn != null)
+                            {
+                                Button btnShiftedDate = ctrlShiftedDateBtn as Button;
+                                btnShiftedDate.Text = "Week Off";
+                                btnShiftedDate.CssClass = "btnBts btnBts-success";
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    private bool ValidateAndSaveRotaCompOffEntries(string empNo, ref string errorMessage)
+    {
+        if (rbtnCompOff.Checked)
+        {
+            var reason = txtCompOffReason.Text.Trim();
+            if (reason.Equals(string.Empty))
+            {
+                errorMessage = "Please provide the comp-off reason";
+                txtCompOffReason.Focus();
+                return false;
+            }
+            else
+            {
+                DateTime dtCompOffSourceDate;
+                DateTime.TryParse(hdnfRequestDayInfo.Value, out dtCompOffSourceDate);
+                if (AddCompOffForTheEmployee(empNo, dtCompOffSourceDate, reason))
+                {
+                    UpdateCompOffRotaRequestStatus();
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
+        else if (rbtnRota.Checked)
+        {
+            DateTime dtRotaSourceDate;
+            DateTime.TryParse(hdnfRequestDayInfo.Value, out dtRotaSourceDate);
+            DateTime rotaAlternativeDate;
+            DateTime.TryParse(ddlRotaAlternativeDays.SelectedValue, out rotaAlternativeDate);
+
+            if (SetWeekOffRotaForTheEmployee(empNo, dtRotaSourceDate, rotaAlternativeDate))
+            {
+                UpdateCompOffRotaRequestStatus(true);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private bool SetWeekOffRotaForTheEmployee(string empNo, DateTime dtRotaSourceDate, DateTime rotaAlternativeDate)
+    {
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        var supervisorUserName = Request.Cookies["LoggedUserName"].Value;
+        var supervisorEmpNo = bl.GetUserInfoByName(supervisorUserName).EmpNo.ToString();
+
+        if (bl.AddWeekOffRotaForTheEmployee(empNo, supervisorEmpNo, dtRotaSourceDate, rotaAlternativeDate))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private bool AddCompOffForTheEmployee(string empNo, DateTime dtCompOffSourceDate, string reason)
+    {
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        var supervisorUserName = Request.Cookies["LoggedUserName"].Value;
+        var supervisorEmpNo = bl.GetUserInfoByName(supervisorUserName).EmpNo.ToString();
+
+        if (bl.AddCompOffForTheEmployee(empNo, supervisorEmpNo, dtCompOffSourceDate, reason))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    protected void ModalPopupExtender1_Unload(object sender, EventArgs e)
+    {
+        try
+        {
+            lblStatus.Text = string.Empty;
+            ResetGridColumnHeaderText();
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+    protected void rbtnRotaCompOff_CheckedChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            if (rbtnCompOff.Checked)
+            {
+                divCompOffContainer.Visible = true;
+                divRotaContaiiner.Visible = false;
+            }
+            else if (rbtnRota.Checked)
+            {
+                divRotaContaiiner.Visible = true;
+                divCompOffContainer.Visible = false;
+            }
+            updPnlRotaCompOff.Update();
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+    protected void btnCancelCompOff_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            hdnfRequestDayInfo.Value = string.Empty;
+            hdnfRequestSenderId.Value = string.Empty;
+            hdnfCompOffRotaEmployeeNo.Value = string.Empty;
+            txtCompOffReason.Text = string.Empty;
+            lblStatus.Text = string.Empty;
+            ddlRotaAlternativeDays.Items.Clear();
+            CompOffModalPopupExtender.Hide();
+            updPnlRotaCompOff.Update();
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
     }
 }
