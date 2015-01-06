@@ -615,6 +615,12 @@ public partial class SupplierInfo : System.Web.UI.Page
         else
             e.InputParameters["Mobile"] = "";
 
+        if (((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtdueDateadd")).Text != "")
+            e.InputParameters["OpDueDate"] = ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtdueDateadd")).Text;
+        else
+            e.InputParameters["OpDueDate"] = "";
+
+
         if (((DropDownList)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsAddTab").FindControl("drpIntTransAdd")) != null)
             e.InputParameters["Inttrans"] = ((DropDownList)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsAddTab").FindControl("drpIntTransAdd")).SelectedValue;
 
@@ -705,6 +711,11 @@ public partial class SupplierInfo : System.Web.UI.Page
             e.InputParameters["Mobile"] = ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtMobile")).Text;
         else
             e.InputParameters["Mobile"] = "";
+
+        if (((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtdueDate")).Text != "")
+            e.InputParameters["OpDueDate"] = ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtdueDate")).Text;
+        else
+            e.InputParameters["OpDueDate"] = "";
 
         if (((DropDownList)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditAddTab").FindControl("drpIntTrans")) != null)
             e.InputParameters["Inttrans"] = ((DropDownList)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditAddTab").FindControl("drpIntTrans")).SelectedValue;

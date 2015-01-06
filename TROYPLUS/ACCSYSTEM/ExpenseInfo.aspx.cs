@@ -626,6 +626,11 @@ public partial class ExpenseInfo : System.Web.UI.Page
         else
             e.InputParameters["Mobile"] = "";
 
+        if (((TextBox)this.frmViewAdd.FindControl("txtdueDateadd")).Text != "")
+            e.InputParameters["OpDueDate"] = ((TextBox)this.frmViewAdd.FindControl("txtdueDateadd")).Text;
+        else
+            e.InputParameters["OpDueDate"] = "";
+
         if (((DropDownList)this.frmViewAdd.FindControl("drpIntTransAdd")) != null)
             e.InputParameters["Inttrans"] = ((DropDownList)this.frmViewAdd.FindControl("drpIntTransAdd")).SelectedValue;
 
@@ -714,6 +719,11 @@ public partial class ExpenseInfo : System.Web.UI.Page
             e.InputParameters["Mobile"] = ((TextBox)this.frmViewAdd.FindControl("txtMobile")).Text;
         else
             e.InputParameters["Mobile"] = "";
+
+        if (((TextBox)this.frmViewAdd.FindControl("txtdueDate")).Text != "")
+            e.InputParameters["OpDueDate"] = ((TextBox)this.frmViewAdd.FindControl("txtdueDate")).Text;
+        else
+            e.InputParameters["OpDueDate"] = "";
 
         if (((DropDownList)this.frmViewAdd.FindControl("drpIntTrans")) != null)
             e.InputParameters["Inttrans"] = ((DropDownList)this.frmViewAdd.FindControl("drpIntTrans")).SelectedValue;

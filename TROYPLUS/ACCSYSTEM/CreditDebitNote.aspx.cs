@@ -111,12 +111,6 @@ public partial class CreditDebitNote : System.Web.UI.Page
         }
     }
 
-    protected void BtnClearFilter_Click(object sender, EventArgs e)
-    {
-        txtSearch.Text = "";
-        ddCriteria.SelectedIndex = 0;
-    }
-
     private void CheckSMSRequired()
     {
         DataSet appSettings;
