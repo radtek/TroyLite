@@ -62283,7 +62283,7 @@ public class BusinessLogic
 
                 dbQry = string.Format(@"INSERT INTO tblEmployeeLeave (EmployeeNo,StartDate,StartDateSession,EndDate,EndDateSession,TotalDays,DateApplied, 
                                         LeaveTypeID,Reason,Status,Approver,ApproverComments,EmailContact,PhoneContact)
-                                        VALUES ({0},'{1}','{2}','{3}','{4}',{5},'{6}',{7},'{8}','{9}',{10},'{11}','{12}','{13}')"
+                                        VALUES ({0},Format('{1}', 'dd/mm/yyyy'),'{2}',Format('{3}', 'dd/mm/yyyy'),'{4}',{5},'{6}',{7},'{8}','{9}',{10},'{11}','{12}','{13}')"
                                             , EmpNo, StartDate, StartDateSession, EndDate, EndDateSession, totalLeaveDays, DateApplied, LeaveTypeId, Reason
                                             , "Submitted", Approver, "", EmailContact, PhoneContact);
 
