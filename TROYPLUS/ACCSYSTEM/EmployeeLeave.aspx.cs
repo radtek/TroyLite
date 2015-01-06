@@ -79,7 +79,7 @@ public partial class EmployeeLeave : System.Web.UI.Page
             BusinessLogic bl = new BusinessLogic(sDataSource);
             UserInfo userInfo = bl.GetUserInfoByName(Request.Cookies["LoggedUserName"].Value);
 
-           lblApproverName.Text = userInfo.ManagerUserName;
+           lblApproverName.Text = userInfo.ManagerEmpName;
            hdfApproverEmpNo.Value = userInfo.ManagerEmpNo.ToString();
 
            ViewState["PopupMode"] = "NEW";
