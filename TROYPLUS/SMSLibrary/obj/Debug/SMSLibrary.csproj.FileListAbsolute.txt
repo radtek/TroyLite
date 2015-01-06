@@ -33,3 +33,8 @@ C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\SMSLibrary\bin\Debug\SMSLibrary
 C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\SMSLibrary\obj\Debug\SMSLibrary.csprojResolveAssemblyReference.cache
 C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\SMSLibrary\obj\Debug\SMSLibrary.dll
 C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\SMSLibrary\obj\Debug\SMSLibrary.pdb
+D:\TroyLite_05JAN\TroyLite\TROYPLUS\SMSLibrary\bin\Debug\SMSLibrary.dll
+D:\TroyLite_05JAN\TroyLite\TROYPLUS\SMSLibrary\bin\Debug\SMSLibrary.pdb
+D:\TroyLite_05JAN\TroyLite\TROYPLUS\SMSLibrary\obj\Debug\SMSLibrary.csprojResolveAssemblyReference.cache
+D:\TroyLite_05JAN\TroyLite\TROYPLUS\SMSLibrary\obj\Debug\SMSLibrary.dll
+D:\TroyLite_05JAN\TroyLite\TROYPLUS\SMSLibrary\obj\Debug\SMSLibrary.pdb

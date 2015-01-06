@@ -62665,7 +62665,7 @@ public class BusinessLogic
             manager.ConnectionString = CreateConnectionString(this.ConnectionString);
 
             string dbQry = string.Empty;
-            int allowedCount = -1;
+            int allowedCount = 0;
             try
             {
                 manager.Open();
@@ -62674,10 +62674,13 @@ public class BusinessLogic
                 dbQry = string.Format(@"SELECT AllowedCount FROM tblEmployeeRoleLeaveLimit ll
                                     INNER JOIN tblEmployee e ON e.EmployeeRoleId = ll.Role_Id
                                     WHERE e.EmpNo={0} AND ll.leaveType_Id={1}", employeeNo, leaveTypeId);
-
-                if (int.TryParse(manager.ExecuteScalar(CommandType.Text, dbQry).ToString(), out allowedCount))
+                var result = manager.ExecuteScalar(CommandType.Text, dbQry);
+                if (result != null)
                 {
-                    return allowedCount;
+                    if (int.TryParse(result.ToString(), out allowedCount))
+                    {
+                        return allowedCount;
+                    }
                 }
                 return allowedCount;
             }

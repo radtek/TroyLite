@@ -145,7 +145,7 @@
                                                                 <tr>
                                                                     <td class="ControlLabel" style="width: 40%">Approver                                                                    
                                                                     </td>
-                                                                    <td class="ControlTextBox3" style="width: 30%">
+                                                                    <td class="ControlTextBox3" style="width: 30%" align="left">
                                                                         <asp:Label ID="lblApproverName" runat="server"
                                                                             TabIndex="1"></asp:Label>
                                                                         <asp:HiddenField ID="hdfApproverEmpNo" runat="server" />
@@ -174,8 +174,11 @@
                                                                     <td class="ControlLabel" style="width: 40%">Balance Leave(s)*                                                                                                                                   
                                                                     </td>
                                                                     <td style="width: 30%">
-                                                                        <asp:TextBox ID="txtBalanceLeaves" runat="server"
-                                                                            SkinID="skinTxtBoxGrid" TabIndex="4"></asp:TextBox>
+                                                                        <asp:TextBox ID="txtBalanceLeaves" runat="server" ReadOnly="true"
+                                                                            SkinID="skinTxtBoxGrid" TabIndex="4" Text="0"></asp:TextBox>
+                                                                        <asp:RangeValidator ID="rngValidatorBalanceLeave" runat="server" Display="Dynamic"
+                                                                            ControlToValidate="txtBalanceLeaves" MinimumValue="1" MaximumValue="999999"
+                                                                            ErrorMessage="Balance leave(s) should not be zero"></asp:RangeValidator>
                                                                     </td>
                                                                     <td style="width: 30%"></td>
 
@@ -195,7 +198,7 @@
                                                                         <asp:DropDownList ID="ddlStartDateSession" runat="server" Width="55px" BackColor="#90c9fc" Style="border: 1px solid blue"
                                                                             Height="26px" CssClass="drpDownListMedium" OnSelectedIndexChanged="ddlStartDateSession_SelectedIndexChanged"
                                                                             TabIndex="3">
-                                                                            <asp:ListItem Text="FN" Value="FN"></asp:ListItem>
+                                                                            <asp:ListItem Text="FN" Value="FN" Selected="True"></asp:ListItem>
                                                                             <asp:ListItem Text="AN" Value="AN"></asp:ListItem>
                                                                         </asp:DropDownList>
                                                                     </td>
@@ -224,7 +227,7 @@
                                                                         <asp:DropDownList ID="ddlEndDateSession" runat="server" Width="55px" BackColor="#90c9fc" Style="border: 1px solid blue" Height="26px" CssClass="drpDownListMedium"
                                                                             TabIndex="3" OnSelectedIndexChanged="ddlStartDateSession_SelectedIndexChanged">
                                                                             <asp:ListItem Text="FN" Value="FN"></asp:ListItem>
-                                                                            <asp:ListItem Text="AN" Value="AN"></asp:ListItem>
+                                                                            <asp:ListItem Text="AN" Value="AN" Selected="True"></asp:ListItem>
                                                                         </asp:DropDownList>
                                                                     </td>
 
@@ -245,7 +248,7 @@
 
                                                                     </td>
                                                                     <td style="width: 30%">
-                                                                        <asp:TextBox ID="txtTotalLeaveDays" runat="server"
+                                                                        <asp:TextBox ID="txtTotalLeaveDays" runat="server" ReadOnly="true"
                                                                             SkinID="skinTxtBoxGrid" TabIndex="4"></asp:TextBox>
                                                                     </td>
                                                                     <td style="width: 30%" align="left">
@@ -291,6 +294,12 @@
                                                                             SkinID="skinTxtBoxGrid" TabIndex="4"></asp:TextBox>
                                                                     </td>
                                                                     <td style="width: 30%"></td>
+
+                                                                </tr>
+                                                                 <tr style="height:25px">
+                                                                    <td colspan="2" style="height:25px" >
+                                                                      
+                                                                    </td>
 
                                                                 </tr>
                                                                 <tr>
