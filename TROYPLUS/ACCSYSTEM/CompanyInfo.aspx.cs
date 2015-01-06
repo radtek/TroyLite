@@ -324,6 +324,16 @@ public partial class CompanyInfo : System.Web.UI.Page
                             if (dr["KeyValue"] != null)
                                 rdvoudateenable.SelectedValue = dr["KeyValue"].ToString();
                         }
+                        else if (dr["Key"].ToString() == "SDISCOUNT")
+                        {
+                            if (dr["KeyValue"] != null)
+                                RadioButtonDiscount.SelectedValue = dr["KeyValue"].ToString();
+                        }
+                        else if (dr["Key"].ToString() == "OPBAL")
+                        {
+                            if (dr["KeyValue"] != null)
+                                RadioButtonOpening.SelectedValue = dr["KeyValue"].ToString();
+                        }
                     }
                 }
             }
@@ -454,6 +464,12 @@ public partial class CompanyInfo : System.Web.UI.Page
                 string emailRequired = string.Empty;
                 string macaddress = string.Empty;
                 string tinnoman = string.Empty;
+                string salesdiscount = string.Empty;
+                string openingbalance = string.Empty;
+
+                salesdiscount = RadioButtonDiscount.SelectedValue;
+                openingbalance  = RadioButtonOpening.SelectedValue;
+
                 emailRequired = rdoemailrequired.SelectedValue;
                 macaddress = rdomacaddress.SelectedValue;
                 tinnoman = rdotinnomandatory.SelectedValue;
@@ -513,7 +529,7 @@ public partial class CompanyInfo : System.Web.UI.Page
 
                 try
                 {
-                    bl.InsertSettings(itemCode, strIP, strQtyReturn, strDate, strBillFormat, currency, dealer, barcode, stockEdit, smsRequired, blitRequired, strOwnerMob, strVATReconDate, strVATAmount, discType, exceedLimit, strBillMethod, strobsolute, droundoff, dsalesseries, autolock, savelog, enablevat, emailRequired, macaddress, tinnoman, enabledate);
+                    bl.InsertSettings(itemCode, strIP, strQtyReturn, strDate, strBillFormat, currency, dealer, barcode, stockEdit, smsRequired, blitRequired, strOwnerMob, strVATReconDate, strVATAmount, discType, exceedLimit, strBillMethod, strobsolute, droundoff, dsalesseries, autolock, savelog, enablevat, emailRequired, macaddress, tinnoman, enabledate, salesdiscount, openingbalance);
 
                     System.Threading.Thread.Sleep(1000);
 

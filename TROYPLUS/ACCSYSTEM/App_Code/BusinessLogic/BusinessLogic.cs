@@ -20439,7 +20439,7 @@ public class BusinessLogic
 
     #region table Settings
 
-    public void InsertSettings(string itemCode, string strIP, string strQtyReturn, string strDate, string strBillFormat, string Currency, string dealer, string barcode, string stockEdit, string SMSrequired, string BiltRequired, string OwnerMobile, string VATReconDate, string VATAmount, string DiscType, string exceedLimit, string strBillMethod, string strobsolute, string droundoff, string dsalesseries, string autolock, string savelog, string enablevat, string emailRequired, string macaddress, string tinnoman, string enabledate)
+    public void InsertSettings(string itemCode, string strIP, string strQtyReturn, string strDate, string strBillFormat, string Currency, string dealer, string barcode, string stockEdit, string SMSrequired, string BiltRequired, string OwnerMobile, string VATReconDate, string VATAmount, string DiscType, string exceedLimit, string strBillMethod, string strobsolute, string droundoff, string dsalesseries, string autolock, string savelog, string enablevat, string emailRequired, string macaddress, string tinnoman, string enabledate, string salesdiscount, string openingbalance)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString); // System.Configuration.ConfigurationManager.ConnectionStrings[connection].ConnectionString;
@@ -20585,6 +20585,16 @@ public class BusinessLogic
             if (enabledate.Trim() != "")
             {
                 dbQry = string.Format("UPDATE tblSettings SET KEYVALUE='{0}' WHERE KEY='ENBLDATE' ", enabledate.ToString());
+                manager.ExecuteNonQuery(CommandType.Text, dbQry);
+            }
+            if (salesdiscount.Trim() != "")
+            {
+                dbQry = string.Format("UPDATE tblSettings SET KEYVALUE='{0}' WHERE KEY='SDISCOUNT' ", salesdiscount.ToString());
+                manager.ExecuteNonQuery(CommandType.Text, dbQry);
+            }
+            if (openingbalance.Trim() != "")
+            {
+                dbQry = string.Format("UPDATE tblSettings SET KEYVALUE='{0}' WHERE KEY='OPBAL' ", openingbalance.ToString());
                 manager.ExecuteNonQuery(CommandType.Text, dbQry);
             }
             
@@ -49913,6 +49923,46 @@ public class BusinessLogic
                  manager.Dispose();
          }
      }
+
+
+     public string getEnableOpBalanceConfig(string connection)
+     {
+         DBManager manager = new DBManager(DataProvider.OleDb);
+         manager.ConnectionString = CreateConnectionString(connection);// +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+         DataSet ds = new DataSet();
+         StringBuilder dbQry = new StringBuilder();
+         string dbQry2 = string.Empty;
+
+         try
+         {
+             manager.Open();
+
+             dbQry.Append("SELECT   KeyValue  From tblSettings WHERE key='OPBAL'");
+
+             ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+             if (ds.Tables[0].Rows.Count > 0)
+                 return ds.Tables[0].Rows[0]["KeyValue"].ToString();
+             else
+                 return "";
+         }
+         catch (Exception ex)
+         {
+             throw ex;
+         }
+         finally
+         {
+             if (manager != null)
+                 manager.Dispose();
+         }
+     }
+
+
+
+
+
+
+
 
      public DataSet getFlashstatement(string sDataSource, DateTime startDate, DateTime endDate)
      {

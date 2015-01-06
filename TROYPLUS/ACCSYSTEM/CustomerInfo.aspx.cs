@@ -16,6 +16,7 @@ using System.Net.Mail;
 public partial class CustomerInfo : System.Web.UI.Page
 {
     public string sDataSource = string.Empty;
+    string EnableOpbalance = string.Empty;
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -340,8 +341,32 @@ public partial class CustomerInfo : System.Web.UI.Page
 
             frmViewAdd.ChangeMode(FormViewMode.Insert);
             frmViewAdd.Visible = true;
-
+           
             ModalPopupExtender1.Show();
+
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+            string connection = Request.Cookies["Company"].Value;
+
+            EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
+            if (EnableOpbalance == "YES")
+            {
+                ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtdueDateadd")).Enabled = true;
+                ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtOpenBalAdd")).Enabled = true;
+                ((DropDownList)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("ddCRDRAdd")).Enabled = true;
+                ((ImageButton)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("btnBillDate")).Enabled = true;
+
+                //txtdueDateadd.Enabled = true;
+            }
+            else
+            {
+                ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtdueDateadd")).Enabled = false;
+
+                ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtOpenBalAdd")).Enabled = false;
+                ((DropDownList)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("ddCRDRAdd")).Enabled = false;
+
+                ((ImageButton)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("btnBillDate")).Enabled = false;
+                //txtdueDateadd.Enabled = false;
+            }
 
             //((DropDownList)this.frmViewAdd.FindControl("drpLedgerCatAdd")).SelectedValue = "Customer";
             //((DropDownList)this.frmViewAdd.FindControl("drpLedgerCatAdd")).BorderColor = System.Drawing.Color.PowderBlue;

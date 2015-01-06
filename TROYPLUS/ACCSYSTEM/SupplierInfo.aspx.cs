@@ -14,6 +14,7 @@ using System.Text;
 public partial class SupplierInfo : System.Web.UI.Page
 {
     public string sDataSource = string.Empty;
+    public string EnableOpbalance = string.Empty;
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -378,6 +379,31 @@ public partial class SupplierInfo : System.Web.UI.Page
             ModalPopupExtender1.Show();
 
             popUp.Visible = true;
+
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+            string connection = Request.Cookies["Company"].Value;
+
+            EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
+            if (EnableOpbalance == "YES")
+            {
+                ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtdueDateadd")).Enabled = true;
+                ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtOpenBalAdd")).Enabled = true;
+                ((DropDownList)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("ddCRDRAdd")).Enabled = true;
+                ((ImageButton)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("btnBillDate")).Enabled = true;
+
+                //txtdueDateadd.Enabled = true;
+            }
+            else
+            {
+                ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtdueDateadd")).Enabled = false;
+
+                ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtOpenBalAdd")).Enabled = false;
+                ((DropDownList)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("ddCRDRAdd")).Enabled = false;
+
+                ((ImageButton)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("btnBillDate")).Enabled = false;
+                //txtdueDateadd.Enabled = false;
+            }
+
 
             //if (frmViewAdd.CurrentMode == FormViewMode.Insert)
             //{
