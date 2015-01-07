@@ -82,6 +82,28 @@ public partial class CustomerPayment : System.Web.UI.Page
         }
     }
 
+
+    protected void ddBanksAdd_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        loadChequeNo(Convert.ToInt32(ddBanksAdd.SelectedItem.Value));        
+    }
+
+    private void loadChequeNo(int bnkId)
+    {
+        //cmbChequeNo.Items.Clear();
+        ////string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
+        //BusinessLogic bl = new BusinessLogic(sDataSource);
+        //DataSet ds = new DataSet();
+        ////ds = bl.ListChequeNo(bnkId);
+        //ds = bl.ListChequeNo(bnkId);
+        //cmbChequeNo.DataSource = ds;
+        //cmbChequeNo.DataBind();
+        //cmbChequeNo.DataTextField = "ChequeNo";
+        //cmbChequeNo.DataValueField = "ChequeNo";       
+
+    }
+
+
     private void CheckSMSRequired()
     {
         DataSet appSettings;

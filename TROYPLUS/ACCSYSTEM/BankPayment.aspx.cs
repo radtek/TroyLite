@@ -76,6 +76,30 @@ public partial class BankPayment : System.Web.UI.Page
         GridSource.SelectParameters.Add(new ControlParameter("dropDown", TypeCode.String, ddCriteria.UniqueID, "SelectedValue"));
     }
 
+    protected void ddBanks_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        loadChequeNo(Convert.ToInt32(ddBanks.SelectedItem.Value));
+    }
+
+    protected void ddBanksAdd_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        loadChequeNo(Convert.ToInt32(ddBanksAdd.SelectedItem.Value));
+    }
+
+    private void loadChequeNo(int bnkId)
+    {
+        cmbChequeNo1.Items.Clear();
+        //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataSet ds = new DataSet();
+        ds = bl.ListChequeNo(bnkId);
+        cmbChequeNo1.DataSource = ds;
+        cmbChequeNo1.DataBind();
+        cmbChequeNo1.DataTextField = "ChequeNo";
+        cmbChequeNo1.DataValueField = "ChequeNo";
+
+    }
+
     protected void BtnClearFilter_Click(object sender, EventArgs e)
     {
         try
