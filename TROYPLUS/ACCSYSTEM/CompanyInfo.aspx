@@ -678,6 +678,28 @@
                                                                                                </tr>
                                                     <tr>
                                                         <td style="width: 25%" class="ControlLabel">
+                                                            Opening Balance
+                                                        </td>
+                                                        <td style="width: 20%" class="ControlTextBox3">
+                                                            <asp:RadioButtonList ID="RadioButtonOpening" runat="server" RepeatDirection="Horizontal">
+                                                                <asp:ListItem Selected="True" Text="YES"></asp:ListItem>
+                                                                <asp:ListItem Text="NO"></asp:ListItem>
+                                                            </asp:RadioButtonList>
+                                                        </td>
+                                                        <td style="width: 15%" class="ControlLabel">
+                                                            Sales Discount
+                                                        </td>
+                                                        <td style="width: 20%" class="ControlTextBox3">
+                                                            <asp:RadioButtonList ID="RadioButtonDiscount" runat="server" RepeatDirection="Horizontal">
+                                                                <asp:ListItem Selected="True" Text="YES"></asp:ListItem>
+                                                                <asp:ListItem Text="NO"></asp:ListItem>
+                                                            </asp:RadioButtonList>
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="height:2px">
+                                                                                               </tr>
+                                                    <tr>
+                                                        <td style="width: 25%" class="ControlLabel">
                                                             MAC Blocking
                                                         </td>
                                                         <td style="width: 20%" class="ControlTextBox3">

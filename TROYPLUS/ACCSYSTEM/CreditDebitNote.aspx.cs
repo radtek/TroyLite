@@ -111,12 +111,6 @@ public partial class CreditDebitNote : System.Web.UI.Page
         }
     }
 
-    protected void BtnClearFilter_Click(object sender, EventArgs e)
-    {
-        txtSearch.Text = "";
-        ddCriteria.SelectedIndex = 0;
-    }
-
     private void CheckSMSRequired()
     {
         DataSet appSettings;
@@ -311,7 +305,7 @@ public partial class CreditDebitNote : System.Web.UI.Page
             if (HiddenField2.Value == "1")
             {
                 string usernam = Request.Cookies["LoggedUserName"].Value;
-                bl.InsertLedgerInfo(connection, "CreditDebitNoteId", "CreditDebitNoteId", 1, 0, 0, 0, "", "CreditDebitNoteId", "", "", "", "", "Customer", 0, "", "", "NO", "NO", "NO", "CreditDebitNoteId", usernam, "NO","",3);
+                bl.InsertLedgerInfo(connection, "CreditDebitNoteId", "CreditDebitNoteId", 1, 0, 0, 0, "", "CreditDebitNoteId", "", "", "", "", "Customer", 0, "", "", "NO", "NO", "NO", "CreditDebitNoteId", usernam, "NO","",3,"");
                 HiddenField1.Value = "1";
             }
 
@@ -323,6 +317,16 @@ public partial class CreditDebitNote : System.Web.UI.Page
             TroyLiteExceptionManager.HandleException(ex);
         }
     }
+
+
+
+    protected void BtnClearFilter_Click(object sender, EventArgs e)
+    {
+        txtSearch.Text = "";
+        ddCriteria.SelectedIndex = 0;
+    }
+
+
     protected void InsertCancelButton_Click(object sender, EventArgs e)
     {
         try

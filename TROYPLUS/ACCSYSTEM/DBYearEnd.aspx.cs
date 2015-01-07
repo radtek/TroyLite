@@ -119,39 +119,9 @@ public partial class DBYearEnd : System.Web.UI.Page
                     val = val + 1;
                 }
 
-                path = Server.MapPath("App_Data\\" + a + val + ".mdb");
-                DBname = "Default";
+                path = Server.MapPath("App_Data\\" + DBname + ".mdb");
                 
-                NewDB = a + val;
-                string connection = a + val;
-
-
-                /////////////
-                DataSet dsd = bl.GetYearEndUpdation(sDataSource);
-                string connect = "";
-                if (dsd != null)
-                {
-                    if (dsd.Tables[0].Rows.Count > 0)
-                    {
-                        foreach (DataRow dr in dsd.Tables[0].Rows)
-                        {
-                            connect = Convert.ToString(dr["yearname"]);
-                        }
-                    }
-                }
-                if (connect == NewDB)
-                {
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('New Account " + NewDB + " has already been created.');", true);
-                    return;
-                }
-                ///////////
-
-
                 bl.changeReconDate(sDataSource);
-                bl.InsertYearEndUpdation(sDataSource, path, connection,"");
-
-                File.Copy(Server.MapPath("App_Data\\" + DBname + ".mdb"), path);
-
 
                 //BusinessLogic objChk = new BusinessLogic();
                 //sDtSource = ConfigurationManager.ConnectionStrings[connection].ToString();
@@ -178,15 +148,145 @@ public partial class DBYearEnd : System.Web.UI.Page
                     command.CommandText = string.Format("Update last_recon Set recon_date=Format('" + nowdate + "', 'MM/dd/yyyy')");
                     command.ExecuteNonQuery();
 
+                    command.CommandText = string.Format("Update tblLedger SET Debit={0},Credit={1},OpenBalanceDr={2},OpenBalanceCr={3},OpDueDate=Format('{4}', 'dd/mm/yyyy') ", 0, 0, 0, 0, nowdate);
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblStock");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblAudit");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblAuditBrand");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblAuditCategories");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblAuditCreditDebitNote");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblAuditDayBook");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblAuditLedger");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblAuditPayMent");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblAuditPaymentAmount");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblAuditPurchase");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblAuditProductMaster");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblAuditPurchaseItems");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblAuditReceipt");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblAuditReceivedAmount");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblAuditSales");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblAuditSalesItems");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblAuditTaskTypes");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblAuditTaskStatus");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblBankRec");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblBankRecon");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblCommission");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblCommissionItems");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblCompetitors");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblCreditDebitNote");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblDayBook");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblExecution");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblFormula");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblPurchaseItems");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblPayMent");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblPaymentAmount");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblProjects");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblPurchase");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblReceipt");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblReceivedAmount");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblSales");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblSalesItems");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblPurchase");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblTimeSheetEntry");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblOpeningDcSales");
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = string.Format("Delete from tblopeningDcSalesItems");
+                    command.ExecuteNonQuery();
+
+                    //command.CommandText = string.Format("Delete from tblPurchase");
+                    //command.ExecuteNonQuery();
+
+                    //command.CommandText = string.Format("Delete from tblPurchase");
+                    //command.ExecuteNonQuery();
+
+                    //command.CommandText = string.Format("Delete from tblPurchase");
+                    //command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Update tblProductMaster SET Stock={0}", 0);
+                    //command.ExecuteNonQuery();
+
                     transaction.Commit();
                     con.Close();
                 }
 
-            
-                //Web.config
-                AddUpdateConnectionString(connection, path, "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Persist Security Info=True;Jet OLEDB:Database Password=j9MBWTeB7meRuELFLwlkVltsY7xhiYEe15AcFgrljtk=");
-
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('New Account " + NewDB + " is Created Successfully.');", true);
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('" + DBname + " is Refreshed Successfully.');", true);
 
             }
         }
@@ -801,19 +901,27 @@ public partial class DBYearEnd : System.Web.UI.Page
             sDataSource = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
             DataSet dsd = bl.GetYearEndUpdation(sDataSource);
 
-            string connection = "";
-            string path = "";
-            if (dsd != null)
+            string a = string.Empty;
+            string b = string.Empty;
+            string path = string.Empty;
+
+            string DBname = string.Empty;
+            DBname = GetCurrentDBName(sDataSource);//ConfigurationSettings.AppSettings["DBName"].ToString();
+
+            int val = 0;
+            for (int i = 0; i < DBname.Length; i++)
             {
-                if (dsd.Tables[0].Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dsd.Tables[0].Rows)
-                    {
-                        connection = Convert.ToString(dr["yearname"]);
-                        path = Convert.ToString(dr["path"]);
-                    }
-                }
+                if (Char.IsDigit(DBname[i]))
+                    b += DBname[i];
+                else
+                    a += DBname[i];
             }
+            if (b.Length > 0)
+            {
+                val = int.Parse(b);
+            }
+
+            path = Server.MapPath("App_Data\\" + DBname + ".mdb");
 
             //BusinessLogic objChk = new BusinessLogic();
             //sDtSource = ConfigurationManager.ConnectionStrings[connection].ToString();
@@ -870,9 +978,7 @@ public partial class DBYearEnd : System.Web.UI.Page
                                     {
                                         command.CommandText = string.Format("Update tblStock SET openingstock={0} Where ItemCode = '{1}'", CurrentStock, ItemCode);
                                         command.ExecuteNonQuery();
-
-                                        command.CommandText = string.Format("Update tblProductMaster SET tblProductMaster.Stock =  tblProductMaster.Stock + {0} Where ItemCode = '{1}'", diffstock, ItemCode);
-                                        command.ExecuteNonQuery();
+    
                                     }
                                 }
                             }
@@ -881,31 +987,31 @@ public partial class DBYearEnd : System.Web.UI.Page
                                 command.CommandText = string.Format("Insert into tblStock(itemcode,openingstock,productname,model,productdesc,categoryid) Values('{0}',{1},'{2}','{3}','{4}',{5})", ItemCode, CurrentStock, Convert.ToString(dr["productname"]), Convert.ToString(dr["model"]), Convert.ToString(dr["productdesc"]), Convert.ToInt32(dr["categoryid"]));
                                 command.ExecuteNonQuery();
 
-                                if (CurrentStock > 0)
-                                {
-                                    command.CommandText = string.Format("SELECT * FROM tblProductMaster Where ItemCode ='" + ItemCode + "' ");
-                                    command.ExecuteNonQuery();
-                                    adapter = new OleDbDataAdapter(command);
-                                    adapter.Fill(dsa);
-                                    if (dsa.Tables[0].Rows.Count > 0)
-                                    {
-                                        foreach (DataRow drr in dsa.Tables[0].Rows)
-                                        {
-                                            prevstock = Convert.ToDouble(drr["stock"]);
-                                            if (prevstock == 0)
-                                            {
-                                                command.CommandText = string.Format("Update tblProductMaster SET Stock={0} Where ItemCode = '{1}'", CurrentStock, ItemCode);
-                                                command.ExecuteNonQuery();
-                                            }
-                                            else
-                                            {
-                                                command.CommandText = string.Format("Update tblProductMaster SET tblProductMaster.Stock =  tblProductMaster.Stock + {0} Where ItemCode = '{1}'", CurrentStock, ItemCode);
-                                                command.ExecuteNonQuery();
-                                            }
-                                        }
-                                    }
-                                    dsa.Clear();
-                                }
+                                //if (CurrentStock > 0)
+                                //{
+                                //    command.CommandText = string.Format("SELECT * FROM tblProductMaster Where ItemCode ='" + ItemCode + "' ");
+                                //    command.ExecuteNonQuery();
+                                //    adapter = new OleDbDataAdapter(command);
+                                //    adapter.Fill(dsa);
+                                //    if (dsa.Tables[0].Rows.Count > 0)
+                                //    {
+                                //        foreach (DataRow drr in dsa.Tables[0].Rows)
+                                //        {
+                                //            prevstock = Convert.ToDouble(drr["stock"]);
+                                //            if (prevstock == 0)
+                                //            {
+                                //                command.CommandText = string.Format("Update tblProductMaster SET Stock={0} Where ItemCode = '{1}'", CurrentStock, ItemCode);
+                                //                command.ExecuteNonQuery();
+                                //            }
+                                //            else
+                                //            {
+                                //                command.CommandText = string.Format("Update tblProductMaster SET tblProductMaster.Stock =  tblProductMaster.Stock + {0} Where ItemCode = '{1}'", CurrentStock, ItemCode);
+                                //                command.ExecuteNonQuery();
+                                //            }
+                                //        }
+                                //    }
+                                //    dsa.Clear();
+                                //}
                             }
 
                             ds.Clear();
@@ -936,25 +1042,28 @@ public partial class DBYearEnd : System.Web.UI.Page
             string sXmlPath = Server.MapPath(fileName);
             BusinessLogic bl = new BusinessLogic();
             sDataSource = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
-            DataSet dsd = bl.GetYearEndUpdation(sDataSource);
+            string DBname = string.Empty;
 
-            string connection = "";
-            string path = "";
-            if (dsd != null)
+            string a = string.Empty;
+            string b = string.Empty;
+            string path = string.Empty;
+            DBname = GetCurrentDBName(sDataSource);//ConfigurationSettings.AppSettings["DBName"].ToString();
+
+            int val = 0;
+            for (int i = 0; i < DBname.Length; i++)
             {
-                if (dsd.Tables[0].Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dsd.Tables[0].Rows)
-                    {
-                        connection = Convert.ToString(dr["yearname"]);
-                        path = Convert.ToString(dr["path"]);
-                    }
-                }
+                if (Char.IsDigit(DBname[i]))
+                    b += DBname[i];
+                else
+                    a += DBname[i];
+            }
+            if (b.Length > 0)
+            {
+                val = int.Parse(b);
             }
 
-            //BusinessLogic objChk = new BusinessLogic();
-            //sDtSource = ConfigurationManager.ConnectionStrings[connection].ToString();
-            //string sConStr = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + sDtSource;
+            path = Server.MapPath("App_Data\\" + DBname + ".mdb");
+            string nowdate = "31/03/" + val;
 
             using (OleDbConnection con = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Persist Security Info=True;Jet OLEDB:Database Password=moonmoon"))
             {
@@ -987,78 +1096,8 @@ public partial class DBYearEnd : System.Web.UI.Page
                             obD = Convert.ToDouble(dr["Debit"]);
                             obC = Convert.ToDouble(dr["Credit"]);
                             sLedger = dr["LedgerName"].ToString();
-                            command.CommandText = string.Format("Update tblLedger SET Debit={0},Credit={1},OpenBalanceDr={2},OpenBalanceCr={3} Where LedgerName = '{4}'", 0, 0, obD, obC, sLedger);
+                            command.CommandText = string.Format("Update tblLedger SET Debit={0},Credit={1},OpenBalanceDr={2},OpenBalanceCr={3},OpDueDate=Format('{4}', 'dd/mm/yyyy') Where LedgerName = '{5}'", 0, 0, obD, obC, nowdate, sLedger);
                             command.ExecuteNonQuery();
-                        }
-                    }
-                }
-
-                DataSet ds = new DataSet();
-                DataSet dsdttt = new DataSet();
-                DataSet dsdt = bl.YearEndOutStandingReportCustomer(iGroupID, sXmlNodeName, sDataSource, sXmlPath);
-                if (dsdt != null)
-                {
-                    if (dsdt.Tables[0].Rows.Count > 0)
-                    {
-                        foreach (DataRow dr in dsdt.Tables[0].Rows)
-                        {
-                            obD = Convert.ToDouble(dr["Debit"]);
-                            obC = Convert.ToDouble(dr["Credit"]);
-                            sLedger = dr["LedgerName"].ToString();
-
-                            command.CommandText = string.Format("SELECT * FROM tblLedger Where LedgerName ='" + sLedger + "' ");
-                            command.ExecuteNonQuery();
-                            adapter = new OleDbDataAdapter(command);
-                            adapter.Fill(ds);
-
-                            if (ds.Tables[0].Rows.Count > 0)
-                            {
-                                command.CommandText = string.Format("Update tblLedger SET Debit={0},Credit={1},OpenBalanceDr={2},OpenBalanceCr={3} Where LedgerName = '{4}'", 0, 0, obD, obC, sLedger);
-                                command.ExecuteNonQuery();
-                            }
-                            else
-                            {
-                                //DataSet dsddtd = bl.GetAllMasters(sDataSource, "Customers", sLedger);
-                                //if (dsddtd != null)
-                                //{
-                                //    if (dsddtd.Tables[0].Rows.Count > 0)
-                                //    {
-                                //        foreach (DataRow drr in dsddtd.Tables[0].Rows)
-                                //        {
-                                //            command.CommandText = string.Format("INSERT INTO tblLedger(LedgerID,LedgerName, AliasName,GroupID,OpenBalanceDR,OpenBalanceCR,Debit,Credit,ContactName,Add1,Add2,Add3,Phone,BelongsTo,LedgerCategory,ExecutiveIncharge,TinNumber,Mobile,Inttrans,Paymentmade,dc,ChequeName,unuse,SFNo) VALUES({0},'{1}','{2}',{3},{4},{5},{6},{7},'{8}','{9}','{10}','{11}','{12}',{13},'{14}',{15},'{16}','{17}','{18}','{19}','{20}','{21}','{22}','{23}')",
-                                //                    Convert.ToInt32(drr["ledgerid"]), Convert.ToString(drr["ledgername"]), Convert.ToString(drr["AliasName"]), Convert.ToInt32(drr["groupid"]), obD, obC, 0, 0, Convert.ToString(drr["ContactName"]), Convert.ToString(drr["Add1"]), Convert.ToString(drr["Add2"]), Convert.ToString(drr["Add3"]), Convert.ToString(drr["Phone"]), 0, Convert.ToString(drr["LedgerCategory"]), Convert.ToInt32(drr["ExecutiveIncharge"]), Convert.ToString(drr["TinNumber"]), Convert.ToString(drr["Mobile"]), Convert.ToString(drr["Inttrans"]), Convert.ToString(drr["paymentmade"]), Convert.ToString(drr["dc"]), Convert.ToString(drr["ChequeName"]), Convert.ToString(drr["unuse"]), Convert.ToString(drr["SFNo"]));
-                                //            command.ExecuteNonQuery();
-                                //        }
-                                //    }
-                                //}
-                                if ((obD == 0) && (obC == 0))
-                                {
-                                }
-                                else
-                                {
-
-                                    int LedgerID = 0;
-                                    command.CommandText = string.Format("SELECT MAX(LedgerID) as MLedgerID FROM tblLedger");
-                                    command.ExecuteNonQuery();
-                                    adapter = new OleDbDataAdapter(command);
-                                    adapter.Fill(dsdttt);
-                                    if (dsdttt.Tables[0].Rows.Count > 0)
-                                    {
-                                        foreach (DataRow drd in dsdttt.Tables[0].Rows)
-                                        {
-                                            LedgerID = Convert.ToInt32(drd["MLedgerID"]);
-                                        }
-                                    }
-
-                                    command.CommandText = string.Format("INSERT INTO tblLedger(LedgerID,LedgerName, AliasName,GroupID,OpenBalanceDR,OpenBalanceCR,Debit,Credit,ContactName,Add1,Add2,Add3,Phone,BelongsTo,LedgerCategory,ExecutiveIncharge,TinNumber,Mobile,Inttrans,Paymentmade,dc,ChequeName,unuse,SFNo) VALUES({0},'{1}','{2}',{3},{4},{5},{6},{7},'{8}','{9}','{10}','{11}','{12}',{13},'{14}',{15},'{16}','{17}','{18}','{19}','{20}','{21}','{22}','{23}')",
-                                                    LedgerID + 1, Convert.ToString(dr["ledgername"]), Convert.ToString(dr["AliasName"]), Convert.ToInt32(dr["groupid"]), obD, obC, 0, 0, Convert.ToString(dr["ContactName"]), Convert.ToString(dr["Add1"]), Convert.ToString(dr["Add2"]), Convert.ToString(dr["Add3"]), Convert.ToString(dr["Phone"]), 0, Convert.ToString(dr["LedgerCategory"]), Convert.ToInt32(dr["ExecutiveIncharge"]), Convert.ToString(dr["TinNumber"]), Convert.ToString(dr["Mobile"]), Convert.ToString(dr["Inttrans"]), Convert.ToString(dr["paymentmade"]), Convert.ToString(dr["dc"]), Convert.ToString(dr["ChequeName"]), Convert.ToString(dr["unuse"]), Convert.ToString(dr["SFNo"]));
-                                    command.ExecuteNonQuery();
-
-                                    LedgerID = 0;
-                                }
-                            }
-
-                            ds.Clear();
                         }
                     }
                 }

@@ -281,9 +281,15 @@
                                                                         <asp:ListItem Text="YES" Value="YES"></asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </td>
-                                                                <td>
+                                                               <td class="ControlLabel" style="width: 14%">OpBalance DueDate</td>
+                                                                <td class="ControlTextBox3" style="width:28%">
+                                                                    <asp:TextBox ID="txtdueDate" MaxLength="10" TabIndex="13" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
+                                                                        SkinID="skinTxtBoxGrid"></asp:TextBox>
+                                                                    <cc1:CalendarExtender ID="calBillDate" runat="server" Enabled="True" Format="dd/MM/yyyy" PopupButtonID="btnBillDate" TargetControlID="txtdueDate">
+                                                                                </cc1:CalendarExtender>
                                                                 </td>
-                                                                <td>
+                                                                <td style="width: 14%;" align="left">
+                                                                       <asp:ImageButton ID="btnBillDate" runat="server" CausesValidation="False" ImageUrl="App_Themes/NewTheme/images/cal.gif" Width="20px" />
                                                                 </td>
                                                             </tr>
                                                             <%--<tr>
@@ -510,8 +516,8 @@
                                                                 </td>
                                                                 <td class="ControlNumberBox3" style="width:25%">
                                                                     <asp:TextBox ID="txtOpenBalAdd" runat="server" Text="0"
-                                                                          style="border: 1px solid #e7e7e7" Width="60%" TabIndex="2"  BackColor = "#e7e7e7"></asp:TextBox>
-                                                                    <asp:DropDownList ID="ddCRDRAdd" runat="server" Width="55px" BackColor = "#e7e7e7"  style="border: 1px solid Gray" height="26px" CssClass="drpDownListMedium" SelectedValue='<%# Bind("DRORCR") %>'
+                                                                          style="border: 1px solid #e7e7e7" Width="60%" TabIndex="2"  Enabled="false" BackColor = "#e7e7e7"></asp:TextBox>
+                                                                    <asp:DropDownList ID="ddCRDRAdd" runat="server" Width="55px"  Enabled="false" BackColor = "#e7e7e7"  style="border: 1px solid Gray" height="26px" CssClass="drpDownListMedium" SelectedValue='<%# Bind("DRORCR") %>'
                                                                         TabIndex="3">
                                                                         <asp:ListItem Text="CR" Value="CR"></asp:ListItem>
                                                                         <asp:ListItem Text="DR" Value="DR"></asp:ListItem>
@@ -566,10 +572,15 @@
                                                                         <asp:ListItem Text="YES" Value="YES" Selected="True"></asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </td>
-                                                                <td style="width:20%">
-
+                                                              <td class="ControlLabel" style="width: 14%">OpBalance DueDate</td>
+                                                                <td class="ControlTextBox3" style="width:28%">
+                                                                    <asp:TextBox ID="txtdueDateadd" MaxLength="10" TabIndex="13" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
+                                                                        SkinID="skinTxtBoxGrid"></asp:TextBox>
+                                                                    <cc1:CalendarExtender ID="calBillDate1" runat="server" Enabled="True" Format="dd/MM/yyyy" PopupButtonID="btnBillDate1" TargetControlID="txtdueDateadd">
+                                                                                </cc1:CalendarExtender>
                                                                 </td>
-                                                                <td>
+                                                                <td style="width: 14%;" align="left">
+                                                                       <asp:ImageButton ID="btnBillDate1" runat="server" CausesValidation="False" ImageUrl="App_Themes/NewTheme/images/cal.gif" Width="20px" />
                                                                 </td>
                                                             </tr>
                                                             <%--<tr style="height:3px">
@@ -882,6 +893,7 @@
                                 <asp:Parameter Name="unuse" Type="String" />
                                 <asp:Parameter Name="EmailId" Type="String" />
                                 <asp:Parameter Name="ModeofContact" Type="Int32" />
+                                 <asp:Parameter Name="OpDueDate" Type="String" />
                             </UpdateParameters>
                             <SelectParameters>
                                 <asp:ControlParameter ControlID="GrdViewLedger" Name="LedgerID" PropertyName="SelectedValue"
@@ -914,6 +926,7 @@
                                 <asp:Parameter Name="unuse" Type="String" />
                                 <asp:Parameter Name="EmailId" Type="String" />
                                 <asp:Parameter Name="ModeofContact" Type="Int32" />
+                                 <asp:Parameter Name="OpDueDate" Type="String" />
                             </InsertParameters>
                         </asp:ObjectDataSource>
                     </td>
