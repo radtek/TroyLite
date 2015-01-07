@@ -336,16 +336,13 @@
                                                                                                                                     <%--</ContentTemplate>
                                                                                                                                 </asp:UpdatePanel>--%>
                                                                                                                             </td>
-                                                                                                                                <td style="width: 10%;" class="ControlLabel">Address1</td>
-                                                                                                                            <td class="ControlTextBox3" style="width: 24%">
-                                                                                                                                <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
-                                                                                                                                    <ContentTemplate>
-                                                                                                                                            <asp:TextBox ID="txtAddress" runat="server" BackColor="#e7e7e7" CssClass="cssTextBox" Height="26px" MaxLength="200" SkinID="skinTxtBox" TabIndex="3" Width="50%"></asp:TextBox>
-                                                                                                                                    </ContentTemplate>
-                                                                                                                                    <Triggers>
-                                                                                                                                        <asp:AsyncPostBackTrigger ControlID="cmbCustomer" EventName="SelectedIndexChanged" />
-                                                                                                                                    </Triggers>
-                                                                                                                                </asp:UpdatePanel>
+                                                                                                                                <td style="width: 10%;" class="ControlLabel">
+                                                                                                                                    Category *
+                                                                                                                                </td>
+                                                                                                                            <td class="ControlDrpBorder" style="width: 24%">
+                                                                                                                                <asp:DropDownList ID="drpCustomerCategoryAdd" runat="server" AppendDataBoundItems="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="CusCategory_Name" DataValueField="CusCategory_Value" height="26px" style="border: 1px solid #e7e7e7" TabIndex="2" ValidationGroup="salesval" Width="100%">
+                                                                                                                                    <asp:ListItem style="background-color: #e7e7e7" Text="Select Customer Category" Value="0"></asp:ListItem>
+                                                                                                                                </asp:DropDownList>
                                                                                                                             </td>
                                                                                                                                 <td align="left" style="width: 13%;"></td>
                                                                                                                         </tr>
@@ -380,11 +377,11 @@
                                                                                                                                 </asp:UpdatePanel>
                                                                                                                             </td>
                                                                                                                                 <td style="width: 7%;"></td>
-                                                                                                                            <td class="ControlLabel" style="width: 10%;">Address2 </td>
+                                                                                                                            <td class="ControlLabel" style="width: 10%;"> Address1</td>
                                                                                                                             <td class="ControlTextBox3" style="width: 24%;">
-                                                                                                                                <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
+                                                                                                                                <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
                                                                                                                                     <ContentTemplate>
-                                                                                                                                            <asp:TextBox ID="txtAddress2" runat="server" BackColor="#e7e7e7" CssClass="cssTextBox" Height="26px" MaxLength="200" SkinID="skinTxtBox" TabIndex="5" Width="500px"></asp:TextBox>
+                                                                                                                                            <asp:TextBox ID="txtAddress" runat="server" BackColor="#e7e7e7" CssClass="cssTextBox" Height="26px" MaxLength="200" SkinID="skinTxtBox" TabIndex="3" Width="50%"></asp:TextBox>
                                                                                                                                     </ContentTemplate>
                                                                                                                                     <Triggers>
                                                                                                                                         <asp:AsyncPostBackTrigger ControlID="cmbCustomer" EventName="SelectedIndexChanged" />
@@ -410,11 +407,11 @@
                                                                                                                                 </asp:UpdatePanel>
                                                                                                                             </td>
                                                                                                                             <td style="width: 7%;"></td>
-                                                                                                                            <td class="ControlLabel" style="width: 10%;">Address3 </td>
+                                                                                                                            <td class="ControlLabel" style="width: 10%;"> Address2</td>
                                                                                                                             <td class="ControlTextBox3" style="width: 24%">
-                                                                                                                                <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
+                                                                                                                                <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
                                                                                                                                     <ContentTemplate>
-                                                                                                                                        <asp:TextBox ID="txtAddress3" runat="server" BackColor="#e7e7e7" CssClass="cssTextBox" MaxLength="200" SkinID="skinTxtBox" Width="500px"></asp:TextBox>
+                                                                                                                                            <asp:TextBox ID="txtAddress2" runat="server" BackColor="#e7e7e7" CssClass="cssTextBox" Height="26px" MaxLength="200" SkinID="skinTxtBox" TabIndex="5" Width="500px"></asp:TextBox>
                                                                                                                                     </ContentTemplate>
                                                                                                                                     <Triggers>
                                                                                                                                         <asp:AsyncPostBackTrigger ControlID="cmbCustomer" EventName="SelectedIndexChanged" />
@@ -439,10 +436,36 @@
                                                                                                                                 </asp:UpdatePanel>
                                                                                                                             </td>
                                                                                                                             <td style="width: 7%;"></td>
+                                                                                                                            <td style="width: 10%;" class="ControlLabel">
+                                                                                                                                Address3
+                                                                                                                            </td>
+                                                                                                                            <td class="ControlTextBox3" style="width: 24%">
+                                                                                                                                <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
+                                                                                                                                    <ContentTemplate>
+                                                                                                                                        <asp:TextBox ID="txtAddress3" runat="server" BackColor="#e7e7e7" CssClass="cssTextBox" MaxLength="200" SkinID="skinTxtBox" Width="500px"></asp:TextBox>
+                                                                                                                                    </ContentTemplate>
+                                                                                                                                    <Triggers>
+                                                                                                                                        <asp:AsyncPostBackTrigger ControlID="cmbCustomer" EventName="SelectedIndexChanged" />
+                                                                                                                                    </Triggers>
+                                                                                                                                </asp:UpdatePanel>
+                                                                                                                            </td>
+                                                                                                                            <td style="width: 13%;"></td>
+                                                                                                                        </tr>
+                                                                                                                        <tr style="height: 2px;">
+                                                                                                                        </tr>
+                                                                                                                        <tr>
+                                                                                                                            <td class="ControlLabel" style="width: 25%;" valign="middle">
+                                                                                                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtdespatced" CssClass="lblFont" Display="Dynamic" ErrorMessage="Despatched From is mandatory" Text="*" ValidationGroup="salesval"></asp:RequiredFieldValidator>
+                                                                                                                                Despatched From * </td>
+                                                                                                                            <td class="ControlTextBox3" style="width: 24%;">
+                                                                                                                                <asp:TextBox ID="txtdespatced" runat="server" BackColor="#e7e7e7" MaxLength="10" SkinID="skinTxtBoxGrid" TabIndex="8" Width="200px"></asp:TextBox>
+                                                                                                                            </td>
+                                                                                                                            <td style="width: 7%;"></td>
+                                                                                                                            <td class="ControlLabel" style="width: 10%;"> 
                                                                                                                                 <td class="ControlLabel" style="width: 10%;">Executive *
                                                                                                                                 <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="drpIncharge" Display="Dynamic" ErrorMessage="Please Select Executive!!" Operator="GreaterThan" Text="*" ValidationGroup="salesval" ValueToCompare="0"></asp:CompareValidator>
                                                                                                                             </td>
-                                                                                                                            <td class="ControlDrpBorder" style="width: 24%">
+                                                                                                                            <td style="width: 24%" class="ControlDrpBorder">
                                                                                                                                 <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
                                                                                                                                     <ContentTemplate>
                                                                                                                                             <asp:DropDownList ID="drpIncharge" runat="server" AppendDataBoundItems="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="empFirstName" DataValueField="empno" Enabled="True" Height="26px" Style="border: 1px solid #e7e7e7" TabIndex="8" Width="100%">
@@ -460,18 +483,17 @@
                                                                                                                         </tr>
                                                                                                                         <tr>
                                                                                                                             <td class="ControlLabel" style="width: 25%;" valign="middle">
-                                                                                                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtdespatced" CssClass="lblFont" Display="Dynamic" ErrorMessage="Despatched From is mandatory" Text="*" ValidationGroup="salesval"></asp:RequiredFieldValidator>
-                                                                                                                                Despatched From * </td>
+                                                                                                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtfixedtotal" CssClass="lblFont" Display="Dynamic" ErrorMessage="Fixed Total is mandatory" Text="*" ValidationGroup="salesval"></asp:RequiredFieldValidator>
+                                                                                                                                Fixed Total *
                                                                                                                             <td class="ControlTextBox3" style="width: 24%;">
-                                                                                                                                <asp:TextBox ID="txtdespatced" runat="server" BackColor="#e7e7e7" MaxLength="10" SkinID="skinTxtBoxGrid" TabIndex="8" Width="200px"></asp:TextBox>
+                                                                                                                                <asp:TextBox ID="txtfixedtotal" runat="server" BackColor="#e7e7e7" CssClass="cssTextBox" MaxLength="200" SkinID="skinTxtBox" TabIndex="9" Width="500px"></asp:TextBox>
                                                                                                                             </td>
                                                                                                                             <td style="width: 7%;"></td>
                                                                                                                             <td class="ControlLabel" style="width: 10%;"> 
-                                                                                                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtfixedtotal" CssClass="lblFont" Display="Dynamic" ErrorMessage="Fixed Total is mandatory" Text="*" ValidationGroup="salesval"></asp:RequiredFieldValidator>
-                                                                                                                                Fixed Total *
+                                                                                                                                
                                                                                                                             </td>
-                                                                                                                            <td style="width: 24%" class="ControlTextBox3">
-                                                                                                                                <asp:TextBox ID="txtfixedtotal" runat="server" BackColor="#e7e7e7" CssClass="cssTextBox" MaxLength="200" SkinID="skinTxtBox" TabIndex="9" Width="500px"></asp:TextBox>
+                                                                                                                            <td style="width: 24%">
+                                                                                                                                
                                                                                                                             </td>
                                                                                                                             <td style="width: 13%;"></td>
                                                                                                                         </tr>
@@ -780,7 +802,7 @@
                                                                                                                                                                                         <asp:RangeValidator ID="cvDisc" runat="server" ControlToValidate="lblDisAdd" Display="Dynamic" ErrorMessage="Discount cannot be Greater than 100% and Less than 0%" MaximumValue="100" MinimumValue="0" Text="*" Type="Double" ValidationGroup="product"></asp:RangeValidator>
                                                                                                                                                                                     </td>
                                                                                                                                                                                     <td class="ControlTextBox3" style="width: 28.4%">
-                                                                                                                                                                                        <asp:TextBox ID="lblDisAdd" runat="server" BackColor="#e7e7e7" Enabled="false" CssClass="cssTextBox" Height="23px" Text="0" ValidationGroup="product" Width="70px"></asp:TextBox>
+                                                                                                                                                                                        <asp:TextBox ID="lblDisAdd" runat="server" BackColor="#e7e7e7" CssClass="cssTextBox" Height="23px" Text="0" ValidationGroup="product" Width="70px"></asp:TextBox>
                                                                                                                                                                                         <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender4" runat="server" FilterType="Custom, Numbers" TargetControlID="lblDisAdd" ValidChars="." />
                                                                                                                                                                                     </td>
                                                                                                                                                                                         <td style="width: 17.6%;"></td>

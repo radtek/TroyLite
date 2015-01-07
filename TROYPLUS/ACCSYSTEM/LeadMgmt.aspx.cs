@@ -201,9 +201,15 @@ public partial class LeadMgmt : System.Web.UI.Page
         DataSet dsd = new DataSet();
         DataSet ds = new DataSet();
 
+        LeadBusinessLogic bll = new LeadBusinessLogic(sDataSource);
+        
+
         drpActivityName.Items.Clear();
         drpActivityName.Items.Add(new ListItem("Select Activity Name", "0"));
-        dsd = bl.ListActivitySetup(sDataSource, "N", 0);
+        //dsd = bl.ListActivitySetup(sDataSource, "N", 0);
+
+        dsd = bll.GetDropdownList(sDataSource, "ACTIVITY");
+
         drpActivityName.DataSource = dsd;
         drpActivityName.DataBind();
         drpActivityName.DataTextField = "Activity_Name";

@@ -61,7 +61,7 @@
                                     <tr style="height: 25px; vertical-align: middle">
                                         <td style="width: 2%">
                                         </td>
-                                        <td style="width: 23%; font-size: 22px; color:white;" >
+                                        <td style="width: 20%; font-size: 22px; color:white;" >
                                              Lead Reference
                                         </td>
                                         <td style="width: 12%">
@@ -72,27 +72,17 @@
                                                 </asp:Panel>
                                             </div>
                                         </td>
-                                        <td style="width: 15%; color:white;" align="right">
+                                        <td style="width: 12%; color:white;" align="right">
                                             Search
                                         </td>
-                                        <td style="width: 18%" class="NewBox">
+                                        <td style="width: 19%" class="NewBox">
                                             <asp:TextBox ID="txtSearch" runat="server" SkinID="skinTxtBoxSearch"></asp:TextBox>
                                         </td>
-                                        <td style="width: 18%" class="NewBox">
+                                        <td style="width: 19%" class="NewBox">
                                             <div style="width: 150px; font-family: 'Trebuchet MS';">
                                                 <asp:DropDownList ID="ddCriteria" runat="server" Width="155px" Height="23px"  BackColor="White" style="text-align:center;border:1px solid white">
                                                     <asp:ListItem Value="0" >All</asp:ListItem>
-                                                    <asp:ListItem Value="Mode of Contact">Mode of Contact</asp:ListItem>
-                                                    <asp:ListItem Value="Personal Responsible">Personal Responsible</asp:ListItem>
-                                                    <asp:ListItem Value="Business Type">Business Type</asp:ListItem>
-                                                    <asp:ListItem Value="Branch">Branch</asp:ListItem>
-                                                    <asp:ListItem Value="Last Completed Action">Last Completed Action</asp:ListItem>
-                                                    <asp:ListItem Value="Next Action">Next Action</asp:ListItem>
-                                                    <asp:ListItem Value="Category">Category</asp:ListItem>
-                                                    <asp:ListItem Value="Status">Status</asp:ListItem>
-                                                    <asp:ListItem Value="Information3">Information3</asp:ListItem>
-                                                    <asp:ListItem Value="Information4">Information4</asp:ListItem>
-                                                    <asp:ListItem Value="Information5">Information5</asp:ListItem>
+                                                    <asp:ListItem Value="ActivityName">Activity Name</asp:ListItem>
                                                 </asp:DropDownList>
                                             </div>
                                         </td>
@@ -159,25 +149,15 @@
                                                             </tr>
                                                             <tr>
                                                                 <td class="ControlLabel" style="width:40%">
-                                                                    Type Name *
+                                                                    Reference Type *
                                                                     <asp:RequiredFieldValidator ID="rvOpenBal" runat="server" ControlToValidate="ddTypedd"
-                                                                        Display="Dynamic" EnableClientScript="True" ErrorMessage="Type Name is mandatory">*</asp:RequiredFieldValidator>
+                                                                        Display="Dynamic" EnableClientScript="True" ErrorMessage="Reference Type is mandatory">*</asp:RequiredFieldValidator>
                                                                 
                                                                 </td>
                                                                 <td class="ControlDrpBorder" style="width:30%">
                                                                     <asp:DropDownList ID="ddTypedd" runat="server" Width="100%" BackColor = "#e7e7e7"  style="border: 1px solid #e7e7e7" height="26px" CssClass="drpDownListMedium" SelectedValue='<%# Bind("TypeName") %>'
                                                                         TabIndex="2">
-                                                                        <asp:ListItem Text="Mode of Contact" Value="Mode of Contact"></asp:ListItem>
-                                                                        <asp:ListItem Text="Personal Responsible" Value="Personal Responsible"></asp:ListItem>
-                                                                        <asp:ListItem Text="Business Type" Value="Business Type"></asp:ListItem>
-                                                                        <asp:ListItem Text="Branch" Value="Branch"></asp:ListItem>
-                                                                        <asp:ListItem Text="Last Completed Action" Value="Last Completed Action"></asp:ListItem>
-                                                                        <asp:ListItem Text="Next Action" Value="Next Action"></asp:ListItem>
-                                                                        <asp:ListItem Text="Category" Value="Category"></asp:ListItem>
-                                                                        <asp:ListItem Text="Status" Value="Status"></asp:ListItem>
-                                                                        <asp:ListItem Text="Information3" Value="Information3"></asp:ListItem>
-                                                                        <asp:ListItem Text="Information4" Value="Information4"></asp:ListItem>
-                                                                        <asp:ListItem Text="Information5" Value="Information5"></asp:ListItem>
+                                                                        <asp:ListItem Text="Activity Name" Value="Activity Name"></asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </td>
                                                                 <td style="width:30%">
@@ -268,26 +248,15 @@
                                                             </tr>
                                                             <tr>
                                                                 <td class="ControlLabel" style="width:40%">
-                                                                    Type Name *
+                                                                    Reference Type *
                                                                     <asp:RequiredFieldValidator ID="rvOpenBalAdd" runat="server" ControlToValidate="ddType"
-                                                                        Display="Dynamic" EnableClientScript="True" ErrorMessage="Type Name is mandatory">*</asp:RequiredFieldValidator>
+                                                                        Display="Dynamic" EnableClientScript="True" ErrorMessage="Reference Type is mandatory">*</asp:RequiredFieldValidator>
                                                                     
                                                                 </td>
                                                                 <td class="ControlDrpBorder" style="width:30%">
                                                                     <asp:DropDownList ID="ddType" runat="server" Width="100%" BackColor = "#e7e7e7"  style="border: 1px solid #e7e7e7" height="26px" CssClass="drpDownListMedium" SelectedValue='<%# Bind("TypeName") %>'
                                                                         TabIndex="2">
-                                                                        <asp:ListItem Text="Mode of Contact" Value="Mode of Contact"></asp:ListItem>
-                                                                        <asp:ListItem Text="Personal Responsible" Value="Personal Responsible"></asp:ListItem>
-                                                                        <asp:ListItem Text="Business Type" Value="Business Type"></asp:ListItem>
-
-                                                                        <asp:ListItem Text="Branch" Value="Branch"></asp:ListItem>
-                                                                        <asp:ListItem Text="Last Completed Action" Value="Last Completed Action"></asp:ListItem>
-                                                                        <asp:ListItem Text="Next Action" Value="Next Action"></asp:ListItem>
-                                                                        <asp:ListItem Text="Category" Value="Category"></asp:ListItem>
-                                                                        <asp:ListItem Text="Status" Value="Status"></asp:ListItem>
-                                                                        <asp:ListItem Text="Information3" Value="Information3"></asp:ListItem>
-                                                                        <asp:ListItem Text="Information4" Value="Information4"></asp:ListItem>
-                                                                        <asp:ListItem Text="Information5" Value="Information5"></asp:ListItem>
+                                                                        <asp:ListItem Text="Activity Name" Value="Activity Name"></asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </td>
                                                                 <td style="width:30%">

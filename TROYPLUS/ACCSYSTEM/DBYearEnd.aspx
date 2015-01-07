@@ -64,13 +64,13 @@
             </td>
             <td width="34%">
                 <asp:Button ID="btnAccount" SkinID="skinButtonCol2" runat="server" OnClick="btnAccount_Click"
-                    Text="Create New Account" ValidationGroup="cmpval" Width="100%" /> 
+                    Text="Refresh the New Account" ValidationGroup="cmpval" Width="100%" /> 
             </td>
             <td width="8%">
                 
             </td>
         </tr>
-        <tr>
+        <tr runat="server" visible="false">
             <td width="8%">
                 
             </td>
@@ -82,7 +82,7 @@
                 
             </td>
         </tr>
-        <tr>
+        <tr runat="server" visible="false">
             <td width="8%">
                 
             </td>
@@ -118,7 +118,7 @@
                 
             </td>
         </tr>
-	<tr>
+	<tr runat="server" visible="false">
             <td width="8%">
                 
             </td>

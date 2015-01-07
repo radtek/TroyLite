@@ -817,6 +817,7 @@
                                     </li>
                                                 <li class="color submenumenu"><a href="./EmailSMSConfig.aspx" runat="server" id="A19">EMail/SMS Config</a></li>
                                     <li class="color submenumenu"><a href="./NewDBCreation.aspx" runat="server" id="A1">Year End Process</a></li>
+                                        <li class="color submenumenu"><a href="./DBYearEnd.aspx" runat="server" id="A20">Year End</a></li>
                                     <li class="color submenumenu"><a href="./Configuration.aspx" runat="server" id="lnkConfiguration">Online & Offline Mode</a></li>
                                     <li class="color submenumenu"><a href="./UserOptions.aspx" runat="server" id="lnkuserlock">User Access Control Settings</a></li>
                                         <li class="color submenumenu"><a href="#">Security<span style="font-family:arial; font-size:10px; position: relative; vertical-align:middle; top:2px; text-align:right; float:right">►</span> </a>

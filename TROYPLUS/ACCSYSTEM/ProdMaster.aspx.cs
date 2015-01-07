@@ -717,7 +717,7 @@ public partial class ProdMaster : System.Web.UI.Page
         txtExecutiveCommissionAdd.Text = "0";
         txtNLCAdd.Text = "0";
         drpIsActiveAdd.SelectedValue = "YES";
-        drpOutdatedAdd.SelectedValue = "NO";
+        drpOutdatedAdd.SelectedValue = "N";
     }
 
     private void ShowLeadContactInfo()

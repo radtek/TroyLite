@@ -20389,7 +20389,7 @@ public class BusinessLogic
 
     #region table Settings
 
-    public void InsertSettings(string itemCode, string strIP, string strQtyReturn, string strDate, string strBillFormat, string Currency, string dealer, string barcode, string stockEdit, string SMSrequired, string BiltRequired, string OwnerMobile, string VATReconDate, string VATAmount, string DiscType, string exceedLimit, string strBillMethod, string strobsolute, string droundoff, string dsalesseries, string autolock, string savelog, string enablevat, string emailRequired, string macaddress, string tinnoman, string enabledate)
+    public void InsertSettings(string itemCode, string strIP, string strQtyReturn, string strDate, string strBillFormat, string Currency, string dealer, string barcode, string stockEdit, string SMSrequired, string BiltRequired, string OwnerMobile, string VATReconDate, string VATAmount, string DiscType, string exceedLimit, string strBillMethod, string strobsolute, string droundoff, string dsalesseries, string autolock, string savelog, string enablevat, string emailRequired, string macaddress, string tinnoman, string enabledate, string salesdiscount, string openingbalance)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString); // System.Configuration.ConfigurationManager.ConnectionStrings[connection].ConnectionString;
@@ -20537,7 +20537,16 @@ public class BusinessLogic
                 dbQry = string.Format("UPDATE tblSettings SET KEYVALUE='{0}' WHERE KEY='ENBLDATE' ", enabledate.ToString());
                 manager.ExecuteNonQuery(CommandType.Text, dbQry);
             }
-            
+            if (salesdiscount.Trim() != "")
+            {
+                dbQry = string.Format("UPDATE tblSettings SET KEYVALUE='{0}' WHERE KEY='SDISCOUNT' ", salesdiscount.ToString());
+                manager.ExecuteNonQuery(CommandType.Text, dbQry);
+            }
+            if (openingbalance.Trim() != "")
+            {
+                dbQry = string.Format("UPDATE tblSettings SET KEYVALUE='{0}' WHERE KEY='OPBAL' ", openingbalance.ToString());
+                manager.ExecuteNonQuery(CommandType.Text, dbQry);
+            }
             manager.Dispose();
         }
         catch (Exception ex)
@@ -55228,7 +55237,7 @@ public class BusinessLogic
         oleCmd.Connection = oleConn;
         //sQry = "SELECT tblLedger.LedgerID,tblLedger.LedgerName,tblLedger.phone,tblLedger.AliasName, (IIF(ISNULL(tblLedger.OpenBalanceDR),0,tblLedger.OpenBalanceDR)+ IIF(ISNULL(debittable.debitamount),0,debittable.debitamount)) - (IIF(ISNULL(tblLedger.OpenBalanceCR),0,tblLedger.OpenBalanceCR)+ IIF(ISNULL(credittable.creditamount),0,credittable.creditamount)) as balance FROM (tblLedger   left  join (SELECT DebtorID,sum(Amount) as debitamount FROM tblDayBook WHERE DebtorID > 0 group by DebtorID) debittable  on tblLedger.LedgerID=debittable.DebtorID) left join (SELECT CreditorID,sum(Amount) as creditamount FROM tblDayBook WHERE CreditorID > 0 group by CreditorID) credittable on tblLedger.LedgerID= credittable.CreditorID where GroupID in (2,3,14,16) and tblledger.inttrans = 'NO' and tblledger.dc = 'NO' and (IIF(ISNULL(tblLedger.OpenBalanceDR),0,tblLedger.OpenBalanceDR)+ IIF(ISNULL(debittable.debitamount),0,debittable.debitamount)) - (IIF(ISNULL(tblLedger.OpenBalanceCR),0,tblLedger.OpenBalanceCR)+ IIF(ISNULL(credittable.creditamount),0,credittable.creditamount)) <> 0 ORDER BY tblLedger.LedgerName";
 
-        sQry = "SELECT tblLedger.LedgerID,tblLedger.LedgerName,tblLedger.phone,tblLedger.AliasName, (IIF(ISNULL(tblLedger.OpenBalanceDR),0,tblLedger.OpenBalanceDR)+ IIF(ISNULL(debittable.debitamount),0,debittable.debitamount)) - (IIF(ISNULL(tblLedger.OpenBalanceCR),0,tblLedger.OpenBalanceCR)+ IIF(ISNULL(credittable.creditamount),0,credittable.creditamount)) as balance FROM (tblLedger   left  join (SELECT DebtorID,sum(Amount) as debitamount FROM tblDayBook WHERE DebtorID > 0 group by DebtorID) debittable  on tblLedger.LedgerID=debittable.DebtorID) left join (SELECT CreditorID,sum(Amount) as creditamount FROM tblDayBook WHERE CreditorID > 0 group by CreditorID) credittable on tblLedger.LedgerID= credittable.CreditorID where GroupID in (2,3,14,16) and tblledger.inttrans = 'NO' and tblledger.dc = 'NO' ORDER BY tblLedger.LedgerName";
+        sQry = "SELECT tblLedger.LedgerID,tblLedger.LedgerName,tblLedger.phone,tblLedger.AliasName, (IIF(ISNULL(tblLedger.OpenBalanceDR),0,tblLedger.OpenBalanceDR)+ IIF(ISNULL(debittable.debitamount),0,debittable.debitamount)) - (IIF(ISNULL(tblLedger.OpenBalanceCR),0,tblLedger.OpenBalanceCR)+ IIF(ISNULL(credittable.creditamount),0,credittable.creditamount)) as balance FROM (tblLedger   left  join (SELECT DebtorID,sum(Amount) as debitamount FROM tblDayBook WHERE DebtorID > 0 group by DebtorID) debittable  on tblLedger.LedgerID=debittable.DebtorID) left join (SELECT CreditorID,sum(Amount) as creditamount FROM tblDayBook WHERE CreditorID > 0 group by CreditorID) credittable on tblLedger.LedgerID= credittable.CreditorID where GroupID in (1,2,3,14,16) and tblledger.inttrans = 'NO' and tblledger.dc = 'NO' ORDER BY tblLedger.LedgerName";
 
         oleCmd.CommandText = sQry;
         oleCmd.CommandType = CommandType.Text;
@@ -64352,6 +64361,38 @@ public class BusinessLogic
                 manager.Dispose();
         }
 
+    }
+
+    public string getEnableDiscountConfig()
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);// +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        DataSet ds = new DataSet();
+        StringBuilder dbQry = new StringBuilder();
+        string dbQry2 = string.Empty;
+
+        try
+        {
+            manager.Open();
+
+            dbQry.Append("SELECT   KeyValue  From tblSettings WHERE key='SDISCOUNT'");
+
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds.Tables[0].Rows[0]["KeyValue"].ToString();
+            else
+                return "";
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
     }
 
 }

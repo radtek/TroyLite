@@ -33,6 +33,7 @@ public partial class CustomerSales : System.Web.UI.Page
     string _currencyType = string.Empty;
     string BillingMethod = string.Empty;
     string EnableVat = string.Empty;
+    string EnableDiscount = string.Empty;
 
     protected void Page_Load(object sender, EventArgs e)
     {      
@@ -165,6 +166,15 @@ public partial class CustomerSales : System.Web.UI.Page
                     lblVATAdd.Enabled = false;
                 }
 
+                EnableDiscount = bl.getEnableDiscountConfig();
+                if (EnableDiscount == "YES")
+                {
+                    lblDisAdd.Enabled = true;
+                }
+                else
+                {
+                    lblDisAdd.Enabled = false;
+                }
 
                 if (Session["NEWSALES"] != null)
                 {
@@ -451,6 +461,15 @@ public partial class CustomerSales : System.Web.UI.Page
         drpMobile.DataTextField = "Mobile";
         drpMobile.DataValueField = "LedgerID";
 
+        //string connection = Request.Cookies["Company"].Value;
+        //DataSet dsd = new DataSet();
+        //dsd = bl.ListCusCategory(connection);
+        //drpCustomerCategoryAdd.Items.Clear();
+        //drpCustomerCategoryAdd.Items.Add(new ListItem("Select Customer Category", "0"));
+        //drpCustomerCategoryAdd.DataSource = ds;
+        //drpCustomerCategoryAdd.DataBind();
+        //drpCustomerCategoryAdd.DataTextField = "CusCategory_Name";
+        //drpCustomerCategoryAdd.DataValueField = "CusCategory_Value";
     }
 
     //protected override void OnInit(EventArgs e)
@@ -1749,7 +1768,7 @@ public partial class CustomerSales : System.Web.UI.Page
                     {
                         EXCLUSIVErate1 = (Convert.ToDouble(txtRateAdd.Text));
                     }
-                    DataSet dst = bl.ListSalesProductDetails(cmbProdAdd.SelectedItem.Value.Trim(), lblledgerCategory.Text);
+                    DataSet dst = bl.ListSalesProductPriceDetails(cmbProdAdd.SelectedItem.Value.Trim(), lblledgerCategory.Text);
                     if (dst != null)
                     {
                         if (dst.Tables[0].Rows.Count > 0)
@@ -1913,7 +1932,7 @@ public partial class CustomerSales : System.Web.UI.Page
 
                 if (Labelll.Text == "VAT INCLUSIVE")
                 {
-                    
+
                     if (lblVATAdd.Text == "14.5")
                     {
                         vatper = 1.145;
@@ -1941,7 +1960,11 @@ public partial class CustomerSales : System.Web.UI.Page
                     }
                 }
                 else
-                    vatamt = "0";
+                {
+                    sVatamount = (Convert.ToDouble(txtRateAdd.Text) * (Convert.ToDouble(txtQtyAdd.Text))) - ((Convert.ToDouble(txtRateAdd.Text) * (Convert.ToDouble(txtQtyAdd.Text))) * (Convert.ToDouble(sDiscount) / 100));
+                    sVatamount = (sVatamount * (Convert.ToDouble(lblVATAdd.Text) / 100));
+                    vatamt = sVatamount.ToString("#0.00");
+                }
 
                 //if (TextBox1.Text.Trim() != "")
                 //    sVatamount = TextBox1.Text;
@@ -2308,7 +2331,7 @@ public partial class CustomerSales : System.Web.UI.Page
                     {
                         EXCLUSIVErate1 = (Convert.ToDouble(txtRateAdd.Text));
                     }
-                    DataSet dst = bl.ListSalesProductDetails(cmbProdAdd.SelectedItem.Value.Trim(), lblledgerCategory.Text);
+                    DataSet dst = bl.ListSalesProductPriceDetails(cmbProdAdd.SelectedItem.Value.Trim(), lblledgerCategory.Text);
                     if (dst != null)
                     {
                         if (dst.Tables[0].Rows.Count > 0)
@@ -2455,6 +2478,11 @@ public partial class CustomerSales : System.Web.UI.Page
                 double vatper;
                 double vatinclusiverate=0;
 
+                if (lblVATAdd.Text.Trim() != "")
+                    sVat = lblVATAdd.Text;
+                else
+                    sVat = "0";
+
                 if ( Labelll.Text == "VAT INCLUSIVE")
                 {
 
@@ -2486,12 +2514,14 @@ public partial class CustomerSales : System.Web.UI.Page
 
                 }
                 else
-                    vatamt = "0";
+                {
+                    sVatamount = (Convert.ToDouble(txtRateAdd.Text) * (Convert.ToDouble(txtQtyAdd.Text))) - ((Convert.ToDouble(txtRateAdd.Text) * (Convert.ToDouble(txtQtyAdd.Text))) * (Convert.ToDouble(sDiscount) / 100));
+                    sVatamount = (sVatamount * (Convert.ToDouble(lblVATAdd.Text) / 100));
+                    vatamt = sVatamount.ToString("#0.00");
+                }
+                    
 
-                if (lblVATAdd.Text.Trim() != "")
-                    sVat = lblVATAdd.Text;
-                else
-                    sVat = "0";
+                
 
                 if (lblCSTAdd.Text.Trim() != "")
                     sCST = lblCSTAdd.Text;
