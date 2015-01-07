@@ -1840,6 +1840,43 @@ public class BusinessLogic
 
     }
 
+    public DataSet ListChequeNo(int bnkid)
+    {
+        //SELECT tblCheque.ChequeBookID, tblCheque.AccountNo, tblCheque.BankID, tblCheque.BankName, tblCheque.FromChequeNo, tblCheque.ToChequeNo, tblChequeitems.ChequeBookID, tblChequeitems.ChequeNo, tblChequeitems.Status
+        //FROM tblCheque INNER JOIN tblChequeitems ON tblCheque.ChequeBookID = tblChequeitems.ChequeBookID;
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        //manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+        try
+        {
+            dbQry = string.Format(" SELECT tblCheque.ChequeBookID, tblCheque.AccountNo, tblCheque.BankID, tblCheque.BankName, " +
+                                  " tblCheque.FromChequeNo, tblCheque.ToChequeNo, tblChequeitems.ChequeBookID, tblChequeitems.ChequeNo, tblChequeitems.Status " +
+                                  " FROM tblCheque INNER JOIN tblChequeitems ON tblCheque.ChequeBookID = tblChequeitems.ChequeBookID where tblCheque.BankID=" + bnkid + " and tblChequeitems.Status='N'");
+            //dbQry = string.Format(" SELECT tblCheque.ChequeBookID, tblCheque.AccountNo, tblCheque.BankID, tblCheque.BankName, " +
+            //                     " tblCheque.FromChequeNo, tblCheque.ToChequeNo, tblChequeitems.ChequeBookID, tblChequeitems.ChequeNo, tblChequeitems.Status " +
+            //                     " FROM tblCheque INNER JOIN tblChequeitems ON tblCheque.ChequeBookID = tblChequeitems.ChequeBookID where tblChequeitems.Status='N'"); 
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
+
     public DataSet ListBanks()
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
@@ -36814,6 +36851,57 @@ public class BusinessLogic
         }
     }
 
+    public int UpdateChequeused_conn(string Chequeno, int BankName,string conn)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(conn);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+        int chqID = 0;      
+
+        try
+        {
+            dbQry = string.Format("Update tblChequeitems Set Status='Y' Where ChequeNo='" + Chequeno + "' and BankID=" + BankName + "");
+            manager.Open();
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+            return chqID = 1;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
+
+    public int UpdateChequeused(string Chequeno, int BankName)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+        int chqID = 0;
+
+        try
+        {
+            dbQry = string.Format("Update tblChequeitems Set Status='Y' Where ChequeNo='" + Chequeno + "' and BankID=" + BankName + "");
+            manager.Open();
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+            return chqID = 1;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
 
     /*Start Purchase Loading / Unloading Freight Change - March 16 Parameter Added double freight, double dLU,*/
     /*Start InvoiceNo and InvoiceDate*/
