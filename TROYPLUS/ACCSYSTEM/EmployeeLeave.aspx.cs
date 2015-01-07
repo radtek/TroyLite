@@ -79,7 +79,7 @@ public partial class EmployeeLeave : System.Web.UI.Page
             BusinessLogic bl = new BusinessLogic(sDataSource);
             UserInfo userInfo = bl.GetUserInfoByName(Request.Cookies["LoggedUserName"].Value);
 
-           lblApproverName.Text = userInfo.ManagerUserName;
+           lblApproverName.Text = userInfo.ManagerEmpName;
            hdfApproverEmpNo.Value = userInfo.ManagerEmpNo.ToString();
 
            ViewState["PopupMode"] = "NEW";
@@ -207,11 +207,15 @@ public partial class EmployeeLeave : System.Web.UI.Page
                 if (int.TryParse(ddlLeaveType.SelectedValue, out leaveTypeId))
                 {
                     BusinessLogic bl = new BusinessLogic(sDataSource);
+                    double leaveBalance = 0;
                     string username = Request.Cookies["LoggedUserName"].Value;
                     int employeeNo = bl.GetUserInfoByName(username).EmpNo;
                     double leaveLimit = double.Parse(bl.GetLeaveLimit(leaveTypeId, employeeNo).ToString());
-                    double leavesTaken = bl.GetTotalLeavesTaken(DateTime.Today.Year, leaveTypeId, employeeNo);
-                    double leaveBalance = (leaveLimit - leavesTaken);
+                    if (leaveLimit != 0)
+                    {
+                        double leavesTaken = bl.GetTotalLeavesTaken(DateTime.Today.Year, leaveTypeId, employeeNo);
+                        leaveBalance = (leaveLimit - leavesTaken);
+                    }
                     txtBalanceLeaves.Text = string.Format("{0}", leaveBalance.ToString());
                     ModalPopupExtender1.Show();
                 }

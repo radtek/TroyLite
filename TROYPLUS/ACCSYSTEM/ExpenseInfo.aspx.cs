@@ -14,6 +14,7 @@ using System.Text;
 public partial class ExpenseInfo : System.Web.UI.Page
 {
     public string sDataSource = string.Empty;
+    public string EnableOpbalance = string.Empty;
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -344,6 +345,32 @@ public partial class ExpenseInfo : System.Web.UI.Page
             ModalPopupExtender1.Show();
             frmViewAdd.ChangeMode(FormViewMode.Insert);
             frmViewAdd.Visible = true;
+
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+            string connection = Request.Cookies["Company"].Value;
+
+            EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
+            if (EnableOpbalance == "YES")
+            {
+                ((TextBox)this.frmViewAdd.FindControl("txtOpenBalAdd")).Enabled = true;
+                ((TextBox)this.frmViewAdd.FindControl("txtdueDateadd")).Enabled = true;
+                ((DropDownList)this.frmViewAdd.FindControl("ddCRDRAdd")).Enabled = true;
+                ((ImageButton)this.frmViewAdd.FindControl("btnBillDate1")).Enabled = true;
+             
+
+                //txtdueDateadd.Enabled = true;
+            }
+            else
+            {
+                ((TextBox)this.frmViewAdd.FindControl("txtOpenBalAdd")).Enabled = false;
+                ((TextBox)this.frmViewAdd.FindControl("txtdueDateadd")).Enabled = false;
+                ((DropDownList)this.frmViewAdd.FindControl("ddCRDRAdd")).Enabled = false;
+                ((ImageButton)this.frmViewAdd.FindControl("btnBillDate1")).Enabled = false;
+                //txtdueDateadd.Enabled = false;
+            }
+
+
+
             if (frmViewAdd.CurrentMode == FormViewMode.Insert)
             {
                 //GrdViewLedger.Visible = false;
@@ -626,6 +653,11 @@ public partial class ExpenseInfo : System.Web.UI.Page
         else
             e.InputParameters["Mobile"] = "";
 
+        if (((TextBox)this.frmViewAdd.FindControl("txtdueDateadd")).Text != "")
+            e.InputParameters["OpDueDate"] = ((TextBox)this.frmViewAdd.FindControl("txtdueDateadd")).Text;
+        else
+            e.InputParameters["OpDueDate"] = "";
+
         if (((DropDownList)this.frmViewAdd.FindControl("drpIntTransAdd")) != null)
             e.InputParameters["Inttrans"] = ((DropDownList)this.frmViewAdd.FindControl("drpIntTransAdd")).SelectedValue;
 
@@ -714,6 +746,11 @@ public partial class ExpenseInfo : System.Web.UI.Page
             e.InputParameters["Mobile"] = ((TextBox)this.frmViewAdd.FindControl("txtMobile")).Text;
         else
             e.InputParameters["Mobile"] = "";
+
+        if (((TextBox)this.frmViewAdd.FindControl("txtdueDate")).Text != "")
+            e.InputParameters["OpDueDate"] = ((TextBox)this.frmViewAdd.FindControl("txtdueDate")).Text;
+        else
+            e.InputParameters["OpDueDate"] = "";
 
         if (((DropDownList)this.frmViewAdd.FindControl("drpIntTrans")) != null)
             e.InputParameters["Inttrans"] = ((DropDownList)this.frmViewAdd.FindControl("drpIntTrans")).SelectedValue;
