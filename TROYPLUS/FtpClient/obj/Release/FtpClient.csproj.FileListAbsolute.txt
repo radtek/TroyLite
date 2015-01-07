@@ -8,3 +8,8 @@ D:\ACCSYSTEM\FtpClient\bin\Release\FtpClient.pdb
 D:\ACCSYSTEM\FtpClient\obj\Release\ResolveAssemblyReference.cache
 D:\ACCSYSTEM\FtpClient\obj\Release\FtpClient.dll
 D:\ACCSYSTEM\FtpClient\obj\Release\FtpClient.pdb
+C:\Users\win7\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\bin\Release\FtpClient.dll
+C:\Users\win7\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\bin\Release\FtpClient.pdb
+C:\Users\win7\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\obj\Release\FtpClient.csprojResolveAssemblyReference.cache
+C:\Users\win7\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\obj\Release\FtpClient.dll
+C:\Users\win7\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\obj\Release\FtpClient.pdb

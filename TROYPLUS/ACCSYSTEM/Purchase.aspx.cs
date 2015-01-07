@@ -16,7 +16,7 @@ using System.Globalization;
 
 
 public partial class Purchase : System.Web.UI.Page
-{  
+{
 
     private string sDataSource = string.Empty;
     private double amtTotal = 0;
@@ -27,7 +27,7 @@ public partial class Purchase : System.Web.UI.Page
     public double cstTotal = 0;
     public double WholeTotal;
     string BarCodeRequired = string.Empty;
-    string EnableVat = string.Empty;   
+    string EnableVat = string.Empty;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -149,6 +149,7 @@ public partial class Purchase : System.Web.UI.Page
                 loadSupplier("Sundry Creditors");
                 //loadProducts();
                 loadBanks();
+
                 loadBilts("0");
                 loadCategories();
 
@@ -200,7 +201,7 @@ public partial class Purchase : System.Web.UI.Page
         {
             txtSearch.Text = "";
             ddCriteria.SelectedIndex = 0;
-            BindGrid("","");
+            BindGrid("", "");
         }
         catch (Exception ex)
         {
@@ -319,6 +320,11 @@ public partial class Purchase : System.Web.UI.Page
 
     }
 
+    protected void cmbBankName_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        loadChequeNo(Convert.ToInt32(cmbBankName.SelectedItem.Value));
+    }
+
     private void loadBanks()
     {
         //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
@@ -329,6 +335,21 @@ public partial class Purchase : System.Web.UI.Page
         cmbBankName.DataBind();
         cmbBankName.DataTextField = "LedgerName";
         cmbBankName.DataValueField = "LedgerID";
+
+    }
+
+    private void loadChequeNo(int bnkId)
+    {
+        cmbChequeNo.Items.Clear();
+        //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataSet ds = new DataSet();
+        //ds = bl.ListChequeNo(bnkId);
+        ds = bl.ListChequeNo(bnkId);
+        cmbChequeNo.DataSource = ds;
+        cmbChequeNo.DataBind();
+        cmbChequeNo.DataTextField = "ChequeNo";
+        cmbChequeNo.DataValueField = "ChequeNo";
 
     }
     protected void btnSearch_Click(object sender, EventArgs e)
@@ -440,6 +461,7 @@ public partial class Purchase : System.Web.UI.Page
     protected void cmdSave_Click(object sender, EventArgs e)
     {
         int iPurchaseId = 0;
+        int ichequestatus = 0;
         string connection = string.Empty;
 
         try
@@ -640,7 +662,7 @@ public partial class Purchase : System.Web.UI.Page
 
                 if (iPaymode == 2)
                 {
-                    sChequeno = Convert.ToString(txtChequeNo.Text);
+                    sChequeno = cmbChequeNo.SelectedItem.Text;// Convert.ToString(txtChequeNo.Text);
                     iBank = Convert.ToInt32(cmbBankName.SelectedItem.Value);
                     rvCheque.Enabled = true;
                     rvbank.Enabled = true;
@@ -890,7 +912,7 @@ public partial class Purchase : System.Web.UI.Page
                                     return;
                                 }
 
-                                iSupplier = bl.InsertCustomerInfoDirect(connection, sSupplierName, sSupplierName, 2, 0, 0, 0, "", sSupplierName, sSupplierAddress, sSupplierAddress2, sSupplierAddress3, "", "", 0, "", sCustomerContact, 0, 0, "NO", "NO", "NO", sSupplierName, usernam, "YES", "", 3);                                
+                                iSupplier = bl.InsertCustomerInfoDirect(connection, sSupplierName, sSupplierName, 2, 0, 0, 0, "", sSupplierName, sSupplierAddress, sSupplierAddress2, sSupplierAddress3, "", "", 0, "", sCustomerContact, 0, 0, "NO", "NO", "NO", sSupplierName, usernam, "YES", "", 3);
                             }
                             else
                             {
@@ -901,6 +923,7 @@ public partial class Purchase : System.Web.UI.Page
                             /*Start Purchase Loading / Unloading Freight Change - March 16*/
                             /*Start InvoiceNo and InvoiceDate - Jan 26*/
                             iPurchaseId = bl.InsertPurchase(sBillno, sBilldate, iSupplier, iPaymode, sChequeno, iBank, dfixedtotal, salesReturn, srReason, dFreight, dLU, BilitID, intTrans, ds, deliveryNote, sInvoiceno, sInvoicedate, ddiscamt, ddiscper, dcbillno, dTotalAmt, usernam, narration2);
+                            ichequestatus = bl.UpdateChequeused(sChequeno, Convert.ToInt32(iBank));
                             /*End InvoiceNo and InvoiceDate - Jan 26*/
                             /*End Purchase Loading / Unloading Freight Change - March 16*/
 
@@ -1254,7 +1277,7 @@ public partial class Purchase : System.Web.UI.Page
 
                 if (iPaymode == 2)
                 {
-                    sChequeno = Convert.ToString(txtChequeNo.Text);
+                    sChequeno = cmbChequeNo.SelectedItem.Text;// Convert.ToString(txtChequeNo.Text);
                     iBank = Convert.ToInt32(cmbBankName.SelectedItem.Value);
                     rvbank.Enabled = true;
                     rvCheque.Enabled = true;
@@ -1678,7 +1701,7 @@ public partial class Purchase : System.Web.UI.Page
 
     protected void GrdViewItems_SelectedIndexChanged(object sender, EventArgs e)
     {
-        
+
         try
         {
             string strItemCode = string.Empty;
@@ -1786,7 +1809,7 @@ public partial class Purchase : System.Web.UI.Page
             TroyLiteExceptionManager.HandleException(ex);
         }
 
-        
+
 
     }
 
@@ -2355,7 +2378,7 @@ public partial class Purchase : System.Web.UI.Page
         }
 
         cmbProdAdd.ClearSelection();
-        txtChequeNo.Text = ""; // cmbBankName.SelectedItem.Text;
+        cmbChequeNo.ClearSelection();// txtChequeNo.Text = ""; // cmbBankName.SelectedItem.Text;
         //BindGrid(txtBillnoSrc.Text);
         //Accordion1.SelectedIndex = 1;
         txtSRReason.Text = "";
@@ -2374,7 +2397,7 @@ public partial class Purchase : System.Web.UI.Page
             BusinessLogic bl = new BusinessLogic(sDataSource);
 
             int iLedgerID = Convert.ToInt32(cmbSupplier.SelectedItem.Value);
-                           
+
             DataSet customerDs = bl.getAddressInfo(iLedgerID);
             string address = string.Empty;
 
@@ -2435,7 +2458,7 @@ public partial class Purchase : System.Web.UI.Page
             else if (ddDeliveryNote.SelectedValue == "YES")
             {
                 //ds = bl.ListSundryCreditorsDc(sDataSource);
-                ds = bl.ListSundryLedgersDc(sDataSource);               
+                ds = bl.ListSundryLedgersDc(sDataSource);
             }
             else
             {
@@ -2457,7 +2480,7 @@ public partial class Purchase : System.Web.UI.Page
     protected void cmdCancelMethod_Click(object sender, EventArgs e)
     {
         try
-        { 
+        {
             ModalPopupMethod.Hide();
         }
         catch (Exception ex)
@@ -2514,7 +2537,7 @@ public partial class Purchase : System.Web.UI.Page
     protected void GrdViewPurchase_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         try
-        { 
+        {
             GrdViewPurchase.PageIndex = e.NewPageIndex;
             //String strBillno = string.Empty;
             //string strTransNo = string.Empty;
@@ -2548,9 +2571,9 @@ public partial class Purchase : System.Web.UI.Page
         DataSet ds = new DataSet();
         //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
         BusinessLogic bl = new BusinessLogic(sDataSource);
-        
+
         object usernam = Session["LoggedUserName"];
-        
+
         //if (strBillno == "0" && strTransNo == "0")
         ds = bl.GetPurchaseList(textSearch, dropDown);
         //else
@@ -2796,7 +2819,7 @@ public partial class Purchase : System.Web.UI.Page
                 if (customerDs.Tables[0].Rows[0]["Mobile"] != null)
                 {
                     txtMobile.Text = Convert.ToString(customerDs.Tables[0].Rows[0]["Mobile"]);
-                }                
+                }
             }
             else
             {
@@ -2812,14 +2835,19 @@ public partial class Purchase : System.Web.UI.Page
 
             if (paymodeVisible(strPaymode))
             {
-                if (ds.Tables[0].Rows[0]["Chequeno"] != null)
-                    txtChequeNo.Text = ds.Tables[0].Rows[0]["Chequeno"].ToString();
-
                 if (ds.Tables[0].Rows[0]["Creditor"] != null)
                 {
                     cmbBankName.ClearSelection();
                     ListItem cli = cmbBankName.Items.FindByText(ds.Tables[0].Rows[0]["Creditor"].ToString());
                     if (cli != null) cli.Selected = true;
+                }
+
+                if (ds.Tables[0].Rows[0]["Chequeno"] != null)
+                {
+                    // txtChequeNo.Text = ds.Tables[0].Rows[0]["Chequeno"].ToString();
+                    cmbChequeNo.ClearSelection();
+                    ListItem clie = cmbChequeNo.Items.FindByText(ds.Tables[0].Rows[0]["Chequeno"].ToString());
+                    if (clie != null) clie.Selected = true;
                 }
 
             }
@@ -3368,11 +3396,11 @@ public partial class Purchase : System.Web.UI.Page
             {
                 ddisc = Convert.ToDouble(txtdisc.Text.Trim());
                 sumNet = ((sumNet + sumAmt + dFreight + dLU) - ddiscamt); ;
-                sumNet = sumNet -(sumNet * (ddisc / 100)) ;
+                sumNet = sumNet - (sumNet * (ddisc / 100));
             }
         }
 
-        
+
         /*End Purchase Loading / Unloading Freight Change - March 16*/
 
         lblTotalSum.Text = sumAmt.ToString("#0.00");
@@ -3381,7 +3409,7 @@ public partial class Purchase : System.Web.UI.Page
         lblTotalVAT.Text = sumVat.ToString("#0.00");
         lblTotalCST.Text = sumCST.ToString("#0.00");
         lblNet.Text = sumNet.ToString("#0.00");
-        
+
         /*Start Purchase Loading / Unloading Freight Change - March 16*/
         lblFreight.Text = sumLUFreight.ToString("#0.00");
         /*End Purchase Loading / Unloading Freight Change - March 16*/
@@ -3654,7 +3682,8 @@ public partial class Purchase : System.Web.UI.Page
             if (cmdPaymode.SelectedValue == "2")
             {
                 pnlBank.Visible = true;
-                txtChequeNo.Focus();
+                //txtChequeNo.Focus();
+                cmbChequeNo.Focus();
             }
             else
             {
@@ -4558,7 +4587,7 @@ public partial class Purchase : System.Web.UI.Page
     protected void GrdViewItems_RowCreated(object sender, GridViewRowEventArgs e)
     {
         try
-        { 
+        {
             if (e.Row.RowType == DataControlRowType.Pager)
             {
                 PresentationUtils.SetPagerButtonStates2(GrdViewItems, e.Row, this);
@@ -4624,7 +4653,7 @@ public partial class Purchase : System.Web.UI.Page
             string currency = string.Empty;
 
             if (Session["AppSettings"] == null)
-            {               
+            {
                 BusinessLogic bl = new BusinessLogic();
                 DataSet ds = bl.GetAppSettings(Request.Cookies["Company"].Value);
 
@@ -4703,7 +4732,7 @@ public partial class Purchase : System.Web.UI.Page
     protected void ddlPageSelector_SelectedIndexChanged(object sender, EventArgs e)
     {
         try
-        { 
+        {
             GrdViewPurchase.PageIndex = ((DropDownList)sender).SelectedIndex;
             //String strBillno = string.Empty;
             //string strTransNo = string.Empty;
@@ -4892,7 +4921,7 @@ public partial class Purchase : System.Web.UI.Page
     protected void cmdcat_click(object sender, EventArgs e)
     {
         try
-        { 
+        {
             Response.Redirect("SupplierInfo.aspx?myname=" + "NEWSUP");
         }
         catch (Exception ex)
@@ -4905,7 +4934,7 @@ public partial class Purchase : System.Web.UI.Page
     protected void CmdProd_Click(object sender, EventArgs e)
     {
         try
-        { 
+        {
             Response.Redirect("ProductMaster.aspx?myname=" + "NEWPP");
         }
         catch (Exception ex)
@@ -4971,7 +5000,7 @@ public partial class Purchase : System.Web.UI.Page
         dc = new DataColumn("Total");
         dt.Columns.Add(dc);
 
-        
+
 
         dc = new DataColumn("Bundles");
         dt.Columns.Add(dc);
@@ -4979,11 +5008,11 @@ public partial class Purchase : System.Web.UI.Page
         dc = new DataColumn("Rods");
         dt.Columns.Add(dc);
 
-        
+
 
         ds.Tables.Add(dt);
         drNew = dt.NewRow();
-        
+
         string textvalue = null;
 
         drNew["itemCode"] = string.Empty;
@@ -5001,10 +5030,10 @@ public partial class Purchase : System.Web.UI.Page
         drNew["Roles"] = "";
         drNew["IsRole"] = "N";
         drNew["Total"] = string.Empty;
-        
+
         drNew["Bundles"] = "";
         drNew["Rods"] = "";
-        
+
 
         ds.Tables[0].Rows.Add(drNew);
 

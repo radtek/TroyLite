@@ -504,30 +504,50 @@
                                                                                                                     Text='<%# Bind("Narration") %>' Width="95%" CssClass="cssTextBox"></asp:TextBox>
                                                                                                             </td>
                                                                                                         </tr>
-                                                                                                        <%--<tr style="height:0px">
-                                                                                                            </tr>--%>
-                                                                                                        <%--<tr>
-                                                                                                                <td class="ControlLabel" style="width: 24%">
-                                                                                                                    Mobile *
-                                                                                                                    <cc1:FilteredTextBoxExtender ID="FilteredTextBoxEx" runat="server" FilterType="Numbers"
-                                                                                                                        TargetControlID="txtMobile" Enabled="True" />
-                                                                                                                </td>
-                                                                                                                <td class="ControlTextBox3" style="width: 25%">
-                                                                                                                    <asp:TextBox ID="txtMobile" runat="server" Text='<%# Bind("Mobile") %>' MaxLength="10" Height="26px"
-                                                                                                                        CssClass="cssTextBox" Width="98%"></asp:TextBox>
-                                                                                                                </td>
-                                                                                                                <td class="ControlLabel" style="width: 16%">
-                                                                                                                    Phone No *
-                                                                                                                    <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" FilterType="Numbers"
-                                                                                                                        TargetControlID="txtPhone" Enabled="True" />
-                                                                                                                </td>
-                                                                                                                <td class="ControlTextBox3" style="width: 25%">
-                                                                                                                    <asp:TextBox ID="txtPhone" runat="server" Text='<%# Bind("Phone") %>' MaxLength="10" Height="26px"
-                                                                                                                        CssClass="cssTextBox" Width="98%"></asp:TextBox>
-                                                                                                                </td>
-                                                                                                            </tr>--%>
-
                                                                                                         <tr id="tblBank" runat="server">
+                                                                                                            <td colspan="4" width="100%">
+                                                                                                                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+
+                                                                                                                    <ContentTemplate>
+                                                                                                                        <asp:Panel ID="PanelBank" runat="server">
+                                                                                                                            <table width="100%" id="Table1" runat="server" cellpadding="0" cellspacing="0">
+                                                                                                                                <tr>
+                                                                                                                                </tr>
+                                                                                                                                <tr>
+                                                                                                                                    <td id="Td5" class="ControlLabel" runat="server" style="width: 24%">
+                                                                                                                                        <asp:CompareValidator ID="cvBank" runat="server" ControlToValidate="ddBanks" Display="Dynamic"
+                                                                                                                                            EnableClientScript="False" ErrorMessage="Bank Name is Mandatory" Operator="GreaterThan"
+                                                                                                                                            ValueToCompare="0">*</asp:CompareValidator>
+                                                                                                                                        Bank Name *
+                                                                                                                                    </td>
+                                                                                                                                    <td id="Td6" runat="server" style="width: 25%" class="ControlDrpBorder">
+                                                                                                                                        <asp:DropDownList ID="ddBanks" runat="server" Style="border: 1px solid #e7e7e7" Height="26px" CssClass="drpDownListMedium" BackColor="#e7e7e7" Width="100%" AutoPostBack="true" OnSelectedIndexChanged="ddBanks_SelectedIndexChanged"
+                                                                                                                                            DataTextField="LedgerName" DataValueField="LedgerID" AppendDataBoundItems="True">
+                                                                                                                                            <asp:ListItem Selected="True" style="background-color: #e7e7e7" Value="0">Select Bank</asp:ListItem>
+                                                                                                                                        </asp:DropDownList>
+
+                                                                                                                                    </td>
+                                                                                                                                    <td id="Td7" class="ControlLabel" runat="server" style="width: 16%">
+                                                                                                                                        <asp:RequiredFieldValidator ID="rvChequeNo" runat="server" ControlToValidate="cmbChequeNo"
+                                                                                                                                            ErrorMessage="Cheque No. is mandatory" Display="Dynamic" EnableClientScript="False">*</asp:RequiredFieldValidator>
+                                                                                                                                        Cheque No. *
+                                                                                                                                    </td>
+                                                                                                                                    <td id="Td8" runat="server" class="ControlDrpBorder" style="width: 25%">
+                                                                                                                                        <asp:TextBox ID="txtChequeNo" runat="server" Text='<%# Bind("ChequeNo") %>' Height="26px" SkinID="skinTxtBoxGrid" Visible="false"
+                                                                                                                                            Width="95%" CssClass="cssTextBox"></asp:TextBox>
+                                                                                                                                        <asp:DropDownList ID="cmbChequeNo" runat="server" AppendDataBoundItems="True" AutoPostBack="true" BackColor="#e7e7e7" DataTextField="ChequeNo" DataValueField="ChequeNo" CssClass="drpDownListMedium" Height="26px" Style="border: 1px solid #e7e7e7" Width="100%">
+                                                                                                                                            <asp:ListItem Selected="True" style="height: 1px; background-color: #e7e7e7" Value="0">Select Cheque No</asp:ListItem>
+                                                                                                                                        </asp:DropDownList>
+                                                                                                                                    </td>
+                                                                                                                                </tr>
+                                                                                                                            </table>
+                                                                                                                        </asp:Panel>
+                                                                                                                    </ContentTemplate>
+                                                                                                                </asp:UpdatePanel>
+                                                                                                            </td>
+                                                                                                        </tr>
+
+                                                                                                        <%--   <tr id="tblBank" runat="server">
                                                                                                             <td id="Td1" class="ControlLabel" runat="server" style="width: 24%">
                                                                                                                 <asp:CompareValidator ID="cvBank" runat="server" ControlToValidate="ddBanks" Display="Dynamic"
                                                                                                                     EnableClientScript="False" ErrorMessage="Bank Name is Mandatory" Operator="GreaterThan"
@@ -552,23 +572,11 @@
                                                                                                                     ErrorMessage="Cheque No. is mandatory" Display="Dynamic" EnableClientScript="False">*</asp:RequiredFieldValidator>
                                                                                                                 Cheque No. *
                                                                                                             </td>
-                                                                                                            <td id="Td4" runat="server" class="ControlDrpBorder" style="width: 25%">
-                                                                                                                <%--<asp:UpdatePanel ID="UpdatePanel312" runat="server" UpdateMode="Conditional">
-                                                                                                                        <Triggers>
-                                                                                                                            <asp:AsyncPostBackTrigger ControlID="ddBanks" EventName="SelectedIndexChanged" />
-                                                                                                                        </Triggers>
-                                                                                                                        <ContentTemplate>
-                                                                                                                    <asp:DropDownList ID="txtChequeNo" runat="server"  style="border: 1px solid #90c9fc" height="26px"  CssClass="drpDownListMedium" BackColor = "#90c9fc" AutoPostBack="false"
-                                                                                                                        DataValueField="ChequeId" DataTextField="ChequeNo" Width="100%"
-                                                                                                                        AppendDataBoundItems="true">
-                                                                                                                        <%--<asp:ListItem style="background-color: #90c9fc" Text="Select Cheque No" Value="0"></asp:ListItem>--%>
-                                                                                                                <%--</asp:DropDownList>
-                                                                                                                    </ContentTemplate>
-                                                                                                                    </asp:UpdatePanel>--%>
+                                                                                                            <td id="Td4" runat="server" class="ControlDrpBorder" style="width: 25%">                                                                                                                
                                                                                                                 <asp:TextBox ID="txtChequeNo" runat="server" Text='<%# Bind("ChequeNo") %>' Height="26px" SkinID="skinTxtBoxGrid"
                                                                                                                     Width="95%" CssClass="cssTextBox" MaxLength="10"></asp:TextBox>
                                                                                                             </td>
-                                                                                                        </tr>
+                                                                                                        </tr>--%>
                                                                                                         <tr>
                                                                                                             <td colspan="4">
                                                                                                                 <asp:UpdatePanel ID="UP1" runat="server" UpdateMode="Conditional">

@@ -516,8 +516,8 @@
                                                                 </td>
                                                                 <td class="ControlNumberBox3" style="width:25%">
                                                                     <asp:TextBox ID="txtOpenBalAdd" runat="server" Text="0"
-                                                                          style="border: 1px solid #e7e7e7" Width="60%" TabIndex="2"  BackColor = "#e7e7e7"></asp:TextBox>
-                                                                    <asp:DropDownList ID="ddCRDRAdd" runat="server" Width="55px" BackColor = "#e7e7e7"  style="border: 1px solid Gray" height="26px" CssClass="drpDownListMedium" SelectedValue='<%# Bind("DRORCR") %>'
+                                                                          style="border: 1px solid #e7e7e7" Width="60%" TabIndex="2"  Enabled="false" BackColor = "#e7e7e7"></asp:TextBox>
+                                                                    <asp:DropDownList ID="ddCRDRAdd" runat="server" Width="55px"  Enabled="false" BackColor = "#e7e7e7"  style="border: 1px solid Gray" height="26px" CssClass="drpDownListMedium" SelectedValue='<%# Bind("DRORCR") %>'
                                                                         TabIndex="3">
                                                                         <asp:ListItem Text="CR" Value="CR"></asp:ListItem>
                                                                         <asp:ListItem Text="DR" Value="DR"></asp:ListItem>

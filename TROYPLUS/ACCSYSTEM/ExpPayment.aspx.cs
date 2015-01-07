@@ -141,6 +141,25 @@ public partial class ExpPayment : System.Web.UI.Page
         }
     }
 
+    protected void ddBanks_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        loadChequeNo(Convert.ToInt32(ddBanks.SelectedItem.Value));
+    }
+
+    private void loadChequeNo(int bnkId)
+    {
+        cmbChequeNo.Items.Clear();
+        //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataSet ds = new DataSet();       
+        ds = bl.ListChequeNo(bnkId);
+        cmbChequeNo.DataSource = ds;
+        cmbChequeNo.DataBind();
+        cmbChequeNo.DataTextField = "ChequeNo";
+        cmbChequeNo.DataValueField = "ChequeNo";
+
+    }
+
     private void loadHeading()
     {
         //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
@@ -478,7 +497,7 @@ public partial class ExpPayment : System.Web.UI.Page
                     //txtMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
                     chkPayTo.SelectedValue = ds.Tables[0].Rows[0]["paymode"].ToString();
                     txtNarration.Text = ds.Tables[0].Rows[0]["Narration"].ToString();
-                    txtChequeNo.Text = ds.Tables[0].Rows[0]["ChequeNo"].ToString();
+                    //txtChequeNo.Text = ds.Tables[0].Rows[0]["ChequeNo"].ToString();
 
                     if (chkPayTo.SelectedItem != null)
                     {
@@ -784,13 +803,14 @@ public partial class ExpPayment : System.Web.UI.Page
         txtRefNo.Text = "";
         txtTransDate.Text = "";
         txtNarration.Text = "";
-        txtChequeNo.Text = "";
+        //txtChequeNo.Text = "";
         txtAmount.Text = "";
         ddReceivedFrom.SelectedValue = "0";
         drpHeading.SelectedValue = "0";
         drpGroup.SelectedValue = "0";
         //txtMobile.Text = "";
-        ddBanks.SelectedValue = "0"; 
+        ddBanks.SelectedValue = "0";
+        cmbChequeNo.SelectedValue = "0";
         txtBillAdd.Text = "";
     }
 
@@ -1055,6 +1075,7 @@ public partial class ExpPayment : System.Web.UI.Page
     {
         try
         {
+            int ichequestatus = 0;
             DataSet dsData = (DataSet)Session["BillData"];
 
             if (calcDatasetSum(dsData) > double.Parse(txtAmount.Text))
@@ -1113,7 +1134,7 @@ public partial class ExpPayment : System.Web.UI.Page
                 Amount = double.Parse(txtAmount.Text);
                 Narration = txtNarration.Text;
                 VoucherType = "Payment";
-                ChequeNo = txtChequeNo.Text;
+                ChequeNo = cmbChequeNo.SelectedItem.Text;
                 BillNo = txtBillAdd.Text;
                 BusinessLogic bl = new BusinessLogic();
 
@@ -1143,7 +1164,7 @@ public partial class ExpPayment : System.Web.UI.Page
                         Int32 setdd = 0;
 
                         Int32 Cheque = 0;
-                        Cheque = Convert.ToInt32(txtChequeNo.Text);
+                        Cheque = Convert.ToInt32(cmbChequeNo.SelectedItem.Text);
 
                         if (dsdat != null)
                         {
@@ -1202,6 +1223,7 @@ public partial class ExpPayment : System.Web.UI.Page
                 string usernam = Request.Cookies["LoggedUserName"].Value;
 
                 bl.InsertPayment(out OutPut, conn, RefNo, TransDate, DebitorID, CreditorID, Amount, Narration, VoucherType, ChequeNo, Paymode, BillNo, usernam);
+                ichequestatus = bl.UpdateChequeused_conn(ChequeNo, CreditorID, conn);
 
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Payment Saved Successfully. Transaction No : " + OutPut.ToString() + "');", true);
 
@@ -1296,7 +1318,7 @@ public partial class ExpPayment : System.Web.UI.Page
                 Amount = double.Parse(txtAmount.Text);
                 Narration = txtNarration.Text;
                 VoucherType = "Payment";
-                ChequeNo = txtChequeNo.Text;
+                ChequeNo = cmbChequeNo.SelectedItem.Text;
 
                 BusinessLogic bl = new BusinessLogic();
 
@@ -1328,7 +1350,7 @@ public partial class ExpPayment : System.Web.UI.Page
                         Int32 setdd = 0;
 
                         Int32 Cheque = 0;
-                        Cheque = Convert.ToInt32(txtChequeNo.Text);
+                        Cheque = Convert.ToInt32(cmbChequeNo.SelectedItem.Text);
 
                         if (dsdat != null)
                         {

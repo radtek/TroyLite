@@ -559,9 +559,9 @@
                                                                         TargetControlID="txtOpenBalAdd" />
                                                                 </td>
                                                                 <td class="ControlNumberBox3" style="width:20%">
-                                                                    <asp:TextBox ID="txtOpenBalAdd" runat="server" Text="0"
+                                                                    <asp:TextBox ID="txtOpenBalAdd" runat="server" Text="0" Enabled="false"
                                                                          BackColor = "#e7e7e7" style="border: 1px solid #e7e7e7" Width="60%"></asp:TextBox>
-                                                                    <asp:DropDownList ID="ddCRDRAdd" runat="server" style="border: 1px solid #e7e7e7" height="26px" Width="55px" CssClass="drpDownListMedium" BackColor = "#e7e7e7" SelectedValue='<%# Bind("DRORCR") %>'>
+                                                                    <asp:DropDownList ID="ddCRDRAdd" runat="server" Enabled="false" style="border: 1px solid #e7e7e7" height="26px" Width="55px" CssClass="drpDownListMedium" BackColor = "#e7e7e7" SelectedValue='<%# Bind("DRORCR") %>'>
                                                                         <asp:ListItem Text="CR" Value="CR"></asp:ListItem>
                                                                         <asp:ListItem Text="DR" Value="DR"></asp:ListItem>
                                                                     </asp:DropDownList>

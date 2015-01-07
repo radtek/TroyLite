@@ -445,50 +445,10 @@ public partial class LeadReference : System.Web.UI.Page
             e.InputParameters["TypeName"] = ((DropDownList)this.frmViewAdd.FindControl("ddType")).SelectedItem.Text;
         }
 
-        if (((DropDownList)this.frmViewAdd.FindControl("ddType")).SelectedValue == "Mode of Contact")
+        if (((DropDownList)this.frmViewAdd.FindControl("ddType")).SelectedValue == "Activity Name")
         {
-            e.InputParameters["Types"] = "CONTACT";
-        }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddType")).SelectedValue == "Personal Responsible")
-        {
-            e.InputParameters["Types"] = "PERRES";
-        }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddType")).SelectedValue == "Business Type")
-        {
-            e.InputParameters["Types"] = "BUSTYPE";
-        }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddType")).SelectedValue == "Branch")
-        {
-            e.InputParameters["Types"] = "BRNCH";
-        }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddType")).SelectedValue == "Last Completed Action")
-        {
-            e.InputParameters["Types"] = "LSTCMP";
-        }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddType")).SelectedValue == "Next Action")
-        {
-            e.InputParameters["Types"] = "NXTAXN";
-        }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddType")).SelectedValue == "Category")
-        {
-            e.InputParameters["Types"] = "CATEGRY";
-        }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddType")).SelectedValue == "Status")
-        {
-            e.InputParameters["Types"] = "STATUS";
-        }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddType")).SelectedValue == "Information3")
-        {
-            e.InputParameters["Types"] = "INFO3";
-        }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddType")).SelectedValue == "Information4")
-        {
-            e.InputParameters["Types"] = "INFO4";
-        }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddType")).SelectedValue == "Information5")
-        {
-            e.InputParameters["Types"] = "INFO5";
-        }
+            e.InputParameters["Types"] = "ACTIVITY";
+        }       
     }
 
     private void setUpdateParameters(ObjectDataSourceMethodEventArgs e)
@@ -501,50 +461,11 @@ public partial class LeadReference : System.Web.UI.Page
             e.InputParameters["TypeName"] = ((DropDownList)this.frmViewAdd.FindControl("ddTypedd")).SelectedItem.Text;
         }
 
-        if (((DropDownList)this.frmViewAdd.FindControl("ddTypedd")).SelectedValue == "Mode of Contact")
+        if (((DropDownList)this.frmViewAdd.FindControl("ddTypedd")).SelectedValue == "Activity Name")
         {
-            e.InputParameters["Types"] = "CONTACT";
+            e.InputParameters["Types"] = "ACTIVITY";
         }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddTypedd")).SelectedValue == "Personal Responsible")
-        {
-            e.InputParameters["Types"] = "PERRES";
-        }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddTypedd")).SelectedValue == "Business Type")
-        {
-            e.InputParameters["Types"] = "BUSTYPE";
-        }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddTypedd")).SelectedValue == "Branch")
-        {
-            e.InputParameters["Types"] = "BRNCH";
-        }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddTypedd")).SelectedValue == "Last Completed Action")
-        {
-            e.InputParameters["Types"] = "LSTCMP";
-        }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddTypedd")).SelectedValue == "Next Action")
-        {
-            e.InputParameters["Types"] = "NXTAXN";
-        }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddTypedd")).SelectedValue == "Category")
-        {
-            e.InputParameters["Types"] = "CATEGRY";
-        }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddTypedd")).SelectedValue == "Status")
-        {
-            e.InputParameters["Types"] = "STATUS";
-        }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddTypedd")).SelectedValue == "Information3")
-        {
-            e.InputParameters["Types"] = "INFO3";
-        }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddTypedd")).SelectedValue == "Information4")
-        {
-            e.InputParameters["Types"] = "INFO4";
-        }
-        else if (((DropDownList)this.frmViewAdd.FindControl("ddTypedd")).SelectedValue == "Information5")
-        {
-            e.InputParameters["Types"] = "INFO5";
-        }
+
     }
 
 }
