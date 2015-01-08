@@ -57,7 +57,7 @@ public partial class BankPayment : System.Web.UI.Page
                     lnkBtnAdd.ToolTip = "Click to Add New ";
                 }
 
-
+                //loadBanks();
             }
         }
         catch (Exception ex)
@@ -75,6 +75,19 @@ public partial class BankPayment : System.Web.UI.Page
         GridSource.SelectParameters.Add(new ControlParameter("txtSearch", TypeCode.String, txtSearch.UniqueID, "Text"));
         GridSource.SelectParameters.Add(new ControlParameter("dropDown", TypeCode.String, ddCriteria.UniqueID, "SelectedValue"));
     }
+
+    //private void loadBanks()
+    //{
+    //    sDataSource = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+    //    BusinessLogic bl = new BusinessLogic(sDataSource);
+    //    DataSet ds = new DataSet();
+    //    ds = bl.ListBanks(sDataSource);
+
+    //    ddBanksAdd.DataSource = ds;
+    //    ddBanksAdd.DataBind();
+    //    ddBanksAdd.DataTextField = "LedgerName";
+    //    ddBanksAdd.DataValueField = "LedgerID";
+    //}
 
     protected void ddBanks_SelectedIndexChanged(object sender, EventArgs e)
     {

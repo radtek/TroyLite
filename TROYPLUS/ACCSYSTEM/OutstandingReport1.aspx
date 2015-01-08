@@ -221,8 +221,8 @@
                     <br />
                     <br />
                 </PageHeaderTemplate>
-                <Columns>
-                    <asp:BoundField ItemStyle-HorizontalAlign="Left" DataField="Ledgername" HeaderText="Particulars" />
+                <Columns>                    
+                    <asp:BoundField ItemStyle-HorizontalAlign="Left" DataField="Ledgername" HeaderText="Particulars" />                    
                     <asp:TemplateField HeaderText="Debit" HeaderStyle-HorizontalAlign="Right" ItemStyle-HorizontalAlign="Right">
                         <ItemTemplate>
                             <asp:Label ID="lblDebit" Text='<%# Eval("Debit","{0:f2}") %>' runat="server"></asp:Label>
