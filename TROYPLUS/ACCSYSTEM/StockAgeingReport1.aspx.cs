@@ -384,7 +384,7 @@ public partial class StockAgeingReport1 : System.Web.UI.Page
         //dc = new DataColumn("Description");
         //dt.Columns.Add(dc);
         int colDur = 1;
-        int nextDur = 5;
+        int nextDur = duration;
 
         for (int i = 0; i < noOfColumns; i++)
         {
@@ -392,10 +392,10 @@ public partial class StockAgeingReport1 : System.Web.UI.Page
             dc = new DataColumn("Days(" + colDur.ToString() + "-" + nextDur.ToString() + ")");
             dt.Columns.Add(dc);
             colDur = nextDur + 1;
-            nextDur = nextDur + 5;
+            nextDur = nextDur + duration;
         }
 
-        dc = new DataColumn("Days(" + 20 + ") Above");
+        dc = new DataColumn("Days(" + colDur + ") Above");
         dt.Columns.Add(dc);
 
         ds.Tables.Add(dt);
@@ -639,37 +639,57 @@ public partial class StockAgeingReport1 : System.Web.UI.Page
                     rowIndex++;
                 }
             }
+            int colDur = 1;
+            int nextDur = duration;
 
             if (dupFlag)
             {
                 int colIndex = diffDays / duration;
                 colIndex = colIndex + 2;
+                
 
                 //if (colIndex >= maxColIndex)
                 //{
                 //    colIndex = maxColIndex;
                 //}
 
-                if ((diffDays >= 1) && (diffDays <= 5))
+                for (int i = 0; i < noOfColumns; i++)
                 {
-                    colIndex = 4;
+                    //nextDur = nextDur + duration;
+                    //dc = new DataColumn("Days(" + colDur.ToString() + "-" + nextDur.ToString() + ")");
+                    //dt.Columns.Add(dc);
+
+                    if ((diffDays >= colDur) && (diffDays <= nextDur))
+                    {
+                        colIndex = 4;
+                        break;
+                    }
+                    else if ((diffDays >= colDur) && (diffDays <= nextDur))
+                    {
+                        colIndex = 5;
+                        break;
+                    }
+                    else if ((diffDays >= colDur) && (diffDays <= nextDur))
+                    {
+                        colIndex = 6;
+                        break;
+                    }
+                    else if ((diffDays >= colDur) && (diffDays <= nextDur))
+                    {
+                        colIndex = 7;
+                        break;
+                    }
+                    else if (diffDays >= colDur)
+                    {
+                        colIndex = 8;
+                        break;
+                    }
+
+                    colDur = nextDur + 1;
+                    nextDur = nextDur + duration;
                 }
-                else if ((diffDays >= 6) && (diffDays <= 10))
-                {
-                    colIndex = 5;
-                }
-                else if ((diffDays >= 11) && (diffDays <= 15))
-                {
-                    colIndex = 6;
-                }
-                else if ((diffDays >= 15) && (diffDays <= 20))
-                {
-                    colIndex = 7;
-                }
-                else if (diffDays >= 20)
-                {
-                    colIndex = 8;
-                }
+
+                
 
                 double currQty = 0;
 
@@ -719,26 +739,36 @@ public partial class StockAgeingReport1 : System.Web.UI.Page
                 //{
                 //    colIndex = maxColIndex;
                 //}
+                for (int i = 0; i < noOfColumns; i++)
+                {
+                    if ((diffDays >= colDur) && (diffDays <= nextDur))
+                    {
+                        colIndex = 4;
+                        break;
+                    }
+                    else if ((diffDays >= colDur) && (diffDays <= nextDur))
+                    {
+                        colIndex = 5;
+                        break;
+                    }
+                    else if ((diffDays >= colDur) && (diffDays <= nextDur))
+                    {
+                        colIndex = 6;
+                        break;
+                    }
+                    else if ((diffDays >= colDur) && (diffDays <= nextDur))
+                    {
+                        colIndex = 7;
+                        break;
+                    }
+                    else if (diffDays >= colDur)
+                    {
+                        colIndex = 8;
+                        break;
+                    }
 
-                if ((diffDays >= 1) && (diffDays <= 5))
-                {
-                    colIndex = 4;
-                }
-                else if ((diffDays >= 6) && (diffDays <= 10))
-                {
-                    colIndex = 5;
-                }
-                else if ((diffDays >= 11) && (diffDays <= 15))
-                {
-                    colIndex = 6;
-                }
-                else if ((diffDays >= 15) && (diffDays <= 20))
-                {
-                    colIndex = 7;
-                }
-                else if (diffDays >= 20)
-                {
-                    colIndex = 8;
+                    colDur = nextDur + 1;
+                    nextDur = nextDur + duration;
                 }
 
                 gridRow[colIndex] = dr["Qty"].ToString();

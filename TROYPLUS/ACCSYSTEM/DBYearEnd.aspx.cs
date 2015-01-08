@@ -205,71 +205,71 @@ public partial class DBYearEnd : System.Web.UI.Page
                     command.CommandText = string.Format("Delete from tblAuditTaskStatus");
                     command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblBankRec");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblBankRec");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblBankRecon");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblBankRecon");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblCommission");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblCommission");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblCommissionItems");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblCommissionItems");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblCompetitors");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblCompetitors");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblCreditDebitNote");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblCreditDebitNote");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblDayBook");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblDayBook");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblExecution");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblExecution");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblFormula");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblFormula");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblPurchaseItems");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblPurchaseItems");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblPayMent");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblPayMent");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblPaymentAmount");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblPaymentAmount");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblProjects");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblProjects");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblPurchase");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblPurchase");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblReceipt");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblReceipt");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblReceivedAmount");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblReceivedAmount");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblSales");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblSales");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblSalesItems");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblSalesItems");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblPurchase");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblPurchase");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblTimeSheetEntry");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblTimeSheetEntry");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblOpeningDcSales");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblOpeningDcSales");
+                    //command.ExecuteNonQuery();
 
-                    command.CommandText = string.Format("Delete from tblopeningDcSalesItems");
-                    command.ExecuteNonQuery();
+                    //command.CommandText = string.Format("Delete from tblopeningDcSalesItems");
+                    //command.ExecuteNonQuery();
 
                     //command.CommandText = string.Format("Delete from tblPurchase");
                     //command.ExecuteNonQuery();

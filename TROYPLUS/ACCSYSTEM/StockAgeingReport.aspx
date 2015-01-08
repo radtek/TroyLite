@@ -100,7 +100,7 @@
                                 Duration (Days)
                             </td>
                             <td align="left" class="ControlTextBox3" style="width:20%">
-                                <asp:TextBox ID="txtDuration" runat="server" BackColor = "#e7e7e7" style="border: 1px solid #e7e7e7" Enabled="False"></asp:TextBox>
+                                <asp:TextBox ID="txtDuration" runat="server" BackColor = "#e7e7e7" style="border: 1px solid #e7e7e7"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtDuration"
                                     ErrorMessage="EnterNumber" ValidationGroup="btnAgeing">*</asp:RequiredFieldValidator>
                             </td>
@@ -108,7 +108,7 @@
                                 No. of Columns
                             </td>
                             <td align="left" class="ControlTextBox3" style="width:20%">
-                                <asp:TextBox ID="txtColumns" runat="server" BackColor = "#e7e7e7" style="border: 1px solid #e7e7e7" Enabled="False"></asp:TextBox>
+                                <asp:TextBox ID="txtColumns" runat="server" BackColor = "#e7e7e7" style="border: 1px solid #e7e7e7"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtColumns"
                                     ErrorMessage="EnterNumber" ValidationGroup="btnAgeing">*</asp:RequiredFieldValidator>
                             </td>

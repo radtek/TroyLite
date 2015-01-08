@@ -488,7 +488,7 @@ public partial class Purchase : System.Web.UI.Page
 
                 if (checkdate2 < checkdate3)
                 {
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Purchase Entry date can't be less than bill date')", true);
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Purchase Entry date cant be less than bill date')", true);
                     return;
                 }
 

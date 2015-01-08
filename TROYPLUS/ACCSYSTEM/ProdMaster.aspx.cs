@@ -492,7 +492,7 @@ public partial class ProdMaster : System.Web.UI.Page
             //    return;
             //}
             Reset();
-
+            
             BusinessLogic bl = new BusinessLogic(sDataSource);
 
             if (!DealerRequired())
@@ -514,6 +514,8 @@ public partial class ProdMaster : System.Web.UI.Page
 
             string connection = Request.Cookies["Company"].Value;
             DataSet ds = bl.ListPriceListInfo(connection, "", "");
+
+            txtItemCodeAdd.Enabled = true;
 
             DataTable dtt;
             DataRow drNew;
@@ -1253,6 +1255,8 @@ public partial class ProdMaster : System.Web.UI.Page
                     if (ds.Tables[0].Rows[0]["ItemCode"] != null)
                         txtItemCodeAdd.Text = ds.Tables[0].Rows[0]["ItemCode"].ToString();
 
+                    txtItemCodeAdd.Enabled = false;
+
                     if (ds.Tables[0].Rows[0]["Stock"] != null)
                         txtStockAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Stock"]);
 
@@ -1263,7 +1267,7 @@ public partial class ProdMaster : System.Web.UI.Page
                         txtModelAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Model"]);
 
                     if (ds.Tables[0].Rows[0]["ProductDesc"] != null)
-                        txtProdDescAdd.SelectedItem.Text = Convert.ToString(ds.Tables[0].Rows[0]["ProductDesc"]);
+                        txtProdDescAdd.SelectedValue = Convert.ToString(ds.Tables[0].Rows[0]["ProductDesc"]);
 
                     //string ProductDesc;
                     //if ((ds.Tables[0].Rows[0]["ProductDesc"] != null) && (ds.Tables[0].Rows[0]["ProductDesc"].ToString() != ""))
@@ -1532,6 +1536,8 @@ public partial class ProdMaster : System.Web.UI.Page
 
                 for (int vLoop = 0; vLoop < GrdViewItems.Rows.Count; vLoop++)
                 {
+                    int col = vLoop + 1;
+
                     TextBox Price1 = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtPrice");
                     Price = Price1.Text;
                     TextBox EffDate1 = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtEffDate");
@@ -1541,17 +1547,17 @@ public partial class ProdMaster : System.Web.UI.Page
 
                     if (Price == "")
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Price');", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Price in row " + col + " ');", true);
                         return;
                     }
                     else if (EffDate == "")
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill EffDate');", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Effective Date in row " + col + " ');", true);
                         return;
                     }
                     else if (tDiscount == "")
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Discount');", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Discount in row " + col + " ');", true);
                         return;
                     }
                 }
@@ -1613,7 +1619,7 @@ public partial class ProdMaster : System.Web.UI.Page
                 ProductName = txtItemNameAdd.Text.Trim();
                 ROL = Convert.ToInt32(txtROLAdd.Text);
                 Model = txtModelAdd.Text.Trim();
-                ProductDesc = txtProdDescAdd.SelectedItem.Text;
+                ProductDesc = txtProdDescAdd.SelectedValue;
                 Rate = Convert.ToDouble(txtUnitRateAdd.Text);
                 MRPEffDate = DateTime.Parse(txtMrpDateAdd.Text);
                 Unit = Convert.ToInt32(txtUnitAdd.Text);
@@ -1808,6 +1814,13 @@ public partial class ProdMaster : System.Web.UI.Page
                 string Price = "";
                 string EffDate = "";
 
+                string ItemCod = txtItemCodeAdd.Text.Trim();
+                if (bl.CheckIfItemCodeDuplicate(ItemCod))
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product code \\'" + ItemCod + "\\' already exists in the product master.');", true);
+                    return;
+                }
+
                 string tDiscount = "";
                 
                     for (int vLoop = 0; vLoop < GrdViewItems.Rows.Count; vLoop++)
@@ -1819,19 +1832,21 @@ public partial class ProdMaster : System.Web.UI.Page
                         TextBox Discount1 = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtDiscount1");
                         tDiscount = Discount1.Text;
 
+                        int col = vLoop + 1;
+
                         if (Price == "")
                         {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Price');", true);
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Price in row " + col + " ');", true);
                             return;
                         }
                         else if (EffDate == "")
                         {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill EffDate');", true);
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Effective Date in row " + col + " ');", true);
                             return;
                         }
                         else if (tDiscount == "")
                         {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Discount');", true);
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Discount in row " + col + " ');", true);
                             return;
                         }                        
                     }
@@ -1893,7 +1908,7 @@ public partial class ProdMaster : System.Web.UI.Page
                 ProductName = txtItemNameAdd.Text.Trim();
                 ROL = Convert.ToInt32(txtROLAdd.Text);
                 Model = txtModelAdd.Text.Trim();
-                ProductDesc = txtProdDescAdd.SelectedItem.Text;
+                ProductDesc = txtProdDescAdd.SelectedValue;
                 Rate = Convert.ToDouble(txtUnitRateAdd.Text);
                 MRPEffDate = DateTime.Parse(txtMrpDateAdd.Text);
                 Unit = Convert.ToInt32(txtUnitAdd.Text);
