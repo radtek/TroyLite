@@ -683,7 +683,7 @@
       this.no_results_clear();
       results = 0;
       searchText = this.search_field.value === this.default_text ? "" : this.search_field.value.strip().escapeHTML();
-      regex = new RegExp('\b' + searchText.replace(/[a-z][0-9][A-Z][-\/\\^$*+?.()|[\]{}]/g, "\\$&"), 'i');//'^'
+      regex = new RegExp('\w' + searchText.replace(/[a-z][0-9][A-Z][-\/\\^$*+?.()|[\]{}]/g, "\\$&"), 'i');//'^'
       zregex = new RegExp(searchText.replace(/[a-z][0-9][A-Z][-\/\\^$*+?.()|[\]{}]/g, "\\$&"), 'i');
       _ref = this.results_data;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {

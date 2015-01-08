@@ -679,7 +679,7 @@
       this.no_results_clear();
       results = 0;
       searchText = this.search_field.val() === this.default_text ? "" : $('<div/>').text($.trim(this.search_field.val())).html();
-      regex = new RegExp('\b' + searchText.replace(/[a-z][0-9][A-Z][-\/\\^$*+?.()|[\]{}]/g, "\\$&"), 'i');//'^'     
+      regex = new RegExp('\w' + searchText.replace(/[a-z][0-9][A-Z][-\/\\^$*+?.()|[\]{}]/g, "\\$&"), 'i');//'^'     
       zregex = new RegExp(searchText.replace(/[a-z][0-9][A-Z][-\/\\^$*+?.()|[\]{}]/g, "\\$&"), 'i');
       _ref = this.results_data;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
