@@ -30,6 +30,7 @@ public partial class CompanyInfo : System.Web.UI.Page
                 GetSettingsInfo();
                 BindDivisions();
                 GetCompanyInfo();
+                loadPriceList();
                 Label1.Text = Helper.GenerateUniqueIDForThisPC();
                 DisableForOffline();
 
@@ -82,6 +83,20 @@ public partial class CompanyInfo : System.Web.UI.Page
         cmbProdAdd.DataTextField = "ProductName";
         cmbProdAdd.DataValueField = "ItemCode";
     }
+
+    private void loadPriceList()
+    {
+        string connection = Request.Cookies["Company"].Value;
+        //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataSet ds = new DataSet();
+        ds = bl.ListPriceListInfo(connection, "", "");
+        ddPriceList.DataSource = ds;
+        ddPriceList.DataBind();
+        ddPriceList.DataTextField = "PriceName";
+        ddPriceList.DataValueField = "PriceName";
+    }
+
     private void loadBillFormat()
     {
         //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
@@ -334,6 +349,11 @@ public partial class CompanyInfo : System.Web.UI.Page
                             if (dr["KeyValue"] != null)
                                 RadioButtonOpening.SelectedValue = dr["KeyValue"].ToString();
                         }
+                        else if (dr["Key"].ToString() == "PRICE")
+                        {
+                            if (dr["KeyValue"] != null)
+                                ddPriceList.SelectedValue = dr["KeyValue"].ToString();
+                        }
                     }
                 }
             }
@@ -466,6 +486,7 @@ public partial class CompanyInfo : System.Web.UI.Page
                 string tinnoman = string.Empty;
                 string salesdiscount = string.Empty;
                 string openingbalance = string.Empty;
+                string deviationprice = string.Empty;
 
                 salesdiscount = RadioButtonDiscount.SelectedValue;
                 openingbalance  = RadioButtonOpening.SelectedValue;
@@ -505,6 +526,7 @@ public partial class CompanyInfo : System.Web.UI.Page
 
                 savelog = dpsavelog.SelectedValue;
                 enablevat = ddenablevat.SelectedValue;
+                deviationprice = ddPriceList.SelectedValue;
 
                 smsRequired = rdoSMSRqrd.SelectedValue;
                 strOwnerMob = txtMobile.Text;
@@ -529,7 +551,7 @@ public partial class CompanyInfo : System.Web.UI.Page
 
                 try
                 {
-                    bl.InsertSettings(itemCode, strIP, strQtyReturn, strDate, strBillFormat, currency, dealer, barcode, stockEdit, smsRequired, blitRequired, strOwnerMob, strVATReconDate, strVATAmount, discType, exceedLimit, strBillMethod, strobsolute, droundoff, dsalesseries, autolock, savelog, enablevat, emailRequired, macaddress, tinnoman, enabledate, salesdiscount, openingbalance);
+                    bl.InsertSettings(itemCode, strIP, strQtyReturn, strDate, strBillFormat, currency, dealer, barcode, stockEdit, smsRequired, blitRequired, strOwnerMob, strVATReconDate, strVATAmount, discType, exceedLimit, strBillMethod, strobsolute, droundoff, dsalesseries, autolock, savelog, enablevat, emailRequired, macaddress, tinnoman, enabledate, salesdiscount, openingbalance, deviationprice);
 
                     System.Threading.Thread.Sleep(1000);
 

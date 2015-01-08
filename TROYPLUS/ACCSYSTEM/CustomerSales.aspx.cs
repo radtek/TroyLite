@@ -418,8 +418,19 @@ public partial class CustomerSales : System.Web.UI.Page
 
     private void loadSupplier(string SundryType)
     {
-        //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
         BusinessLogic bl = new BusinessLogic(sDataSource);
+        string connection = Request.Cookies["Company"].Value;
+        DataSet dsd = new DataSet();
+        dsd = bl.ListCusCategory(connection);
+        drpCustomerCategoryAdd.Items.Clear();
+        drpCustomerCategoryAdd.Items.Add(new ListItem("Select Customer Category", "0"));
+        drpCustomerCategoryAdd.DataSource = dsd;
+        drpCustomerCategoryAdd.DataBind();
+        drpCustomerCategoryAdd.DataTextField = "CusCategory_Name";
+        drpCustomerCategoryAdd.DataValueField = "CusCategory_Value";
+
+        //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
+        
         DataSet ds = new DataSet();
 
         if (SundryType == "Sundry Debtors")
@@ -461,15 +472,7 @@ public partial class CustomerSales : System.Web.UI.Page
         drpMobile.DataTextField = "Mobile";
         drpMobile.DataValueField = "LedgerID";
 
-        //string connection = Request.Cookies["Company"].Value;
-        //DataSet dsd = new DataSet();
-        //dsd = bl.ListCusCategory(connection);
-        //drpCustomerCategoryAdd.Items.Clear();
-        //drpCustomerCategoryAdd.Items.Add(new ListItem("Select Customer Category", "0"));
-        //drpCustomerCategoryAdd.DataSource = ds;
-        //drpCustomerCategoryAdd.DataBind();
-        //drpCustomerCategoryAdd.DataTextField = "CusCategory_Name";
-        //drpCustomerCategoryAdd.DataValueField = "CusCategory_Value";
+        
     }
 
     //protected override void OnInit(EventArgs e)
@@ -1051,12 +1054,14 @@ public partial class CustomerSales : System.Web.UI.Page
                 {
                     lblledgerCategory.Text = Convert.ToString(ds.Tables[0].Rows[0]["LedgerCategory"]);
                     lblledgerCategory.Font.Bold = true;
-                    lblledgerCategory.Visible = true;
+                    lblledgerCategory.Visible = false;
+                    drpCustomerCategoryAdd.SelectedValue = Convert.ToString(ds.Tables[0].Rows[0]["LedgerCategory"]);
                 }
                 else
                 {
                     lblledgerCategory.Text = "";
                     lblledgerCategory.Visible = false;
+                    drpCustomerCategoryAdd.SelectedValue = "";
                 }
                 // krishnavelu 26 June
                 txtOtherCusName.Text = cmbCustomer.SelectedItem.Text;
@@ -1177,12 +1182,14 @@ public partial class CustomerSales : System.Web.UI.Page
                 {
                     lblledgerCategory.Text = Convert.ToString(ds.Tables[0].Rows[0]["LedgerCategory"]);
                     lblledgerCategory.Font.Bold = true;
-                    lblledgerCategory.Visible = true;
+                    lblledgerCategory.Visible = false;
+                    drpCustomerCategoryAdd.SelectedValue = Convert.ToString(ds.Tables[0].Rows[0]["LedgerCategory"]);
                 }
                 else
                 {
                     lblledgerCategory.Text = "";
                     lblledgerCategory.Visible = false;
+                    drpCustomerCategoryAdd.SelectedValue = "";
                 }
                 // krishnavelu 26 June
                 txtOtherCusName.Text = cmbCustomer.SelectedItem.Text;
@@ -1316,8 +1323,8 @@ public partial class CustomerSales : System.Web.UI.Page
                     hdCurrRole.Value = "";
                     ds = bl.ListProductDetails(itemCode);
 
-                    string category = lblledgerCategory.Text;
-
+                    //string category = lblledgerCategory.Text;
+                    string category = drpCustomerCategoryAdd.SelectedValue;
                     if (ds != null)
                     {
                         //lblProdNameAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["productname"]);
@@ -1456,9 +1463,12 @@ public partial class CustomerSales : System.Web.UI.Page
                     {
                         hdOpr.Value = "New";
                         hdCurrRole.Value = "";
-                        ds = bl.ListSalesProductPriceDetails(cmbProdAdd.SelectedItem.Value.Trim(), lblledgerCategory.Text);
 
-                        string category = lblledgerCategory.Text;
+                        //ds = bl.ListSalesProductPriceDetails(cmbProdAdd.SelectedItem.Value.Trim(), lblledgerCategory.Text);
+
+                        ds = bl.ListSalesProductPriceDetails(cmbProdAdd.SelectedItem.Value.Trim(), drpCustomerCategoryAdd.SelectedValue);
+
+                        string category = drpCustomerCategoryAdd.SelectedValue;
 
                         if (ds != null)
                         {
@@ -1556,9 +1566,9 @@ public partial class CustomerSales : System.Web.UI.Page
 
                         hdOpr.Value = "New";
                         hdCurrRole.Value = "";
-                        ds = bl.ListSalesProductPriceDetails(cmbProdAdd.SelectedItem.Value.Trim(), lblledgerCategory.Text);
+                        ds = bl.ListSalesProductPriceDetails(cmbProdAdd.SelectedItem.Value.Trim(), drpCustomerCategoryAdd.SelectedValue);
 
-                        string category = lblledgerCategory.Text;
+                        string category = drpCustomerCategoryAdd.SelectedValue;
 
                         if (ds != null)
                         {
@@ -1768,7 +1778,7 @@ public partial class CustomerSales : System.Web.UI.Page
                     {
                         EXCLUSIVErate1 = (Convert.ToDouble(txtRateAdd.Text));
                     }
-                    DataSet dst = bl.ListSalesProductPriceDetails(cmbProdAdd.SelectedItem.Value.Trim(), lblledgerCategory.Text);
+                    DataSet dst = bl.ListProductMRPPrices(cmbProdAdd.SelectedItem.Value.Trim());
                     if (dst != null)
                     {
                         if (dst.Tables[0].Rows.Count > 0)
@@ -2331,7 +2341,7 @@ public partial class CustomerSales : System.Web.UI.Page
                     {
                         EXCLUSIVErate1 = (Convert.ToDouble(txtRateAdd.Text));
                     }
-                    DataSet dst = bl.ListSalesProductPriceDetails(cmbProdAdd.SelectedItem.Value.Trim(), lblledgerCategory.Text);
+                    DataSet dst = bl.ListProductMRPPrices(cmbProdAdd.SelectedItem.Value.Trim());
                     if (dst != null)
                     {
                         if (dst.Tables[0].Rows.Count > 0)
@@ -2832,6 +2842,7 @@ public partial class CustomerSales : System.Web.UI.Page
         string despatchedfrom = string.Empty;
         double fixedtotal = 0.0;
         int manualno = 0;
+        string cuscategory = string.Empty;
 
         double dfixedtotal = 0.0;
 
@@ -2895,7 +2906,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 dTotalAmt = Convert.ToDouble(lblNet.Text);
                 executive = drpIncharge.SelectedValue;
 
-                
+                cuscategory = drpCustomerCategoryAdd.SelectedValue;
 
                 Types = Labelll.Text;
                 string NormalSales = string.Empty;
@@ -3216,7 +3227,7 @@ public partial class CustomerSales : System.Web.UI.Page
                             }
 
 
-                            int billNo = bl.InsertSalesNewSeries(Series, sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dfixedtotal, purchaseReturn, prReason, int.Parse(executive), dFreight, dLU, ds, sOtherCusName, intTrans, receiptData, MultiPayment, deliveryNote, sCustomerAddress2, sCustomerAddress3, executivename, despatchedfrom, fixedtotal, manualno, dTotalAmt, usernam, ManualSales, NormalSales, Types, snarr, DuplicateCopy, check, CustomerIdMobile);
+                            int billNo = bl.InsertSalesNewSeries(Series, sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dfixedtotal, purchaseReturn, prReason, int.Parse(executive), dFreight, dLU, ds, sOtherCusName, intTrans, receiptData, MultiPayment, deliveryNote, sCustomerAddress2, sCustomerAddress3, executivename, despatchedfrom, fixedtotal, manualno, dTotalAmt, usernam, ManualSales, NormalSales, Types, snarr, DuplicateCopy, check, CustomerIdMobile, cuscategory);
 
                             if (billNo == -1)
                             {
@@ -3578,7 +3589,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 //////////////////////////////////////////////////////
 
 
-
+                string cuscategory = string.Empty;
 
 
                 string snarr = string.Empty;
@@ -3626,6 +3637,8 @@ public partial class CustomerSales : System.Web.UI.Page
                 sOtherCusName = txtOtherCusName.Text;// krishnavelu 26 June
                 userID = Page.User.Identity.Name;
                 int cnt = 0;
+
+                cuscategory = drpCustomerCategoryAdd.SelectedValue;
 
                 if (intTrans == "YES")
                     cnt = cnt + 1;
@@ -3994,7 +4007,7 @@ public partial class CustomerSales : System.Web.UI.Page
                                 sCustomerID = Convert.ToInt32(cmbCustomer.SelectedItem.Value);
                             }
 
-                            int billNo = bl.UpdateSalesNew(hdSeries.Value, bill, sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dfixedtotal, purchaseReturn, prReason, Convert.ToInt32(executive), dFreight, dLU, ds, sOtherCusName, intTrans, userID, deliveryNote, sCustomerAddress2, sCustomerAddress3, executivename, receiptData, despatchedfrom, fixedtotal, manualno, dTotalAmt, usernam, MultiPayment, Types, snarr);
+                            int billNo = bl.UpdateSalesNew(hdSeries.Value, bill, sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dfixedtotal, purchaseReturn, prReason, Convert.ToInt32(executive), dFreight, dLU, ds, sOtherCusName, intTrans, userID, deliveryNote, sCustomerAddress2, sCustomerAddress3, executivename, receiptData, despatchedfrom, fixedtotal, manualno, dTotalAmt, usernam, MultiPayment, Types, snarr, cuscategory);
 
                             if (billNo == -1)
                             {
@@ -4379,6 +4392,23 @@ public partial class CustomerSales : System.Web.UI.Page
                         //UpdatePanelPayMode.Update();
                         //return;
                     }
+                }
+            }
+
+            if(chk.Checked == true)
+            {
+                if(cmbCustomer.SelectedIndex==0)
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select customer before adding products');", true);
+                    return;
+                }
+            }
+            else if (chk.Checked == false)
+            {
+                if (txtCustomerName.Text == "")
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please enter customer before adding products');", true);
+                    return;
                 }
             }
 
@@ -5893,6 +5923,8 @@ public partial class CustomerSales : System.Web.UI.Page
             hdsales.Value = salesID.ToString();
             //txtBillDate.Focus();
 
+            string scuscategory = string.Empty;
+
             if (ds != null)
             {
                 if (ds.Tables[0].Rows.Count > 0)
@@ -5969,6 +6001,14 @@ public partial class CustomerSales : System.Web.UI.Page
                         sCustomer = Convert.ToString(ds.Tables[0].Rows[0]["CustomerID"]);
                         cmbCustomer.ClearSelection();
                         ListItem li = cmbCustomer.Items.FindByValue(System.Web.HttpUtility.HtmlDecode(sCustomer));
+                        if (li != null) li.Selected = true;
+                    }
+
+                    if (ds.Tables[0].Rows[0]["cuscategory"] != null)
+                    {
+                        scuscategory = Convert.ToString(ds.Tables[0].Rows[0]["cuscategory"]);
+                        drpCustomerCategoryAdd.ClearSelection();
+                        ListItem li = drpCustomerCategoryAdd.Items.FindByValue(System.Web.HttpUtility.HtmlDecode(scuscategory));
                         if (li != null) li.Selected = true;
                     }
 

@@ -80,7 +80,7 @@
                             CancelControlID="Button1" DynamicServicePath="" Enabled="True" PopupControlID="popUp"
                             TargetControlID="dummy">
                         </cc1:ModalPopupExtender>
-                        <asp:Panel runat="server" ID="popUp" Style="width: 50%">
+                        <asp:Panel runat="server" ID="popUp" Style="width: 40%">
                             <div id="contentPopUp">
                                 <table cellpadding="2" cellspacing="2" style="border: 1px solid blue;
                                     background-color: #fff; color: #000;" width="100%">
@@ -114,7 +114,26 @@
                                                                         Display="Dynamic" ErrorMessage="Price List is mandatory">*</asp:RequiredFieldValidator>
                                                                 </td>
                                                                 <td style="width: 25%;" class="ControlDrpBorder">
-                                                                    <asp:TextBox ID="txtPriceList" runat="server" Text='<%# Bind("AccountNo") %>'
+                                                                    <asp:TextBox ID="txtPriceList" runat="server"
+                                                                        SkinID="skinTxtBoxGrid" TabIndex="2"></asp:TextBox>
+                                                                </td>
+                                                                <td style="width: 33%" >
+                                                                    
+                                                                </td>
+                                                            </tr>
+                                                            <tr style="height:2px">
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 10%">
+                                                                    
+                                                                </td>
+                                                                <td style="width: 25%" class="ControlLabel">
+                                                                    Description *
+                                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtDescription"
+                                                                        Display="Dynamic" ErrorMessage="Description is mandatory">*</asp:RequiredFieldValidator>
+                                                                </td>
+                                                                <td style="width: 25%;" class="ControlDrpBorder">
+                                                                    <asp:TextBox ID="txtDescription" runat="server" 
                                                                         SkinID="skinTxtBoxGrid" TabIndex="2"></asp:TextBox>
                                                                 </td>
                                                                 <td style="width: 33%" >
@@ -182,6 +201,8 @@
                                 <EmptyDataRowStyle CssClass="GrdContent" />
                                 <Columns>
                                     <asp:BoundField DataField="PriceName" HeaderText="Price Name"  HeaderStyle-BorderColor="Gray" HeaderStyle-Wrap="false"/>
+                                    <asp:BoundField DataField="Description" HeaderText="Description"  HeaderStyle-BorderColor="Gray" HeaderStyle-Wrap="false"/>
+                                    
                                     <asp:TemplateField ItemStyle-CssClass="command" HeaderStyle-Width="50px" HeaderText="Edit" HeaderStyle-BorderColor="Gray">
                                         <ItemTemplate>
                                             <asp:ImageButton ID="btnEdit" runat="server" CausesValidation="false" SkinID="edit"
@@ -210,26 +231,26 @@
                                             <td style=" border-color:white">
                                                 Goto Page
                                             </td>
-                                            <td style=" border-color:white">
-                                                <asp:DropDownList ID="ddlPageSelector" runat="server" Width="65px" style="border:1px solid blue" BackColor="#e7e7e7">
+                                            <td style="border-color:white">
+                                                <asp:DropDownList ID="ddlPageSelector" runat="server" Width="65px" style="border:1px solid Gray" BackColor="#e7e7e7">
                                                 </asp:DropDownList>
                                             </td>
-                                            <td style=" border-color:white;Width:5px">
+                                            <td style="border-color:white;Width:5px">
                                             
                                             </td>
-                                            <td style=" border-color:white">
+                                            <td style="border-color:white">
                                                 <asp:Button Text="" CommandName="Page" CommandArgument="First" runat="server" CssClass="NewFirst" EnableTheming="false" Width="22px" Height="18px"
                                                     ID="btnFirst" />
                                             </td>
-                                            <td style=" border-color:white">
+                                            <td style="border-color:white">
                                                 <asp:Button Text="" CommandName="Page" CommandArgument="Prev" runat="server" CssClass="NewPrev" EnableTheming="false" Width="22px" Height="18px"
                                                     ID="btnPrevious" />
                                             </td>
-                                            <td style=" border-color:white">
+                                            <td style="border-color:white">
                                                 <asp:Button Text="" CommandName="Page" CommandArgument="Next" runat="server" CssClass="NewNext" EnableTheming="false" Width="22px" Height="18px"
                                                     ID="btnNext" />
                                             </td>
-                                            <td style=" border-color:white">
+                                            <td style="border-color:white">
                                                 <asp:Button Text="" CommandName="Page" CommandArgument="Last" runat="server" CssClass="NewLast" EnableTheming="false" Width="22px" Height="18px"
                                                     ID="btnLast" />
                                             </td>

@@ -131,6 +131,10 @@ public partial class PriceList : System.Web.UI.Page
                 PriceName = txtPriceList.Text;
                 string Types = "Update";
 
+                string Description = string.Empty;
+
+                Description = txtDescription.Text.Trim();
+
                 BusinessLogic bl = new BusinessLogic(sDataSource);
 
                 //if (bl.IsChequeAlreadyEntered(connection, ddBankID, FromNo, ToNo))
@@ -162,7 +166,7 @@ public partial class PriceList : System.Web.UI.Page
 
                 try
                 {
-                    bl.UpdatePriceList(connection, ID, PriceName, Username, Types);
+                    bl.UpdatePriceList(connection, ID, PriceName,Description, Username, Types);
 
 
                     //MyAccordion.Visible = true;
@@ -465,11 +469,14 @@ public partial class PriceList : System.Web.UI.Page
                 //    ((ImageButton)e.Row.FindControl("btnEditDisabled")).Visible = true;
                 //}
 
-                //if (bl.CheckUserHaveDelete(usernam, "CHQMST"))
-                //{
-                //    ((ImageButton)e.Row.FindControl("lnkB")).Visible = false;
-                //    ((ImageButton)e.Row.FindControl("lnkBDisabled")).Visible = true;
-                //}
+                string rate = Convert.ToString(DataBinder.Eval(e.Row.DataItem, "PriceName"));
+                if (rate == "MRP")
+                {
+                    ((ImageButton)e.Row.FindControl("lnkB")).Visible = false;
+                    ((ImageButton)e.Row.FindControl("lnkBDisabled")).Visible = true;
+                    ((ImageButton)e.Row.FindControl("btnEdit")).Visible = false;
+                    ((ImageButton)e.Row.FindControl("btnEditDisabled")).Visible = true;
+                }
             }
         }
         catch (Exception ex)
@@ -513,6 +520,7 @@ public partial class PriceList : System.Web.UI.Page
                 hdVisitID.Value = Convert.ToString(Id);
 
                 txtPriceList.Text = ds.Tables[0].Rows[0]["PriceName"].ToString();
+                txtDescription.Text = ds.Tables[0].Rows[0]["Description"].ToString();
 
                 UpdateButton.Visible = true;
                 SaveButton.Visible = false;
@@ -614,7 +622,9 @@ public partial class PriceList : System.Web.UI.Page
                 
                 string Types = "New";
                 PriceName = txtPriceList.Text.Trim();
-               
+                string Description = string.Empty;
+
+                Description = txtDescription.Text.Trim();
                 BusinessLogic bl = new BusinessLogic(sDataSource);
 
                 //if (bl.IsChequeAlreadyEntered(connection, BankID, FromNo, ToNo))
@@ -646,7 +656,7 @@ public partial class PriceList : System.Web.UI.Page
 
                 try
                 {
-                    bl.InsertPriceList(connection, PriceName, Username, Types);
+                    bl.InsertPriceList(connection, PriceName,Description, Username, Types);
 
                     //MyAccordion.Visible = true;
                     pnlVisitDetails.Visible = false;

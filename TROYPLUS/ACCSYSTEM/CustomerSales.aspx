@@ -337,12 +337,20 @@
                                                                                                                                 </asp:UpdatePanel>--%>
                                                                                                                             </td>
                                                                                                                                 <td style="width: 10%;" class="ControlLabel">
+                                                                                                                                    <asp:CompareValidator ID="cvCustomer" runat="server" ControlToValidate="drpCustomerCategoryAdd" Display="Dynamic" ErrorMessage="Please Select Customer Category" Operator="GreaterThan" Text="*" ValidationGroup="salesval" ValueToCompare="0"></asp:CompareValidator>
                                                                                                                                     Category *
                                                                                                                                 </td>
                                                                                                                             <td class="ControlDrpBorder" style="width: 24%">
-                                                                                                                                <asp:DropDownList ID="drpCustomerCategoryAdd" runat="server" AppendDataBoundItems="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="CusCategory_Name" DataValueField="CusCategory_Value" height="26px" style="border: 1px solid #e7e7e7" TabIndex="2" ValidationGroup="salesval" Width="100%">
-                                                                                                                                    <asp:ListItem style="background-color: #e7e7e7" Text="Select Customer Category" Value="0"></asp:ListItem>
-                                                                                                                                </asp:DropDownList>
+                                                                                                                                <asp:UpdatePanel ID="UpdatePanel8" runat="server" UpdateMode="Conditional">
+                                                                                                                                    <ContentTemplate>
+                                                                                                                                        <asp:DropDownList ID="drpCustomerCategoryAdd" runat="server" AppendDataBoundItems="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="CusCategory_Name" DataValueField="CusCategory_Value" height="26px" style="border: 1px solid #e7e7e7" TabIndex="2" ValidationGroup="salesval" Width="100%">
+                                                                                                                                            <asp:ListItem style="background-color: #e7e7e7" Text="Select Customer Category" Value="0"></asp:ListItem>
+                                                                                                                                        </asp:DropDownList>
+                                                                                                                                    </ContentTemplate>
+                                                                                                                                     <Triggers>
+                                                                                                                                        <asp:AsyncPostBackTrigger ControlID="cmbCustomer" EventName="SelectedIndexChanged" />
+                                                                                                                                    </Triggers>
+                                                                                                                                </asp:UpdatePanel>
                                                                                                                             </td>
                                                                                                                                 <td align="left" style="width: 13%;"></td>
                                                                                                                         </tr>
@@ -461,8 +469,7 @@
                                                                                                                                 <asp:TextBox ID="txtdespatced" runat="server" BackColor="#e7e7e7" MaxLength="10" SkinID="skinTxtBoxGrid" TabIndex="8" Width="200px"></asp:TextBox>
                                                                                                                             </td>
                                                                                                                             <td style="width: 7%;"></td>
-                                                                                                                            <td class="ControlLabel" style="width: 10%;"> 
-                                                                                                                                <td class="ControlLabel" style="width: 10%;">Executive *
+                                                                                                                            <td class="ControlLabel" style="width: 10%;">Executive *
                                                                                                                                 <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="drpIncharge" Display="Dynamic" ErrorMessage="Please Select Executive!!" Operator="GreaterThan" Text="*" ValidationGroup="salesval" ValueToCompare="0"></asp:CompareValidator>
                                                                                                                             </td>
                                                                                                                             <td style="width: 24%" class="ControlDrpBorder">

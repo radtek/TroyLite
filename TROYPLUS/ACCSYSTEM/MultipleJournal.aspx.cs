@@ -55,7 +55,7 @@ public partial class MultipleJournal : System.Web.UI.Page
 
                 BindGrid();
                 //GenerateRoleDs();
-
+                FirstGridViewRow();
                 loadSupplier();
                 //loadProducts();
                 //loadBilts("0");
@@ -2123,6 +2123,7 @@ public partial class MultipleJournal : System.Web.UI.Page
                 ModalPopupMethod.Show();
                 ModalPopupPurchase.Show();
                 ModalPopupExtender1.Hide();
+                ModalPopupExtender3.Show();
             }
             else if (optionmethod.SelectedValue == "DebitContra")
             {
@@ -2257,6 +2258,258 @@ public partial class MultipleJournal : System.Web.UI.Page
         }
     }
 
+    private void AddNewRow()
+    {
+        int rowIndex = 0;
+
+        if (ViewState["CurrentTable"] != null)
+        {
+            DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable"];
+            DataRow drCurrentRow = null;
+            if (dtCurrentTable.Rows.Count > 0)
+            {
+                for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                {
+
+                    DropDownList DrpProduct =
+                     (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("drpPrd");
+                    TextBox TextBoxDesc =
+                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtDesc");
+                    TextBox TextBoxRate =
+                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("txtRate");
+                    TextBox TextBoxQty =
+                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("txtQty");
+                    TextBox TextBoxExeComm =
+                     (TextBox)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("txtExeComm");
+                    TextBox TextBoxDisPre =
+                    (TextBox)grvStudentDetails.Rows[rowIndex].Cells[6].FindControl("txtDisPre");
+                    TextBox TextBoxVATPre =
+                   (TextBox)grvStudentDetails.Rows[rowIndex].Cells[7].FindControl("txtVATPre");
+                    TextBox TextBoxCSTPre =
+                  (TextBox)grvStudentDetails.Rows[rowIndex].Cells[8].FindControl("txtCSTPre");
+                    TextBox TextBoxVATAmt =
+                 (TextBox)grvStudentDetails.Rows[rowIndex].Cells[9].FindControl("txtVATAmt");
+                    TextBox TextBoxRtVAT =
+                (TextBox)grvStudentDetails.Rows[rowIndex].Cells[10].FindControl("txtRtVAT");
+                    TextBox TextBoxTotal =
+               (TextBox)grvStudentDetails.Rows[rowIndex].Cells[11].FindControl("txtTotal");
+
+                    drCurrentRow = dtCurrentTable.NewRow();
+                    drCurrentRow["RowNumber"] = i + 1;
+
+                    dtCurrentTable.Rows[i - 1]["Col1"] = DrpProduct.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["Col2"] = TextBoxDesc.Text;
+                    dtCurrentTable.Rows[i - 1]["Col3"] = TextBoxRate.Text;
+                    dtCurrentTable.Rows[i - 1]["Col4"] = TextBoxQty.Text;
+                    dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxExeComm.Text;
+                    dtCurrentTable.Rows[i - 1]["Col6"] = TextBoxDisPre.Text;
+                    dtCurrentTable.Rows[i - 1]["Col7"] = TextBoxVATPre.Text;
+                    dtCurrentTable.Rows[i - 1]["Col8"] = TextBoxCSTPre.Text;
+                    dtCurrentTable.Rows[i - 1]["Col9"] = TextBoxVATAmt.Text;
+                    dtCurrentTable.Rows[i - 1]["Col10"] = TextBoxRtVAT.Text;
+                    dtCurrentTable.Rows[i - 1]["Col11"] = TextBoxTotal.Text;
+                    rowIndex++;
+                }
+                dtCurrentTable.Rows.Add(drCurrentRow);
+                ViewState["CurrentTable"] = dtCurrentTable;
+
+                grvStudentDetails.DataSource = dtCurrentTable;
+                grvStudentDetails.DataBind();
+            }
+        }
+        else
+        {
+            Response.Write("ViewState is null");
+        }
+        SetPreviousData();
+    }
+
+    private void SetPreviousData()
+    {
+        int rowIndex = 0;
+        if (ViewState["CurrentTable"] != null)
+        {
+            DataTable dt = (DataTable)ViewState["CurrentTable"];
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    DropDownList DrpProduct =
+                    (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("drpPrd");
+                    TextBox TextBoxDesc =
+                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtDesc");
+                    TextBox TextBoxRate =
+                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("txtRate");
+                    TextBox TextBoxQty =
+                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("txtQty");
+                    TextBox TextBoxExeComm =
+                     (TextBox)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("txtExeComm");
+                    TextBox TextBoxDisPre =
+                    (TextBox)grvStudentDetails.Rows[rowIndex].Cells[6].FindControl("txtDisPre");
+                    TextBox TextBoxVATPre =
+                   (TextBox)grvStudentDetails.Rows[rowIndex].Cells[7].FindControl("txtVATPre");
+                    TextBox TextBoxCSTPre =
+                  (TextBox)grvStudentDetails.Rows[rowIndex].Cells[8].FindControl("txtCSTPre");
+                    TextBox TextBoxVATAmt =
+                 (TextBox)grvStudentDetails.Rows[rowIndex].Cells[9].FindControl("txtVATAmt");
+                    TextBox TextBoxRtVAT =
+                (TextBox)grvStudentDetails.Rows[rowIndex].Cells[10].FindControl("txtRtVAT");
+                    TextBox TextBoxTotal =
+               (TextBox)grvStudentDetails.Rows[rowIndex].Cells[11].FindControl("txtTotal");
+
+
+                    DrpProduct.SelectedValue = dt.Rows[i]["Col1"].ToString();
+                    TextBoxDesc.Text = dt.Rows[i]["Col2"].ToString();
+                    TextBoxRate.Text = dt.Rows[i]["Col3"].ToString();
+                    TextBoxQty.Text = dt.Rows[i]["Col4"].ToString();
+                    TextBoxExeComm.Text = dt.Rows[i]["Col5"].ToString();
+                    TextBoxDisPre.Text = dt.Rows[i]["Col6"].ToString();
+                    TextBoxVATPre.Text = dt.Rows[i]["Col7"].ToString();
+                    TextBoxCSTPre.Text = dt.Rows[i]["Col8"].ToString();
+                    TextBoxVATAmt.Text = dt.Rows[i]["Col9"].ToString();
+                    TextBoxRtVAT.Text = dt.Rows[i]["Col10"].ToString();
+                    TextBoxTotal.Text = dt.Rows[i]["Col10"].ToString();
+                    rowIndex++;
+
+                }
+            }
+        }
+    }
+
+    protected void grvStudentDetails_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        SetRowData();
+        if (ViewState["CurrentTable"] != null)
+        {
+            DataTable dt = (DataTable)ViewState["CurrentTable"];
+            DataRow drCurrentRow = null;
+            int rowIndex = Convert.ToInt32(e.RowIndex);
+            if (dt.Rows.Count > 1)
+            {
+                dt.Rows.Remove(dt.Rows[rowIndex]);
+                drCurrentRow = dt.NewRow();
+                ViewState["CurrentTable"] = dt;
+                grvStudentDetails.DataSource = dt;
+                grvStudentDetails.DataBind();
+
+                for (int i = 0; i < grvStudentDetails.Rows.Count - 1; i++)
+                {
+                    grvStudentDetails.Rows[i].Cells[0].Text = Convert.ToString(i + 1);
+                }
+                SetPreviousData();
+            }
+        }
+    }
+
+    private void SetRowData()
+    {
+        int rowIndex = 0;
+
+        if (ViewState["CurrentTable"] != null)
+        {
+            DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable"];
+            DataRow drCurrentRow = null;
+            if (dtCurrentTable.Rows.Count > 0)
+            {
+                for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                {
+                    DropDownList DrpProduct =
+                    (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("drpPrd");
+                    TextBox TextBoxDesc =
+                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtDesc");
+                    TextBox TextBoxRate =
+                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("txtRate");
+                    TextBox TextBoxQty =
+                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("txtQty");
+                    TextBox TextBoxExeComm =
+                     (TextBox)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("txtExeComm");
+                    TextBox TextBoxDisPre =
+                    (TextBox)grvStudentDetails.Rows[rowIndex].Cells[6].FindControl("txtDisPre");
+                    TextBox TextBoxVATPre =
+                   (TextBox)grvStudentDetails.Rows[rowIndex].Cells[7].FindControl("txtVATPre");
+                    TextBox TextBoxCSTPre =
+                  (TextBox)grvStudentDetails.Rows[rowIndex].Cells[8].FindControl("txtCSTPre");
+                    TextBox TextBoxVATAmt =
+                 (TextBox)grvStudentDetails.Rows[rowIndex].Cells[9].FindControl("txtVATAmt");
+                    TextBox TextBoxRtVAT =
+                (TextBox)grvStudentDetails.Rows[rowIndex].Cells[10].FindControl("txtRtVAT");
+                    TextBox TextBoxTotal =
+               (TextBox)grvStudentDetails.Rows[rowIndex].Cells[11].FindControl("txtTotal");
+
+                    drCurrentRow = dtCurrentTable.NewRow();
+                    drCurrentRow["RowNumber"] = i + 1;
+
+                    dtCurrentTable.Rows[i - 1]["Col1"] = DrpProduct.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["Col2"] = TextBoxDesc.Text;
+                    dtCurrentTable.Rows[i - 1]["Col3"] = TextBoxRate.Text;
+                    dtCurrentTable.Rows[i - 1]["Col4"] = TextBoxQty.Text;
+                    dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxExeComm.Text;
+                    dtCurrentTable.Rows[i - 1]["Col6"] = TextBoxDisPre.Text;
+                    dtCurrentTable.Rows[i - 1]["Col7"] = TextBoxVATPre.Text;
+                    dtCurrentTable.Rows[i - 1]["Col8"] = TextBoxCSTPre.Text;
+                    dtCurrentTable.Rows[i - 1]["Col9"] = TextBoxVATAmt.Text;
+                    dtCurrentTable.Rows[i - 1]["Col10"] = TextBoxRtVAT.Text;
+                    dtCurrentTable.Rows[i - 1]["Col11"] = TextBoxTotal.Text;
+                    rowIndex++;
+
+                }
+
+                ViewState["CurrentTable"] = dtCurrentTable;
+                grvStudentDetails.DataSource = dtCurrentTable;
+                grvStudentDetails.DataBind();
+            }
+        }
+        else
+        {
+            Response.Write("ViewState is null");
+        }
+        SetPreviousData();
+    }
+
+    protected void ButtonAdd_Click(object sender, EventArgs e)
+    {
+        AddNewRow();
+    }
+
+    private void FirstGridViewRow()
+    {
+        DataTable dt = new DataTable();
+        DataRow dr = null;
+        dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col1", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col2", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col3", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col4", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col5", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col6", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col7", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col8", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col9", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col10", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col11", typeof(string)));
+        dr = dt.NewRow();
+        dr["RowNumber"] = 1;
+        dr["Col1"] = string.Empty;
+        dr["Col2"] = string.Empty;
+        dr["Col3"] = string.Empty;
+        dr["Col4"] = string.Empty;
+        dr["Col5"] = string.Empty;
+        dr["Col6"] = string.Empty;
+        dr["Col7"] = string.Empty;
+        dr["Col8"] = string.Empty;
+        dr["Col9"] = string.Empty;
+        dr["Col10"] = string.Empty;
+        dr["Col11"] = string.Empty;
+        dt.Rows.Add(dr);
+
+        ViewState["CurrentTable"] = dt;
+
+
+        grvStudentDetails.DataSource = dt;
+        grvStudentDetails.DataBind();
+    }
+
+
     protected void lnkBtnAdd_Click(object sender, EventArgs e)
     {
         try
@@ -2327,6 +2580,18 @@ public partial class MultipleJournal : System.Web.UI.Page
         cmbDebtorAdd1.DataBind();
         cmbDebtorAdd1.DataTextField = "LedgerName";
         cmbDebtorAdd1.DataValueField = "LedgerID";
+
+
+
+        //grvStudentDetails.FindControl("drpPrd").Items.Clear();
+        //ListItem lit = new ListItem("Select Ledger", "0");
+        //lit.Attributes.Add("style", "color:Black");
+        //grvStudentDetails.FindControl("drpPrd").Items.Add(lit);
+        //grvStudentDetails.FindControl("drpPrd").DataSource = ds;
+        //grvStudentDetails.FindControl("drpPrd").Items[0].Attributes.Add("background-color", "color:#bce1fe");
+        //grvStudentDetails.FindControl("drpPrd").DataBind();
+        //grvStudentDetails.FindControl("drpPrd").DataTextField = "LedgerName";
+        //grvStudentDetails.FindControl("drpPrd").DataValueField = "LedgerID";
 
         cmbCreditorAdd1.Items.Clear();
         ListItem lif = new ListItem("Select Ledger", "0");
@@ -3287,6 +3552,21 @@ public partial class MultipleJournal : System.Web.UI.Page
         ModalPopupPurchase.Hide();
         ModalPopupExtender1.Hide();
         ModalPopupExtender2.Hide();
+        txtEntries.Text = "";
+    }
+
+    protected void Save1_Click(object sender, EventArgs e)
+    {
+    
+    }
+
+    protected void Cancel1_Click(object sender, EventArgs e)
+    {
+        ModalPopupMethod.Show();
+        ModalPopupPurchase.Hide();
+        ModalPopupExtender1.Hide();
+        ModalPopupExtender2.Hide();
+        ModalPopupExtender3.Hide();
         txtEntries.Text = "";
     }
 

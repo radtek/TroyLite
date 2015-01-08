@@ -624,13 +624,19 @@
                                                                                                </tr>
                                                     <tr>
                                                         <td style="width: 25%" class="ControlLabel">
-                                                            RoundOff With FixedTotal
+                                                            <%--RoundOff With FixedTotal--%>
+                                                            Deviation Price List
                                                         </td>
                                                         <td style="width: 20%" class="ControlDrpBorder">
                                                             <asp:DropDownList ID="dproundoff" Width="100%" CssClass="drpDownListMedium" BackColor="#e7e7e7"
-                                                                runat="server" Style="border: 1px solid #e7e7e7" Height="26px">
+                                                                runat="server" Style="border: 1px solid #e7e7e7" Height="26px" Visible="false">
                                                                 <asp:ListItem Text="YES"></asp:ListItem>
                                                                 <asp:ListItem Selected="True" Text="NO"></asp:ListItem>
+                                                            </asp:DropDownList>
+                                                            <asp:DropDownList ID="ddPriceList" Width="100%" AppendDataBoundItems="True" CssClass="drpDownListMedium"
+                                                                BackColor="#e7e7e7" runat="server" DataTextField="PRICEname" DataValueField="PRICEname"
+                                                                ValidationGroup="product" Style="border: 1px solid #e7e7e7" Height="26px">
+                                                                <asp:ListItem Text="Select PriceList" Value="0"></asp:ListItem>
                                                             </asp:DropDownList>
                                                         </td>
                                                         <td style="width: 15%" class="ControlLabel">
@@ -687,7 +693,7 @@
                                                             </asp:RadioButtonList>
                                                         </td>
                                                         <td style="width: 15%" class="ControlLabel">
-                                                            Sales Discount
+                                                            Enable Sales Discount
                                                         </td>
                                                         <td style="width: 20%" class="ControlTextBox3">
                                                             <asp:RadioButtonList ID="RadioButtonDiscount" runat="server" RepeatDirection="Horizontal">
@@ -820,7 +826,7 @@
                                                                 PopupButtonID="btnBillDate" PopupPosition="BottomLeft" TargetControlID="txtVATReconDate">
                                                             </cc1:CalendarExtender>
                                                         </td>
-                                                        <td style="width: 10" align="left">
+                                                        <td style="width:10" align="left">
                                                             <asp:ImageButton ID="btnBillDate" ImageUrl="App_Themes/NewTheme/images/cal.gif" CausesValidation="false"
                                                                 Width="20px" runat="server" />
                                                         </td>
