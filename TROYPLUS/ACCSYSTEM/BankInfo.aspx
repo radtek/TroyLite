@@ -62,20 +62,6 @@
             }
         }
 
-        function Check_Date()
-        {
-            var ctrl = documnet.getElementById('ctl00_cplhControlPanel_hddatecheck');
-            if(txt=="1")
-            {
-                alert("date is invalid")
-                Page_IsValid = false;
-                return window.event.returnValue = false;
-            }
-            else {
-                Page_IsValid = true;
-            }
-        }
-
 
 
         function CheckMode() {
@@ -285,7 +271,7 @@
                                                             <tr>
                                                                  <td class="ControlLabel" style="width: 20%">OB DueDate</td>
                                                                 <td class="ControlTextBox3" style="width:26%">
-                                                                    <asp:TextBox ID="txtdueDate" MaxLength="10"  TabIndex="5" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
+                                                                    <asp:TextBox ID="txtdueDate" MaxLength="10"    TabIndex="5" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                     <cc1:CalendarExtender ID="calBillDate"  runat="server" Enabled="True" Format="dd/MM/yyyy" PopupButtonID="btnBillDate" TargetControlID="txtdueDate">
                                                                                 </cc1:CalendarExtender>
@@ -425,7 +411,7 @@
                                                                             <td align="right" style="width: 55%;"></td>
                                                                             <td align="right" style="width: 19%;">
                                                                                 <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update"
-                                                                                    CssClass="Updatebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClientClick="Mobile_Validator();Check();CheckDate();"
+                                                                                    CssClass="Updatebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClientClick="Mobile_Validator();Check();"
                                                                                     OnClick="UpdateButton_Click"></asp:Button>
                                                                             </td>
                                                                              <td style="width:7%"></td>
@@ -440,6 +426,21 @@
                                                                     </table>
                                                                 </td>
                                                             </tr>
+
+                                                           <%-- <tr>
+                                                                        <td colspan="4">
+                                                                       <asp:UpdatePanel ID="UP" runat="server" UpdateMode="Conditional">
+                                                                       <Triggers>
+                                                                         <asp:AsyncPostBackTrigger ControlID="txtdueDate" EventName="TextChanged" />
+                                                                           </Triggers>
+                                                                         <ContentTemplate>
+                                                                           <asp:HiddenField ID="hddatecheck" runat="server" Value="0" />
+                                                                              </ContentTemplate>
+                                                                             </asp:UpdatePanel>
+                                                                             </td>
+                                                                           </tr>--%>
+
+
                                                         </table>
                                                     </div>
                                                     <table cellspacing="0">
@@ -560,7 +561,7 @@
                                                             <tr>
                                                                  <td class="ControlLabel" style="width: 20%">OB DueDate</td>
                                                                 <td class="ControlTextBox3" style="width:26%">
-                                                                    <asp:TextBox ID="txtdueDateadd" MaxLength="10"    TabIndex="5" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
+                                                                    <asp:TextBox ID="txtdueDateadd" MaxLength="10"  TabIndex="5" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                     <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True" Format="dd/MM/yyyy" PopupButtonID="btnBillDate1" TargetControlID="txtdueDateadd">
                                                                                 </cc1:CalendarExtender>
@@ -713,7 +714,7 @@
                                                                             <td align="right" style="width: 55%;"></td>
                                                                             <td style="width: 19%;">
                                                                                 <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" 
-                                                                                    CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClientClick="Mobile_Validator();CheckMode();CheckDate();"
+                                                                                    CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClientClick="Mobile_Validator();CheckMode();"
                                                                                     OnClick="InsertButton_Click"></asp:Button>
                                                                             </td>
                                                                             <td style="width: 19%;">
@@ -745,7 +746,19 @@
                                                             </td>
                                                         </tr>
 
-                                                      
+                                                        <%--  <tr>
+                                                          <td colspan="4">
+                                                             <asp:UpdatePanel ID="UP1" runat="server" UpdateMode="Conditional">
+                                                               <Triggers>
+                                                                <asp:AsyncPostBackTrigger ControlID="txtdueDateadd" EventName="TextChanged" />
+                                                                </Triggers>
+                                                                 <ContentTemplate>
+                                                                    <asp:HiddenField ID="hddatecheck1" runat="server" Value="0" />
+                                                                   </ContentTemplate>
+                                                                     </asp:UpdatePanel>
+                                                                       </td>
+                                                                       </tr>--%>
+
                                                     </table>
                                                 </InsertItemTemplate>
                                             </asp:FormView>

@@ -148,7 +148,7 @@ public partial class CustomerInfo : System.Web.UI.Page
     {
         try
         {
-            if (e.Exception == null)
+            if (e.Exception == null && check ==false)
             {
                 //MyAccordion.Visible = true;
                 lnkBtnAdd.Visible = true;
@@ -205,7 +205,7 @@ public partial class CustomerInfo : System.Web.UI.Page
     {
         try
         {
-            if (e.Exception == null)
+            if (e.Exception == null && check==false)
             {
                 lnkBtnAdd.Visible = true;
                 frmViewAdd.Visible = false;
@@ -286,11 +286,38 @@ public partial class CustomerInfo : System.Web.UI.Page
         return null;
     }
 
-
+    bool check = false;
     protected void frmSource_Inserting(object sender, ObjectDataSourceMethodEventArgs e)
     {
         try
         {
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+            string connection = Request.Cookies["Company"].Value;
+
+            string refDate = string.Empty;
+            refDate = ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtdueDateadd")).Text;
+            string dt = Convert.ToDateTime(refDate).ToString("MM/dd/yyyy");
+            EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
+
+            if (EnableOpbalance == "YES")
+            {
+                if (!bl.IsValidDate(connection, Convert.ToDateTime(refDate)))
+                {
+
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('This Date has been Locked')", true);
+                    check = true;
+                    ModalPopupExtender1.Show();
+                    frmViewAdd.Visible = true;
+                    frmViewAdd.ChangeMode(FormViewMode.Insert);
+                    e.Cancel = true;
+                    return;
+                    // break;
+                }
+
+            }
+
+
+
             this.setInsertParameters(e);
         }
         catch (Exception ex)
@@ -465,6 +492,32 @@ public partial class CustomerInfo : System.Web.UI.Page
     {
         try
         {
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+            string connection = Request.Cookies["Company"].Value;
+
+            string refDate = string.Empty;
+            refDate = ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtdueDate")).Text;
+            string dt = Convert.ToDateTime(refDate).ToString("MM/dd/yyyy");
+            EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
+
+            if (EnableOpbalance == "YES")
+            {
+                if (!bl.IsValidDate(connection, Convert.ToDateTime(refDate)))
+                {
+
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('This Date has been Locked')", true);
+                    check = true;
+                    ModalPopupExtender1.Show();
+                    frmViewAdd.Visible = true;
+                    frmViewAdd.ChangeMode(FormViewMode.Edit);
+                    e.Cancel = true;
+                    return;
+                    // break;
+                }
+
+            }
+
+
             this.setUpdateParameters(e);
         }
         catch (Exception ex)
