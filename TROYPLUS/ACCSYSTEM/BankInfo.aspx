@@ -62,6 +62,19 @@
             }
         }
 
+        function Check_Date()
+        {
+            var ctrl = documnet.getElementById('ctl00_cplhControlPanel_hddatecheck');
+            if(txt=="1")
+            {
+                alert("date is invalid")
+                Page_IsValid = false;
+                return window.event.returnValue = false;
+            }
+            else {
+                Page_IsValid = true;
+            }
+        }
 
 
 
@@ -272,7 +285,7 @@
                                                             <tr>
                                                                  <td class="ControlLabel" style="width: 20%">OB DueDate</td>
                                                                 <td class="ControlTextBox3" style="width:26%">
-                                                                    <asp:TextBox ID="txtdueDate" MaxLength="10" TabIndex="5" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
+                                                                    <asp:TextBox ID="txtdueDate" MaxLength="10"  TabIndex="5" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                     <cc1:CalendarExtender ID="calBillDate"  runat="server" Enabled="True" Format="dd/MM/yyyy" PopupButtonID="btnBillDate" TargetControlID="txtdueDate">
                                                                                 </cc1:CalendarExtender>
@@ -412,7 +425,7 @@
                                                                             <td align="right" style="width: 55%;"></td>
                                                                             <td align="right" style="width: 19%;">
                                                                                 <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update"
-                                                                                    CssClass="Updatebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClientClick="Mobile_Validator();Check();"
+                                                                                    CssClass="Updatebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClientClick="Mobile_Validator();Check();CheckDate();"
                                                                                     OnClick="UpdateButton_Click"></asp:Button>
                                                                             </td>
                                                                              <td style="width:7%"></td>
@@ -446,6 +459,7 @@
                                                                 <td></td>
                                                                 <td></td>
                                                         </tr>
+                                                         
                                                     </table>
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
@@ -546,7 +560,7 @@
                                                             <tr>
                                                                  <td class="ControlLabel" style="width: 20%">OB DueDate</td>
                                                                 <td class="ControlTextBox3" style="width:26%">
-                                                                    <asp:TextBox ID="txtdueDateadd" MaxLength="10" TabIndex="5" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
+                                                                    <asp:TextBox ID="txtdueDateadd" MaxLength="10"    TabIndex="5" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                     <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True" Format="dd/MM/yyyy" PopupButtonID="btnBillDate1" TargetControlID="txtdueDateadd">
                                                                                 </cc1:CalendarExtender>
@@ -698,8 +712,8 @@
                                                                         <tr>
                                                                             <td align="right" style="width: 55%;"></td>
                                                                             <td style="width: 19%;">
-                                                                                <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert"
-                                                                                    CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClientClick="Mobile_Validator();CheckMode();"
+                                                                                <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" 
+                                                                                    CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClientClick="Mobile_Validator();CheckMode();CheckDate();"
                                                                                     OnClick="InsertButton_Click"></asp:Button>
                                                                             </td>
                                                                             <td style="width: 19%;">
@@ -727,8 +741,11 @@
                                                                         <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
                                                                     </SelectParameters>
                                                                 </asp:ObjectDataSource>
+                                                                 <asp:HiddenField ID="hddate" runat="server" Value="0" />
                                                             </td>
                                                         </tr>
+
+                                                      
                                                     </table>
                                                 </InsertItemTemplate>
                                             </asp:FormView>

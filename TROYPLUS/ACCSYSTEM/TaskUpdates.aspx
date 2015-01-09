@@ -257,7 +257,7 @@
                                                                     <ContentTemplate>
                                                                         <table style="width: 800px;" align="center" cellpadding="2" cellspacing="2">
                                                                             <tr>
-                                                                                    <td class="ControlLabel" style="width: 20%">
+                                                                                    <td class="ControlLabelproject" style="width: 20%">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator9" Text="*" runat="server"
                                                                                             ControlToValidate="txtActualStartDate" ValidationGroup="Save" ErrorMessage="Actual Start Date is mandatory"></asp:RequiredFieldValidator>
                                                                                         <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToCompare="txtActualStartDate"
@@ -281,7 +281,7 @@
                                                                                         <asp:ImageButton ID="ImageButton2" ImageUrl="App_Themes/NewTheme/images/cal.gif"
                                                                                             CausesValidation="false" Width="20px" runat="server" TabIndex="7"/>
                                                                                     </td>
-                                                                                    <td class="ControlLabel" style="width: 15%">
+                                                                                    <td class="ControlLabelproject" style="width: 15%">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator10" Text="*" runat="server"
                                                                                             ControlToValidate="txtActualEndDate" ValidationGroup="Save" ErrorMessage="Actual End Date is mandatory"></asp:RequiredFieldValidator>
                                                                                         Actual End Date *
@@ -301,7 +301,7 @@
                                                                             <tr style="height: 2px">
                                                                                     </tr>
                                                                             <tr>
-                                                                                    <td style="width: 20%" class="ControlLabel">
+                                                                                    <td style="width: 20%" class="ControlLabelproject">
                                                                                         <asp:RequiredFieldValidator ValidationGroup="Save" ID="RequiredFieldValidator11" runat="server"
                                                                                             Text="*" ErrorMessage="Percentage of completion is mandatory" ControlToValidate="txtPer"></asp:RequiredFieldValidator>
                                                                                         Percentage of completion *
@@ -313,7 +313,7 @@
                                                                                     <td style="width: 5%">
                                                                                         
                                                                                     </td>
-                                                                                    <td class="ControlLabel" style="width: 15%">
+                                                                                    <td class="ControlLabelproject" style="width: 15%">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator12" Text="*" runat="server"
                                                                                             ControlToValidate="txtTaskUpdateDate" ValidationGroup="Save" ErrorMessage="Task Update Date is mandatory"></asp:RequiredFieldValidator>
                                                                                         Task Update Date *
@@ -332,7 +332,7 @@
                                                                             <tr style="height: 2px">
                                                                                     </tr>
                                                                             <tr>
-                                                                                     <td style="width: 20%" class="ControlLabel">
+                                                                                     <td style="width: 20%" class="ControlLabelproject">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator13" InitialValue="0" Text="*"
                                                                                             ErrorMessage="Task Status is mandatory" runat="server" ControlToValidate="drpTaskStatus"
                                                                                             ValidationGroup="Save"></asp:RequiredFieldValidator>
@@ -348,7 +348,7 @@
                                                                                     <td style="width: 5%">
                                                                                         
                                                                                     </td>
-                                                                                    <td style="width: 15%;" class="ControlLabel">
+                                                                                    <td style="width: 15%;" class="ControlLabelproject">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator14" InitialValue="0" Text="*"
                                                                                             ErrorMessage="Blocked flag is mandatory" runat="server" ControlToValidate="drpBlockedflag"
                                                                                             ValidationGroup="Save"></asp:RequiredFieldValidator>
@@ -370,7 +370,7 @@
                                                                             <tr style="height: 2px">
                                                                                     </tr>
                                                                             <tr>
-                                                                                    <td style="width: 20%" class="ControlLabel">
+                                                                                    <td style="width: 20%" class="ControlLabelproject">
                                                                                         Blocking Reason
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlTextBox3">
@@ -384,7 +384,7 @@
                                                                                     <td style="width: 5%">
                                                                                         
                                                                                     </td>
-                                                                                    <td class="ControlLabel" style="width: 15%">
+                                                                                    <td class="ControlLabelproject" style="width: 15%">
                                                                                         Task update
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlTextBox3">
@@ -395,7 +395,7 @@
                                                                             <tr style="height: 2px">
                                                                                     </tr>
                                                                             <tr>
-                                                                                     <td style="width: 20%" class="ControlLabel">
+                                                                                     <td style="width: 20%" class="ControlLabelproject">
                                                                                         Task Date
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlTextBox3">
@@ -404,7 +404,7 @@
                                                                                     <td style="width: 5%">
                                                                                         
                                                                                     </td>
-                                                                                    <td style="width: 15%;" class="ControlLabel">
+                                                                                    <td style="width: 15%;" class="ControlLabelproject">
                                                                                         
                                                                                     </td>
                                                                                     <td style="width: 25%;">
@@ -420,7 +420,7 @@
                                                                     <ContentTemplate>
                                                                          <table style="width: 800px;" align="center" cellpadding="2" cellspacing="2">
                                                                                 <tr>
-                                                                                    <td style="width: 20%" class="ControlLabel">
+                                                                                    <td style="width: 20%" class="ControlLabelproject">
                                                                                         <asp:RequiredFieldValidator ValidationGroup="Save" ID="RequiredFieldValidator2" runat="server"
                                                                                             Text="*" ErrorMessage="Task ID is mandatory" ControlToValidate="txtTaskID"></asp:RequiredFieldValidator>
                                                                                         Task Code *
@@ -432,7 +432,7 @@
                                                                                     <td style="width: 5%">
                                                                                         
                                                                                     </td>
-                                                                                    <td class="ControlLabel" style="width: 15%">
+                                                                                    <td class="ControlLabelproject" style="width: 15%">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" Text="*" runat="server"
                                                                                             ControlToValidate="txtCDate" ValidationGroup="Save" ErrorMessage="Creation Date is mandatory"></asp:RequiredFieldValidator>
                                                                                         Task Date *
@@ -451,7 +451,7 @@
                                                                              <tr style="height: 2px">
                                                                                     </tr>
                                                                                 <tr>
-                                                                                    <td style="width: 20%" class="ControlLabel">
+                                                                                    <td style="width: 20%" class="ControlLabelproject">
                                                                                         <asp:RequiredFieldValidator ValidationGroup="Save" ID="RequiredFieldValidator8" runat="server"
                                                                                             Text="*" ErrorMessage="Task Name is mandatory" ControlToValidate="txtTaskID"></asp:RequiredFieldValidator>
                                                                                         Task Name *
@@ -463,7 +463,7 @@
                                                                                     <td style="width: 5%">
                                                                                         
                                                                                     </td>
-                                                                                    <td class="ControlLabel" style="width: 15%">
+                                                                                    <td class="ControlLabelproject" style="width: 15%">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator15" Text="*" runat="server"
                                                                                             ControlToValidate="drpIsActive" ValidationGroup="Save" ErrorMessage="Is Active is mandatory"></asp:RequiredFieldValidator>
                                                                                         Is Active *
@@ -480,7 +480,7 @@
                                                                             <tr style="height: 2px">
                                                                                     </tr>
                                                                                 <tr>
-                                                                                     <td style="width: 20%" class="ControlLabel">
+                                                                                     <td style="width: 20%" class="ControlLabelproject">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator6" InitialValue="0" Text="*"
                                                                                             ErrorMessage="Project Code is mandatory" runat="server" ControlToValidate="drpProjectCode"
                                                                                             ValidationGroup="Save"></asp:RequiredFieldValidator>
@@ -496,7 +496,7 @@
                                                                                     <td style="width: 5%">
                                                                                         
                                                                                     </td>
-                                                                                    <td style="width: 15%;" class="ControlLabel">
+                                                                                    <td style="width: 15%;" class="ControlLabelproject">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" InitialValue="0" Text="*"
                                                                                             ErrorMessage="Project Manager is mandatory" runat="server" ControlToValidate="drpIncharge"
                                                                                             ValidationGroup="Save"></asp:RequiredFieldValidator>
@@ -514,7 +514,7 @@
                                                                              <tr style="height: 2px">
                                                                                     </tr>
                                                                              <tr>
-                                                                                     <td style="width: 20%" class="ControlLabel">
+                                                                                     <td style="width: 20%" class="ControlLabelproject">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator7" InitialValue="0" Text="*"
                                                                                             ErrorMessage="Task Type is mandatory" runat="server" ControlToValidate="drpTaskType"
                                                                                             ValidationGroup="Save"></asp:RequiredFieldValidator>
@@ -530,7 +530,7 @@
                                                                                     <td style="width: 5%">
                                                                                         
                                                                                     </td>
-                                                                                    <td style="width: 15%;" class="ControlLabel">
+                                                                                    <td style="width: 15%;" class="ControlLabelproject">
                                                                                         <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator9" InitialValue="0" Text="*"
                                                                                             ErrorMessage="Dependency Task is mandatory" runat="server" ControlToValidate="drpDependencyTask"
                                                                                             ValidationGroup="Save"></asp:RequiredFieldValidator>--%>
@@ -548,7 +548,7 @@
                                                                             <tr style="height: 2px">
                                                                                     </tr>
                                                                                 <tr>
-                                                                                    <td class="ControlLabel" style="width: 20%">
+                                                                                    <td class="ControlLabelproject" style="width: 20%">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" Text="*" runat="server"
                                                                                             ControlToValidate="txtEWstartDate" ValidationGroup="Save" ErrorMessage="Expected Start Date is mandatory"></asp:RequiredFieldValidator>
                                                                                         <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToCompare="txtEWstartDate"
@@ -568,7 +568,7 @@
                                                                                         <asp:ImageButton ID="btnEWstartDate" ImageUrl="App_Themes/NewTheme/images/cal.gif"
                                                                                             CausesValidation="false" Width="20px" runat="server" TabIndex="7" Visible="false"/>
                                                                                     </td>
-                                                                                    <td class="ControlLabel" style="width: 15%">
+                                                                                    <td class="ControlLabelproject" style="width: 15%">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" Text="*" runat="server"
                                                                                             ControlToValidate="txtEWEndDate" ValidationGroup="Save" ErrorMessage="Expected End Date is mandatory"></asp:RequiredFieldValidator>
                                                                                         Expected End Date *
@@ -591,7 +591,7 @@
                                                                                     <td colspan="5">
                                                                                         <table style="width: 100%">
                                                                                             <tr>
-                                                                                                <td style="width: 22%" class="ControlLabel">
+                                                                                                <td style="width: 22%" class="ControlLabelproject">
                                                                                                     Task Description
                                                                                                 </td>
                                                                                                 <td style="width: 82%" class="ControlTextBox66">
