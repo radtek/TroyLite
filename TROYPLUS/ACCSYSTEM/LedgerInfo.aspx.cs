@@ -295,28 +295,6 @@ public partial class LedgerInfo : System.Web.UI.Page
             frmViewAdd.ChangeMode(FormViewMode.Insert);
             frmViewAdd.Visible = true;
 
-            BusinessLogic bl = new BusinessLogic(sDataSource);
-            string connection = Request.Cookies["Company"].Value;
-
-            EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
-            if (EnableOpbalance == "YES")
-            {
-                ((TextBox)this.frmViewAdd.FindControl("txtOpenBalAdd")).Enabled = true;
-                ((TextBox)this.frmViewAdd.FindControl("txtdueDateadd")).Enabled = true;
-                ((DropDownList)this.frmViewAdd.FindControl("ddCRDRAdd")).Enabled = true;
-                ((ImageButton)this.frmViewAdd.FindControl("btnBillDate")).Enabled = true;
-
-                //txtdueDateadd.Enabled = true;
-            }
-            else
-            {
-                ((TextBox)this.frmViewAdd.FindControl("txtOpenBalAdd")).Enabled = false;
-                ((TextBox)this.frmViewAdd.FindControl("txtdueDateadd")).Enabled = false;
-                ((DropDownList)this.frmViewAdd.FindControl("ddCRDRAdd")).Enabled = false;
-                ((ImageButton)this.frmViewAdd.FindControl("btnBillDate")).Enabled = false;
-                //txtdueDateadd.Enabled = false;
-            }
-
             if (frmViewAdd.CurrentMode == FormViewMode.Insert)
             {
                 //GrdViewLedger.Visible = false;
@@ -329,6 +307,97 @@ public partial class LedgerInfo : System.Web.UI.Page
             TroyLiteExceptionManager.HandleException(ex);
         }
     }
+
+
+
+    protected void frmViewAdd_ModeChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            if (frmViewAdd.CurrentMode == FormViewMode.Insert)
+            {
+                {
+
+                    BusinessLogic bl = new BusinessLogic(sDataSource);
+                    string connection = Request.Cookies["Company"].Value;
+                    EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
+                    if (EnableOpbalance == "NO")
+                    {
+                        if (this.frmViewAdd.FindControl("txtOpenBalAdd") != null)
+                        {
+                            ((TextBox)this.frmViewAdd.FindControl("txtOpenBalAdd")).Enabled = false;
+                            ((TextBox)this.frmViewAdd.FindControl("txtdueDateadd")).Enabled = false;
+                            ((DropDownList)this.frmViewAdd.FindControl("ddCRDRAdd")).Enabled = false;
+                            ((ImageButton)this.frmViewAdd.FindControl("btnBillDate")).Enabled = false;
+                        }
+
+                        else
+                        {
+                            if (this.frmViewAdd.FindControl("txtOpenBalAdd") == null)
+                            {
+                                ((TextBox)this.frmViewAdd.FindControl("txtOpenBalAdd")).Enabled = false;
+                                ((TextBox)this.frmViewAdd.FindControl("txtdueDateadd")).Enabled = false;
+                                ((DropDownList)this.frmViewAdd.FindControl("ddCRDRAdd")).Enabled = false;
+                                ((ImageButton)this.frmViewAdd.FindControl("btnBillDate")).Enabled = false;
+
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            if (frmViewAdd.CurrentMode == FormViewMode.Edit)
+            {
+
+                BusinessLogic bl = new BusinessLogic(sDataSource);
+                string connection = Request.Cookies["Company"].Value;
+                EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
+                if (EnableOpbalance == "NO")
+                {
+                    if (this.frmViewAdd.FindControl("txtOpenBal") != null)
+                    {
+                        //if (this.frmViewAdd.FindControl("txtOpenBalAdd") != null)
+                        //{
+                        ((TextBox)this.frmViewAdd.FindControl("txtOpenBal")).Enabled = false;
+                        ((TextBox)this.frmViewAdd.FindControl("txtdueDate")).Enabled = false;
+                        ((DropDownList)this.frmViewAdd.FindControl("ddCRDR")).Enabled = false;
+                        ((ImageButton)this.frmViewAdd.FindControl("btnBillDate1")).Enabled = false;
+
+                        //}
+                    }
+
+                    else
+                    {
+                        if (this.frmViewAdd.FindControl("txtOpenBal") == null)
+                        {
+                            ((TextBox)this.frmViewAdd.FindControl("txtOpenBal")).Enabled = false;
+                            ((TextBox)this.frmViewAdd.FindControl("txtdueDate")).Enabled = false;
+                            ((DropDownList)this.frmViewAdd.FindControl("ddCRDR")).Enabled = false;
+                            ((ImageButton)this.frmViewAdd.FindControl("btnBillDate1")).Enabled = false;
+
+                        }
+
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+
+    protected void frmViewAdd_DataBound(object sender, EventArgs e)
+    {
+        frmViewAdd_ModeChanged(sender, e);
+    }
+
+
+
+
+
     protected void GrdViewLedger_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         try

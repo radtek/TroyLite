@@ -678,7 +678,7 @@
                                                                                                </tr>
                                                     <tr>
                                                         <td style="width: 25%" class="ControlLabel">
-                                                            Opening Balance
+                                                           Update Opening Balance
                                                         </td>
                                                         <td style="width: 20%" class="ControlTextBox3">
                                                             <asp:RadioButtonList ID="RadioButtonOpening" runat="server" RepeatDirection="Horizontal">

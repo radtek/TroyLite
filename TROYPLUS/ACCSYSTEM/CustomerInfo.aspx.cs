@@ -344,46 +344,100 @@ public partial class CustomerInfo : System.Web.UI.Page
            
             ModalPopupExtender1.Show();
 
-            BusinessLogic bl = new BusinessLogic(sDataSource);
-            string connection = Request.Cookies["Company"].Value;
-
-            EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
-            if (EnableOpbalance == "YES")
-            {
-                ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtdueDateadd")).Enabled = true;
-                ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtOpenBalAdd")).Enabled = true;
-                ((DropDownList)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("ddCRDRAdd")).Enabled = true;
-                ((ImageButton)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("btnBillDate")).Enabled = true;
-
-                //txtdueDateadd.Enabled = true;
-            }
-            else
-            {
-                ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtdueDateadd")).Enabled = false;
-
-                ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtOpenBalAdd")).Enabled = false;
-                ((DropDownList)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("ddCRDRAdd")).Enabled = false;
-
-                ((ImageButton)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("btnBillDate")).Enabled = false;
-                //txtdueDateadd.Enabled = false;
-            }
-
-            //((DropDownList)this.frmViewAdd.FindControl("drpLedgerCatAdd")).SelectedValue = "Customer";
-            //((DropDownList)this.frmViewAdd.FindControl("drpLedgerCatAdd")).BorderColor = System.Drawing.Color.PowderBlue;
-            //((DropDownList)this.frmViewAdd.FindControl("drpLedgerCatAdd")).BackColor = System.Drawing.Color.PowderBlue;
-
-            //if (frmViewAdd.CurrentMode == FormViewMode.Insert)
-            //{
-            //    //GrdViewLedger.Visible = false;
-            //    //lnkBtnAdd.Visible = false;
-            //    ////MyAccordion.Visible = false;
-            //}
+           
         }
         catch (Exception ex)
         {
             TroyLiteExceptionManager.HandleException(ex);
         }
     }
+
+
+    protected void frmViewAdd_ModeChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            if (frmViewAdd.CurrentMode == FormViewMode.Insert)
+            {
+                {
+
+                    BusinessLogic bl = new BusinessLogic(sDataSource);
+                    string connection = Request.Cookies["Company"].Value;
+                    EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
+                    if (EnableOpbalance == "NO")
+                    {
+                        if (this.frmViewAdd.FindControl("txtOpenBalAdd") != null)
+                        {
+                            ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtOpenBalAdd")).Enabled = false;
+                            ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtdueDateadd")).Enabled = false;
+                            ((DropDownList)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("ddCRDRAdd")).Enabled = false;
+                            ((ImageButton)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("btnBillDate")).Enabled = false;
+                        }
+
+                        else
+                        {
+                            if (this.frmViewAdd.FindControl("txtOpenBalAdd") == null)
+                            {
+                                ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtOpenBalAdd")).Enabled = false;
+                                ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtdueDateadd")).Enabled = false;
+                                ((DropDownList)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("ddCRDRAdd")).Enabled = false;
+                                ((ImageButton)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("btnBillDate")).Enabled = false;
+
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            if (frmViewAdd.CurrentMode == FormViewMode.Edit)
+            {
+
+                BusinessLogic bl = new BusinessLogic(sDataSource);
+                string connection = Request.Cookies["Company"].Value;
+                EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
+                if (EnableOpbalance == "NO")
+                {
+                    if (this.frmViewAdd.FindControl("txtOpenBal") != null)
+                    {
+                        //if (this.frmViewAdd.FindControl("txtOpenBalAdd") != null)
+                        //{
+                        ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtOpenBal")).Enabled = false;
+                        ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtdueDate")).Enabled = false;
+                        ((DropDownList)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("ddCRDR")).Enabled = false;
+                        ((ImageButton)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("btnBillDate1")).Enabled = false;
+
+                        //}
+                    }
+
+                    else
+                    {
+                        if (this.frmViewAdd.FindControl("txtOpenBal") == null)
+                        {
+                            ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtOpenBal")).Enabled = false;
+                            ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtdueDate")).Enabled = false;
+                            ((DropDownList)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("ddCRDR")).Enabled = false;
+                            ((ImageButton)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("btnBillDate1")).Enabled = false;
+
+                        }
+
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+
+    protected void frmViewAdd_DataBound(object sender, EventArgs e)
+    {
+        frmViewAdd_ModeChanged(sender, e);
+    }
+
+
 
     protected void GrdViewLedger_RowCommand(object sender, GridViewCommandEventArgs e)
     {

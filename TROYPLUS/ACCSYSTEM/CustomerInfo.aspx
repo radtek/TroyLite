@@ -291,7 +291,7 @@
                                 <table align="center" style="width:100%" class="tblLeft">
                                     <tr  style="width:100%">
                                         <td style="width:100%">
-                                            <asp:FormView ID="frmViewAdd" runat="server" Width="100%" DataSourceID="frmSource"
+                                            <asp:FormView ID="frmViewAdd" runat="server" Width="100%" DataSourceID="frmSource"  OnModeChanged="frmViewAdd_ModeChanged" OnDataBound="frmViewAdd_DataBound"
                                                 DataKeyNames="LedgerID" OnItemCommand="frmViewAdd_ItemCommand" DefaultMode="Edit"
                                                 OnItemCreated="frmViewAdd_ItemCreated" Visible="False" OnItemInserting="frmViewAdd_ItemInserting"
                                                 OnItemUpdating="frmViewAdd_ItemUpdating" EmptyDataText="No Records" OnItemInserted="frmViewAdd_ItemInserted"
@@ -484,12 +484,12 @@
                                                             </tr>
                                                             <tr>
                                                                 <td class="ControlLabel" style="width:20%">         
-                                                                     OpBalance Due Date    
+                                                                     OB Due Date    
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width:28%">
                                                                     <asp:TextBox ID="txtdueDate" MaxLength="10" TabIndex="13" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
-                                                                    <cc1:CalendarExtender ID="calBillDate1" runat="server" Enabled="True" Format="dd/MM/yyyy" PopupButtonID="btnBillDate1" TargetControlID="txtdueDate">
+                                                                    <cc1:CalendarExtender ID="calBillDate1" runat="server"  Format="dd/MM/yyyy" PopupButtonID="btnBillDate1" TargetControlID="txtdueDate">
                                                                                 </cc1:CalendarExtender>
                                                                 </td>
                                                                 <td style="width: 14%;" align="left">
@@ -777,9 +777,9 @@
                                                                         TargetControlID="txtOpenBalAdd" />
                                                                 </td>
                                                                 <td class="ControlNumberBox3" style="width:28%">
-                                                                    <asp:TextBox ID="txtOpenBalAdd" TabIndex="4" runat="server" BackColor = "#e7e7e7" Text="0" Enabled="false"
+                                                                    <asp:TextBox ID="txtOpenBalAdd" TabIndex="4" runat="server" BackColor = "#e7e7e7" Text="0" 
                                                                         CssClass="cssTextBox" Width="100%"></asp:TextBox>
-                                                                    <asp:DropDownList ID="ddCRDRAdd" EnableTheming="false" Enabled="false" TabIndex="5" runat="server" style="border: 1px solid Gray" height="26px" CssClass="drpDownListMedium" BackColor = "#e7e7e7"
+                                                                    <asp:DropDownList ID="ddCRDRAdd" EnableTheming="false" TabIndex="5" runat="server" style="border: 1px solid Gray" height="26px" CssClass="drpDownListMedium" BackColor = "#e7e7e7"
                                                                         Width="68px" SelectedValue='<%# Bind("DRORCR") %>'>
                                                                         <asp:ListItem Text="CR" Value="CR"></asp:ListItem>
                                                                         <asp:ListItem Text="DR" Value="DR"></asp:ListItem>
@@ -900,16 +900,16 @@
                                                             </tr>
                                                             <tr>
                                                                 <td class="ControlLabel" style="width:20%">         
-                                                                     OpBalance Due Date    
+                                                                     OB Due Date    
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width:28%">
-                                                                    <asp:TextBox ID="txtdueDateadd" MaxLength="10" TabIndex="13" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
+                                                                    <asp:TextBox ID="txtdueDateadd" MaxLength="10"  TabIndex="13" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                     <cc1:CalendarExtender ID="calBillDate" runat="server" Enabled="True" Format="dd/MM/yyyy" PopupButtonID="btnBillDate" TargetControlID="txtdueDateadd">
                                                                                 </cc1:CalendarExtender>
                                                                 </td>
                                                                 <td style="width: 14%;" align="left">
-                                                                       <asp:ImageButton ID="btnBillDate" runat="server" CausesValidation="False" ImageUrl="App_Themes/NewTheme/images/cal.gif" Width="20px" />
+                                                                       <asp:ImageButton ID="btnBillDate" runat="server"  CausesValidation="False" ImageUrl="App_Themes/NewTheme/images/cal.gif" Width="20px" />
                                                                 </td>
                                                                <td style="width:28%" >
                                                                     
