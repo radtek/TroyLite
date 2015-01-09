@@ -73,11 +73,11 @@ public partial class ReportXLAbsolute : System.Web.UI.Page
          {
              Method = "All";
          }
-         else if (chkoption.SelectedValue == "Absolete ItemList")
+         else if (chkoption.SelectedValue == "Obsolete ItemList")
          {
              Method = "Absolute";
          }
-         else if (chkoption.SelectedValue == "Other Than Absolete")
+         else if (chkoption.SelectedValue == "Other Than Obsolete")
          {
              Method = "NotAbsolute";
          }
@@ -177,7 +177,7 @@ public partial class ReportXLAbsolute : System.Web.UI.Page
 
          if (dt.Rows.Count > 0)
          {
-             string filename = "Obsolute Models.xls";
+             string filename = "Obsolete Models.xls";
              System.IO.StringWriter tw = new System.IO.StringWriter();
              System.Web.UI.HtmlTextWriter hw = new System.Web.UI.HtmlTextWriter(tw);
              DataGrid dgGrid = new DataGrid();

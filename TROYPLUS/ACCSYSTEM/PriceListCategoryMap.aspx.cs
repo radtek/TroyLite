@@ -128,12 +128,14 @@ public partial class PriceListCategoryMap : System.Web.UI.Page
                 if (e.Exception != null)
                 {
                     StringBuilder script = new StringBuilder();
-                    script.Append("alert('Mapping with this name already exists, Please try with a different name.');");
+                    script.Append("alert('Mapping with this customer category already exists, Please try with a different name.');");
+
+                    ModalPopupExtender1.Show();
 
                     if (e.Exception.InnerException != null)
                     {
                         if ((e.Exception.InnerException.Message.IndexOf("duplicate values in the index") > -1) ||
-                            (e.Exception.InnerException.Message.IndexOf("Category Exists") > -1))
+                            (e.Exception.InnerException.Message.IndexOf("Mapping with this customer category already exists") > -1))
                             ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), script.ToString(), true);
                     }
                     else
@@ -222,12 +224,14 @@ public partial class PriceListCategoryMap : System.Web.UI.Page
             {
 
                 StringBuilder script = new StringBuilder();
-                script.Append("alert('Mapping with this name already exists, Please try with a different name.');");
+                script.Append("alert('Mapping with this customer category already exists, Please try with a different name.');");
+
+                ModalPopupExtender1.Show();
 
                 if (e.Exception.InnerException != null)
                 {
                     if ((e.Exception.InnerException.Message.IndexOf("duplicate values in the index") > -1) ||
-                        (e.Exception.InnerException.Message.IndexOf("Category Exists") > -1))
+                        (e.Exception.InnerException.Message.IndexOf("Mapping with this customer category already exists") > -1))
                     {
                         e.ExceptionHandled = true;
                         e.KeepInEditMode = true;
@@ -595,11 +599,11 @@ public partial class PriceListCategoryMap : System.Web.UI.Page
         if (((DropDownList)this.frmViewAdd.FindControl("drpPriceListAdd")) != null)
             e.InputParameters["PriceList_Name"] = ((DropDownList)this.frmViewAdd.FindControl("drpPriceListAdd")).SelectedItem.Text;
 
-        if (((DropDownList)this.frmViewAdd.FindControl("drpCustomerCategoryAdd")) != null)
-            e.InputParameters["CustomerCategory_Value"] = ((DropDownList)this.frmViewAdd.FindControl("drpCustomerCategoryAdd")).SelectedValue;
+        if (((TextBox)this.frmViewAdd.FindControl("drpCustomerCategoryAdd")) != null)
+            e.InputParameters["CustomerCategory_Value"] = ((TextBox)this.frmViewAdd.FindControl("drpCustomerCategoryAdd")).Text;
 
-        if (((DropDownList)this.frmViewAdd.FindControl("drpCustomerCategoryAdd")) != null)
-            e.InputParameters["CustomerCategory_Name"] = ((DropDownList)this.frmViewAdd.FindControl("drpCustomerCategoryAdd")).SelectedItem.Text;
+        if (((TextBox)this.frmViewAdd.FindControl("drpCustomerCategoryAdd")) != null)
+            e.InputParameters["CustomerCategory_Name"] = ((TextBox)this.frmViewAdd.FindControl("drpCustomerCategoryAdd")).Text;
 
         e.InputParameters["Username"] = Request.Cookies["LoggedUserName"].Value;
         
@@ -614,11 +618,11 @@ public partial class PriceListCategoryMap : System.Web.UI.Page
         if (((DropDownList)this.frmViewAdd.FindControl("drpPriceList")) != null)
             e.InputParameters["PriceList_Name"] = ((DropDownList)this.frmViewAdd.FindControl("drpPriceList")).SelectedItem.Text;
 
-        if (((DropDownList)this.frmViewAdd.FindControl("drpCustomerCategory")) != null)
-            e.InputParameters["CustomerCategory_Value"] = ((DropDownList)this.frmViewAdd.FindControl("drpCustomerCategory")).SelectedValue;
+        if (((TextBox)this.frmViewAdd.FindControl("drpCustomerCategory")) != null)
+            e.InputParameters["CustomerCategory_Value"] = ((TextBox)this.frmViewAdd.FindControl("drpCustomerCategory")).Text;
 
-        if (((DropDownList)this.frmViewAdd.FindControl("drpCustomerCategory")) != null)
-            e.InputParameters["CustomerCategory_Name"] = ((DropDownList)this.frmViewAdd.FindControl("drpCustomerCategory")).SelectedItem.Text;
+        if (((TextBox)this.frmViewAdd.FindControl("drpCustomerCategory")) != null)
+            e.InputParameters["CustomerCategory_Name"] = ((TextBox)this.frmViewAdd.FindControl("drpCustomerCategory")).Text;
 
         e.InputParameters["ID"] = GrdViewLedger.SelectedDataKey.Value;
 

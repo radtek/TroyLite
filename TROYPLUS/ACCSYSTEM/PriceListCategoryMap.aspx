@@ -131,6 +131,28 @@
                                                             </tr> 
                                                             <tr>
                                                                 <td class="ControlLabel" style="width:40%">
+                                                                    Customer Category *
+                                                                    <%--<asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="drpCustomerCategory"
+                                                                        Text="*" Display="Dynamic" EnableClientScript="True" ErrorMessage="Customer Category is mandatory"
+                                                                        Operator="GreaterThan" ValueToCompare="0" />--%>
+                                                                </td>
+                                                                <td class="ControlDrpBorder" style="width:30%">
+                                                                    <%--<asp:DropDownList ID="drpCustomerCategory" runat="server" OnDataBound="drpCustomerCategory_DataBound" AppendDataBoundItems="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="CusCategory_Name" DataValueField="CusCategory_Value" DataSourceID="srccuscat" height="26px" style="border: 1px solid #e7e7e7" TabIndex="2" ValidationGroup="salesval" Width="100%">
+                                                                        <asp:ListItem style="background-color: #e7e7e7" Text="Select Customer Category" Value="0"></asp:ListItem>
+                                                                    </asp:DropDownList>--%>
+                                                                    <asp:TextBox ID="drpCustomerCategoryAdd" runat="server"  Text='<%# Bind("CustomerCategory_Name") %>'
+                                                                        SkinID="skinTxtBoxGrid" TabIndex="2"></asp:TextBox>
+                                                                </td>
+                                                                <td style="width:30%">
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                                
+                                                            </tr>
+                                                            <tr style="height:3px">
+                                                                                    </tr>
+                                                            <tr>
+                                                                <td class="ControlLabel" style="width:40%">
                                                                     Price List Name *
                                                                     <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="drpPriceList"
                                                                         Text="*" Display="Dynamic" EnableClientScript="True" ErrorMessage="Price List is mandatory"
@@ -147,26 +169,7 @@
                                                                 <td>
                                                                 </td>
                                                             </tr>
-                                                            <tr style="height:3px">
-                                                                                    </tr>
-                                                            <tr>
-                                                                <td class="ControlLabel" style="width:40%">
-                                                                    Customer Category *
-                                                                    <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="drpCustomerCategory"
-                                                                        Text="*" Display="Dynamic" EnableClientScript="True" ErrorMessage="Customer Category is mandatory"
-                                                                        Operator="GreaterThan" ValueToCompare="0" />
-                                                                </td>
-                                                                <td class="ControlDrpBorder" style="width:30%">
-                                                                    <asp:DropDownList ID="drpCustomerCategory" runat="server" OnDataBound="drpCustomerCategory_DataBound" AppendDataBoundItems="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="CusCategory_Name" DataValueField="CusCategory_Value" DataSourceID="srccuscat" height="26px" style="border: 1px solid #e7e7e7" TabIndex="2" ValidationGroup="salesval" Width="100%">
-                                                                        <asp:ListItem style="background-color: #e7e7e7" Text="Select Customer Category" Value="0"></asp:ListItem>
-                                                                    </asp:DropDownList>
-                                                                </td>
-                                                                <td style="width:30%">
-                                                                </td>
-                                                                <td>
-                                                                </td>
-                                                                
-                                                            </tr>
+                                                            
                                                             <tr style="height:10px">
                                                             </tr> 
                                                             <tr>
@@ -240,6 +243,32 @@
                                                             </tr>
                                                             <tr>
                                                                 <td class="ControlLabel" style="width:40%">
+                                                                    Customer Category *
+                                                                    <%--<asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="drpCustomerCategoryAdd"
+                                                                        Text="*" Display="Dynamic" EnableClientScript="True" ErrorMessage="Customer Category is mandatory"
+                                                                        Operator="GreaterThan" ValueToCompare="0" />--%>
+                                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="drpCustomerCategoryAdd"
+                                                                        Display="Dynamic" ErrorMessage="Customer Category is mandatory">*</asp:RequiredFieldValidator>
+                                                                </td>
+                                                                <td class="ControlDrpBorder" style="width:30%">
+                                                                    <%--<asp:DropDownList ID="drpCustomerCategoryAdd" runat="server" AppendDataBoundItems="true" OnDataBound="drpCustomerCategoryAdd_DataBound" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="CusCategory_Name" DataValueField="CusCategory_Value" height="26px" DataSourceID="srccuscatadd" style="border: 1px solid #e7e7e7" TabIndex="2" ValidationGroup="salesval" Width="100%">
+                                                                        <asp:ListItem style="background-color: #e7e7e7" Text="Select Customer Category" Value="0"></asp:ListItem>
+                                                                    </asp:DropDownList>--%>
+                                                                    <asp:TextBox ID="drpCustomerCategoryAdd" runat="server" 
+                                                                        SkinID="skinTxtBoxGrid" TabIndex="2"></asp:TextBox>
+                                                                </td>
+                                                                
+                                                                <td style="width:30%">
+
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                            </tr>
+                                                            
+                                                            <tr style="height:3px">
+                                                                                    </tr>
+                                                            <tr>
+                                                                <td class="ControlLabel" style="width:40%">
                                                                     Price List Name *
                                                                     <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="drpPriceListAdd"
                                                                         Text="*" Display="Dynamic" EnableClientScript="True" ErrorMessage="Price List is mandatory"
@@ -253,27 +282,6 @@
                                                                 
                                                                 <td style="width:30%">
                                                                     
-                                                                </td>
-                                                                <td>
-                                                                </td>
-                                                            </tr>
-                                                            <tr style="height:3px">
-                                                                                    </tr>
-                                                            <tr>
-                                                                <td class="ControlLabel" style="width:40%">
-                                                                    Customer Category *
-                                                                    <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="drpCustomerCategoryAdd"
-                                                                        Text="*" Display="Dynamic" EnableClientScript="True" ErrorMessage="Customer Category is mandatory"
-                                                                        Operator="GreaterThan" ValueToCompare="0" />
-                                                                </td>
-                                                                <td class="ControlDrpBorder" style="width:30%">
-                                                                    <asp:DropDownList ID="drpCustomerCategoryAdd" runat="server" AppendDataBoundItems="true" OnDataBound="drpCustomerCategoryAdd_DataBound" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="CusCategory_Name" DataValueField="CusCategory_Value" height="26px" DataSourceID="srccuscatadd" style="border: 1px solid #e7e7e7" TabIndex="2" ValidationGroup="salesval" Width="100%">
-                                                                        <asp:ListItem style="background-color: #e7e7e7" Text="Select Customer Category" Value="0"></asp:ListItem>
-                                                                    </asp:DropDownList>
-                                                                </td>
-                                                                
-                                                                <td style="width:30%">
-
                                                                 </td>
                                                                 <td>
                                                                 </td>

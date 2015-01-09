@@ -45,7 +45,7 @@
                     </tr>--%>
                     <tr>
                         <td colspan="3" class="headerPopUp">
-                            Absolete Item List
+                            Obsolete Item List
                         </td>
                     </tr>
                     <tr style="height:6px">
@@ -62,8 +62,8 @@
                                         <asp:RadioButtonList ID="chkoption" runat="server"  Width="80%"
                                             >
                                             <asp:ListItem Text="All ItemList" Selected="True"></asp:ListItem>
-                                            <asp:ListItem Text="Absolete ItemList"></asp:ListItem>
-                                            <asp:ListItem Text="Other Than Absolete"></asp:ListItem>
+                                            <asp:ListItem Text="Obsolete ItemList"></asp:ListItem>
+                                            <asp:ListItem Text="Other Than Obsolete"></asp:ListItem>
                                         </asp:RadioButtonList>      
                                     </td>
                                     <td style="width:10%">

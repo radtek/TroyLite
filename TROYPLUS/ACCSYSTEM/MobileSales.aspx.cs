@@ -632,7 +632,7 @@ public partial class MobileSales : System.Web.UI.Page
                 {
                     if (ds.Tables[0].Rows.Count > 0)
                     {
-                        int billNo = bl.InsertSalesNewSeries("", sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dTotalAmt, purchaseReturn, prReason, int.Parse(executive), dFreight, dLU, ds, sOtherCusName, "NO", null, "NO", "NO", sCustomerAddress2, sCustomerAddress3, executivename, despatchedfrom, fixedtotal, manualno, 0, user, "NO", "NO","",snarr,"","",0);
+                        int billNo = bl.InsertSalesNewSeries("", sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dTotalAmt, purchaseReturn, prReason, int.Parse(executive), dFreight, dLU, ds, sOtherCusName, "NO", null, "NO", "NO", sCustomerAddress2, sCustomerAddress3, executivename, despatchedfrom, fixedtotal, manualno, 0, user, "NO", "NO","",snarr,"","",0,"");
 
                         if (billNo == -1)
                         {

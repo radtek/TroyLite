@@ -260,7 +260,7 @@
                                                                                                             <%--<asp:TextBox ID="txtProdDescAdd" runat="server" Text='<%# Bind("ProductDesc") %>'
                                                                                                                 SkinID="skinTxtBoxGrid"></asp:TextBox>--%>
                                                                                                             <asp:DropDownList ID="txtProdDescAdd" runat="server" DataTextField="BrandName" Width="100%" BackColor = "#e7e7e7" CssClass="drpDownListMedium"
-                                                                                                                DataValueField="BrandID" DataSourceID="srcBrandAdd" style="border: 1px solid #e7e7e7" height="26px"
+                                                                                                                DataValueField="BrandName" DataSourceID="srcBrandAdd" style="border: 1px solid #e7e7e7" height="26px"
                                                                                                                 EnableTheming="false"
                                                                                                                 AppendDataBoundItems="True">
                                                                                                                 <asp:ListItem Selected="True" Value="0" style="background-color: #e7e7e7">Select BrandName</asp:ListItem>
@@ -501,7 +501,7 @@
                                                                                                                 Text="*" ValueToCompare="0"></asp:CompareValidator>
                                                                                                         </td>
                                                                                                         <td style="width: 25%;" class="ControlDrpBorder">
-                                                                                                            <asp:DropDownList ID="drpIsActiveAdd" TabIndex="10" runat="server" BackColor = "#e7e7e7" CssClass="drpDownListMedium"
+                                                                                                            <asp:DropDownList ID="drpIsActiveAdd" runat="server" BackColor = "#e7e7e7" CssClass="drpDownListMedium"
                                                                                                                 Width="100%" style="border: 1px solid #e7e7e7" height="26px">
                                                                                                                 <asp:ListItem Text="NO" Value="NO"></asp:ListItem>
                                                                                                                 <asp:ListItem Text="YES" Value="YES" Selected="True"></asp:ListItem>
@@ -567,15 +567,15 @@
                                                                                                         <HeaderStyle CssClass="HeadataRow" Wrap="false" />
                                                                                                         <FooterStyle CssClass="dataRow" />
                                                                                                         <Columns>
-                                                                                                            <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="ID" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20%">
+                                                                                                            <asp:TemplateField FooterStyle-Font-Bold="True" Visible="false" HeaderText="ID" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20%">
                                                                                                                 <ItemTemplate>
-                                                                                                                    <asp:TextBox ID="txtId" runat="server" Width="85%"  Text='<%# Eval("Id")%>' Enabled="false"
+                                                                                                                    <asp:TextBox ID="txtId" runat="server" Width="85%"  Text='<%# Eval("Id")%>' Enabled="false" Height="26px"
                                                                                                                         ></asp:TextBox>
                                                                                                                 </ItemTemplate>
                                                                                                             </asp:TemplateField>
                                                                                                             <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Price Type" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20%">
                                                                                                                 <ItemTemplate>
-                                                                                                                    <asp:TextBox ID="txtPriceName" runat="server" Width="85%"  Text='<%# Eval("PriceName")%>' Enabled="false"
+                                                                                                                    <asp:TextBox ID="txtPriceName" runat="server" Width="90%"  Text='<%# Eval("PriceName")%>' Enabled="false" Height="26px"
                                                                                                                         ></asp:TextBox>
                                                                                                                 </ItemTemplate>
                                                                                                             </asp:TemplateField>
@@ -583,13 +583,13 @@
                                                                                                                 <ItemTemplate>
                                                                                                                     <cc1:FilteredTextBoxExtender ID="fltReorderAd" runat="server" FilterType="Numbers"
                                                                                                                 TargetControlID="txtPrice" />
-                                                                                                                    <asp:TextBox ID="txtPrice" runat="server" Width="85%"  Text='<%# Eval("Price")%>'
+                                                                                                                    <asp:TextBox ID="txtPrice" runat="server" Width="90%"  Text='<%# Eval("Price")%>' Height="26px"
                                                                                                                         ></asp:TextBox>
                                                                                                                 </ItemTemplate>
                                                                                                             </asp:TemplateField>
                                                                                                             <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Effective Date" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20%">
                                                                                                                 <ItemTemplate>
-                                                                                                                    <asp:TextBox ID="txtEffDate" runat="server" Width="65%"  Text='<%# Eval("EffDate")%>'
+                                                                                                                    <asp:TextBox ID="txtEffDate" runat="server" Width="70%"  Enabled="false" Text='<%# Eval("EffDate","{0:dd/MM/yyyy}")%>'  Height="26px"
                                                                                                                         ></asp:TextBox>
                                                                                                                     <cc1:CalendarExtender ID="calBillDate" runat="server" Format="dd/MM/yyyy"
                                                                                                                             PopupButtonID="btnBillDate" TargetControlID="txtEffDate" Enabled="True">
@@ -600,9 +600,9 @@
                                                                                                             </asp:TemplateField>
                                                                                                             <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Discount" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20%">
                                                                                                                 <ItemTemplate>
-                                                                                                                    <cc1:FilteredTextBoxExtender ID="fltReorderA" runat="server" FilterType="Numbers"
-                                                                                                                TargetControlID="txtDiscount1" />
-                                                                                                                    <asp:TextBox ID="txtDiscount1" runat="server" Width="85%"  Text='<%# Eval("Discount")%>'
+                                                                                                                    <cc1:FilteredTextBoxExtender ID="FTBRadeA" runat="server" FilterType="Custom, Numbers"
+                                                                                                    TargetControlID="txtDiscount1" ValidChars="." />
+                                                                                                                    <asp:TextBox ID="txtDiscount1" runat="server" Width="90%"  Text='<%# Eval("Discount")%>' Height="26px"
                                                                                                                         ></asp:TextBox>
                                                                                                                 </ItemTemplate>
                                                                                                             </asp:TemplateField>
