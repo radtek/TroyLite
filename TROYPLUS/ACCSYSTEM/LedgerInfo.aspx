@@ -172,7 +172,7 @@
                                             <asp:FormView ID="frmViewAdd" runat="server" Width="100%" DataSourceID="frmSource"
                                                 DataKeyNames="LedgerID" OnItemCommand="frmViewAdd_ItemCommand" DefaultMode="Edit" 
                                                 OnItemCreated="frmViewAdd_ItemCreated" Visible="False"
-                                                EmptyDataText="No Records" OnItemInserted="frmViewAdd_ItemInserted"
+                                                EmptyDataText="No Records" OnItemInserted="frmViewAdd_ItemInserted"  OnModeChanged="frmViewAdd_ModeChanged" OnDataBound="frmViewAdd_DataBound"
                                                 OnItemUpdated="frmViewAdd_ItemUpdated">
                                                 <RowStyle HorizontalAlign="left" CssClass="GrdContent allPad" VerticalAlign="Middle"
                                                     BorderColor="#cccccc" Height="20px" />
@@ -335,7 +335,7 @@
                                                                   <td style="width:5%">
                                                                 </td>
                                                                 <td class="ControlLabel" style="width:15%">         
-                                                                     OpBalance Due Date    
+                                                                     OB Due Date    
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width:20%">
                                                                     <asp:TextBox ID="txtdueDate" MaxLength="10" TabIndex="13" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
@@ -559,9 +559,9 @@
                                                                         TargetControlID="txtOpenBalAdd" />
                                                                 </td>
                                                                 <td class="ControlNumberBox3" style="width:20%">
-                                                                    <asp:TextBox ID="txtOpenBalAdd" runat="server" Text="0" Enabled="false"
+                                                                    <asp:TextBox ID="txtOpenBalAdd" runat="server" Text="0"
                                                                          BackColor = "#e7e7e7" style="border: 1px solid #e7e7e7" Width="60%"></asp:TextBox>
-                                                                    <asp:DropDownList ID="ddCRDRAdd" runat="server" Enabled="false" style="border: 1px solid #e7e7e7" height="26px" Width="55px" CssClass="drpDownListMedium" BackColor = "#e7e7e7" SelectedValue='<%# Bind("DRORCR") %>'>
+                                                                    <asp:DropDownList ID="ddCRDRAdd" runat="server"  style="border: 1px solid #e7e7e7" height="26px" Width="55px" CssClass="drpDownListMedium" BackColor = "#e7e7e7" SelectedValue='<%# Bind("DRORCR") %>'>
                                                                         <asp:ListItem Text="CR" Value="CR"></asp:ListItem>
                                                                         <asp:ListItem Text="DR" Value="DR"></asp:ListItem>
                                                                     </asp:DropDownList>
@@ -668,7 +668,7 @@
                                                                   <td style="width:5%">
                                                                 </td>
                                                                 <td class="ControlLabel" style="width:15%">         
-                                                                     OpBalance Due Date    
+                                                                     OB Due Date    
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width:20%">
                                                                     <asp:TextBox ID="txtdueDateadd" MaxLength="10" TabIndex="13" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'

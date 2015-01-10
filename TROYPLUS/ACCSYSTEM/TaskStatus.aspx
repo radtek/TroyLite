@@ -127,7 +127,7 @@
                                                             <tr style="height: 5px">
                                                             </tr>
                                                             <tr>
-                                                                <td class="ControlLabel" style="width: 40%">Task Status *
+                                                                <td class="ControlLabelproject" style="width: 40%">Task Status *
                                                                     <asp:RequiredFieldValidator ID="rvLdgrName" runat="server" ControlToValidate="txtTaskStatusName"
                                                                         Display="Dynamic" EnableClientScript="True" ErrorMessage="Task Status Name is mandatory">*</asp:RequiredFieldValidator>
                                                                 </td>
@@ -193,7 +193,7 @@
                                                             <tr style="height: 5px">
                                                             </tr>
                                                             <tr>
-                                                                <td class="ControlLabel" style="width: 40%">Task Status *
+                                                                <td class="ControlLabelproject" style="width: 40%">Task Status *
                                                                     <asp:RequiredFieldValidator ID="rvLdgrNameAdd" runat="server" ControlToValidate="txtTaskStatusNameAdd"
                                                                         Text="*" Display="Dynamic" EnableClientScript="True" ErrorMessage="Task Status Name is mandatory"></asp:RequiredFieldValidator>
                                                                 </td>

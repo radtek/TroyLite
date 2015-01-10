@@ -99,7 +99,7 @@ public partial class ExpenseInfo : System.Web.UI.Page
     {
         try
         {
-            if (e.Exception == null)
+            if (e.Exception == null && check==false )
             {
                 //MyAccordion.Visible = true;
                 lnkBtnAdd.Visible = true;
@@ -209,7 +209,7 @@ public partial class ExpenseInfo : System.Web.UI.Page
     {
         try
         {
-            if (e.Exception == null)
+            if (e.Exception == null && check==false)
             {
                 lnkBtnAdd.Visible = true;
                 frmViewAdd.Visible = false;
@@ -295,6 +295,32 @@ public partial class ExpenseInfo : System.Web.UI.Page
     {
         try
         {
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+            string connection = Request.Cookies["Company"].Value;
+
+            string refDate = string.Empty;
+            refDate = ((TextBox)this.frmViewAdd.FindControl("txtdueDateadd")).Text;
+            string dt = Convert.ToDateTime(refDate).ToString("MM/dd/yyyy");
+            EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
+
+            if (EnableOpbalance == "YES")
+            {
+                if (!bl.IsValidDate(connection, Convert.ToDateTime(refDate)))
+                {
+
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('This Date has been Locked')", true);
+                    check = true;
+                    ModalPopupExtender1.Show();
+                    frmViewAdd.Visible = true;
+                    frmViewAdd.ChangeMode(FormViewMode.Insert);
+                    e.Cancel = true;
+                    return;
+                    // break;
+                }
+
+            }
+
+
             this.setInsertParameters(e);
         }
         catch (Exception ex)
@@ -346,29 +372,6 @@ public partial class ExpenseInfo : System.Web.UI.Page
             frmViewAdd.ChangeMode(FormViewMode.Insert);
             frmViewAdd.Visible = true;
 
-            BusinessLogic bl = new BusinessLogic(sDataSource);
-            string connection = Request.Cookies["Company"].Value;
-
-            EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
-            if (EnableOpbalance == "YES")
-            {
-                ((TextBox)this.frmViewAdd.FindControl("txtOpenBalAdd")).Enabled = true;
-                ((TextBox)this.frmViewAdd.FindControl("txtdueDateadd")).Enabled = true;
-                ((DropDownList)this.frmViewAdd.FindControl("ddCRDRAdd")).Enabled = true;
-                ((ImageButton)this.frmViewAdd.FindControl("btnBillDate1")).Enabled = true;
-             
-
-                //txtdueDateadd.Enabled = true;
-            }
-            else
-            {
-                ((TextBox)this.frmViewAdd.FindControl("txtOpenBalAdd")).Enabled = false;
-                ((TextBox)this.frmViewAdd.FindControl("txtdueDateadd")).Enabled = false;
-                ((DropDownList)this.frmViewAdd.FindControl("ddCRDRAdd")).Enabled = false;
-                ((ImageButton)this.frmViewAdd.FindControl("btnBillDate1")).Enabled = false;
-                //txtdueDateadd.Enabled = false;
-            }
-
 
 
             if (frmViewAdd.CurrentMode == FormViewMode.Insert)
@@ -383,6 +386,94 @@ public partial class ExpenseInfo : System.Web.UI.Page
             TroyLiteExceptionManager.HandleException(ex);
         }
     }
+
+
+    protected void frmViewAdd_ModeChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            if (frmViewAdd.CurrentMode == FormViewMode.Insert)
+            {
+                {
+
+                    BusinessLogic bl = new BusinessLogic(sDataSource);
+                    string connection = Request.Cookies["Company"].Value;
+                    EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
+                    if (EnableOpbalance == "NO")
+                    {
+                        if (this.frmViewAdd.FindControl("txtOpenBalAdd") != null)
+                        {
+                            ((TextBox)this.frmViewAdd.FindControl("txtOpenBalAdd")).Enabled = false;
+                            ((TextBox)this.frmViewAdd.FindControl("txtdueDateadd")).Enabled = false;
+                            ((DropDownList)this.frmViewAdd.FindControl("ddCRDRAdd")).Enabled = false;
+                            ((ImageButton)this.frmViewAdd.FindControl("btnBillDate1")).Enabled = false;
+                        }
+
+                        else
+                        {
+                            if (this.frmViewAdd.FindControl("txtOpenBalAdd") == null)
+                            {
+                                ((TextBox)this.frmViewAdd.FindControl("txtOpenBalAdd")).Enabled = false;
+                                ((TextBox)this.frmViewAdd.FindControl("txtdueDateadd")).Enabled = false;
+                                ((DropDownList)this.frmViewAdd.FindControl("ddCRDRAdd")).Enabled = false;
+                                ((ImageButton)this.frmViewAdd.FindControl("btnBillDate1")).Enabled = false;
+
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            if (frmViewAdd.CurrentMode == FormViewMode.Edit)
+            {
+
+                BusinessLogic bl = new BusinessLogic(sDataSource);
+                string connection = Request.Cookies["Company"].Value;
+                EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
+                if (EnableOpbalance == "NO")
+                {
+                    if (this.frmViewAdd.FindControl("txtOpenBal") != null)
+                    {
+                        //if (this.frmViewAdd.FindControl("txtOpenBalAdd") != null)
+                        //{
+                        ((TextBox)this.frmViewAdd.FindControl("txtOpenBal")).Enabled = false;
+                        ((TextBox)this.frmViewAdd.FindControl("txtdueDate")).Enabled = false;
+                        ((DropDownList)this.frmViewAdd.FindControl("ddCRDR")).Enabled = false;
+                        ((ImageButton)this.frmViewAdd.FindControl("btnBillDate")).Enabled = false;
+
+                        //}
+                    }
+
+                    else
+                    {
+                        if (this.frmViewAdd.FindControl("txtOpenBal") == null)
+                        {
+                            ((TextBox)this.frmViewAdd.FindControl("txtOpenBal")).Enabled = false;
+                            ((TextBox)this.frmViewAdd.FindControl("txtdueDate")).Enabled = false;
+                            ((DropDownList)this.frmViewAdd.FindControl("ddCRDR")).Enabled = false;
+                            ((ImageButton)this.frmViewAdd.FindControl("btnBillDate")).Enabled = false;
+
+                        }
+
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+
+    protected void frmViewAdd_DataBound(object sender, EventArgs e)
+    {
+        frmViewAdd_ModeChanged(sender, e);
+    }
+
+
+
     protected void GrdViewLedger_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         try
@@ -409,6 +500,31 @@ public partial class ExpenseInfo : System.Web.UI.Page
     {
         try
         {
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+            string connection = Request.Cookies["Company"].Value;
+
+            string refDate = string.Empty;
+            refDate = ((TextBox)this.frmViewAdd.FindControl("txtdueDate")).Text;
+            string dt = Convert.ToDateTime(refDate).ToString("MM/dd/yyyy");
+            EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
+
+            if (EnableOpbalance == "YES")
+            {
+                if (!bl.IsValidDate(connection, Convert.ToDateTime(refDate)))
+                {
+
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('This Date has been Locked')", true);
+                    check = true;
+                    ModalPopupExtender1.Show();
+                    frmViewAdd.Visible = true;
+                    frmViewAdd.ChangeMode(FormViewMode.Edit);
+                    e.Cancel = true;
+                    return;
+                    // break;
+                }
+
+            }
+
             this.setUpdateParameters(e);
         }
         catch (Exception ex)
@@ -538,9 +654,10 @@ public partial class ExpenseInfo : System.Web.UI.Page
     {
 
     }
+    bool check = false;
     protected void frmViewAdd_ItemInserting(object sender, FormViewInsertEventArgs e)
     {
-
+       
     }
 
     protected void drpunuse_DataBound(object sender, EventArgs e)

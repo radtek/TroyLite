@@ -1358,6 +1358,22 @@ h2
    
 }
 
+.ControlLabelproject
+{
+    height:27px;    
+    padding-top:5px;
+    padding-left:5px;
+    padding-right:5px;
+    text-align:right;
+    vertical-align:middle;
+    color:#0567AE;
+    font-family:'ARIAL';
+    font-size:14px;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+
 .ControlLabel
 {
     height:27px;    
@@ -6385,6 +6401,21 @@ h2
     font-family: 'Trebuchet MS';
     font-size: 11px;
    
+}
+.ControlLabelproject
+
+{
+    height:27px;    
+    padding-top:5px;
+    padding-left:5px;
+    padding-right:5px;
+    text-align:right;
+    vertical-align:middle;
+    color:#0567AE;
+    font-family:'ARIAL';
+    font-size:14px;
+    font-weight:bold;
+    text-decoration:none;
 }
 
 .ControlLabel
