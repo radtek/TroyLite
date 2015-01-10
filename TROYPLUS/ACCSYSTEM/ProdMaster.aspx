@@ -533,6 +533,7 @@
                                                                                                                 TypeName="BusinessLogic" OldValuesParameterFormatString="original_{0}">
                                                                                                                 <SelectParameters>
                                                                                                                     <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
+                                                                                                                    <asp:CookieParameter Name="method" CookieName="" Type="String" />
                                                                                                                 </SelectParameters>
                                                                                                             </asp:ObjectDataSource>
                                                                                                         </td>

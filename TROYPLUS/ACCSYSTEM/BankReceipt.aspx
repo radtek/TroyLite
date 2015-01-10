@@ -588,14 +588,14 @@
                                                     <table cellspacing="0">
                                                         <tr>
                                                             <td>
-                                                                <asp:ObjectDataSource ID="srcBanksAdd" runat="server" SelectMethod="ListBanks" TypeName="BusinessLogic">
+                                                                <asp:ObjectDataSource ID="srcBanksAdd" runat="server" SelectMethod="ListBanksIsActive" TypeName="BusinessLogic">
                                                                     <SelectParameters>
                                                                         <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
                                                                     </SelectParameters>
                                                                 </asp:ObjectDataSource>
                                                             </td>
                                                             <td>
-                                                                <asp:ObjectDataSource ID="srcCreditorDebitorAdd" runat="server" SelectMethod="ListBanks"
+                                                                <asp:ObjectDataSource ID="srcCreditorDebitorAdd" runat="server" SelectMethod="ListBanksIsActive"
                                                                     TypeName="BusinessLogic">
                                                                     <SelectParameters>
                                                                         <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />

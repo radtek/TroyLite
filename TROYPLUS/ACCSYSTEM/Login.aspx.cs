@@ -221,6 +221,11 @@ public partial class Login : System.Web.UI.Page
 
                 CheckDateLock();
 
+                if (!(CheckPasswordExpiry(txtLogin.Text)))
+                {
+                    Response.Redirect("PasswordExpiry.aspx");
+                }
+
                 int expdays = 10;
                 if ((expdays == 0) || (expdays < 0))
                 {                    
@@ -274,6 +279,38 @@ public partial class Login : System.Web.UI.Page
             return;
         }
 
+    }
+
+    private bool CheckPasswordExpiry(string userName)
+    {
+        BusinessLogic bl = new BusinessLogic();
+
+        string ExpiryDate = bl.GetExpiryDate(userName, Request.Cookies["Company"].Value);
+
+        if (ExpiryDate == null || ExpiryDate.ToString() == string.Empty)
+        {
+            return false;
+        }
+        else
+        {
+            DateTime indianStd = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "India Standard Time");
+            string dtaa = Convert.ToDateTime(indianStd).ToString("dd/MM/yyyy");
+            ExpiryDate = Convert.ToDateTime(ExpiryDate).ToString("dd/MM/yyyy");
+
+            TimeSpan ts = Convert.ToDateTime(ExpiryDate) - Convert.ToDateTime(dtaa);
+            int days = Convert.ToInt32(ts.TotalDays);
+
+            if (days > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        return false;
     }
 
     private void DemoLogin()

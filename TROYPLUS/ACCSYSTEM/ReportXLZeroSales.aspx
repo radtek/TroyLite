@@ -43,7 +43,7 @@
                                         Start Date
                                     </td>
                                     <td style="width:35%;" class="ControlTextBox3">
-                                            <asp:TextBox ID="txtSrtDate" runat="server"  AutoPostBack="True" BackColor = "#e7e7e7" SkinID="skinTxtBoxGrid"
+                                            <asp:TextBox ID="txtSrtDate" runat="server" Enabled="false"  AutoPostBack="True" BackColor = "#e7e7e7" SkinID="skinTxtBoxGrid"
                                                 Width="100px"
                                                 MaxLength="10" TabIndex="1"></asp:TextBox>
                                             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Format="dd/MM/yyyy"
@@ -63,7 +63,7 @@
                                         End Date
                                     </td>
                                     <td style="width:35%;" class="ControlTextBox3">
-                                            <asp:TextBox ID="txtEdDate" runat="server"  AutoPostBack="True" BackColor = "#e7e7e7" SkinID="skinTxtBoxGrid"
+                                            <asp:TextBox ID="txtEdDate" runat="server" Enabled="false"  AutoPostBack="True" BackColor = "#e7e7e7" SkinID="skinTxtBoxGrid"
                                                 Width="100px"
                                                 MaxLength="10" TabIndex="1"></asp:TextBox>
                                             <cc1:CalendarExtender ID="CalendarExtender2" runat="server" Format="dd/MM/yyyy"

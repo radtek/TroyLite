@@ -292,5 +292,24 @@
             </table>
         </ContentTemplate>
     </asp:UpdatePanel>
-    
+    <div>
+        <table style="width: 100%">
+            <tr>
+                <td  style="width:35%">
+                    </td>
+                    <td  style="width:15%">
+                        <asp:Button ID="Button2" runat="server"  OnClientClick="window.open('BulkPriceAddition.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=250,width=500,left=425,top=220, scrollbars=yes');" CssClass="bulkaddition"
+                                    EnableTheming="false" Text=""></asp:Button>
+                    </td>
+                    <td style="width:15%">
+                        <asp:Button ID="BlkAdd" runat="server"  OnClientClick="window.open('BulkPriceUpdation.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=250,width=500,left=425,top=220, scrollbars=yes');" CssClass="bulkaddition"
+                                    EnableTheming="false" Text=""></asp:Button>
+                    </td>
+                    <td  style="width:35%">
+                        
+                    </td>                    
+                </tr>
+        </table>
+    </div>
+
 </asp:Content>

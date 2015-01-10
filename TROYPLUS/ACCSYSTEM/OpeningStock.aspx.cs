@@ -324,7 +324,7 @@ public partial class OpeningStock : System.Web.UI.Page
         //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
         BusinessLogic bl = new BusinessLogic();
         DataSet ds = new DataSet();
-        ds = bl.ListCategory(sDataSource);
+        ds = bl.ListCategory(sDataSource,"");
         cmbCategory.DataTextField = "CategoryName";
         cmbCategory.DataValueField = "CategoryID";
         cmbCategory.DataSource = ds;
@@ -337,7 +337,7 @@ public partial class OpeningStock : System.Web.UI.Page
         string CategoryID = cmbCategory.SelectedValue;
         BusinessLogic bl = new BusinessLogic(sDataSource);
         DataSet ds = new DataSet();
-        ds = bl.ListProductsForCategoryID(CategoryID);
+        ds = bl.ListProductsForCategoryID(CategoryID,"");
         cmbProdAdd.Items.Clear();
         cmbProdAdd.DataSource = ds;
         cmbProdAdd.Items.Insert(0, new ListItem("Select Product Code", "0"));
@@ -345,7 +345,7 @@ public partial class OpeningStock : System.Web.UI.Page
         cmbProdAdd.DataValueField = "ItemCode";
         cmbProdAdd.DataBind();
 
-        ds = bl.ListModelsForCategoryID(CategoryID);
+        ds = bl.ListModelsForCategoryID(CategoryID, "");
         cmbModel.Items.Clear();
         cmbModel.DataSource = ds;
         cmbModel.Items.Insert(0, new ListItem("Select Model", "0"));
@@ -353,7 +353,7 @@ public partial class OpeningStock : System.Web.UI.Page
         cmbModel.DataValueField = "Model";
         cmbModel.DataBind();
 
-        ds = bl.ListBrandsForCategoryID(CategoryID);
+        ds = bl.ListBrandsForCategoryID(CategoryID, "");
         cmbBrand.Items.Clear();
         cmbBrand.DataSource = ds;
         cmbBrand.Items.Insert(0, new ListItem("Select Brand", "0"));
@@ -361,7 +361,7 @@ public partial class OpeningStock : System.Web.UI.Page
         cmbBrand.DataValueField = "ProductDesc";
         cmbBrand.DataBind();
 
-        ds = bl.ListProdNameForCategoryID(CategoryID);
+        ds = bl.ListProdNameForCategoryID(CategoryID, "");
         cmbProdName.Items.Clear();
         cmbProdName.DataSource = ds;
         cmbProdName.Items.Insert(0, new ListItem("Select Product Name", "0"));
@@ -384,7 +384,7 @@ public partial class OpeningStock : System.Web.UI.Page
         //cmbProdAdd.SelectedValue = itemCode;
         //cmbModel.SelectedValue = itemCode;
         DataSet ds = new DataSet();
-        ds = bl.ListModelsForBrand(brand, CategoryID);
+        ds = bl.ListModelsForBrand(brand, CategoryID, "");
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             cmbModel.Items.Clear();
@@ -394,7 +394,7 @@ public partial class OpeningStock : System.Web.UI.Page
             cmbModel.DataBind();
         }
 
-        ds = bl.ListProdcutsForBrand(brand, CategoryID);
+        ds = bl.ListProdcutsForBrand(brand, CategoryID, "");
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             cmbProdAdd.Items.Clear();
@@ -404,7 +404,7 @@ public partial class OpeningStock : System.Web.UI.Page
             cmbProdAdd.DataBind();
         }
 
-        ds = bl.ListProdcutNameForBrand(brand, CategoryID);
+        ds = bl.ListProdcutNameForBrand(brand, CategoryID, "");
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             cmbProdName.Items.Clear();
@@ -425,7 +425,7 @@ public partial class OpeningStock : System.Web.UI.Page
         string CategoryID = cmbCategory.SelectedValue;
         DataSet ds = new DataSet();
 
-        ds = bl.ListProdcutsForModel(model, CategoryID);
+        ds = bl.ListProdcutsForModel(model, CategoryID, "");
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             cmbProdAdd.Items.Clear();
@@ -435,7 +435,7 @@ public partial class OpeningStock : System.Web.UI.Page
             cmbProdAdd.DataBind();
         }
 
-        ds = bl.ListBrandsForModel(model, CategoryID);
+        ds = bl.ListBrandsForModel(model, CategoryID, "");
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             cmbBrand.Items.Clear();
@@ -445,7 +445,7 @@ public partial class OpeningStock : System.Web.UI.Page
             cmbBrand.DataBind();
         }
 
-        ds = bl.ListProductNameForModel(model, CategoryID);
+        ds = bl.ListProductNameForModel(model, CategoryID, "");
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             cmbProdName.Items.Clear();
@@ -465,7 +465,7 @@ public partial class OpeningStock : System.Web.UI.Page
         string CategoryID = cmbCategory.SelectedValue;
         DataSet ds = new DataSet();
 
-        ds = bl.ListProdcutsForProductName(prodName, CategoryID);
+        ds = bl.ListProdcutsForProductName(prodName, CategoryID, "");
 
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
@@ -476,7 +476,7 @@ public partial class OpeningStock : System.Web.UI.Page
             cmbProdAdd.DataBind();
         }
 
-        ds = bl.ListBrandsForProductName(prodName, CategoryID);
+        ds = bl.ListBrandsForProductName(prodName, CategoryID, "");
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             cmbBrand.Items.Clear();
@@ -486,7 +486,7 @@ public partial class OpeningStock : System.Web.UI.Page
             cmbBrand.DataBind();
         }
 
-        ds = bl.ListModelsForProductName(prodName, CategoryID);
+        ds = bl.ListModelsForProductName(prodName, CategoryID, "");
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             cmbModel.Items.Clear();
