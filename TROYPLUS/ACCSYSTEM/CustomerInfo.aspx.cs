@@ -526,7 +526,7 @@ public partial class CustomerInfo : System.Web.UI.Page
                     check = true;
                     ModalPopupExtender1.Show();
                     frmViewAdd.Visible = true;
-                    frmViewAdd.ChangeMode(FormViewMode.Insert);
+                    frmViewAdd.ChangeMode(FormViewMode.Edit);
                     e.Cancel = true;
                     return;
 
@@ -547,7 +547,7 @@ public partial class CustomerInfo : System.Web.UI.Page
                         check = true;
                         ModalPopupExtender1.Show();
                         frmViewAdd.Visible = true;
-                        frmViewAdd.ChangeMode(FormViewMode.Insert);
+                        frmViewAdd.ChangeMode(FormViewMode.Edit);
                         e.Cancel = true;
                         return;
                         // break;
