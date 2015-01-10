@@ -2184,6 +2184,41 @@ public class BusinessLogic
 
     }
 
+    public DataSet ListCreditorDebitor_DrptxtCheck(string connection)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        if (connection.IndexOf("Provider=Microsoft.Jet.OLEDB.4.0;") > -1)
+            manager.ConnectionString = CreateConnectionString(connection);
+        else
+            manager.ConnectionString = CreateConnectionString(connection);
+
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+        try
+        {
+            // ProductName + ' - ' + ItemCode + ' - ' + Model  As ProductName,
+            //dbQry = string.Format("select LedgerId, LedgerName from tblLedger inner join tblGroups on tblGroups.GroupID = tblLedger.GroupID Where tblGroups.GroupName IN ('{0}','{1}') Order By LedgerName Asc ", "Sundry Debtors", "Sundry Creditors");
+            dbQry = string.Format("select LedgerId,LedgerName + ' - ' + Add1 + ' - ' + Add2 + ' - ' + Add3 + ' - '  + Mobile as LedgerName from tblLedger inner join tblGroups on tblGroups.GroupID = tblLedger.GroupID Order By ledgerName");
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
+
     public DataSet ListCreditorDebitor(string connection)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
@@ -2197,8 +2232,9 @@ public class BusinessLogic
 
         try
         {
+            // ProductName + ' - ' + ItemCode + ' - ' + Model  As ProductName,
             //dbQry = string.Format("select LedgerId, LedgerName from tblLedger inner join tblGroups on tblGroups.GroupID = tblLedger.GroupID Where tblGroups.GroupName IN ('{0}','{1}') Order By LedgerName Asc ", "Sundry Debtors", "Sundry Creditors");
-            dbQry = string.Format("select LedgerId, LedgerName from tblLedger inner join tblGroups on tblGroups.GroupID = tblLedger.GroupID Order By ledgerName");
+            dbQry = string.Format("select LedgerId,LedgerName from tblLedger inner join tblGroups on tblGroups.GroupID = tblLedger.GroupID Order By ledgerName");
             manager.Open();
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
@@ -7671,7 +7707,7 @@ public class BusinessLogic
                 }
                 else
                 {
-                    dbQry = "select CategoryID, CategoryName from tblCategories Order By CategoryName ";
+            dbQry = "select CategoryID, CategoryName from tblCategories Order By CategoryName ";
                 }
             }
             else
@@ -30269,16 +30305,16 @@ public class BusinessLogic
 
             if (method == "Add")
             {
-                if (obsolute == "YES")
-                {
-                    //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
-                    //dbQry = "SELECT Distinct ItemCode FROM tblProductMaster Where CategoryID=" + CategoryID + " and  ROL > " + block + " Order By ItemCode Asc";
+            if (obsolute == "YES")
+            {
+                //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+                //dbQry = "SELECT Distinct ItemCode FROM tblProductMaster Where CategoryID=" + CategoryID + " and  ROL > " + block + " Order By ItemCode Asc";
                     dbQry = "SELECT Distinct ItemCode FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID = " + CategoryID + " and tblProductMaster.IsActive = 'YES' and tblBrand.IsActive = 'YES' Order By ItemCode Asc";
-                }
-                else
-                {
-                    dbQry = "SELECT Distinct ItemCode FROM tblProductMaster Where CategoryID=" + CategoryID + " Order By ItemCode Asc";
-                }
+            }
+            else
+            {
+                dbQry = "SELECT Distinct ItemCode FROM tblProductMaster Where CategoryID=" + CategoryID + " Order By ItemCode Asc";
+            }
             }
             else
             {
@@ -30327,15 +30363,15 @@ public class BusinessLogic
 
             if (method == "Add")
             {
-                if (obsolute == "YES")
-                {
-                    //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+            if (obsolute == "YES")
+            {
+                //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                     dbQry = "SELECT Distinct ProductDesc FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " and tblBrand.IsActive = 'YES' and tblProductMaster.IsActive = 'YES' Order By ProductDesc Asc";
-                }
-                else
-                {
-                    dbQry = "SELECT Distinct ProductDesc FROM tblProductMaster Where CategoryID=" + CategoryID + "  Order By ProductDesc Asc";
-                }
+            }
+            else
+            {
+                dbQry = "SELECT Distinct ProductDesc FROM tblProductMaster Where CategoryID=" + CategoryID + "  Order By ProductDesc Asc";
+            }
             }
             else
             {
@@ -30385,15 +30421,15 @@ public class BusinessLogic
 
             if (method == "Add")
             {
-                if (obsolute == "YES")
-                {
-                    //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+            if (obsolute == "YES")
+            {
+                //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                     dbQry = "SELECT Distinct ProductName FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " and tblBrand.IsActive = 'YES' and tblProductMaster.IsActive = 'YES' Order By ProductName Asc";
-                }
-                else
-                {
-                    dbQry = "SELECT Distinct ProductName FROM tblProductMaster Where CategoryID=" + CategoryID + " Order By ProductName Asc";
-                }
+            }
+            else
+            {
+                dbQry = "SELECT Distinct ProductName FROM tblProductMaster Where CategoryID=" + CategoryID + " Order By ProductName Asc";
+            }
             }
             else
             {
@@ -30471,15 +30507,15 @@ public class BusinessLogic
                  obsolute = dsd.Tables[0].Rows[0]["KeyValue"].ToString();
             if (method == "Add")
             {
-                if (obsolute == "YES")
-                {
-                    //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+            if (obsolute == "YES")
+            {
+                //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                     dbQry = "SELECT Distinct Model FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " and tblProductMaster.IsActive = 'YES' and tblBrand.IsActive = 'YES' Order By Model Asc";
-                }
-                else
-                {
-                    dbQry = "SELECT Distinct Model FROM tblProductMaster Where CategoryID=" + CategoryID + "  Order By Model Asc";
-                }
+            }
+            else
+            {
+                dbQry = "SELECT Distinct Model FROM tblProductMaster Where CategoryID=" + CategoryID + "  Order By Model Asc";
+            }
             }
             else
             {
@@ -30558,15 +30594,15 @@ public class BusinessLogic
 
             if (method == "Add")
             {
-                if (obsolute == "YES")
-                {
-                    //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+            if (obsolute == "YES")
+            {
+                //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                     dbQry = "SELECT Distinct ProductDesc FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " AND Model='" + Model + "' and tblBrand.IsActive = 'YES' and tblProductMaster.IsActive = 'YES' Order By ProductDesc Asc";
-                }
-                else
-                {
-                    dbQry = "SELECT Distinct ProductDesc FROM tblProductMaster Where CategoryID=" + CategoryID + " AND Model='" + Model + "'  Order By ProductDesc Asc";
-                }
+            }
+            else
+            {
+                dbQry = "SELECT Distinct ProductDesc FROM tblProductMaster Where CategoryID=" + CategoryID + " AND Model='" + Model + "'  Order By ProductDesc Asc";
+            }
             }
             else
             {
@@ -30617,15 +30653,15 @@ public class BusinessLogic
 
             if (method == "Add")
             {
-                if (obsolute == "YES")
-                {
-                    //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+            if (obsolute == "YES")
+            {
+                //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                     dbQry = "SELECT Distinct ProductName FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " AND Model='" + Model + "' and tblProductMaster.IsActive = 'YES' and tblBrand.IsActive = 'YES' Order By ProductName Asc";
-                }
-                else
-                {
-                    dbQry = "SELECT Distinct ProductName FROM tblProductMaster Where CategoryID=" + CategoryID + " AND Model='" + Model + "' Order By ProductName Asc";
-                }
+            }
+            else
+            {
+                dbQry = "SELECT Distinct ProductName FROM tblProductMaster Where CategoryID=" + CategoryID + " AND Model='" + Model + "' Order By ProductName Asc";
+            }
             }
             else
             {
@@ -30731,15 +30767,15 @@ public class BusinessLogic
 
             if (method == "Add")
             {
-                if (obsolute == "YES")
-                {
-                    //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+            if (obsolute == "YES")
+            {
+                //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                     dbQry = "SELECT ItemCode FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " AND ProductName='" + prodName + "' and tblBrand.IsActive = 'YES' and tblProductMaster.IsActive = 'YES' Order By ItemCode Asc";
-                }
-                else
-                {
-                    dbQry = "SELECT ItemCode FROM tblProductMaster Where CategoryID=" + CategoryID + " AND ProductName='" + prodName + "' Order By ItemCode Asc";
-                }
+            }
+            else
+            {
+                dbQry = "SELECT ItemCode FROM tblProductMaster Where CategoryID=" + CategoryID + " AND ProductName='" + prodName + "' Order By ItemCode Asc";
+            }
             }
             else
             {
@@ -30789,15 +30825,15 @@ public class BusinessLogic
 
             if (method == "Add")
             {
-                if (obsolute == "YES")
-                {
-                    //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+            if (obsolute == "YES")
+            {
+                //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                     dbQry = "SELECT Distinct ProductDesc FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " AND ProductName='" + prodName + "' and tblBrand.IsActive = 'YES' and tblProductMaster.IsActive = 'YES' Order By ProductDesc Asc";
-                }
-                else
-                {
-                    dbQry = "SELECT Distinct ProductDesc FROM tblProductMaster Where CategoryID=" + CategoryID + " AND ProductName='" + prodName + "' Order By ProductDesc Asc";
-                }
+            }
+            else
+            {
+                dbQry = "SELECT Distinct ProductDesc FROM tblProductMaster Where CategoryID=" + CategoryID + " AND ProductName='" + prodName + "' Order By ProductDesc Asc";
+            }
             }
             else
             {
@@ -30848,15 +30884,15 @@ public class BusinessLogic
 
             if (method == "Add")
             {
-                if (obsolute == "YES")
-                {
-                    //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+            if (obsolute == "YES")
+            {
+                //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                     dbQry = "SELECT Distinct Model FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " AND ProductName='" + prodName + "' and tblBrand.IsActive = 'YES' and tblProductMaster.IsActive = 'YES' Order By Model Asc";
-                }
-                else
-                {
-                    dbQry = "SELECT Distinct Model FROM tblProductMaster Where CategoryID=" + CategoryID + " AND ProductName='" + prodName + "' Order By Model Asc";
-                }
+            }
+            else
+            {
+                dbQry = "SELECT Distinct Model FROM tblProductMaster Where CategoryID=" + CategoryID + " AND ProductName='" + prodName + "' Order By Model Asc";
+            }
             }
             else
             {
@@ -30907,14 +30943,14 @@ public class BusinessLogic
 
             if (method == "Add")
             {
-                if (obsolute == "YES")
-                {
+            if (obsolute == "YES")
+            {
                     dbQry = "SELECT ItemCode FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " AND ProductDesc='" + brand + "' and tblBrand.IsActive = 'YES' and tblProductMaster.IsActive = 'YES'  Order By ItemCode Asc";
-                }
-                else
-                {
-                    dbQry = "SELECT ItemCode FROM tblProductMaster Where CategoryID=" + CategoryID + " AND ProductDesc='" + brand + "' Order By ItemCode Asc";
-                }
+            }
+            else
+            {
+                dbQry = "SELECT ItemCode FROM tblProductMaster Where CategoryID=" + CategoryID + " AND ProductDesc='" + brand + "' Order By ItemCode Asc";
+            }
             }
             else
             {
@@ -30964,9 +31000,9 @@ public class BusinessLogic
 
             if (method == "Add")
             {
-                if (obsolute == "YES")
-                {
-                    //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+            if (obsolute == "YES")
+            {
+                //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                     dbQry = "SELECT Distinct ProductName FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " AND ProductDesc='" + brand + "' and tblBrand.IsActive = 'YES' and tblProductMaster.IsActive = 'YES' Order By ProductName Asc";
                 }
                 else
@@ -31023,9 +31059,9 @@ public class BusinessLogic
 
             if (method == "Add")
             {
-                if (obsolute == "YES")
-                {
-                    //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+            if (obsolute == "YES")
+            {
+                //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                     dbQry = "SELECT Distinct Model FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " AND ProductDesc ='" + brand + "' and tblProductMaster.IsActive = 'YES' and tblBrand.IsActive = 'YES' Order By Model Asc";
                 }
                 else
@@ -31081,8 +31117,8 @@ public class BusinessLogic
 
             if (method == "Add")
             {
-                if (obsolute == "YES")
-                {
+            if (obsolute == "YES")
+            {
                     dbQry = "SELECT Distinct ItemCode FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " AND Model='" + model + "' and tblBrand.IsActive = 'YES' and tblProductMaster.IsActive = 'YES' Order By ItemCode Asc";
                 }
                 else
@@ -38049,6 +38085,19 @@ public class BusinessLogic
         oleCmd = new OleDbCommand();
         oleCmd.Connection = oleConn;
         sQry = "SELECT tblLedger.LedgerID,tblLedger.LedgerName,tblLedger.phone,tblLedger.AliasName, (IIF(ISNULL(tblLedger.OpenBalanceDR),0,tblLedger.OpenBalanceDR)+ IIF(ISNULL(debittable.debitamount),0,debittable.debitamount)) - (IIF(ISNULL(tblLedger.OpenBalanceCR),0,tblLedger.OpenBalanceCR)+ IIF(ISNULL(credittable.creditamount),0,credittable.creditamount)) as balance FROM (tblLedger   left  join (SELECT DebtorID,sum(Amount) as debitamount FROM tblDayBook WHERE tblDayBook.TransDate >=#" + startDate.ToString("MM/dd/yyyy") + "# AND tblDayBook.TransDate<=#" + endDate.ToString("MM/dd/yyyy") + "# and  DebtorID > 0 group by DebtorID) debittable  on tblLedger.LedgerID=debittable.DebtorID) left join (SELECT CreditorID,sum(Amount) as creditamount FROM tblDayBook WHERE tblDayBook.TransDate >=#" + startDate.ToString("MM/dd/yyyy") + "# AND tblDayBook.TransDate<=#" + endDate.ToString("MM/dd/yyyy") + "# and  CreditorID > 0 group by CreditorID) credittable on tblLedger.LedgerID= credittable.CreditorID where GroupID=" + iGroupID + " and tblledger.inttrans = 'NO' and tblledger.dc = 'NO' and (IIF(ISNULL(tblLedger.OpenBalanceDR),0,tblLedger.OpenBalanceDR)+ IIF(ISNULL(debittable.debitamount),0,debittable.debitamount)) - (IIF(ISNULL(tblLedger.OpenBalanceCR),0,tblLedger.OpenBalanceCR)+ IIF(ISNULL(credittable.creditamount),0,credittable.creditamount)) <> 0 ORDER BY tblLedger.LedgerName";
+        //sQry = "SELECT tblLedger.LedgerID,tblLedger.LedgerName,tblDayBook.TransDate,tblLedger.phone,tblLedger.AliasName, (IIF(ISNULL(tblLedger.OpenBalanceDR),0,tblLedger.OpenBalanceDR)+ IIF(ISNULL(debittable.debitamount),0,debittable.debitamount)) - (IIF(ISNULL(tblLedger.OpenBalanceCR),0,tblLedger.OpenBalanceCR)+ IIF(ISNULL(credittable.creditamount),0,credittable.creditamount)) as balance FROM (tblLedger   left  join (SELECT DebtorID,sum(Amount) as debitamount FROM tblDayBook WHERE tblDayBook.TransDate >=#" + startDate.ToString("MM/dd/yyyy") + "# AND tblDayBook.TransDate<=#" + endDate.ToString("MM/dd/yyyy") + "# and  DebtorID > 0 group by DebtorID,TransDate) debittable  on tblLedger.LedgerID=debittable.DebtorID) left join (SELECT CreditorID,sum(Amount) as creditamount FROM tblDayBook WHERE tblDayBook.TransDate >=#" + startDate.ToString("MM/dd/yyyy") + "# AND tblDayBook.TransDate<=#" + endDate.ToString("MM/dd/yyyy") + "# and  CreditorID > 0 group by CreditorID,TransDate) credittable on tblLedger.LedgerID= credittable.CreditorID where GroupID=" + iGroupID + " and tblledger.inttrans = 'NO' and tblledger.dc = 'NO' and (IIF(ISNULL(tblLedger.OpenBalanceDR),0,tblLedger.OpenBalanceDR)+ IIF(ISNULL(debittable.debitamount),0,debittable.debitamount)) - (IIF(ISNULL(tblLedger.OpenBalanceCR),0,tblLedger.OpenBalanceCR)+ IIF(ISNULL(credittable.creditamount),0,credittable.creditamount)) <> 0 ORDER BY tblLedger.LedgerName";
+        
+        //// SELECT tblLedger.LedgerID,tblLedger.LedgerName,tblLedger.phone,tblLedger.AliasName,debittable.TransDate,credittable.TransDate,
+        ////(IIf(IsNull(tblLedger.OpenBalanceDR),0,tblLedger.OpenBalanceDR)+IIf(IsNull(debittable.debitamount),0,debittable.debitamount))-(IIf(IsNull(tblLedger.OpenBalanceCR),0,tblLedger.OpenBalanceCR)+IIf(IsNull(credittable.creditamount),0,credittable.creditamount)) AS balance
+        ////FROM (tblLedger LEFT JOIN (SELECT DebtorID,TransDate,sum(Amount) as debitamount
+        //// FROM tblDayBook
+        //// WHERE tblDayBook.TransDate >=#01/01/2015# AND tblDayBook.TransDate<=#01/02/2015# and  DebtorID > 0 group by DebtorID,TransDate)  AS debittable ON tblLedger.LedgerID = debittable.DebtorID) LEFT JOIN (SELECT CreditorID,TransDate,sum(Amount) as creditamount
+        ////FROM tblDayBook
+        ////WHERE tblDayBook.TransDate >=#01/01/2015# AND tblDayBook.TransDate<=#01/02/2015# and  CreditorID > 0
+        ////group by CreditorID,TransDate)  AS credittable ON tblLedger.LedgerID = credittable.CreditorID
+        ////WHERE (((tblLedger.[GroupID])=1) AND ((tblLedger.inttrans)='NO') AND ((tblLedger.dc)='NO') AND
+        ////(((IIf(IsNull([tblLedger].[OpenBalanceDR]),0,[tblLedger].[OpenBalanceDR])+IIf(IsNull([debittable].[debitamount]),0,[debittable].[debitamount]))-(IIf(IsNull([tblLedger].[OpenBalanceCR]),0,[tblLedger].[OpenBalanceCR])+IIf(IsNull([credittable].[creditamount]),0,[credittable].[creditamount])))<>0))
+        ////ORDER BY tblLedger.LedgerName;
         
 
 
@@ -46699,7 +46748,7 @@ public class BusinessLogic
 
 
              dbQry = string.Format("select LedgerId, LedgerName, Mobile from (tblLedger inner join tblGroups on tblGroups.GroupID = tblLedger.GroupID) inner join tblAccHeading on tblAccHeading.HeadingId = tblGroups.HeadingId Where Heading = 'Current Liabilities' and tblLedger.dc ='NO' and tblLedger.Inttrans ='NO' and tblLedger.Unuse = 'YES' ORDER By LedgerName");
-             manager.Open();
+	     manager.Open();
              ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
              if (ds.Tables[0].Rows.Count > 0)
@@ -47183,9 +47232,9 @@ public class BusinessLogic
 
              if (method == "Add")
              {
-                 if (obsolute == "YES")
-                 {
-                     //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+             if (obsolute == "YES")
+             {
+                 //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                      dbQry = "SELECT Distinct Model FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " AND ProductDesc ='" + brand + "' and tblProductMaster.IsActive = 'YES' and tblBrand.IsActive = 'YES' and stock > 0 Order By Model Asc";
                  }
                  else
@@ -47241,8 +47290,8 @@ public class BusinessLogic
 
              if (method == "Add")
              {
-                 if (obsolute == "YES")
-                 {
+             if (obsolute == "YES")
+             {
                      dbQry = "SELECT ItemCode FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " AND ProductDesc='" + brand + "'  and tblBrand.IsActive='YES' and tblProductMaster.IsActive='YES' and stock > 0 Order By ItemCode Asc";
                  }
                  else
@@ -47297,9 +47346,9 @@ public class BusinessLogic
 
              if (method == "Add")
              {
-                 if (obsolute == "YES")
-                 {
-                     //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+             if (obsolute == "YES")
+             {
+                 //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                      dbQry = "SELECT Distinct ProductName FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " AND ProductDesc='" + brand + "' and tblBrand.IsActive = 'YES' and tblProductMaster.IsActive = 'YES' and stock > 0  Order By ProductName Asc";
                  }
                  else
@@ -47354,8 +47403,8 @@ public class BusinessLogic
 
              if (method == "Add")
              {
-                 if (obsolute == "YES")
-                 {
+             if (obsolute == "YES")
+             {
                      dbQry = "SELECT Distinct ItemCode FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " AND Model='" + model + "' and tblBrand.IsActive='YES' and tblProductMaster.IsActive='YES' and stock > 0  Order By ItemCode Asc";
                  }
                  else
@@ -47410,9 +47459,9 @@ public class BusinessLogic
 
              if (method == "Add")
              {
-                 if (obsolute == "YES")
-                 {
-                     //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+             if (obsolute == "YES")
+             {
+                 //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                      dbQry = "SELECT Distinct ProductDesc FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " AND Model='" + Model + "' and tblBrand.IsActive = 'YES' and tblProductMaster.IsActive = 'YES' and stock > 0  Order By ProductDesc Asc";
                  }
                  else
@@ -47469,9 +47518,9 @@ public class BusinessLogic
 
              if (method == "Add")
              {
-                 if (obsolute == "YES")
-                 {
-                     //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+             if (obsolute == "YES")
+             {
+                 //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                      dbQry = "SELECT Distinct ProductName FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " AND Model='" + Model + "' and tblProductMaster.IsActive = 'YES' and tblBrand.IsActive = 'YES' and stock > 0  Order By ProductName Asc";
                  }
                  else
@@ -47527,9 +47576,9 @@ public class BusinessLogic
 
              if (method == "Add")
              {
-                 if (obsolute == "YES")
-                 {
-                     //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+             if (obsolute == "YES")
+             {
+                 //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                      dbQry = "SELECT ItemCode FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " AND ProductName='" + prodName + "' and tblBrand.IsActive = 'YES' and tblProductMaster.IsActive = 'YES' and stock > 0  Order By ItemCode Asc";
                  }
                  else
@@ -47585,9 +47634,9 @@ public class BusinessLogic
 
              if (method == "Add")
              {
-                 if (obsolute == "YES")
-                 {
-                     //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+             if (obsolute == "YES")
+             {
+                 //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                      dbQry = "SELECT Distinct ProductDesc FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " AND ProductName='" + prodName + "' and tblBrand.IsActive = 'YES' and tblProductMaster.IsActive = 'YES' and stock > 0 Order By ProductDesc Asc";
                  }
                  else
@@ -47644,9 +47693,9 @@ public class BusinessLogic
 
              if (method == "Add")
              {
-                 if (obsolute == "YES")
-                 {
-                     //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+             if (obsolute == "YES")
+             {
+                 //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                      dbQry = "SELECT Distinct Model FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName)  Where CategoryID=" + CategoryID + " AND ProductName='" + prodName + "' and tblProductMaster.IsActive = 'YES' and tblBrand.IsActive = 'YES' and stock > 0 Order By Model Asc";
                  }
                  else
@@ -47700,9 +47749,9 @@ public class BusinessLogic
 
              if (method == "Add")
              {
-                 if (obsolute == "YES")
-                 {
-                     //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+             if (obsolute == "YES")
+             {
+                 //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                      dbQry = "SELECT Distinct ItemCode FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " and tblBrand.IsActive = 'YES' and tblProductMaster.IsActive = 'YES' and stock > 0 Order By ItemCode Asc";
                  }
                  else
@@ -47757,9 +47806,9 @@ public class BusinessLogic
 
              if (method == "Add")
              {
-                 if (obsolute == "YES")
-                 {
-                     //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+             if (obsolute == "YES")
+             {
+                 //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                      dbQry = "SELECT Distinct ProductDesc FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " and tblBrand.IsActive = 'YES' and tblProductMaster.IsActive = 'YES' and stock > 0 Order By ProductDesc Asc";
                  }
                  else
@@ -47815,9 +47864,9 @@ public class BusinessLogic
 
              if (method == "Add")
              {
-                 if (obsolute == "YES")
-                 {
-                     //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+             if (obsolute == "YES")
+             {
+                 //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                      dbQry = "SELECT Distinct ProductName FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + " and tblBrand.IsActive='YES' and tblProductMaster.IsActive='YES' and stock > 0 Order By ProductName Asc";
                  }
                  else
@@ -47873,9 +47922,9 @@ public class BusinessLogic
 
              if (method == "Add")
              {
-                 if (obsolute == "YES")
-                 {
-                     //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
+             if (obsolute == "YES")
+             {
+                 //dbQry = "select ItemCode,ProductName from tblProductMaster  Order By ProductName";
                      dbQry = "SELECT Distinct Model FROM (tblProductMaster inner join tblBrand on tblProductMaster.ProductDesc = tblBrand.BrandName) Where CategoryID=" + CategoryID + "  and tblProductMaster.IsActive = 'YES' and tblBrand.IsActive = 'YES' and stock > 0 Order By Model Asc";
                  }
                  else
@@ -62719,56 +62768,9 @@ public class BusinessLogic
             return true;
         }
 
-        public bool AddCompOffForTheEmployee(string empNo, string supervisorEmpNo, DateTime compOffOrginDate, string compOffReason)
-        {
-            DBManager manager = new DBManager(DataProvider.OleDb);
-            manager.ConnectionString = CreateConnectionString(this.ConnectionString);
-            string dbQry = string.Empty;
 
-            try
-            {
-                manager.Open();
-                dbQry = string.Format(@"Insert into tblEmployeeCompOff (EmployeeNo,CompOffDate,CompOffReason,ApprovedBy,IsActive)
-                                        Values({0},Format('{1}', 'dd/mm/yyyy'),""{2}"",{3},{4})", empNo, compOffOrginDate.ToShortDateString(), compOffReason, supervisorEmpNo, true.ToString());
-                manager.ExecuteNonQuery(CommandType.Text, dbQry);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (manager != null)
-                    manager.Dispose();
 
-            }
-        }
 
-        public bool AddWeekOffRotaForTheEmployee(string empNo, string supervisorEmpNo, DateTime rotaSourceOrginDate, DateTime rotaShiftedDate)
-        {
-            DBManager manager = new DBManager(DataProvider.OleDb);
-            manager.ConnectionString = CreateConnectionString(this.ConnectionString);
-            string dbQry = string.Empty;
-
-            try
-            {
-                manager.Open();
-                dbQry = string.Format(@"Insert into tblEmployeeWeekOffRota (EmployeeNo,SourceDate,ShiftedDate,ApprovedBy,IsActive)
-                                        Values({0},Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),{3},{4})", empNo, rotaSourceOrginDate.ToShortDateString(), rotaShiftedDate.ToShortDateString(), supervisorEmpNo, true.ToString());
-                manager.ExecuteNonQuery(CommandType.Text, dbQry);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (manager != null)
-                    manager.Dispose();
-            }
-        }
 
         public DataTable GetAttendanceYearList(string userId)
         {
@@ -63699,7 +63701,37 @@ public class BusinessLogic
             }
         }
 
+        public string getEnableOpBalanceConfig(string connection)
+        {
+            DBManager manager = new DBManager(DataProvider.OleDb);
+            manager.ConnectionString = CreateConnectionString(connection);// +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+            DataSet ds = new DataSet();
+            StringBuilder dbQry = new StringBuilder();
+            string dbQry2 = string.Empty;
 
+            try
+            {
+                manager.Open();
+
+                dbQry.Append("SELECT   KeyValue  From tblSettings WHERE key='OPBAL'");
+
+                ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+                if (ds.Tables[0].Rows.Count > 0)
+                    return ds.Tables[0].Rows[0]["KeyValue"].ToString();
+                else
+                    return "";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (manager != null)
+                    manager.Dispose();
+            }
+        }
 
         public DataTable GetAllMonths()
         {
@@ -63734,9 +63766,9 @@ public class BusinessLogic
             }
         }
 
- 
 
- 
+
+
 
         public DataTable GetHolidayListForTheYear(int year)
         {

@@ -240,7 +240,19 @@ public partial class CustomerSales : System.Web.UI.Page
                         ModalPopupMethod.Show();
                     }
                 }
+                FirstGridViewRow();
+
+                //BusinessLogic bl = new BusinessLogic(sDataSource);
+                DataSet dss = new DataSet();
+                dss = bl.ListCreditorDebitor_DrptxtCheck(sDataSource);
+                drpMobile1.DataSource = dss.Tables[0].DefaultView;
+                drpMobile1.DataTextField = "LedgerName";
+                drpMobile1.DataValueField = "LedgerID";
+                drpMobile1.DataBind();
+                ListItem item = new ListItem("-Select Customer-", "-1");
+                drpMobile1.Items.Insert(0, item);
             }
+
             errPanel.Visible = false;
             ErrMsg.Text = "";
             //cmdBarcode.Click += new EventHandler(this.txtBarcode_Populated); //Jolo Barcode
@@ -585,7 +597,7 @@ public partial class CustomerSales : System.Web.UI.Page
         drpMobile.DataTextField = "Mobile";
         drpMobile.DataValueField = "LedgerID";
 
-
+        
     }
 
     //protected override void OnInit(EventArgs e)
@@ -2051,7 +2063,7 @@ public partial class CustomerSales : System.Web.UI.Page
 
                 BillingMethod = bl.getConfigInfoMethod();
                 double vatper;
-                double vatinclusiverate = 0 ;
+                double vatinclusiverate = 0;
 
                 if (Labelll.Text == "VAT INCLUSIVE")
                 {
@@ -2155,7 +2167,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 if (Labelll.Text == "VAT INCLUSIVE")
                 {
                     double incrate = vatinclusiverate / Convert.ToDouble(txtQtyAdd.Text);
-                    ds.Tables[0].Rows[curRow]["Rate"] = incrate.ToString("#0.00") ;
+                    ds.Tables[0].Rows[curRow]["Rate"] = incrate.ToString("#0.00");
                 }
                 else
                 {
@@ -2599,28 +2611,28 @@ public partial class CustomerSales : System.Web.UI.Page
 
                 BillingMethod = bl.getConfigInfoMethod();
                 double vatper;
-                double vatinclusiverate=0;
+                double vatinclusiverate = 0;
 
                 if (lblVATAdd.Text.Trim() != "")
                     sVat = lblVATAdd.Text;
                 else
                     sVat = "0";
 
-                if ( Labelll.Text == "VAT INCLUSIVE")
+                if (Labelll.Text == "VAT INCLUSIVE")
                 {
 
                     if (lblVATAdd.Text == "14.5")
                     {
                         vatper = 1.145;
-                        vatinclusiverate = (((Convert.ToDouble(txtRateAdd.Text)*(Convert.ToDouble(txtQtyAdd.Text))) - Convert.ToDouble(lblDisAdd.Text)) / vatper);
+                        vatinclusiverate = (((Convert.ToDouble(txtRateAdd.Text) * (Convert.ToDouble(txtQtyAdd.Text))) - Convert.ToDouble(lblDisAdd.Text)) / vatper);
                         //sVatamount = ((Convert.ToDouble(txtRateAdd.Text) * (Convert.ToDouble(txtQtyAdd.Text))) - vatinclusiverate);
-                        sVatamount = (vatinclusiverate * 14.5) / 100 ;
+                        sVatamount = (vatinclusiverate * 14.5) / 100;
                         vatamt = sVatamount.ToString("#0.00");
                     }
                     else if (lblVATAdd.Text == "5")
                     {
                         vatper = 1.05;
-                        vatinclusiverate = (((Convert.ToDouble(txtRateAdd.Text)*(Convert.ToDouble(txtQtyAdd.Text))) - Convert.ToDouble(lblDisAdd.Text)) / vatper);
+                        vatinclusiverate = (((Convert.ToDouble(txtRateAdd.Text) * (Convert.ToDouble(txtQtyAdd.Text))) - Convert.ToDouble(lblDisAdd.Text)) / vatper);
                         //sVatamount = ((Convert.ToDouble(txtRateAdd.Text) * (Convert.ToDouble(txtQtyAdd.Text))) - vatinclusiverate);
                         sVatamount = (vatinclusiverate * 5) / 100;
                         vatamt = sVatamount.ToString("#0.00");
@@ -3455,7 +3467,7 @@ public partial class CustomerSales : System.Web.UI.Page
                                         }
                                     }
 
-                                    DataSet dsdd = bl.GetDetailsForScreenNo(connection, ScreenNo,"Email");
+                                    DataSet dsdd = bl.GetDetailsForScreenNo(connection, ScreenNo, "Email");
                                     if (dsdd != null)
                                     {
                                         if (dsdd.Tables[0].Rows.Count > 0)
@@ -3463,7 +3475,7 @@ public partial class CustomerSales : System.Web.UI.Page
                                             foreach (DataRow dr in dsdd.Tables[0].Rows)
                                             {
                                                 Active = dr["Active"].ToString();
-                                                if(Active == "YES")
+                                                if (Active == "YES")
                                                 {
                                                     if (dr["EmailId"].ToString() == "Customer")
                                                     {
@@ -4366,6 +4378,7 @@ public partial class CustomerSales : System.Web.UI.Page
         try
         {
             ModalPopupMethod.Hide();
+            Response.Redirect("CustomerSales.aspx");
         }
         catch (Exception ex)
         {
@@ -4508,9 +4521,9 @@ public partial class CustomerSales : System.Web.UI.Page
                 }
             }
 
-            if(chk.Checked == true)
+            if (chk.Checked == true)
             {
-                if(cmbCustomer.SelectedIndex==0)
+                if (cmbCustomer.SelectedIndex == 0)
                 {
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select customer before adding products');", true);
                     return;
@@ -4682,6 +4695,7 @@ public partial class CustomerSales : System.Web.UI.Page
 
             txtBillDate.Focus();
             ModalPopupSales.Show();
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "$('.chzn-select').chosen(); $('.chzn-select-deselect').chosen({ allow_single_deselect: true });", true);
 
             //SetInitialRow();
 
@@ -5054,7 +5068,7 @@ public partial class CustomerSales : System.Web.UI.Page
         Session["Show"] = "No";
         optionmethod.SelectedIndex = 0;
         Session["Method"] = "Add";
-        
+
             BusinessLogic bl = new BusinessLogic(sDataSource);
 
             BillingMethod = bl.getConfigInfoMethod();
@@ -5068,6 +5082,7 @@ public partial class CustomerSales : System.Web.UI.Page
             }
 
             ModalPopupMethod.Show();
+            //ModalPopupExtender1.Show();
         }
         catch (Exception ex)
         {
@@ -5165,27 +5180,27 @@ public partial class CustomerSales : System.Web.UI.Page
     //    return tot.ToString("#0.00");
     //}
 
-    public string GetTotal(double qty, double rate, double discount, double VAT, double CST,double Totalmrp)
+    public string GetTotal(double qty, double rate, double discount, double VAT, double CST, double Totalmrp)
     {
         double dis = 0;
         double disRate = 0;
         double vat = 0;
         double cst = 0;
         double tot = 0;
-        double sVatamount=0;
+        double sVatamount = 0;
         BusinessLogic bl = new BusinessLogic(sDataSource);
         BillingMethod = bl.getConfigInfoMethod();
 
         if (Labelll.Text == "VAT INCLUSIVE")
         {
             double vatper = 0;
-            double vatinclusiverate=0;
+            double vatinclusiverate = 0;
             if (VAT == 14.5)
             {
                 vatper = 1.145;
                 vatinclusiverate = ((qty * Totalmrp) - ((qty * Totalmrp) * (discount / 100))) / vatper;
                 //sVatamount = ((qty * rate) - ((qty * rate) * (discount / 100))) - vatinclusiverate;
-                sVatamount = (vatinclusiverate * 14.5) / 100 ;
+                sVatamount = (vatinclusiverate * 14.5) / 100;
             }
             else if (VAT == 5)
             {
@@ -6742,6 +6757,14 @@ public partial class CustomerSales : System.Web.UI.Page
         }
     }
 
+
+    protected void ViewProduct_Click(object sender, EventArgs e)
+    {
+        ModalPopupMethod.Hide();
+        ModalPopupSales.Hide();
+        ModalPopupProductselect.Show();
+    }
+
     private void calcSum()
     {
         Double sumAmt = 0;
@@ -7550,6 +7573,257 @@ public partial class CustomerSales : System.Web.UI.Page
     {
         //LoadForTotal();
 
+    }
+
+    private void AddNewRow()
+    {
+        int rowIndex = 0;
+
+        if (ViewState["CurrentTable"] != null)
+        {
+            DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable"];
+            DataRow drCurrentRow = null;
+            if (dtCurrentTable.Rows.Count > 0)
+            {
+                for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                {
+
+                    DropDownList DrpProduct =
+                     (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("drpPrd");
+                    TextBox TextBoxDesc =
+                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtDesc");
+                    TextBox TextBoxRate =
+                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("txtRate");
+                    TextBox TextBoxQty =
+                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("txtQty");
+                    TextBox TextBoxExeComm =
+                     (TextBox)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("txtExeComm");
+                    TextBox TextBoxDisPre =
+                    (TextBox)grvStudentDetails.Rows[rowIndex].Cells[6].FindControl("txtDisPre");
+                    TextBox TextBoxVATPre =
+                   (TextBox)grvStudentDetails.Rows[rowIndex].Cells[7].FindControl("txtVATPre");
+                    TextBox TextBoxCSTPre =
+                  (TextBox)grvStudentDetails.Rows[rowIndex].Cells[8].FindControl("txtCSTPre");
+                    TextBox TextBoxVATAmt =
+                 (TextBox)grvStudentDetails.Rows[rowIndex].Cells[9].FindControl("txtVATAmt");
+                    TextBox TextBoxRtVAT =
+                (TextBox)grvStudentDetails.Rows[rowIndex].Cells[10].FindControl("txtRtVAT");
+                    TextBox TextBoxTotal =
+               (TextBox)grvStudentDetails.Rows[rowIndex].Cells[11].FindControl("txtTotal");
+
+                    drCurrentRow = dtCurrentTable.NewRow();
+                    drCurrentRow["RowNumber"] = i + 1;
+
+                    dtCurrentTable.Rows[i - 1]["Col1"] = DrpProduct.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["Col2"] = TextBoxDesc.Text;
+                    dtCurrentTable.Rows[i - 1]["Col3"] = TextBoxRate.Text;
+                    dtCurrentTable.Rows[i - 1]["Col4"] = TextBoxQty.Text;
+                    dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxExeComm.Text;
+                    dtCurrentTable.Rows[i - 1]["Col6"] = TextBoxDisPre.Text;
+                    dtCurrentTable.Rows[i - 1]["Col7"] = TextBoxVATPre.Text;
+                    dtCurrentTable.Rows[i - 1]["Col8"] = TextBoxCSTPre.Text;
+                    dtCurrentTable.Rows[i - 1]["Col9"] = TextBoxVATAmt.Text;
+                    dtCurrentTable.Rows[i - 1]["Col10"] = TextBoxRtVAT.Text;
+                    dtCurrentTable.Rows[i - 1]["Col11"] = TextBoxTotal.Text;
+                    rowIndex++;
+                }
+                dtCurrentTable.Rows.Add(drCurrentRow);
+                ViewState["CurrentTable"] = dtCurrentTable;
+
+                grvStudentDetails.DataSource = dtCurrentTable;
+                grvStudentDetails.DataBind();
+            }
+        }
+        else
+        {
+            Response.Write("ViewState is null");
+        }
+        SetPreviousData();
+    }
+
+    private void SetPreviousData()
+    {
+        int rowIndex = 0;
+        if (ViewState["CurrentTable"] != null)
+        {
+            DataTable dt = (DataTable)ViewState["CurrentTable"];
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    DropDownList DrpProduct =
+                    (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("drpPrd");
+                    TextBox TextBoxDesc =
+                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtDesc");
+                    TextBox TextBoxRate =
+                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("txtRate");
+                    TextBox TextBoxQty =
+                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("txtQty");
+                    TextBox TextBoxExeComm =
+                     (TextBox)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("txtExeComm");
+                    TextBox TextBoxDisPre =
+                    (TextBox)grvStudentDetails.Rows[rowIndex].Cells[6].FindControl("txtDisPre");
+                    TextBox TextBoxVATPre =
+                   (TextBox)grvStudentDetails.Rows[rowIndex].Cells[7].FindControl("txtVATPre");
+                    TextBox TextBoxCSTPre =
+                  (TextBox)grvStudentDetails.Rows[rowIndex].Cells[8].FindControl("txtCSTPre");
+                    TextBox TextBoxVATAmt =
+                 (TextBox)grvStudentDetails.Rows[rowIndex].Cells[9].FindControl("txtVATAmt");
+                    TextBox TextBoxRtVAT =
+                (TextBox)grvStudentDetails.Rows[rowIndex].Cells[10].FindControl("txtRtVAT");
+                    TextBox TextBoxTotal =
+               (TextBox)grvStudentDetails.Rows[rowIndex].Cells[11].FindControl("txtTotal");
+
+
+                    DrpProduct.SelectedValue = dt.Rows[i]["Col1"].ToString();
+                    TextBoxDesc.Text = dt.Rows[i]["Col2"].ToString();
+                    TextBoxRate.Text = dt.Rows[i]["Col3"].ToString();
+                    TextBoxQty.Text = dt.Rows[i]["Col4"].ToString();
+                    TextBoxExeComm.Text = dt.Rows[i]["Col5"].ToString();
+                    TextBoxDisPre.Text = dt.Rows[i]["Col6"].ToString();
+                    TextBoxVATPre.Text = dt.Rows[i]["Col7"].ToString();
+                    TextBoxCSTPre.Text = dt.Rows[i]["Col8"].ToString();
+                    TextBoxVATAmt.Text = dt.Rows[i]["Col9"].ToString();
+                    TextBoxRtVAT.Text = dt.Rows[i]["Col10"].ToString();
+                    TextBoxTotal.Text = dt.Rows[i]["Col10"].ToString();
+                    rowIndex++;
+
+    }
+}
+        }
+    }
+
+    protected void grvStudentDetails_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        SetRowData();
+        if (ViewState["CurrentTable"] != null)
+        {
+            DataTable dt = (DataTable)ViewState["CurrentTable"];
+            DataRow drCurrentRow = null;
+            int rowIndex = Convert.ToInt32(e.RowIndex);
+            if (dt.Rows.Count > 1)
+            {
+                dt.Rows.Remove(dt.Rows[rowIndex]);
+                drCurrentRow = dt.NewRow();
+                ViewState["CurrentTable"] = dt;
+                grvStudentDetails.DataSource = dt;
+                grvStudentDetails.DataBind();
+
+                for (int i = 0; i < grvStudentDetails.Rows.Count - 1; i++)
+                {
+                    grvStudentDetails.Rows[i].Cells[0].Text = Convert.ToString(i + 1);
+                }
+                SetPreviousData();
+            }
+        }
+    }
+
+    private void SetRowData()
+    {
+        int rowIndex = 0;
+
+        if (ViewState["CurrentTable"] != null)
+        {
+            DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable"];
+            DataRow drCurrentRow = null;
+            if (dtCurrentTable.Rows.Count > 0)
+            {
+                for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                {
+                    DropDownList DrpProduct =
+                    (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("drpPrd");
+                    TextBox TextBoxDesc =
+                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtDesc");
+                    TextBox TextBoxRate =
+                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("txtRate");
+                    TextBox TextBoxQty =
+                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("txtQty");
+                    TextBox TextBoxExeComm =
+                     (TextBox)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("txtExeComm");
+                    TextBox TextBoxDisPre =
+                    (TextBox)grvStudentDetails.Rows[rowIndex].Cells[6].FindControl("txtDisPre");
+                    TextBox TextBoxVATPre =
+                   (TextBox)grvStudentDetails.Rows[rowIndex].Cells[7].FindControl("txtVATPre");
+                    TextBox TextBoxCSTPre =
+                  (TextBox)grvStudentDetails.Rows[rowIndex].Cells[8].FindControl("txtCSTPre");
+                    TextBox TextBoxVATAmt =
+                 (TextBox)grvStudentDetails.Rows[rowIndex].Cells[9].FindControl("txtVATAmt");
+                    TextBox TextBoxRtVAT =
+                (TextBox)grvStudentDetails.Rows[rowIndex].Cells[10].FindControl("txtRtVAT");
+                    TextBox TextBoxTotal =
+               (TextBox)grvStudentDetails.Rows[rowIndex].Cells[11].FindControl("txtTotal");
+
+                    drCurrentRow = dtCurrentTable.NewRow();
+                    drCurrentRow["RowNumber"] = i + 1;
+
+                    dtCurrentTable.Rows[i - 1]["Col1"] = DrpProduct.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["Col2"] = TextBoxDesc.Text;
+                    dtCurrentTable.Rows[i - 1]["Col3"] = TextBoxRate.Text;
+                    dtCurrentTable.Rows[i - 1]["Col4"] = TextBoxQty.Text;
+                    dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxExeComm.Text;
+                    dtCurrentTable.Rows[i - 1]["Col6"] = TextBoxDisPre.Text;
+                    dtCurrentTable.Rows[i - 1]["Col7"] = TextBoxVATPre.Text;
+                    dtCurrentTable.Rows[i - 1]["Col8"] = TextBoxCSTPre.Text;
+                    dtCurrentTable.Rows[i - 1]["Col9"] = TextBoxVATAmt.Text;
+                    dtCurrentTable.Rows[i - 1]["Col10"] = TextBoxRtVAT.Text;
+                    dtCurrentTable.Rows[i - 1]["Col11"] = TextBoxTotal.Text;
+                    rowIndex++;
+
+                }
+
+                ViewState["CurrentTable"] = dtCurrentTable;
+                grvStudentDetails.DataSource = dtCurrentTable;
+                grvStudentDetails.DataBind();
+            }
+        }
+        else
+        {
+            Response.Write("ViewState is null");
+        }
+        SetPreviousData();
+    }
+
+    protected void ButtonAdd_Click(object sender, EventArgs e)
+    {
+        AddNewRow();
+    }
+
+    private void FirstGridViewRow()
+    {
+        DataTable dt = new DataTable();
+        DataRow dr = null;
+        dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col1", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col2", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col3", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col4", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col5", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col6", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col7", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col8", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col9", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col10", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col11", typeof(string)));
+        dr = dt.NewRow();
+        dr["RowNumber"] = 1;
+        dr["Col1"] = string.Empty;
+        dr["Col2"] = string.Empty;
+        dr["Col3"] = string.Empty;
+        dr["Col4"] = string.Empty;
+        dr["Col5"] = string.Empty;
+        dr["Col6"] = string.Empty;
+        dr["Col7"] = string.Empty;
+        dr["Col8"] = string.Empty;
+        dr["Col9"] = string.Empty;
+        dr["Col10"] = string.Empty;
+        dr["Col11"] = string.Empty;
+        dt.Rows.Add(dr);
+
+        ViewState["CurrentTable"] = dt;
+
+
+        grvStudentDetails.DataSource = dt;
+        grvStudentDetails.DataBind();
     }
 }
 
