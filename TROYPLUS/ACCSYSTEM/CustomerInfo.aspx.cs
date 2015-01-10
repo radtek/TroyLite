@@ -296,6 +296,24 @@ public partial class CustomerInfo : System.Web.UI.Page
 
             string refDate = string.Empty;
             refDate = ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtdueDateadd")).Text;
+            if (refDate == null || refDate == "")
+            {
+                string obdate=((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtOpenBalAdd")).Text;
+                if (obdate!=null && obdate!="0" )
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('OB due date is mandatory')", true);
+                           check = true;
+                           ModalPopupExtender1.Show();
+                          frmViewAdd.Visible = true;
+                          frmViewAdd.ChangeMode(FormViewMode.Insert);
+                          e.Cancel = true;
+                         return;
+
+                }
+              
+            }
+            else
+            {
             string dt = Convert.ToDateTime(refDate).ToString("MM/dd/yyyy");
             EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
 
@@ -313,6 +331,8 @@ public partial class CustomerInfo : System.Web.UI.Page
                     return;
                     // break;
                 }
+
+            }
 
             }
 
@@ -425,7 +445,7 @@ public partial class CustomerInfo : System.Web.UI.Page
                 EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
                 if (EnableOpbalance == "NO")
                 {
-                    if (this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtOpenBal") != null)
+                    if (this.frmViewAdd.FindControl("txtOpenBal") != null)
                     {
                         //if (this.frmViewAdd.FindControl("txtOpenBalAdd") != null)
                         //{
@@ -439,7 +459,7 @@ public partial class CustomerInfo : System.Web.UI.Page
 
                     else
                     {
-                        if (this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtOpenBal") == null)
+                        if (this.frmViewAdd.FindControl("txtOpenBal") == null)
                         {
                             ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtOpenBal")).Enabled = false;
                             ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtdueDate")).Enabled = false;
@@ -497,6 +517,24 @@ public partial class CustomerInfo : System.Web.UI.Page
 
             string refDate = string.Empty;
             refDate = ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtdueDate")).Text;
+            if (refDate == null || refDate == "")
+            {
+                string obdate = ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtOpenBal")).Text;
+                if (obdate != null && obdate != "0")
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('OB due date is mandatory')", true);
+                    check = true;
+                    ModalPopupExtender1.Show();
+                    frmViewAdd.Visible = true;
+                    frmViewAdd.ChangeMode(FormViewMode.Edit);
+                    e.Cancel = true;
+                    return;
+
+                }
+
+            }
+            else
+            {
             string dt = Convert.ToDateTime(refDate).ToString("MM/dd/yyyy");
             EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
 
@@ -516,6 +554,32 @@ public partial class CustomerInfo : System.Web.UI.Page
                 }
 
             }
+            }
+
+            //BusinessLogic bl = new BusinessLogic(sDataSource);
+            //string connection = Request.Cookies["Company"].Value;
+
+            //string refDate = string.Empty;
+            //refDate = ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtdueDate")).Text;
+            //string dt = Convert.ToDateTime(refDate).ToString("MM/dd/yyyy");
+            //EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
+
+            //if (EnableOpbalance == "YES")
+            //{
+            //    if (!bl.IsValidDate(connection, Convert.ToDateTime(refDate)))
+            //    {
+
+            //        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('This Date has been Locked')", true);
+            //        check = true;
+            //        ModalPopupExtender1.Show();
+            //        frmViewAdd.Visible = true;
+            //        frmViewAdd.ChangeMode(FormViewMode.Edit);
+            //        e.Cancel = true;
+            //        return;
+            //        // break;
+            //    }
+
+            //}
 
 
             this.setUpdateParameters(e);

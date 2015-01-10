@@ -376,25 +376,68 @@ public partial class BankInfo : System.Web.UI.Page
 
             string refDate = string.Empty;
             refDate = ((TextBox)this.frmViewAdd.FindControl("txtdueDateadd")).Text;
-            string dt = Convert.ToDateTime(refDate).ToString("MM/dd/yyyy");
-            EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
-
-            if (EnableOpbalance == "YES")
+            if (refDate == null || refDate == "")
             {
-                if (!bl.IsValidDate(connection, Convert.ToDateTime(refDate)))
+                string obdate = ((TextBox)this.frmViewAdd.FindControl("txtOpenBalAdd")).Text;
+                if (obdate != null && obdate != "0")
                 {
-
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('This Date has been Locked')", true);
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('OB due date is mandatory')", true);
                     check = true;
                     ModalPopupExtender1.Show();
                     frmViewAdd.Visible = true;
                     frmViewAdd.ChangeMode(FormViewMode.Insert);
                     e.Cancel = true;
                     return;
-                    // break;
+
                 }
 
             }
+            else
+            {
+                string dt = Convert.ToDateTime(refDate).ToString("MM/dd/yyyy");
+                EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
+
+                if (EnableOpbalance == "YES")
+                {
+                    if (!bl.IsValidDate(connection, Convert.ToDateTime(refDate)))
+                    {
+
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('This Date has been Locked')", true);
+                        check = true;
+                        ModalPopupExtender1.Show();
+                        frmViewAdd.Visible = true;
+                        frmViewAdd.ChangeMode(FormViewMode.Insert);
+                        e.Cancel = true;
+                        return;
+                        // break;
+                    }
+
+                }
+            }
+            //BusinessLogic bl = new BusinessLogic(sDataSource);
+            //string connection = Request.Cookies["Company"].Value;
+
+            //string refDate = string.Empty;
+            //refDate = ((TextBox)this.frmViewAdd.FindControl("txtdueDateadd")).Text;
+            //string dt = Convert.ToDateTime(refDate).ToString("MM/dd/yyyy");
+            //EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
+
+            //if (EnableOpbalance == "YES")
+            //{
+            //    if (!bl.IsValidDate(connection, Convert.ToDateTime(refDate)))
+            //    {
+
+            //        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('This Date has been Locked')", true);
+            //        check = true;
+            //        ModalPopupExtender1.Show();
+            //        frmViewAdd.Visible = true;
+            //        frmViewAdd.ChangeMode(FormViewMode.Insert);
+            //        e.Cancel = true;
+            //        return;
+            //        // break;
+            //    }
+
+            //}
             //if (check == false)
             //{
                 this.setInsertParameters(e);
@@ -585,31 +628,74 @@ public partial class BankInfo : System.Web.UI.Page
     {
         try
         {
-             
             BusinessLogic bl = new BusinessLogic(sDataSource);
             string connection = Request.Cookies["Company"].Value;
 
             string refDate = string.Empty;
             refDate = ((TextBox)this.frmViewAdd.FindControl("txtdueDate")).Text;
-            string dt = Convert.ToDateTime(refDate).ToString("MM/dd/yyyy");
-            EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
-
-            if (EnableOpbalance == "YES")
+            if (refDate == null || refDate == "")
             {
-                if (!bl.IsValidDate(connection, Convert.ToDateTime(refDate)))
+                string obdate = ((TextBox)this.frmViewAdd.FindControl("txtOpenBal")).Text;
+                if (obdate != null && obdate != "0")
                 {
-
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('This Date has been Locked')", true);
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('OB due date is mandatory')", true);
                     check = true;
                     ModalPopupExtender1.Show();
                     frmViewAdd.Visible = true;
                     frmViewAdd.ChangeMode(FormViewMode.Edit);
                     e.Cancel = true;
                     return;
-                    // break;
+
                 }
 
             }
+            else
+            {
+                string dt = Convert.ToDateTime(refDate).ToString("MM/dd/yyyy");
+                EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
+
+                if (EnableOpbalance == "YES")
+                {
+                    if (!bl.IsValidDate(connection, Convert.ToDateTime(refDate)))
+                    {
+
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('This Date has been Locked')", true);
+                        check = true;
+                        ModalPopupExtender1.Show();
+                        frmViewAdd.Visible = true;
+                        frmViewAdd.ChangeMode(FormViewMode.Edit);
+                        e.Cancel = true;
+                        return;
+                        // break;
+                    }
+
+                }
+            }
+             
+            //BusinessLogic bl = new BusinessLogic(sDataSource);
+            //string connection = Request.Cookies["Company"].Value;
+
+            //string refDate = string.Empty;
+            //refDate = ((TextBox)this.frmViewAdd.FindControl("txtdueDate")).Text;
+            //string dt = Convert.ToDateTime(refDate).ToString("MM/dd/yyyy");
+            //EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
+
+            //if (EnableOpbalance == "YES")
+            //{
+            //    if (!bl.IsValidDate(connection, Convert.ToDateTime(refDate)))
+            //    {
+
+            //        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('This Date has been Locked')", true);
+            //        check = true;
+            //        ModalPopupExtender1.Show();
+            //        frmViewAdd.Visible = true;
+            //        frmViewAdd.ChangeMode(FormViewMode.Edit);
+            //        e.Cancel = true;
+            //        return;
+            //        // break;
+            //    }
+
+            //}
             this.setUpdateParameters(e);
         }
         catch (Exception ex)

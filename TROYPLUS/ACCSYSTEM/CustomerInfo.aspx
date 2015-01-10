@@ -903,7 +903,7 @@
                                                                      OB Due Date    
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width:28%">
-                                                                    <asp:TextBox ID="txtdueDateadd" MaxLength="10"  TabIndex="13" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
+                                                                    <asp:TextBox ID="txtdueDateadd" MaxLength="10"  TabIndex="13" Enabled="false" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                     <cc1:CalendarExtender ID="calBillDate" runat="server" Enabled="True" Format="dd/MM/yyyy" PopupButtonID="btnBillDate" TargetControlID="txtdueDateadd">
                                                                                 </cc1:CalendarExtender>

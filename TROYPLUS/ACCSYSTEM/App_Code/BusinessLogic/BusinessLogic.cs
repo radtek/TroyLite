@@ -63726,6 +63726,38 @@ public class BusinessLogic
             }
         }
 
+        public string getEnableOpBalanceConfig(string connection)
+        {
+            DBManager manager = new DBManager(DataProvider.OleDb);
+            manager.ConnectionString = CreateConnectionString(connection);// +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+            DataSet ds = new DataSet();
+            StringBuilder dbQry = new StringBuilder();
+            string dbQry2 = string.Empty;
+
+            try
+            {
+                manager.Open();
+
+                dbQry.Append("SELECT   KeyValue  From tblSettings WHERE key='OPBAL'");
+
+                ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+                if (ds.Tables[0].Rows.Count > 0)
+                    return ds.Tables[0].Rows[0]["KeyValue"].ToString();
+                else
+                    return "";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (manager != null)
+                    manager.Dispose();
+            }
+        }
+
         public DataTable GetAllMonths()
         {
             DBManager manager = new DBManager(DataProvider.OleDb);
