@@ -77,7 +77,7 @@ public partial class ExpPayment : System.Web.UI.Page
                 }
 
 
-                loadBanks();
+                //loadBanks();
                 loadHeading();
                 loadGroup("0");
 
@@ -199,7 +199,14 @@ public partial class ExpPayment : System.Web.UI.Page
         try
         {
             loadGroup(drpHeading.SelectedValue);
-            loadLedger(drpGroup.SelectedValue);
+            if (Session["State"] == "Edit")
+            {
+                loadLedgerEdit(drpGroup.SelectedValue);
+            }
+            else
+            {
+                loadLedger(drpGroup.SelectedValue);
+            }
         }
         catch (Exception ex)
         {
@@ -211,7 +218,14 @@ public partial class ExpPayment : System.Web.UI.Page
     {
         try
         {
-            loadLedger(drpGroup.SelectedValue);
+            if (Session["State"] == "Edit")
+            {
+                loadLedgerEdit(drpGroup.SelectedValue);
+            }
+            else
+            {
+                loadLedger(drpGroup.SelectedValue);
+            }
         }
         catch (Exception ex)
         {
@@ -220,6 +234,22 @@ public partial class ExpPayment : System.Web.UI.Page
     }
 
     private void loadLedger(string GroupID)
+    {
+        //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataSet ds = new DataSet();
+        ds = bl.ListLedgerForGroupIsActive(GroupID);
+        ddReceivedFrom.Items.Clear();
+        ddReceivedFrom.Items.Add(new ListItem("Select Ledger", "0"));
+        ddReceivedFrom.DataSource = ds;
+        ddReceivedFrom.DataBind();
+
+        ddReceivedFrom.DataTextField = "LedgerName";
+        ddReceivedFrom.DataValueField = "LedgerID";
+
+    }
+
+    private void loadLedgerEdit(string GroupID)
     {
         //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
         BusinessLogic bl = new BusinessLogic(sDataSource);
@@ -437,13 +467,35 @@ public partial class ExpPayment : System.Web.UI.Page
         sDataSource = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
         BusinessLogic bl = new BusinessLogic(sDataSource);
         DataSet ds = new DataSet();
-        ds = bl.ListBanks(sDataSource);
+        ds = bl.ListBanksIsActive(sDataSource);
 
+        ddBanks.Items.Clear();
+        ListItem lifzzh = new ListItem("Select Bank", "0");
+        lifzzh.Attributes.Add("style", "color:Black");
+        ddBanks.Items.Add(lifzzh);
         ddBanks.DataSource = ds;
         ddBanks.DataBind();
         ddBanks.DataTextField = "LedgerName";
         ddBanks.DataValueField = "LedgerID";
     }
+
+    private void loadBanksEdit()
+    {
+        sDataSource = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataSet ds = new DataSet();
+        ds = bl.ListBanks(sDataSource);
+
+        ddBanks.Items.Clear();
+        ListItem lifzzh = new ListItem("Select Bank", "0");
+        lifzzh.Attributes.Add("style", "color:Black");
+        ddBanks.Items.Add(lifzzh);
+        ddBanks.DataSource = ds;
+        ddBanks.DataBind();
+        ddBanks.DataTextField = "LedgerName";
+        ddBanks.DataValueField = "LedgerID";
+    }
+
 
     protected void GrdViewPayment_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -462,6 +514,7 @@ public partial class ExpPayment : System.Web.UI.Page
 
             int Trans = Convert.ToInt32(GrdViewPayment.SelectedDataKey.Value);
             bl.InsertChequeStatus(connection, Trans);
+            loadBanksEdit();
 
             hdPayment.Value = Convert.ToString(GrdViewPayment.SelectedDataKey.Value);
 
@@ -487,7 +540,7 @@ public partial class ExpPayment : System.Web.UI.Page
                         loadGroup(drpHeading.SelectedValue);
 
                         drpGroup.SelectedValue = dsd.Tables[0].Rows[0]["GroupId"].ToString();
-                        loadLedger(drpGroup.SelectedValue);
+                        loadLedgerEdit(drpGroup.SelectedValue);
 
                         ddReceivedFrom.SelectedValue = ds.Tables[0].Rows[0]["DebtorID"].ToString();
                     }
@@ -791,6 +844,7 @@ public partial class ExpPayment : System.Web.UI.Page
             drpGroup.SelectedValue = "8";
 
             loadLedger("8");
+            Session["State"] = "Add";
         }
         catch (Exception ex)
         {

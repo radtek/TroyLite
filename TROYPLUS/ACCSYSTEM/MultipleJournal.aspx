@@ -915,7 +915,56 @@
                                                                                         <table style="width: 100%;">
                                                                                              <tr>
                                                                                                 <td>
-                                                                                                    <asp:GridView ID="grvStudentDetails" runat="server" Width="100%"
+                                                                                                    <rwg:BulkEditGridView ID="gdm" AutoGenerateColumns="False" BorderWidth="1px"
+                                                                                                            BorderStyle="Solid" OnRowDataBound="gdm_RowDataBound" GridLines="Both" SaveButtonID="SaveButton" runat="server" CssClass="someClass"
+                                                                                                            Width="100%">
+                                                                                                            <RowStyle CssClass="dataRow" />
+                                                                                                            <SelectedRowStyle CssClass="SelectdataRow" />
+                                                                                                            <AlternatingRowStyle CssClass="altRow" />
+                                                                                                            <EmptyDataRowStyle CssClass="HeadataRow" Font-Bold="true" />
+                                                                                                            <HeaderStyle CssClass="HeadataRow" Wrap="false" />
+                                                                                                            <FooterStyle CssClass="dataRow" />
+                                                                                                            <Columns>
+                                                                                                                <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="RefNo" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="10px">
+                                                                                                                    <ItemTemplate>
+                                                                                                                        <asp:TextBox ID="txtRefNoM" runat="server" Width="90%" Height="26px"
+                                                                                                                            ></asp:TextBox>
+                                                                                                                    </ItemTemplate>
+                                                                                                                </asp:TemplateField>
+                                                                                                                <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Date" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20px">
+                                                                                                                    <ItemTemplate>
+                                                                                                                        <asp:TextBox ID="txtDateM" runat="server" Width="70%" Height="26px"
+                                                                                                                            ></asp:TextBox>
+                                                                                                                        <asp:ImageButton ID="btnBillDate123" ImageUrl="App_Themes/NewTheme/images/cal.gif"
+                                                                                                                                    CausesValidation="False" Width="20px" runat="server" />   
+                                                                                                                    </ItemTemplate>
+                                                                                                                </asp:TemplateField>
+                                                                                                                <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Creditor" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="50px">
+                                                                                                                    <ItemTemplate>
+                                                                                                                        <asp:DropDownList ID="drpCreditorM" runat="server"  BackColor = "White" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
+                                                                                                                            DataValueField="LedgerID" DataTextField="LedgerName" style="border:1px solid Gray" height="28px"
+                                                                                                                            AppendDataBoundItems="true">
+                                                                                                                            <asp:ListItem Text="Select Creditor" style="background-color:White" Value="0"></asp:ListItem>
+                                                                                                                        </asp:DropDownList>
+                                                                                                                    </ItemTemplate>
+                                                                                                                </asp:TemplateField>
+                                                                                                                <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Amount" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20px">
+                                                                                                                    <ItemTemplate>
+                                                                                                                        <asp:TextBox ID="txtAmountM" runat="server" Width="90%" Height="26px"
+                                                                                                                            ></asp:TextBox>
+                                                                                                                        <cc1:FilteredTextBoxExtender ID="FilteredTextBox312" runat="server" TargetControlID="txtAmountM"
+                                                                                            ValidChars="." FilterType="Numbers, Custom" />
+                                                                                                                    </ItemTemplate>
+                                                                                                                </asp:TemplateField>
+                                                                                                                <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Narration" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20px">
+                                                                                                                    <ItemTemplate>
+                                                                                                                        <asp:TextBox ID="txtNarrationM" runat="server" Width="90%" Height="26px"
+                                                                                                                            ></asp:TextBox>
+                                                                                                                    </ItemTemplate>
+                                                                                                                </asp:TemplateField>
+                                                                                                            </Columns>
+                                                                                                        </rwg:BulkEditGridView>
+                                                                                                    <%--<asp:GridView ID="grvStudentDetails" runat="server" Width="100%"
                                                                                                     ShowFooter="True" AutoGenerateColumns="False"
                                                                                                     CellPadding="4" ForeColor="#333333"
                                                                                                     GridLines="None" OnRowDeleting="grvStudentDetails_RowDeleting">
@@ -995,7 +1044,7 @@
                                                                                                     <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
                                                                                                     <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                                                                                                     <AlternatingRowStyle BackColor="White" />
-                                                                                                </asp:GridView>
+                                                                                                </asp:GridView>--%>
 
                                                                                                 </td>
                                                                                              </tr>
@@ -1143,9 +1192,9 @@
                                                                                                                 <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Creditor" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="50px">
                                                                                                                     <ItemTemplate>
                                                                                                                         <asp:DropDownList ID="drpCreditor" runat="server"  BackColor = "White" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
-                                                                                                                            DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid Gray" height="28px"
+                                                                                                                            DataValueField="LedgerID" DataTextField="LedgerName" style="border:1px solid Gray" height="28px"
                                                                                                                             AppendDataBoundItems="true" ValidationGroup="editVal">
-                                                                                                                            <asp:ListItem Text="Select Creditor" style="background-color: White" Value="0"></asp:ListItem>
+                                                                                                                            <asp:ListItem Text="Select Creditor" style="background-color:White" Value="0"></asp:ListItem>
                                                                                                                         </asp:DropDownList>
                                                                                                                     </ItemTemplate>
                                                                                                                 </asp:TemplateField>
@@ -1173,7 +1222,7 @@
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td colspan="4">
-                                                                                        <table style="width: 100%;">
+                                                                                        <table style="width:100%;">
                                                                                              <tr>
                                                                                                 <td  style="width: 37%;">
 
@@ -1183,13 +1232,13 @@
                                                                                                         CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave" ValidationGroup="ValidationSummary3"
                                                                                                         OnClick="UpdButton_Click"></asp:Button>
                                                                                                 </td>
-                                                                                                <td  style="width: 18%;">
+                                                                                                <td  style="width:18%;">
                                                                                                     
                                                                                                     <asp:Button ID="UpdCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
                                                                                                         CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdCancelButton_Click">
                                                                                                     </asp:Button>
                                                                                                 </td>
-                                                                                                <td  style="width: 27%;">
+                                                                                                <td  style="width:27%;">
 
                                                                                                 </td>
                                                                                             </tr>
@@ -1225,7 +1274,7 @@
                                                                 <ContentTemplate>
                                                                     <asp:Panel ID="Panel7" CssClass="pnlPopUp" runat="server">
                                                                         <div id="Div213">
-                                                                            <table cellpadding="2" cellspacing="1" style="border: 1px solid blue; width: 100%;">
+                                                                            <table cellpadding="2" cellspacing="1" style="border:1px solid blue; width: 100%;">
                                                                                 <tr>
                                                                                     <td colspan="5" class="headerPopUp">
                                                                                         Creditor Contra
@@ -1245,13 +1294,13 @@
                                                                                             DataValueField="LedgerID" DataTextField="LedgerName" style="border: 1px solid #e7e7e7" height="26px"
                                                                                             AppendDataBoundItems="true" ValidationGroup="ValidationSummary4"
                                                                                             >
-                                                                                            <asp:ListItem Text="Select Creditor" style="background-color: #e7e7e7" Value="0"></asp:ListItem>
+                                                                                            <asp:ListItem Text="Select Creditor" style="background-color:#e7e7e7" Value="0"></asp:ListItem>
                                                                                         </asp:DropDownList>
                                                                                     </td>
                                                                                     <td class="ControlLabel" style="width:30%">
                                                                                         
                                                                                     </td>
-                                                                                    <td align="left" style="width:5%">
+                                                                                    <td align="left" style="width: 5%">
                                                                                         
                                                                                     </td>
                                                                                     <td style="width:5%">

@@ -149,7 +149,7 @@ public partial class StockAgeingReport1 : System.Web.UI.Page
         //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
         BusinessLogic bl = new BusinessLogic(sDataSource);
         DataSet ds = new DataSet();
-        ds = bl.ListCategory(sDataSource);
+        ds = bl.ListCategory(sDataSource, "");
 
         cmbCategory.Items.Clear();
 
