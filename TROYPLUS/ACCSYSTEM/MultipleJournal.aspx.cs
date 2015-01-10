@@ -2272,27 +2272,17 @@ public partial class MultipleJournal : System.Web.UI.Page
                 {
 
                     DropDownList DrpProduct =
-                     (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("drpPrd");
+                     (DropDownList)gdm.Rows[rowIndex].Cells[1].FindControl("drpPrd");
                     TextBox TextBoxDesc =
-                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtDesc");
+                      (TextBox)gdm.Rows[rowIndex].Cells[2].FindControl("txtDesc");
                     TextBox TextBoxRate =
-                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("txtRate");
+                      (TextBox)gdm.Rows[rowIndex].Cells[3].FindControl("txtRate");
                     TextBox TextBoxQty =
-                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("txtQty");
+                      (TextBox)gdm.Rows[rowIndex].Cells[4].FindControl("txtQty");
                     TextBox TextBoxExeComm =
-                     (TextBox)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("txtExeComm");
+                     (TextBox)gdm.Rows[rowIndex].Cells[5].FindControl("txtExeComm");
                     TextBox TextBoxDisPre =
-                    (TextBox)grvStudentDetails.Rows[rowIndex].Cells[6].FindControl("txtDisPre");
-                    TextBox TextBoxVATPre =
-                   (TextBox)grvStudentDetails.Rows[rowIndex].Cells[7].FindControl("txtVATPre");
-                    TextBox TextBoxCSTPre =
-                  (TextBox)grvStudentDetails.Rows[rowIndex].Cells[8].FindControl("txtCSTPre");
-                    TextBox TextBoxVATAmt =
-                 (TextBox)grvStudentDetails.Rows[rowIndex].Cells[9].FindControl("txtVATAmt");
-                    TextBox TextBoxRtVAT =
-                (TextBox)grvStudentDetails.Rows[rowIndex].Cells[10].FindControl("txtRtVAT");
-                    TextBox TextBoxTotal =
-               (TextBox)grvStudentDetails.Rows[rowIndex].Cells[11].FindControl("txtTotal");
+                    (TextBox)gdm.Rows[rowIndex].Cells[6].FindControl("txtDisPre");                   
 
                     drCurrentRow = dtCurrentTable.NewRow();
                     drCurrentRow["RowNumber"] = i + 1;
@@ -2303,18 +2293,14 @@ public partial class MultipleJournal : System.Web.UI.Page
                     dtCurrentTable.Rows[i - 1]["Col4"] = TextBoxQty.Text;
                     dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxExeComm.Text;
                     dtCurrentTable.Rows[i - 1]["Col6"] = TextBoxDisPre.Text;
-                    dtCurrentTable.Rows[i - 1]["Col7"] = TextBoxVATPre.Text;
-                    dtCurrentTable.Rows[i - 1]["Col8"] = TextBoxCSTPre.Text;
-                    dtCurrentTable.Rows[i - 1]["Col9"] = TextBoxVATAmt.Text;
-                    dtCurrentTable.Rows[i - 1]["Col10"] = TextBoxRtVAT.Text;
-                    dtCurrentTable.Rows[i - 1]["Col11"] = TextBoxTotal.Text;
+                    
                     rowIndex++;
                 }
                 dtCurrentTable.Rows.Add(drCurrentRow);
                 ViewState["CurrentTable"] = dtCurrentTable;
 
-                grvStudentDetails.DataSource = dtCurrentTable;
-                grvStudentDetails.DataBind();
+                gdm.DataSource = dtCurrentTable;
+                gdm.DataBind();
             }
         }
         else
@@ -2335,27 +2321,27 @@ public partial class MultipleJournal : System.Web.UI.Page
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     DropDownList DrpProduct =
-                    (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("drpPrd");
+                    (DropDownList)gdm.Rows[rowIndex].Cells[1].FindControl("drpPrd");
                     TextBox TextBoxDesc =
-                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtDesc");
+                      (TextBox)gdm.Rows[rowIndex].Cells[2].FindControl("txtDesc");
                     TextBox TextBoxRate =
-                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("txtRate");
+                      (TextBox)gdm.Rows[rowIndex].Cells[3].FindControl("txtRate");
                     TextBox TextBoxQty =
-                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("txtQty");
+                      (TextBox)gdm.Rows[rowIndex].Cells[4].FindControl("txtQty");
                     TextBox TextBoxExeComm =
-                     (TextBox)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("txtExeComm");
+                     (TextBox)gdm.Rows[rowIndex].Cells[5].FindControl("txtExeComm");
                     TextBox TextBoxDisPre =
-                    (TextBox)grvStudentDetails.Rows[rowIndex].Cells[6].FindControl("txtDisPre");
+                    (TextBox)gdm.Rows[rowIndex].Cells[6].FindControl("txtDisPre");
                     TextBox TextBoxVATPre =
-                   (TextBox)grvStudentDetails.Rows[rowIndex].Cells[7].FindControl("txtVATPre");
+                   (TextBox)gdm.Rows[rowIndex].Cells[7].FindControl("txtVATPre");
                     TextBox TextBoxCSTPre =
-                  (TextBox)grvStudentDetails.Rows[rowIndex].Cells[8].FindControl("txtCSTPre");
+                  (TextBox)gdm.Rows[rowIndex].Cells[8].FindControl("txtCSTPre");
                     TextBox TextBoxVATAmt =
-                 (TextBox)grvStudentDetails.Rows[rowIndex].Cells[9].FindControl("txtVATAmt");
+                 (TextBox)gdm.Rows[rowIndex].Cells[9].FindControl("txtVATAmt");
                     TextBox TextBoxRtVAT =
-                (TextBox)grvStudentDetails.Rows[rowIndex].Cells[10].FindControl("txtRtVAT");
+                (TextBox)gdm.Rows[rowIndex].Cells[10].FindControl("txtRtVAT");
                     TextBox TextBoxTotal =
-               (TextBox)grvStudentDetails.Rows[rowIndex].Cells[11].FindControl("txtTotal");
+               (TextBox)gdm.Rows[rowIndex].Cells[11].FindControl("txtTotal");
 
 
                     DrpProduct.SelectedValue = dt.Rows[i]["Col1"].ToString();
@@ -2376,7 +2362,7 @@ public partial class MultipleJournal : System.Web.UI.Page
         }
     }
 
-    protected void grvStudentDetails_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    protected void gdm_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
         SetRowData();
         if (ViewState["CurrentTable"] != null)
@@ -2389,12 +2375,12 @@ public partial class MultipleJournal : System.Web.UI.Page
                 dt.Rows.Remove(dt.Rows[rowIndex]);
                 drCurrentRow = dt.NewRow();
                 ViewState["CurrentTable"] = dt;
-                grvStudentDetails.DataSource = dt;
-                grvStudentDetails.DataBind();
+                gdm.DataSource = dt;
+                gdm.DataBind();
 
-                for (int i = 0; i < grvStudentDetails.Rows.Count - 1; i++)
+                for (int i = 0; i < gdm.Rows.Count - 1; i++)
                 {
-                    grvStudentDetails.Rows[i].Cells[0].Text = Convert.ToString(i + 1);
+                    gdm.Rows[i].Cells[0].Text = Convert.ToString(i + 1);
                 }
                 SetPreviousData();
             }
@@ -2414,27 +2400,27 @@ public partial class MultipleJournal : System.Web.UI.Page
                 for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                 {
                     DropDownList DrpProduct =
-                    (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("drpPrd");
+                    (DropDownList)gdm.Rows[rowIndex].Cells[1].FindControl("drpPrd");
                     TextBox TextBoxDesc =
-                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtDesc");
+                      (TextBox)gdm.Rows[rowIndex].Cells[2].FindControl("txtDesc");
                     TextBox TextBoxRate =
-                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("txtRate");
+                      (TextBox)gdm.Rows[rowIndex].Cells[3].FindControl("txtRate");
                     TextBox TextBoxQty =
-                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("txtQty");
+                      (TextBox)gdm.Rows[rowIndex].Cells[4].FindControl("txtQty");
                     TextBox TextBoxExeComm =
-                     (TextBox)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("txtExeComm");
+                     (TextBox)gdm.Rows[rowIndex].Cells[5].FindControl("txtExeComm");
                     TextBox TextBoxDisPre =
-                    (TextBox)grvStudentDetails.Rows[rowIndex].Cells[6].FindControl("txtDisPre");
+                    (TextBox)gdm.Rows[rowIndex].Cells[6].FindControl("txtDisPre");
                     TextBox TextBoxVATPre =
-                   (TextBox)grvStudentDetails.Rows[rowIndex].Cells[7].FindControl("txtVATPre");
+                   (TextBox)gdm.Rows[rowIndex].Cells[7].FindControl("txtVATPre");
                     TextBox TextBoxCSTPre =
-                  (TextBox)grvStudentDetails.Rows[rowIndex].Cells[8].FindControl("txtCSTPre");
+                  (TextBox)gdm.Rows[rowIndex].Cells[8].FindControl("txtCSTPre");
                     TextBox TextBoxVATAmt =
-                 (TextBox)grvStudentDetails.Rows[rowIndex].Cells[9].FindControl("txtVATAmt");
+                 (TextBox)gdm.Rows[rowIndex].Cells[9].FindControl("txtVATAmt");
                     TextBox TextBoxRtVAT =
-                (TextBox)grvStudentDetails.Rows[rowIndex].Cells[10].FindControl("txtRtVAT");
+                (TextBox)gdm.Rows[rowIndex].Cells[10].FindControl("txtRtVAT");
                     TextBox TextBoxTotal =
-               (TextBox)grvStudentDetails.Rows[rowIndex].Cells[11].FindControl("txtTotal");
+               (TextBox)gdm.Rows[rowIndex].Cells[11].FindControl("txtTotal");
 
                     drCurrentRow = dtCurrentTable.NewRow();
                     drCurrentRow["RowNumber"] = i + 1;
@@ -2455,8 +2441,8 @@ public partial class MultipleJournal : System.Web.UI.Page
                 }
 
                 ViewState["CurrentTable"] = dtCurrentTable;
-                grvStudentDetails.DataSource = dtCurrentTable;
-                grvStudentDetails.DataBind();
+                gdm.DataSource = dtCurrentTable;
+                gdm.DataBind();
             }
         }
         else
@@ -2481,12 +2467,7 @@ public partial class MultipleJournal : System.Web.UI.Page
         dt.Columns.Add(new DataColumn("Col3", typeof(string)));
         dt.Columns.Add(new DataColumn("Col4", typeof(string)));
         dt.Columns.Add(new DataColumn("Col5", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col6", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col7", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col8", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col9", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col10", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col11", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col6", typeof(string)));        
         dr = dt.NewRow();
         dr["RowNumber"] = 1;
         dr["Col1"] = string.Empty;
@@ -2495,18 +2476,13 @@ public partial class MultipleJournal : System.Web.UI.Page
         dr["Col4"] = string.Empty;
         dr["Col5"] = string.Empty;
         dr["Col6"] = string.Empty;
-        dr["Col7"] = string.Empty;
-        dr["Col8"] = string.Empty;
-        dr["Col9"] = string.Empty;
-        dr["Col10"] = string.Empty;
-        dr["Col11"] = string.Empty;
         dt.Rows.Add(dr);
 
         ViewState["CurrentTable"] = dt;
 
 
-        grvStudentDetails.DataSource = dt;
-        grvStudentDetails.DataBind();
+        gdm.DataSource = dt;
+        gdm.DataBind();
     }
 
 
@@ -2703,25 +2679,7 @@ public partial class MultipleJournal : System.Web.UI.Page
         cmbCreditorAdd6.DataTextField = "LedgerName";
         cmbCreditorAdd6.DataValueField = "LedgerID";
 
-        cmbCreditor.Items.Clear();
-        ListItem lifzzh = new ListItem("Select Ledger", "0");
-        lifzzh.Attributes.Add("style", "color:Black");
-        cmbCreditor.Items.Add(lifzzh);
-        cmbCreditor.DataSource = ds;
-        cmbCreditor.Items[0].Attributes.Add("background-color", "color:#bce1fe");
-        cmbCreditor.DataBind();
-        cmbCreditor.DataTextField = "LedgerName";
-        cmbCreditor.DataValueField = "LedgerID";
-
-        cmbDebtor.Items.Clear();
-        ListItem lifzhz = new ListItem("Select Ledger", "0");
-        lifzhz.Attributes.Add("style", "color:Black");
-        cmbDebtor.Items.Add(lifzhz);
-        cmbDebtor.DataSource = ds;
-        cmbDebtor.Items[0].Attributes.Add("background-color", "color:#bce1fe");
-        cmbDebtor.DataBind();
-        cmbDebtor.DataTextField = "LedgerName";
-        cmbDebtor.DataValueField = "LedgerID";
+        
 
         drpDebtor.Items.Clear();
         ListItem lifzhzz = new ListItem("Select Ledger", "0");
@@ -2759,6 +2717,56 @@ public partial class MultipleJournal : System.Web.UI.Page
         //drpCreditor.DataBind();
         //drpCreditor.DataTextField = "LedgerName";
         //drpCreditor.DataValueField = "LedgerID";
+
+        cmbCreditor.Items.Clear();
+        ListItem lifzzh = new ListItem("Select Ledger", "0");
+        lifzzh.Attributes.Add("style", "color:Black");
+        cmbCreditor.Items.Add(lifzzh);
+        cmbCreditor.DataSource = ds;
+        cmbCreditor.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+        cmbCreditor.DataBind();
+        cmbCreditor.DataTextField = "LedgerName";
+        cmbCreditor.DataValueField = "LedgerID";
+
+        cmbDebtor.Items.Clear();
+        ListItem lifzhz = new ListItem("Select Ledger", "0");
+        lifzhz.Attributes.Add("style", "color:Black");
+        cmbDebtor.Items.Add(lifzhz);
+        cmbDebtor.DataSource = ds;
+        cmbDebtor.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+        cmbDebtor.DataBind();
+        cmbDebtor.DataTextField = "LedgerName";
+        cmbDebtor.DataValueField = "LedgerID";
+
+    }
+
+    private void loadSupplier1()
+    {
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataSet ds = new DataSet();
+
+        ds = bl.ListCreditorDebitorJNotActive(sDataSource);
+
+        cmbCreditor.Items.Clear();
+        ListItem lifzzh = new ListItem("Select Ledger", "0");
+        lifzzh.Attributes.Add("style", "color:Black");
+        cmbCreditor.Items.Add(lifzzh);
+        cmbCreditor.DataSource = ds;
+        cmbCreditor.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+        cmbCreditor.DataBind();
+        cmbCreditor.DataTextField = "LedgerName";
+        cmbCreditor.DataValueField = "LedgerID";
+
+        cmbDebtor.Items.Clear();
+        ListItem lifzhz = new ListItem("Select Ledger", "0");
+        lifzhz.Attributes.Add("style", "color:Black");
+        cmbDebtor.Items.Add(lifzhz);
+        cmbDebtor.DataSource = ds;
+        cmbDebtor.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+        cmbDebtor.DataBind();
+        cmbDebtor.DataTextField = "LedgerName";
+        cmbDebtor.DataValueField = "LedgerID";
+
     }
 
     protected void GrdViewItems_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -2773,6 +2781,35 @@ public partial class MultipleJournal : System.Web.UI.Page
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 var ddl = (DropDownList)e.Row.FindControl("drpCreditor");
+                ddl.Items.Clear();
+                ListItem lifzzh = new ListItem("Select Ledger", "0");
+                lifzzh.Attributes.Add("style", "color:Black");
+                ddl.Items.Add(lifzzh);
+                ddl.DataSource = ds;
+                ddl.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+                ddl.DataBind();
+                ddl.DataTextField = "LedgerName";
+                ddl.DataValueField = "LedgerID";
+            }
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+    protected void gdm_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+            DataSet ds = new DataSet();
+
+            ds = bl.ListCreditorDebitorJ(sDataSource);
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                var ddl = (DropDownList)e.Row.FindControl("drpCreditorM");
                 ddl.Items.Clear();
                 ListItem lifzzh = new ListItem("Select Ledger", "0");
                 lifzzh.Attributes.Add("style", "color:Black");
@@ -2985,6 +3022,8 @@ public partial class MultipleJournal : System.Web.UI.Page
             string connection = Request.Cookies["Company"].Value;
             BusinessLogic bl = new BusinessLogic();
             lblBillNo.Text = "Update";
+
+            loadSupplier1();
 
             transID = Convert.ToInt32(GrdViewJournal.SelectedDataKey.Value);
 
@@ -3610,7 +3649,7 @@ public partial class MultipleJournal : System.Web.UI.Page
         //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
         BusinessLogic bl = new BusinessLogic();
         DataSet ds = new DataSet();
-        ds = bl.ListCategory(sDataSource);
+        ds = bl.ListCategory(sDataSource, "");
         //cmbCategory.DataTextField = "CategoryName";
         //cmbCategory.DataValueField = "CategoryID";
         //cmbCategory.DataSource = ds;

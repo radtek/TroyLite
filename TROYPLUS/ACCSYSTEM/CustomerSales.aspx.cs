@@ -380,22 +380,66 @@ public partial class CustomerSales : System.Web.UI.Page
         //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
         BusinessLogic bl = new BusinessLogic(sDataSource);
         DataSet ds = new DataSet();
-        ds = bl.ListBankLedgerpaymnet();
+        ds = bl.ListBankLedgerpaymnetIsActive();
+        drpBankName.Items.Clear();
+        drpBankName.Items.Add(new ListItem("Select Bank", "0"));
         drpBankName.DataSource = ds;
         drpBankName.DataTextField = "LedgerName";
         drpBankName.DataValueField = "LedgerID";
         drpBankName.DataBind();
 
+        ddBank1.Items.Clear();
+        ddBank1.Items.Add(new ListItem("Select Bank", "0"));
         ddBank1.DataSource = ds;
         ddBank1.DataTextField = "LedgerName";
         ddBank1.DataValueField = "LedgerID";
         ddBank1.DataBind();
 
+        ddBank2.Items.Clear();
+        ddBank2.Items.Add(new ListItem("Select Bank", "0"));
         ddBank2.DataSource = ds;
         ddBank2.DataTextField = "LedgerName";
         ddBank2.DataValueField = "LedgerID";
         ddBank2.DataBind();
 
+        ddBank3.Items.Clear();
+        ddBank3.Items.Add(new ListItem("Select Bank", "0"));
+        ddBank3.DataSource = ds;
+        ddBank3.DataTextField = "LedgerName";
+        ddBank3.DataValueField = "LedgerID";
+        ddBank3.DataBind();
+
+    }
+
+    private void loadBanksEdit()
+    {
+        //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataSet ds = new DataSet();
+        ds = bl.ListBankLedgerpaymnet();
+        drpBankName.Items.Clear();
+        drpBankName.Items.Add(new ListItem("Select Bank", "0"));
+        drpBankName.DataSource = ds;
+        drpBankName.DataTextField = "LedgerName";
+        drpBankName.DataValueField = "LedgerID";
+        drpBankName.DataBind();
+
+        ddBank1.Items.Clear();
+        ddBank1.Items.Add(new ListItem("Select Bank", "0"));
+        ddBank1.DataSource = ds;
+        ddBank1.DataTextField = "LedgerName";
+        ddBank1.DataValueField = "LedgerID";
+        ddBank1.DataBind();
+
+        ddBank2.Items.Clear();
+        ddBank2.Items.Add(new ListItem("Select Bank", "0"));
+        ddBank2.DataSource = ds;
+        ddBank2.DataTextField = "LedgerName";
+        ddBank2.DataValueField = "LedgerID";
+        ddBank2.DataBind();
+
+        ddBank3.Items.Clear();
+        ddBank3.Items.Add(new ListItem("Select Bank", "0"));
         ddBank3.DataSource = ds;
         ddBank3.DataTextField = "LedgerName";
         ddBank3.DataValueField = "LedgerID";
@@ -408,7 +452,17 @@ public partial class CustomerSales : System.Web.UI.Page
         //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
         BusinessLogic bl = new BusinessLogic();
         DataSet ds = new DataSet();
-        ds = bl.ListCategory(sDataSource);
+        string method = string.Empty;
+
+        if (Session["Method"] == "Add")
+        {
+            method = "Add";
+        }
+        else if (Session["Method"] == "Edit")
+        {
+            method = "Edit";
+        }
+        ds = bl.ListCategory(sDataSource, method);
         cmbCategory.DataTextField = "CategoryName";
         cmbCategory.DataValueField = "CategoryID";
         cmbCategory.DataSource = ds;
@@ -431,6 +485,65 @@ public partial class CustomerSales : System.Web.UI.Page
 
         //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
         
+        DataSet ds = new DataSet();
+
+        if (SundryType == "Sundry Debtors")
+        {
+            if (drpIntTrans.SelectedValue == "YES")
+            {
+                //ds = bl.ListSundryDebtorsTransfer(sDataSource);
+                ds = bl.ListLedgersTransferIsActive(sDataSource);
+            }
+            else if (ddDeliveryNote.SelectedValue == "YES")
+            {
+                //ds = bl.ListSundryDebtorsDc(sDataSource);
+                ds = bl.ListSundryLedgersDcIsActive(sDataSource);
+            }
+            else
+            {
+                ds = bl.ListSundryDebtorsExceptIsActive(sDataSource);
+            }
+        }
+
+        if (SundryType == "Sundry Creditors")
+        {
+            //ds = bl.ListSundryCreditors(sDataSource);
+            ds = bl.ListSundryCreditorsExceptIsActive(sDataSource);
+        }
+
+        cmbCustomer.Items.Clear();
+        cmbCustomer.Items.Add(new ListItem("Select Customer", "0"));
+        cmbCustomer.DataSource = ds;
+        cmbCustomer.DataBind();
+        cmbCustomer.DataTextField = "LedgerName";
+        cmbCustomer.DataValueField = "LedgerID";
+        //cmbCustomer.Focus();
+
+        drpMobile.Items.Clear();
+        drpMobile.Items.Add(new ListItem("Select Mobile", "0"));
+        drpMobile.DataSource = ds;
+        drpMobile.DataBind();
+        drpMobile.DataTextField = "Mobile";
+        drpMobile.DataValueField = "LedgerID";
+
+        
+    }
+
+    private void loadSupplierEdit(string SundryType)
+    {
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        string connection = Request.Cookies["Company"].Value;
+        DataSet dsd = new DataSet();
+        dsd = bl.ListCusCategory(connection);
+        drpCustomerCategoryAdd.Items.Clear();
+        drpCustomerCategoryAdd.Items.Add(new ListItem("Select Customer Category", "0"));
+        drpCustomerCategoryAdd.DataSource = dsd;
+        drpCustomerCategoryAdd.DataBind();
+        drpCustomerCategoryAdd.DataTextField = "CusCategory_Name";
+        drpCustomerCategoryAdd.DataValueField = "CusCategory_Value";
+
+        //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
+
         DataSet ds = new DataSet();
 
         if (SundryType == "Sundry Debtors")
@@ -472,7 +585,7 @@ public partial class CustomerSales : System.Web.UI.Page
         drpMobile.DataTextField = "Mobile";
         drpMobile.DataValueField = "LedgerID";
 
-        
+
     }
 
     //protected override void OnInit(EventArgs e)
@@ -4755,7 +4868,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 loadSupplier("Sundry Creditors");
             }
 
-
+            loadBanks();
 
             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
@@ -4940,7 +5053,7 @@ public partial class CustomerSales : System.Web.UI.Page
         {
         Session["Show"] = "No";
         optionmethod.SelectedIndex = 0;
-
+        Session["Method"] = "Add";
         
             BusinessLogic bl = new BusinessLogic(sDataSource);
 
@@ -5836,6 +5949,7 @@ public partial class CustomerSales : System.Web.UI.Page
         drpPurchaseReturn.Enabled = true;
 
         ddDeliveryNote.Enabled = true;
+        Session["Method"] = "Edit";
 
         BusinessLogic objChk = new BusinessLogic(sDataSource);
 
@@ -5924,6 +6038,7 @@ public partial class CustomerSales : System.Web.UI.Page
             //txtBillDate.Focus();
 
             string scuscategory = string.Empty;
+            loadBanksEdit();
 
             if (ds != null)
             {
@@ -5989,11 +6104,11 @@ public partial class CustomerSales : System.Web.UI.Page
 
                     if (drpPurchaseReturn.SelectedValue == "NO")
                     {
-                        loadSupplier("Sundry Debtors");
+                        loadSupplierEdit("Sundry Debtors");
                     }
                     else
                     {
-                        loadSupplier("Sundry Creditors");
+                        loadSupplierEdit("Sundry Creditors");
                     }
 
                     if (ds.Tables[0].Rows[0]["CustomerID"] != null)
@@ -6904,7 +7019,19 @@ public partial class CustomerSales : System.Web.UI.Page
         string CategoryID = cmbCategory.SelectedValue;
         BusinessLogic bl = new BusinessLogic(sDataSource);
         DataSet ds = new DataSet();
-        ds = bl.ListProductsForCategoryIDOnlyStock(CategoryID);
+
+        string method = string.Empty;
+
+        if (Session["Method"] == "Add")
+        {
+            method = "Add";
+        }
+        else if (Session["Method"] == "Edit")
+        {
+            method = "Edit";
+        }
+
+        ds = bl.ListProductsForCategoryIDOnlyStock(CategoryID,method);
         cmbProdAdd.Items.Clear();
         cmbProdAdd.DataSource = ds;
         cmbProdAdd.Items.Insert(0, new ListItem("Select ItemCode", "0"));
@@ -6912,7 +7039,7 @@ public partial class CustomerSales : System.Web.UI.Page
         cmbProdAdd.DataValueField = "ItemCode";
         cmbProdAdd.DataBind();
 
-        ds = bl.ListModelsForCategoryIDOnlyStock(CategoryID);
+        ds = bl.ListModelsForCategoryIDOnlyStock(CategoryID, method);
         cmbModel.Items.Clear();
         cmbModel.DataSource = ds;
         cmbModel.Items.Insert(0, new ListItem("Select Model", "0"));
@@ -6920,7 +7047,7 @@ public partial class CustomerSales : System.Web.UI.Page
         cmbModel.DataValueField = "Model";
         cmbModel.DataBind();
 
-        ds = bl.ListBrandsForCategoryIDOnlyStock(CategoryID);
+        ds = bl.ListBrandsForCategoryIDOnlyStock(CategoryID, method);
         cmbBrand.Items.Clear();
         cmbBrand.DataSource = ds;
         cmbBrand.Items.Insert(0, new ListItem("Select Brand", "0"));
@@ -6928,7 +7055,7 @@ public partial class CustomerSales : System.Web.UI.Page
         cmbBrand.DataValueField = "ProductDesc";
         cmbBrand.DataBind();
 
-        ds = bl.ListProdNameForCategoryIDOnlyStock(CategoryID);
+        ds = bl.ListProdNameForCategoryIDOnlyStock(CategoryID, method);
         cmbProdName.Items.Clear();
         cmbProdName.DataSource = ds;
         cmbProdName.Items.Insert(0, new ListItem("Select ItemName", "0"));
@@ -6945,7 +7072,17 @@ public partial class CustomerSales : System.Web.UI.Page
         string CategoryID = cmbCategory.SelectedValue;
         BusinessLogic bl = new BusinessLogic(sDataSource);
         DataSet ds = new DataSet();
-        ds = bl.ListProductsForCategoryID(CategoryID);
+        string method = string.Empty;
+
+        if (Session["Method"] == "Add")
+        {
+            method = "Add";
+        }
+        else if (Session["Method"] == "Edit")
+        {
+            method = "Edit";
+        }
+        ds = bl.ListProductsForCategoryID(CategoryID, method);
         cmbProdAdd.Items.Clear();
         cmbProdAdd.DataSource = ds;
         cmbProdAdd.Items.Insert(0, new ListItem("Select ItemCode", "0"));
@@ -6953,7 +7090,7 @@ public partial class CustomerSales : System.Web.UI.Page
         cmbProdAdd.DataValueField = "ItemCode";
         cmbProdAdd.DataBind();
 
-        ds = bl.ListModelsForCategoryID(CategoryID);
+        ds = bl.ListModelsForCategoryID(CategoryID, method);
         cmbModel.Items.Clear();
         cmbModel.DataSource = ds;
         cmbModel.Items.Insert(0, new ListItem("Select Model", "0"));
@@ -6961,7 +7098,7 @@ public partial class CustomerSales : System.Web.UI.Page
         cmbModel.DataValueField = "Model";
         cmbModel.DataBind();
 
-        ds = bl.ListBrandsForCategoryID(CategoryID);
+        ds = bl.ListBrandsForCategoryID(CategoryID, method);
         cmbBrand.Items.Clear();
         cmbBrand.DataSource = ds;
         cmbBrand.Items.Insert(0, new ListItem("Select Brand", "0"));
@@ -6969,7 +7106,7 @@ public partial class CustomerSales : System.Web.UI.Page
         cmbBrand.DataValueField = "ProductDesc";
         cmbBrand.DataBind();
 
-        ds = bl.ListProdNameForCategoryID(CategoryID);
+        ds = bl.ListProdNameForCategoryID(CategoryID, method);
         cmbProdName.Items.Clear();
         cmbProdName.DataSource = ds;
         cmbProdName.Items.Insert(0, new ListItem("Select ItemName", "0"));
@@ -6989,7 +7126,18 @@ public partial class CustomerSales : System.Web.UI.Page
         //cmbProdAdd.SelectedValue = itemCode;
         //cmbModel.SelectedValue = itemCode;
         DataSet ds = new DataSet();
-        ds = bl.ListModelsForBrandOnlyStock(brand, CategoryID);
+        string method = string.Empty;
+
+        if (Session["Method"] == "Add")
+        {
+            method = "Add";
+        }
+        else if (Session["Method"] == "Edit")
+        {
+            method = "Edit";
+        }
+
+        ds = bl.ListModelsForBrandOnlyStock(brand, CategoryID, method);
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             cmbModel.Items.Clear();
@@ -6999,7 +7147,7 @@ public partial class CustomerSales : System.Web.UI.Page
             cmbModel.DataBind();
         }
 
-        ds = bl.ListProdcutsForBrandOnlyStock(brand, CategoryID);
+        ds = bl.ListProdcutsForBrandOnlyStock(brand, CategoryID, method);
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             cmbProdAdd.Items.Clear();
@@ -7009,7 +7157,7 @@ public partial class CustomerSales : System.Web.UI.Page
             cmbProdAdd.DataBind();
         }
 
-        ds = bl.ListProdcutNameForBrandOnlyStock(brand, CategoryID);
+        ds = bl.ListProdcutNameForBrandOnlyStock(brand, CategoryID, method);
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             cmbProdName.Items.Clear();
@@ -7028,8 +7176,18 @@ public partial class CustomerSales : System.Web.UI.Page
         string model = cmbModel.SelectedValue;
         string CategoryID = cmbCategory.SelectedValue;
         DataSet ds = new DataSet();
+        string method = string.Empty;
 
-        ds = bl.ListProdcutsForModelOnlyStock(model, CategoryID);
+        if (Session["Method"] == "Add")
+        {
+            method = "Add";
+        }
+        else if (Session["Method"] == "Edit")
+        {
+            method = "Edit";
+        }
+
+        ds = bl.ListProdcutsForModelOnlyStock(model, CategoryID, method);
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             cmbProdAdd.Items.Clear();
@@ -7039,7 +7197,7 @@ public partial class CustomerSales : System.Web.UI.Page
             cmbProdAdd.DataBind();
         }
 
-        ds = bl.ListBrandsForModelOnlyStock(model, CategoryID);
+        ds = bl.ListBrandsForModelOnlyStock(model, CategoryID, method);
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             cmbBrand.Items.Clear();
@@ -7049,7 +7207,7 @@ public partial class CustomerSales : System.Web.UI.Page
             cmbBrand.DataBind();
         }
 
-        ds = bl.ListProductNameForModelOnlyStock(model, CategoryID);
+        ds = bl.ListProductNameForModelOnlyStock(model, CategoryID, method);
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             cmbProdName.Items.Clear();
@@ -7067,8 +7225,17 @@ public partial class CustomerSales : System.Web.UI.Page
         string prodName = cmbProdName.SelectedValue;
         string CategoryID = cmbCategory.SelectedValue;
         DataSet ds = new DataSet();
+        string method = string.Empty;
 
-        ds = bl.ListProdcutsForProductNameOnlyStock(prodName, CategoryID);
+        if (Session["Method"] == "Add")
+        {
+            method = "Add";
+        }
+        else if (Session["Method"] == "Edit")
+        {
+            method = "Edit";
+        }
+        ds = bl.ListProdcutsForProductNameOnlyStock(prodName, CategoryID, method);
 
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
@@ -7079,7 +7246,7 @@ public partial class CustomerSales : System.Web.UI.Page
             cmbProdAdd.DataBind();
         }
 
-        ds = bl.ListBrandsForProductNameOnlyStock(prodName, CategoryID);
+        ds = bl.ListBrandsForProductNameOnlyStock(prodName, CategoryID, method);
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             cmbBrand.Items.Clear();
@@ -7089,7 +7256,7 @@ public partial class CustomerSales : System.Web.UI.Page
             cmbBrand.DataBind();
         }
 
-        ds = bl.ListModelsForProductNameOnlyStock(prodName, CategoryID);
+        ds = bl.ListModelsForProductNameOnlyStock(prodName, CategoryID, method);
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             cmbModel.Items.Clear();

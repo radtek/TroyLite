@@ -528,7 +528,7 @@
                                                     <table cellspacing="0">
                                                         <tr>
                                                             <td>
-                                                                <asp:ObjectDataSource ID="srcCreditorDebitorAdd" runat="server" SelectMethod="ListCreditorDebitorSuppliers"
+                                                                <asp:ObjectDataSource ID="srcCreditorDebitorAdd" runat="server" SelectMethod="ListCreditorDebitorSuppliersIsActive"
                                                                     TypeName="BusinessLogic">
                                                                     <SelectParameters>
                                                                         <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />

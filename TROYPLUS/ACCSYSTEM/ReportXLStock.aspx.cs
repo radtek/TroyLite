@@ -92,7 +92,7 @@ public partial class ReportXLStock : System.Web.UI.Page
         //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
         BusinessLogic bl = new BusinessLogic();
         DataSet ds = new DataSet();
-        ds = bl.ListCategory(sDataSource);
+        ds = bl.ListCategory(sDataSource,"");
         ddlCategory.DataTextField = "CategoryName";
         ddlCategory.DataValueField = "CategoryID";
         ddlCategory.DataSource = ds;
@@ -105,7 +105,7 @@ public partial class ReportXLStock : System.Web.UI.Page
         string CategoryID = ddlCategory.SelectedValue;
         BusinessLogic bl = new BusinessLogic(sDataSource);
         DataSet ds = new DataSet();
-        ds = bl.ListProductsForCategoryID(CategoryID);
+        ds = bl.ListProductsForCategoryID(CategoryID, "");
         ddlItemCode.Items.Clear();
         ddlItemCode.DataSource = ds;
         ddlItemCode.Items.Insert(0, new ListItem("All", "0"));
@@ -113,7 +113,7 @@ public partial class ReportXLStock : System.Web.UI.Page
         ddlItemCode.DataValueField = "ItemCode";
         ddlItemCode.DataBind();
 
-        ds = bl.ListModelsForCategoryID(CategoryID);
+        ds = bl.ListModelsForCategoryID(CategoryID, "");
         ddlMdl.Items.Clear();
         ddlMdl.DataSource = ds;
         ddlMdl.Items.Insert(0, new ListItem("All", "0"));
@@ -121,7 +121,7 @@ public partial class ReportXLStock : System.Web.UI.Page
         ddlMdl.DataValueField = "Model";
         ddlMdl.DataBind();
 
-        ds = bl.ListBrandsForCategoryID(CategoryID);
+        ds = bl.ListBrandsForCategoryID(CategoryID, "");
         ddlBrand.Items.Clear();
         ddlBrand.DataSource = ds;
         ddlBrand.Items.Insert(0, new ListItem("All", "0"));
@@ -129,7 +129,7 @@ public partial class ReportXLStock : System.Web.UI.Page
         ddlBrand.DataValueField = "ProductDesc";
         ddlBrand.DataBind();
 
-        ds = bl.ListProdNameForCategoryID(CategoryID);
+        ds = bl.ListProdNameForCategoryID(CategoryID, "");
         ddlPrdctNme.Items.Clear();
         ddlPrdctNme.DataSource = ds;
         ddlPrdctNme.Items.Insert(0, new ListItem("All", "0"));
@@ -150,7 +150,7 @@ public partial class ReportXLStock : System.Web.UI.Page
         //cmbProdAdd.SelectedValue = itemCode;
         //cmbModel.SelectedValue = itemCode;
         DataSet ds = new DataSet();
-        ds = bl.ListModelsForBrand(brand, CategoryID);
+        ds = bl.ListModelsForBrand(brand, CategoryID, "");
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             ddlMdl.Items.Clear();
@@ -160,7 +160,7 @@ public partial class ReportXLStock : System.Web.UI.Page
             ddlMdl.DataBind();
         }
 
-        ds = bl.ListProdcutsForBrand(brand, CategoryID);
+        ds = bl.ListProdcutsForBrand(brand, CategoryID, "");
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             ddlItemCode.Items.Clear();
@@ -170,7 +170,7 @@ public partial class ReportXLStock : System.Web.UI.Page
             ddlItemCode.DataBind();
         }
 
-        ds = bl.ListProdcutNameForBrand(brand, CategoryID);
+        ds = bl.ListProdcutNameForBrand(brand, CategoryID, "");
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             ddlPrdctNme.Items.Clear();
@@ -191,7 +191,7 @@ public partial class ReportXLStock : System.Web.UI.Page
         string CategoryID = ddlCategory.SelectedValue;
         DataSet ds = new DataSet();
 
-        ds = bl.ListProdcutsForModel(model, CategoryID);
+        ds = bl.ListProdcutsForModel(model, CategoryID, "");
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             ddlItemCode.Items.Clear();
@@ -201,7 +201,7 @@ public partial class ReportXLStock : System.Web.UI.Page
             ddlItemCode.DataBind();
         }
 
-        ds = bl.ListBrandsForModel(model, CategoryID);
+        ds = bl.ListBrandsForModel(model, CategoryID, "");
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             ddlBrand.Items.Clear();
@@ -211,7 +211,7 @@ public partial class ReportXLStock : System.Web.UI.Page
             ddlBrand.DataBind();
         }
 
-        ds = bl.ListProductNameForModel(model, CategoryID);
+        ds = bl.ListProductNameForModel(model, CategoryID, "");
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             ddlPrdctNme.Items.Clear();
@@ -231,7 +231,7 @@ public partial class ReportXLStock : System.Web.UI.Page
         string CategoryID = ddlCategory.SelectedValue;
         DataSet ds = new DataSet();
 
-        ds = bl.ListProdcutsForProductName(prodName, CategoryID);
+        ds = bl.ListProdcutsForProductName(prodName, CategoryID, "");
 
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
@@ -242,7 +242,7 @@ public partial class ReportXLStock : System.Web.UI.Page
             ddlItemCode.DataBind();
         }
 
-        ds = bl.ListBrandsForProductName(prodName, CategoryID);
+        ds = bl.ListBrandsForProductName(prodName, CategoryID, "");
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             ddlBrand.Items.Clear();
@@ -252,7 +252,7 @@ public partial class ReportXLStock : System.Web.UI.Page
             ddlBrand.DataBind();
         }
 
-        ds = bl.ListModelsForProductName(prodName, CategoryID);
+        ds = bl.ListModelsForProductName(prodName, CategoryID, "");
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             ddlMdl.Items.Clear();

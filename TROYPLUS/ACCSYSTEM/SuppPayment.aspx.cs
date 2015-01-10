@@ -88,6 +88,7 @@ public partial class SuppPayment : System.Web.UI.Page
 
 
                 loadBanks();
+                loadLedgers();
                 //myRangeValidator.MinimumValue = System.DateTime.Now.AddYears(-100).ToShortDateString();
                 //myRangeValidator.MaximumValue = System.DateTime.Now.ToShortDateString();
 
@@ -98,6 +99,41 @@ public partial class SuppPayment : System.Web.UI.Page
         {
             TroyLiteExceptionManager.HandleException(ex);
         }
+    }
+
+    private void loadLedgers()
+    {
+        //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataSet ds = new DataSet();
+        string connection = Request.Cookies["Company"].Value;
+
+        ddReceivedFrom.Items.Clear();
+        ListItem li = new ListItem("Select Supplier", "0");
+        li.Attributes.Add("style", "color:Black");
+        ddReceivedFrom.Items.Add(li);
+        ds = bl.ListSundryCreditorsIsActive(connection);
+        ddReceivedFrom.DataSource = ds;
+        ddReceivedFrom.DataBind();
+        ddReceivedFrom.DataTextField = "LedgerName";
+        ddReceivedFrom.DataValueField = "LedgerID";
+
+    }
+
+    private void loadLedgersEdit()
+    {
+        //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataSet ds = new DataSet();
+        string connection = Request.Cookies["Company"].Value;
+
+        ddReceivedFrom.Items.Clear();
+        ds = bl.ListSundryCreditors(connection);
+        ddReceivedFrom.DataSource = ds;
+        ddReceivedFrom.DataBind();
+        ddReceivedFrom.DataTextField = "LedgerName";
+        ddReceivedFrom.DataValueField = "LedgerID";
+
     }
 
     private void ShowPendingBills()
@@ -390,6 +426,7 @@ public partial class SuppPayment : System.Web.UI.Page
             bl.InsertChequeStatus(connection, Trans);
 
             hdPayment.Value = Convert.ToString(GrdViewPayment.SelectedDataKey.Value);
+            loadLedgersEdit();
 
             if (!bl.IsValidDate(connection, Convert.ToDateTime(recondate)))
             {
@@ -721,6 +758,7 @@ public partial class SuppPayment : System.Web.UI.Page
             ddBanks.Items.Clear();
             ddBanks.Items.Insert(0, new ListItem("Select Bank", "0"));
             loadBanks();
+            loadLedgers();
 
             if (chkPayTo.SelectedItem != null)
             {
@@ -2051,6 +2089,7 @@ public partial class SuppPayment : System.Web.UI.Page
                 GrdViewPayment.DataBind();
                 ClearPanel();
                 UpdatePanelPage.Update();
+                //ModalPopupExtender2.Hide();
 
             }
         }

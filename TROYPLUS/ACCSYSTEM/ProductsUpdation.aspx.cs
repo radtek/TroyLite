@@ -1489,7 +1489,7 @@ public partial class ProductsUpdation : System.Web.UI.Page
         //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
         BusinessLogic bl = new BusinessLogic();
         DataSet ds = new DataSet();
-        ds = bl.ListCategory(sDataSource);
+        ds = bl.ListCategory(sDataSource,"");
         cmbCategory.DataTextField = "CategoryName";
         cmbCategory.DataValueField = "CategoryID";
         cmbCategory.DataSource = ds;
@@ -1502,9 +1502,9 @@ public partial class ProductsUpdation : System.Web.UI.Page
         string CategoryID = cmbCategory.SelectedValue;
         BusinessLogic bl = new BusinessLogic(sDataSource);
         DataSet ds = new DataSet();
-        ds = bl.ListProductsForCategoryID(CategoryID);
+        ds = bl.ListProductsForCategoryID(CategoryID,"");
         
-        ds = bl.ListBrandsForCategoryID(CategoryID);
+        ds = bl.ListBrandsForCategoryID(CategoryID,"");
         cmbBrand.Items.Clear();
         cmbBrand.DataSource = ds;
         cmbBrand.Items.Insert(0, new ListItem("Select Brand", "0"));
@@ -1555,7 +1555,7 @@ public partial class ProductsUpdation : System.Web.UI.Page
         //cmbProdAdd.SelectedValue = itemCode;
         //cmbModel.SelectedValue = itemCode;
         DataSet ds = new DataSet();
-        ds = bl.ListModelsForBrand(brand, CategoryID);
+        ds = bl.ListModelsForBrand(brand, CategoryID,"");
         
         cmbProdAdd_SelectedIndexChanged(this, null);
 

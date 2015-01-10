@@ -160,7 +160,7 @@ public partial class ReportXLPurchase : System.Web.UI.Page
         //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
         BusinessLogic bl = new BusinessLogic();
         DataSet ds = new DataSet();
-        ds = bl.ListCategory(sDataSource);
+        ds = bl.ListCategory(sDataSource, "");
         ddlCategory.DataTextField = "CategoryName";
         ddlCategory.DataValueField = "CategoryID";
         ddlCategory.DataSource = ds;
@@ -173,7 +173,7 @@ public partial class ReportXLPurchase : System.Web.UI.Page
         string CategoryID = ddlCategory.SelectedValue;
         BusinessLogic bl = new BusinessLogic(sDataSource);
         DataSet ds = new DataSet();
-        ds = bl.ListProductsForCategoryID(CategoryID);
+        ds = bl.ListProductsForCategoryID(CategoryID, "");
         ddlPrdctCode.Items.Clear();
         ddlPrdctCode.DataSource = ds;
         ddlPrdctCode.Items.Insert(0, new ListItem("All", "0"));
@@ -189,7 +189,7 @@ public partial class ReportXLPurchase : System.Web.UI.Page
         //ddlMdl.DataValueField = "Model";
         //ddlMdl.DataBind();
 
-        ds = bl.ListBrandsForCategoryID(CategoryID);
+        ds = bl.ListBrandsForCategoryID(CategoryID, "");
         ddlBrand.Items.Clear();
         ddlBrand.DataSource = ds;
         ddlBrand.Items.Insert(0, new ListItem("All", "0"));
@@ -197,7 +197,7 @@ public partial class ReportXLPurchase : System.Web.UI.Page
         ddlBrand.DataValueField = "ProductDesc";
         ddlBrand.DataBind();
 
-        ds = bl.ListProdNameForCategoryID(CategoryID);
+        ds = bl.ListProdNameForCategoryID(CategoryID, "");
         ddlPrdctNme.Items.Clear();
         ddlPrdctNme.DataSource = ds;
         ddlPrdctNme.Items.Insert(0, new ListItem("All", "0"));
@@ -228,7 +228,7 @@ public partial class ReportXLPurchase : System.Web.UI.Page
         //    ddlMdl.DataBind();
         //}
 
-        ds = bl.ListProdcutsForBrand(brand, CategoryID);
+        ds = bl.ListProdcutsForBrand(brand, CategoryID, "");
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             ddlPrdctCode.Items.Clear();
@@ -238,7 +238,7 @@ public partial class ReportXLPurchase : System.Web.UI.Page
             ddlPrdctCode.DataBind();
         }
 
-        ds = bl.ListProdcutNameForBrand(brand, CategoryID);
+        ds = bl.ListProdcutNameForBrand(brand, CategoryID, "");
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             ddlPrdctNme.Items.Clear();
@@ -259,7 +259,7 @@ public partial class ReportXLPurchase : System.Web.UI.Page
         string CategoryID = ddlCategory.SelectedValue;
         DataSet ds = new DataSet();
 
-        ds = bl.ListProdcutsForProductName(prodName, CategoryID);
+        ds = bl.ListProdcutsForProductName(prodName, CategoryID, "");
 
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
@@ -270,7 +270,7 @@ public partial class ReportXLPurchase : System.Web.UI.Page
             ddlPrdctCode.DataBind();
         }
 
-        ds = bl.ListBrandsForProductName(prodName, CategoryID);
+        ds = bl.ListBrandsForProductName(prodName, CategoryID, "");
         if (ds != null && ds.Tables[0].Rows.Count > 0)
         {
             ddlBrand.Items.Clear();

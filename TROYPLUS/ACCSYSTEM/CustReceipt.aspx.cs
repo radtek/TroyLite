@@ -32,7 +32,7 @@ public partial class CustReceipt : System.Web.UI.Page
 
                 CheckSMSRequired();
 
-                loadBanks();
+                
 
                 ddReceivedFrom.DataBind();
 
@@ -115,6 +115,7 @@ public partial class CustReceipt : System.Web.UI.Page
         DataTable dt = new DataTable();
         DataColumn dc;
         DataRow drNew;
+        div.Visible = true;
 
         if (chkcash.Checked == false)
         {
@@ -217,6 +218,7 @@ public partial class CustReceipt : System.Web.UI.Page
         DataTable dt = new DataTable();
         DataColumn dc;
         DataRow drNew;
+        div.Visible = true;
 
         if (chkcheque.Checked == false)
         {
@@ -311,6 +313,8 @@ public partial class CustReceipt : System.Web.UI.Page
         DataTable dt = new DataTable();
         DataColumn dc;
         DataRow drNew;
+
+        div.Visible = true;
 
         if (chkcard.Checked == false)
         {
@@ -491,6 +495,28 @@ public partial class CustReceipt : System.Web.UI.Page
         BusinessLogic bl = new BusinessLogic(sDataSource);
         DataSet ds = new DataSet();
         //ds = bl.ListBanks();
+
+        ddBanks.Items.Clear();
+        ListItem lifzzh = new ListItem("Select Bank", "0");
+        lifzzh.Attributes.Add("style", "color:Black");
+        ddBanks.Items.Add(lifzzh);
+        ds = bl.ListBankLedgerpaymnetIsActive();
+        ddBanks.DataSource = ds;
+        ddBanks.DataTextField = "LedgerName";
+        ddBanks.DataValueField = "LedgerID";
+        ddBanks.DataBind();
+    }
+
+    private void loadBanksEdit()
+    {
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataSet ds = new DataSet();
+        //ds = bl.ListBanks();
+
+        ddBanks.Items.Clear();
+        ListItem lifzzh = new ListItem("Select Bank", "0");
+        lifzzh.Attributes.Add("style", "color:Black");
+        ddBanks.Items.Add(lifzzh);
         ds = bl.ListBankLedgerpaymnet();
         ddBanks.DataSource = ds;
         ddBanks.DataTextField = "LedgerName";
@@ -599,6 +625,7 @@ public partial class CustReceipt : System.Web.UI.Page
             string recondate = Row.Cells[2].Text;
             Session["BillData"] = null;
             //hd.Value = Convert.ToString(GrdViewReceipt.SelectedDataKey.Value);
+            loadBanksEdit();
 
             if (!bl.IsValidDate(connection, Convert.ToDateTime(recondate)))
             {
@@ -663,10 +690,11 @@ public partial class CustReceipt : System.Web.UI.Page
                 ////MyAccordion.Visible = false;
                 //lnkBtnAdd.Visible = false;
                 pnlEdit.Visible = true;
+                Panel3.Visible = false;
                 UpdateButton.Visible = true;
                 SaveButton.Visible = false;
                 ModalPopupExtender2.Show();
-
+                ModalPopupExtender3.Hide();
             }
         }
         catch (Exception ex)
@@ -905,16 +933,18 @@ public partial class CustReceipt : System.Web.UI.Page
             //}
             ModalPopupExtender2.Show();
             ModalPopupExtender3.Show();
-            pnlEdit.Visible = true;
+            pnlEdit.Visible = false;
+            Panel3.Visible = true;
             Session["Ds"] = null;
             //lnkBtnAdd.Visible = false;
             ////MyAccordion.Visible = false;
             //GrdViewReceipt.Visible = false;
             UpdateButton.Visible = false;
-            SaveButton.Visible = true;
+            SaveButton.Visible = false;
             ClearPanel();
             ShowPendingBills();
 
+            loadBanks();
             drpLedger.SelectedIndex = 0;
 
             //txtTransDate.Text = DateTime.Now.ToShortDateString();
@@ -926,6 +956,7 @@ public partial class CustReceipt : System.Web.UI.Page
 
             drpLedger.Focus();
             chkPayTo.SelectedValue = "Cash";
+            div.Visible = false;
 
             if (chkPayTo.SelectedItem != null)
             {

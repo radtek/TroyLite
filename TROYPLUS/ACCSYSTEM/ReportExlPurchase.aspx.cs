@@ -16846,7 +16846,7 @@ public partial class ReportExlPurchase : System.Web.UI.Page
         cat = ddlCategory.SelectedValue;
 
         BusinessLogic bl = new BusinessLogic(sDataSource);
-        var ds = bl.ListBrandsForCategoryID(cat);
+        var ds = bl.ListBrandsForCategoryID(cat, "");
 
         ddlBrand.DataSource = ds;
         ddlBrand.DataTextField = "ProductDesc";
@@ -16860,7 +16860,7 @@ public partial class ReportExlPurchase : System.Web.UI.Page
     {
         string connection = Request.Cookies["Company"].Value;
         BusinessLogic bl = new BusinessLogic(sDataSource);
-        var ds = bl.ListCategory(connection);
+        var ds = bl.ListCategory(connection, "");
 
         ddlCategory.DataSource = ds;
         ddlCategory.DataTextField = "CategoryName";

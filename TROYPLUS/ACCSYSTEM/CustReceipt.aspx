@@ -389,6 +389,9 @@
                             CancelControlID="Button1" DynamicServicePath="" Enabled="True" PopupControlID="popUp"
                             TargetControlID="dummy">
                         </cc1:ModalPopupExtender>
+                        <asp:ValidationSummary ID="VS" runat="server" Font-Names="'Trebuchet MS'"
+                            Font-Size="12pt" HeaderText="Validation Messages" ShowMessageBox="True"
+                            ShowSummary="False" ValidationGroup="salesval" />
                         <asp:Panel runat="server" ID="popUp" Style="width: 61%; display: none">
                             <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
@@ -443,9 +446,9 @@
                                                                                                                 <asp:Label ID="Label1" runat="server"
                                                                                                                                 Width="120px" Text="Received Date *" ></asp:Label>
                                                                                                                 <asp:RequiredFieldValidator ID="rvStock" runat="server" ControlToValidate="txtTransDate"
-                                                                                                                    ErrorMessage="Trasaction Date is mandatory" Display="Dynamic">*</asp:RequiredFieldValidator>
-                                                                                                                <asp:CompareValidator ControlToValidate="txtTransDate" Operator="DataTypeCheck" Type="Date"
-                                                                                                                    ErrorMessage="Please enter a valid date" runat="server" ID="cmpValtxtDate">*</asp:CompareValidator>
+                                                                                                                    ErrorMessage="Trasaction Date is mandatory"  Display="Dynamic">*</asp:RequiredFieldValidator>
+                                                                                                                <asp:CompareValidator ControlToValidate="txtTransDate" Operator="DataTypeCheck" Type="Date"  Display="Dynamic"
+                                                                                                                   ErrorMessage="Please enter a valid date" runat="server" ID="cmpValtxtDate">*</asp:CompareValidator>
                                                                                                                 <%--<asp:RangeValidator ID="myRangeValidator" runat="server" ControlToValidate="txtTransDate"
                                                                                                                     ErrorMessage="Payment date cannot be future date." Text="*" Type="Date"></asp:RangeValidator>--%>
                                                                                                             </td>
@@ -468,7 +471,7 @@
                                                                                                             <td class="ControlLabel" style="width: 24%">
                                                                                                                 Received From *
                                                                                                                 <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddReceivedFrom"
-                                                                                                                    Display="Dynamic" ErrorMessage="Received From is Mandatory" Operator="GreaterThan"
+                                                                                                                     Display="Dynamic" ErrorMessage="Received From is Mandatory" Operator="GreaterThan"
                                                                                                                     ValueToCompare="0">*</asp:CompareValidator>
                                                                                                             </td>
                                                                                                             <td class="ControlDrpBorder" style="width: 25%">
@@ -481,7 +484,7 @@
                                                                                                             <td class="ControlLabel" style="width: 16%">
                                                                                                                 Amount *
                                                                                                                 <asp:RequiredFieldValidator ID="rvModel" runat="server" ControlToValidate="txtAmount"
-                                                                                                                    ErrorMessage="Amount is mandatory" Display="Dynamic">*</asp:RequiredFieldValidator>
+                                                                                                                    Display="Dynamic" ErrorMessage="Amount is mandatory" >*</asp:RequiredFieldValidator>
                                                                                                                 <cc1:FilteredTextBoxExtender ID="fltAmt" runat="server" TargetControlID="txtAmount"
                                                                                                                     ValidChars="." FilterType="Custom, Numbers" Enabled="True" />
                                                                                                             </td>
@@ -495,7 +498,7 @@
                                                                                                             <td class="ControlLabel" style="width: 24%">
                                                                                                                 Payment Made By *
                                                                                                                 <asp:RequiredFieldValidator ID="rvBDate" runat="server" ControlToValidate="chkPayTo"
-                                                                                                                    Display="Dynamic" ErrorMessage="Item Name is mandatory.">*</asp:RequiredFieldValidator>
+                                                                                                                       Display="Dynamic" ErrorMessage="Item Name is mandatory.">*</asp:RequiredFieldValidator>
                                                                                                             </td>
                                                                                                             <td class="ControlTextBox3" style="width: 25%">
                                                                                                                 <asp:RadioButtonList ID="chkPayTo" runat="server" onclick="javascript:AdvancedTest(this.id);"
@@ -508,7 +511,7 @@
                                                                                                             <td class="ControlLabel" style="width: 16%">
                                                                                                                 Narration *
                                                                                                                 <asp:RequiredFieldValidator ID="rvNarration" runat="server" ErrorMessage="Narration is mandatory"
-                                                                                                                    ControlToValidate="txtNarration" Display="Dynamic">*</asp:RequiredFieldValidator>
+                                                                                                                    ControlToValidate="txtNarration"  Display="Dynamic">*</asp:RequiredFieldValidator>
                                                                                                             </td>
                                                                                                             <td class="ControlTextBox3" style="width: 25%">
                                                                                                                 <asp:TextBox ID="txtNarration" runat="server" Height="25px" TextMode="MultiLine"
@@ -875,6 +878,12 @@
                                                                                                 <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
                                                                                             </SelectParameters>
                                                                                         </asp:ObjectDataSource>
+                                                                                        <asp:ObjectDataSource ID="srcCreditorDebitorIsActive" runat="server" SelectMethod="ListSundryDebitorsIsActive"
+                                                                                            TypeName="BusinessLogic">
+                                                                                            <SelectParameters>
+                                                                                                <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
+                                                                                            </SelectParameters>
+                                                                                        </asp:ObjectDataSource>
                                                                                     </td>
                                                                                     <td>
                                                                                     </td>
@@ -892,6 +901,11 @@
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                </table>
+                                        </asp:Panel>
+                                    </div>
+                                    <div>
+                                        <table>
                                                 <tr>
                                                     <td colspan="4">
                                                         <input id="Button2" type="button" style="display: none" runat="server" />
@@ -900,12 +914,11 @@
                             CancelControlID="Button3" DynamicServicePath="" Enabled="True" PopupControlID="Panel2"
                             TargetControlID="Button2">
                         </cc1:ModalPopupExtender>
-                                                        <asp:ValidationSummary ID="ValidationSummary2" runat="server" Font-Names="'Trebuchet MS'" Font-Size="12pt"
-                                                HeaderText="Validation Messages" ShowMessageBox="true" ShowSummary="true" ValidationGroup="ValidationSummary2" />
+                                                        
                         <asp:Panel runat="server" ID="Panel2" Style="width: 61%; display: none">
-                            <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
+                            <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional" RenderMode="Block">
                                 <ContentTemplate>
-                                    <div id="conPopUp">
+                                    <div id="conPopUpAdd">
                                         <asp:Panel ID="Panel3" runat="server">
                                             <table class="tblLeft" cellpadding="0" cellspacing="0" style="border: 0px solid #5078B3;
                                                 background-color: #fff; color: #000;" width="100%">
@@ -945,12 +958,12 @@
                                                                                                             <td class="ControlLabel" style="width: 24%">
                                                                                                                Received From *
                                                                                                                 <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="drpLedger"
-                                                                                                                    Display="Dynamic" ErrorMessage="Received From is Mandatory" Operator="GreaterThan"
-                                                                                                                    ValueToCompare="0" ValidationGroup="ValidationSummary2">*</asp:CompareValidator>
+                                                                                                                    ErrorMessage="Mandatory" Operator="GreaterThan" Display="Dynamic"
+                                                                                                                    ValueToCompare="0">*</asp:CompareValidator>
                                                                                                             </td>
                                                                                                             <td class="ControlDrpBorder" style="width: 25%">
                                                                                                                 <asp:DropDownList ID="drpLedger" runat="server" AutoPostBack="True" Width="100%" CssClass="drpDownListMedium" BackColor = "#e7e7e7"
-                                                                                                                    DataSourceID="srcCreditorDebitor" DataValueField="LedgerID" style="border: 1px solid #e7e7e7" height="26px" 
+                                                                                                                    DataSourceID="srcCreditorDebitorIsActive" DataValueField="LedgerID" style="border: 1px solid #e7e7e7" height="26px" 
                                                                                                                     DataTextField="LedgerName" AppendDataBoundItems="True">
                                                                                                                     <asp:ListItem Text="Select Customer" Value="0"></asp:ListItem>
                                                                                                                 </asp:DropDownList>
@@ -958,9 +971,9 @@
                                                                                                             <td class="ControlLabel" style="width: 16%">
                                                                                                                 <asp:Label ID="Label2" runat="server"
                                                                                                                                 Width="120px" Text="Received Date *" ></asp:Label>
-                                                                                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtDate"
-                                                                                                                    ErrorMessage="Trasaction Date is mandatory"  ValidationGroup="ValidationSummary2" Display="Dynamic">*</asp:RequiredFieldValidator>
-                                                                                                                <asp:CompareValidator ControlToValidate="txtDate"  ValidationGroup="ValidationSummary2" Operator="DataTypeCheck" Type="Date"
+                                                                                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtDate" Display="Dynamic"
+                                                                                                                    ErrorMessage="Trasaction Date is mandatory" >*</asp:RequiredFieldValidator>
+                                                                                                                <asp:CompareValidator ControlToValidate="txtDate" Operator="DataTypeCheck" Type="Date" Display="Dynamic"
                                                                                                                     ErrorMessage="Please enter a valid date" runat="server" ID="CompareValidator2">*</asp:CompareValidator>
                                                                                                             </td>
                                                                                                             <td class="ControlTextBox3" style="width: 25%">
@@ -1075,13 +1088,13 @@
 
                                                                                                 </td>
                                                                                                 <td  style="width: 18%;">
-                                                                                                    <asp:Button ID="UpdButton" runat="server" CausesValidation="true" CommandName="Update"
-                                                                                                        CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave" ValidationGroup="ValidationSummary2"
+                                                                                                    <asp:Button ID="UpdButton" runat="server" CausesValidation="true"
+                                                                                                        CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave"
                                                                                                         OnClick="UpdButton_Click"></asp:Button>
                                                                                                 </td>
                                                                                                 <td  style="width: 18%;">
                                                                                                     
-                                                                                                    <asp:Button ID="UpdCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                                                    <asp:Button ID="UpdCancelButton" runat="server" CausesValidation="False"
                                                                                                         CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdCancelButton_Click">
                                                                                                     </asp:Button>
                                                                                                 </td>
@@ -1112,7 +1125,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                        </asp:Panel>
+                              
                                     </div>
                                     <div>
 

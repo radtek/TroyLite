@@ -455,7 +455,7 @@
                                                                                                 </td>
                                                                                                 <td class="ControlDrpBorder" style="width: 25%">
                                                                                                     <asp:DropDownList ID="ddReceivedFrom" runat="server" AutoPostBack="True" Width="100%" CssClass="drpDownListMedium" BackColor="#e7e7e7"
-                                                                                                        DataSourceID="srcCreditorDebitor" DataValueField="LedgerID" OnSelectedIndexChanged="ComboBox2_SelectedIndexChanged" Style="border: 1px solid #e7e7e7" Height="26px"
+                                                                                                        DataValueField="LedgerID" OnSelectedIndexChanged="ComboBox2_SelectedIndexChanged" Style="border: 1px solid #e7e7e7" Height="26px"
                                                                                                         DataTextField="LedgerName" AppendDataBoundItems="True">
                                                                                                         <asp:ListItem Text="Select Supplier" Value="0"></asp:ListItem>
                                                                                                     </asp:DropDownList>
