@@ -393,7 +393,7 @@ public partial class CustomerInfo : System.Web.UI.Page
                     EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
                     if (EnableOpbalance == "NO")
                     {
-                        if (this.frmViewAdd.FindControl("txtOpenBalAdd") != null)
+                        if (this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtOpenBalAdd") != null)
                         {
                             ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtOpenBalAdd")).Enabled = false;
                             ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtdueDateadd")).Enabled = false;
@@ -403,7 +403,7 @@ public partial class CustomerInfo : System.Web.UI.Page
 
                         else
                         {
-                            if (this.frmViewAdd.FindControl("txtOpenBalAdd") == null)
+                            if (this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtOpenBalAdd") == null)
                             {
                                 ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtOpenBalAdd")).Enabled = false;
                                 ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtdueDateadd")).Enabled = false;
@@ -425,7 +425,7 @@ public partial class CustomerInfo : System.Web.UI.Page
                 EnableOpbalance = bl.getEnableOpBalanceConfig(connection);
                 if (EnableOpbalance == "NO")
                 {
-                    if (this.frmViewAdd.FindControl("txtOpenBal") != null)
+                    if (this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtOpenBal") != null)
                     {
                         //if (this.frmViewAdd.FindControl("txtOpenBalAdd") != null)
                         //{
@@ -439,7 +439,7 @@ public partial class CustomerInfo : System.Web.UI.Page
 
                     else
                     {
-                        if (this.frmViewAdd.FindControl("txtOpenBal") == null)
+                        if (this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtOpenBal") == null)
                         {
                             ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtOpenBal")).Enabled = false;
                             ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtdueDate")).Enabled = false;

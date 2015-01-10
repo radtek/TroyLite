@@ -91,7 +91,7 @@ public partial class ChangePassword : System.Web.UI.Page
                     DateTime ts;
                     ts = dt.AddDays(30);
 
-                    objBus.ChangePassword(Request.Cookies["LoggedUserName"].Value, txtNewPass.Text, Request.Cookies["Company"].Value, ts);
+                    //objBus.ChangePassword(Request.Cookies["LoggedUserName"].Value, txtNewPass.Text, Request.Cookies["Company"].Value, ts);
                     //errorDisplay.AddItem("Your password has been changed successfully.", DisplayIcons.GreenTick, false);
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Your password has been changed successfully.');", true);
                     txtCurrentPass.Text = string.Empty;

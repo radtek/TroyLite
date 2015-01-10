@@ -1816,13 +1816,13 @@ public class BusinessLogic
 
     }
 
-    public void ChangePassword(string userName, string password, string connection, DateTime ts)
+    public void ChangePassword(string userName, string password, string connection, string ts)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(connection);
 
         int retValue = 0;
-        string dbQry = string.Format("Update tblUserInfo Set Userpwd = '{0}' Where UserName = '{1}'", password, userName, ts);
+        string dbQry = string.Format("Update tblUserInfo Set Userpwd = '{0}', ExpiryDate = '{2}' Where UserName = '{1}'", password, userName, ts);
 
         try
         {
@@ -50669,6 +50669,31 @@ public class BusinessLogic
      }
 
 
+     public bool AddWeekOffRotaForTheEmployee(string empNo, string supervisorEmpNo, DateTime rotaSourceOrginDate, DateTime rotaShiftedDate)
+     {
+         DBManager manager = new DBManager(DataProvider.OleDb);
+         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+         string dbQry = string.Empty;
+
+         try
+         {
+             manager.Open();
+             dbQry = string.Format(@"Insert into tblEmployeeWeekOffRota (EmployeeNo,SourceDate,ShiftedDate,ApprovedBy,IsActive)
+                                        Values({0},Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),{3},{4})", empNo, rotaSourceOrginDate.ToShortDateString(), rotaShiftedDate.ToShortDateString(), supervisorEmpNo, true.ToString());
+             manager.ExecuteNonQuery(CommandType.Text, dbQry);
+             return true;
+         }
+         catch (Exception ex)
+         {
+             throw ex;
+         }
+         finally
+         {
+             if (manager != null)
+                 manager.Dispose();
+         }
+     }
+
      public string getEnableOpBalanceConfig(string connection)
      {
          DBManager manager = new DBManager(DataProvider.OleDb);
@@ -63701,38 +63726,6 @@ public class BusinessLogic
             }
         }
 
-        public string getEnableOpBalanceConfig(string connection)
-        {
-            DBManager manager = new DBManager(DataProvider.OleDb);
-            manager.ConnectionString = CreateConnectionString(connection);// +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
-            DataSet ds = new DataSet();
-            StringBuilder dbQry = new StringBuilder();
-            string dbQry2 = string.Empty;
-
-            try
-            {
-                manager.Open();
-
-                dbQry.Append("SELECT   KeyValue  From tblSettings WHERE key='OPBAL'");
-
-                ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
-
-                if (ds.Tables[0].Rows.Count > 0)
-                    return ds.Tables[0].Rows[0]["KeyValue"].ToString();
-                else
-                    return "";
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (manager != null)
-                    manager.Dispose();
-            }
-        }
-
         public DataTable GetAllMonths()
         {
             DBManager manager = new DBManager(DataProvider.OleDb);
@@ -63843,6 +63836,32 @@ public class BusinessLogic
         finally
         {
             manager.Dispose();
+        }
+    }
+
+    public bool AddCompOffForTheEmployee(string empNo, string supervisorEmpNo, DateTime compOffOrginDate, string compOffReason)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        string dbQry = string.Empty;
+
+        try
+        {
+            manager.Open();
+            dbQry = string.Format(@"Insert into tblEmployeeCompOff (EmployeeNo,CompOffDate,CompOffReason,ApprovedBy,IsActive)
+                                        Values({0},Format('{1}', 'dd/mm/yyyy'),""{2}"",{3},{4})", empNo, compOffOrginDate.ToShortDateString(), compOffReason, supervisorEmpNo, true.ToString());
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+
         }
     }
 
@@ -64566,6 +64585,12 @@ public class BusinessLogic
 
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
+            dbQry = string.Format("INSERT INTO tblCustomerCategory(CusCategory_Value, CusCategory_Name) VALUES('{0}','{1}')",
+                CustomerCategory_Value, CustomerCategory_Name);
+
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+
             sAuditStr = "Mapping : " + PriceList_Name + " + and + " + CustomerCategory_Name + " added. Record Details :  User :" + Username;
             dbQry = string.Format("INSERT INTO  tblAudit(Description,Command,auditdate) VALUES('{0}','{1}',Format('{2}', 'dd/mm/yyyy'))", sAuditStr, "Add New", DateTime.Now.ToString());
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
@@ -64658,6 +64683,11 @@ public class BusinessLogic
             }
 
             dbQry = string.Format("Update tblMapPriceList SET PriceList_Id={0}, PriceList_Name='{1}', CustomerCategory_Value='{2}', CustomerCategory_Name='{3}' WHERE ID={4}", PriceList_Id, PriceList_Name, CustomerCategory_Value, CustomerCategory_Name, ID);
+
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+            dbQry = string.Format("Update tblCustomerCategory SET CusCategory_Value='{0}', CusCategory_Name='{1}' WHERE ID='{1}'",
+                CustomerCategory_Name, CustomerCategory_Name);
 
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
