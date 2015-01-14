@@ -2608,7 +2608,7 @@ public class BusinessLogic
 
     #region Group Information
 
-    public DataSet ListGroupInfo1(string connection, string txtSearch, string dropDown)
+    public DataSet ListGroupInfo(string connection, string txtSearch, string dropDown)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(connection);
@@ -7707,7 +7707,7 @@ public class BusinessLogic
                 }
                 else
                 {
-            dbQry = "select CategoryID, CategoryName from tblCategories Order By CategoryName ";
+                    dbQry = "select CategoryID, CategoryName from tblCategories Order By CategoryName ";
                 }
             }
             else
@@ -7989,9 +7989,9 @@ public class BusinessLogic
         DateTime dpdat = DateTime.Now;
         DateTime nlcdat = DateTime.Now;
 
-        DateTime mrpprevdat;
-        DateTime nlcprevdat;
-        DateTime dpprevdat;
+        DateTime mrpprevdat = DateTime.Now;
+        DateTime nlcprevdat = DateTime.Now;
+        DateTime dpprevdat = DateTime.Now;
 
         DateTime mrpnewdat;
         DateTime nlcnewdat;
@@ -8003,49 +8003,8 @@ public class BusinessLogic
 
         try
         {
-            manager.Open();
-
-            dbQry3 = string.Format("Select mrpeffdate,dpeffdate,nlceffdate,rate,nlc,dealerrate from tblproductmaster Where itemcode='{0}' ", ItemCode);
-            dsOld = manager.ExecuteDataSet(CommandType.Text, dbQry3);
-            if (dsOld != null)
-            {
-                if (dsOld.Tables.Count > 0)
-                {
-                    mrpdat = Convert.ToDateTime(dsOld.Tables[0].Rows[0]["mrpeffdate"]);
-                    dpdat = Convert.ToDateTime(dsOld.Tables[0].Rows[0]["dpeffdate"]);
-                    nlcdat = Convert.ToDateTime(dsOld.Tables[0].Rows[0]["nlceffdate"]);
-                    oldmrp = Convert.ToDouble(dsOld.Tables[0].Rows[0]["rate"]);
-                    oldnlc = Convert.ToDouble(dsOld.Tables[0].Rows[0]["nlc"]);
-                    olddp = Convert.ToDouble(dsOld.Tables[0].Rows[0]["dealerrate"]);
-                }
-            }
-
-            if (mrpdat == MRPEffDate)
-            {
-                mrpprevdat = MRPEffDate;
-                //mrpnewdat = MRPEffDate;
-            }
-            else
-            {
-                mrpprevdat = MRPEffDate.AddDays(-1);
-            }
-            if (nlcdat == NLCEffDate)
-            {
-                nlcprevdat = NLCEffDate;
-            }
-            else
-            {
-                nlcprevdat = NLCEffDate.AddDays(-1);
-            }
-            if (dpdat == DPEffDate)
-            {
-                dpprevdat = DPEffDate;
-            }
-            else
-            {
-                dpprevdat = DPEffDate.AddDays(-1);
-            }
-
+            manager.Open();            
+            
             dbQ = "SELECT KeyValue From tblSettings WHERE key='SAVELOG'";
             dsd = manager.ExecuteDataSet(CommandType.Text, dbQ.ToString());
             if (dsd.Tables[0].Rows.Count > 0)
@@ -8100,9 +8059,9 @@ public class BusinessLogic
             manager.ExecuteDataSet(CommandType.Text, dbQry);
 
 
-            dbQry = string.Format("Delete From tblProductPrices Where ItemCode = '{0}'", ItemCode);
+            //dbQry = string.Format("Delete From tblProductPrices Where ItemCode = '{0}'", ItemCode);
 
-            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+            //manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
             if (dsprice != null)
             {
@@ -8110,24 +8069,56 @@ public class BusinessLogic
                 {
                     foreach (DataRow dr in dsprice.Tables[0].Rows)
                     {
-                        dbQry = string.Format("INSERT INTO tblProductPrices(EffDate,PriceName,Price,PriceId,Discount,ItemCode) VALUES(Format('{0}', 'dd/mm/yyyy'),'{1}',{2},{3},{4},'{5}')",
-                            Convert.ToDateTime(dr["EffDate"]), Convert.ToString(dr["PriceName"]), Convert.ToDouble(dr["Price"]), Convert.ToInt32(dr["Id"]), Convert.ToDouble(dr["Discount"]), ItemCode);
+
+                        dbQry3 = string.Format("Select Effdate from tblproductprices Where itemcode='{0}' and pricename ='{1}'", ItemCode, Convert.ToString(dr["PriceName"]));
+                        dsOld = manager.ExecuteDataSet(CommandType.Text, dbQry3);
+                        if (dsOld != null)
+                        {
+                            if (dsOld.Tables.Count > 0)
+                            {
+                                mrpdat = Convert.ToDateTime(dsOld.Tables[0].Rows[0]["effdate"]);
+                            }
+                        }
+
+                        dbQry = string.Format("UPDATE tblProductPrices set EffDate = Format('{0}', 'dd/mm/yyyy'),Price = {1},PriceId = {2},Discount = {3} where ItemCode = '{4}' and PriceName= '{5}'",
+                            Convert.ToDateTime(dr["EffDate"]), Convert.ToDouble(dr["Price"]), Convert.ToInt32(dr["Id"]), Convert.ToDouble(dr["Discount"]), ItemCode, Convert.ToString(dr["PriceName"]));
 
                         manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+
+                        if (mrpdat == Convert.ToDateTime(dr["EffDate"]))
+                        {
+                            mrpprevdat = Convert.ToDateTime(dr["EffDate"]);
+                        }
+                        else
+                        {
+                            mrpprevdat = Convert.ToDateTime(dr["EffDate"]).AddDays(-1);
+                        }
+
+                        if (mrpdat == Convert.ToDateTime(dr["EffDate"]))
+                        {
+                        }
+                        else
+                        {
+                            dbQry2 = string.Format("INSERT INTO tblProductPricehistory VALUES('{0}','{1}', '{2}',{3},'{4}',{5},Format('{6}', 'dd/mm/yyyy'),Format('{7}', 'dd/mm/yyyy'),Format('{8}', 'dd/mm/yyyy'),'{9}',{10},{11},{12})",
+                                     ItemCode, ProductName, Model, CategoryID, ProductDesc, ROL, Convert.ToDateTime(dr["EffDate"]), mrpdat.ToShortDateString(), mrpprevdat.ToShortDateString(), Convert.ToString(dr["PriceName"]), Convert.ToDouble(dr["Price"]), Convert.ToDouble(dr["Discount"]), Convert.ToInt32(dr["Id"]));
+
+                            manager.ExecuteDataSet(CommandType.Text, dbQry2);
+                        }
 
                     }
                 }
             }
 
-            if ((mrpdat == MRPEffDate) && (nlcdat == NLCEffDate) && (dpdat == DPEffDate))
-            {
-            }
-            else
-            {
-                dbQry2 = string.Format("INSERT INTO tblProducthistory VALUES('{0}','{1}', '{2}',{3},'{4}',{5},{6},{7},{8},'{9}',Format('{10}', 'dd/mm/yyyy'),Format('{11}', 'dd/mm/yyyy'),Format('{12}', 'dd/mm/yyyy'),Format('{13}', 'dd/mm/yyyy'),Format('{14}', 'dd/mm/yyyy'),Format('{15}', 'dd/mm/yyyy'),Format('{16}', 'dd/mm/yyyy'),Format('{17}', 'dd/mm/yyyy'),Format('{18}', 'dd/mm/yyyy'))",
-                    ItemCode, ProductName, Model, CategoryID, ProductDesc, ROL, oldmrp, olddp, oldnlc, block, MRPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), NLCEffDate.ToShortDateString(), mrpdat.ToShortDateString(), mrpprevdat.ToShortDateString(), dpdat.ToShortDateString(), dpprevdat.ToShortDateString(), nlcdat.ToShortDateString(), nlcprevdat.ToShortDateString());
-                manager.ExecuteDataSet(CommandType.Text, dbQry2);
-            }
+            //if ((mrpdat == MRPEffDate) && (nlcdat == NLCEffDate) && (dpdat == DPEffDate))
+            //{
+            //}
+            //else
+            //{
+            //    dbQry2 = string.Format("INSERT INTO tblProducthistory VALUES('{0}','{1}', '{2}',{3},'{4}',{5},{6},{7},{8},'{9}',Format('{10}', 'dd/mm/yyyy'),Format('{11}', 'dd/mm/yyyy'),Format('{12}', 'dd/mm/yyyy'),Format('{13}', 'dd/mm/yyyy'),Format('{14}', 'dd/mm/yyyy'),Format('{15}', 'dd/mm/yyyy'),Format('{16}', 'dd/mm/yyyy'),Format('{17}', 'dd/mm/yyyy'),Format('{18}', 'dd/mm/yyyy'))",
+            //        ItemCode, ProductName, Model, CategoryID, ProductDesc, ROL, oldmrp, olddp, oldnlc, block, MRPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), NLCEffDate.ToShortDateString(), mrpdat.ToShortDateString(), mrpprevdat.ToShortDateString(), dpdat.ToShortDateString(), dpprevdat.ToShortDateString(), nlcdat.ToShortDateString(), nlcprevdat.ToShortDateString());
+            //    manager.ExecuteDataSet(CommandType.Text, dbQry2);
+            //}
 
             if (dsAudit != null)
             {
@@ -8330,10 +8321,10 @@ public class BusinessLogic
             manager.ExecuteDataSet(CommandType.Text, dbQry);
            
 
-            dbQry2 = string.Format("INSERT INTO tblProducthistory VALUES('{0}','{1}', '{2}',{3},'{4}',{5},{6},{7},{8},'{9}',Format('{10}', 'dd/mm/yyyy'),Format('{11}', 'dd/mm/yyyy'),Format('{12}', 'dd/mm/yyyy'),Format('{13}', 'dd/mm/yyyy'),Format('{14}', 'dd/mm/yyyy'),Format('{15}', 'dd/mm/yyyy'),Format('{16}', 'dd/mm/yyyy'),Format('{17}', 'dd/mm/yyyy'),Format('{18}', 'dd/mm/yyyy'))",
-                ItemCode, ProductName, Model, CategoryID, ProductDesc, ROL, Rate, DealerRate, NLC, block, MRPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), NLCEffDate.ToShortDateString(), MRPEffDate.ToShortDateString(), MRPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), NLCEffDate.ToShortDateString(), NLCEffDate.ToShortDateString());
+            //dbQry2 = string.Format("INSERT INTO tblProducthistory VALUES('{0}','{1}', '{2}',{3},'{4}',{5},{6},{7},{8},'{9}',Format('{10}', 'dd/mm/yyyy'),Format('{11}', 'dd/mm/yyyy'),Format('{12}', 'dd/mm/yyyy'),Format('{13}', 'dd/mm/yyyy'),Format('{14}', 'dd/mm/yyyy'),Format('{15}', 'dd/mm/yyyy'),Format('{16}', 'dd/mm/yyyy'),Format('{17}', 'dd/mm/yyyy'),Format('{18}', 'dd/mm/yyyy'))",
+            //    ItemCode, ProductName, Model, CategoryID, ProductDesc, ROL, Rate, DealerRate, NLC, block, MRPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), NLCEffDate.ToShortDateString(), MRPEffDate.ToShortDateString(), MRPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), NLCEffDate.ToShortDateString(), NLCEffDate.ToShortDateString());
 
-            manager.ExecuteDataSet(CommandType.Text, dbQry2);
+            //manager.ExecuteDataSet(CommandType.Text, dbQry2);
 
             double MRate = 0;
             double NRate = 0;
@@ -8349,6 +8340,11 @@ public class BusinessLogic
                             Convert.ToDateTime(dr["EffDate"]), Convert.ToString(dr["PriceName"]), Convert.ToDouble(dr["Price"]), Convert.ToInt32(dr["Id"]), Convert.ToDouble(dr["Discount"]), ItemCode);
 
                         manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                        dbQry2 = string.Format("INSERT INTO tblProductPricehistory VALUES('{0}','{1}', '{2}',{3},'{4}',{5},Format('{6}', 'dd/mm/yyyy'),Format('{7}', 'dd/mm/yyyy'),Format('{8}', 'dd/mm/yyyy'),'{9}',{10},{11},{12})",
+                                    ItemCode, ProductName, Model, CategoryID, ProductDesc, ROL, Convert.ToDateTime(dr["EffDate"]), Convert.ToDateTime(dr["EffDate"]), Convert.ToDateTime(dr["EffDate"]), Convert.ToString(dr["PriceName"]), Convert.ToDouble(dr["Price"]), Convert.ToDouble(dr["Discount"]), Convert.ToInt32(dr["Id"]));
+                        
+                        manager.ExecuteDataSet(CommandType.Text, dbQry2);
 
                     }
                 }
@@ -61525,12 +61521,12 @@ public class BusinessLogic
             }
         }
 
-        public void UpdateScreen(string connection, int ScreenNo, string ScreenName, string Subject, int ScreenId)
+        public void UpdateScreen(string connection, int ScreenNo, string ScreenName, string Subject, int ScreenId, string Content)
         {
             DBManager manager = new DBManager(DataProvider.OleDb);
             manager.ConnectionString = CreateConnectionString(connection);
 
-            string dbQry = string.Format("Update tblScreenMaster Set ScreenNo = {0}, ScreenName = '{1}', Subject = '{2}' Where ScreenId = {3}", ScreenNo, ScreenName, Subject, ScreenId);
+            string dbQry = string.Format("Update tblScreenMaster Set ScreenNo = {0}, ScreenName = '{1}', Subject = '{2}', Content = '{4}' Where ScreenId = {3}", ScreenNo, ScreenName, Subject, ScreenId, Content);
 
             try
             {
@@ -64573,14 +64569,14 @@ public class BusinessLogic
 
             manager.BeginTransaction();
 
-            object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblMapPriceList Where CustomerCategory_Name='" + CustomerCategory_Name + "'");
-            if (exists.ToString() != string.Empty)
-            {
-                if (int.Parse(exists.ToString()) > 0)
-                {
-                    throw new Exception("Customer Category already Exists in mapping");
-                }
-            }
+            //object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblMapPriceList Where CustomerCategory_Name='" + CustomerCategory_Name + "'");
+            //if (exists.ToString() != string.Empty)
+            //{
+            //    if (int.Parse(exists.ToString()) > 0)
+            //    {
+            //        throw new Exception("Customer Category already Exists in mapping");
+            //    }
+            //}
 
             dbQry = string.Format("INSERT INTO tblMapPriceList(PriceList_Id, PriceList_Name, CustomerCategory_Value, CustomerCategory_Name) VALUES({0},'{1}','{2}','{3}')",
                 PriceList_Id, PriceList_Name, CustomerCategory_Value, CustomerCategory_Name);
@@ -64619,19 +64615,19 @@ public class BusinessLogic
 
         if (dropDown == "PriceListName")
         {
-            dbQry = "select * from tblMapPriceList Where PriceList_Name like '" + txtSearch + "'" + " Order By Id";
+            dbQry = "select * from (tblMapPriceList inner join tblCustomerCategory on tblCustomerCategory.CusCategory_Name = tblMapPriceList.CustomerCategory_Name)  Where tblMapPriceList.PriceList_Name like '" + txtSearch + "'" + " Order By tblMapPriceList.Id";
         }
         else if (dropDown == "CusCategoryName")
         {
-            dbQry = "select * from tblMapPriceList Where CustomerCategory_Name like '" + txtSearch + "'" + " Order By Id";
+            dbQry = "select * from (tblMapPriceList inner join tblCustomerCategory on tblCustomerCategory.CusCategory_Name = tblMapPriceList.CustomerCategory_Name) Where tblMapPriceList.CustomerCategory_Name like '" + txtSearch + "'" + " Order By tblMapPriceList.Id";
         }   
         else if (dropDown == "0" || dropDown == "All" && txtSearch != "%%")
         {
-            dbQry = "select * from tblMapPriceList Where (PriceList_Name like '" + txtSearch + "'" + " Or CustomerCategory_Name like '" + txtSearch + "'" + " ) Order By Id";
+            dbQry = "select * from (tblMapPriceList inner join tblCustomerCategory on tblCustomerCategory.CusCategory_Name = tblMapPriceList.CustomerCategory_Name) Where (tblMapPriceList.PriceList_Name like '" + txtSearch + "'" + " Or tblMapPriceList.CustomerCategory_Name like '" + txtSearch + "'" + " ) Order By tblMapPriceList.Id";
         }        
         else
         {
-            dbQry = string.Format("select * from tblMapPriceList Order By Id");
+            dbQry = string.Format("select * from (tblMapPriceList inner join tblCustomerCategory on tblCustomerCategory.CusCategory_Name = tblMapPriceList.CustomerCategory_Name) Order By tblMapPriceList.Id");
         }
 
         try
@@ -64654,7 +64650,7 @@ public class BusinessLogic
         }
     }
 
-    public void UpdateMappingInfo(string connection, int ID, int PriceList_Id, string PriceList_Name, string CustomerCategory_Value, string CustomerCategory_Name, string Username)
+    public void UpdateMappingInfo(string connection, int ID, int PriceList_Id, string PriceList_Name, string CustomerCategory_Value, string CustomerCategory_Name, string Username, int CusCategory_ID)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(connection);
@@ -64675,21 +64671,21 @@ public class BusinessLogic
 
             manager.BeginTransaction();
 
-            object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblMapPriceList Where CustomerCategory_Name='" + CustomerCategory_Name + "'");
-            if (exists.ToString() != string.Empty)
-            {
-                if (int.Parse(exists.ToString()) > 0)
-                {
-                    throw new Exception("Customer Category already Exists in mapping");
-                }
-            }
+            //object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblMapPriceList Where CustomerCategory_Name='" + CustomerCategory_Name + "'");
+            //if (exists.ToString() != string.Empty)
+            //{
+            //    if (int.Parse(exists.ToString()) > 0)
+            //    {
+            //        throw new Exception("Customer Category already Exists in mapping");
+            //    }
+            //}
 
             dbQry = string.Format("Update tblMapPriceList SET PriceList_Id={0}, PriceList_Name='{1}', CustomerCategory_Value='{2}', CustomerCategory_Name='{3}' WHERE ID={4}", PriceList_Id, PriceList_Name, CustomerCategory_Value, CustomerCategory_Name, ID);
 
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
-            dbQry = string.Format("Update tblCustomerCategory SET CusCategory_Value='{0}', CusCategory_Name='{1}' WHERE ID='{1}'",
-                CustomerCategory_Name, CustomerCategory_Name);
+            dbQry = string.Format("Update tblCustomerCategory SET CusCategory_Value='{0}', CusCategory_Name='{1}' WHERE CusCategory_ID={2}",
+                CustomerCategory_Name, CustomerCategory_Name, CusCategory_ID);
 
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -64833,7 +64829,7 @@ public class BusinessLogic
 
             manager.BeginTransaction();
 
-            dbQry = string.Format("INSERT INTO tblPriceList(PriceNam,Description) VALUES('{0}','{1}')",
+            dbQry = string.Format("INSERT INTO tblPriceList(PriceName,Description) VALUES('{0}','{1}')",
                 PriceName, Description);
 
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
@@ -65465,6 +65461,435 @@ public class BusinessLogic
         finally
         {
             manager.Dispose();
+        }
+    }
+
+    public bool IsCategoryFoundinMapping(string connection, string CustomerCategory_Name)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        string dbQry = string.Empty;
+
+        try
+        {
+
+            dbQry = string.Format("Select CustomerCategory_Name from tblMapPriceList Where CustomerCategory_Name = '" + CustomerCategory_Name + "' ");
+
+            manager.Open();
+            object retVal = manager.ExecuteScalar(CommandType.Text, dbQry);
+
+            if ((retVal != null) && (retVal != DBNull.Value))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
+    public bool CheckIfItemCodeDuplicatePriceList(string ItemCode)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        int Totalqty = 0;
+        int qty = 0;
+        string dbQry = string.Empty;
+
+        try
+        {
+            manager.Open();
+            dbQry = "SELECT Count(*) FROM tblProductPrices Where ItemCode ='" + ItemCode + "'";
+
+            object qtyObj = manager.ExecuteScalar(CommandType.Text, dbQry);
+
+            if (qtyObj != null && qtyObj != DBNull.Value)
+            {
+                qty = (int)qtyObj;
+
+                if (qty > 0)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
+    public void InsertBulkProductPrices(string connection, DataSet dsbulk, string Username, string Price, int PriceId)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        DataSet dsNew = new DataSet();
+
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+        string dbQry2 = string.Empty;
+        DataSet dsOld = new DataSet();
+        string dbQry3 = string.Empty;
+
+        string sAuditStr = string.Empty;
+
+        string Model = string.Empty;
+        string PrName = string.Empty;
+        string Bnd = string.Empty;
+        int Cate = 0;
+        string blk = string.Empty;
+        double rl = 0;
+
+        string dbQ = string.Empty;
+        DataSet dsd = new DataSet();
+        string logdescription = string.Empty;
+        string description = string.Empty;
+        string Logsave = string.Empty;
+
+        try
+        {
+            manager.Open();
+
+            dbQ = "SELECT KeyValue From tblSettings WHERE key='SAVELOG'";
+            dsd = manager.ExecuteDataSet(CommandType.Text, dbQ.ToString());
+            if (dsd.Tables[0].Rows.Count > 0)
+                Logsave = dsd.Tables[0].Rows[0]["KeyValue"].ToString();
+
+            if (Logsave == "YES")
+            {
+                //string value1 = string.Empty;
+                //string value2 = string.Empty;
+                //string value3 = string.Empty;
+
+                //int middlePos = 0;
+                //logdescription = string.Format("INSERT INTO tblProductMaster VALUES({0},{1}, {2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37})",
+                //ItemCode, ProductName, Model, CategoryID, ProductDesc, Stock, ROL, Rate, Unit, VAT, Discount, BuyUnit, BuyRate, BuyVAT, BuyDiscount, DealerUnit, DealerRate, DealerVAT, DealerDiscount, Complex, Measure_Unit, Accept_Role, CST, Barcode, ExecutiveCommission, CommodityCode, NLC, block, productlevel, MRPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), NLCEffDate.ToShortDateString(), MRPEffDate.ToShortDateString(), MRPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), NLCEffDate.ToShortDateString(), NLCEffDate.ToShortDateString());
+                //logdescription = logdescription.Trim();
+                //if (logdescription.Length > 255)
+                //{
+                //    value1 = logdescription.Substring(0, 255);
+                //    value2 = logdescription.Substring(256, 255);
+                //    middlePos = logdescription.Length - (value1.Length + value2.Length);
+                //    if (middlePos > 0)
+                //        value3 = logdescription.Substring(510, middlePos);
+                //    else
+                //        value3 = "";
+                //}
+                //else
+                //{
+                //    value1 = logdescription;
+                //    value2 = "";
+
+                //    value3 = "";
+                //}
+                //description = string.Format("INSERT INTO tblLog(LogDate,LogDescription,LogUsername,LogKey,LogDescription1,LogDescription2,LogMethod) VALUES(Format('{0}', 'dd/mm/yyyy'),'{1}','{2}','{3}','{4}','{5}','{6}')",
+                //     DateTime.Now.ToString(), value1, Username, "", value2, value3, "InsertProduct");
+                //manager.ExecuteNonQuery(CommandType.Text, description);
+
+                //logdescription = string.Format("INSERT INTO tblProducthistory VALUES({0},{1}, {2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18})",
+                //ItemCode, ProductName, Model, CategoryID, ProductDesc, ROL, Rate, DealerRate, NLC, block, MRPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), NLCEffDate.ToShortDateString(), MRPEffDate.ToShortDateString(), MRPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), DPEffDate.ToShortDateString(), NLCEffDate.ToShortDateString(), NLCEffDate.ToShortDateString());
+                //logdescription = logdescription.Trim();
+                //description = string.Format("INSERT INTO tblLog(LogDate,LogDescription,LogUsername,LogKey,LogMethod) VALUES(Format('{0}', 'dd/mm/yyyy'),'{1}','{2}','{3}','{4}')",
+                //     DateTime.Now.ToString(), logdescription.ToString(), Username, "", "InsertProduct");
+                //manager.ExecuteNonQuery(CommandType.Text, description);
+            }
+
+            string productunit = string.Empty;
+            int Catname = 0;
+
+            if (dsbulk != null)
+            {
+                if (dsbulk.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in dsbulk.Tables[0].Rows)
+                    {
+                        if ((Convert.ToString(dr["ItemCode"]) == null) || (Convert.ToString(dr["ItemCode"]) == ""))
+                        {
+
+                        }
+                        else
+                        {
+                            dbQry3 = string.Format("Select tblproductmaster.itemcode,productname,productdesc,CategoryId,block,rol,Model from tblproductmaster Where tblproductmaster.itemcode='{0}' ", Convert.ToString(dr["itemcode"]));
+                            dsOld = manager.ExecuteDataSet(CommandType.Text, dbQry3);
+                            if (dsOld != null)
+                            {
+                                if (dsOld.Tables.Count > 0)
+                                {
+                                    
+                                    Model = Convert.ToString(dsOld.Tables[0].Rows[0]["Model"]);
+                                    PrName = Convert.ToString(dsOld.Tables[0].Rows[0]["productname"]);
+                                    Bnd = Convert.ToString(dsOld.Tables[0].Rows[0]["productdesc"]);
+                                    Cate = Convert.ToInt32(dsOld.Tables[0].Rows[0]["CategoryId"]);
+                                    blk = Convert.ToString(dsOld.Tables[0].Rows[0]["block"]);
+                                    rl = Convert.ToDouble(dsOld.Tables[0].Rows[0]["rol"]);
+                                }
+                            }
+
+                            dbQry = string.Format("INSERT INTO tblProductPrices(EffDate,PriceName,Price,PriceId,Discount,ItemCode) VALUES(Format('{0}', 'dd/mm/yyyy'),'{1}',{2},{3},{4},'{5}')",
+                            Convert.ToDateTime(dr["EffectiveDate"]), Price, Convert.ToDouble(dr["Price"]), PriceId, Convert.ToDouble(dr["Discount"]), Convert.ToString(dr["ItemCode"]));
+                            
+                            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                            dbQry2 = string.Format("INSERT INTO tblProductPricehistory VALUES('{0}','{1}', '{2}',{3},'{4}',{5},Format('{6}', 'dd/mm/yyyy'),Format('{7}', 'dd/mm/yyyy'),Format('{8}', 'dd/mm/yyyy'),'{9}',{10},{11},{12})",
+                                        Convert.ToString(dr["itemcode"]), PrName, Model, Cate, Bnd, rl, Convert.ToDateTime(dr["EffectiveDate"]), Convert.ToDateTime(dr["EffectiveDate"]), Convert.ToDateTime(dr["EffectiveDate"]), Price, Convert.ToDouble(dr["Price"]), Convert.ToDouble(dr["Discount"]), PriceId);
+                            manager.ExecuteDataSet(CommandType.Text, dbQry2);
+
+                        }
+                    }
+                }
+            }
+
+            sAuditStr = "Products added. Record Details :  User :" + Username + " DateTime: " + DateTime.Now.ToString();
+            dbQry = string.Format("INSERT INTO  tblAudit(Description,Command,auditdate) VALUES('{0}','{1}',Format('{2}', 'dd/mm/yyyy'))", sAuditStr, "Add New", DateTime.Now.ToString());
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    public void UpdateBulkProductPrices(string connection, DataSet dsbulk, string Username, string pricelist, int type)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        DataSet dsNew = new DataSet();
+
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+        string dbQry2 = string.Empty;
+        DataSet dsOld = new DataSet();
+        string dbQry3 = string.Empty;
+
+        string sAuditStr = string.Empty;
+
+        string dbQ = string.Empty;
+        DataSet dsd = new DataSet();
+        string logdescription = string.Empty;
+        string description = string.Empty;
+        string Logsave = string.Empty;
+
+        DateTime mrpdat = DateTime.Now;
+        DateTime dpdat = DateTime.Now;
+        DateTime nlcdat = DateTime.Now;
+
+        DateTime mrpprevdat;
+        DateTime nlcprevdat;
+        DateTime dpprevdat;
+
+        DateTime mrpnewdat;
+        DateTime nlcnewdat;
+        DateTime dpnewdat;
+
+        double oldmrp = 0;
+        double oldnlc = 0;
+        double olddp = 0;
+
+        string Model = string.Empty;
+        string PrName = string.Empty;
+        string Bnd = string.Empty;
+        int Cate = 0;
+        string blk = string.Empty;
+        double rl = 0;
+        string tim = DateTime.Now.ToString();
+
+        try
+        {
+            manager.Open();
+
+            string productunit = string.Empty;
+            int Catname = 0;
+
+            if (dsbulk != null)
+            {
+                if (dsbulk.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in dsbulk.Tables[0].Rows)
+                    {
+
+                        if ((Convert.ToString(dr["itemcode"]) == null) || (Convert.ToString(dr["itemcode"]) == ""))
+                            {
+
+                            }
+                            else
+                            {
+                                dbQry3 = string.Format("Select tblproductmaster.itemcode,productname,productdesc,tblProductPrices.Effdate as Effdate,CategoryId,block,rol,Model from tblproductmaster inner join tblProductPrices on tblproductmaster.itemcode = tblProductPrices.itemcode Where tblproductmaster.itemcode='{0}' and tblProductPrices.PriceName = '{1}' ", Convert.ToString(dr["itemcode"]), pricelist);
+                                dsOld = manager.ExecuteDataSet(CommandType.Text, dbQry3);
+                                if (dsOld != null)
+                                {
+                                    if (dsOld.Tables.Count > 0)
+                                    {
+                                        Model = Convert.ToString(dsOld.Tables[0].Rows[0]["Model"]);
+                                        PrName = Convert.ToString(dsOld.Tables[0].Rows[0]["productname"]);
+                                        Bnd = Convert.ToString(dsOld.Tables[0].Rows[0]["productdesc"]);
+                                        Cate = Convert.ToInt32(dsOld.Tables[0].Rows[0]["CategoryId"]);
+                                        blk = Convert.ToString(dsOld.Tables[0].Rows[0]["block"]);
+                                        rl = Convert.ToDouble(dsOld.Tables[0].Rows[0]["rol"]);
+                                        mrpdat = Convert.ToDateTime(dsOld.Tables[0].Rows[0]["Effdate"]);
+                                        //dpdat = Convert.ToDateTime(dsOld.Tables[0].Rows[0]["dpeffdate"]);
+                                        //nlcdat = Convert.ToDateTime(dsOld.Tables[0].Rows[0]["nlceffdate"]);
+                                        //oldmrp = Convert.ToDouble(dsOld.Tables[0].Rows[0]["rate"]);
+                                        //oldnlc = Convert.ToDouble(dsOld.Tables[0].Rows[0]["nlc"]);
+                                        //olddp = Convert.ToDouble(dsOld.Tables[0].Rows[0]["dealerrate"]);
+                                        //NLCEffDate = Convert.ToDateTime(dsOld.Tables[0].Rows[0]["nlceffdate"]);
+                                        //DPEffDate = Convert.ToDateTime(dsOld.Tables[0].Rows[0]["dpeffdate"]);
+                                    }
+                                }
+
+                                DateTime EffDate = Convert.ToDateTime(dr["EFFECTIVEDate"]);
+
+
+                                if (mrpdat == EffDate)
+                                {
+                                    mrpprevdat = EffDate;
+                                }
+                                else
+                                {
+                                    mrpprevdat = EffDate.AddDays(-1);
+                                }
+
+                                dbQry = string.Format("UPDATE tblProductPrices SET EffDate=Format('{0}', 'dd/mm/yyyy'),Price={1},Discount={2},Priceid={3} where itemcode = '{4}' and PriceName = '{5}' ", //Jolo Barcode
+                                Convert.ToDateTime(dr["EFFECTIVEDate"]), Convert.ToInt32(dr["Price"]), Convert.ToInt32(dr["Discount"]),type, Convert.ToString(dr["itemcode"]), pricelist); //Jolo Barcode
+
+                                manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+                                if ((mrpdat == EffDate))
+                                {
+                                }
+                                else
+                                {
+                                    dbQry2 = string.Format("INSERT INTO tblProductPricehistory VALUES('{0}','{1}', '{2}',{3},'{4}',{5},Format('{6}', 'dd/mm/yyyy'),Format('{7}', 'dd/mm/yyyy'),Format('{8}', 'dd/mm/yyyy'),'{9}',{10},{11},{12})",
+                                        Convert.ToString(dr["itemcode"]), PrName, Model, Cate, Bnd, rl, EffDate.ToShortDateString(), mrpdat.ToShortDateString(), mrpprevdat.ToShortDateString(),pricelist, Convert.ToInt32(dr["Price"]), Convert.ToInt32(dr["Discount"]), type);
+                                    manager.ExecuteDataSet(CommandType.Text, dbQry2);
+                                }
+                            }                       
+                    }
+                }
+            }
+
+            sAuditStr = "Products updated. Record Details :  User :" + Username + " DateTime: " + DateTime.Now.ToString();
+            dbQry = string.Format("INSERT INTO  tblAudit(Description,Command,auditdate) VALUES('{0}','{1}',Format('{2}', 'dd/mm/yyyy'))", sAuditStr, "Update", DateTime.Now.ToString());
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    public DataSet ListProductPriceHistory(string connection, string ItemCode)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+        //txtSearch = "%" + txtSearch + "%";
+
+        dbQry = string.Format("select PriceName,ItemCode,Price,Discount,EffDate, PriceId as id from tblProductPriceHistory where ItemCode = '" + ItemCode + "' ");
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
+    public DataSet ListBrandsProducts(string connection, string method)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+        string obsolute = string.Empty;
+        string dbQry2 = string.Empty;
+        DataSet dsd = new DataSet();
+        try
+        {
+            manager.Open();
+
+            dbQry2 = "SELECT KeyValue From tblSettings WHERE key='OBSOLUTE'";
+            dsd = manager.ExecuteDataSet(CommandType.Text, dbQry2);
+
+            if (dsd.Tables[0].Rows.Count > 0)
+                obsolute = dsd.Tables[0].Rows[0]["KeyValue"].ToString();
+
+            if (method == "Add")
+            {
+                if (obsolute == "YES")
+                {
+                    dbQry = "select BrandId, BrandName from tblBrand where IsActive = 'YES' Order By BrandName ";
+                }
+                else
+                {
+                    dbQry = "select BrandId, BrandName from tblBrand Order By BrandName ";
+                }
+            }
+            else
+            {
+                dbQry = "select BrandId, BrandName from tblBrand Order By BrandName ";
+            }
+
+            
+            
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
         }
     }
 

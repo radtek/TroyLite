@@ -570,7 +570,9 @@ public partial class ProdMaster : System.Web.UI.Page
             UpdateButton.Visible = false;
             AddButton.Visible = true;
             UpdateButton.Visible = false;
- 
+
+            Session["Method"] = "Add";
+            loadCategories();
 
         }
         catch (Exception ex)
@@ -1248,6 +1250,9 @@ public partial class ProdMaster : System.Web.UI.Page
             string connection = Request.Cookies["Company"].Value;
             DataSet ds = bl.GetProductForId(connection, ItemCode);
 
+            Session["Method"] = "Edit";
+            loadCategories();
+
             if (ds != null)
             {
                 if (ds.Tables[0].Rows.Count > 0)
@@ -1420,6 +1425,19 @@ public partial class ProdMaster : System.Web.UI.Page
                         GrdViewItems.DataSource = null;
                         GrdViewItems.DataBind();
                     }
+
+                    DataSet dstt = bl.ListProductPriceHistory(connection, ItemCode);
+                    if (dstt != null && dstt.Tables[0].Rows.Count > 0)
+                    {
+                        BulkEditGridView1.DataSource = dstt.Tables[0];
+                        BulkEditGridView1.DataBind();                            
+                    }
+                    else
+                    {
+                        BulkEditGridView1.DataSource = null;
+                        BulkEditGridView1.DataBind();
+                    }
+                    
 
                     UpdateButton.Visible = true;
                     AddButton.Visible = false;
@@ -1958,4 +1976,39 @@ public partial class ProdMaster : System.Web.UI.Page
         }
 
     }
+
+    private void loadCategories()
+    {
+        string method = string.Empty;
+
+        if (Session["Method"] == "Add")
+        {
+            method = "Add";
+        }
+        else if (Session["Method"] == "Edit")
+        {
+            method = "Edit";
+        }
+
+        //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
+        BusinessLogic bl = new BusinessLogic();
+        DataSet ds = new DataSet();
+        ddCategoryAdd.Items.Clear();
+        ds = bl.ListCategory(sDataSource, method);
+        ddCategoryAdd.Items.Insert(0, new ListItem("Select Category", "0"));
+        ddCategoryAdd.DataTextField = "CategoryName";
+        ddCategoryAdd.DataValueField = "CategoryID";
+        ddCategoryAdd.DataSource = ds;
+        ddCategoryAdd.DataBind();
+
+        DataSet dst = new DataSet();
+        txtProdDescAdd.Items.Clear();
+        dst = bl.ListBrandsProducts(sDataSource, method);
+        txtProdDescAdd.Items.Insert(0, new ListItem("Select Brand", "0"));
+        txtProdDescAdd.DataTextField = "BrandName";
+        txtProdDescAdd.DataValueField = "BrandName";
+        txtProdDescAdd.DataSource = dst;
+        txtProdDescAdd.DataBind();
+    }
+
 }

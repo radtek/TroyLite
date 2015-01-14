@@ -74,20 +74,6 @@ public partial class GroupInfo : System.Web.UI.Page
     {
 
     }
-
-    protected void BtnClearFilter_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            txtSearch.Text = "";
-            ddCriteria.SelectedIndex = 0;
-        }
-        catch (Exception ex)
-        {
-            TroyLiteExceptionManager.HandleException(ex);
-        }
-    }
-
     protected void InsertCancelButton_Click(object sender, EventArgs e)
     {
         try
@@ -445,7 +431,7 @@ public partial class GroupInfo : System.Web.UI.Page
     protected override void OnInit(EventArgs e)
     {
         base.OnInit(e);
-        grdSource.SelectParameters.Add(new CookieParameter("connection", "Company"));
+        //srcGridView.SelectParameters.Add(new CookieParameter("connection", "Company"));
         grdSource.SelectParameters.Add(new ControlParameter("txtSearch", TypeCode.String, txtSearch.UniqueID, "Text"));
         grdSource.SelectParameters.Add(new ControlParameter("dropDown", TypeCode.String, ddCriteria.UniqueID, "SelectedValue"));
     }

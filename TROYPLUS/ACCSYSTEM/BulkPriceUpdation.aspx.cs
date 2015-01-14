@@ -124,9 +124,10 @@ public partial class BulkPriceUpdation : System.Web.UI.Page
         DataSet ds = new DataSet();
         DataTable dt = new DataTable();
 
-        dt.Columns.Add(new DataColumn("MODEL"));
-        dt.Columns.Add(new DataColumn("MRP"));
-        dt.Columns.Add(new DataColumn("MRPEffDate"));
+        dt.Columns.Add(new DataColumn("ITEMCODE"));
+        dt.Columns.Add(new DataColumn("PRICE"));
+        dt.Columns.Add(new DataColumn("EFFECTIVEDate"));
+        dt.Columns.Add(new DataColumn("DISCOUNT"));
         
         double vat = 0;
         BusinessLogic objBL = new BusinessLogic();
@@ -140,9 +141,9 @@ public partial class BulkPriceUpdation : System.Web.UI.Page
                 foreach (DataRow dr in dsddd.Tables[0].Rows)
                 {
                     DataRow dr_final12 = dt.NewRow();
-                    dr_final12["MODEL"] = Convert.ToString(dr["Model"]);
-                    dr_final12["MRP"] = "";
-                    dr_final12["MRPEffDate"] = "";                   
+                    dr_final12["ITEMCODE"] = Convert.ToString(dr["ITEMCODE"]);
+                    dr_final12["PRICE"] = "";
+                    dr_final12["EFFECTIVEDate"] = "";                   
                     dt.Rows.Add(dr_final12);
                 }
             }
@@ -342,6 +343,12 @@ public partial class BulkPriceUpdation : System.Web.UI.Page
 
                 string connection = Request.Cookies["Company"].Value;
 
+                if (Convert.ToInt32(drpPriceList.SelectedIndex) == 0)
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select any one Price List before upload');", true);
+                    return;
+                }
+
                 if (ds == null)
                 {
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Uploading Excel is Empty');", true);
@@ -352,21 +359,38 @@ public partial class BulkPriceUpdation : System.Web.UI.Page
 
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    string model = Convert.ToString(dr["Model"]);
-                    if ((Convert.ToString(dr["Model"]) == null) || (Convert.ToString(dr["Model"]) == ""))
+                    string item = Convert.ToString(dr["ItemCode"]);
+
+                    if ((Convert.ToString(dr["ItemCode"]) == null) || (Convert.ToString(dr["ItemCode"]) == ""))
                     {
 
                     }
                     else
                     {
-                        if (!objBL.CheckIfModelIsThere(model))
+                        if (!objBL.CheckIfItemCodeDuplicate(item))
                         {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Model with - " + model + " - does not exists in the Product Master');", true);
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product Code - " + item + " - does not exists in the Product master.');", true);
                             return;
                         }
                     }
                 }
 
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    string item = Convert.ToString(dr["ItemCode"]);
+                    if ((Convert.ToString(dr["ItemCode"]) == null) || (Convert.ToString(dr["ItemCode"]) == ""))
+                    {
+
+                    }
+                    else
+                    {
+                        if (!objBL.CheckIfItemCodeDuplicatePriceList(item))
+                        {
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product code - " + item + " - does not exists in the price list.');", true);
+                            return;
+                        }
+                    }
+                }
 
 
                 int i = 1;
@@ -374,7 +398,7 @@ public partial class BulkPriceUpdation : System.Web.UI.Page
                 string itemc = string.Empty;
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    itemc = Convert.ToString(dr["Model"]);
+                    itemc = Convert.ToString(dr["ItemCode"]);
 
                     if ((itemc == null) || (itemc == ""))
                     {
@@ -388,9 +412,9 @@ public partial class BulkPriceUpdation : System.Web.UI.Page
                             }
                             else
                             {
-                                if (itemc == Convert.ToString(drd["Model"]))
+                                if (itemc == Convert.ToString(drd["ItemCode"]))
                                 {
-                                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Model - " + itemc + " - already exists in the excel.');", true);
+                                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product code - " + itemc + " - already exists in the excel.');", true);
                                     return;
                                 }
                             }
@@ -406,31 +430,22 @@ public partial class BulkPriceUpdation : System.Web.UI.Page
 
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    string Model = Convert.ToString(dr["Model"]);
-                    if ((Convert.ToString(dr["Model"]) == null) || (Convert.ToString(dr["Model"]) == ""))
+                    string Model = Convert.ToString(dr["ItemCode"]);
+                    if ((Convert.ToString(dr["ItemCode"]) == null) || (Convert.ToString(dr["ItemCode"]) == ""))
                     {
 
                     }
                     else
                     {
-                        if (type == 1)
-                        {
-                            if ((Convert.ToString(dr["MRP"]) == null) || (Convert.ToString(dr["MRP"]) == "") || (Convert.ToString(dr["MRPEffDate"]) == null) || (Convert.ToString(dr["MRPEffDate"]) == ""))
-                            {
-                                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill the empty in the excel sheet');", true);
-                                return;
-                            }
-
-                            if (Convert.ToString(dr["MRP"]) == "0")
-                            {
-                                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('MRP rate should be greater than zero.');", true);
-                                return;
-                            }
-                        }                        
+                        if ((Convert.ToString(dr["PRICE"]) == null) || (Convert.ToString(dr["PRICE"]) == "") || (Convert.ToString(dr["EFFECTIVEDATE"]) == null) || (Convert.ToString(dr["EFFECTIVEDATE"]) == "") || (Convert.ToString(dr["DISCOUNT"]) == null) || (Convert.ToString(dr["DISCOUNT"]) == ""))
+                       {
+                           ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill the empty in the excel sheet');", true);
+                           return;
+                       }                      
                     }
                 }
 
-                objBL.UpdateBulkProducts(connection, ds, usernam, type);
+                objBL.UpdateBulkProductPrices(connection, ds, usernam, pricelist, type);
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product details Updated Successfully');", true);
 
                 con.Close();

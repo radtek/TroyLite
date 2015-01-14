@@ -439,6 +439,8 @@
                                                                                                                     Width="20px" runat="server" />
                                                                                                             </td>
                                                                                                         </tr>
+                                                                                                        <tr style="height: 2px">
+                                                                                                        </tr>
                                                                                                         <tr>
                                                                                                             <td class="ControlLabel" style="width: 24%">Heading
                                                                                                             </td>
@@ -459,7 +461,8 @@
                                                                                                                 </asp:DropDownList>
                                                                                                             </td>
                                                                                                         </tr>
-
+                                                                                                        <tr style="height: 2px">
+                                                                                                        </tr>
                                                                                                         <tr>
                                                                                                             <td class="ControlLabel" style="width: 24%">Paid To *
                                                                                                                     <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddReceivedFrom"
@@ -482,6 +485,8 @@
                                                                                                             <td class="ControlTextBox3" style="width: 25%">
                                                                                                                 <asp:TextBox ID="txtAmount" runat="server" Text='<%# Bind("Amount") %>' SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                                                             </td>
+                                                                                                        </tr>
+                                                                                                        <tr style="height: 2px">
                                                                                                         </tr>
                                                                                                         <tr>
                                                                                                             <td class="ControlLabel" style="width: 24%">Payment Made By *
@@ -511,8 +516,8 @@
                                                                                                                     <ContentTemplate>
                                                                                                                         <asp:Panel ID="PanelBank" runat="server">
                                                                                                                             <table width="100%" id="Table1" runat="server" cellpadding="0" cellspacing="0">
-                                                                                                                                <tr>
-                                                                                                                                </tr>
+                                                                                                                                <tr style="height: 2px">
+                                                                                                        </tr>
                                                                                                                                 <tr>
                                                                                                                                     <td id="Td5" class="ControlLabel" runat="server" style="width: 24%">
                                                                                                                                         <asp:CompareValidator ID="cvBank" runat="server" ControlToValidate="ddBanks" Display="Dynamic"

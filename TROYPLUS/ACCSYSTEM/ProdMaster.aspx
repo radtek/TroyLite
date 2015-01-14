@@ -260,7 +260,7 @@
                                                                                                             <%--<asp:TextBox ID="txtProdDescAdd" runat="server" Text='<%# Bind("ProductDesc") %>'
                                                                                                                 SkinID="skinTxtBoxGrid"></asp:TextBox>--%>
                                                                                                             <asp:DropDownList ID="txtProdDescAdd" runat="server" DataTextField="BrandName" Width="100%" BackColor = "#e7e7e7" CssClass="drpDownListMedium"
-                                                                                                                DataValueField="BrandName" DataSourceID="srcBrandAdd" style="border: 1px solid #e7e7e7" height="26px"
+                                                                                                                DataValueField="BrandName" style="border: 1px solid #e7e7e7" height="26px"
                                                                                                                 EnableTheming="false"
                                                                                                                 AppendDataBoundItems="True">
                                                                                                                 <asp:ListItem Selected="True" Value="0" style="background-color: #e7e7e7">Select BrandName</asp:ListItem>
@@ -274,7 +274,7 @@
                                                                                                         </td>
                                                                                                         <td style="width: 25%" class="ControlDrpBorder">
                                                                                                             <asp:DropDownList ID="ddCategoryAdd" runat="server" DataTextField="CategoryName" Width="100%" BackColor = "#e7e7e7" CssClass="drpDownListMedium"
-                                                                                                                DataValueField="CategoryID" DataSourceID="srcCategoryAdd" style="border: 1px solid #e7e7e7" height="26px"
+                                                                                                                DataValueField="CategoryID" style="border: 1px solid #e7e7e7" height="26px"
                                                                                                                 EnableTheming="false"
                                                                                                                 AppendDataBoundItems="True">
                                                                                                                 <asp:ListItem Selected="True" Value="0" style="background-color: #e7e7e7">Select Category</asp:ListItem>
@@ -761,6 +761,60 @@
                                                                                         </tr>
                                                                                     </table>
                                                                                     
+                                                                                </ContentTemplate>
+                                                                            </cc1:TabPanel>
+                                                                            <cc1:TabPanel ID="TabPanel2" runat="server" HeaderText="Rate History">
+                                                                                <ContentTemplate>
+                                                                                    <table width="800px" cellpadding="3" cellspacing="1" align="center" >
+                                                                                        <tr>
+                                                                                            <td style="width:100%">
+                                                                                                <div id="div1" runat="server" style="height:220px; overflow:scroll">
+                                                                                                    <rwg:BulkEditGridView ID="BulkEditGridView1" AutoGenerateColumns="False" BorderWidth="1px"
+                                                                                                        BorderStyle="Solid" GridLines="Both" runat="server" CssClass="someClass"
+                                                                                                        Width="100%">
+                                                                                                        <RowStyle CssClass="dataRow" />
+                                                                                                        <SelectedRowStyle CssClass="SelectdataRow" />
+                                                                                                        <AlternatingRowStyle CssClass="altRow" />
+                                                                                                        <EmptyDataRowStyle CssClass="HeadataRow" Font-Bold="true" />
+                                                                                                        <HeaderStyle CssClass="HeadataRow" Wrap="false" />
+                                                                                                        <FooterStyle CssClass="dataRow" />
+                                                                                                        <Columns>
+                                                                                                            <asp:TemplateField FooterStyle-Font-Bold="True" Visible="false" HeaderText="ID" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20%">
+                                                                                                                <ItemTemplate>
+                                                                                                                    <asp:TextBox ID="txtId" runat="server" Width="85%"  Text='<%# Eval("Id")%>' Enabled="false" Height="26px"
+                                                                                                                        ></asp:TextBox>
+                                                                                                                </ItemTemplate>
+                                                                                                            </asp:TemplateField>
+                                                                                                            <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Price Type" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20%">
+                                                                                                                <ItemTemplate>
+                                                                                                                    <asp:TextBox ID="txtPriceName" runat="server" Width="90%"  Text='<%# Eval("PriceName")%>' Enabled="false" Height="26px"
+                                                                                                                        ></asp:TextBox>
+                                                                                                                </ItemTemplate>
+                                                                                                            </asp:TemplateField>
+                                                                                                            <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Price" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20%">
+                                                                                                                <ItemTemplate>
+                                                                                                                    <asp:TextBox ID="txtPrice" runat="server" Width="90%"  Text='<%# Eval("Price")%>' Height="26px" Enabled="false"
+                                                                                                                        ></asp:TextBox>
+                                                                                                                </ItemTemplate>
+                                                                                                            </asp:TemplateField>
+                                                                                                            <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Effective Date" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20%">
+                                                                                                                <ItemTemplate>
+                                                                                                                    <asp:TextBox ID="txtEffDate" runat="server" Width="70%"  Enabled="false" Text='<%# Eval("EffDate","{0:dd/MM/yyyy}")%>'  Height="26px"
+                                                                                                                        ></asp:TextBox>
+                                                                                                                </ItemTemplate>
+                                                                                                            </asp:TemplateField>
+                                                                                                            <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Discount" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20%">
+                                                                                                                <ItemTemplate>
+                                                                                                                    <asp:TextBox ID="txtDiscount1" runat="server" Width="90%"  Text='<%# Eval("Discount")%>' Height="26px" Enabled="false"
+                                                                                                                        ></asp:TextBox>
+                                                                                                                </ItemTemplate>
+                                                                                                            </asp:TemplateField>
+                                                                                                        </Columns>
+                                                                                                    </rwg:BulkEditGridView>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                         </tr>    
+                                                                                    </table>
                                                                                 </ContentTemplate>
                                                                             </cc1:TabPanel>
                                                                         </cc1:TabContainer>
