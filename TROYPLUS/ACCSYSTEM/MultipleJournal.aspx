@@ -64,9 +64,9 @@
                                                     <asp:ListItem Value="Creditor">Creditor</asp:ListItem>
                                                 </asp:DropDownList>
                                             </div>
-                                            <asp:TextBox ID="txtRefno" runat="server" Width="92%" CssClass="cssTextBox" Visible="False"></asp:TextBox>
-                                            <asp:TextBox ID="txtLedger" runat="server" Width="92%" CssClass="cssTextBox" Visible="False"></asp:TextBox>
-                                            <asp:TextBox ID="txtDate" runat="server" Width="92%" MaxLength="10" CssClass="cssTextBox" Visible="False"></asp:TextBox>
+                                            <asp:TextBox ID="txtRefno" Enabled="false" runat="server" Width="92%" CssClass="cssTextBox" Visible="False"></asp:TextBox>
+                                            <asp:TextBox ID="txtLedger"  Enabled="false"  runat="server" Width="92%" CssClass="cssTextBox" Visible="False"></asp:TextBox>
+                                            <asp:TextBox ID="txtDate"  Enabled="false"  runat="server" Width="92%" MaxLength="10" CssClass="cssTextBox" Visible="False"></asp:TextBox>
                                             <cc1:CalendarExtender ID="calExtender3" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                 PopupButtonID="bt3" PopupPosition="BottomLeft" TargetControlID="txtDate">
                                             </cc1:CalendarExtender>
@@ -315,7 +315,7 @@
                                                                      
                                                                                         </td>
                                                                                         <td  class="ControlTextBoxSmall" style="width:5%">
-                                                                                            <asp:TextBox ID="txtTransDateAdd1" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal"
+                                                                                            <asp:TextBox ID="txtTransDateAdd1" Enabled="false" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal"
                                                                                                 Width="100px" MaxLength="10"></asp:TextBox>
                                                                                             <cc1:CalendarExtender ID="calExtender32" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                 PopupButtonID="btnDate3" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd1">
@@ -371,7 +371,7 @@
                                                                     
                                                                                         </td>
                                                                                         <td  class="ControlTextBoxSmall" style="width:5%">
-                                                                                                    <asp:TextBox ID="txtTransDateAdd2" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" 
+                                                                                                    <asp:TextBox ID="txtTransDateAdd2" Enabled="false" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" 
                                                                                                         Width="100px" MaxLength="10"></asp:TextBox>
                                                                                                     <cc1:CalendarExtender ID="CalendarExtender2" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                         PopupButtonID="ImageButton2" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd2">
@@ -428,7 +428,7 @@
                                                                     
                                                                                         </td>
                                                                                         <td  class="ControlTextBoxSmall" style="width:5%">
-                                                                                                <asp:TextBox ID="txtTransDateAdd3" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal"
+                                                                                                <asp:TextBox ID="txtTransDateAdd3" Enabled="false" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal"
                                                                                                         Width="100px" MaxLength="10"></asp:TextBox>
                                                                                                     <cc1:CalendarExtender ID="CalendarExtender3" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                         PopupButtonID="ImageButton3" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd3">
@@ -484,7 +484,7 @@
                                                                      
                                                                                         </td>
                                                                                         <td class="ControlTextBoxSmall" style="width:5%">
-                                                                                                    <asp:TextBox ID="txtTransDateAdd4" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal"
+                                                                                                    <asp:TextBox ID="txtTransDateAdd4" Enabled="false" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal"
                                                                                                         Width="100px" MaxLength="10"></asp:TextBox>
                                                                                                     <cc1:CalendarExtender ID="CalendarExtender4" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                         PopupButtonID="ImageButton4" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd4">
@@ -542,7 +542,7 @@
                                                                      
                                                                                         </td>
                                                                                         <td  class="ControlTextBoxSmall" style="width:5%">
-                                                                                            <asp:TextBox ID="txtTransDateAdd5" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" 
+                                                                                            <asp:TextBox ID="txtTransDateAdd5" Enabled="false" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" 
                                                                                                 Width="100px" MaxLength="10"></asp:TextBox>
                                                                                             <cc1:CalendarExtender ID="CalendarExtender5" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                 PopupButtonID="ImageButton5" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd5">
@@ -598,7 +598,7 @@
                                                                      
                                                                                         </td>
                                                                                         <td  class="ControlTextBoxSmall" style="width:5%">
-                                                                                            <asp:TextBox ID="txtTransDateAdd6" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" 
+                                                                                            <asp:TextBox ID="txtTransDateAdd6" Enabled="false" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" 
                                                                                                 Width="100px" MaxLength="10"></asp:TextBox>
                                                                                             <cc1:CalendarExtender ID="CalendarExtender6" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                 PopupButtonID="ImageButton6" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd6">
@@ -757,7 +757,7 @@
                                                                                                 <asp:AsyncPostBackTrigger ControlID="txtTransDate" EventName="TextChanged" />
                                                                                             </Triggers>
                                                                                             <ContentTemplate>--%>
-                                                                                                <asp:TextBox ID="txtTransDate" runat="server" ValidationGroup="editVal"
+                                                                                                <asp:TextBox ID="txtTransDate" Enabled="false" runat="server" ValidationGroup="editVal"
                                                                                                     MaxLength="10" CssClass="cssTextBox"></asp:TextBox>
                                                                                                 <cc1:CalendarExtender ID="calExt3" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                     PopupButtonID="btnD3" PopupPosition="BottomLeft" TargetControlID="txtTransDate">
@@ -933,7 +933,7 @@
                                                                                                                 </asp:TemplateField>
                                                                                                                 <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Date" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20px">
                                                                                                                     <ItemTemplate>
-                                                                                                                        <asp:TextBox ID="txtDateM" runat="server" Width="70%" Height="26px"
+                                                                                                                        <asp:TextBox ID="txtDateM" Enabled="false" runat="server" Width="70%" Height="26px"
                                                                                                                             ></asp:TextBox>
                                                                                                                         <asp:ImageButton ID="btnBillDate123" ImageUrl="App_Themes/NewTheme/images/cal.gif"
                                                                                                                                     CausesValidation="False" Width="20px" runat="server" />   
@@ -1180,7 +1180,7 @@
                                                                                                                 </asp:TemplateField>
                                                                                                                 <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Date" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20px">
                                                                                                                     <ItemTemplate>
-                                                                                                                        <asp:TextBox ID="txtDate" runat="server" Width="70%" Height="26px" Text='<%# Bind("Date") %>'
+                                                                                                                        <asp:TextBox ID="txtDate" Enabled="false" runat="server" Width="70%" Height="26px" Text='<%# Bind("Date") %>'
                                                                                                                             ></asp:TextBox>
                                                                                                                         <cc1:CalendarExtender ID="calBillDate" runat="server" Format="dd/MM/yyyy"
                                                                                                                                 PopupButtonID="btnBillDate" TargetControlID="txtDate" Enabled="True">
@@ -1332,7 +1332,7 @@
                                                                                                                 </asp:TemplateField>
                                                                                                                 <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Date" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20px">
                                                                                                                     <ItemTemplate>
-                                                                                                                        <asp:TextBox ID="txtDate" runat="server" Height="26px" Width="70%" Text='<%# Bind("Date") %>'
+                                                                                                                        <asp:TextBox ID="txtDate" Enabled="false" runat="server" Height="26px" Width="70%" Text='<%# Bind("Date") %>'
                                                                                                                             ></asp:TextBox>
                                                                                                                         <cc1:CalendarExtender ID="calBillDate" runat="server" Format="dd/MM/yyyy"
                                                                                                                                 PopupButtonID="btnBillDate" TargetControlID="txtDate" Enabled="True">

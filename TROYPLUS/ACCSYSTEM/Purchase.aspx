@@ -305,7 +305,7 @@
                                                                                                                         <td class="ControlLabel" style="width: 15%;">Purchase Entry Date
                                                                                                                         </td>
                                                                                                                         <td class="ControlTextBox3" style="width: 24%;">
-                                                                                                                            <asp:TextBox ID="txtInvoiveDate" runat="server" CssClass="cssTextBox" MaxLength="10" Height="23px" BackColor="#e7e7e7"
+                                                                                                                            <asp:TextBox ID="txtInvoiveDate" Enabled="false" runat="server" CssClass="cssTextBox" MaxLength="10" Height="23px" BackColor="#e7e7e7"
                                                                                                                                 ValidationGroup="purchaseval" Width="80%"></asp:TextBox>
 
                                                                                                                             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Format="dd/MM/yyyy"
@@ -360,7 +360,7 @@
                                                                                                         
                                                                                                                         </td>
                                                                                                                         <td style="width: 24%;" class="ControlTextBox3">
-                                                                                                                            <asp:TextBox ID="txtBillDate" runat="server" CssClass="cssTextBox" MaxLength="10" Height="23px" BackColor="#e7e7e7"
+                                                                                                                            <asp:TextBox ID="txtBillDate" Enabled="false" runat="server" CssClass="cssTextBox" MaxLength="10" Height="23px" BackColor="#e7e7e7"
                                                                                                                                 ValidationGroup="purchaseval" Width="80%"></asp:TextBox>
                                                                                                                             <cc1:CalendarExtender ID="calBillDate" runat="server" Format="dd/MM/yyyy"
                                                                                                                                 PopupButtonID="btnBillDate"

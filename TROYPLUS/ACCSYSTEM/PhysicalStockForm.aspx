@@ -31,7 +31,7 @@
             <td colspan="2" align="left">
                 Date
 
-                <asp:TextBox ID="txtDate" runat="server" CssClass="cssTextBox" Width="100px" MaxLength="10" backcolor="#90c9fc" style="Border:1px solid blue"/>
+                <asp:TextBox ID="txtDate" runat="server" Enabled="false" CssClass="cssTextBox" Width="100px" MaxLength="10" backcolor="#90c9fc" style="Border:1px solid blue"/>
                 <script type="text/javascript" language="JavaScript">                    new tcal({ 'formname': 'aspnetForm', 'controlname': GettxtBoxName('txtDate') });</script>
                 &nbsp;
                 <asp:Button ID="cmdShow" runat="server" ValidationGroup="salesval" CssClass="Button"

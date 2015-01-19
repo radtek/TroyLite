@@ -820,7 +820,7 @@
                                                             VAT Recon Date
                                                         </td>
                                                         <td style="width: 20%" class="ControlTextBox3">
-                                                            <asp:TextBox ID="txtVATReconDate" runat="server" CssClass="cssTextBox" Width="125px"
+                                                            <asp:TextBox ID="txtVATReconDate" Enabled="false" runat="server" CssClass="cssTextBox" Width="125px"
                                                                 Height="14px" MaxLength="10"></asp:TextBox>
                                                             <cc1:CalendarExtender ID="calBillDate" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                 PopupButtonID="btnBillDate" PopupPosition="BottomLeft" TargetControlID="txtVATReconDate">
@@ -884,7 +884,7 @@
                                                             Item Tracking Start Date
                                                         </td>
                                                         <td style="width: 20%" class="ControlTextBox3">
-                                                            <asp:TextBox ID="txtDate" runat="server" CssClass="cssTextBox" Width="125px" MaxLength="10"></asp:TextBox>
+                                                            <asp:TextBox ID="txtDate" runat="server" Enabled="false" CssClass="cssTextBox" Width="125px" MaxLength="10"></asp:TextBox>
                                                             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Format="dd/MM/yyyy" PopupButtonID="ImgITDate"
                                                                 TargetControlID="txtDate" Enabled="True">
                                                             </cc1:CalendarExtender>

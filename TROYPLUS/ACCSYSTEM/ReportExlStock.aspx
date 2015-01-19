@@ -57,7 +57,7 @@
                                                 As On Date *
                                             </td>
                                             <td class="ControlTextBox3" style="width: 20%;">
-                                                <asp:TextBox ID="txtStartDate" CssClass="cssTextBox" MaxLength="10"
+                                                <asp:TextBox ID="txtStartDate" Enabled="false" CssClass="cssTextBox" MaxLength="10"
                                                     runat="server" />
                                                     <cc1:CalendarExtender ID="calStartDate" runat="server" Enabled="True" 
                                                         Format="dd/MM/yyyy"

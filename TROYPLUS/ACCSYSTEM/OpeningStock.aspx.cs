@@ -245,7 +245,7 @@ public partial class OpeningStock : System.Web.UI.Page
         cmbBrand.Enabled=true;
         cmbCategory.Enabled = true;
         cmbProdName.Enabled = true;
-        txtDueDate.Enabled = true;
+        txtDueDate.Enabled = false;
 
         cmbCategory.SelectedIndex = 0;
 

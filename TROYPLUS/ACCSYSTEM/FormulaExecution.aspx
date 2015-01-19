@@ -128,7 +128,7 @@
                                             Start Date
                                         </td>--%>
                                     <td style="width: 15%" class="NewBox">
-                                        <asp:TextBox ID="txtStartDate" CssClass="cssTextBox" Width="80px" runat="server"
+                                        <asp:TextBox ID="txtStartDate" Enabled="false" CssClass="cssTextBox" Width="80px" runat="server"
                                             MaxLength="10" ValidationGroup="salesval">
                                         </asp:TextBox>
 
@@ -142,7 +142,7 @@
           </script>
       </td>
                                     <td style="width: 15%" class="NewBox">
-                                        <asp:TextBox ID="txtEndDate" CssClass="cssTextBox" Width="80px" runat="server" MaxLength="10"
+                                        <asp:TextBox ID="txtEndDate" Enabled="false" CssClass="cssTextBox" Width="80px" runat="server" MaxLength="10"
                                             ValidationGroup="salesval"></asp:TextBox>
 
 
@@ -268,7 +268,7 @@
                                                                                         Date *
                                                                                     </td>
                                                                                     <td style="width: 17%;" class="ControlTextBox3">
-                                                                                        <asp:TextBox ID="txtDate" runat="server" CssClass="cssTextBox" Width="80px"></asp:TextBox>
+                                                                                        <asp:TextBox ID="txtDate" Enabled="false" runat="server" CssClass="cssTextBox" Width="80px"></asp:TextBox>
                                                                                         <cc1:CalendarExtender ID="calExtender3" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                             PopupButtonID="btnDate3" PopupPosition="BottomLeft" TargetControlID="txtDate">
                                                                                         </cc1:CalendarExtender>

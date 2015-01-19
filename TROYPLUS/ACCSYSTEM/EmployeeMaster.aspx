@@ -50,7 +50,7 @@
                                                 <asp:TextBox ID="txtSEmpno" runat="server" CssClass="cssTextBox" Visible="False"></asp:TextBox>
                                                 <asp:TextBox ID="txtSearch" runat="server" SkinID="skinTxtBoxSearch"></asp:TextBox>
                                                 <asp:TextBox ID="txtSDesig" runat="server" Width="125px" Height="16px" CssClass="cssTextBox" Visible="False"> </asp:TextBox>
-                                                <asp:TextBox ID="txtSDoj" MaxLength="10" runat="server" CssClass="cssTextBox" Visible="False" />
+                                                <asp:TextBox ID="txtSDoj" Enabled="false" MaxLength="10" runat="server" CssClass="cssTextBox" Visible="False" />
                                                 <cc1:CalendarExtender ID="CalendarExtender2" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                     PopupButtonID="btnSDate3" PopupPosition="BottomLeft" TargetControlID="txtSDoj">
                                                 </cc1:CalendarExtender>
@@ -210,7 +210,7 @@
                                                                             Date Of Birth *
                                                                         </td>
                                                                         <td style="width: 25%" class="ControlTextBox3">
-                                                                            <asp:TextBox ID="txtDOB" Width="100px" MaxLength="10" runat="server" CssClass="cssTextBox" />
+                                                                            <asp:TextBox ID="txtDOB" Enabled="false" Width="100px" MaxLength="10" runat="server" CssClass="cssTextBox" />
                                                                             <cc1:CalendarExtender ID="calExtender3" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                 PopupButtonID="btnDate3" PopupPosition="BottomLeft" TargetControlID="txtDOB">
                                                                             </cc1:CalendarExtender>
@@ -237,7 +237,7 @@
                                                                             Date Of Joining *
                                                                         </td>
                                                                         <td style="width: 25%" class="ControlTextBox3">
-                                                                            <asp:TextBox ID="txtDoj" Width="100px" MaxLength="10" runat="server" CssClass="cssTextBox" />
+                                                                            <asp:TextBox ID="txtDoj" Enabled="false" Width="100px" MaxLength="10" runat="server" CssClass="cssTextBox" />
                                                                             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                 PopupButtonID="btnD3" PopupPosition="BottomLeft" TargetControlID="txtDoj">
                                                                             </cc1:CalendarExtender>

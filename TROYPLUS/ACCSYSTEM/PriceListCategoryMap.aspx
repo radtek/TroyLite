@@ -61,7 +61,7 @@
                                     <tr style="height: 25px; vertical-align: middle">
                                         <td style="width: 1%;"></td>
                                         <td style="width: 35%; font-size: 22px; color: White;" >
-                                            Mapping Price List
+                                            Customer Category
                                         </td>
                                         <td style="width: 13%">
                                             <div style="text-align: right;">
@@ -124,7 +124,7 @@
                                                         <table cellpadding="1" cellspacing="1" style="border: 1px solid #86b2d1; width: 100%;">
                                                             <tr>
                                                                 <td colspan="4" class="headerPopUp">
-                                                                    Mapping Price List
+                                                                    Customer Category
                                                                 </td>
                                                             </tr>
                                                             <tr style="height:5px">
@@ -236,7 +236,7 @@
                                                         <table cellpadding="1" cellspacing="1" style="border: 1px solid #86b2d1; width: 100%;">
                                                             <tr>
                                                                 <td colspan="4" class="headerPopUp">
-                                                                    Mapping Price List
+                                                                    Customer Category
                                                                 </td>
                                                             </tr>
                                                             <tr style="height:5px"> 
@@ -367,9 +367,10 @@
                                 OnRowCommand="GrdViewLedger_RowCommand" OnRowDataBound="GrdViewLedger_RowDataBound" OnRowDeleting="GrdViewLedger_RowDeleting"
                                 OnRowDeleted="GrdViewLedger_RowDeleted">
                                 <Columns>
-                                    <asp:BoundField DataField="PriceList_Name" HeaderText="Price List Name"  HeaderStyle-BorderColor="Gray" HeaderStyle-Width="690px"/>
+                                   
                                     <asp:BoundField DataField="CustomerCategory_Name" HeaderText="Customer Category Name"  HeaderStyle-BorderColor="Gray" HeaderStyle-Width="200px"/>
-                                    <asp:TemplateField ItemStyle-CssClass="command" HeaderText="Edit" ItemStyle-Width="50px" HeaderStyle-BorderColor="Gray"
+                                    <asp:BoundField DataField="PriceList_Name" HeaderText="Price List Name"  HeaderStyle-BorderColor="Gray" HeaderStyle-Width="690px"/>
+                                     <asp:TemplateField ItemStyle-CssClass="command" HeaderText="Edit" ItemStyle-Width="50px" HeaderStyle-BorderColor="Gray"
                                         ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:ImageButton ID="btnEdit" runat="server" SkinID="edit" CommandName="Select" />

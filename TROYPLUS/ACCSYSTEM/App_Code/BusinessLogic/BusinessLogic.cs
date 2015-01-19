@@ -60232,7 +60232,7 @@ public class BusinessLogic
             }
         }
 
-        public void InsertProjectEntry(string ProjectCode, String ProjectDate, string ExpWrkSDate, string ExpWrkEDate, int EmpNo, string ProjectName, int EffortDays, string Projectstatus, string ProjectDesc, string Username)
+        public void InsertProjectEntry(string ProjectCode, String ProjectDate, string ExpWrkSDate, string ExpWrkEDate, int EmpNo, string ProjectName, int EffortDays, string Projectstatus, string ProjectDesc, string Username, string ActStartDate, string ActEndDate, string unitofmeasure)
         {
             DBManager manager = new DBManager(DataProvider.OleDb);
             manager.ConnectionString = CreateConnectionString(this.ConnectionString); // System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
@@ -60244,8 +60244,8 @@ public class BusinessLogic
             {
                 manager.Open();
 
-                dbQry = string.Format("INSERT INTO tblProjects(Project_Code,Project_Date,Expected_Start_Date,Expected_End_Date,Project_Manager_Id,Project_Name,Expected_Effort_Days,Project_Status,Project_Description) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),Format('{3}', 'dd/mm/yyyy'),{4},'{5}',{6},'{7}','{8}')",
-                ProjectCode, ProjectDate, ExpWrkSDate, ExpWrkEDate, EmpNo, ProjectName, EffortDays, Projectstatus, ProjectDesc);
+                dbQry = string.Format("INSERT INTO tblProjects(Project_Code,Project_Date,Expected_Start_Date,Expected_End_Date,Project_Manager_Id,Project_Name,Expected_Effort_Days,Project_Status,Project_Description,Actual_Start_Date,Actual_End_Date,Unit_Of_Measure) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),Format('{3}', 'dd/mm/yyyy'),{4},'{5}',{6},'{7}','{8}','{9}','{10}','{11}')",
+                ProjectCode, ProjectDate, ExpWrkSDate, ExpWrkEDate, EmpNo, ProjectName, EffortDays, Projectstatus, ProjectDesc, ActStartDate, ActEndDate, unitofmeasure);
 
                 manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -60265,7 +60265,7 @@ public class BusinessLogic
 
         }
 
-        public void UpdateProjectEntry(string ProjectCode, String ProjectDate, string ExpWrkSDate, string ExpWrkEDate, int EmpNo, string ProjectName, int EffortDays, string Projectstatus, string ProjectDesc, string Username, int Project_Id)
+        public void UpdateProjectEntry(string ProjectCode, String ProjectDate, string ExpWrkSDate, string ExpWrkEDate, int EmpNo, string ProjectName, int EffortDays, string Projectstatus, string ProjectDesc, string Username, int Project_Id, string ActStartDate, string ActEndDate, string unitofmeasure)
         {
             DBManager manager = new DBManager(DataProvider.OleDb);
             manager.ConnectionString = CreateConnectionString(this.ConnectionString); // System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
@@ -60278,8 +60278,8 @@ public class BusinessLogic
                 manager.Open();
                 manager.ProviderType = DataProvider.OleDb;
 
-                dbQry = string.Format("UPDATE tblProjects SET Project_Code='{0}',Project_Date=Format('{1}', 'dd/mm/yyyy'),Expected_Start_Date=Format('{2}', 'dd/mm/yyyy'),Expected_End_Date=Format('{3}', 'dd/mm/yyyy'),Project_Manager_Id={4},Project_Name='{5}',Expected_Effort_Days={6},Project_Status='{7}',Project_Description='{8}' Where Project_Id={9}",
-                ProjectCode, ProjectDate, ExpWrkSDate, ExpWrkEDate, EmpNo, ProjectName, EffortDays, Projectstatus, ProjectDesc, Project_Id);
+                dbQry = string.Format("UPDATE tblProjects SET Project_Code='{0}',Project_Date=Format('{1}', 'dd/mm/yyyy'),Expected_Start_Date=Format('{2}', 'dd/mm/yyyy'),Expected_End_Date=Format('{3}', 'dd/mm/yyyy'),Project_Manager_Id={4},Project_Name='{5}',Expected_Effort_Days={6},Project_Status='{7}',Project_Description='{8}',Actual_Start_Date='{9}',Actual_End_Date='{10}',Unit_Of_Measure='{11}'  Where Project_Id={12}",
+                ProjectCode, ProjectDate, ExpWrkSDate, ExpWrkEDate, EmpNo, ProjectName, EffortDays, Projectstatus, ProjectDesc,  ActStartDate, ActEndDate,unitofmeasure,Project_Id);
 
                 manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -60583,7 +60583,7 @@ public class BusinessLogic
             }
         }
 
-        public void InsertTaskEntry(int ProjectCode, string TaskDate, string EWStartDate, string EWEndDate, int Owner, string TaskCode, int TaskType, string IsActive, int DependencyTask, string TaskDesc, string Username, string TaskName)
+        public void InsertTaskEntry(int ProjectCode, string TaskDate, string EWStartDate, string EWEndDate, int Owner, string TaskCode, int TaskType, string IsActive, int DependencyTask, string TaskDesc, string Username, string TaskName,int effortdays)
         {
             DBManager manager = new DBManager(DataProvider.OleDb);
             manager.ConnectionString = CreateConnectionString(this.ConnectionString); // System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
@@ -60595,8 +60595,8 @@ public class BusinessLogic
             {
                 manager.Open();
 
-                dbQry = string.Format("INSERT INTO tblTasks(Task_Code, Task_Date,Expected_Start_Date,Expected_End_Date,Project_Code,Owner,Task_Type,IsActive,Task_Description,Dependency_Task,Task_Name) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),Format('{3}', 'dd/mm/yyyy'),{4},{5},{6},'{7}','{8}',{9},'{10}')",
-                TaskCode, TaskDate, EWStartDate, EWEndDate, ProjectCode, Owner, TaskType, IsActive, TaskDesc, DependencyTask, TaskName);
+                dbQry = string.Format("INSERT INTO tblTasks(Task_Code, Task_Date,Expected_Start_Date,Expected_End_Date,Project_Code,Owner,Task_Type,IsActive,Task_Description,Dependency_Task,Task_Name,Effort_Task_Days) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),Format('{3}', 'dd/mm/yyyy'),{4},{5},{6},'{7}','{8}',{9},'{10}',{11})",
+                TaskCode, TaskDate, EWStartDate, EWEndDate, ProjectCode, Owner, TaskType, IsActive, TaskDesc, DependencyTask, TaskName,effortdays);
 
                 manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -60617,7 +60617,7 @@ public class BusinessLogic
 
         }
 
-        public void UpdateTaskEntry(int ProjectCode, string TaskDate, string EWStartDate, string EWEndDate, int Owner, string TaskCode, int TaskType, string IsActive, int DependencyTask, string TaskDesc, string Username, int Task_Id, string TaskName)
+        public void UpdateTaskEntry(int ProjectCode, string TaskDate, string EWStartDate, string EWEndDate, int Owner, string TaskCode, int TaskType, string IsActive, int DependencyTask, string TaskDesc, string Username, int Task_Id, string TaskName,int effortdays)
         {
             DBManager manager = new DBManager(DataProvider.OleDb);
             manager.ConnectionString = CreateConnectionString(this.ConnectionString); // System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
@@ -60630,8 +60630,8 @@ public class BusinessLogic
                 manager.Open();
                 manager.ProviderType = DataProvider.OleDb;
 
-                dbQry = string.Format("UPDATE tblTasks SET Project_Code={0},Task_Date=Format('{1}', 'dd/mm/yyyy'),Expected_Start_Date=Format('{2}', 'dd/mm/yyyy'),Expected_End_Date=Format('{3}', 'dd/mm/yyyy'),Owner={4},Task_Type={5},Dependency_Task={6},IsActive='{7}',Task_Description='{8}',Task_Code='{9}',Task_Name='{10}' Where Task_Id={11}",
-                ProjectCode, TaskDate, EWStartDate, EWEndDate, Owner, TaskType, DependencyTask, IsActive, TaskDesc, TaskCode, TaskName, Task_Id);
+                dbQry = string.Format("UPDATE tblTasks SET Project_Code={0},Task_Date=Format('{1}', 'dd/mm/yyyy'),Expected_Start_Date=Format('{2}', 'dd/mm/yyyy'),Expected_End_Date=Format('{3}', 'dd/mm/yyyy'),Owner={4},Task_Type={5},Dependency_Task={6},IsActive='{7}',Task_Description='{8}',Task_Code='{9}',Task_Name='{10}',Effort_Task_Days={11} Where Task_Id={12}",
+                ProjectCode, TaskDate, EWStartDate, EWEndDate, Owner, TaskType, DependencyTask, IsActive, TaskDesc, TaskCode, TaskName, effortdays, Task_Id);
 
                 manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -60716,7 +60716,7 @@ public class BusinessLogic
             }
         }
 
-        public void UpdateTaskUpdateEntry(string TaskUpdateDate,string ActualStartDate,string ActualEndDate,int Per,int TaskStatus,string Blockedflag,string Taskupdate,string BlockingReason,string Username,int Task_Id)
+        public void UpdateTaskUpdateEntry(string TaskUpdateDate, string ActualStartDate, string ActualEndDate, int Per, int TaskStatus, string Blockedflag, string Taskupdate, string BlockingReason, string Username, int effortlastupdate, int effortremain, int Task_Id)
         {
             DBManager manager = new DBManager(DataProvider.OleDb);
             manager.ConnectionString = CreateConnectionString(this.ConnectionString); // System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
@@ -60737,19 +60737,19 @@ public class BusinessLogic
                 {
                     if (dsOld.Tables[0].Rows.Count > 0)
                     {
-                        dbQry = string.Format("UPDATE tblTaskUpdates SET Task_Update_Date=Format('{0}', 'dd/mm/yyyy'),Actual_Start_Date=Format('{1}', 'dd/mm/yyyy'),Actual_End_Date=Format('{2}', 'dd/mm/yyyy'),Per_of_Completion={3},Task_Status={4},Blocked_Flag='{5}',Task_update='{6}',Blocking_Reason='{7}' Where Task_Id={8}",
-                        TaskUpdateDate, ActualStartDate, ActualEndDate, Per, TaskStatus, Blockedflag, Taskupdate, BlockingReason, Task_Id);
+                        dbQry = string.Format("UPDATE tblTaskUpdates SET Task_Update_Date=Format('{0}', 'dd/mm/yyyy'),Actual_Start_Date=Format('{1}', 'dd/mm/yyyy'),Actual_End_Date=Format('{2}', 'dd/mm/yyyy'),Per_of_Completion={3},Task_Status={4},Blocked_Flag='{5}',Task_update='{6}',Blocking_Reason='{7}',Effort_Spend_Last_Update={8},Effort_Remaining={9} Where Task_Id={10}",
+                        TaskUpdateDate, ActualStartDate, ActualEndDate, Per, TaskStatus, Blockedflag, Taskupdate, BlockingReason, effortlastupdate,effortremain, Task_Id);
                     }
                     else
                     {
-                        dbQry = string.Format("INSERT INTO tblTaskUpdates(Task_Update_Date,Actual_Start_Date,Actual_End_Date,Per_of_Completion,Task_Status,Blocked_Flag,Task_update,Blocking_Reason,Task_id) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),{3},{4},'{5}','{6}','{7}',{8})",
-                        TaskUpdateDate, ActualStartDate, ActualEndDate, Per, TaskStatus, Blockedflag, Taskupdate, BlockingReason, Task_Id);
+                        dbQry = string.Format("INSERT INTO tblTaskUpdates(Task_Update_Date,Actual_Start_Date,Actual_End_Date,Per_of_Completion,Task_Status,Blocked_Flag,Task_update,Blocking_Reason,Effort_Spend_Last_Update,Effort_Remaining,Task_id) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),{3},{4},'{5}','{6}','{7}',{8},{9},{10})",
+                        TaskUpdateDate, ActualStartDate, ActualEndDate, Per, TaskStatus, Blockedflag, Taskupdate, BlockingReason,effortlastupdate,effortremain, Task_Id);
                     }
                 }
                 else
                 {
-                    dbQry = string.Format("INSERT INTO tblTaskUpdates(Task_Update_Date,Actual_Start_Date,Actual_End_Date,Per_of_Completion,Task_Status,Blocked_Flag,Task_update,Blocking_Reason,Task_id) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),{3},{4},'{5}','{6}','{7}',{8})",
-                    TaskUpdateDate, ActualStartDate, ActualEndDate, Per, TaskStatus, Blockedflag, Taskupdate, BlockingReason, Task_Id);
+                    dbQry = string.Format("INSERT INTO tblTaskUpdates(Task_Update_Date,Actual_Start_Date,Actual_End_Date,Per_of_Completion,Task_Status,Blocked_Flag,Task_update,Blocking_Reason,Effort_Spend_Last_Update,Effort_Remaining,Task_id) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),{3},{4},'{5}','{6}','{7}',{8},{9},{10})",
+                    TaskUpdateDate, ActualStartDate, ActualEndDate, Per, TaskStatus, Blockedflag, Taskupdate, BlockingReason,effortlastupdate,effortremain, Task_Id);
                 }                
                 manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -60766,8 +60766,8 @@ public class BusinessLogic
                 }
 
 
-                dbQry = string.Format("INSERT INTO tblTaskUpdatesHistory(Task_Update_Date,Actual_Start_Date,Actual_End_Date,Per_of_Completion,Task_Status,Blocked_Flag,Task_update,Blocking_Reason,Task_id,Task_Update_Id) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),{3},{4},'{5}','{6}','{7}',{8},{9})",
-                    TaskUpdateDate, ActualStartDate, ActualEndDate, Per, TaskStatus, Blockedflag, Taskupdate, BlockingReason, Task_Id, Task_Update_Id);
+                dbQry = string.Format("INSERT INTO tblTaskUpdatesHistory(Task_Update_Date,Actual_Start_Date,Actual_End_Date,Per_of_Completion,Task_Status,Blocked_Flag,Task_update,Blocking_Reason,Effort_Spend_Last_Update,Effort_Remaining,Task_id,Task_Update_Id) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),{3},{4},'{5}','{6}','{7}',{8},{9},{10},{11})",
+                    TaskUpdateDate, ActualStartDate, ActualEndDate, Per, TaskStatus, Blockedflag, Taskupdate, BlockingReason,effortlastupdate,effortremain, Task_Id, Task_Update_Id);
                 manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
 
@@ -60911,8 +60911,8 @@ public class BusinessLogic
             try
             {
                 manager.Open();
-                
-                dbQry.Append("SELECT tblTaskUpdatesHistory.Task_Update_Id,tblTaskUpdatesHistory.Task_Update_Date,tblTaskUpdatesHistory.Actual_Start_Date,tblTaskUpdatesHistory.Actual_End_Date,tblTaskStatus.Task_Status_Name,tblTaskUpdatesHistory.Per_of_Completion,tblTaskUpdatesHistory.Blocked_Flag,tblTaskUpdatesHistory.Blocking_Reason,tblTaskUpdatesHistory.Task_update ");
+
+                dbQry.Append("SELECT tblTaskUpdatesHistory.Task_Update_Id,tblTaskUpdatesHistory.Task_Update_Date,tblTaskUpdatesHistory.Actual_Start_Date,tblTaskUpdatesHistory.Actual_End_Date,tblTaskStatus.Task_Status_Name,tblTaskUpdatesHistory.Per_of_Completion,tblTaskUpdatesHistory.Blocked_Flag,tblTaskUpdatesHistory.Blocking_Reason,tblTaskUpdatesHistory.Task_update,tblTaskUpdatesHistory.Effort_Spend_Last_Update,tblTaskUpdatesHistory.Effort_Remaining ");
                 dbQry.Append(" FROM tblTaskUpdatesHistory INNER JOIN tblTaskStatus ON tblTaskUpdatesHistory.Task_Status = tblTaskStatus.Task_Status_Id ");
                 dbQry.Append(" Where tblTaskUpdatesHistory.Task_Id = " + Task_Id + " ORDER BY tblTaskUpdatesHistory.Task_Id Desc");
                 

@@ -149,7 +149,17 @@ public partial class ProjectEntry : System.Web.UI.Page
         string ProjectDesc = string.Empty;
         string Projectstatus = string.Empty;
         string ProjectCode = string.Empty;
+        string unitofmeasure = string.Empty;
         int EffortDays = 0;
+        //string ActStartDate = string.Empty;
+        //string ActStartDate = string.Empty;
+        string ProjectRecordClosedDate = string.Empty;
+        int ActEffortDays = 0;
+        int DueEffortDate = 0;
+        int StartDelayDate = 0;
+        int EndDueDate = 0;
+        int OverDueDate = 0;
+    
 
         try
         {
@@ -162,7 +172,7 @@ public partial class ProjectEntry : System.Web.UI.Page
 
                 if (bl.IsProjectCodeAlreadyFound(connection, ProjectCode))
                 {
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Project Code already found');", true);
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Validation Message(s) \\n\\n - Project ID \\'"+txtProjectCode.Text+"\\' already exists');", true);
 
                     ModalPopupExtender1.Show();
                     tbMain.Visible = true;
@@ -188,6 +198,24 @@ public partial class ProjectEntry : System.Web.UI.Page
                     Projectstatus = drpProjectstatus.Text.Trim();
                 if (txtProjectDesc.Text.Trim() != string.Empty)
                     ProjectDesc = txtProjectDesc.Text.Trim();
+                //if (txtCLSDate.Text.Trim() != string.Empty)
+                //    ProjectRecordClosedDate = txtCLSDate.Text.Trim();
+                if (txtactdate.Text.Trim() != string.Empty)
+                    ActStartDate = txtactdate.Text.Trim();
+                if (txtacenddate.Text.Trim() != string.Empty)
+                    ActEndDate = txtacenddate.Text.Trim();
+                if (drpunitmeasure.Text.Trim() != string.Empty)
+                    unitofmeasure = drpunitmeasure.Text.Trim();
+                //if (txtacteffortdays.Text.Trim() != string.Empty)
+                //    ActEffortDays = Convert.ToInt32(txtacteffortdays.Text.Trim());
+                //if (txtproclodate.Text.Trim() != string.Empty)
+                //    DueEffortDate = Convert.ToInt32(txtproclodate.Text.Trim());
+                //if (txtdelaydate.Text.Trim() != string.Empty)
+                //    StartDelayDate = Convert.ToInt32(txtdelaydate.Text.Trim());
+                //if (txtduedays.Text.Trim() != string.Empty)
+                //    EndDueDate = Convert.ToInt32(txtduedays.Text.Trim());
+                //if (txtoverduedays.Text.Trim() != string.Empty)
+                //    OverDueDate = Convert.ToInt32(txtoverduedays.Text.Trim());
 
                 string Username = Request.Cookies["LoggedUserName"].Value;
 
@@ -195,9 +223,9 @@ public partial class ProjectEntry : System.Web.UI.Page
 
                 //if (checkemp == null || checkemp.Tables[0].Rows.Count == 0)
                 //{
-                bl.InsertProjectEntry(ProjectCode, ProjectDate, EWStartDate, EWEndDate, empNO, ProjectName, EffortDays, Projectstatus, ProjectDesc, Username);
+                bl.InsertProjectEntry(ProjectCode, ProjectDate, EWStartDate, EWEndDate, empNO, ProjectName, EffortDays, Projectstatus, ProjectDesc, Username, ActStartDate, ActEndDate,unitofmeasure);
 
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Project Entry Details Saved Successfully');", true);
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('New Project Details Saved Successfully.');", true);
                     Reset();
                     ResetSearch();
                     BindWME("", "");
@@ -236,8 +264,15 @@ public partial class ProjectEntry : System.Web.UI.Page
             string ProjectDesc = string.Empty;
             string Projectstatus = string.Empty;
             string ProjectCode = string.Empty;
+            string unitofmeasure = string.Empty;
             int EffortDays = 0;
             int Project_Id = 0;
+            string ProjectRecordClosedDate = string.Empty;
+            int ActEffortDays = 0;
+            int DueEffortDate = 0;
+            int StartDelayDate = 0;
+            int EndDueDate = 0;
+            int OverDueDate = 0;
 
             if (Page.IsValid)
             {              
@@ -259,15 +294,34 @@ public partial class ProjectEntry : System.Web.UI.Page
                     Projectstatus = drpProjectstatus.Text.Trim();
                 if (txtProjectDesc.Text.Trim() != string.Empty)
                     ProjectDesc = txtProjectDesc.Text.Trim();
+                if (drpunitmeasure.Text.Trim() != string.Empty)
+                    unitofmeasure = drpunitmeasure.Text.Trim();
+
+                //if (txtCLSDate.Text.Trim() != string.Empty)
+                //    ProjectRecordClosedDate = txtCLSDate.Text.Trim();
+                if (txtactdate.Text.Trim() != string.Empty)
+                    ActStartDate = txtactdate.Text.Trim();
+                if (txtacenddate.Text.Trim() != string.Empty)
+                    ActEndDate = txtacenddate.Text.Trim();
+                //if (txtacteffortdays.Text.Trim() != string.Empty)
+                //    ActEffortDays = Convert.ToInt32(txtacteffortdays.Text.Trim());
+                //if (txtproclodate.Text.Trim() != string.Empty)
+                //    DueEffortDate = Convert.ToInt32(txtproclodate.Text.Trim());
+                //if (txtdelaydate.Text.Trim() != string.Empty)
+                //    StartDelayDate = Convert.ToInt32(txtdelaydate.Text.Trim());
+                //if (txtduedays.Text.Trim() != string.Empty)
+                //    EndDueDate = Convert.ToInt32(txtduedays.Text.Trim());
+                //if (txtoverduedays.Text.Trim() != string.Empty)
+                //    OverDueDate = Convert.ToInt32(txtoverduedays.Text.Trim());
 
                 string Username = Request.Cookies["LoggedUserName"].Value;
 
                 Project_Id = int.Parse(GrdWME.SelectedDataKey.Value.ToString());
 
-                bl.UpdateProjectEntry(ProjectCode, ProjectDate, EWStartDate, EWEndDate, empNO, ProjectName, EffortDays, Projectstatus, ProjectDesc, Username, Project_Id);
+                bl.UpdateProjectEntry(ProjectCode, ProjectDate, EWStartDate, EWEndDate, empNO, ProjectName, EffortDays, Projectstatus, ProjectDesc, Username, Project_Id, ActStartDate, ActEndDate,unitofmeasure);
 
 
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Project Entry Details Updated Successfully');", true);
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Project Details Updated Successfully.');", true);
                 Reset();
                 ResetSearch();
                 BindWME("", "");
@@ -322,8 +376,17 @@ public partial class ProjectEntry : System.Web.UI.Page
         txtEWEndDate.Text = "";
         txtProjectName.Text = "";
         txtEffortDays.Text = "0";
+        //txtCLSDate.Text = "";
+        txtactdate.Text = "";
+        txtacenddate.Text = "";
+        //txtacteffortdays.Text = "";
+        //txtproclodate.Text = "";
+        ////txtdelaydate.Text = "";
+        //txtduedays.Text = "";
+        //txtoverduedays.Text = "";
         drpProjectstatus.SelectedIndex = 0;
         txtProjectCode.Enabled = true;
+        //drpmeasure_SelectedIndexChanged = "";
 
     }
     protected void ddlPageSelector_SelectedIndexChanged(object sender, EventArgs e)
@@ -403,10 +466,13 @@ public partial class ProjectEntry : System.Web.UI.Page
         {
             sDataSource = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
 
-            int Project_Id = Convert.ToInt32(GrdWME.Rows[e.RowIndex].Cells[0].Text);
+            //int Project_ID = Convert.ToInt32(GrdWME.Rows[e.RowIndex].Cells[0].Text);
+            int project_ID = Convert.ToInt32(GrdWME.DataKeys[e.RowIndex].Value.ToString());
+
+           //int  Project_ID = Convert.ToInt32(GrdWME.SelectedDataKey.Value.ToString());
 
             BusinessLogic bl = new BusinessLogic(sDataSource);
-            bl.DeleteProjectDetails(Project_Id);
+            bl.DeleteProjectDetails(project_ID);
             BindWME("", "");
             btnUpdate.Enabled = false;
             btnSave.Enabled = true;
@@ -423,16 +489,21 @@ public partial class ProjectEntry : System.Web.UI.Page
         try
         {
             Reset();
-
+           
+            headtitle.Text = "Add New Project";
             txtCDate.Text = DateTime.Now.ToShortDateString();
             btnUpdate.Enabled = false;
             tbMain.Visible = true;
             pnsSave.Visible = true;
-            
+            drpProjectstatus.Enabled = false;
             btnCancel.Enabled = true;
             btnSave.Visible = true;
             btnUpdate.Visible = false;
             btnSave.Enabled = true;
+            drpunitmeasure.Visible = true;
+            //estimateheading.Text = "Estimate duration in(Days)";
+           
+            //txtduedays.Enabled = false;
             
             sDataSource = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
             
@@ -451,6 +522,330 @@ public partial class ProjectEntry : System.Web.UI.Page
         BindWME("", "");
         ddCriteria.SelectedIndex = 0;
     }
+    //protected void txtCLsDate_OnTextChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        string startdate = Convert.ToDateTime(txtCLSDate.Text).ToString("dd/MM/yyyy hh:mm tt");
+
+    //        string enddate = Convert.ToDateTime(txtCDate.Text).ToString("dd/MM/yyyy hh:mm tt");
+
+    //        TimeSpan ts = Convert.ToDateTime(startdate) - Convert.ToDateTime(enddate);
+
+    //        int days = Convert.ToInt32(ts.TotalDays);
+    //        if (days > 0)
+    //        {
+    //            txtproclodate.Text = Convert.ToString(days);
+
+    //        }
+    //        else
+    //        {
+    //            days = 0;
+    //            txtproclodate.Text = Convert.ToString(days);
+    //        }
+    //        UpdatePanel5.Update();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        TroyLiteExceptionManager.HandleException(ex);
+    //    }
+    //}
+
+    //protected void txtActEndDate_OnTextChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        string startdate = Convert.ToDateTime(txtactdate.Text).ToString("dd/MM/yyyy");
+
+    //        string enddate = Convert.ToDateTime(txtacenddate.Text).ToString("dd/MM/yyyy");
+
+    //        TimeSpan ts = Convert.ToDateTime(enddate) - Convert.ToDateTime(startdate);
+    //        int days = Convert.ToInt32(ts.TotalDays);
+    //        if (days > 0)
+    //        {
+    //            txtacteffortdays.Text = Convert.ToString(days);
+
+    //        }
+    //        else
+    //        {
+    //            days = 0;
+    //            txtacteffortdays.Text = Convert.ToString(days);
+
+    //        }
+
+    //        //int days = Convert.ToInt32(ts.TotalDays);
+
+    //        //txtEffortDays.Text = Convert.ToString(days);
+    //        UpdatePanel3.Update();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        TroyLiteExceptionManager.HandleException(ex);
+    //    }
+    //}
+
+
+
+
+
+
+    //protected void txtActDate_OnTextChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        string startdate = Convert.ToDateTime(txtactdate.Text).ToString("dd/MM/yyyy");
+
+    //        string enddate = Convert.ToDateTime(txtCDate.Text).ToString("dd/MM/yyyy");
+
+    //        TimeSpan ts = Convert.ToDateTime(enddate) - Convert.ToDateTime(startdate);
+
+    //        int days = Convert.ToInt32(ts.TotalDays);
+    //        if (days > 0)
+    //        {
+    //            txtacteffortdays.Text = Convert.ToString(days);
+
+    //        }
+    //        else
+    //        {
+    //            days = 0;
+    //            txtacteffortdays.Text = Convert.ToString(days);
+    //        }
+    //        //string startdate1 = Convert.ToDateTime(txtactdate.Text).ToString("dd/MM/yyyy");
+
+    //        //string enddate1 = Convert.ToDateTime(txtEWstartDate.Text).ToString("dd/MM/yyyy");
+
+    //        //TimeSpan ts1 = Convert.ToDateTime(enddate1) - Convert.ToDateTime(startdate1);
+
+    //        //int days1 = Convert.ToInt32(ts1.TotalDays);
+    //        //if (days1 > 0)
+    //        //{
+    //        //    txtacteffortdays.Text = Convert.ToString(days1);
+
+    //        //}
+    //        //else
+    //        //{
+    //        //    days1 = 0;
+    //        //    txtacteffortdays.Text = Convert.ToString(days1);
+    //        //}
+    //        UpdatePanel3.Update();
+    //        string startdate1 = Convert.ToDateTime(txtEWstartDate.Text).ToString("dd/MM/yyyy");
+
+    //        string enddate1 = Convert.ToDateTime(txtactdate.Text).ToString("dd/MM/yyyy");
+
+    //        TimeSpan ts1 = Convert.ToDateTime(enddate1) - Convert.ToDateTime(startdate1);
+    //        int days1 = Convert.ToInt32(ts1.TotalDays);
+    //        if (days1 > 0)
+    //        {
+    //            txtdelaydate.Text = Convert.ToString(days1);
+
+    //        }
+    //        else
+    //        {
+    //            days1 = 0;
+    //            txtdelaydate.Text = Convert.ToString(days1);
+
+    //        }
+    //        UpdatePanel6.Update();
+    //        // UpdatePanel3.Update();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        TroyLiteExceptionManager.HandleException(ex);
+    //    }
+
+    //}
+
+
+    //protected void txtActEndDate_OnTextChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        string startdate = Convert.ToDateTime(txtactdate.Text).ToString("dd/MM/yyyy");
+
+    //        string enddate = Convert.ToDateTime(txtacenddate.Text).ToString("dd/MM/yyyy");
+
+    //        TimeSpan ts = Convert.ToDateTime(enddate) - Convert.ToDateTime(startdate);
+    //        int days = Convert.ToInt32(ts.TotalDays);
+    //        if (days > 0)
+    //        {
+    //            txtacteffortdays.Text = Convert.ToString(days);
+
+    //        }
+    //        else
+    //        {
+    //            days = 0;
+    //            txtacteffortdays.Text = Convert.ToString(days);
+
+    //        }
+
+           
+    //        UpdatePanel3.Update();
+      
+
+
+    //        string startdate1 = Convert.ToDateTime(txtEWstartDate.Text).ToString("dd/MM/yyyy");
+
+    //        string enddate1 = Convert.ToDateTime(txtactdate.Text).ToString("dd/MM/yyyy");
+
+    //        TimeSpan ts1 = Convert.ToDateTime(enddate1) - Convert.ToDateTime(startdate1);
+    //        int days1 = Convert.ToInt32(ts1.TotalDays);
+    //        if (days1 > 0)
+    //        {
+    //            txtdelaydate.Text = Convert.ToString(days1);
+
+    //        }
+    //        else
+    //        {
+    //            days1 = 0;
+    //            txtdelaydate.Text = Convert.ToString(days1);
+
+    //        }
+    //        UpdatePanel6.Update();
+
+
+
+    //        string startdate2 = Convert.ToDateTime(txtacenddate.Text).ToString("dd/MM/yyyy");
+
+    //        DateTime indianStd = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "India Standard Time");
+    //        string dtaa = Convert.ToDateTime(indianStd).ToString("dd/MM/yyyy");
+
+    //        TimeSpan ts2 = Convert.ToDateTime(dtaa) - Convert.ToDateTime(startdate2);
+    //        int days2 = Convert.ToInt32(ts2.TotalDays);
+    //        if (days2 > 0)
+    //        {
+    //            txtoverduedays.Text = Convert.ToString(days2);
+
+    //        }
+    //        else
+    //        {
+                
+    //            txtoverduedays.Text = Convert.ToString(days2);
+
+    //        }
+    //        UpdatePanel8.Update();
+
+    //        string startdate12 = Convert.ToDateTime(txtEWEndDate.Text).ToString("dd/MM/yyyy");
+
+    //        string enddate12 = Convert.ToDateTime(txtacenddate.Text).ToString("dd/MM/yyyy");
+
+    //        TimeSpan ts12 = Convert.ToDateTime(enddate12) - Convert.ToDateTime(startdate12);
+    //        int days12 = Convert.ToInt32(ts12.TotalDays);
+    //        if (days12 > 0)
+    //        {
+    //            txtduedays.Text = Convert.ToString(days12);
+
+    //        }
+    //        else
+    //        {
+    //            days12 = 0;
+    //            txtduedays.Text = Convert.ToString(days12);
+
+    //        }
+    //        UpdatePanel7.Update();
+
+    //    }
+           
+    //    catch (Exception ex)
+    //    {
+    //        TroyLiteExceptionManager.HandleException(ex);
+    //    }
+
+    //}
+
+
+
+    //protected void drpmeasure_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        if (drpunitmeasure.SelectedValue == "Days")
+    //        {
+    //            estimateheading.Text = "Estimate Duration in(Days)";
+    //        }
+    //        else if (drpunitmeasure.SelectedValue == "Hours")
+    //        {
+    //            estimateheading.Text = "Estimate Duration in(Hours)";
+    //        }
+    //        UpdatePanel2.Update();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        TroyLiteExceptionManager.HandleException(ex);
+    //    }
+
+    //}
+
+
+    protected void drpmeasure_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            int date = Convert.ToInt32(txtEffortDays.Text);
+
+            //string dtaa = Convert.ToDateTime(date).ToString("dd/MM/yyyy");              
+            //DateTime calculat = Convert.ToDateTime(dtaa);
+
+            if (drpunitmeasure.SelectedValue == "Days")
+            {
+                int days = Convert.ToInt32(txtEffortDays.Text);
+
+                days = days / 24;
+
+                
+
+                txtEffortDays.Text = days.ToString();
+
+                //if (drpunitmeasure.SelectedValue == "Days")
+                //{
+                //    estimateheading.Text= "Estimate Duration in(Days)";
+
+                //}
+                //estimateheading.Text = "Estimate Duration in(days)";
+            }
+         
+               
+            //else if (drpunitmeasure.SelectedValue == "Months")
+            //{
+            //    int Months = Convert.ToInt32(txtEffortDays.Text);
+
+            //    //DateTime dat =Convert.ToString(date.AddMonths(Months));
+            //    txtEffortDays.Text = Months.ToString();
+            //}
+            else if (drpunitmeasure.SelectedValue == "Hours")
+            {
+                int hours = Convert.ToInt32(txtEffortDays.Text);
+
+                hours = 24 * hours;
+                estimateheading.Text = "Estimate Duration in(Hours)";
+              
+                //DateTime dat = Convert.ToDateTime(hours.ToS);
+                //TimeSpan ts = TimeSpan.FromHours(12);
+                //DateTime dt = Convert.ToDateTime(ts.ToString());
+                //Weeks = 7 * Weeks;
+                //DateTime dat = date.AddDays(Weeks);
+                txtEffortDays.Text = hours.ToString();
+                //estimateheading.Text = "Estimate Duration in (hours)";
+                //if (drpunitmeasure.SelectedValue == "Hours")
+                //{
+                //    estimateheading.Text = "Estimate Duration in(Hours)";
+
+                //}
+            }
+           
+
+            UpdatePanel2.Update();
+        }
+        
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+
+    }
+
+
+
+
 
     protected void txtEWstartDate_TextChanged(object sender, EventArgs e)
     {
@@ -461,9 +856,18 @@ public partial class ProjectEntry : System.Web.UI.Page
             string enddate = Convert.ToDateTime(txtEWEndDate.Text).ToString("dd/MM/yyyy");
 
             TimeSpan ts = Convert.ToDateTime(enddate) - Convert.ToDateTime(startdate);
+           
             int days = Convert.ToInt32(ts.TotalDays);
-
-            txtEffortDays.Text = Convert.ToString(days);
+            if (days > 0)
+            {
+                txtEffortDays.Text = Convert.ToString(days);
+                
+            }
+            else
+            {
+                days = 0;
+                txtEffortDays.Text = Convert.ToString(days);
+            }
             UpdatePanel2.Update();
         }
         catch (Exception ex)
@@ -472,25 +876,59 @@ public partial class ProjectEntry : System.Web.UI.Page
         }
     }
 
-    protected void txtEWEndDate_TextChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            string startdate = Convert.ToDateTime(txtEWstartDate.Text).ToString("dd/MM/yyyy");
+    //protected void txtEWEndDate_TextChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        string startdate = Convert.ToDateTime(txtEWstartDate.Text).ToString("dd/MM/yyyy");
 
-            string enddate = Convert.ToDateTime(txtEWEndDate.Text).ToString("dd/MM/yyyy");
+    //        string enddate = Convert.ToDateTime(txtEWEndDate.Text).ToString("dd/MM/yyyy");
 
-            TimeSpan ts = Convert.ToDateTime(enddate) - Convert.ToDateTime(startdate);
-            int days = Convert.ToInt32(ts.TotalDays);
+    //        TimeSpan ts = Convert.ToDateTime(enddate) - Convert.ToDateTime(startdate);
+    //        int days = Convert.ToInt32(ts.TotalDays);
+    //        if (days > 0)
+    //        {
+    //            txtEffortDays.Text = Convert.ToString(days);
 
-            txtEffortDays.Text = Convert.ToString(days);
-            UpdatePanel2.Update();
-        }
-        catch (Exception ex)
-        {
-            TroyLiteExceptionManager.HandleException(ex);
-        }
-    }
+    //        }
+    //        else
+    //        {
+    //            days = 0;
+    //            txtEffortDays.Text =Convert.ToString(days);
+                
+    //        }
+    //        UpdatePanel2.Update();
+    //        //int days = Convert.ToInt32(ts.TotalDays);
+
+    //        //txtEffortDays.Text = Convert.ToString(days);
+    //        UpdatePanel2.Update();
+
+
+    //        string startdate1 = Convert.ToDateTime(txtEWEndDate.Text).ToString("dd/MM/yyyy");
+
+    //        string enddate1 = Convert.ToDateTime(txtacenddate.Text).ToString("dd/MM/yyyy");
+
+    //        TimeSpan ts1 = Convert.ToDateTime(enddate1) - Convert.ToDateTime(startdate1);
+    //        int days1 = Convert.ToInt32(ts1.TotalDays);
+    //        if (days1 > 0)
+    //        {
+    //            txtduedays.Text = Convert.ToString(days1);
+
+    //        }
+    //        else
+    //        {
+    //            days1 = 0;
+    //            txtduedays.Text = Convert.ToString(days1);
+
+    //        }
+    //        UpdatePanel7.Update();
+
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        TroyLiteExceptionManager.HandleException(ex);
+    //    }
+    //}
 
     protected void GrdWME_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -498,6 +936,9 @@ public partial class ProjectEntry : System.Web.UI.Page
         {
             BusinessLogic bl = new BusinessLogic(sDataSource);
             int Project_ID = 0;
+
+            headtitle.Text = "Modify Project";
+            estimateheading.Visible=false;
 
             string connection = Request.Cookies["Company"].Value;
 
@@ -539,6 +980,33 @@ public partial class ProjectEntry : System.Web.UI.Page
                     if (ds.Tables[0].Rows[0]["Expected_Effort_Days"] != null)
                         txtEffortDays.Text = Convert.ToInt32(ds.Tables[0].Rows[0]["Expected_Effort_Days"]).ToString();
 
+                    //if(ds.Tables[0].Rows[0]["Project_End_Date"]!=null)
+                    //    txtCLSDate.Text=ds.Tables[0].Rows[0]["Project_End_Date"].ToString();
+
+                    if (ds.Tables[0].Rows[0]["Actual_Start_Date"] != null)
+                        txtactdate.Text = ds.Tables[0].Rows[0]["Actual_Start_Date"].ToString();
+
+                    if (ds.Tables[0].Rows[0]["Actual_End_Date"] != null)
+                        txtacenddate.Text = ds.Tables[0].Rows[0]["Actual_End_Date"].ToString();
+
+                    if (ds.Tables[0].Rows[0]["Unit_Of_Measure"] != null)
+                        drpunitmeasure.SelectedValue = ds.Tables[0].Rows[0]["Unit_Of_Measure"].ToString();
+
+                     //if (ds.Tables[0].Rows[0]["Actual_Effort_Days"] != null)
+                     //    txtacteffortdays.Text = Convert.ToInt32(ds.Tables[0].Rows[0]["Actual_Effort_Days"]).ToString();
+
+                     //if (ds.Tables[0].Rows[0]["Project_Closed"] != null)
+                     //    txtProjectDesc.Text = Convert.ToInt32(ds.Tables[0].Rows[0]["Project_Closed"]).ToString();
+
+                     //if (ds.Tables[0].Rows[0]["Actual_Start_Delay"] != null)
+                     //    txtdelaydate.Text = Convert.ToInt32(ds.Tables[0].Rows[0]["Actual_Start_Delay"]).ToString();
+
+                     //if (ds.Tables[0].Rows[0]["Actual_End_Delay"] != null)
+                     //    txtduedays.Text = Convert.ToInt32(ds.Tables[0].Rows[0]["Actual_End_Delay"]).ToString();
+
+                     //if (ds.Tables[0].Rows[0]["Over_Due_Days"] != null)
+                     //    txtoverduedays.Text = Convert.ToInt32(ds.Tables[0].Rows[0]["Over_Due_Days"]).ToString();
+
                     if (ds.Tables[0].Rows[0]["Project_Manager_Id"] != null)
                     {
                         string sCustomer = Convert.ToString(ds.Tables[0].Rows[0]["Project_Manager_Id"]);
@@ -549,7 +1017,8 @@ public partial class ProjectEntry : System.Web.UI.Page
                 }
             }
 
-            
+            drpIncharge.Enabled = false;
+            drpProjectstatus.Enabled = true;
             btnUpdate.Enabled = true;
             pnsSave.Visible = true;
             btnCancel.Enabled = true;
@@ -678,4 +1147,19 @@ public partial class ProjectEntry : System.Web.UI.Page
         }
     }
 
+    //protected void Dashboard_Click(object sender, EventArgs e)
+    //{
+    //    Response.Redirect("DashBoard.aspx");
+    //}
+    //protected void bulkupload_Click(object sender, EventArgs e)
+    //{
+       
+    //    Response.Redirect("DashBoard.aspx");
+    //    bulk.Text = "OnConstruction";
+       
+    //}
+    //protected void printall_Click(object sender, EventArgs e)
+    //{
+    //    Response.Redirect("DashBoard.aspx");
+    //}
 }

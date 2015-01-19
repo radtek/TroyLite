@@ -690,7 +690,7 @@
                                                                                                                         Start Date *
                                                                                                                     </td>
                                                                                                                     <td class="ControlTextBox3" style="width: 25%;">
-                                                                                                                        <asp:TextBox ID="txtStageStartDate" runat="server" TabIndex="1"
+                                                                                                                        <asp:TextBox ID="txtStageStartDate" Enabled="false" runat="server" TabIndex="1"
                                                                                                                             CssClass="cssTextBox"></asp:TextBox>
                                                                                                                     </td>
                                                                                                                     <td style="width: 8%;" align="left">
@@ -706,7 +706,7 @@
                                                                                                                         End Date *
                                                                                                                     </td>
                                                                                                                     <td class="ControlTextBox3" style="width: 25%;">
-                                                                                                                        <asp:TextBox ID="txtStageEndDate" runat="server" TabIndex="2"
+                                                                                                                        <asp:TextBox ID="txtStageEndDate" Enabled="false" runat="server" TabIndex="2"
                                                                                                                             CssClass="cssTextBox"></asp:TextBox>
                                                                                                                     </td>
                                                                                                                     <td style="width: 10%;" align="left">
@@ -1132,7 +1132,7 @@
                                                                                                                         Start Date *
                                                                                                                     </td>
                                                                                                                     <td class="ControlTextBox3" style="width: 25%;">
-                                                                                                                        <asp:TextBox ID="txtActivityStartDate" runat="server" TabIndex="3"
+                                                                                                                        <asp:TextBox ID="txtActivityStartDate" Enabled="false" runat="server" TabIndex="3"
                                                                                                                             CssClass="cssTextBox"></asp:TextBox>
                                                                                                                     </td>
                                                                                                                     <td style="width: 8%;" align="left">
@@ -1148,7 +1148,7 @@
                                                                                                                         End Date *
                                                                                                                     </td>
                                                                                                                     <td class="ControlTextBox3" style="width: 25%;">
-                                                                                                                        <asp:TextBox ID="txtActivityEndDate" runat="server" TabIndex="4"
+                                                                                                                        <asp:TextBox ID="txtActivityEndDate" Enabled="false" runat="server" TabIndex="4"
                                                                                                                             CssClass="cssTextBox"></asp:TextBox>
                                                                                                                     </td>
                                                                                                                     <td style="width: 10%;" align="left">
@@ -1183,7 +1183,7 @@
                                                                                                                         Next Activity Date *
                                                                                                                     </td>
                                                                                                                     <td class="ControlTextBox3" style="width: 25%;">
-                                                                                                                        <asp:TextBox ID="txtNextActivityDate" runat="server" TabIndex="6"
+                                                                                                                        <asp:TextBox ID="txtNextActivityDate" Enabled="false" runat="server" TabIndex="6"
                                                                                                                             CssClass="cssTextBox"></asp:TextBox>
                                                                                                                     </td>
                                                                                                                     <td style="width: 10%;" align="left">

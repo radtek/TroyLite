@@ -453,7 +453,7 @@
                                                                                                                     ErrorMessage="Payment date cannot be future date." Text="*" Type="Date"></asp:RangeValidator>--%>
                                                                                                             </td>
                                                                                                             <td class="ControlTextBox3" style="width: 25%">
-                                                                                                                <asp:TextBox ID="txtTransDate" runat="server" OnTextChanged="txtTransDate_TextChanged" AutoPostBack="true" Text='<%# Bind("TransDate","{0:dd/MM/yyyy}") %>'
+                                                                                                                <asp:TextBox ID="txtTransDate" runat="server" Enabled="false" OnTextChanged="txtTransDate_TextChanged" AutoPostBack="true" Text='<%# Bind("TransDate","{0:dd/MM/yyyy}") %>'
                                                                                                                     CssClass="cssTextBox" Width="100px"></asp:TextBox>
                                                                                                                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                                                                                                 <cc1:CalendarExtender ID="calExtender3" runat="server" Animated="true" Format="dd/MM/yyyy"
@@ -977,7 +977,7 @@
                                                                                                                     ErrorMessage="Please enter a valid date" runat="server" ID="CompareValidator2">*</asp:CompareValidator>
                                                                                                             </td>
                                                                                                             <td class="ControlTextBox3" style="width: 25%">
-                                                                                                                <asp:TextBox ID="txtDate" runat="server" OnTextChanged="txtDate_TextChanged" AutoPostBack="true"
+                                                                                                                <asp:TextBox ID="txtDate" runat="server" Enabled="false" OnTextChanged="txtDate_TextChanged" AutoPostBack="true"
                                                                                                                     CssClass="cssTextBox" Width="100px"></asp:TextBox>
                                                                                                                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                                                                                                 <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Animated="true" Format="dd/MM/yyyy"
