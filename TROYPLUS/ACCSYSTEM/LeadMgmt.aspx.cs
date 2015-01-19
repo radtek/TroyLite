@@ -58,8 +58,8 @@ public partial class LeadMgmt : System.Web.UI.Page
                     lnkBtnAdd.Enabled = true;
                     lnkBtnAdd.ToolTip = "Click to Add New ";
                 }
-                BindGrid("", "");
-
+                BindGrid("Open", "DocStatus");
+                drpLeadStatus.Enabled = true;
                 drpStatus.Enabled = true;
             }
         }
@@ -103,8 +103,8 @@ public partial class LeadMgmt : System.Web.UI.Page
                 if (customerDs.Tables[0].Rows[0]["Add1"] != null)
                     txtAddress.Text = customerDs.Tables[0].Rows[0]["Add1"].ToString();
 
-                if (customerDs.Tables[0].Rows[0]["ContactName"] != null)
-                    txtContactName.Text =  customerDs.Tables[0].Rows[0]["ContactName"].ToString();
+                //if (customerDs.Tables[0].Rows[0]["ContactName"] != null)
+                //    txtContactName.Text =  customerDs.Tables[0].Rows[0]["ContactName"].ToString();
 
                 if (customerDs.Tables[0].Rows[0]["phone"] != null)
                     txtTelephone.Text = customerDs.Tables[0].Rows[0]["phone"].ToString();
@@ -117,7 +117,7 @@ public partial class LeadMgmt : System.Web.UI.Page
             else
             {
                 txtAddress.Text = string.Empty;
-                txtContactName.Text = string.Empty;
+               // txtContactName.Text = string.Empty;
                 txtTelephone.Text = string.Empty;
                 txtMobile.Text = string.Empty;
             }
@@ -125,11 +125,11 @@ public partial class LeadMgmt : System.Web.UI.Page
             DataSet Ds = bl.getSalesForId(iLedgerID);
             if (customerDs != null && customerDs.Tables[0].Rows.Count > 0)
             {
-                txtTotalAmount.Text = Ds.Tables[0].Rows[0]["rate"].ToString();
+               // txtTotalAmount.Text = Ds.Tables[0].Rows[0]["rate"].ToString();
             }
             else
             {
-                txtTotalAmount.Text = "0";
+               // txtTotalAmount.Text = "0";
             }
         }
         catch (Exception ex)
@@ -158,13 +158,13 @@ public partial class LeadMgmt : System.Web.UI.Page
         BusinessLogic bl = new BusinessLogic(sDataSource);
         DataSet dsd = new DataSet();
 
-        drpStageName.Items.Clear();
-        drpStageName.Items.Add(new ListItem("Select Stage Name", "0"));
+       // drpStageName.Items.Clear();
+        //drpStageName.Items.Add(new ListItem("Select Stage Name", "0"));
         dsd = bl.ListStagesSetup(sDataSource, "N", 0);
-        drpStageName.DataSource = dsd;
-        drpStageName.DataBind();
-        drpStageName.DataTextField = "Stage_Name";
-        drpStageName.DataValueField = "Stage_Setup_Id";
+        //drpStageName.DataSource = dsd;
+        //drpStageName.DataBind();
+        //drpStageName.DataTextField = "Stage_Name";
+        //drpStageName.DataValueField = "Stage_Setup_Id";
     }
 
     private void loadPotentialAmount()
@@ -212,15 +212,19 @@ public partial class LeadMgmt : System.Web.UI.Page
 
         drpActivityName.DataSource = dsd;
         drpActivityName.DataBind();
-        drpActivityName.DataTextField = "Activity_Name";
-        drpActivityName.DataValueField = "Activity_Setup_Id";
+        //OLD code
+        //drpActivityName.DataTextField = "Activity_Name";
+        //drpActivityName.DataValueField = "Activity_Setup_Id";
+        //New code
+        drpActivityName.DataTextField = "TextValue";
+        drpActivityName.DataValueField = "TextValue";
 
         drpNextActivity.Items.Clear();
         drpNextActivity.Items.Add(new ListItem("Select Next Activity", "0"));
         drpNextActivity.DataSource = dsd;
         drpNextActivity.DataBind();
-        drpNextActivity.DataTextField = "Activity_Name";
-        drpNextActivity.DataValueField = "Activity_Setup_Id";
+        drpNextActivity.DataTextField = "TextValue";
+        drpNextActivity.DataValueField = "TextValue";
 
         drpActivityEmployee.Items.Clear();
         drpActivityEmployee.Items.Add(new ListItem("Select Employee", "0"));
@@ -238,20 +242,20 @@ public partial class LeadMgmt : System.Web.UI.Page
         {
             BusinessLogic bl = new BusinessLogic(sDataSource);
             DataSet dsd = new DataSet();
-            int iStageID = Convert.ToInt32(drpStageName.SelectedItem.Value);
+           // int iStageID = Convert.ToInt32(drpStageName.SelectedItem.Value);
 
-            dsd = bl.ListStagesSetup(sDataSource, "Y", iStageID);
+            //dsd = bl.ListStagesSetup(sDataSource, "Y", iStageID);
 
             if (dsd != null && dsd.Tables[0].Rows.Count > 0)
             {
-                if (dsd.Tables[0].Rows[0]["Stage_Perc"] != null)
-                    txtStagePerc.Text = dsd.Tables[0].Rows[0]["Stage_Perc"].ToString();
+                //if (dsd.Tables[0].Rows[0]["Stage_Perc"] != null)
+                    //txtStagePerc.Text = dsd.Tables[0].Rows[0]["Stage_Perc"].ToString();
             }
-            UpdatePanel1.Update();
+            //UpdatePanel1.Update();
 
-            double calculation = (Convert.ToDouble(txtStagePotentialAmount.Text) * Convert.ToDouble(txtStagePerc.Text)) / 100;
-            txtStageWeightedAmount.Text = Convert.ToString(calculation);
-            UpdatePanel8.Update();
+           // double calculation = (Convert.ToDouble(txtStagePotentialAmount.Text) * Convert.ToDouble(txtStagePerc.Text)) / 100;
+           // txtStageWeightedAmount.Text = Convert.ToString(calculation);
+           // UpdatePanel8.Update();
         }
         catch (Exception ex)
         {
@@ -264,9 +268,9 @@ public partial class LeadMgmt : System.Web.UI.Page
     {
         try
         {
-            double calculation = (Convert.ToDouble(txtStagePotentialAmount.Text) * Convert.ToDouble(txtStagePerc.Text)) / 100;
-            txtStageWeightedAmount.Text = Convert.ToString(calculation);
-            UpdatePanel8.Update();
+           // double calculation = (Convert.ToDouble(txtStagePotentialAmount.Text) * Convert.ToDouble(txtStagePerc.Text)) / 100;
+           // txtStageWeightedAmount.Text = Convert.ToString(calculation);
+           // UpdatePanel8.Update();
         }
         catch (Exception ex)
         {
@@ -284,29 +288,29 @@ public partial class LeadMgmt : System.Web.UI.Page
             //string dtaa = Convert.ToDateTime(date).ToString("dd/MM/yyyy");              
             //DateTime calculat = Convert.ToDateTime(dtaa);
 
-            if (drpPredictedClosingPeriod.SelectedValue == "Days")
-            {
-                int days = Convert.ToInt32(txtPredictedClosing.Text);
+            //if (drpPredictedClosingPeriod.SelectedValue == "Days")
+            //{
+            //    int days = Convert.ToInt32(txtPredictedClosing.Text);
 
-                DateTime dat = date.AddDays(days);
-                txtPredictedClosingDate.Text = dat.ToString("dd/MM/yyyy");
-            }
-            else if (drpPredictedClosingPeriod.SelectedValue == "Months")
-            {
-                int Months = Convert.ToInt32(txtPredictedClosing.Text);
+            //    DateTime dat = date.AddDays(days);
+            //    txtPredictedClosingDate.Text = dat.ToString("dd/MM/yyyy");
+            //}
+            //else if (drpPredictedClosingPeriod.SelectedValue == "Months")
+            //{
+            //    int Months = Convert.ToInt32(txtPredictedClosing.Text);
 
-                DateTime dat = date.AddMonths(Months);
-                txtPredictedClosingDate.Text = dat.ToString("dd/MM/yyyy");
-            }
-            else if (drpPredictedClosingPeriod.SelectedValue == "Weeks")
-            {
-                int Weeks = Convert.ToInt32(txtPredictedClosing.Text);
-                Weeks = 7 * Weeks;
-                DateTime dat = date.AddDays(Weeks);
-                txtPredictedClosingDate.Text = dat.ToString("dd/MM/yyyy");
-            }
+            //    DateTime dat = date.AddMonths(Months);
+            //    txtPredictedClosingDate.Text = dat.ToString("dd/MM/yyyy");
+            //}
+            //else if (drpPredictedClosingPeriod.SelectedValue == "Weeks")
+            //{
+            //    int Weeks = Convert.ToInt32(txtPredictedClosing.Text);
+            //    Weeks = 7 * Weeks;
+            //    DateTime dat = date.AddDays(Weeks);
+            //    txtPredictedClosingDate.Text = dat.ToString("dd/MM/yyyy");
+            //}
 
-            UpdatePanel123.Update();
+            //UpdatePanel123.Update();
         }
         catch (Exception ex)
         {
@@ -338,9 +342,9 @@ public partial class LeadMgmt : System.Web.UI.Page
     {
         try
         {
-            double calculation = (Convert.ToDouble(txtStagePotentialAmount.Text) * Convert.ToDouble(txtStagePerc.Text)) /100;
-            txtStageWeightedAmount.Text = Convert.ToString(calculation);
-            UpdatePanel8.Update();
+           // double calculation = (Convert.ToDouble(txtStagePotentialAmount.Text) * Convert.ToDouble(txtStagePerc.Text)) /100;
+           // txtStageWeightedAmount.Text = Convert.ToString(calculation);
+           // UpdatePanel8.Update();
         }
         catch (Exception ex)
         {
@@ -357,30 +361,30 @@ public partial class LeadMgmt : System.Web.UI.Page
                 //string dtaa = Convert.ToDateTime(date).ToString("dd/MM/yyyy");              
                 //DateTime calculat = Convert.ToDateTime(dtaa);
 
-            if(drpPredictedClosingPeriod.SelectedValue == "Days")
-            {
-                int days = Convert.ToInt32(txtPredictedClosing.Text);
+            //if(drpPredictedClosingPeriod.SelectedValue == "Days")
+            //{
+            //    int days = Convert.ToInt32(txtPredictedClosing.Text);
 
-                DateTime dat = date.AddDays(days);
-                txtPredictedClosingDate.Text = dat.ToString("dd/MM/yyyy");
-            }
-            else if (drpPredictedClosingPeriod.SelectedValue == "Months")
-            {
-                int Months = Convert.ToInt32(txtPredictedClosing.Text);
+            //    DateTime dat = date.AddDays(days);
+            //    txtPredictedClosingDate.Text = dat.ToString("dd/MM/yyyy");
+            //}
+            //else if (drpPredictedClosingPeriod.SelectedValue == "Months")
+            //{
+            //    int Months = Convert.ToInt32(txtPredictedClosing.Text);
 
-                DateTime dat = date.AddMonths(Months);
-                txtPredictedClosingDate.Text = dat.ToString("dd/MM/yyyy");
-            }
-            else if (drpPredictedClosingPeriod.SelectedValue == "Weeks")
-            {
-                int Weeks = Convert.ToInt32(txtPredictedClosing.Text);
-                Weeks = 7 * Weeks;
-                DateTime dat = date.AddDays(Weeks);
-                txtPredictedClosingDate.Text = dat.ToString("dd/MM/yyyy");
-            }
+            //    DateTime dat = date.AddMonths(Months);
+            //    txtPredictedClosingDate.Text = dat.ToString("dd/MM/yyyy");
+            //}
+            //else if (drpPredictedClosingPeriod.SelectedValue == "Weeks")
+            //{
+            //    int Weeks = Convert.ToInt32(txtPredictedClosing.Text);
+            //    Weeks = 7 * Weeks;
+            //    DateTime dat = date.AddDays(Weeks);
+            //    txtPredictedClosingDate.Text = dat.ToString("dd/MM/yyyy");
+            //}
 
 
-            UpdatePanel123.Update();
+            //UpdatePanel123.Update();
         }
         catch (Exception ex)
         {
@@ -785,9 +789,9 @@ public partial class LeadMgmt : System.Web.UI.Page
 
             //txtCreationDate.Text = DateTime.Now.ToShortDateString();
 
-            BtnAddStage.Visible = true;
-            pnlStage.Visible = false;
-            GrdViewLeadStage.Visible = true;
+           // BtnAddStage.Visible = true;
+           // pnlStage.Visible = false;
+           // GrdViewLeadStage.Visible = true;
             loadEmp();
 
             BtnAddproduct.Visible = true;
@@ -840,8 +844,8 @@ public partial class LeadMgmt : System.Web.UI.Page
             }
 
 
-            txtBranch.Text = a;
-
+            //txtBranch.Text = a;
+            drpLeadStatus.Enabled = false;
             drpStatus.Enabled = false;
 
             txtLeadNo.Text = "- TBA -";
@@ -1039,14 +1043,14 @@ public partial class LeadMgmt : System.Web.UI.Page
         try
         {
             ResetStage();
-            BtnAddStage.Visible = false;
-            cmdSaveContact.Visible = true;
-            cmdUpdateContact.Visible = false;
-            pnlStage.Visible = true;
-            GrdViewLeadStage.Visible = false;
+            //BtnAddStage.Visible = false;
+            //cmdSaveContact.Visible = true;
+            //cmdUpdateContact.Visible = false;
+            //pnlStage.Visible = true;
+            //GrdViewLeadStage.Visible = false;
             loadStages();
 
-            txtStagePotentialAmount.Text = txtPotentialPotAmount.Text;
+            //txtStagePotentialAmount.Text = txtPotentialPotAmount.Text;
             
         }
         catch (Exception ex)
@@ -1142,14 +1146,14 @@ public partial class LeadMgmt : System.Web.UI.Page
 
     private void ResetStage()
     {
-        hdBtnAddStage.Value = string.Empty;
-        txtStageStartDate.Text = string.Empty;
-        txtStageEndDate.Text = string.Empty;
-        drpStageName.SelectedIndex = 0;
-        txtStagePerc.Text = "0";
-        txtStagePotentialAmount.Text = "0";
-        txtStageWeightedAmount.Text = "0";
-        txtStageRemarks.Text = string.Empty;
+       // hdBtnAddStage.Value = string.Empty;
+       // txtStageStartDate.Text = string.Empty;
+      //  txtStageEndDate.Text = string.Empty;
+      //  drpStageName.SelectedIndex = 0;
+       // txtStagePerc.Text = "0";
+       // txtStagePotentialAmount.Text = "0";
+       // txtStageWeightedAmount.Text = "0";
+      //  txtStageRemarks.Text = string.Empty;
     }
 
     private void ResetCompetitor()
@@ -1171,12 +1175,12 @@ public partial class LeadMgmt : System.Web.UI.Page
         HiddenField4.Value = string.Empty;
         drpActivityName.SelectedIndex = 0;
         drpNextActivity.SelectedIndex = 0;
-        txtActivityStartDate.Text = string.Empty;
+        txtActivityDate.Text = string.Empty;
         txtActivityLocation.Text = string.Empty;
-        txtActivityEndDate.Text = string.Empty;
+        //txtActivityEndDate.Text = string.Empty;
         drpActivityEmployee.SelectedIndex = 0;
         txtNextActivityDate.Text = string.Empty;
-        drpFollowUp.SelectedIndex = 0;
+        //drpFollowUp.SelectedIndex = 0;
         txtActivityRemarks.Text = string.Empty;
     }
 
@@ -1211,20 +1215,20 @@ public partial class LeadMgmt : System.Web.UI.Page
         txtMobile.Text = "";
         txtLeadName.Text = "";
         txtTelephone.Text = "";
-        drpInterestLevel.SelectedIndex = 0;
+        //drpInterestLevel.SelectedIndex = 0;
         drpIncharge.SelectedIndex = 0;
         drpLeadStatus.SelectedIndex = 0;
         drpStatus.SelectedIndex = 0;
-        drpPredictedClosingPeriod.SelectedIndex = 0;
-        txtTotalAmount.Text = "0";
-        txtClosingPer.Text = "0";
+        //drpPredictedClosingPeriod.SelectedIndex = 0;
+        //txtTotalAmount.Text = "0";
+       // txtClosingPer.Text = "0";
         txtClosingDate.Text = "";
-        txtContactName.Text = "";
-        txtPotentialPotAmount.Text = "";
-        txtPotentialWeightedAmount.Text = "";
-        txtPredictedClosingDate.Text = "";
-        txtPredictedClosing.Text = "";
-        txtBranch.Text = "";
+        //txtContactName.Text = "";
+        //txtPotentialPotAmount.Text = "";
+        //txtPotentialWeightedAmount.Text = "";
+        //txtPredictedClosingDate.Text = "";
+        //txtPredictedClosing.Text = "";
+        //txtBranch.Text = "";
         chk.Checked = true;
         txtBPName.Text = "";
         cmbCustomer.Visible = true;
@@ -1237,7 +1241,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         {
             txtBPName.Visible = true;
             cmbCustomer.Visible = false;
-            txtContactName.Enabled = true;
+           // txtContactName.Enabled = true;
             txtAddress.Enabled = true;
             txtMobile.Enabled = true;
             txtTelephone.Enabled = true;
@@ -1246,7 +1250,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         {
             cmbCustomer.Visible = true;
             txtBPName.Visible = false;
-            txtContactName.Enabled = false;
+           // txtContactName.Enabled = false;
             txtAddress.Enabled = false;
             txtMobile.Enabled = false;
             txtTelephone.Enabled = false;
@@ -1267,13 +1271,13 @@ public partial class LeadMgmt : System.Web.UI.Page
             //    GrdViewLeadStage.DataSource = ds.Tables[0];
             //    GrdViewLeadStage.DataBind();
             //}
-            GrdViewLeadStage.DataSource = null;
-            GrdViewLeadStage.DataBind();
+           // GrdViewLeadStage.DataSource = null;
+           // GrdViewLeadStage.DataBind();
         }
         else
         {
-            GrdViewLeadStage.DataSource = null;
-            GrdViewLeadStage.DataBind();
+           // GrdViewLeadStage.DataSource = null;
+           // GrdViewLeadStage.DataBind();
         }
     }
 
@@ -1335,16 +1339,16 @@ public partial class LeadMgmt : System.Web.UI.Page
                 drNew = dt.NewRow();
 
                 drNew["Stage_Id"] = 1;
-                drNew["Stage_Name"] = drpStageName.SelectedItem.Text;
-                drNew["Stage_Setup_Id"] = drpStageName.SelectedValue;
-                drNew["Stage_Perc"] = txtStagePerc.Text;
-                txtClosingPer.Text = txtStagePerc.Text;
-                txtPotentialWeightedAmount.Text = txtStageWeightedAmount.Text;
-                drNew["Remarks"] = txtStageRemarks.Text;
-                drNew["Weighted_Amount"] = txtStageWeightedAmount.Text;
-                drNew["Potential_Amount"] = txtStagePotentialAmount.Text;
-                drNew["Start_Date"] = txtStageStartDate.Text;
-                drNew["End_Date"] = txtStageEndDate.Text;
+               // drNew["Stage_Name"] = drpStageName.SelectedItem.Text;
+               // drNew["Stage_Setup_Id"] = drpStageName.SelectedValue;
+               // drNew["Stage_Perc"] = txtStagePerc.Text;
+                //txtClosingPer.Text = txtStagePerc.Text;
+               // txtPotentialWeightedAmount.Text = txtStageWeightedAmount.Text;
+               // drNew["Remarks"] = txtStageRemarks.Text;
+               // drNew["Weighted_Amount"] = txtStageWeightedAmount.Text;
+               // drNew["Potential_Amount"] = txtStagePotentialAmount.Text;
+               // drNew["Start_Date"] = txtStageStartDate.Text;
+               // drNew["End_Date"] = txtStageEndDate.Text;
                 ds.Tables[0].Rows.Add(drNew);
                 Session["contactDs"] = ds;
             }
@@ -1359,26 +1363,26 @@ public partial class LeadMgmt : System.Web.UI.Page
 
                 drNew = ds.Tables[0].NewRow();
                 drNew["Stage_Id"] = maxID + 1;
-                drNew["Stage_Name"] = drpStageName.SelectedItem.Text;
-                drNew["Stage_Setup_Id"] = drpStageName.SelectedValue;
-                drNew["Stage_Perc"] = txtStagePerc.Text;
-                txtClosingPer.Text = txtStagePerc.Text;
-                txtPotentialWeightedAmount.Text = txtStageWeightedAmount.Text;
-                drNew["Remarks"] = txtStageRemarks.Text;
-                drNew["Weighted_Amount"] = txtStageWeightedAmount.Text;
-                drNew["Potential_Amount"] = txtStagePotentialAmount.Text;
-                drNew["Start_Date"] = txtStageStartDate.Text;
-                drNew["End_Date"] = txtStageEndDate.Text;
+                //drNew["Stage_Name"] = drpStageName.SelectedItem.Text;
+               // drNew["Stage_Setup_Id"] = drpStageName.SelectedValue;
+               // drNew["Stage_Perc"] = txtStagePerc.Text;
+                //txtClosingPer.Text = txtStagePerc.Text;
+                //txtPotentialWeightedAmount.Text = txtStageWeightedAmount.Text;
+                //drNew["Remarks"] = txtStageRemarks.Text;
+                //drNew["Weighted_Amount"] = txtStageWeightedAmount.Text;
+                //drNew["Potential_Amount"] = txtStagePotentialAmount.Text;
+                //drNew["Start_Date"] = txtStageStartDate.Text;
+                //drNew["End_Date"] = txtStageEndDate.Text;
                 ds.Tables[0].Rows.Add(drNew);
                 Session["contactDs"] = ds;
             }
 
-            GrdViewLeadStage.DataSource = ds.Tables[0];
-            GrdViewLeadStage.DataBind();
+            //GrdViewLeadStage.DataSource = ds.Tables[0];
+            //GrdViewLeadStage.DataBind();
 
-            pnlStage.Visible = false;
-            GrdViewLeadStage.Visible = true;
-            BtnAddStage.Visible = true;
+            //pnlStage.Visible = false;
+            //GrdViewLeadStage.Visible = true;
+            //BtnAddStage.Visible = true;
         }
         catch (Exception ex)
         {
@@ -1541,23 +1545,23 @@ public partial class LeadMgmt : System.Web.UI.Page
         try
         {
             var ds = (DataSet)Session["contactDs"];
-            int currentRow = int.Parse(hdCurrentRow.Value);
+           // int currentRow = int.Parse(hdCurrentRow.Value);
 
-            ds.Tables[0].Rows[currentRow]["Stage_Name"] = drpStageName.SelectedItem.Text;
-            ds.Tables[0].Rows[currentRow]["Stage_Setup_Id"] = drpStageName.SelectedValue;
-            ds.Tables[0].Rows[currentRow]["Stage_Perc"] = txtStagePerc.Text;
-            ds.Tables[0].Rows[currentRow]["Remarks"] = txtStageRemarks.Text;
-            ds.Tables[0].Rows[currentRow]["Weighted_Amount"] = txtStageWeightedAmount.Text;
-            ds.Tables[0].Rows[currentRow]["Potential_Amount"] = txtStagePotentialAmount.Text;
-            ds.Tables[0].Rows[currentRow]["Start_Date"] = txtStageStartDate.Text;
-            ds.Tables[0].Rows[currentRow]["End_Date"] = txtStageEndDate.Text;
+            //ds.Tables[0].Rows[currentRow]["Stage_Name"] = drpStageName.SelectedItem.Text;
+            //ds.Tables[0].Rows[currentRow]["Stage_Setup_Id"] = drpStageName.SelectedValue;
+            //ds.Tables[0].Rows[currentRow]["Stage_Perc"] = txtStagePerc.Text;
+            //ds.Tables[0].Rows[currentRow]["Remarks"] = txtStageRemarks.Text;
+            //ds.Tables[0].Rows[currentRow]["Weighted_Amount"] = txtStageWeightedAmount.Text;
+            //ds.Tables[0].Rows[currentRow]["Potential_Amount"] = txtStagePotentialAmount.Text;
+            //ds.Tables[0].Rows[currentRow]["Start_Date"] = txtStageStartDate.Text;
+            //ds.Tables[0].Rows[currentRow]["End_Date"] = txtStageEndDate.Text;
 
-            ds.Tables[0].Rows[currentRow].EndEdit();
-            ds.Tables[0].Rows[currentRow].AcceptChanges();
+            //ds.Tables[0].Rows[currentRow].EndEdit();
+           // ds.Tables[0].Rows[currentRow].AcceptChanges();
 
-            GrdViewLeadStage.DataSource = ds.Tables[0];
-            GrdViewLeadStage.DataBind();
-            pnlStage.Visible = false;
+            //GrdViewLeadStage.DataSource = ds.Tables[0];
+            //GrdViewLeadStage.DataBind();
+            //pnlStage.Visible = false;
             Session["contactDs"] = ds;
 
             if(ds != null)
@@ -1566,14 +1570,14 @@ public partial class LeadMgmt : System.Web.UI.Page
                 {
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        txtPotentialWeightedAmount.Text = dr["Weighted_Amount"].ToString();
+                        //txtPotentialWeightedAmount.Text = dr["Weighted_Amount"].ToString();
                     }
                 }
             }
 
-            pnlStage.Visible = false;
-            GrdViewLeadStage.Visible = true;
-            BtnAddStage.Visible = true;
+           // pnlStage.Visible = false;
+            //GrdViewLeadStage.Visible = true;
+            //BtnAddStage.Visible = true;
 
         }
         catch (Exception ex)
@@ -1709,13 +1713,13 @@ public partial class LeadMgmt : System.Web.UI.Page
                 drNew["Activity_Id"] = 1;
                 drNew["Activity_Name"] = drpActivityName.SelectedItem.Text;
                 drNew["Activity_Name_Id"] = drpActivityName.SelectedValue;
-                drNew["Start_Date"] = txtActivityStartDate.Text;
-                drNew["End_Date"] = txtActivityEndDate.Text;
+                drNew["Start_Date"] = txtActivityDate.Text;
+                //drNew["End_Date"] = txtActivityEndDate.Text;
                 drNew["Activity_Location"] = txtActivityLocation.Text;
                 drNew["Next_Activity"] = drpNextActivity.SelectedItem.Text;
                 drNew["Next_Activity_Id"] = drpNextActivity.SelectedValue;
                 drNew["NextActivity_Date"] = txtNextActivityDate.Text;
-                drNew["FollowUp"] = drpFollowUp.SelectedValue;
+               // drNew["FollowUp"] = drpFollowUp.SelectedValue;
                 drNew["Emp_Name"] = drpActivityEmployee.SelectedItem.Text;
                 drNew["Emp_No"] = drpActivityEmployee.SelectedValue;
                 drNew["Remarks"] = txtActivityRemarks.Text;
@@ -1735,13 +1739,13 @@ public partial class LeadMgmt : System.Web.UI.Page
                 drNew["Activity_Id"] = maxID + 1;
                 drNew["Activity_Name"] = drpActivityName.SelectedItem.Text;
                 drNew["Activity_Name_Id"] = drpActivityName.SelectedValue;
-                drNew["Start_Date"] = txtActivityStartDate.Text;
-                drNew["End_Date"] = txtActivityEndDate.Text;
+                drNew["Start_Date"] = txtActivityDate.Text;
+                //drNew["End_Date"] = txtActivityEndDate.Text;
                 drNew["Activity_Location"] = txtActivityLocation.Text;
                 drNew["Next_Activity"] = drpNextActivity.SelectedItem.Text;
                 drNew["Next_Activity_Id"] = drpNextActivity.SelectedValue;
                 drNew["NextActivity_Date"] = txtNextActivityDate.Text;
-                drNew["FollowUp"] = drpFollowUp.SelectedValue;
+               // drNew["FollowUp"] = drpFollowUp.SelectedValue;
                 drNew["Emp_Name"] = drpActivityEmployee.SelectedItem.Text;
                 drNew["Emp_No"] = drpActivityEmployee.SelectedValue;
                 drNew["Remarks"] = txtActivityRemarks.Text;
@@ -1771,13 +1775,13 @@ public partial class LeadMgmt : System.Web.UI.Page
 
             ds.Tables[0].Rows[currentRow]["Activity_Name"] = drpActivityName.SelectedItem.Text;
             ds.Tables[0].Rows[currentRow]["Activity_Name_Id"] = drpActivityName.SelectedValue;
-            ds.Tables[0].Rows[currentRow]["Start_Date"] = txtActivityStartDate.Text;
-            ds.Tables[0].Rows[currentRow]["End_Date"] = txtActivityEndDate.Text;
+            ds.Tables[0].Rows[currentRow]["Start_Date"] = txtActivityDate.Text;
+            //ds.Tables[0].Rows[currentRow]["End_Date"] = txtActivityEndDate.Text;
             ds.Tables[0].Rows[currentRow]["Activity_Location"] = txtActivityLocation.Text;
             ds.Tables[0].Rows[currentRow]["Next_Activity"] = drpNextActivity.SelectedItem.Text;
             ds.Tables[0].Rows[currentRow]["Next_Activity_Id"] = drpNextActivity.SelectedValue;
             ds.Tables[0].Rows[currentRow]["NextActivity_Date"] = txtNextActivityDate.Text;
-            ds.Tables[0].Rows[currentRow]["FollowUp"] = drpFollowUp.SelectedValue;
+           // ds.Tables[0].Rows[currentRow]["FollowUp"] = drpFollowUp.SelectedValue;
             ds.Tables[0].Rows[currentRow]["Emp_Name"] = drpActivityEmployee.SelectedItem.Text;
             ds.Tables[0].Rows[currentRow]["Emp_No"] = drpActivityEmployee.SelectedValue;
             ds.Tables[0].Rows[currentRow]["Remarks"] = txtActivityRemarks.Text;
@@ -1829,24 +1833,24 @@ public partial class LeadMgmt : System.Web.UI.Page
         {
             loadStages();
             DataSet ds = new DataSet();
-            GridViewRow row = GrdViewLeadStage.SelectedRow;
+           // GridViewRow row = GrdViewLeadStage.SelectedRow;
 
-            hdCurrentRow.Value = Convert.ToString(row.DataItemIndex);
+            //hdCurrentRow.Value = Convert.ToString(row.DataItemIndex);
 
-            txtStageEndDate.Text = row.Cells[1].Text;
-            txtStageStartDate.Text = row.Cells[0].Text;
+            //txtStageEndDate.Text = row.Cells[1].Text;
+            //txtStageStartDate.Text = row.Cells[0].Text;
             //drpStageName.SelectedItem.Text = row.Cells[2].Text;
-            drpStageName.SelectedValue = row.Cells[3].Text;
-            txtStagePerc.Text = row.Cells[4].Text;
-            txtStageRemarks.Text = row.Cells[7].Text;
-            txtStageWeightedAmount.Text = row.Cells[6].Text;
-            txtStagePotentialAmount.Text = row.Cells[5].Text;
+            //drpStageName.SelectedValue = row.Cells[3].Text;
+            //txtStagePerc.Text = row.Cells[4].Text;
+            //txtStageRemarks.Text = row.Cells[7].Text;
+            //txtStageWeightedAmount.Text = row.Cells[6].Text;
+            //txtStagePotentialAmount.Text = row.Cells[5].Text;
 
-            cmdSaveContact.Visible = false;
-            cmdUpdateContact.Visible = true;
-            pnlStage.Visible = true;
-            GrdViewLeadStage.Visible = false;
-            BtnAddStage.Visible = false;
+            //cmdSaveContact.Visible = false;
+            //cmdUpdateContact.Visible = true;
+            //pnlStage.Visible = true;
+            //GrdViewLeadStage.Visible = false;
+            //BtnAddStage.Visible = false;
         }
         catch (Exception ex)
         {
@@ -1920,13 +1924,13 @@ public partial class LeadMgmt : System.Web.UI.Page
             HiddenField3.Value = Convert.ToString(row.DataItemIndex);
 
             drpActivityName.SelectedValue = row.Cells[1].Text;
-            txtActivityStartDate.Text = row.Cells[2].Text;
-            txtActivityEndDate.Text = row.Cells[3].Text;
+            txtActivityDate.Text = row.Cells[2].Text;
+           // txtActivityEndDate.Text = row.Cells[3].Text;
             txtNextActivityDate.Text = row.Cells[7].Text;
             txtActivityLocation.Text = row.Cells[4].Text;
             drpNextActivity.SelectedValue = row.Cells[6].Text;
             drpActivityEmployee.SelectedValue = row.Cells[11].Text;
-            drpFollowUp.SelectedValue = row.Cells[8].Text;
+            //drpFollowUp.SelectedValue = row.Cells[8].Text;
             txtActivityRemarks.Text = row.Cells[9].Text;
 
             cmdSaveActivity.Visible = false;
@@ -2099,9 +2103,9 @@ public partial class LeadMgmt : System.Web.UI.Page
         try
         {
             //ModalPopupContact.Hide();
-            pnlStage.Visible = false;
-            GrdViewLeadStage.Visible = true;
-            BtnAddStage.Visible = true;
+            //pnlStage.Visible = false;
+            //GrdViewLeadStage.Visible = true;
+            //BtnAddStage.Visible = true;
         }
         catch (Exception ex)
         {
@@ -2483,9 +2487,9 @@ public partial class LeadMgmt : System.Web.UI.Page
                 txtAddress.Text = dsDetails.Tables[0].Rows[0]["Address"].ToString();
                 txtTelephone.Text = dsDetails.Tables[0].Rows[0]["Telephone"].ToString();
                 txtLeadName.Text = dsDetails.Tables[0].Rows[0]["Lead_Name"].ToString();
-                txtTotalAmount.Text = dsDetails.Tables[0].Rows[0]["InvoicedAmt"].ToString();
-                txtContactName.Text = dsDetails.Tables[0].Rows[0]["Contact_Name"].ToString();
-                txtClosingPer.Text = dsDetails.Tables[0].Rows[0]["Closing_Per"].ToString();
+               // txtTotalAmount.Text = dsDetails.Tables[0].Rows[0]["InvoicedAmt"].ToString();
+               // txtContactName.Text = dsDetails.Tables[0].Rows[0]["Contact_Name"].ToString();
+               // txtClosingPer.Text = dsDetails.Tables[0].Rows[0]["Closing_Per"].ToString();
 
                 if ((Convert.ToDateTime(dsDetails.Tables[0].Rows[0]["Closing_Date"])) == Convert.ToDateTime("01/01/2000"))
                 {
@@ -2499,20 +2503,20 @@ public partial class LeadMgmt : System.Web.UI.Page
                 drpLeadStatus.SelectedValue = dsDetails.Tables[0].Rows[0]["Lead_Status"].ToString();
                 drpStatus.SelectedValue = dsDetails.Tables[0].Rows[0]["Doc_Status"].ToString();
                 drpIncharge.SelectedValue = dsDetails.Tables[0].Rows[0]["Emp_Id"].ToString();
-                txtBranch.Text = dsDetails.Tables[0].Rows[0]["Branch"].ToString();
-
+                //txtBranch.Text = dsDetails.Tables[0].Rows[0]["Branch"].ToString();
+                drpLeadStatus.Enabled = true;
                 drpStatus.Enabled = true;
 
                 DataSet ds = bl.GetLeadPotential(LeadNo);
 
                 if (ds != null && ds.Tables[0].Rows.Count > 0)
                 {
-                    txtPredictedClosing.Text = ds.Tables[0].Rows[0]["Predicted_Closing"].ToString();
-                    drpPredictedClosingPeriod.SelectedValue = ds.Tables[0].Rows[0]["Predicted_Closing_Period"].ToString();
-                    txtPredictedClosingDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["Predicted_Closing_Date"]).ToString("dd/MM/yyyy");
-                    drpInterestLevel.SelectedValue = ds.Tables[0].Rows[0]["Interest_Level"].ToString();
-                    txtPotentialPotAmount.Text = ds.Tables[0].Rows[0]["Potential_Amount"].ToString();
-                    txtPotentialWeightedAmount.Text = ds.Tables[0].Rows[0]["Weighted_Amount"].ToString();
+                   // txtPredictedClosing.Text = ds.Tables[0].Rows[0]["Predicted_Closing"].ToString();
+                   // drpPredictedClosingPeriod.SelectedValue = ds.Tables[0].Rows[0]["Predicted_Closing_Period"].ToString();
+                   // txtPredictedClosingDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["Predicted_Closing_Date"]).ToString("dd/MM/yyyy");
+                   // drpInterestLevel.SelectedValue = ds.Tables[0].Rows[0]["Interest_Level"].ToString();
+                   // txtPotentialPotAmount.Text = ds.Tables[0].Rows[0]["Potential_Amount"].ToString();
+                   // txtPotentialWeightedAmount.Text = ds.Tables[0].Rows[0]["Weighted_Amount"].ToString();
                 }
 
 
@@ -2520,19 +2524,19 @@ public partial class LeadMgmt : System.Web.UI.Page
 
                 if (dsStages != null && dsStages.Tables[0].Rows.Count > 0)
                 {
-                    GrdViewLeadStage.DataSource = dsStages.Tables[0];
-                    GrdViewLeadStage.DataBind();
+                   // GrdViewLeadStage.DataSource = dsStages.Tables[0];
+                    //GrdViewLeadStage.DataBind();
                     Session["contactDs"] = dsStages;
                 }
                 else
                 {
-                    GrdViewLeadStage.DataSource = null;
-                    GrdViewLeadStage.DataBind();
+                    //GrdViewLeadStage.DataSource = null;
+                    //GrdViewLeadStage.DataBind();
                     Session["contactDs"] = null;
                 }
-                GrdViewLeadStage.Visible = true;
-                BtnAddStage.Visible = true;
-                pnlStage.Visible = false;
+                //GrdViewLeadStage.Visible = true;
+                //BtnAddStage.Visible = true;
+                //pnlStage.Visible = false;
 
 
                 DataSet dsCompetitor = bl.GetLeadCompetitor(LeadNo);
@@ -2695,14 +2699,14 @@ public partial class LeadMgmt : System.Web.UI.Page
                     check = "Y";
                 }
 
-                ContactName = txtContactName.Text;
+               // ContactName = txtContactName.Text;
                 EmpId = Convert.ToInt32(drpIncharge.SelectedValue);
                 EmpName = drpIncharge.SelectedItem.Text;
                 Status = drpStatus.SelectedValue;
-                branch = txtBranch.Text;
+               // branch = txtBranch.Text;
                 LeadStatus = drpLeadStatus.SelectedValue;
-                TotalAmount = Convert.ToDouble(txtTotalAmount.Text);
-                ClosingPer = Convert.ToInt32(txtClosingPer.Text);
+               // TotalAmount = Convert.ToDouble(txtTotalAmount.Text);
+                //ClosingPer = Convert.ToInt32(txtClosingPer.Text);
 
                 if (txtClosingDate.Text == "")
                 {
@@ -2713,12 +2717,12 @@ public partial class LeadMgmt : System.Web.UI.Page
                     ClosingDate = DateTime.Parse(txtClosingDate.Text);
                 }
 
-                PredictedClosing = Convert.ToInt32(txtPredictedClosing.Text);
-                PredictedClosingDate = DateTime.Parse(txtPredictedClosingDate.Text);
-                PotentialPotAmount = Convert.ToDouble(txtPotentialPotAmount.Text);
-                PotentialWeightedAmount = Convert.ToDouble(txtPotentialWeightedAmount.Text);
-                PredictedClosingPeriod = drpPredictedClosingPeriod.SelectedValue;
-                InterestLevel = drpInterestLevel.SelectedValue;
+               // PredictedClosing = Convert.ToInt32(txtPredictedClosing.Text);
+               // PredictedClosingDate = DateTime.Parse(txtPredictedClosingDate.Text);
+               // PotentialPotAmount = Convert.ToDouble(txtPotentialPotAmount.Text);
+               // PotentialWeightedAmount = Convert.ToDouble(txtPotentialWeightedAmount.Text);
+               // PredictedClosingPeriod = drpPredictedClosingPeriod.SelectedValue;
+               // InterestLevel = drpInterestLevel.SelectedValue;
 
                 string connStr = GetConnectionString();
                 LeadBusinessLogic bl = new LeadBusinessLogic(connStr);
@@ -2732,7 +2736,8 @@ public partial class LeadMgmt : System.Web.UI.Page
 
                 dsProduct = (DataSet)Session["ProductDs"];
 
-                bl.UpdateLead(LeadNo, startDate, LeadName, address, mobile, Telephone, BpName, BpId, ContactName, EmpId, EmpName, Status, branch, LeadStatus, TotalAmount, ClosingPer, ClosingDate, PredictedClosing, PredictedClosingDate, PotentialPotAmount, PotentialWeightedAmount, PredictedClosingPeriod, InterestLevel, usernam, dsStages, dsCompetitor, dsActivity, dsProduct, check);
+                // as per new functionality remove PredictedClosing, PredictedClosingDate
+                //bl.UpdateLead(LeadNo, startDate, LeadName, address, mobile, Telephone, BpName, BpId, ContactName, EmpId, EmpName, Status, branch, LeadStatus, TotalAmount, ClosingPer, ClosingDate, PredictedClosing, PredictedClosingDate, PotentialPotAmount, PotentialWeightedAmount, PredictedClosingPeriod, InterestLevel, usernam, dsStages, dsCompetitor, dsActivity, dsProduct, check);
                 
                 //GrdViewLead.DataBind();
                 //System.Threading.Thread.Sleep(1000);
@@ -2828,14 +2833,14 @@ public partial class LeadMgmt : System.Web.UI.Page
                     check = "Y";
                 }
 
-                ContactName = txtContactName.Text;
+                //ContactName = txtContactName.Text;
                 EmpId = Convert.ToInt32(drpIncharge.SelectedValue);
                 EmpName = drpIncharge.SelectedItem.Text;
                 Status = drpStatus.SelectedValue;
-                branch = txtBranch.Text;              
+                //branch = txtBranch.Text;              
                 LeadStatus = drpLeadStatus.SelectedValue;                                
-                TotalAmount = Convert.ToDouble(txtTotalAmount.Text);
-                ClosingPer = Convert.ToInt32(txtClosingPer.Text);
+                //TotalAmount = Convert.ToDouble(txtTotalAmount.Text);
+                //ClosingPer = Convert.ToInt32(txtClosingPer.Text);
 
                 if (txtClosingDate.Text == "")
                 {
@@ -2846,12 +2851,12 @@ public partial class LeadMgmt : System.Web.UI.Page
                     ClosingDate = DateTime.Parse(txtClosingDate.Text);
                 }
                 
-                PredictedClosing = Convert.ToInt32(txtPredictedClosing.Text);
-                PredictedClosingDate = DateTime.Parse(txtPredictedClosingDate.Text);
-                PotentialPotAmount = Convert.ToDouble(txtPotentialPotAmount.Text);
-                PotentialWeightedAmount = Convert.ToDouble(txtPotentialWeightedAmount.Text);
-                PredictedClosingPeriod = drpPredictedClosingPeriod.SelectedValue;
-                InterestLevel = drpInterestLevel.SelectedValue;
+              //  PredictedClosing = Convert.ToInt32(txtPredictedClosing.Text);
+              //  PredictedClosingDate = DateTime.Parse(txtPredictedClosingDate.Text);
+              //  PotentialPotAmount = Convert.ToDouble(txtPotentialPotAmount.Text);
+             //   PotentialWeightedAmount = Convert.ToDouble(txtPotentialWeightedAmount.Text);
+             //   PredictedClosingPeriod = drpPredictedClosingPeriod.SelectedValue;
+              //  InterestLevel = drpInterestLevel.SelectedValue;
                 string usernam = Request.Cookies["LoggedUserName"].Value;
 
                 dsStages = (DataSet)Session["contactDs"];
@@ -2864,7 +2869,8 @@ public partial class LeadMgmt : System.Web.UI.Page
 
                 LeadBusinessLogic bl = new LeadBusinessLogic(connStr);
 
-                bl.AddLead(LeadNo, startDate, LeadName, address, mobile, Telephone, BpName, BpId, ContactName, EmpId, EmpName, Status, branch, LeadStatus, TotalAmount, ClosingPer, ClosingDate, PredictedClosing, PredictedClosingDate, PotentialPotAmount, PotentialWeightedAmount, PredictedClosingPeriod, InterestLevel, usernam, dsStages, dsCompetitor, dsActivity, dsProduct, check);
+                // as per new functionality remove PredictedClosing, PredictedClosingDate
+                //bl.AddLead(LeadNo, startDate, LeadName, address, mobile, Telephone, BpName, BpId, ContactName, EmpId, EmpName, Status, branch, LeadStatus, TotalAmount, ClosingPer, ClosingDate, PredictedClosing, PredictedClosingDate, PotentialPotAmount, PotentialWeightedAmount, PredictedClosingPeriod, InterestLevel, usernam, dsStages, dsCompetitor, dsActivity, dsProduct, check);
 
                 GrdViewLead.DataBind();
 
