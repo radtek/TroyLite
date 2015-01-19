@@ -139,11 +139,11 @@
                             </tr>
                     </table>
                 </div>
-                <table style="text-align: left; border: 0px solid #5078B3; margin: -6px 0px 0px 0px; padding-left:3px; width: 980px" cellpadding="0"
+                <table style="text-align: left; border: 0px solid #5078B3; margin: 0px 0px 0px 0px; padding-left:3px; width: 990px" cellpadding="0"
                     cellspacing="0">
                     <tr>
                         <td>
-                            <div align="center" style="width: 980px; margin: -6px 0px 0px 0px; text-align: left">
+                            <div align="center" style="width: 990px; margin: 0px 0px 0px 0px; text-align: left">
                                 <cc1:TabContainer ID="tabs2" runat="server" ActiveTabIndex="0" CssClass="fancy fancy-green">
                                     <cc1:TabPanel ID="tabMaster" runat="server" HeaderText="Screen Master">
                                         <ContentTemplate>
@@ -156,20 +156,20 @@
                                                                 <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
                                                                     Text="" EnableTheming="false"></asp:Button>
                                                                 <asp:GridView ID="GrdScreen" runat="server" CssClass="someClass" DataSourceID="srcGridView"
-                                                                    AutoGenerateColumns="False" OnRowCreated="GrdScreen_RowCreated" Width="90%"
+                                                                    AutoGenerateColumns="False" OnRowCreated="GrdScreen_RowCreated" Width="98%"
                                                                     PageSize="5" EmptyDataText="No Screens Found" Style="font-family: 'Trebuchet MS';
                                                                     font-size: 11px;" OnRowCommand="GrdScreen_RowCommand" AllowPaging="True" DataKeyNames="ScreenID"
                                                                     EnableViewState="False" OnRowUpdating="GrdScreen_RowUpdating" OnRowUpdated="GrdScreen_RowUpdated">
                                                                     <Columns>
                                                                         <asp:TemplateField HeaderText="Screen No" HeaderStyle-BorderColor="Gray">
-                                                                            <ItemStyle Width="15%" HorizontalAlign="Left" />
-                                                                            <FooterStyle Width="15%" HorizontalAlign="Left" />
+                                                                            <ItemStyle Width="5%" HorizontalAlign="Left" />
+                                                                            <FooterStyle Width="5%" HorizontalAlign="Left" />
                                                                             <ItemTemplate>
                                                                                 <asp:Label ID="lblScreenNo" runat="server" Text='<%# Bind("ScreenNo") %>'></asp:Label>
                                                                             </ItemTemplate>
                                                                             <EditItemTemplate>
                                                                                 <asp:TextBox ID="txtScreenNo" runat="server" Text='<%# Bind("ScreenNo") %>' CssClass="cssTextBox"
-                                                                                    Width="15%"></asp:TextBox>
+                                                                                    Width="5%"></asp:TextBox>
                                                                                 <asp:RequiredFieldValidator ID="rvDescr" runat="server" ControlToValidate="txtScreenNo"
                                                                                     Display="Dynamic" EnableClientScript="False" ErrorMessage="ScreenNo is mandatory">*</asp:RequiredFieldValidator>
                                                                             </EditItemTemplate>
@@ -180,44 +180,62 @@
                                                                             </FooterTemplate>
                                                                         </asp:TemplateField>
                                                                         <asp:TemplateField HeaderText="Screen Name" HeaderStyle-BorderColor="Gray">
-                                                                            <ItemStyle Width="40%" HorizontalAlign="Left" />
-                                                                            <FooterStyle Width="40%" HorizontalAlign="Left" />
+                                                                            <ItemStyle Width="25%" HorizontalAlign="Left" />
+                                                                            <FooterStyle Width="25%" HorizontalAlign="Left" />
                                                                             <ItemTemplate>
                                                                                 <asp:Label ID="lblScreenName" runat="server" Text='<%# Bind("ScreenName") %>'></asp:Label>
                                                                             </ItemTemplate>
                                                                             <EditItemTemplate>
                                                                                 <asp:TextBox ID="txtScreenName" runat="server" Text='<%# Bind("ScreenName") %>' CssClass="cssTextBox"
-                                                                                    Width="40%"></asp:TextBox>
+                                                                                    Width="25%"></asp:TextBox>
                                                                                 <asp:RequiredFieldValidator ID="rvD" runat="server" ControlToValidate="txtScreenName"
                                                                                     Display="Dynamic" EnableClientScript="False" ErrorMessage="ScreenName is mandatory">*</asp:RequiredFieldValidator>
                                                                             </EditItemTemplate>
                                                                             <FooterTemplate>
-                                                                                <asp:TextBox ID="txtAddScreenName" runat="server" CssClass="cssTextBox" Width="40%"></asp:TextBox><asp:RequiredFieldValidator
+                                                                                <asp:TextBox ID="txtAddScreenName" runat="server" CssClass="cssTextBox" Width="25%"></asp:TextBox><asp:RequiredFieldValidator
                                                                                     ID="rvAddDescr" runat="server" ControlToValidate="txtAddScreenName" Display="Dynamic"
                                                                                     EnableClientScript="true" ErrorMessage="ScreenName is mandatory">*</asp:RequiredFieldValidator>
                                                                             </FooterTemplate>
                                                                         </asp:TemplateField>
                                                                         <asp:TemplateField HeaderText="Subject" HeaderStyle-BorderColor="Gray">
-                                                                            <ItemStyle Width="30%" HorizontalAlign="Left" />
-                                                                            <FooterStyle Width="30%" HorizontalAlign="Left" />
+                                                                            <ItemStyle Width="25%" HorizontalAlign="Left" />
+                                                                            <FooterStyle Width="25%" HorizontalAlign="Left" />
                                                                             <ItemTemplate>
                                                                                 <asp:Label ID="lblSubject" runat="server" Text='<%# Bind("Subject") %>'></asp:Label>
                                                                             </ItemTemplate>
                                                                             <EditItemTemplate>
                                                                                 <asp:TextBox ID="txtSubject" runat="server" Text='<%# Bind("Subject") %>' CssClass="cssTextBox"
-                                                                                    Width="30%"></asp:TextBox>
+                                                                                    Width="25%"></asp:TextBox>
                                                                                 <asp:RequiredFieldValidator ID="rvDes" runat="server" ControlToValidate="txtSubject"
                                                                                     Display="Dynamic" EnableClientScript="False" ErrorMessage="Subject is mandatory">*</asp:RequiredFieldValidator>
                                                                             </EditItemTemplate>
                                                                             <FooterTemplate>
-                                                                                <asp:TextBox ID="txtAddSubject" runat="server" CssClass="cssTextBox" Width="30%"></asp:TextBox><asp:RequiredFieldValidator
+                                                                                <asp:TextBox ID="txtAddSubject" runat="server" CssClass="cssTextBox" Width="25%"></asp:TextBox><asp:RequiredFieldValidator
                                                                                     ID="rvAd" runat="server" ControlToValidate="txtAddSubject" Display="Dynamic"
                                                                                     EnableClientScript="true" ErrorMessage="Subject is mandatory">*</asp:RequiredFieldValidator>
                                                                             </FooterTemplate>
                                                                         </asp:TemplateField>
+                                                                        <asp:TemplateField HeaderText="Content" HeaderStyle-BorderColor="Gray">
+                                                                            <ItemStyle Width="50%" HorizontalAlign="Left" />
+                                                                            <FooterStyle Width="50%" HorizontalAlign="Left" />
+                                                                            <ItemTemplate>
+                                                                                <asp:Label ID="lblContent" runat="server" Text='<%# Bind("Content") %>'></asp:Label>
+                                                                            </ItemTemplate>
+                                                                            <EditItemTemplate>
+                                                                                <asp:TextBox ID="txtContent" runat="server" Text='<%# Bind("Content") %>' CssClass="cssTextBox"
+                                                                                    Width="50%"></asp:TextBox>
+                                                                                <asp:RequiredFieldValidator ID="rvDes1" runat="server" ControlToValidate="txtContent"
+                                                                                    Display="Dynamic" EnableClientScript="False" ErrorMessage="Content is mandatory">*</asp:RequiredFieldValidator>
+                                                                            </EditItemTemplate>
+                                                                            <FooterTemplate>
+                                                                                <asp:TextBox ID="txtAddContent" runat="server" CssClass="cssTextBox" Width="50%"></asp:TextBox><asp:RequiredFieldValidator
+                                                                                    ID="rvAd1" runat="server" ControlToValidate="txtAddContent" Display="Dynamic"
+                                                                                    EnableClientScript="true" ErrorMessage="Content is mandatory">*</asp:RequiredFieldValidator>
+                                                                            </FooterTemplate>
+                                                                        </asp:TemplateField>
                                                                         <asp:TemplateField HeaderText="Edit" HeaderStyle-BorderColor="Gray">
-                                                                            <ItemStyle Width="20%" HorizontalAlign="Center" />
-                                                                            <FooterStyle Width="20%" HorizontalAlign="Center" />
+                                                                            <ItemStyle Width="10%" HorizontalAlign="Center" />
+                                                                            <FooterStyle Width="10%" HorizontalAlign="Center" />
                                                                             <ItemTemplate>
                                                                                 <asp:ImageButton ID="btnEdit" runat="server" SkinID="edit" CommandName="Edit" />
                                                                             </ItemTemplate>

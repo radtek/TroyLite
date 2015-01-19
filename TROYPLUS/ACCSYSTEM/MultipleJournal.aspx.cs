@@ -55,7 +55,7 @@ public partial class MultipleJournal : System.Web.UI.Page
 
                 BindGrid();
                 //GenerateRoleDs();
-                FirstGridViewRow();
+                
                 loadSupplier();
                 //loadProducts();
                 //loadBilts("0");
@@ -2064,6 +2064,7 @@ public partial class MultipleJournal : System.Web.UI.Page
             }
             else if (optionmethod.SelectedValue == "Multiple")
             {
+                FirstGridViewRow();
                 lblBillNo.Text = "";
                 Session["Show"] = "No";
                 //if (!Helper.IsLicenced(Request.Cookies["Company"].Value))
@@ -2271,28 +2272,30 @@ public partial class MultipleJournal : System.Web.UI.Page
                 for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                 {
 
-                    DropDownList DrpProduct =
-                     (DropDownList)gdm.Rows[rowIndex].Cells[1].FindControl("drpPrd");
-                    TextBox TextBoxDesc =
-                      (TextBox)gdm.Rows[rowIndex].Cells[2].FindControl("txtDesc");
-                    TextBox TextBoxRate =
-                      (TextBox)gdm.Rows[rowIndex].Cells[3].FindControl("txtRate");
-                    TextBox TextBoxQty =
-                      (TextBox)gdm.Rows[rowIndex].Cells[4].FindControl("txtQty");
-                    TextBox TextBoxExeComm =
-                     (TextBox)gdm.Rows[rowIndex].Cells[5].FindControl("txtExeComm");
-                    TextBox TextBoxDisPre =
-                    (TextBox)gdm.Rows[rowIndex].Cells[6].FindControl("txtDisPre");                   
+                    DropDownList DrpDebtor =
+                     (DropDownList)gdm.Rows[rowIndex].Cells[1].FindControl("drpDebtorM");
+                    DropDownList DrpCreditor =
+                     (DropDownList)gdm.Rows[rowIndex].Cells[1].FindControl("drpCreditorM");
+                    TextBox TextBoxRefNo =
+                      (TextBox)gdm.Rows[rowIndex].Cells[2].FindControl("txtRefNoM");
+                    TextBox TextBoxDate =
+                      (TextBox)gdm.Rows[rowIndex].Cells[3].FindControl("txtDateM");
+                    TextBox TextBoxAmount =
+                      (TextBox)gdm.Rows[rowIndex].Cells[4].FindControl("txtAmountM");
+                    TextBox TextBoxNarration =
+                     (TextBox)gdm.Rows[rowIndex].Cells[5].FindControl("txtNarrationM");                           
 
                     drCurrentRow = dtCurrentTable.NewRow();
                     drCurrentRow["RowNumber"] = i + 1;
 
-                    dtCurrentTable.Rows[i - 1]["Col1"] = DrpProduct.SelectedValue;
-                    dtCurrentTable.Rows[i - 1]["Col2"] = TextBoxDesc.Text;
-                    dtCurrentTable.Rows[i - 1]["Col3"] = TextBoxRate.Text;
-                    dtCurrentTable.Rows[i - 1]["Col4"] = TextBoxQty.Text;
-                    dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxExeComm.Text;
-                    dtCurrentTable.Rows[i - 1]["Col6"] = TextBoxDisPre.Text;
+                    
+                    dtCurrentTable.Rows[i - 1]["Col1"] = TextBoxRefNo.Text;
+                    dtCurrentTable.Rows[i - 1]["Col2"] = TextBoxDate.Text;
+                    dtCurrentTable.Rows[i - 1]["Col3"] = DrpDebtor.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["Col4"] = DrpCreditor.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxAmount.Text;
+                    dtCurrentTable.Rows[i - 1]["Col6"] = TextBoxNarration.Text;
+                    
                     
                     rowIndex++;
                 }
@@ -2320,41 +2323,27 @@ public partial class MultipleJournal : System.Web.UI.Page
             {
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    DropDownList DrpProduct =
-                    (DropDownList)gdm.Rows[rowIndex].Cells[1].FindControl("drpPrd");
-                    TextBox TextBoxDesc =
-                      (TextBox)gdm.Rows[rowIndex].Cells[2].FindControl("txtDesc");
-                    TextBox TextBoxRate =
-                      (TextBox)gdm.Rows[rowIndex].Cells[3].FindControl("txtRate");
-                    TextBox TextBoxQty =
-                      (TextBox)gdm.Rows[rowIndex].Cells[4].FindControl("txtQty");
-                    TextBox TextBoxExeComm =
-                     (TextBox)gdm.Rows[rowIndex].Cells[5].FindControl("txtExeComm");
-                    TextBox TextBoxDisPre =
-                    (TextBox)gdm.Rows[rowIndex].Cells[6].FindControl("txtDisPre");
-                    TextBox TextBoxVATPre =
-                   (TextBox)gdm.Rows[rowIndex].Cells[7].FindControl("txtVATPre");
-                    TextBox TextBoxCSTPre =
-                  (TextBox)gdm.Rows[rowIndex].Cells[8].FindControl("txtCSTPre");
-                    TextBox TextBoxVATAmt =
-                 (TextBox)gdm.Rows[rowIndex].Cells[9].FindControl("txtVATAmt");
-                    TextBox TextBoxRtVAT =
-                (TextBox)gdm.Rows[rowIndex].Cells[10].FindControl("txtRtVAT");
-                    TextBox TextBoxTotal =
-               (TextBox)gdm.Rows[rowIndex].Cells[11].FindControl("txtTotal");
+                    DropDownList DrpDebtor =
+                     (DropDownList)gdm.Rows[rowIndex].Cells[1].FindControl("drpDebtorM");
+                    DropDownList DrpCreditor =
+                     (DropDownList)gdm.Rows[rowIndex].Cells[1].FindControl("drpCreditorM");
+                    TextBox TextBoxRefNo =
+                      (TextBox)gdm.Rows[rowIndex].Cells[2].FindControl("txtRefNoM");
+                    TextBox TextBoxDate =
+                      (TextBox)gdm.Rows[rowIndex].Cells[3].FindControl("txtDateM");
+                    TextBox TextBoxAmount =
+                      (TextBox)gdm.Rows[rowIndex].Cells[4].FindControl("txtAmountM");
+                    TextBox TextBoxNarration =
+                     (TextBox)gdm.Rows[rowIndex].Cells[5].FindControl("txtNarrationM");
 
 
-                    DrpProduct.SelectedValue = dt.Rows[i]["Col1"].ToString();
-                    TextBoxDesc.Text = dt.Rows[i]["Col2"].ToString();
-                    TextBoxRate.Text = dt.Rows[i]["Col3"].ToString();
-                    TextBoxQty.Text = dt.Rows[i]["Col4"].ToString();
-                    TextBoxExeComm.Text = dt.Rows[i]["Col5"].ToString();
-                    TextBoxDisPre.Text = dt.Rows[i]["Col6"].ToString();
-                    TextBoxVATPre.Text = dt.Rows[i]["Col7"].ToString();
-                    TextBoxCSTPre.Text = dt.Rows[i]["Col8"].ToString();
-                    TextBoxVATAmt.Text = dt.Rows[i]["Col9"].ToString();
-                    TextBoxRtVAT.Text = dt.Rows[i]["Col10"].ToString();
-                    TextBoxTotal.Text = dt.Rows[i]["Col10"].ToString();
+                    TextBoxRefNo.Text = dt.Rows[i]["Col1"].ToString();
+                    TextBoxDate.Text = dt.Rows[i]["Col2"].ToString();
+                    DrpDebtor.SelectedValue = dt.Rows[i]["Col3"].ToString();
+                    DrpCreditor.SelectedValue = dt.Rows[i]["Col4"].ToString();
+                    TextBoxAmount.Text = dt.Rows[i]["Col5"].ToString();
+                    TextBoxNarration.Text = dt.Rows[i]["Col6"].ToString();
+                   
                     rowIndex++;
 
                 }
@@ -2399,43 +2388,30 @@ public partial class MultipleJournal : System.Web.UI.Page
             {
                 for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                 {
-                    DropDownList DrpProduct =
-                    (DropDownList)gdm.Rows[rowIndex].Cells[1].FindControl("drpPrd");
-                    TextBox TextBoxDesc =
-                      (TextBox)gdm.Rows[rowIndex].Cells[2].FindControl("txtDesc");
-                    TextBox TextBoxRate =
-                      (TextBox)gdm.Rows[rowIndex].Cells[3].FindControl("txtRate");
-                    TextBox TextBoxQty =
-                      (TextBox)gdm.Rows[rowIndex].Cells[4].FindControl("txtQty");
-                    TextBox TextBoxExeComm =
-                     (TextBox)gdm.Rows[rowIndex].Cells[5].FindControl("txtExeComm");
-                    TextBox TextBoxDisPre =
-                    (TextBox)gdm.Rows[rowIndex].Cells[6].FindControl("txtDisPre");
-                    TextBox TextBoxVATPre =
-                   (TextBox)gdm.Rows[rowIndex].Cells[7].FindControl("txtVATPre");
-                    TextBox TextBoxCSTPre =
-                  (TextBox)gdm.Rows[rowIndex].Cells[8].FindControl("txtCSTPre");
-                    TextBox TextBoxVATAmt =
-                 (TextBox)gdm.Rows[rowIndex].Cells[9].FindControl("txtVATAmt");
-                    TextBox TextBoxRtVAT =
-                (TextBox)gdm.Rows[rowIndex].Cells[10].FindControl("txtRtVAT");
-                    TextBox TextBoxTotal =
-               (TextBox)gdm.Rows[rowIndex].Cells[11].FindControl("txtTotal");
+                    DropDownList DrpDebtor =
+                     (DropDownList)gdm.Rows[rowIndex].Cells[1].FindControl("drpDebtorM");
+                    DropDownList DrpCreditor =
+                     (DropDownList)gdm.Rows[rowIndex].Cells[1].FindControl("drpCreditorM");
+                    TextBox TextBoxRefNo =
+                      (TextBox)gdm.Rows[rowIndex].Cells[2].FindControl("txtRefNoM");
+                    TextBox TextBoxDate =
+                      (TextBox)gdm.Rows[rowIndex].Cells[3].FindControl("txtDateM");
+                    TextBox TextBoxAmount =
+                      (TextBox)gdm.Rows[rowIndex].Cells[4].FindControl("txtAmountM");
+                    TextBox TextBoxNarration =
+                     (TextBox)gdm.Rows[rowIndex].Cells[5].FindControl("txtNarrationM");
+                 
 
                     drCurrentRow = dtCurrentTable.NewRow();
                     drCurrentRow["RowNumber"] = i + 1;
 
-                    dtCurrentTable.Rows[i - 1]["Col1"] = DrpProduct.SelectedValue;
-                    dtCurrentTable.Rows[i - 1]["Col2"] = TextBoxDesc.Text;
-                    dtCurrentTable.Rows[i - 1]["Col3"] = TextBoxRate.Text;
-                    dtCurrentTable.Rows[i - 1]["Col4"] = TextBoxQty.Text;
-                    dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxExeComm.Text;
-                    dtCurrentTable.Rows[i - 1]["Col6"] = TextBoxDisPre.Text;
-                    dtCurrentTable.Rows[i - 1]["Col7"] = TextBoxVATPre.Text;
-                    dtCurrentTable.Rows[i - 1]["Col8"] = TextBoxCSTPre.Text;
-                    dtCurrentTable.Rows[i - 1]["Col9"] = TextBoxVATAmt.Text;
-                    dtCurrentTable.Rows[i - 1]["Col10"] = TextBoxRtVAT.Text;
-                    dtCurrentTable.Rows[i - 1]["Col11"] = TextBoxTotal.Text;
+                    dtCurrentTable.Rows[i - 1]["Col1"] = TextBoxRefNo.Text;
+                    dtCurrentTable.Rows[i - 1]["Col2"] = TextBoxDate.Text;
+                    dtCurrentTable.Rows[i - 1]["Col3"] = DrpDebtor.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["Col4"] = DrpCreditor.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxAmount.Text;
+                    dtCurrentTable.Rows[i - 1]["Col6"] = TextBoxNarration.Text;
+                    
                     rowIndex++;
 
                 }
@@ -2467,7 +2443,8 @@ public partial class MultipleJournal : System.Web.UI.Page
         dt.Columns.Add(new DataColumn("Col3", typeof(string)));
         dt.Columns.Add(new DataColumn("Col4", typeof(string)));
         dt.Columns.Add(new DataColumn("Col5", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col6", typeof(string)));        
+        dt.Columns.Add(new DataColumn("Col6", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col7", typeof(string)));
         dr = dt.NewRow();
         dr["RowNumber"] = 1;
         dr["Col1"] = string.Empty;
@@ -2476,6 +2453,7 @@ public partial class MultipleJournal : System.Web.UI.Page
         dr["Col4"] = string.Empty;
         dr["Col5"] = string.Empty;
         dr["Col6"] = string.Empty;
+        dr["Col7"] = string.Empty;
         dt.Rows.Add(dr);
 
         ViewState["CurrentTable"] = dt;
@@ -2819,6 +2797,17 @@ public partial class MultipleJournal : System.Web.UI.Page
                 ddl.DataBind();
                 ddl.DataTextField = "LedgerName";
                 ddl.DataValueField = "LedgerID";
+
+                var ddll = (DropDownList)e.Row.FindControl("drpDebtorM");
+                ddll.Items.Clear();
+                ListItem lifzzhh = new ListItem("Select Ledger", "0");
+                lifzzhh.Attributes.Add("style", "color:Black");
+                ddll.Items.Add(lifzzhh);
+                ddll.DataSource = ds;
+                ddll.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+                ddll.DataBind();
+                ddll.DataTextField = "LedgerName";
+                ddll.DataValueField = "LedgerID";
             }
         }
         catch (Exception ex)
@@ -3596,7 +3585,150 @@ public partial class MultipleJournal : System.Web.UI.Page
 
     protected void Save1_Click(object sender, EventArgs e)
     {
-    
+        string connection = string.Empty;
+        connection = Request.Cookies["Company"].Value;
+
+        string[] sDate;
+        DateTime sBilldate;
+
+        string delim = "/";
+        char[] delimA = delim.ToCharArray();
+        CultureInfo culture = new CultureInfo("pt-BR");
+        string sPath = string.Empty;
+
+        if (Request.Cookies["Company"] != null)
+            sDataSource = Request.Cookies["Company"].Value;
+
+        sPath = sDataSource;
+        string usernam = Request.Cookies["LoggedUserName"].Value;
+
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+
+        for (int vLoop = 0; vLoop < gdm.Rows.Count; vLoop++)
+        {
+            TextBox txttt = (TextBox)gdm.Rows[vLoop].FindControl("txtRefNoM");
+            TextBox txt = (TextBox)gdm.Rows[vLoop].FindControl("txtAmountM");
+            TextBox txtt = (TextBox)gdm.Rows[vLoop].FindControl("txtNarrationM");
+            DropDownList txttd = (DropDownList)gdm.Rows[vLoop].FindControl("drpCreditorM");
+            DropDownList txttddd = (DropDownList)gdm.Rows[vLoop].FindControl("drpDebtorM");
+            TextBox txttdd = (TextBox)gdm.Rows[vLoop].FindControl("txtDateM");
+
+            int col = vLoop + 1;
+
+            if (txttt.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill RefNo in row " + col + " ')", true);
+                return;
+            }
+            else if (txt.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Amount in row " + col + " ')", true);
+                return;
+            }
+            else if (txtt.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Narration in row " + col + " ')", true);
+                return;
+            }
+            else if (txttd.SelectedValue == "0")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Creditor in row " + col + " ')", true);
+                return;
+            }
+            else if (txttddd.SelectedValue == "0")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Debtor in row " + col + " ')", true);
+                return;
+            }
+            else if (txttdd.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill date in row " + col + " ')", true);
+                return;
+
+            }
+
+            if (!bl.IsValidDate(connection, Convert.ToDateTime(txttdd.Text)))
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Date is invalid in row " + col + " ')", true);
+                return;
+            }
+
+            if (txttd.SelectedItem.Text == txttddd.SelectedItem.Text)
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Creditor and Debtor should not be same in row " + col + " ')", true);
+                return;
+            }
+        }
+
+
+
+        DataSet ds;
+        DataTable dt;
+        DataRow drNew;
+
+        DataColumn dc;
+
+        ds = new DataSet();
+
+        dt = new DataTable();
+
+        dc = new DataColumn("RefNo");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Date");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Debtor");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Creditor");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Amount");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("Narration");
+        dt.Columns.Add(dc);
+
+        dc = new DataColumn("VoucherType");
+        dt.Columns.Add(dc);
+
+        ds.Tables.Add(dt);
+
+        for (int vLoop = 0; vLoop < gdm.Rows.Count; vLoop++)
+        {
+            TextBox txttt = (TextBox)gdm.Rows[vLoop].FindControl("txtRefNoM");
+            TextBox txt = (TextBox)gdm.Rows[vLoop].FindControl("txtAmountM");
+            TextBox txtt = (TextBox)gdm.Rows[vLoop].FindControl("txtNarrationM");
+            DropDownList txttd = (DropDownList)gdm.Rows[vLoop].FindControl("drpCreditorM");
+            DropDownList txttddd = (DropDownList)gdm.Rows[vLoop].FindControl("drpDebtorM");
+            TextBox txttdd = (TextBox)gdm.Rows[vLoop].FindControl("txtDateM");
+
+            sDate = txttdd.Text.Trim().Split(delimA);
+            sBilldate = new DateTime(Convert.ToInt32(sDate[2].ToString()), Convert.ToInt32(sDate[1].ToString()), Convert.ToInt32(sDate[0].ToString()));
+
+            drNew = dt.NewRow();
+            drNew["RefNo"] = txttt.Text;
+            drNew["Date"] = sBilldate;
+            drNew["Debtor"] = Convert.ToInt32(txttddd.SelectedItem.Value);
+            drNew["Creditor"] = Convert.ToInt32(txttd.SelectedItem.Value);
+            drNew["Amount"] = txt.Text;
+            drNew["Narration"] = txtt.Text;
+            drNew["VoucherType"] = "Journal";
+            ds.Tables[0].Rows.Add(drNew);
+        }
+
+        bl.InsertContras(sPath, usernam, ds);
+
+        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Journals Saved Successfully.')", true);
+
+        ModalPopupExtender1.Hide();
+        ModalPopupMethod.Hide();
+        ModalPopupPurchase.Hide();
+        ModalPopupExtender3.Hide();
+        BindGrid();
+        GrdViewJournal.DataBind();
+        UpdatePnlMaster.Update();
     }
 
     protected void Cancel1_Click(object sender, EventArgs e)

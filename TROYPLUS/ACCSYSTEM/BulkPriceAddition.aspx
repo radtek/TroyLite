@@ -85,7 +85,20 @@
                             </td>
                         </tr>
                         <tr style="height:6px">
+                            <td>
+                                To Update
+                                <%--<asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="drpPriceList"
+                                                                        Text="*" Display="Dynamic" ErrorMessage="Price List is mandatory"
+                                                                        Operator="GreaterThan" ValueToCompare="0" />--%>
+                            </td>
+                            <td class="ControlDrpBorder" style="width:30%">
+                                 <asp:DropDownList ID="drpPriceList" runat="server" AppendDataBoundItems="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="PriceName" DataValueField="Id" height="26px" DataSourceID="srclistpricelist" style="border: 1px solid #e7e7e7" TabIndex="2" ValidationGroup="salesval" Width="100%">
+                                     <asp:ListItem style="background-color: #e7e7e7" Text="Select Price List" Value="0"></asp:ListItem>
+                                 </asp:DropDownList>
+                            </td>
+                            <td>
 
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="4">
@@ -98,7 +111,12 @@
                                             <asp:Button ID="btnUpload" runat="server" Height="21px"  SkinID="skinButtonCol2" Text="Upload" Width="100px" onclick="btnUpload_Click"/>
                                         </td>
                                         <td style="width:35%">
-                                        
+                                            <asp:ObjectDataSource ID="srclistpricelist" runat="server" SelectMethod="ListPriceList"
+                                                                                    TypeName="BusinessLogic">
+                                                                                    <SelectParameters>
+                                                                                        <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
+                                                                                    </SelectParameters>
+                                                                                </asp:ObjectDataSource>
                                         </td>
                                     </tr>
                                     <tr style="height:10px">
@@ -123,7 +141,7 @@
                                         
                             </td>
                             <td style="width:50%">
-                                <asp:Button ID="Button2" runat="server" SkinID="skinButtonCol2" Text="Download Sample Excel Format" Height="23px"   onclick="btnFormat_Click" Width="200px" />        
+                                <asp:Button ID="Button2" runat="server" SkinID="skinButtonCol2" CausesValidation="false" Text="Download Sample Excel Format" Height="23px"   onclick="btnFormat_Click" Width="200px" />        
                             </td>
                         </tr>
                     </table>

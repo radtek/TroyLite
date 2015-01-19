@@ -1624,7 +1624,7 @@ public partial class CustomerSales : System.Web.UI.Page
                                 if ((optionmethod.SelectedValue == "NormalSales") || (optionmethod.SelectedValue == "PurchaseReturn") || (optionmethod.SelectedValue == "ManualSales"))
                                 {
                                     //lblDisAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Discount"]);
-                                    lblDisAdd.Text = "0";
+                                    lblDisAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Discount"]);
                                     lblVATAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["vat"]);
                                     lblCSTAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["CST"]);
                                 }
@@ -1724,7 +1724,7 @@ public partial class CustomerSales : System.Web.UI.Page
                                 if ((optionmethod.SelectedValue == "NormalSales") || (optionmethod.SelectedValue == "PurchaseReturn") || (optionmethod.SelectedValue == "ManualSales"))
                                 {
                                     //lblDisAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Discount"]);
-                                    lblDisAdd.Text = "0";
+                                    lblDisAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["Discount"]);
                                     lblVATAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["vat"]);
                                     lblCSTAdd.Text = Convert.ToString(ds.Tables[0].Rows[0]["CST"]);
                                 }

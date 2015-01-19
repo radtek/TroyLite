@@ -90,9 +90,12 @@
                         <tr>
                             <td style="width:30%">
                                  To Update
+                                <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="drpPriceList"
+                                                                        Text="*" Display="Dynamic" EnableClientScript="True" ErrorMessage="Price List is mandatory"
+                                                                        Operator="GreaterThan" ValueToCompare="0" />
                             </td>
                             <td style="width:35%" align="left" class="ControlDrpBorder">
-                                <asp:DropDownList ID="drpPriceList" runat="server" AppendDataBoundItems="true" BackColor="#e7e7e7" SelectedValue='<%# Bind("PriceList_Id") %>' CssClass="drpDownListMedium" DataTextField="PriceName" DataValueField="Id" height="26px" DataSourceID="srclistpricelist" style="border: 1px solid #e7e7e7" Width="100%">
+                                <asp:DropDownList ID="drpPriceList" runat="server" AppendDataBoundItems="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="PriceName" DataValueField="Id" height="26px" DataSourceID="srclistpricelist" style="border: 1px solid #e7e7e7" Width="100%">
                                                                         <asp:ListItem style="background-color: #e7e7e7" Text="Select Price List" Value="0"></asp:ListItem>
                                                                     </asp:DropDownList>
                             </td>

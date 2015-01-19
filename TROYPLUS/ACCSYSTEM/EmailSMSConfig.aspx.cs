@@ -704,8 +704,9 @@ public partial class EmailSMSConfig : System.Web.UI.Page
                     int ScreenNo = Convert.ToInt32(((TextBox)GrdScreen.FooterRow.FindControl("txtAddScreenNo")).Text);
                     string ScreenName = ((TextBox)GrdScreen.FooterRow.FindControl("txtAddScreenName")).Text;
                     string Subject = ((TextBox)GrdScreen.FooterRow.FindControl("txtAddSubject")).Text;
+                    string Content = ((TextBox)GrdScreen.FooterRow.FindControl("txtAddContent")).Text;
 
-                    string sQl = string.Format("Insert Into tblScreenMaster(ScreenNo,ScreenName,Subject) Values({0},'{1}','{2}')", ScreenNo, ScreenName, Subject);
+                    string sQl = string.Format("Insert Into tblScreenMaster(ScreenNo,ScreenName,Subject,Content) Values({0},'{1}','{2}','{3}')", ScreenNo, ScreenName, Subject, Content);
 
                     srcGridView.InsertParameters.Add("sQl", TypeCode.String, sQl);
                     srcGridView.InsertParameters.Add("connection", TypeCode.String, GetConnectionString());
@@ -799,7 +800,7 @@ public partial class EmailSMSConfig : System.Web.UI.Page
                 string ScreenNo = ((TextBox)GrdScreen.Rows[e.RowIndex].FindControl("txtScreenNo")).Text;
                 string ScreenName = ((TextBox)GrdScreen.Rows[e.RowIndex].FindControl("txtScreenName")).Text;
                 string Subject = ((TextBox)GrdScreen.Rows[e.RowIndex].FindControl("txtSubject")).Text;
-
+                string Content = ((TextBox)GrdScreen.Rows[e.RowIndex].FindControl("txtContent")).Text;
                 string ScreenId = GrdScreen.DataKeys[e.RowIndex].Value.ToString();
 
                 srcGridView.UpdateMethod = "UpdateScreen";
@@ -808,6 +809,7 @@ public partial class EmailSMSConfig : System.Web.UI.Page
                 srcGridView.UpdateParameters.Add("ScreenName", TypeCode.String, ScreenName);
                 srcGridView.UpdateParameters.Add("Subject", TypeCode.String, Subject);
                 srcGridView.UpdateParameters.Add("ScreenId", TypeCode.Int32, ScreenId);
+                srcGridView.UpdateParameters.Add("Content", TypeCode.String, Content);
                 //lnkBtnAdd.Visible = true;
 
             }

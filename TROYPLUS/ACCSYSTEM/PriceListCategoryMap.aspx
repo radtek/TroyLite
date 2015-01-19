@@ -135,13 +135,15 @@
                                                                     <%--<asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="drpCustomerCategory"
                                                                         Text="*" Display="Dynamic" EnableClientScript="True" ErrorMessage="Customer Category is mandatory"
                                                                         Operator="GreaterThan" ValueToCompare="0" />--%>
+                                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="drpCustomerCategory"
+                                                                        Display="Dynamic" ErrorMessage="Customer Category is mandatory">*</asp:RequiredFieldValidator>
                                                                 </td>
                                                                 <td class="ControlDrpBorder" style="width:30%">
                                                                     <%--<asp:DropDownList ID="drpCustomerCategory" runat="server" OnDataBound="drpCustomerCategory_DataBound" AppendDataBoundItems="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="CusCategory_Name" DataValueField="CusCategory_Value" DataSourceID="srccuscat" height="26px" style="border: 1px solid #e7e7e7" TabIndex="2" ValidationGroup="salesval" Width="100%">
                                                                         <asp:ListItem style="background-color: #e7e7e7" Text="Select Customer Category" Value="0"></asp:ListItem>
                                                                     </asp:DropDownList>--%>
-                                                                    <asp:TextBox ID="drpCustomerCategoryAdd" runat="server"  Text='<%# Bind("CustomerCategory_Name") %>'
-                                                                        SkinID="skinTxtBoxGrid" TabIndex="2"></asp:TextBox>
+                                                                    <asp:TextBox ID="drpCustomerCategory" runat="server"  Text='<%# Bind("CustomerCategory_Name") %>'
+                                                                        SkinID="skinTxtBoxGrid" TabIndex="1"></asp:TextBox>
                                                                 </td>
                                                                 <td style="width:30%">
                                                                 </td>
@@ -159,7 +161,7 @@
                                                                         Operator="GreaterThan" ValueToCompare="0" />
                                                                 </td>
                                                                 <td class="ControlDrpBorder" style="width:30%">
-                                                                    <asp:DropDownList ID="drpPriceList" runat="server" AppendDataBoundItems="true" BackColor="#e7e7e7" SelectedValue='<%# Bind("PriceList_Id") %>' CssClass="drpDownListMedium" DataTextField="PriceName" DataValueField="Id" height="26px" DataSourceID="srclistpricelist" style="border: 1px solid #e7e7e7" TabIndex="1" ValidationGroup="salesval" Width="100%">
+                                                                    <asp:DropDownList ID="drpPriceList" runat="server" AppendDataBoundItems="true" BackColor="#e7e7e7" SelectedValue='<%# Bind("PriceList_Id") %>' CssClass="drpDownListMedium" DataTextField="PriceName" DataValueField="Id" height="26px" DataSourceID="srclistpricelist" style="border: 1px solid #e7e7e7" TabIndex="2" ValidationGroup="salesval" Width="100%">
                                                                         <asp:ListItem style="background-color: #e7e7e7" Text="Select Price List" Value="0"></asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </td>
@@ -255,7 +257,7 @@
                                                                         <asp:ListItem style="background-color: #e7e7e7" Text="Select Customer Category" Value="0"></asp:ListItem>
                                                                     </asp:DropDownList>--%>
                                                                     <asp:TextBox ID="drpCustomerCategoryAdd" runat="server" 
-                                                                        SkinID="skinTxtBoxGrid" TabIndex="2"></asp:TextBox>
+                                                                        SkinID="skinTxtBoxGrid" TabIndex="1"></asp:TextBox>
                                                                 </td>
                                                                 
                                                                 <td style="width:30%">
@@ -367,10 +369,9 @@
                                 OnRowCommand="GrdViewLedger_RowCommand" OnRowDataBound="GrdViewLedger_RowDataBound" OnRowDeleting="GrdViewLedger_RowDeleting"
                                 OnRowDeleted="GrdViewLedger_RowDeleted">
                                 <Columns>
-                                   
-                                    <asp:BoundField DataField="CustomerCategory_Name" HeaderText="Customer Category Name"  HeaderStyle-BorderColor="Gray" HeaderStyle-Width="200px"/>
                                     <asp:BoundField DataField="PriceList_Name" HeaderText="Price List Name"  HeaderStyle-BorderColor="Gray" HeaderStyle-Width="690px"/>
-                                     <asp:TemplateField ItemStyle-CssClass="command" HeaderText="Edit" ItemStyle-Width="50px" HeaderStyle-BorderColor="Gray"
+                                    <asp:BoundField DataField="CustomerCategory_Name" HeaderText="Customer Category Name"  HeaderStyle-BorderColor="Gray" HeaderStyle-Width="200px"/>
+                                    <asp:TemplateField ItemStyle-CssClass="command" HeaderText="Edit" ItemStyle-Width="50px" HeaderStyle-BorderColor="Gray"
                                         ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:ImageButton ID="btnEdit" runat="server" SkinID="edit" CommandName="Select" />
@@ -389,6 +390,7 @@
                                             </asp:ImageButton>
                                             <asp:HiddenField ID="ldgID" runat="server" Value='<%# Bind("Id") %>' />
                                             <asp:HiddenField ID="HiddenField1" runat="server" Value='<%# Bind("Id") %>' />
+                                            <asp:HiddenField ID="ldgIDDD" runat="server" Value='<%# Bind("CusCategory_ID") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -464,6 +466,7 @@
                                 <asp:Parameter Name="CustomerCategory_Value" Type="String" />
                                 <asp:Parameter Name="CustomerCategory_Name" Type="String" />
                                 <asp:Parameter Name="Username" Type="String" />
+                                <asp:Parameter Name="CusCategory_ID" Type="Int32" />
                             </UpdateParameters>
                             <SelectParameters>
                                 <asp:ControlParameter ControlID="GrdViewLedger" Name="ID" PropertyName="SelectedValue"
