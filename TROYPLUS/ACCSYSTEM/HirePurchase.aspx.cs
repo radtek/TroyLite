@@ -489,7 +489,7 @@ public partial class HirePurchase : System.Web.UI.Page
             txtnoinst1.Enabled = true;
             txtinipay.Enabled = true;
             txtdatepay.Enabled = true;
-            txtduedate.Enabled = true;
+            txtduedate.Enabled = false;
             Txteach.Enabled = true;
             txtothers.Enabled = true;
             txtdown.Enabled = true;
@@ -497,13 +497,13 @@ public partial class HirePurchase : System.Web.UI.Page
             txtupfront.Enabled = true;
             txtemiper.Enabled = true;
             txtdown1.Enabled = true;
-            txtBillDate.Enabled = true;
+            txtBillDate.Enabled = false;
             cmbCustomer.Enabled = true;
             txtAccountNumber.Enabled = true;
             txtBranchName.Enabled = true;
             txtIFSCCode.Enabled = true;
             txtMobile.Enabled = true;
-            txtdob.Enabled = true;
+            txtdob.Enabled = false;
             drpPaymode.Enabled = true;
             drpBankName.Enabled = true;
 
@@ -1354,7 +1354,7 @@ public partial class HirePurchase : System.Web.UI.Page
                         txtnoinst1.Enabled = true;
                         txtinipay.Enabled = true;
                         txtdatepay.Enabled = true;
-                        txtduedate.Enabled = true;
+                        txtduedate.Enabled = false;
                         Txteach.Enabled = true;
                         txtothers.Enabled = true;
                         txtdown.Enabled = true;
@@ -1362,13 +1362,13 @@ public partial class HirePurchase : System.Web.UI.Page
                         txtupfront.Enabled = true;
                         txtemiper.Enabled = true;
                         txtdown1.Enabled = true;
-                        txtBillDate.Enabled = true;
+                        txtBillDate.Enabled = false;
                         cmbCustomer.Enabled = true;
                         txtAccountNumber.Enabled = true;
                         txtBranchName.Enabled = true;
                         txtIFSCCode.Enabled = true;
                         txtMobile.Enabled = true;
-                        txtdob.Enabled = true;
+                        txtdob.Enabled = false;
                         drpPaymode.Enabled = true;
                         drpBankName.Enabled = true;
                     }

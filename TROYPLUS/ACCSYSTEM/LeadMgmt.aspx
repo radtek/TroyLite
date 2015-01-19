@@ -181,7 +181,7 @@
                                             <asp:Button ID="btnSearch" runat="server" Text="" OnClick="btnSearch_Click" CausesValidation="false"
                                                 CssClass="ButtonSearch6" EnableTheming="false" ForeColor="White" />
                                         </td>
-                                        <td style="width: 16%" class="tblLeftNoPad">
+                                        <td style="width: 16%" class="tblLeftNoPad">                                           
                                             <asp:Button ID="BtnClearFilter" runat="server" EnableTheming="false" Text="" CssClass="ClearFilter6" OnClick="BtnClearFilter_Click" CausesValidation="false" />
                                         </td>
                                         <td style="width: 5%">
@@ -267,7 +267,7 @@
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr style="height: 2px">
-                                                                                            </tr>
+                                                                                                                </tr>
                                                                                             <tr style="height: 30px">
                                                                                                 <td class="ControlLabel" style="width: 23%;">Lead Reference *
                                                                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtLeadName" Display="Dynamic" ErrorMessage="Lead Name is mandatory">*</asp:RequiredFieldValidator>
@@ -295,7 +295,7 @@
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr style="height: 2px">
-                                                                                            </tr>
+                                                                                                                </tr>
                                                                                             <tr style="height: 30px">
                                                                                                 <%-- <td class="ControlLabel" style="width: 23%;">Contact Name
                                                                                                 </td>
@@ -316,7 +316,7 @@
                                                                                                 <td style="width: 10%;"></td>
                                                                                             </tr>
                                                                                             <tr style="height: 2px">
-                                                                                            </tr>
+                                                                                                                </tr>
                                                                                             <tr style="height: 30px">
                                                                                                 <td class="ControlLabel" style="width: 18%;">Telephone </td>
                                                                                                 <td class="ControlTextBox3" style="width: 22%;">
@@ -367,7 +367,7 @@
                                                                                                 <td style="width: 10%;"></td>
                                                                                             </tr>
                                                                                             <tr style="height: 2px">
-                                                                                            </tr>
+                                                                                                                </tr>
                                                                                             <tr style="height: 30px">
                                                                                                 <%--<td class="ControlLabel" style="width: 23%;">Total Amount Invoiced </td>
                                                                                                 <td class="ControlTextBox3" style="width: 22%;">
@@ -398,7 +398,7 @@
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr style="height: 2px">
-                                                                                            </tr>
+                                                                                                                </tr>
                                                                                             <tr style="height: 30px">
                                                                                                 <%-- <td class="ControlLabel" style="width: 23%;">
                                                                                                     Branch *
@@ -426,7 +426,7 @@
                                                                                                 <td style="width: 10%;"></td>
                                                                                             </tr>
                                                                                             <tr style="height: 2px">
-                                                                                            </tr>
+                                                                                                                </tr>
                                                                                             <tr style="height: 30px">
                                                                                                 <td class="ControlLabel" style="width: 18%;">Information 4</td>
                                                                                                 <td class="ControlDrpBorder" style="width: 22%;">
@@ -535,7 +535,7 @@
                                                                                         </tr>
                                                                                         <tr style="height: 30px">
                                                                                             <%-- <td class="ControlLabel" style="width: 20%;">--%>
-                                                                                            <%--Predicted Closing Period *
+                                                                                                <%--Predicted Closing Period *
                                                                                                 <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="drpPredictedClosingPeriod"
                                                                                                     Display="Dynamic" ErrorMessage="Please Select Predicted Closing Period" Operator="GreaterThan"
                                                                                                     Text="*" ValueToCompare="0"></asp:CompareValidator>--%>
@@ -719,7 +719,7 @@
                                                                                                                         Start Date
                                                                                                                     </td>
                                                                                                                     <td class="ControlTextBox3" style="width: 25%;">
-                                                                                                                        <asp:TextBox ID="txtStageStartDate" runat="server" TabIndex="1"
+                                                                                                                        <asp:TextBox ID="txtStageStartDate" Enabled="false" runat="server" TabIndex="1"
                                                                                                                             CssClass="cssTextBox"></asp:TextBox>
                                                                                                                     </td>
                                                                                                                     <td style="width: 8%;" align="left">
@@ -735,7 +735,7 @@
                                                                                                                         End Date
                                                                                                                     </td>
                                                                                                                     <td class="ControlTextBox3" style="width: 25%;">
-                                                                                                                        <asp:TextBox ID="txtStageEndDate" runat="server" TabIndex="2"
+                                                                                                                        <asp:TextBox ID="txtStageEndDate" Enabled="false" runat="server" TabIndex="2"
                                                                                                                             CssClass="cssTextBox"></asp:TextBox>
                                                                                                                     </td>
                                                                                                                     <td style="width: 10%;" align="left">
@@ -785,7 +785,7 @@
                                                                                                                        ValidationGroup="contact" ErrorMessage="Please Select Potential Amount" Operator="GreaterThan"
                                                                                                                        Text="*" ValueToCompare="0"></asp:CompareValidator>
                                                                                                                     </td>
-                                                                                                                    <td class="ControlDrpBorder" style="width: 25%;">                                                                                                                       
+                                                                                                                    <td class="ControlDrpBorder" style="width: 25%;">
                                                                                                                         <asp:TextBox ID="txtStagePotentialAmount" runat="server" TabIndex="5" AutoPostBack="True" OnTextChanged="txtStagePotentialAmount_TextChanged"
                                                                                                                             CssClass="cssTextBox"></asp:TextBox>
                                                                                                                     </td>
@@ -1168,7 +1168,7 @@
                                                                                                                         Activity Date *
                                                                                                                     </td>
                                                                                                                     <td class="ControlTextBox3" style="width: 25%;">
-                                                                                                                        <asp:TextBox ID="txtActivityDate" runat="server" TabIndex="3"
+                                                                                                                        <asp:TextBox ID="txtActivityStartDate" runat="server" TabIndex="3"
                                                                                                                             CssClass="cssTextBox"></asp:TextBox>
                                                                                                                     </td>
                                                                                                                     <td style="width: 8%;" align="left">
@@ -1184,7 +1184,7 @@
                                                                                                                         End Date *
                                                                                                                     </td>
                                                                                                                     <td class="ControlTextBox3" style="width: 25%;">
-                                                                                                                        <asp:TextBox ID="txtActivityEndDate" runat="server" TabIndex="4"
+                                                                                                                        <asp:TextBox ID="txtActivityEndDate" Enabled="false" runat="server" TabIndex="4"
                                                                                                                             CssClass="cssTextBox"></asp:TextBox>
                                                                                                                     </td>
                                                                                                                     <td style="width: 10%;" align="left">
@@ -1218,7 +1218,7 @@
                                                                                                                         Next Activity Date *
                                                                                                                     </td>
                                                                                                                     <td class="ControlTextBox3" style="width: 25%;">
-                                                                                                                        <asp:TextBox ID="txtNextActivityDate" runat="server" TabIndex="6"
+                                                                                                                        <asp:TextBox ID="txtNextActivityDate" Enabled="false" runat="server" TabIndex="6"
                                                                                                                             CssClass="cssTextBox"></asp:TextBox>
                                                                                                                     </td>
                                                                                                                     <td style="width: 10%;" align="left">

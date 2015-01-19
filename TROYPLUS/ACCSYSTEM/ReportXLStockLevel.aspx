@@ -78,7 +78,7 @@
                                         Date
                                     </td>
                                     <td style="width:35%;" class="ControlTextBox3">
-                                            <asp:TextBox ID="txtStartDate" runat="server" cssclass="cssTextBox" AutoPostBack="True" BackColor = "#e7e7e7"
+                                            <asp:TextBox ID="txtStartDate" Enabled="false" runat="server" cssclass="cssTextBox" AutoPostBack="True" BackColor = "#e7e7e7"
                                                 Width="100%"
                                                 MaxLength="10" TabIndex="1"></asp:TextBox>
                                             <cc1:CalendarExtender ID="calStartDate" runat="server" Format="dd/MM/yyyy"

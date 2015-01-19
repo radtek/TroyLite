@@ -250,7 +250,7 @@
                                                                                                     Bill Date *
                                                                                                 </td>
                                                                                                 <td style="width: 24%;" class="ControlTextBox3">
-                                                                                                    <asp:TextBox ID="txtBillDate" runat="server" AutoPostBack="True"
+                                                                                                    <asp:TextBox ID="txtBillDate" Enabled="false" runat="server" AutoPostBack="True"
                                                                                                         BackColor="#e7e7e7" CssClass="cssTextBox" Height="23px" MaxLength="10" ValidationGroup="salesval"
                                                                                                         OnTextChanged="txtBillDate_TextChanged" TabIndex="3"></asp:TextBox>
                                                                                                     <cc1:CalendarExtender ID="calBillDate" runat="server" Enabled="True"
@@ -329,7 +329,7 @@
 
                                                                                                 </td>
                                                                                                 <td class="ControlTextBox3" style="width: 24%">
-                                                                                                    <asp:TextBox ID="txtdob" runat="server" BackColor="#e7e7e7" AutoPostBack="True" OnTextChanged="txtdocchr_TextChanged"
+                                                                                                    <asp:TextBox ID="txtdob" Enabled="false" runat="server" BackColor="#e7e7e7" AutoPostBack="True" OnTextChanged="txtdocchr_TextChanged"
                                                                                                         CssClass="cssTextBox" MaxLength="200" SkinID="skinTxtBox" TabIndex="7"
                                                                                                         Width="500px"></asp:TextBox>
                                                                                                     <cc1:CalendarExtender ID="CalendarExtender3" runat="server" Enabled="True"
@@ -374,7 +374,7 @@
                                                                                                     Start Due Date *
                                                                                                 </td>
                                                                                                 <td class="ControlTextBox3" style="width: 24%;">
-                                                                                                    <asp:TextBox ID="txtduedate" runat="server"
+                                                                                                    <asp:TextBox ID="txtduedate" Enabled="false" runat="server"
                                                                                                         BackColor="#e7e7e7" CssClass="cssTextBox" Height="23px" MaxLength="10"
                                                                                                         TabIndex="9" ValidationGroup="salesval"></asp:TextBox>
                                                                                                     <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True"
@@ -706,7 +706,7 @@
                                                                                                 Day of Payment *
                                                                                             </td>
                                                                                             <td class="ControlTextBox3" style="width: 24%">
-                                                                                                <asp:TextBox ID="txtpaydate" runat="server" BackColor="#e7e7e7"
+                                                                                                <asp:TextBox ID="txtpaydate" Enabled="false" runat="server" BackColor="#e7e7e7"
                                                                                                     CssClass="cssTextBox" MaxLength="200" SkinID="skinTxtBox" TabIndex="16"
                                                                                                     Width="500px"></asp:TextBox>
                                                                                                 <cc1:CalendarExtender ID="CalendarExtender4" runat="server" Enabled="True"

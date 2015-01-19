@@ -268,7 +268,7 @@
                                                                     Received Date *
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width:25%">
-                                                                    <asp:TextBox ID="txtTransDate" runat="server" Text='<%# Bind("TransDate","{0:dd/MM/yyyy}") %>'
+                                                                    <asp:TextBox ID="txtTransDate" Enabled="false" runat="server" Text='<%# Bind("TransDate","{0:dd/MM/yyyy}") %>'
                                                                         CssClass="cssTextBox" Width="100px"></asp:TextBox>
                                                                     <cc1:CalendarExtender ID="calExtender3" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                         PopupButtonID="btnDate3" PopupPosition="BottomLeft" TargetControlID="txtTransDate">
@@ -456,7 +456,7 @@
                                                                     Received Date *
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width:27%">
-                                                                    <asp:TextBox ID="txtTransDateAdd" runat="server" Text='<%# Bind("TransDate","{0:dd/MM/yyyy}") %>'
+                                                                    <asp:TextBox ID="txtTransDateAdd" Enabled="false" runat="server" Text='<%# Bind("TransDate","{0:dd/MM/yyyy}") %>'
                                                                         CssClass="cssTextBox" Width="100px"></asp:TextBox>
                                                                     <cc1:CalendarExtender ID="calEx3" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                         PopupButtonID="btnD3" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd">

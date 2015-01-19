@@ -265,12 +265,12 @@
                                                             <tr>
                             
                                                                 <td class="ControlLabel"  style="width:25%;">
-                                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtOpeningStock"
-                                                                                                    Display="Dynamic" ErrorMessage="Opening Stock is mandatory.">*</asp:RequiredFieldValidator>
+                                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDueDate"
+                                                                                                    Display="Dynamic" ErrorMessage="OpeningStock Due Date is mandatory.">*</asp:RequiredFieldValidator>
                                                                     Opening Due Date *
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width: 25%">
-                                                                     <asp:TextBox ID="txtDueDate" runat="server" BackColor = "#e7e7e7" SkinID="skinTxtBoxGrid"
+                                                                     <asp:TextBox ID="txtDueDate" Enabled="false" runat="server" BackColor = "#e7e7e7" SkinID="skinTxtBoxGrid"
                                                                         Width="100px"
                                                                         ></asp:TextBox>          
                                                                     <cc1:CalendarExtender ID="calExtender3" runat="server" Animated="true" Format="dd/MM/yyyy"

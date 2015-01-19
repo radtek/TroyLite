@@ -27,7 +27,7 @@
                             StartDate
                         </td>
                         <td  class="ControlTextBox3" style="width:25%">
-                            <asp:TextBox ID="txtStrtDt" runat="server" CssClass="textbox" style="border: 1px solid #e7e7e7"  BackColor = "#e7e7e7"></asp:TextBox>
+                            <asp:TextBox ID="txtStrtDt" Enabled="false" runat="server" CssClass="textbox" style="border: 1px solid #e7e7e7"  BackColor = "#e7e7e7"></asp:TextBox>
                             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True" 
                                     Format="dd/MM/yyyy"
                                     PopupButtonID="ImageButton2" TargetControlID="txtStrtDt">
@@ -48,7 +48,7 @@
                             EndDate
                         </td>
                         <td  class="ControlTextBox3" style="width:25%">
-                            <asp:TextBox ID="txtEndDt" runat="server" CssClass="textbox" style="border: 1px solid #e7e7e7"  BackColor = "#e7e7e7"></asp:TextBox>
+                            <asp:TextBox ID="txtEndDt" Enabled="false" runat="server" CssClass="textbox" style="border: 1px solid #e7e7e7"  BackColor = "#e7e7e7"></asp:TextBox>
                             <cc1:CalendarExtender ID="CalendarExtender123" runat="server" Enabled="True" 
                                     Format="dd/MM/yyyy"
                                     PopupButtonID="ImageButton1" TargetControlID="txtEndDt">

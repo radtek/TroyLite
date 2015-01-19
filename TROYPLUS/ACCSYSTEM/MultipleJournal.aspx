@@ -64,9 +64,9 @@
                                                     <asp:ListItem Value="Creditor">Creditor</asp:ListItem>
                                                 </asp:DropDownList>
                                             </div>
-                                            <asp:TextBox ID="txtRefno" runat="server" Width="92%" CssClass="cssTextBox" Visible="False"></asp:TextBox>
-                                            <asp:TextBox ID="txtLedger" runat="server" Width="92%" CssClass="cssTextBox" Visible="False"></asp:TextBox>
-                                            <asp:TextBox ID="txtDate" runat="server" Width="92%" MaxLength="10" CssClass="cssTextBox" Visible="False"></asp:TextBox>
+                                            <asp:TextBox ID="txtRefno" Enabled="false" runat="server" Width="92%" CssClass="cssTextBox" Visible="False"></asp:TextBox>
+                                            <asp:TextBox ID="txtLedger"  Enabled="false"  runat="server" Width="92%" CssClass="cssTextBox" Visible="False"></asp:TextBox>
+                                            <asp:TextBox ID="txtDate"  Enabled="false"  runat="server" Width="92%" MaxLength="10" CssClass="cssTextBox" Visible="False"></asp:TextBox>
                                             <cc1:CalendarExtender ID="calExtender3" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                 PopupButtonID="bt3" PopupPosition="BottomLeft" TargetControlID="txtDate">
                                             </cc1:CalendarExtender>
@@ -315,7 +315,7 @@
                                                                      
                                                                                         </td>
                                                                                         <td  class="ControlTextBoxSmall" style="width:5%">
-                                                                                            <asp:TextBox ID="txtTransDateAdd1" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal"
+                                                                                            <asp:TextBox ID="txtTransDateAdd1" Enabled="false" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal"
                                                                                                 Width="100px" MaxLength="10"></asp:TextBox>
                                                                                             <cc1:CalendarExtender ID="calExtender32" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                 PopupButtonID="btnDate3" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd1">
@@ -371,7 +371,7 @@
                                                                     
                                                                                         </td>
                                                                                         <td  class="ControlTextBoxSmall" style="width:5%">
-                                                                                                    <asp:TextBox ID="txtTransDateAdd2" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" 
+                                                                                                    <asp:TextBox ID="txtTransDateAdd2" Enabled="false" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" 
                                                                                                         Width="100px" MaxLength="10"></asp:TextBox>
                                                                                                     <cc1:CalendarExtender ID="CalendarExtender2" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                         PopupButtonID="ImageButton2" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd2">
@@ -428,7 +428,7 @@
                                                                     
                                                                                         </td>
                                                                                         <td  class="ControlTextBoxSmall" style="width:5%">
-                                                                                                <asp:TextBox ID="txtTransDateAdd3" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal"
+                                                                                                <asp:TextBox ID="txtTransDateAdd3" Enabled="false" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal"
                                                                                                         Width="100px" MaxLength="10"></asp:TextBox>
                                                                                                     <cc1:CalendarExtender ID="CalendarExtender3" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                         PopupButtonID="ImageButton3" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd3">
@@ -484,7 +484,7 @@
                                                                      
                                                                                         </td>
                                                                                         <td class="ControlTextBoxSmall" style="width:5%">
-                                                                                                    <asp:TextBox ID="txtTransDateAdd4" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal"
+                                                                                                    <asp:TextBox ID="txtTransDateAdd4" Enabled="false" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal"
                                                                                                         Width="100px" MaxLength="10"></asp:TextBox>
                                                                                                     <cc1:CalendarExtender ID="CalendarExtender4" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                         PopupButtonID="ImageButton4" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd4">
@@ -542,7 +542,7 @@
                                                                      
                                                                                         </td>
                                                                                         <td  class="ControlTextBoxSmall" style="width:5%">
-                                                                                            <asp:TextBox ID="txtTransDateAdd5" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" 
+                                                                                            <asp:TextBox ID="txtTransDateAdd5" Enabled="false" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" 
                                                                                                 Width="100px" MaxLength="10"></asp:TextBox>
                                                                                             <cc1:CalendarExtender ID="CalendarExtender5" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                 PopupButtonID="ImageButton5" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd5">
@@ -598,7 +598,7 @@
                                                                      
                                                                                         </td>
                                                                                         <td  class="ControlTextBoxSmall" style="width:5%">
-                                                                                            <asp:TextBox ID="txtTransDateAdd6" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" 
+                                                                                            <asp:TextBox ID="txtTransDateAdd6" Enabled="false" CssClass="cssTextBoxReport2" runat="server" ValidationGroup="editVal" 
                                                                                                 Width="100px" MaxLength="10"></asp:TextBox>
                                                                                             <cc1:CalendarExtender ID="CalendarExtender6" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                 PopupButtonID="ImageButton6" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd6">
@@ -757,7 +757,7 @@
                                                                                                 <asp:AsyncPostBackTrigger ControlID="txtTransDate" EventName="TextChanged" />
                                                                                             </Triggers>
                                                                                             <ContentTemplate>--%>
-                                                                                                <asp:TextBox ID="txtTransDate" runat="server" ValidationGroup="editVal"
+                                                                                                <asp:TextBox ID="txtTransDate" Enabled="false" runat="server" ValidationGroup="editVal"
                                                                                                     MaxLength="10" CssClass="cssTextBox"></asp:TextBox>
                                                                                                 <cc1:CalendarExtender ID="calExt3" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                     PopupButtonID="btnD3" PopupPosition="BottomLeft" TargetControlID="txtTransDate">
@@ -842,14 +842,15 @@
 
                                                                                                 </td>
                                                                                                 <td  style="width: 18%;">
-                                                                                                    <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                                                                                        CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
-                                                                                                    </asp:Button>
-                                                                                                </td>
-                                                                                                <td  style="width: 18%;">
                                                                                                     <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update"
                                                                                                         CssClass="savebutton1231" EnableTheming="false" ValidationGroup="editVal" SkinID="skinBtnSave"
                                                                                                         OnClick="UpdateButton_Click"></asp:Button>
+                                                                                                </td>
+                                                                                                <td  style="width: 18%;">
+                                                                                                    
+                                                                                                    <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                                                        CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
+                                                                                                    </asp:Button>
                                                                                                 </td>
                                                                                                 <td  style="width: 27%;">
 
@@ -897,7 +898,7 @@
                                                         </input>
                                                         &nbsp;<asp:ValidationSummary ID="ValidationSummary5" runat="server" Font-Names="'Trebuchet MS'" Font-Size="12pt"
                                                             HeaderText="Validation Messages" ShowMessageBox="true" ShowSummary="true" ValidationGroup="contact" />
-                                                        <asp:Panel ID="Panel8" runat="server" Width="700px" CssClass="modalPopup">
+                                                        <asp:Panel ID="Panel8" runat="server" Width="85%" CssClass="modalPopup">
                                                             <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
                                                                 <ContentTemplate>
                                                                     <asp:Panel ID="Panel9" CssClass="pnlPopUp" runat="server">
@@ -911,12 +912,13 @@
                                                                                 <tr style="height:5px">
                                                                                 </tr>                                
                                                                                 <tr>
-                                                                                    <td colspan="4">
+                                                                                    <td colspan="5">
                                                                                         <table style="width: 100%;">
                                                                                              <tr>
                                                                                                 <td>
-                                                                                                    <rwg:BulkEditGridView ID="gdm" AutoGenerateColumns="False" BorderWidth="1px"
-                                                                                                            BorderStyle="Solid" OnRowDataBound="gdm_RowDataBound" GridLines="Both" SaveButtonID="SaveButton" runat="server" CssClass="someClass"
+                                                                                                    <div style="height:300px; overflow:scroll">
+                                                                                                    <asp:GridView ID="gdm" AutoGenerateColumns="False" BorderWidth="1px" ShowFooter="True"
+                                                                                                            BorderStyle="Solid" OnRowDataBound="gdm_RowDataBound" OnRowDeleting="gdm_RowDeleting" GridLines="Both" SaveButtonID="SaveButton" runat="server" CssClass="someClass"
                                                                                                             Width="100%">
                                                                                                             <RowStyle CssClass="dataRow" />
                                                                                                             <SelectedRowStyle CssClass="SelectdataRow" />
@@ -925,18 +927,32 @@
                                                                                                             <HeaderStyle CssClass="HeadataRow" Wrap="false" />
                                                                                                             <FooterStyle CssClass="dataRow" />
                                                                                                             <Columns>
+                                                                                                                <asp:BoundField DataField="RowNumber" HeaderText="SNo" ItemStyle-Width="5px" />
                                                                                                                 <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="RefNo" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="10px">
                                                                                                                     <ItemTemplate>
                                                                                                                         <asp:TextBox ID="txtRefNoM" runat="server" Width="90%" Height="26px"
                                                                                                                             ></asp:TextBox>
                                                                                                                     </ItemTemplate>
                                                                                                                 </asp:TemplateField>
-                                                                                                                <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Date" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20px">
+                                                                                                                <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Date" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="35px">
                                                                                                                     <ItemTemplate>
-                                                                                                                        <asp:TextBox ID="txtDateM" runat="server" Width="70%" Height="26px"
+                                                                                                                        <asp:TextBox ID="txtDateM" Enabled="false" runat="server" Width="70%" Height="26px"
                                                                                                                             ></asp:TextBox>
+                                                                                                                        <cc1:CalendarExtender ID="calBillDate" runat="server" Format="dd/MM/yyyy"
+                                                                                                                                PopupButtonID="btnBillDate123" TargetControlID="txtDateM" Enabled="True">
+                                                                                                                        </cc1:CalendarExtender>
                                                                                                                         <asp:ImageButton ID="btnBillDate123" ImageUrl="App_Themes/NewTheme/images/cal.gif"
                                                                                                                                     CausesValidation="False" Width="20px" runat="server" />   
+                                                                                                                    </ItemTemplate>
+                                                                                                                </asp:TemplateField>
+                                                                                                                <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Debtor" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="50px">
+                                                                                                                    <ItemTemplate>
+                                                                                                                        <asp:DropDownList ID="drpDebtorM" runat="server"  BackColor = "#e7e7e7" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
+                                                                                                                            DataValueField="LedgerID" DataTextField="LedgerName" style="border:1px solid Gray" height="28px"
+                                                                                                                            AppendDataBoundItems="true"
+                                                                                                                            >
+                                                                                                                        <asp:ListItem Text="Select Debtor" style="background-color: #e7e7e7" Value="0"></asp:ListItem>
+                                                                                                                        </asp:DropDownList>
                                                                                                                     </ItemTemplate>
                                                                                                                 </asp:TemplateField>
                                                                                                                 <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Creditor" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="50px">
@@ -944,7 +960,7 @@
                                                                                                                         <asp:DropDownList ID="drpCreditorM" runat="server"  BackColor = "White" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
                                                                                                                             DataValueField="LedgerID" DataTextField="LedgerName" style="border:1px solid Gray" height="28px"
                                                                                                                             AppendDataBoundItems="true">
-                                                                                                                            <asp:ListItem Text="Select Creditor" style="background-color:White" Value="0"></asp:ListItem>
+                                                                                                                            <asp:ListItem Text="Select Creditor" style="background-color:#e7e7e7" Value="0"></asp:ListItem>
                                                                                                                         </asp:DropDownList>
                                                                                                                     </ItemTemplate>
                                                                                                                 </asp:TemplateField>
@@ -956,14 +972,29 @@
                                                                                             ValidChars="." FilterType="Numbers, Custom" />
                                                                                                                     </ItemTemplate>
                                                                                                                 </asp:TemplateField>
-                                                                                                                <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Narration" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20px">
+                                                                                                                <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Narration" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="30px">
                                                                                                                     <ItemTemplate>
                                                                                                                         <asp:TextBox ID="txtNarrationM" runat="server" Width="90%" Height="26px"
                                                                                                                             ></asp:TextBox>
                                                                                                                     </ItemTemplate>
+                                                                                                                    <FooterStyle HorizontalAlign="Right" />
+                                                                                                                                                                <FooterTemplate>
+                                                                                                                                                                    <asp:Button ID="ButtonAdd" runat="server" AutoPostback="false" EnableTheming="false"
+                                                                                                                                                                        Text="Add New Row" OnClick="ButtonAdd_Click"  Width="40%"/>
+                                                                                                                                                                </FooterTemplate>
+
                                                                                                                 </asp:TemplateField>
+                                                                                                                <asp:CommandField ShowDeleteButton="True"  HeaderStyle-Width="10px"/>
                                                                                                             </Columns>
-                                                                                                        </rwg:BulkEditGridView>
+                                                                                                        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                                                                                                        <RowStyle BackColor="#EFF3FB" />
+                                                                                                        <EditRowStyle BackColor="#2461BF" />
+                                                                                                        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                                                                                                        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                                                                                                        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                                                                                                        <AlternatingRowStyle BackColor="White" />
+                                                                                                        </asp:GridView>
+                                                                                                        </div>
                                                                                                     <%--<asp:GridView ID="grvStudentDetails" runat="server" Width="100%"
                                                                                                     ShowFooter="True" AutoGenerateColumns="False"
                                                                                                     CellPadding="4" ForeColor="#333333"
@@ -1058,20 +1089,21 @@
                                                                                     <td colspan="4">
                                                                                         <table style="width: 100%;">
                                                                                              <tr>
-                                                                                                <td  style="width: 37%;">
+                                                                                                <td  style="width: 34%;">
 
+                                                                                                </td>
+                                                                                                <td  style="width: 18%;">
+                                                                                                    <asp:Button ID="Save1" runat="server" CausesValidation="false" CommandName="Update"
+                                                                                                        CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave"
+                                                                                                        OnClick="Save1_Click"></asp:Button>
+                                                                                                    
                                                                                                 </td>
                                                                                                 <td  style="width: 18%;">
                                                                                                     <asp:Button ID="Cancel1" runat="server" CausesValidation="False" CommandName="Cancel"
                                                                                                         CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="Cancel1_Click">
                                                                                                     </asp:Button>
                                                                                                 </td>
-                                                                                                <td  style="width: 18%;">
-                                                                                                    <asp:Button ID="Save1" runat="server" CausesValidation="True" CommandName="Update"
-                                                                                                        CssClass="savebutton1231" EnableTheming="false" ValidationGroup="editVal" SkinID="skinBtnSave"
-                                                                                                        OnClick="Save1_Click"></asp:Button>
-                                                                                                </td>
-                                                                                                <td  style="width: 27%;">
+                                                                                                <td  style="width: 30%;">
 
                                                                                                 </td>
                                                                                             </tr>
@@ -1180,7 +1212,7 @@
                                                                                                                 </asp:TemplateField>
                                                                                                                 <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Date" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20px">
                                                                                                                     <ItemTemplate>
-                                                                                                                        <asp:TextBox ID="txtDate" runat="server" Width="70%" Height="26px" Text='<%# Bind("Date") %>'
+                                                                                                                        <asp:TextBox ID="txtDate" Enabled="false" runat="server" Width="70%" Height="26px" Text='<%# Bind("Date") %>'
                                                                                                                             ></asp:TextBox>
                                                                                                                         <cc1:CalendarExtender ID="calBillDate" runat="server" Format="dd/MM/yyyy"
                                                                                                                                 PopupButtonID="btnBillDate" TargetControlID="txtDate" Enabled="True">
@@ -1332,7 +1364,7 @@
                                                                                                                 </asp:TemplateField>
                                                                                                                 <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Date" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20px">
                                                                                                                     <ItemTemplate>
-                                                                                                                        <asp:TextBox ID="txtDate" runat="server" Height="26px" Width="70%" Text='<%# Bind("Date") %>'
+                                                                                                                        <asp:TextBox ID="txtDate" Enabled="false" runat="server" Height="26px" Width="70%" Text='<%# Bind("Date") %>'
                                                                                                                             ></asp:TextBox>
                                                                                                                         <cc1:CalendarExtender ID="calBillDate" runat="server" Format="dd/MM/yyyy"
                                                                                                                                 PopupButtonID="btnBillDate" TargetControlID="txtDate" Enabled="True">

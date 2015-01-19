@@ -189,10 +189,11 @@ public partial class TaskEntry : System.Web.UI.Page
         int ProjectCode = 0;
         int TaskType = 0;
         int DependencyTask = 0;
+        int effortdays = 0;
 
         try
         {
-            if (Page.IsValid)
+            if (Page.IsValid )
             {
 
                 int PId = 0;
@@ -204,29 +205,39 @@ public partial class TaskEntry : System.Web.UI.Page
                 DataSet dsttd = bl.GetProjectForId(connection, PId);
                 if (dsttd != null)
                 {
+                    string sss = Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Project_Date"].ToString()).ToShortDateString();
                     if (dsttd.Tables[0].Rows.Count > 0)
                     {
-                        if (Convert.ToDateTime(txtEWstartDate.Text) < Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Expected_Start_Date"]))
+                        if (Convert.ToDateTime(txtEWstartDate.Text) == Convert.ToDateTime(sss))
+                        //if (Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Project_Date"]) => Convert.ToDateTime(txtEWstartDate.Text))
                         {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Task Expected Start Date should be Greater than to the Selected Project Expected Start Date');", true);
+                            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Validation Message(s) \\n\\n - Task Start Date should be greater than or equal to Selected Project Created Date');", true);
+                            //ModalPopupExtender1.Show();
+                            //tbMain.Visible = true;
+                            //return;
+                        }
+                        else if (Convert.ToDateTime(txtEWstartDate.Text) < Convert.ToDateTime(sss))
+                        {
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Validation Message(s) \\n\\n - Task Start Date should be greater than or equal to selected Project Created Date');", true);
                             ModalPopupExtender1.Show();
                             tbMain.Visible = true;
                             return;
                         }
-                        if (Convert.ToDateTime(txtEWEndDate.Text) < Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Expected_End_Date"]))
-                        {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Task Expected End Date should be Greater than to the Selected Project Expected End Date');", true);
-                            ModalPopupExtender1.Show();
-                            tbMain.Visible = true;
-                            return;
-                        }
-                        if (Convert.ToDateTime(txtCDate.Text) < Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Project_Date"]))
-                        {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Task Date should be Greater than to the Selected Project Date');", true);
-                            ModalPopupExtender1.Show();
-                            tbMain.Visible = true;
-                            return;
-                        }                        
+                        //if (Convert.ToDateTime(txtEWEndDate.Text) < Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Project_Date"]))
+                        //{
+                        //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Validation Message(s) \\n\\n -Task End Date should be greater than or equal to Selected Task Start Date');", true);
+                        //    ModalPopupExtender1.Show();
+                        //    tbMain.Visible = true;
+                        //    return;
+                        //}
+                        //if (Convert.ToDateTime(txtCDate.Text) < Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Project_Date"]))
+                        //{
+                        //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Task Date should be Greater than to the Selected Project Date');", true);
+                        //    ModalPopupExtender1.Show();
+                        //    tbMain.Visible = true;
+                        //    return;
+                        //}   
+                       
                     }
                 }
 
@@ -252,6 +263,8 @@ public partial class TaskEntry : System.Web.UI.Page
                     IsActive = drpIsActive.Text.Trim();
                 if (txtTaskDesc.Text.Trim() != string.Empty)
                     TaskDesc = txtTaskDesc.Text.Trim();
+                if (Taskeffortdays.Text.Trim() != string.Empty)
+                    effortdays = Convert.ToInt32(Taskeffortdays.Text.Trim());
 
                 string Username = Request.Cookies["LoggedUserName"].Value;
 
@@ -259,9 +272,9 @@ public partial class TaskEntry : System.Web.UI.Page
 
                 //if (checkemp == null || checkemp.Tables[0].Rows.Count == 0)
                 //{
-                bl.InsertTaskEntry(ProjectCode, TaskDate, EWStartDate, EWEndDate, Owner, TaskCode, TaskType, IsActive, DependencyTask, TaskDesc, Username, TaskName);
+                bl.InsertTaskEntry(ProjectCode, TaskDate, EWStartDate, EWEndDate, Owner, TaskCode, TaskType, IsActive, DependencyTask, TaskDesc, Username, TaskName,effortdays);
 
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Task Entry Details Saved Successfully');", true);
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Task Entry Details Saved Successfully.');", true);
                 Reset();
                 ResetSearch();
                 BindWME("", "");
@@ -303,6 +316,7 @@ public partial class TaskEntry : System.Web.UI.Page
             int ProjectCode = 0;
             int DependencyTask = 0;
             int Task_Id = 0;
+            int effortdays = 0;
 
             if (Page.IsValid)
             {
@@ -318,27 +332,34 @@ public partial class TaskEntry : System.Web.UI.Page
                 {
                     if (dsttd.Tables[0].Rows.Count > 0)
                     {
-                        if (Convert.ToDateTime(txtEWstartDate.Text) < Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Expected_Start_Date"]))
+                        if (Convert.ToDateTime(txtEWstartDate.Text) == Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Project_Date"]))
                         {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Task Expected Start Date should be Greater than to the Selected Project Expected Start Date');", true);
+                            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Validation Message(s) \\n\\n -Task Expected Start Date should be Greater than or equal to Selected Project Expected Start Date.');", true);
+                            //ModalPopupExtender1.Show();
+                            //tbMain.Visible = true;
+                            //return;
+                        }
+                        else if(Convert.ToDateTime(txtEWstartDate.Text) < Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Project_Date"]))
+                        {
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Validation Message(s) \\n\\n -Task Expected Start Date should be Greater than or equal to Selected Project Expected Start Date.');", true);
                             ModalPopupExtender1.Show();
                             tbMain.Visible = true;
                             return;
                         }
-                        if (Convert.ToDateTime(txtEWEndDate.Text) < Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Expected_End_Date"]))
-                        {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Task Expected End Date should be Greater than to the Selected Project Expected End Date');", true);
-                            ModalPopupExtender1.Show();
-                            tbMain.Visible = true;
-                            return;
-                        }
-                        if (Convert.ToDateTime(txtCDate.Text) < Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Project_Date"]))
-                        {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Task Date should be Greater than to the Selected Project Date');", true);
-                            ModalPopupExtender1.Show();
-                            tbMain.Visible = true;
-                            return;
-                        }
+                        //if (Convert.ToDateTime(txtEWEndDate.Text) < Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Project_Date"]))
+                        //{
+                        //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Validation Message(s) \\n\\n -Task Expected End Date should be Greater than or equal to Task End Date.');", true);
+                        //    ModalPopupExtender1.Show();
+                        //    tbMain.Visible = true;
+                        //    return;
+                        //}
+                        //if (Convert.ToDateTime(txtCDate.Text) < Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Project_Date"]))
+                        //{
+                        //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Task Date should be Greater than to the Selected Project Date');", true);
+                        //    ModalPopupExtender1.Show();
+                        //    tbMain.Visible = true;
+                        //    return;
+                        //}
                     }
                 }
 
@@ -365,15 +386,17 @@ public partial class TaskEntry : System.Web.UI.Page
                     IsActive = drpIsActive.Text.Trim();
                 if (txtTaskDesc.Text.Trim() != string.Empty)
                     TaskDesc = txtTaskDesc.Text.Trim();
+                if (Taskeffortdays.Text.Trim() != string.Empty)
+                    effortdays = Convert.ToInt32(Taskeffortdays.Text.Trim());
 
                 string Username = Request.Cookies["LoggedUserName"].Value;
 
                 Task_Id = int.Parse(GrdWME.SelectedDataKey.Value.ToString());
 
-                bl.UpdateTaskEntry(ProjectCode, TaskDate, EWStartDate, EWEndDate, Owner, TaskCode, TaskType, IsActive, DependencyTask, TaskDesc, Username, Task_Id, TaskName);
+                bl.UpdateTaskEntry(ProjectCode, TaskDate, EWStartDate, EWEndDate, Owner, TaskCode, TaskType, IsActive, DependencyTask, TaskDesc, Username, Task_Id, TaskName,effortdays);
 
 
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Project Entry Details Updated Successfully');", true);
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Task Entry Details Updated Successfully.');", true);
                 Reset();
                 ResetSearch();
                 BindWME("", "");
@@ -388,6 +411,46 @@ public partial class TaskEntry : System.Web.UI.Page
             TroyLiteExceptionManager.HandleException(ex);
         }
     }
+
+
+
+    //protected void txtEWEndDate_TextChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        //if (IsPostBack)
+    //        //{
+
+    //        string startdate = Convert.ToDateTime(txtEWstartDate.Text).ToString("dd/MM/yyyy");
+
+    //        string enddate = Convert.ToDateTime(txtEWEndDate.Text).ToString("dd/MM/yyyy");
+
+    //        TimeSpan ts = Convert.ToDateTime(enddate) - Convert.ToDateTime(startdate);
+
+    //        int days = Convert.ToInt32(ts.TotalDays);
+    //        if (days > 0)
+    //        {
+    //            Taskeffortdays.Text = Convert.ToString(days);
+
+    //        }
+    //        else
+    //        {
+    //            days = 0;
+    //            Taskeffortdays.Text = Convert.ToString(days);
+    //        }
+
+    //        //}
+    //        UpdatePanel3.Update();
+
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        TroyLiteExceptionManager.HandleException(ex);
+    //    }
+
+    //}
+
+
     protected void btnCancel_Click(object sender, EventArgs e)
     {
         try
@@ -429,6 +492,7 @@ public partial class TaskEntry : System.Web.UI.Page
         drpDependencyTask.SelectedIndex = 0;
         drpProjectCode.SelectedIndex = 0;
         txtTaskDesc.Text = "";
+        Taskeffortdays.Text = "";
     }
 
     protected void ddlPageSelector_SelectedIndexChanged(object sender, EventArgs e)
@@ -528,7 +592,7 @@ public partial class TaskEntry : System.Web.UI.Page
         try
         {
             Reset();
-
+            headtitle.Text = "New Task Details";
             txtCDate.Text = DateTime.Now.ToShortDateString();
             btnUpdate.Enabled = false;
             tbMain.Visible = true;
@@ -555,7 +619,7 @@ public partial class TaskEntry : System.Web.UI.Page
         {
             BusinessLogic bl = new BusinessLogic(sDataSource);
             int Task_Id = 0;
-
+            headtitle.Text = "Modify Details";
             string connection = Request.Cookies["Company"].Value;
 
             if (GrdWME.SelectedDataKey.Value != null && GrdWME.SelectedDataKey.Value.ToString() != "")
@@ -581,6 +645,9 @@ public partial class TaskEntry : System.Web.UI.Page
 
                     if (ds.Tables[0].Rows[0]["Task_Name"] != null)
                         txtTaskName.Text = ds.Tables[0].Rows[0]["Task_Name"].ToString();
+
+                    if (ds.Tables[0].Rows[0]["Effort_Task_Days"] != null)
+                        Taskeffortdays.Text = Convert.ToInt32(ds.Tables[0].Rows[0]["Effort_Task_Days"]).ToString();
 
                     if (ds.Tables[0].Rows[0]["Project_Code"] != null)
                     {
