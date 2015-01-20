@@ -66077,184 +66077,575 @@ public class BusinessLogic
 
     }
 
-    //#region Employee Pay Mapping
+    #region Permission Methods
 
-    //public DataSet GetPayCompForEmpManage(string SearchTxt)
-    //{
-    //    DBManager manager = new DBManager(DataProvider.OleDb);
-    //    manager.ConnectionString = CreateConnectionString(this.ConnectionString);
-    //    DataSet ds = new DataSet();
-    //    string dbQry = string.Empty;
+    public DataSet GetPermissionSummary(string userName)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+        int empNo = GetUserInfoByName(userName).EmpNo;
 
-    //    SearchTxt = "%" + SearchTxt + "%";
+        dbQry = string.Format(@"SELECT a.PermissionId, a.EmployeeNo, e.EmpFirstName as EmployeeName, FORMAT(a.StartTime, 'Short Time')+' - '+FORMAT(a.EndTime, 'Short Time') as TimeRange, a.DateApplied, a.Reason, a.Status, a.Approver, e1.EmpFirstName as ApproverName, a.ApproverComments, a.EmailContact, a.PhoneContact 
+                                FROM (tblEmployeePermissions a                                 
+                                INNER JOIN tblEmployee e on a.EmployeeNo = e.EmpNo)
+                                INNER JOIN tblEmployee e1 on a.Approver = e1.EmpNo
+                                WHERE a.EmployeeNo ={0}", empNo);
 
-    //    if (SearchTxt != "")
-    //    {
-    //        dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents WHERE PayComponentName LIKE '" + SearchTxt + "'";
-    //    }
-    //    else
-    //    {
-    //        dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents ";
-    //    }
-    //    try
-    //    {
-    //        //object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblPayComponents");
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
-    //        //if (exists.ToString() != string.Empty)
-    //        //{
-    //        //    if (int.TryParse(exists.ToString()) > 0)
-    //        //    {
-    //        //        throw new Exception("No Pay Components Found ");
-    //        //    }
-    //        //}
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
 
-    //        manager.Open();
-    //        ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+    public DataTable GetPermissionDetailsById(int permissionId)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
 
-    //        if (ds.Tables[0].Rows.Count > 0)
-    //            return ds;
-    //        else
-    //            return null;
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        throw ex;
-    //    }
-    //    finally
-    //    {
-    //        manager.Dispose();
-    //    }
-    //}
+        dbQry = string.Format(@"SELECT a.EmployeeNo,e1.EmpFirstName as EmployeeName, a.StartTime, a.EndTime, a.DateApplied, a.Reason,a.Status, a.Approver,e.EmpFirstName as ApproverName, a.ApproverComments, a.EmailContact, a.PhoneContact 
+                                FROM (tblEmployeePermissions a                                 
+                                INNER JOIN tblEmployee e ON a.Approver = e.EmpNo)
+                                INNER JOIN tblEmployee e1 ON a.EmployeeNo = e1.EmpNo
+                                WHERE a.PermissionId ={0}", permissionId.ToString());
 
-    //public void InsertEmpPayComp(int EmpId, int payCompId, DateTime frmDate, int amtDeclared)
-    //{
-    //    DBManager manager = new DBManager(DataProvider.OleDb);
-    //    manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
-    //    DataSet ds = new DataSet();
-    //    string dbQry = string.Empty;
-    //    string delQuery = string.Empty;
+            if (ds.Tables.Count > 0)
+                return ds.Tables[0];
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
 
-    //    try
-    //    {
-    //        manager.Open();
-    //        manager.ProviderType = DataProvider.OleDb;
+    public DataTable GetPermissionInfoById(string connection, Int32 leaveId)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
 
-    //        manager.BeginTransaction();
+        string dbQry = string.Empty;
 
-    //        object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblPayComponentEmployeeMapping Where PayComponent_ID =" + payCompId + "");
+        try
+        {
+            manager.Open();
+            manager.ProviderType = DataProvider.OleDb;
 
-    //        if (exists.ToString() != string.Empty)
-    //        {
-    //            if (int.Parse(exists.ToString()) > 0)
-    //            {
-    //                delQuery = string.Format("DELETE FROM tblPayComponentEmployeeMapping WHERE PayComponent_ID = {0} AND EmpNo = {1}", payCompId, EmpId);
+            dbQry = string.Format(@"SELECT PermissionID,EmployeeNo,StartDate,StartDateSession,EndDate,EndDateSession,TotalDays,DateApplied, 
+                                        LeaveTypeID,Reason,Status,Approver,ApproverComments,EmailContact,PhoneContanct
+                                    FROM tblEmployeePermissions WHERE PermissionID={0}", leaveId);
 
-    //                manager.ExecuteNonQuery(CommandType.Text, delQuery);
+            DataSet ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
-    //                manager.CommitTransaction();
+            if (ds.Tables.Count > 0)
+                return ds.Tables[0];
+            else
+                return new DataTable();
 
-    //                dbQry = string.Format("INSERT INTO tblPayComponentEmployeeMapping(PayComponent_ID, EmpNo, EffectiveDate, DeclaredAmount) VALUES({0}, {1}, '{2}', {3})",
-    //                payCompId, EmpId, frmDate, amtDeclared);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
 
-    //                manager.ExecuteNonQuery(CommandType.Text, dbQry);
+        }
+    }
 
-    //                manager.CommitTransaction();
-    //            }
-    //            else
-    //            {
-    //                dbQry = string.Format("INSERT INTO tblPayComponentEmployeeMapping(PayComponent_ID, EmpNo, EffectiveDate, DeclaredAmount) VALUES({0}, {1}, '{2}', {3})",
-    //                payCompId, EmpId, frmDate, amtDeclared);
+    public DataSet GetPermissionRequestsSummary(string userName)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+        int empNo = GetUserInfoByName(userName).EmpNo;
 
-    //                manager.ExecuteNonQuery(CommandType.Text, dbQry);
+        dbQry = string.Format(@"SELECT a.PermissionID, a.EmployeeNo,e1.EmpFirstName as EmployeeName,FORMAT(a.StartTime, 'Short Time')+' - '+FORMAT(a.EndTime, 'Short Time') as TimeRange, a.DateApplied, a.Reason,a.Status, a.Approver,e.EmpFirstName as ApproverName, a.ApproverComments, a.EmailContact, a.PhoneContact 
+                                FROM (tblEmployeePermissions a                                 
+                                INNER JOIN tblEmployee e ON a.Approver = e.EmpNo)
+                                INNER JOIN tblEmployee e1 ON a.EmployeeNo = e1.EmpNo
+                                WHERE a.Approver ={0}", empNo);
 
-    //                manager.CommitTransaction();
-    //            }
-    //        }
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        throw ex;
-    //    }
-    //    finally
-    //    {
-    //        manager.Dispose();
-    //    }
-    //}
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
 
-    //public void DeleteEmpPayComp(int EmpId)
-    //{
-    //    DBManager manager = new DBManager(DataProvider.OleDb);
-    //    manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+    public int ApplyPermission(string EmpNo, DateTime StartTime, DateTime EndTime, DateTime DateApplied
+                                , string Reason, string Approver, string EmailContact, string PhoneContact)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
 
-    //    DataSet ds = new DataSet();
-    //    string dbQry = string.Empty;
+        string dbQry = string.Empty;
 
-    //    try
-    //    {
-    //        manager.Open();
-    //        manager.ProviderType = DataProvider.OleDb;
+        try
+        {
+            //double totalPermissionDays = CalculateTotalPermissionDays(StartDate, StartDateSession, EndDate, EndDateSession);
 
-    //        manager.BeginTransaction();
 
-    //        object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblPayComponentEmployeeMapping Where EmpNo =" + EmpId);
+            EmpNo = GetUserInfoByName(EmpNo).EmpNo.ToString();
+            manager.Open();
+            manager.ProviderType = DataProvider.OleDb;
 
-    //        if (exists.ToString() != string.Empty)
-    //        {
-    //            if (int.Parse(exists.ToString()) > 0)
-    //            {
+            dbQry = string.Format(@"INSERT INTO tblEmployeePermissions (EmployeeNo,StartTime,EndTime, DateApplied, 
+                                        Reason,Status,Approver,ApproverComments,EmailContact,PhoneContact)
+                                        VALUES ({0},'{1}','{2}','{3}','{4}','{5}',{6}, '{7}','{8}',{9})"
+                                        , EmpNo, StartTime, EndTime, DateApplied, Reason
+                                        , "Submitted", Approver, "", EmailContact, PhoneContact);
 
-    //                dbQry = string.Format("Delete From tblPayComponentEmployeeMapping WHERE EmpNo = {0} ", EmpId);
+            int resultId = manager.ExecuteNonQuery(CommandType.Text, dbQry);
+            return resultId;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
 
-    //                manager.ExecuteNonQuery(CommandType.Text, dbQry);
+    public int UpdatePermission(string PermissionId, string EmployeeNo, DateTime StartTime, DateTime EndTime, DateTime DateApplied, string Reason, string Approver, string EmailContact, string PhoneContact)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
 
-    //                manager.CommitTransaction();
-    //            }
-    //        }
-    //        else
-    //        {
-    //            throw new Exception("Pay Component Not Exists");
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        throw ex;
-    //    }
-    //    finally
-    //    {
-    //        manager.Dispose();
-    //    }
-    //}
+        string dbQry = string.Empty;
 
-    //public DataSet GetEmpPayComp(int EmpId)
-    //{
-    //    DBManager manager = new DBManager(DataProvider.OleDb);
-    //    manager.ConnectionString = CreateConnectionString(this.ConnectionString);
-    //    DataSet ds = new DataSet();
-    //    string dbQry = string.Empty;
-    //    dbQry = "SELECT PayComponent_ID, EmpNo, PayComponentName, Description, EffectiveDate, DeclaredAmount from tblPayComponentEmployeeMapping A Inner Join tblPayComponents B on A.PayComponent_ID = B.PayComponentID where A.EmpNo = " + EmpId;
+        try
+        {
+            //double totalLeaveDays = CalculateTotalLeaveDays(StartDate, StartDateSession, EndDate, EndDateSession);
+            EmployeeNo = GetUserInfoByName(EmployeeNo).EmpNo.ToString();
+            manager.Open();
+            manager.ProviderType = DataProvider.OleDb;
 
-    //    try
-    //    {
-    //        manager.Open();
-    //        ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+            dbQry = string.Format(@"UPDATE tblEmployeePermissions SET EmployeeNo={0},StartTime='{1}', EndTime='{2}', DateApplied='{3}',
+                                                Reason='{4}',Approver={5},EmailContact='{6}',PhoneContact='{7}' WHERE PermissionID={8}"
+                                        , EmployeeNo, StartTime, EndTime, DateApplied, Reason
+                                        , Approver, EmailContact, PhoneContact, PermissionId);
 
-    //        if (ds.Tables[0].Rows.Count > 0)
-    //            return ds;
-    //        else
-    //            return null;
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        throw ex;
-    //    }
-    //    finally
-    //    {
-    //        manager.Dispose();
-    //    }
-    //}
+            int resultId = manager.ExecuteNonQuery(CommandType.Text, dbQry);
+            return resultId;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
 
-    //#endregion
+    public int UpdatePermissionStatus(string PermissionId, string status, string approverComments)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+
+        string dbQry = string.Empty;
+
+        try
+        {
+            manager.Open();
+            manager.ProviderType = DataProvider.OleDb;
+
+            dbQry = string.Format(@"UPDATE tblEmployeePermissions SET Status='{0}', ApproverComments='{1}' WHERE PermissionID={2}"
+                                         , status, approverComments, PermissionId);
+
+            int resultId = manager.ExecuteNonQuery(CommandType.Text, dbQry);
+            return resultId;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    public int DeletePermission(string permissionId)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+
+        string dbQry = string.Empty;
+
+        try
+        {
+            manager.Open();
+            manager.ProviderType = DataProvider.OleDb;
+
+            dbQry = string.Format(@"DELETE FROM tblEmployeePermissions WHERE PermissionId={0}"
+                                         , permissionId);
+
+            int resultId = manager.ExecuteNonQuery(CommandType.Text, dbQry);
+            return resultId;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    private double CalculateTotalPermissionInMonth(DateTime StartDate, string StartDateSession, DateTime EndDate, string EndDateSession)
+    {
+        double totalLeaveDays = 0;
+        int dateDiffDays = new DateTimeHelper.DateDifference(StartDate, EndDate).Days;
+        if (dateDiffDays.Equals(0))
+        {
+            if (StartDateSession.Equals("FN") && EndDateSession.Equals("AN"))
+            {
+                totalLeaveDays = 1.0;
+            }
+            else if (StartDateSession.Equals("FN") && EndDateSession.Equals("FN"))
+            {
+                totalLeaveDays = 0.5;
+            }
+            else if (StartDateSession.Equals("AN") && EndDateSession.Equals("AN"))
+            {
+                totalLeaveDays = 0.5;
+            }
+        }
+        else
+        {
+            if (StartDateSession.Equals("FN") && EndDateSession.Equals("AN"))
+            {
+                totalLeaveDays = dateDiffDays + 1;
+            }
+            else if (StartDateSession.Equals("FN") && EndDateSession.Equals("FN"))
+            {
+                totalLeaveDays = dateDiffDays + 0.5;
+            }
+            else if (StartDateSession.Equals("AN") && EndDateSession.Equals("AN"))
+            {
+                totalLeaveDays = dateDiffDays + 0.5;
+            }
+            else if (StartDateSession.Equals("AN") && EndDateSession.Equals("FN"))
+            {
+                totalLeaveDays = dateDiffDays;
+            }
+        }
+        return totalLeaveDays;
+    }
+
+    public bool IsPermissionValid(string EmpNo, DateTime applyMonth)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+
+        string dbQry = string.Empty;
+
+        try
+        {
+            manager.Open();
+            manager.ProviderType = DataProvider.OleDb;
+
+            manager.BeginTransaction();
+
+            object totPermission = manager.ExecuteScalar(CommandType.Text, "SELECT Monthly_Permission_Count FROM tblHRAdminSettings");
+
+            object actualPermission = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblEmployeePermissions WHERE Month(DateApplied) = " + applyMonth.Month);
+
+            if (totPermission.ToString() != string.Empty)
+            {
+                if (int.Parse(totPermission.ToString()) <= int.Parse(actualPermission.ToString()))
+                {
+                    throw new Exception("Maximum Permission count per month is " + totPermission.ToString());
+                }
+            }
+
+            return true;
+
+            //int resultId = manager.ExecuteNonQuery(CommandType.Text, dbQry);
+            //return resultId;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+
+        return false;
+    }
+
+    public DataTable ListPermissionTypes(string connection)
+    {
+
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+
+        string dbQry = string.Empty;
+
+        try
+        {
+            manager.Open();
+            manager.ProviderType = DataProvider.OleDb;
+
+            dbQry = string.Format(@"SELECT ID as LeaveTypeId, LeaveTypeName FROM tblLeaveTypes WHERE IsActive=true");
+
+            DataSet ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables.Count > 0)
+                return ds.Tables[0];
+            else
+                return new DataTable();
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+
+        }
+    }
+
+    #endregion
+
+    #region Employee Pay Mapping
+
+    public DataSet GetPayCompForEmpManage(string SearchTxt)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+        SearchTxt = "%" + SearchTxt + "%";
+
+        if (SearchTxt != "")
+        {
+            dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents WHERE PayComponentName LIKE '" + SearchTxt + "'";
+        }
+        else
+        {
+            dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents ";
+        }
+        try
+        {
+            //object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblPayComponents");
+
+            //if (exists.ToString() != string.Empty)
+            //{
+            //    if (int.TryParse(exists.ToString()) > 0)
+            //    {
+            //        throw new Exception("No Pay Components Found ");
+            //    }
+            //}
+
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
+    public void InsertEmpPayComp(int EmpId, int payCompId, DateTime frmDate, int amtDeclared)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+        string delQuery = string.Empty;
+
+        try
+        {
+            manager.Open();
+            manager.ProviderType = DataProvider.OleDb;
+
+            manager.BeginTransaction();
+
+            object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblPayComponentEmployeeMapping Where PayComponent_ID =" + payCompId + "");
+
+            if (exists.ToString() != string.Empty)
+            {
+                if (int.Parse(exists.ToString()) > 0)
+                {
+                    delQuery = string.Format("DELETE FROM tblPayComponentEmployeeMapping WHERE PayComponent_ID = {0} AND EmpNo = {1}", payCompId, EmpId);
+
+                    manager.ExecuteNonQuery(CommandType.Text, delQuery);
+
+                    manager.CommitTransaction();
+
+                    dbQry = string.Format("INSERT INTO tblPayComponentEmployeeMapping(PayComponent_ID, EmpNo, EffectiveDate, DeclaredAmount) VALUES({0}, {1}, '{2}', {3})",
+                    payCompId, EmpId, frmDate, amtDeclared);
+
+                    manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                    manager.CommitTransaction();
+                }
+                else
+                {
+                    dbQry = string.Format("INSERT INTO tblPayComponentEmployeeMapping(PayComponent_ID, EmpNo, EffectiveDate, DeclaredAmount) VALUES({0}, {1}, '{2}', {3})",
+                    payCompId, EmpId, frmDate, amtDeclared);
+
+                    manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                    manager.CommitTransaction();
+                }
+            }
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
+    public void DeleteEmpPayComp(int EmpId)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+        try
+        {
+            manager.Open();
+            manager.ProviderType = DataProvider.OleDb;
+
+            manager.BeginTransaction();
+
+            object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblPayComponentEmployeeMapping Where EmpNo =" + EmpId);
+
+            if (exists.ToString() != string.Empty)
+            {
+                if (int.Parse(exists.ToString()) > 0)
+                {
+
+                    dbQry = string.Format("Delete From tblPayComponentEmployeeMapping WHERE EmpNo = {0} ", EmpId);
+
+                    manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                    manager.CommitTransaction();
+                }
+            }
+            else
+            {
+                throw new Exception("Pay Component Not Exists");
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
+    public DataSet GetEmpPayComp(int EmpId)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+        dbQry = "SELECT PayComponent_ID, EmpNo, PayComponentName, Description, EffectiveDate, DeclaredAmount from tblPayComponentEmployeeMapping A Inner Join tblPayComponents B on A.PayComponent_ID = B.PayComponentID where A.EmpNo = " + EmpId;
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
+    #endregion
+
+
 
 }
