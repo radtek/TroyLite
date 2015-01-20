@@ -712,36 +712,36 @@ public partial class TaskEntry : System.Web.UI.Page
     }
 
 
-    protected void drpprojectcode_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            BusinessLogic bl = new BusinessLogic(sDataSource);
-            int Project_Id = 0;
+    //protected void drpprojectcode_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        BusinessLogic bl = new BusinessLogic(sDataSource);
+    //        int Project_Id = 0;
           
-            string connection = Request.Cookies["Company"].Value;
+    //        string connection = Request.Cookies["Company"].Value;
 
 
-            Project_Id = Convert.ToInt32(drpProjectCode.SelectedValue);
-            //if (GrdWME.SelectedDataKey.Value != null && GrdWME.SelectedDataKey.Value.ToString() != "")
-            //    Project_Id = Convert.ToInt32(GrdWME.SelectedDataKey.Value.ToString());
+    //        Project_Id = Convert.ToInt32(drpProjectCode.SelectedValue);
+    //        //if (GrdWME.SelectedDataKey.Value != null && GrdWME.SelectedDataKey.Value.ToString() != "")
+    //        //    Project_Id = Convert.ToInt32(GrdWME.SelectedDataKey.Value.ToString());
 
-            drpDependencyTask.Items.Clear();
-            drpDependencyTask.Items.Add(new ListItem("Select Dependency Task", "0"));
-            DataSet ds = bl.GetDependencytask(connection,Project_Id);
+    //        drpDependencyTask.Items.Clear();
+    //        drpDependencyTask.Items.Add(new ListItem("Select Dependency Task", "0"));
+    //        DataSet ds = bl.GetDependencytask(connection,Project_Id);
 
-            drpDependencyTask.DataSource = ds;
-            drpDependencyTask.DataBind();
-            drpDependencyTask.DataTextField = "Task_Name";
-            drpDependencyTask.DataValueField = "Task_Id";
-            UpdatePanel2.Update();
+    //        drpDependencyTask.DataSource = ds;
+    //        drpDependencyTask.DataBind();
+    //        //drpDependencyTask.DataTextField = "Task_Name";
+    //        //drpDependencyTask.DataValueField = "Task_Id";
+    //        UpdatePanel2.Update();
 
-        }
+    //    }
            
-        catch (Exception ex)
-        {
-            TroyLiteExceptionManager.HandleException(ex);
-        }
-       // UpdatePanel2.Update();
-    }
+    //    catch (Exception ex)
+    //    {
+    //        TroyLiteExceptionManager.HandleException(ex);
+    //    }
+    //   // UpdatePanel2.Update();
+    //}
 }

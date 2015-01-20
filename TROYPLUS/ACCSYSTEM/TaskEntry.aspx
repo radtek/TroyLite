@@ -281,9 +281,9 @@
                                                                                               <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                                                                                                 <ContentTemplate>
                                                                                                     <asp:DropDownList ID="drpProjectCode" TabIndex="1" Enabled="True" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
-                                                                                                        runat="server" Width="100%" DataTextField="Project_Name" BackColor="#e7e7e7" Style="border: 1px solid #e7e7e7" Height="26px" AutoPostBack="true"
-                                                                                                        DataValueField="Project_Id" OnSelectedIndexChanged="drpprojectcode_SelectedIndexChanged">
-                                                                                                        <%--<asp:ListItem Text="Select Project Name" Value="0"></asp:ListItem>--%>
+                                                                                                        runat="server" Width="100%" DataTextField="Project_Name" BackColor="#e7e7e7" Style="border: 1px solid #e7e7e7" Height="26px" 
+                                                                                                        DataValueField="Project_Id">
+                                                                                                        <%--<asp:ListItem Text="Select  OnSelectedIndexChanged="drpprojectcode_SelectedIndexChanged" Project Name" Value="0"></asp:ListItem>--%>
                                                                                                     </asp:DropDownList>
                                                                                                 </ContentTemplate>
                                                                                             </asp:UpdatePanel>
