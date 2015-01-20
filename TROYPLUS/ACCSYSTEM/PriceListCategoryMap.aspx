@@ -146,6 +146,10 @@
                                                                         SkinID="skinTxtBoxGrid" TabIndex="1"></asp:TextBox>
                                                                 </td>
                                                                 <td style="width:30%">
+                                                                    <asp:TextBox ID="TextBox1" runat="server"  Text='<%# Bind("CusCategory_ID") %>'
+                                                                        Visible="false" ></asp:TextBox>
+                                                                    <asp:TextBox ID="TextBox2" runat="server"  Text='<%# Bind("CustomerCategory_Name") %>'
+                                                                        Visible="false" ></asp:TextBox>
                                                                 </td>
                                                                 <td>
                                                                 </td>
@@ -371,6 +375,7 @@
                                 <Columns>
                                     <asp:BoundField DataField="CustomerCategory_Name" HeaderText="Customer Category Name"  HeaderStyle-BorderColor="Gray" HeaderStyle-Width="200px"/>
                                     <asp:BoundField DataField="PriceList_Name" HeaderText="Price List Name"  HeaderStyle-BorderColor="Gray" HeaderStyle-Width="200px"/>
+                                    <asp:BoundField DataField="CusCategory_ID" HeaderText="CusCategory_ID"  HeaderStyle-BorderColor="Gray" HeaderStyle-Width="200px" Visible="false"/>
                                     <asp:TemplateField ItemStyle-CssClass="command" HeaderText="Edit" ItemStyle-Width="50px" HeaderStyle-BorderColor="Gray"
                                         ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
@@ -389,6 +394,7 @@
                                             <asp:ImageButton ID="lnkBDisabled" Enabled="false" SkinID="deleteDisable" runat="Server">
                                             </asp:ImageButton>
                                             <asp:HiddenField ID="ldgID" runat="server" Value='<%# Bind("Id") %>' />
+                                            <asp:HiddenField ID="HiddenField2" runat="server" Value='<%# Bind("CusCategory_Name") %>' />
                                             <asp:HiddenField ID="HiddenField1" runat="server" Value='<%# Bind("Id") %>' />
                                             <asp:HiddenField ID="ldgIDDD" runat="server" Value='<%# Bind("CusCategory_ID") %>' />
                                         </ItemTemplate>
@@ -442,6 +448,7 @@
                                 <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
                                 <asp:Parameter Name="ID" Type="Int32" />
                                 <asp:Parameter Name="Username" Type="String" />
+                                <asp:Parameter Name="CusCategory_Name" Type="String" />
                             </DeleteParameters>
                         </asp:ObjectDataSource>
                         <asp:ObjectDataSource ID="empSrc" runat="server" SelectMethod="ListExecutive" TypeName="BusinessLogic">

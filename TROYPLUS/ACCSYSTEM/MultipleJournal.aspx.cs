@@ -2128,129 +2128,133 @@ public partial class MultipleJournal : System.Web.UI.Page
             }
             else if (optionmethod.SelectedValue == "DebitContra")
             {
+                FirstGridViewRow1();
+
                 //updatePnlPurchase.Update();
                 ModalPopupMethod.Show();
                 ModalPopupPurchase.Show();
                 ModalPopupExtender1.Show();
 
-                if(txtEntries.Text == "")
-                {
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Entries number.')", true);
-                    return;
-                }
+                //if(txtEntries.Text == "")
+                //{
+                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Entries number.')", true);
+                //    return;
+                //}
                 drpDebtor.SelectedIndex = 0;
 
-                int Entries = Convert.ToInt32(txtEntries.Text);
+                //int Entries = Convert.ToInt32(txtEntries.Text);
 
-                DataSet ds = new DataSet();
-                DataTable dt;
-                DataRow drNew;
-                dt = new DataTable();
-                DataColumn dc;
-                int ii = 1;
-                string dtaa1 = string.Empty;
+                //DataSet ds = new DataSet();
+                //DataTable dt;
+                //DataRow drNew;
+                //dt = new DataTable();
+                //DataColumn dc;
+                //int ii = 1;
+                //string dtaa1 = string.Empty;
 
-                dc = new DataColumn("RefNo");
-                dt.Columns.Add(dc);
-
-                dc = new DataColumn("Date");
-                dt.Columns.Add(dc);
-
-                //dc = new DataColumn("Creditor");
+                //dc = new DataColumn("RefNo");
                 //dt.Columns.Add(dc);
 
-                dc = new DataColumn("Amount");
-                dt.Columns.Add(dc);
+                //dc = new DataColumn("Date");
+                //dt.Columns.Add(dc);
+
+                ////dc = new DataColumn("Creditor");
+                ////dt.Columns.Add(dc);
+
+                //dc = new DataColumn("Amount");
+                //dt.Columns.Add(dc);
                 
-                dc = new DataColumn("Narration");
-                dt.Columns.Add(dc);
+                //dc = new DataColumn("Narration");
+                //dt.Columns.Add(dc);
 
-                for (int i = 0; i < Convert.ToInt32(txtEntries.Text); i++)
-                {
+                //for (int i = 0; i < Convert.ToInt32(txtEntries.Text); i++)
+                //{
 
-                    DataRow dr_final1312 = dt.NewRow();
-                    dr_final1312["RefNo"] = "";
+                //    DataRow dr_final1312 = dt.NewRow();
+                //    dr_final1312["RefNo"] = "";
 
-                    DateTime indianStd = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "India Standard Time");
-                    string dtaa = Convert.ToDateTime(indianStd).ToString("dd/MM/yyyy");
+                //    DateTime indianStd = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "India Standard Time");
+                //    string dtaa = Convert.ToDateTime(indianStd).ToString("dd/MM/yyyy");
 
-                    dr_final1312["Date"] = dtaa;
+                //    dr_final1312["Date"] = dtaa;
 
-                    dr_final1312["Amount"] = "";
+                //    dr_final1312["Amount"] = "";
 
-                    //dr_final1312["Creditor"] = 0;
-                    dr_final1312["Narration"] = "";
+                //    //dr_final1312["Creditor"] = 0;
+                //    dr_final1312["Narration"] = "";
 
-                    dt.Rows.Add(dr_final1312);
-                }
+                //    dt.Rows.Add(dr_final1312);
+                //}
 
-                ds.Tables.Add(dt);
+                //ds.Tables.Add(dt);
 
-                GrdViewItems.DataSource = ds;
-                GrdViewItems.DataBind();
+                //GrdViewItems.DataSource = ds;
+                //GrdViewItems.DataBind();
             }
             else if (optionmethod.SelectedValue == "CreditContra")
             {
+                FirstGridViewRow2();
+
                 //updatePnlPurchase.Update();
                 ModalPopupMethod.Show();
                 ModalPopupPurchase.Show();
                 ModalPopupExtender2.Show();
 
-                if (txtEntries.Text == "")
-                {
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Entries number.')", true);
-                    return;
-                }
+                //if (txtEntries.Text == "")
+                //{
+                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Entries number.')", true);
+                //    return;
+                //}
                 drpCreditor1.SelectedIndex = 0;
 
-                int Entries = Convert.ToInt32(txtEntries.Text);
+                //int Entries = Convert.ToInt32(txtEntries.Text);
 
-                DataSet ds = new DataSet();
-                DataTable dt;
-                DataRow drNew;
-                dt = new DataTable();
-                DataColumn dc;
-                int ii = 1;
-                string dtaa1 = string.Empty;
+                //DataSet ds = new DataSet();
+                //DataTable dt;
+                //DataRow drNew;
+                //dt = new DataTable();
+                //DataColumn dc;
+                //int ii = 1;
+                //string dtaa1 = string.Empty;
 
-                dc = new DataColumn("RefNo");
-                dt.Columns.Add(dc);
-
-                dc = new DataColumn("Date");
-                dt.Columns.Add(dc);
-
-                //dc = new DataColumn("Creditor");
+                //dc = new DataColumn("RefNo");
                 //dt.Columns.Add(dc);
 
-                dc = new DataColumn("Amount");
-                dt.Columns.Add(dc);
+                //dc = new DataColumn("Date");
+                //dt.Columns.Add(dc);
 
-                dc = new DataColumn("Narration");
-                dt.Columns.Add(dc);
+                ////dc = new DataColumn("Creditor");
+                ////dt.Columns.Add(dc);
 
-                for (int i = 0; i < Convert.ToInt32(txtEntries.Text); i++)
-                {
+                //dc = new DataColumn("Amount");
+                //dt.Columns.Add(dc);
 
-                    DataRow dr_final1312 = dt.NewRow();
-                    dr_final1312["RefNo"] = "";
+                //dc = new DataColumn("Narration");
+                //dt.Columns.Add(dc);
 
-                    DateTime indianStd = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "India Standard Time");
-                    string dtaa = Convert.ToDateTime(indianStd).ToString("dd/MM/yyyy");
+                //for (int i = 0; i < Convert.ToInt32(txtEntries.Text); i++)
+                //{
 
-                    dr_final1312["Date"] = dtaa;
+                //    DataRow dr_final1312 = dt.NewRow();
+                //    dr_final1312["RefNo"] = "";
 
-                    dr_final1312["Amount"] = "";
+                //    DateTime indianStd = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "India Standard Time");
+                //    string dtaa = Convert.ToDateTime(indianStd).ToString("dd/MM/yyyy");
 
-                    //dr_final1312["Creditor"] = 0;
-                    dr_final1312["Narration"] = "";
+                //    dr_final1312["Date"] = dtaa;
 
-                    dt.Rows.Add(dr_final1312);
-                }
+                //    dr_final1312["Amount"] = "";
 
-                ds.Tables.Add(dt);
+                //    //dr_final1312["Creditor"] = 0;
+                //    dr_final1312["Narration"] = "";
 
-                BulkEditGridView1.DataSource = ds;
-                BulkEditGridView1.DataBind();
+                //    dt.Rows.Add(dr_final1312);
+                //}
+
+                //ds.Tables.Add(dt);
+
+                //BulkEditGridView1.DataSource = ds;
+                //BulkEditGridView1.DataBind();
             }
         }
         catch (Exception ex)
@@ -2313,6 +2317,108 @@ public partial class MultipleJournal : System.Web.UI.Page
         SetPreviousData();
     }
 
+    private void AddNewRow1()
+    {
+        int rowIndex = 0;
+
+        if (ViewState["CurrentTable1"] != null)
+        {
+            DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable1"];
+            DataRow drCurrentRow = null;
+            if (dtCurrentTable.Rows.Count > 0)
+            {
+                for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                {
+
+                    DropDownList DrpCreditor =
+                     (DropDownList)GrdViewItems.Rows[rowIndex].Cells[1].FindControl("drpCreditor");
+                    TextBox TextBoxRefNo =
+                      (TextBox)GrdViewItems.Rows[rowIndex].Cells[2].FindControl("txtRefNo");
+                    TextBox TextBoxDate =
+                      (TextBox)GrdViewItems.Rows[rowIndex].Cells[3].FindControl("txtDate");
+                    TextBox TextBoxAmount =
+                      (TextBox)GrdViewItems.Rows[rowIndex].Cells[4].FindControl("txtAmount");
+                    TextBox TextBoxNarration =
+                     (TextBox)GrdViewItems.Rows[rowIndex].Cells[4].FindControl("txtNarration");
+
+                    drCurrentRow = dtCurrentTable.NewRow();
+                    drCurrentRow["RowNumber"] = i + 1;
+
+
+                    dtCurrentTable.Rows[i - 1]["Col1"] = TextBoxRefNo.Text;
+                    dtCurrentTable.Rows[i - 1]["Col2"] = TextBoxDate.Text;
+                    dtCurrentTable.Rows[i - 1]["Col3"] = DrpCreditor.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["Col4"] = TextBoxAmount.Text;
+                    dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxNarration.Text;
+
+
+                    rowIndex++;
+                }
+                dtCurrentTable.Rows.Add(drCurrentRow);
+                ViewState["CurrentTable1"] = dtCurrentTable;
+
+                GrdViewItems.DataSource = dtCurrentTable;
+                GrdViewItems.DataBind();
+            }
+        }
+        else
+        {
+            Response.Write("ViewState is null");
+        }
+        SetPreviousData1();
+    }
+
+    private void AddNewRow2()
+    {
+        int rowIndex = 0;
+
+        if (ViewState["CurrentTable2"] != null)
+        {
+            DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable2"];
+            DataRow drCurrentRow = null;
+            if (dtCurrentTable.Rows.Count > 0)
+            {
+                for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                {
+
+                    DropDownList DrpDebtor =
+                     (DropDownList)BulkEditGridView1.Rows[rowIndex].Cells[1].FindControl("drpDebtor1");
+                    TextBox TextBoxRefNo =
+                      (TextBox)BulkEditGridView1.Rows[rowIndex].Cells[2].FindControl("txtRefNo");
+                    TextBox TextBoxDate =
+                      (TextBox)BulkEditGridView1.Rows[rowIndex].Cells[3].FindControl("txtDate");
+                    TextBox TextBoxAmount =
+                      (TextBox)BulkEditGridView1.Rows[rowIndex].Cells[4].FindControl("txtAmount");
+                    TextBox TextBoxNarration =
+                     (TextBox)BulkEditGridView1.Rows[rowIndex].Cells[4].FindControl("txtNarration");
+
+                    drCurrentRow = dtCurrentTable.NewRow();
+                    drCurrentRow["RowNumber"] = i + 1;
+
+
+                    dtCurrentTable.Rows[i - 1]["Col1"] = TextBoxRefNo.Text;
+                    dtCurrentTable.Rows[i - 1]["Col2"] = TextBoxDate.Text;
+                    dtCurrentTable.Rows[i - 1]["Col3"] = DrpDebtor.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["Col4"] = TextBoxAmount.Text;
+                    dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxNarration.Text;
+
+
+                    rowIndex++;
+                }
+                dtCurrentTable.Rows.Add(drCurrentRow);
+                ViewState["CurrentTable2"] = dtCurrentTable;
+
+                BulkEditGridView1.DataSource = dtCurrentTable;
+                BulkEditGridView1.DataBind();
+            }
+        }
+        else
+        {
+            Response.Write("ViewState is null");
+        }
+        SetPreviousData2();
+    }
+
     private void SetPreviousData()
     {
         int rowIndex = 0;
@@ -2351,6 +2457,76 @@ public partial class MultipleJournal : System.Web.UI.Page
         }
     }
 
+    private void SetPreviousData2()
+    {
+        int rowIndex = 0;
+        if (ViewState["CurrentTable2"] != null)
+        {
+            DataTable dt = (DataTable)ViewState["CurrentTable2"];
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    DropDownList DrpDebtor =
+                     (DropDownList)BulkEditGridView1.Rows[rowIndex].Cells[1].FindControl("drpDebtor1");
+                    TextBox TextBoxRefNo =
+                      (TextBox)BulkEditGridView1.Rows[rowIndex].Cells[2].FindControl("txtRefNo");
+                    TextBox TextBoxDate =
+                      (TextBox)BulkEditGridView1.Rows[rowIndex].Cells[3].FindControl("txtDate");
+                    TextBox TextBoxAmount =
+                      (TextBox)BulkEditGridView1.Rows[rowIndex].Cells[4].FindControl("txtAmount");
+                    TextBox TextBoxNarration =
+                     (TextBox)BulkEditGridView1.Rows[rowIndex].Cells[4].FindControl("txtNarration");
+
+
+                    TextBoxRefNo.Text = dt.Rows[i]["Col1"].ToString();
+                    TextBoxDate.Text = dt.Rows[i]["Col2"].ToString();
+                    DrpDebtor.SelectedValue = dt.Rows[i]["Col3"].ToString();
+                    TextBoxAmount.Text = dt.Rows[i]["Col4"].ToString();
+                    TextBoxNarration.Text = dt.Rows[i]["Col5"].ToString();
+
+                    rowIndex++;
+
+                }
+            }
+        }
+    }
+
+    private void SetPreviousData1()
+    {
+        int rowIndex = 0;
+        if (ViewState["CurrentTable1"] != null)
+        {
+            DataTable dt = (DataTable)ViewState["CurrentTable1"];
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    DropDownList DrpCreditor =
+                     (DropDownList)GrdViewItems.Rows[rowIndex].Cells[1].FindControl("drpCreditor");
+                    TextBox TextBoxRefNo =
+                      (TextBox)GrdViewItems.Rows[rowIndex].Cells[2].FindControl("txtRefNo");
+                    TextBox TextBoxDate =
+                      (TextBox)GrdViewItems.Rows[rowIndex].Cells[3].FindControl("txtDate");
+                    TextBox TextBoxAmount =
+                      (TextBox)GrdViewItems.Rows[rowIndex].Cells[4].FindControl("txtAmount");
+                    TextBox TextBoxNarration =
+                     (TextBox)GrdViewItems.Rows[rowIndex].Cells[4].FindControl("txtNarration");
+
+
+                    TextBoxRefNo.Text = dt.Rows[i]["Col1"].ToString();
+                    TextBoxDate.Text = dt.Rows[i]["Col2"].ToString();
+                    DrpCreditor.SelectedValue = dt.Rows[i]["Col3"].ToString();
+                    TextBoxAmount.Text = dt.Rows[i]["Col4"].ToString();
+                    TextBoxNarration.Text = dt.Rows[i]["Col5"].ToString();
+
+                    rowIndex++;
+
+                }
+            }
+        }
+    }
+
     protected void gdm_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
         SetRowData();
@@ -2372,6 +2548,56 @@ public partial class MultipleJournal : System.Web.UI.Page
                     gdm.Rows[i].Cells[0].Text = Convert.ToString(i + 1);
                 }
                 SetPreviousData();
+            }
+        }
+    }
+
+    protected void BulkEditGridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        SetRowData2();
+        if (ViewState["CurrentTable2"] != null)
+        {
+            DataTable dt = (DataTable)ViewState["CurrentTable2"];
+            DataRow drCurrentRow = null;
+            int rowIndex = Convert.ToInt32(e.RowIndex);
+            if (dt.Rows.Count > 1)
+            {
+                dt.Rows.Remove(dt.Rows[rowIndex]);
+                drCurrentRow = dt.NewRow();
+                ViewState["CurrentTable2"] = dt;
+                BulkEditGridView1.DataSource = dt;
+                BulkEditGridView1.DataBind();
+
+                for (int i = 0; i < BulkEditGridView1.Rows.Count - 1; i++)
+                {
+                    BulkEditGridView1.Rows[i].Cells[0].Text = Convert.ToString(i + 1);
+                }
+                SetPreviousData2();
+            }
+        }
+    }
+
+    protected void GrdViewItems_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        SetRowData1();
+        if (ViewState["CurrentTable1"] != null)
+        {
+            DataTable dt = (DataTable)ViewState["CurrentTable1"];
+            DataRow drCurrentRow = null;
+            int rowIndex = Convert.ToInt32(e.RowIndex);
+            if (dt.Rows.Count > 1)
+            {
+                dt.Rows.Remove(dt.Rows[rowIndex]);
+                drCurrentRow = dt.NewRow();
+                ViewState["CurrentTable1"] = dt;
+                GrdViewItems.DataSource = dt;
+                GrdViewItems.DataBind();
+
+                for (int i = 0; i < GrdViewItems.Rows.Count - 1; i++)
+                {
+                    GrdViewItems.Rows[i].Cells[0].Text = Convert.ToString(i + 1);
+                }
+                SetPreviousData1();
             }
         }
     }
@@ -2428,9 +2654,119 @@ public partial class MultipleJournal : System.Web.UI.Page
         SetPreviousData();
     }
 
+    private void SetRowData2()
+    {
+        int rowIndex = 0;
+
+        if (ViewState["CurrentTable2"] != null)
+        {
+            DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable2"];
+            DataRow drCurrentRow = null;
+            if (dtCurrentTable.Rows.Count > 0)
+            {
+                for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                {
+                    DropDownList DrpDebtor =
+                     (DropDownList)BulkEditGridView1.Rows[rowIndex].Cells[1].FindControl("drpDebtor1");
+                    TextBox TextBoxRefNo =
+                      (TextBox)BulkEditGridView1.Rows[rowIndex].Cells[2].FindControl("txtRefNo");
+                    TextBox TextBoxDate =
+                      (TextBox)BulkEditGridView1.Rows[rowIndex].Cells[3].FindControl("txtDate");
+                    TextBox TextBoxAmount =
+                      (TextBox)BulkEditGridView1.Rows[rowIndex].Cells[4].FindControl("txtAmount");
+                    TextBox TextBoxNarration =
+                     (TextBox)BulkEditGridView1.Rows[rowIndex].Cells[4].FindControl("txtNarration");
+
+
+                    drCurrentRow = dtCurrentTable.NewRow();
+                    drCurrentRow["RowNumber"] = i + 1;
+
+                    dtCurrentTable.Rows[i - 1]["Col1"] = TextBoxRefNo.Text;
+                    dtCurrentTable.Rows[i - 1]["Col2"] = TextBoxDate.Text;
+                    dtCurrentTable.Rows[i - 1]["Col3"] = DrpDebtor.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["Col4"] = TextBoxAmount.Text;
+                    dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxNarration.Text;
+
+                    rowIndex++;
+
+                }
+
+                ViewState["CurrentTable2"] = dtCurrentTable;
+                BulkEditGridView1.DataSource = dtCurrentTable;
+                BulkEditGridView1.DataBind();
+            }
+        }
+        else
+        {
+            Response.Write("ViewState is null");
+        }
+        SetPreviousData2();
+    }
+
+
+    private void SetRowData1()
+    {
+        int rowIndex = 0;
+
+        if (ViewState["CurrentTable1"] != null)
+        {
+            DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable1"];
+            DataRow drCurrentRow = null;
+            if (dtCurrentTable.Rows.Count > 0)
+            {
+                for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                {
+                    
+                    DropDownList DrpCreditor =
+                     (DropDownList)GrdViewItems.Rows[rowIndex].Cells[1].FindControl("drpCreditor");
+                    TextBox TextBoxRefNo =
+                      (TextBox)GrdViewItems.Rows[rowIndex].Cells[2].FindControl("txtRefNo");
+                    TextBox TextBoxDate =
+                      (TextBox)GrdViewItems.Rows[rowIndex].Cells[3].FindControl("txtDate");
+                    TextBox TextBoxAmount =
+                      (TextBox)GrdViewItems.Rows[rowIndex].Cells[4].FindControl("txtAmount");
+                    TextBox TextBoxNarration =
+                     (TextBox)GrdViewItems.Rows[rowIndex].Cells[4].FindControl("txtNarration");
+
+
+                    drCurrentRow = dtCurrentTable.NewRow();
+                    drCurrentRow["RowNumber"] = i + 1;
+
+                    dtCurrentTable.Rows[i - 1]["Col1"] = TextBoxRefNo.Text;
+                    dtCurrentTable.Rows[i - 1]["Col2"] = TextBoxDate.Text;
+                    dtCurrentTable.Rows[i - 1]["Col3"] = DrpCreditor.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["Col4"] = TextBoxAmount.Text;
+                    dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxNarration.Text;
+
+                    rowIndex++;
+
+                }
+
+                ViewState["CurrentTable1"] = dtCurrentTable;
+                GrdViewItems.DataSource = dtCurrentTable;
+                GrdViewItems.DataBind();
+            }
+        }
+        else
+        {
+            Response.Write("ViewState is null");
+        }
+        SetPreviousData1();
+    }
+
     protected void ButtonAdd_Click(object sender, EventArgs e)
     {
         AddNewRow();
+    }
+
+    protected void ButtonAdd1_Click(object sender, EventArgs e)
+    {
+        AddNewRow1();
+    }
+
+    protected void ButtonAdd2_Click(object sender, EventArgs e)
+    {
+        AddNewRow2();
     }
 
     private void FirstGridViewRow()
@@ -2461,6 +2797,62 @@ public partial class MultipleJournal : System.Web.UI.Page
 
         gdm.DataSource = dt;
         gdm.DataBind();
+    }
+
+    private void FirstGridViewRow1()
+    {
+        DataTable dtt = new DataTable();
+        DataRow dr = null;
+        dtt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
+        dtt.Columns.Add(new DataColumn("Col1", typeof(string)));
+        dtt.Columns.Add(new DataColumn("Col2", typeof(string)));
+        dtt.Columns.Add(new DataColumn("Col3", typeof(string)));
+        dtt.Columns.Add(new DataColumn("Col4", typeof(string)));
+        dtt.Columns.Add(new DataColumn("Col5", typeof(string)));
+        dtt.Columns.Add(new DataColumn("Col6", typeof(string)));
+        dr = dtt.NewRow();
+        dr["RowNumber"] = 1;
+        dr["Col1"] = string.Empty;
+        dr["Col2"] = string.Empty;
+        dr["Col3"] = string.Empty;
+        dr["Col4"] = string.Empty;
+        dr["Col5"] = string.Empty;
+        dr["Col6"] = string.Empty;
+        dtt.Rows.Add(dr);
+
+        ViewState["CurrentTable1"] = dtt;
+
+
+        GrdViewItems.DataSource = dtt;
+        GrdViewItems.DataBind();
+    }
+
+    private void FirstGridViewRow2()
+    {
+        DataTable dttt = new DataTable();
+        DataRow dr = null;
+        dttt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
+        dttt.Columns.Add(new DataColumn("Col1", typeof(string)));
+        dttt.Columns.Add(new DataColumn("Col2", typeof(string)));
+        dttt.Columns.Add(new DataColumn("Col3", typeof(string)));
+        dttt.Columns.Add(new DataColumn("Col4", typeof(string)));
+        dttt.Columns.Add(new DataColumn("Col5", typeof(string)));
+        dttt.Columns.Add(new DataColumn("Col6", typeof(string)));
+        dr = dttt.NewRow();
+        dr["RowNumber"] = 1;
+        dr["Col1"] = string.Empty;
+        dr["Col2"] = string.Empty;
+        dr["Col3"] = string.Empty;
+        dr["Col4"] = string.Empty;
+        dr["Col5"] = string.Empty;
+        dr["Col6"] = string.Empty;
+        dttt.Rows.Add(dr);
+
+        ViewState["CurrentTable2"] = dttt;
+
+
+        BulkEditGridView1.DataSource = dttt;
+        BulkEditGridView1.DataBind();
     }
 
 

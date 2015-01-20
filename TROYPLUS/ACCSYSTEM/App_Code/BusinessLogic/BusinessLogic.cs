@@ -64716,7 +64716,7 @@ public class BusinessLogic
 
         try
         {
-            dbQry = "select * from tblMapPriceList where ID = " + ID;
+            dbQry = "select * from (tblMapPriceList inner join tblCustomerCategory on tblCustomerCategory.CusCategory_Name = tblMapPriceList.CustomerCategory_Name) where ID = " + ID;
             manager.Open();
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
@@ -64736,7 +64736,7 @@ public class BusinessLogic
         }
     }
 
-    public void DeleteMapping(string connection, int ID, string Username)
+    public void DeleteMapping(string connection, int ID, string Username, string CusCategory_Name)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(connection);
@@ -64758,6 +64758,10 @@ public class BusinessLogic
             manager.BeginTransaction();
 
             dbQry = string.Format("Delete From tblMapPriceList Where ID = {0}", ID);
+
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+            dbQry = string.Format("Delete From tblCustomerCategory Where CusCategory_Name = '{0}'", CusCategory_Name);
 
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -65891,6 +65895,44 @@ public class BusinessLogic
             if (manager != null)
                 manager.Dispose();
         }
+    }
+
+    public bool CheckIfCustomerCategoryUsed(string LedgerCategory)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        int qty = 0;
+        string dbQry = string.Empty;
+        try
+        {
+            manager.Open();
+            dbQry = "SELECT Count(*) FROM tblLedger Where LedgerCategory ='" + LedgerCategory + "' ";
+
+            object qtyObj = manager.ExecuteScalar(CommandType.Text, dbQry);
+
+            if (qtyObj != null && qtyObj != DBNull.Value)
+            {
+                qty = (int)qtyObj;
+
+                if (qty > 0)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
     }
 
 }

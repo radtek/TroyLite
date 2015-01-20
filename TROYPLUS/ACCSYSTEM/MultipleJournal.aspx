@@ -171,7 +171,7 @@
                                                                                                 </asp:RadioButtonList>
                                                                                                 <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" TargetControlID="txtEntries"
                                                                                             ValidChars="." FilterType="Numbers, Custom" />
-                                                                                                Entries <asp:TextBox ID="txtEntries" runat="server" MaxLength="2" Width="45px"></asp:TextBox>
+                                                                                                <asp:TextBox ID="txtEntries" runat="server" MaxLength="2" Width="45px" Visible="false"></asp:TextBox>
                                                                                             </td>
                                                                                             <td style="width: 15%">
                                                                                         
@@ -1149,7 +1149,7 @@
                                                         </input>
                                                         &nbsp;<asp:ValidationSummary ID="ValidationSummary3" runat="server" Font-Names="'Trebuchet MS'" Font-Size="12pt"
                                                             HeaderText="Validation Messages" ShowMessageBox="true" ShowSummary="true" ValidationGroup="ValidationSummary3" />
-                                                        <asp:Panel ID="Panel2" runat="server" Width="900px" CssClass="modalPopup">
+                                                        <asp:Panel ID="Panel2" runat="server" Width="85%" CssClass="modalPopup">
                                                             <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                                                                 <ContentTemplate>
                                                                     <asp:Panel ID="Panel3" CssClass="pnlPopUp" runat="server">
@@ -1194,8 +1194,9 @@
                                                                                             <tr>
                                                                                                 <td>
                                                                                                     <div id="div" runat="server" style="height:330px; overflow:scroll">
-                                                                                                        <rwg:BulkEditGridView ID="GrdViewItems" AutoGenerateColumns="False" BorderWidth="1px"
-                                                                                                            BorderStyle="Solid" OnRowDataBound="GrdViewItems_RowDataBound" GridLines="Both" SaveButtonID="SaveButton" runat="server" CssClass="someClass"
+                                                                                                        
+                                                                                                    <asp:GridView ID="GrdViewItems" AutoGenerateColumns="False" BorderWidth="1px" ShowFooter="True"
+                                                                                                            BorderStyle="Solid" OnRowDataBound="GrdViewItems_RowDataBound" OnRowDeleting="GrdViewItems_RowDeleting" GridLines="Both" SaveButtonID="SaveButton" runat="server" CssClass="someClass"
                                                                                                             Width="100%">
                                                                                                             <RowStyle CssClass="dataRow" />
                                                                                                             <SelectedRowStyle CssClass="SelectdataRow" />
@@ -1203,16 +1204,27 @@
                                                                                                             <EmptyDataRowStyle CssClass="HeadataRow" Font-Bold="true" />
                                                                                                             <HeaderStyle CssClass="HeadataRow" Wrap="false" />
                                                                                                             <FooterStyle CssClass="dataRow" />
+
+                                                                                                        <%--<rwg:BulkEditGridView ID="GrdViewItems" AutoGenerateColumns="False" BorderWidth="1px"
+                                                                                                            BorderStyle="Solid" OnRowDataBound="GrdViewItems_RowDataBound" GridLines="Both" SaveButtonID="SaveButton" runat="server" CssClass="someClass"
+                                                                                                            Width="100%">
+                                                                                                            <RowStyle CssClass="dataRow" />
+                                                                                                            <SelectedRowStyle CssClass="SelectdataRow" />
+                                                                                                            <AlternatingRowStyle CssClass="altRow" />
+                                                                                                            <EmptyDataRowStyle CssClass="HeadataRow" Font-Bold="true" />
+                                                                                                            <HeaderStyle CssClass="HeadataRow" Wrap="false" />
+                                                                                                            <FooterStyle CssClass="dataRow" />--%>
                                                                                                             <Columns>
+                                                                                                                <asp:BoundField DataField="RowNumber" HeaderText="SNo" ItemStyle-Width="5px" />
                                                                                                                 <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="RefNo" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="10px">
                                                                                                                     <ItemTemplate>
-                                                                                                                        <asp:TextBox ID="txtRefNo" runat="server" Width="90%" Height="26px" Text='<%# Bind("RefNo") %>'
+                                                                                                                        <asp:TextBox ID="txtRefNo" runat="server" Width="90%" Height="26px"
                                                                                                                             ></asp:TextBox>
                                                                                                                     </ItemTemplate>
                                                                                                                 </asp:TemplateField>
-                                                                                                                <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Date" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20px">
+                                                                                                                <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Date" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="35px">
                                                                                                                     <ItemTemplate>
-                                                                                                                        <asp:TextBox ID="txtDate" runat="server" Width="70%" Height="26px" Text='<%# Bind("Date") %>'
+                                                                                                                        <asp:TextBox ID="txtDate" runat="server" Width="70%" Height="26px"
                                                                                                                             ></asp:TextBox>
                                                                                                                         <cc1:CalendarExtender ID="calBillDate" runat="server" Format="dd/MM/yyyy"
                                                                                                                                 PopupButtonID="btnBillDate" TargetControlID="txtDate" Enabled="True">
@@ -1232,7 +1244,7 @@
                                                                                                                 </asp:TemplateField>
                                                                                                                 <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Amount" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20px">
                                                                                                                     <ItemTemplate>
-                                                                                                                        <asp:TextBox ID="txtAmount" runat="server" Width="90%" Height="26px" Text='<%# Bind("Amount") %>'
+                                                                                                                        <asp:TextBox ID="txtAmount" runat="server" Width="90%" Height="26px"
                                                                                                                             ></asp:TextBox>
                                                                                                                         <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender312" runat="server" TargetControlID="txtAmount"
                                                                                             ValidChars="." FilterType="Numbers, Custom" />
@@ -1240,12 +1252,18 @@
                                                                                                                 </asp:TemplateField>
                                                                                                                 <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Narration" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20px">
                                                                                                                     <ItemTemplate>
-                                                                                                                        <asp:TextBox ID="txtNarration" runat="server" Width="90%" Height="26px" Text='<%# Bind("Narration") %>'
+                                                                                                                        <asp:TextBox ID="txtNarration" runat="server" Width="90%" Height="26px"
                                                                                                                             ></asp:TextBox>
                                                                                                                     </ItemTemplate>
+                                                                                                                    <FooterStyle HorizontalAlign="Right" />
+                                                                                                                                                                <FooterTemplate>
+                                                                                                                                                                    <asp:Button ID="ButtonAdd1" runat="server" AutoPostback="false" EnableTheming="false"
+                                                                                                                                                                        Text="Add New Row" OnClick="ButtonAdd1_Click"  Width="40%"/>
+                                                                                                                                                                </FooterTemplate>
                                                                                                                 </asp:TemplateField>
+                                                                                                                <asp:CommandField ShowDeleteButton="True"  HeaderStyle-Width="10px"/>
                                                                                                             </Columns>
-                                                                                                        </rwg:BulkEditGridView>
+                                                                                                        </asp:GridView>
                                                                                                     </div>
                                                                                                 </td>
                                                                                             </tr>
@@ -1301,7 +1319,7 @@
                                                         </input>
                                                         &nbsp;<asp:ValidationSummary ID="ValidationSummary4" runat="server" Font-Names="'Trebuchet MS'" Font-Size="12pt"
                                                             HeaderText="Validation Messages" ShowMessageBox="true" ShowSummary="true" ValidationGroup="ValidationSummary4" />
-                                                        <asp:Panel ID="Panel6" runat="server" Width="900px" CssClass="modalPopup">
+                                                        <asp:Panel ID="Panel6" runat="server" Width="85%" CssClass="modalPopup">
                                                             <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
                                                                 <ContentTemplate>
                                                                     <asp:Panel ID="Panel7" CssClass="pnlPopUp" runat="server">
@@ -1346,8 +1364,8 @@
                                                                                             <tr>
                                                                                                 <td>
                                                                                                     <div id="div4" runat="server" style="height:330px; overflow:scroll">
-                                                                                                        <rwg:BulkEditGridView ID="BulkEditGridView1" AutoGenerateColumns="False" BorderWidth="1px"
-                                                                                                            BorderStyle="Solid" OnRowDataBound="BulkEditGridView1_RowDataBound" GridLines="Both" SaveButtonID="SaveButton" runat="server" CssClass="someClass"
+                                                                                                        <asp:GridView ID="BulkEditGridView1" AutoGenerateColumns="False" BorderWidth="1px" ShowFooter="True"
+                                                                                                            BorderStyle="Solid" OnRowDataBound="BulkEditGridView1_RowDataBound" OnRowDeleting="BulkEditGridView1_RowDeleting" GridLines="Both" SaveButtonID="SaveButton" runat="server" CssClass="someClass"
                                                                                                             Width="100%">
                                                                                                             <RowStyle CssClass="dataRow" />
                                                                                                             <SelectedRowStyle CssClass="SelectdataRow" />
@@ -1355,16 +1373,26 @@
                                                                                                             <EmptyDataRowStyle CssClass="HeadataRow" Font-Bold="true" />
                                                                                                             <HeaderStyle CssClass="HeadataRow" Wrap="false" />
                                                                                                             <FooterStyle CssClass="dataRow" />
+                                                                                                        <%--<rwg:BulkEditGridView ID="BulkEditGridView1" AutoGenerateColumns="False" BorderWidth="1px"
+                                                                                                            BorderStyle="Solid" OnRowDataBound="BulkEditGridView1_RowDataBound" GridLines="Both" SaveButtonID="SaveButton" runat="server" CssClass="someClass"
+                                                                                                            Width="100%">
+                                                                                                            <RowStyle CssClass="dataRow" />
+                                                                                                            <SelectedRowStyle CssClass="SelectdataRow" />
+                                                                                                            <AlternatingRowStyle CssClass="altRow" />
+                                                                                                            <EmptyDataRowStyle CssClass="HeadataRow" Font-Bold="true" />
+                                                                                                            <HeaderStyle CssClass="HeadataRow" Wrap="false" />
+                                                                                                            <FooterStyle CssClass="dataRow" />--%>
                                                                                                             <Columns>
+                                                                                                                <asp:BoundField DataField="RowNumber" HeaderText="SNo" ItemStyle-Width="5px" />
                                                                                                                 <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="RefNo" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20px">
                                                                                                                     <ItemTemplate>
-                                                                                                                        <asp:TextBox ID="txtRefNo" runat="server" Width="90%" Height="26px" Text='<%# Bind("RefNo") %>'
+                                                                                                                        <asp:TextBox ID="txtRefNo" runat="server" Width="90%" Height="26px"
                                                                                                                             ></asp:TextBox>
                                                                                                                     </ItemTemplate>
                                                                                                                 </asp:TemplateField>
-                                                                                                                <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Date" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20px">
+                                                                                                                <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Date" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="35px">
                                                                                                                     <ItemTemplate>
-                                                                                                                        <asp:TextBox ID="txtDate" runat="server" Height="26px" Width="70%" Text='<%# Bind("Date") %>'
+                                                                                                                        <asp:TextBox ID="txtDate" runat="server" Height="26px" Width="70%"
                                                                                                                             ></asp:TextBox>
                                                                                                                         <cc1:CalendarExtender ID="calBillDate" runat="server" Format="dd/MM/yyyy"
                                                                                                                                 PopupButtonID="btnBillDate" TargetControlID="txtDate" Enabled="True">
@@ -1384,7 +1412,7 @@
                                                                                                                 </asp:TemplateField>
                                                                                                                 <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Amount" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20px">
                                                                                                                     <ItemTemplate>
-                                                                                                                        <asp:TextBox ID="txtAmount" runat="server" Width="90%" Height="26px" Text='<%# Bind("Amount") %>'
+                                                                                                                        <asp:TextBox ID="txtAmount" runat="server" Width="90%" Height="26px"
                                                                                                                             ></asp:TextBox>
                                                                                                                         <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender123" runat="server" TargetControlID="txtAmount"
                                                                                             ValidChars="." FilterType="Numbers, Custom" />
@@ -1392,12 +1420,18 @@
                                                                                                                 </asp:TemplateField>
                                                                                                                 <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Narration" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20px">
                                                                                                                     <ItemTemplate>
-                                                                                                                        <asp:TextBox ID="txtNarration" runat="server" Width="90%" Height="26px" Text='<%# Bind("Narration") %>'
+                                                                                                                        <asp:TextBox ID="txtNarration" runat="server" Width="90%" Height="26px"
                                                                                                                             ></asp:TextBox>
                                                                                                                     </ItemTemplate>
+                                                                                                                    <FooterStyle HorizontalAlign="Right" />
+                                                                                                                                                                <FooterTemplate>
+                                                                                                                                                                    <asp:Button ID="ButtonAdd2" runat="server" AutoPostback="false" EnableTheming="false"
+                                                                                                                                                                        Text="Add New Row" OnClick="ButtonAdd2_Click"  Width="40%"/>
+                                                                                                                                                                </FooterTemplate>
                                                                                                                 </asp:TemplateField>
+                                                                                                                <asp:CommandField ShowDeleteButton="True"  HeaderStyle-Width="10px"/>
                                                                                                             </Columns>
-                                                                                                        </rwg:BulkEditGridView>
+                                                                                                        </asp:GridView>
                                                                                                     </div>
                                                                                                 </td>
                                                                                             </tr>
