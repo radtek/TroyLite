@@ -160,8 +160,24 @@ public partial class PriceListCategoryMap : System.Web.UI.Page
             if (GrdViewLedger.SelectedDataKey != null)
                 e.InputParameters["ID"] = GrdViewLedger.SelectedDataKey.Value;
 
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+            string connection = Request.Cookies["Company"].Value;
+
+            string CusCategory_Name = string.Empty;
+
+            DataSet ds = bl.GetMappingInfoForId(connection, Convert.ToInt32(GrdViewLedger.SelectedDataKey.Value));
+            if(ds != null)
+            {
+                if (ds.Tables.Count > 0)
+                {
+                    CusCategory_Name = Convert.ToString(ds.Tables[0].Rows[0]["CusCategory_Name"]);
+                }
+            }
 
             e.InputParameters["Username"] = Request.Cookies["LoggedUserName"].Value;
+
+            e.InputParameters["CusCategory_Name"] = CusCategory_Name;
+
         }
         catch (Exception ex)
         {
@@ -398,15 +414,24 @@ public partial class PriceListCategoryMap : System.Web.UI.Page
             BusinessLogic bl = new BusinessLogic(sDataSource);
             string connection = Request.Cookies["Company"].Value;
 
-            if (bl.IsCategoryFoundinMapping(connection, category))
+            string text = ((TextBox)this.frmViewAdd.FindControl("TextBox2")).Text;
+
+            if (category == text)
             {
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('This Custmer Category already found')", true);
-                ModalPopupExtender1.Show();
-                frmViewAdd.Visible = true;
-                check = true;
-                frmViewAdd.ChangeMode(FormViewMode.Insert);
-                e.Cancel = true;
-                return;
+
+            }
+            else
+            {
+                if (bl.IsCategoryFoundinMapping(connection, category))
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('This Custmer Category already found')", true);
+                    ModalPopupExtender1.Show();
+                    frmViewAdd.Visible = true;
+                    check = true;
+                    frmViewAdd.ChangeMode(FormViewMode.Insert);
+                    e.Cancel = true;
+                    return;
+                }
             }
 
             this.setUpdateParameters(e);
@@ -439,11 +464,11 @@ public partial class PriceListCategoryMap : System.Web.UI.Page
             {
                 BusinessLogic bl = new BusinessLogic(GetConnectionString());
 
-                //if (bl.CheckIfCategoryUsed(int.Parse(((HiddenField)e.Row.FindControl("ldgID")).Value)))
-                //{
-                //    ((ImageButton)e.Row.FindControl("lnkB")).Visible = false;
-                //    ((ImageButton)e.Row.FindControl("lnkBDisabled")).Visible = true;
-                //}
+                if (bl.CheckIfCustomerCategoryUsed(Convert.ToString(((HiddenField)e.Row.FindControl("HiddenField2")).Value)))
+                {
+                    ((ImageButton)e.Row.FindControl("lnkB")).Visible = false;
+                    ((ImageButton)e.Row.FindControl("lnkBDisabled")).Visible = true;
+                }
 
                 string connection = Request.Cookies["Company"].Value;
                 string usernam = Request.Cookies["LoggedUserName"].Value;
@@ -656,7 +681,7 @@ public partial class PriceListCategoryMap : System.Web.UI.Page
 
         e.InputParameters["ID"] = GrdViewLedger.SelectedDataKey.Value;
 
-        e.InputParameters["CusCategory_ID"] = ((HiddenField)this.frmViewAdd.FindControl("ldgIDDD")).Value;
+        e.InputParameters["CusCategory_ID"] = ((TextBox)this.frmViewAdd.FindControl("TextBox1")).Text;
 
         e.InputParameters["Username"] = Request.Cookies["LoggedUserName"].Value;
     }
