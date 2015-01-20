@@ -7781,7 +7781,7 @@ public class BusinessLogic
                 }
                 else
                 {
-            dbQry = "select CategoryID, CategoryName from tblCategories Order By CategoryName ";
+                    dbQry = "select CategoryID, CategoryName from tblCategories Order By CategoryName ";
                 }
             }
             else
@@ -8077,8 +8077,8 @@ public class BusinessLogic
 
         try
         {
-            manager.Open();
-
+            manager.Open();            
+            
             dbQ = "SELECT KeyValue From tblSettings WHERE key='SAVELOG'";
             dsd = manager.ExecuteDataSet(CommandType.Text, dbQ.ToString());
             if (dsd.Tables[0].Rows.Count > 0)
@@ -8163,22 +8163,22 @@ public class BusinessLogic
                         if (mrpdat == Convert.ToDateTime(dr["EffDate"]))
                         {
                             mrpprevdat = Convert.ToDateTime(dr["EffDate"]);
-                    }
+                        }
                         else
                         {
                             mrpprevdat = Convert.ToDateTime(dr["EffDate"]).AddDays(-1);
-                }
+                        }
 
                         if (mrpdat == Convert.ToDateTime(dr["EffDate"]))
-            {
-            }
-            else
-            {
+                        {
+                        }
+                        else
+                        {
                             dbQry2 = string.Format("INSERT INTO tblProductPricehistory VALUES('{0}','{1}', '{2}',{3},'{4}',{5},Format('{6}', 'dd/mm/yyyy'),Format('{7}', 'dd/mm/yyyy'),Format('{8}', 'dd/mm/yyyy'),'{9}',{10},{11},{12})",
                                      ItemCode, ProductName, Model, CategoryID, ProductDesc, ROL, Convert.ToDateTime(dr["EffDate"]), mrpdat.ToShortDateString(), mrpprevdat.ToShortDateString(), Convert.ToString(dr["PriceName"]), Convert.ToDouble(dr["Price"]), Convert.ToDouble(dr["Discount"]), Convert.ToInt32(dr["Id"]));
 
-                manager.ExecuteDataSet(CommandType.Text, dbQry2);
-            }
+                            manager.ExecuteDataSet(CommandType.Text, dbQry2);
+                        }
 
                     }
                 }
@@ -64858,7 +64858,7 @@ public class BusinessLogic
 
         try
         {
-            dbQry = "select * from tblMapPriceList where ID = " + ID;
+            dbQry = "select * from (tblMapPriceList inner join tblCustomerCategory on tblCustomerCategory.CusCategory_Name = tblMapPriceList.CustomerCategory_Name) where ID = " + ID;
             manager.Open();
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
@@ -64878,7 +64878,7 @@ public class BusinessLogic
         }
     }
 
-    public void DeleteMapping(string connection, int ID, string Username)
+    public void DeleteMapping(string connection, int ID, string Username, string CusCategory_Name)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(connection);
@@ -64900,6 +64900,10 @@ public class BusinessLogic
             manager.BeginTransaction();
 
             dbQry = string.Format("Delete From tblMapPriceList Where ID = {0}", ID);
+
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+            dbQry = string.Format("Delete From tblCustomerCategory Where CusCategory_Name = '{0}'", CusCategory_Name);
 
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -66031,8 +66035,46 @@ public class BusinessLogic
         finally
         {
             if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    public bool CheckIfCustomerCategoryUsed(string LedgerCategory)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        int qty = 0;
+        string dbQry = string.Empty;
+        try
+        {
+            manager.Open();
+            dbQry = "SELECT Count(*) FROM tblLedger Where LedgerCategory ='" + LedgerCategory + "' ";
+
+            object qtyObj = manager.ExecuteScalar(CommandType.Text, dbQry);
+
+            if (qtyObj != null && qtyObj != DBNull.Value)
+            {
+                qty = (int)qtyObj;
+
+                if (qty > 0)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
             manager.Dispose();
         }
+
     }
 
     //#region Employee Pay Mapping
