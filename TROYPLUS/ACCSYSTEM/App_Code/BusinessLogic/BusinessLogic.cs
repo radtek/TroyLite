@@ -3742,6 +3742,47 @@ public class BusinessLogic
         }
     }
 
+
+    public bool CheckTaskNameUsed(int Project_Id)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        int qty = 0;
+        string dbQry = string.Empty;
+        try
+        {
+            manager.Open();
+
+            dbQry = "SELECT Count(*) FROM tblTasks Where Project_Code =" + Project_Id.ToString();
+
+            object objServiceLedger = manager.ExecuteScalar(CommandType.Text, dbQry);
+
+            if (objServiceLedger != null && objServiceLedger != DBNull.Value)
+            {
+                if (objServiceLedger.ToString() != "")
+                    qty = qty + (int)objServiceLedger;
+                if (qty > 0)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+      
+    }
+
     public bool CheckIfLedgerUsed(int LedgerID)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
@@ -15988,6 +16029,105 @@ public class BusinessLogic
 
 
     #region "Employee Methods"
+
+    public DataSet ListManager(string Username)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        DataSet ds = new DataSet();
+        StringBuilder dbQry = new StringBuilder();
+        //dbQry = "Select empno,empFirstName From tblEmployee Order By empFirstName";
+        dbQry.Append("Select tblEmployee.empno,tblEmployee.empFirstName");
+        dbQry.Append(" FROM tblEmployee Inner Join tblUserInfo On tblUserInfo.Empno = tblEmployee.empno ");
+        dbQry.Append(" Where UserName = '" + Username + "'");
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    public DataSet ListOwner(string connection,string Usernam)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        DataSet ds = new DataSet();
+        StringBuilder dbQry = new StringBuilder();
+        //dbQry = "Select empno,empFirstName From tblEmployee Order By empFirstName";
+        dbQry.Append("Select tblEmployee.empno,tblEmployee.empFirstName");
+        dbQry.Append(" FROM tblEmployee Inner Join tblUserInfo on tblEmployee.ManagerId=tblUserInfo.Empno");
+        dbQry.Append(" Where tblUserInfo.UserName = '" + Usernam + "'");
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+
+
+    public DataSet GetDependencytask(string connection,int Project_Id)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        DataSet ds = new DataSet();
+        StringBuilder dbQry = new StringBuilder();
+        //dbQry = "Select empno,empFirstName From tblEmployee Order By empFirstName";
+        dbQry.Append("Select tblTasks.Task_Id,tblTasks.Task_Name");
+        dbQry.Append(" FROM tblTasks Inner Join tblProjects On tblProjects.Project_Id = tblTasks.Project_Code ");
+        dbQry.Append(" Where tblTasks.Project_Code = " + Project_Id + "");
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
     public DataSet ListExecutive()
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
@@ -60330,6 +60470,38 @@ public class BusinessLogic
 
         }
 
+        public DataSet getfilterproject(string Username)
+        {
+            DBManager manager = new DBManager(DataProvider.OleDb);
+            manager.ConnectionString = CreateConnectionString(this.ConnectionString); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+            DataSet ds = new DataSet();
+            StringBuilder dbQry = new StringBuilder();
+            //dbQry = "Select empno,empFirstName From tblEmployee Order By empFirstName";
+            dbQry.Append("Select tblProjects.Project_Name,tblProjects.Project_Id ,tblProjects.Project_Manager_Id");
+            dbQry.Append(" FROM tblProjects Inner Join tblUserInfo On  tblProjects.Project_Manager_Id= tblUserInfo.Empno  ");
+            dbQry.Append(" Where tblUserInfo.UserName = '" + Username + "'");
+
+            try
+            {
+                manager.Open();
+                ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+                if (ds.Tables[0].Rows.Count > 0)
+                    return ds;
+                else
+                    return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (manager != null)
+                    manager.Dispose();
+            }
+        }
+
         public DataSet GetProjectList(string connection, string txtSearch, string dropDown)
         {
             DBManager manager = new DBManager(DataProvider.OleDb);
@@ -60403,6 +60575,8 @@ public class BusinessLogic
                 }
 
                 dbQry.Append(" ORDER BY tblProjects.Project_Date Desc,tblProjects.Project_Id Desc");
+
+              
 
                 ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
 
