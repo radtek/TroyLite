@@ -266,8 +266,6 @@
                                                                                                         CausesValidation="False" Width="20px" runat="server" />
                                                                                                 </td>
                                                                                             </tr>
-                                                                                            <tr style="height: 2px">
-                                                                                                                </tr>
                                                                                             <tr style="height: 30px">
                                                                                                 <td class="ControlLabel" style="width: 23%;">Lead Reference *
                                                                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtLeadName" Display="Dynamic" ErrorMessage="Lead Name is mandatory">*</asp:RequiredFieldValidator>
@@ -294,28 +292,18 @@
                                                                                                     </asp:UpdatePanel>
                                                                                                 </td>
                                                                                             </tr>
-                                                                                            <tr style="height: 2px">
-                                                                                                                </tr>
                                                                                             <tr style="height: 30px">
-                                                                                                <%-- <td class="ControlLabel" style="width: 23%;">Contact Name
-                                                                                                </td>
-                                                                                                <td class="ControlTextBox3" style="width: 22%;">
-                                                                                                    <asp:TextBox ID="txtContactName" runat="server" TabIndex="4" SkinID="skinTxtBoxGrid"></asp:TextBox>
-                                                                                                </td>--%>
-                                                                                                <td class="ControlLabel" style="width: 18%;">Address
-                                                                                                </td>
-                                                                                                <td class="ControlTextBox3" style="width: 22%;">
-                                                                                                    <asp:TextBox ID="txtAddress" runat="server" TabIndex="5" SkinID="skinTxtBoxGrid"></asp:TextBox>
-                                                                                                </td>
-                                                                                                <td class="ControlLabel" style="width: 18%;">Mobile </td>
-                                                                                                <td class="ControlTextBox3" style="width: 22%;">
-                                                                                                    <asp:TextBox ID="txtMobile" runat="server" MaxLength="10" SkinID="skinTxtBoxGrid" TabIndex="6"></asp:TextBox>
-                                                                                                    <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" Enabled="True" FilterType="Numbers" TargetControlID="txtMobile">
-                                                                                                    </cc1:FilteredTextBoxExtender>
-                                                                                                </td>
-                                                                                                <td style="width: 10%;"></td>
-                                                                                            </tr>
-                                                                                            <tr style="height: 2px">
+                                                                                                                <td class="ControlLabel" style="width: 18%;">Address </td>
+                                                                                                                <td class="ControlTextBox3" style="width: 22%;">
+                                                                                                                    <asp:TextBox ID="txtAddress" runat="server" SkinID="skinTxtBoxGrid" TabIndex="5"></asp:TextBox>
+                                                                                                                </td>
+                                                                                                                <td class="ControlLabel" style="width: 18%;">Mobile </td>
+                                                                                                                <td class="ControlTextBox3" style="width: 22%;">
+                                                                                                                    <asp:TextBox ID="txtMobile" runat="server" MaxLength="10" SkinID="skinTxtBoxGrid" TabIndex="6"></asp:TextBox>
+                                                                                                                    <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" Enabled="True" FilterType="Numbers" TargetControlID="txtMobile">
+                                                                                                                    </cc1:FilteredTextBoxExtender>
+                                                                                                                </td>
+                                                                                                                <td style="width: 10%;"></td>
                                                                                                                 </tr>
                                                                                             <tr style="height: 30px">
                                                                                                 <td class="ControlLabel" style="width: 18%;">Telephone </td>
@@ -337,12 +325,9 @@
                                                                                                 </td>
                                                                                                 <td style="width: 10%;"></td>
                                                                                             </tr>
-                                                                                            <tr style="height: 2px">
-                                                                                            </tr>
                                                                                             <tr>
                                                                                                 <td class="ControlLabel" style="width: 18%;">
-                                                                                                    <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ControlToValidate="txtClosingPer" Display="Dynamic" ErrorMessage="Closing Date is mandatory.">*</asp:RequiredFieldValidator>--%>
-                                                                                                    Doc Status *
+                                                                                                    &nbsp;&nbsp;&nbsp;Doc Status *
                                                                                                 </td>
                                                                                                 <td class="ControlDrpBorder" style="width: 22%;">
                                                                                                     <asp:UpdatePanel ID="UpdatePanel7" runat="server" UpdateMode="Conditional">
@@ -355,7 +340,7 @@
                                                                                                         </ContentTemplate>
                                                                                                     </asp:UpdatePanel>
                                                                                                 </td>
-                                                                                                <td class="ControlLabel" style="width: 18%;">Closing Date </td>
+                                                                                                <td class="ControlLabel" style="width: 18%;">Closing Date</td>
                                                                                                 <td class="ControlTextBox3" style="width: 22%">
                                                                                                     <asp:TextBox ID="txtClosingDate" runat="server" Enabled="False" SkinID="skinTxtBoxGrid" TabIndex="11"></asp:TextBox>
                                                                                                 </td>
@@ -366,66 +351,39 @@
                                                                                                 </td>
                                                                                                 <td style="width: 10%;"></td>
                                                                                             </tr>
-                                                                                            <tr style="height: 2px">
-                                                                                                                </tr>
                                                                                             <tr style="height: 30px">
-                                                                                                <%--<td class="ControlLabel" style="width: 23%;">Total Amount Invoiced </td>
-                                                                                                <td class="ControlTextBox3" style="width: 22%;">
-                                                                                                    <asp:TextBox ID="txtTotalAmount" runat="server" Enabled="False" SkinID="skinTxtBoxGrid" TabIndex="10"></asp:TextBox>
-                                                                                                </td>--%>
                                                                                                 <td class="ControlLabel" style="width: 23%;">
                                                                                                     <asp:CompareValidator ID="CompareValidator5" runat="server" ControlToValidate="drpLeadStatus" Display="Dynamic" ErrorMessage="Please Select Lead Status" Operator="GreaterThan" Text="*" ValueToCompare="0"></asp:CompareValidator>
-                                                                                                    Lead Status * </td>
-                                                                                                <td class="ControlDrpBorder" style="width: 22%">
-                                                                                                    <asp:DropDownList ID="drpLeadStatus" Enabled="false" runat="server" AppendDataBoundItems="True" BackColor="#E7E7E7" CssClass="drpDownListMedium" EnableTheming="False" Height="26px" Style="border: 1px solid #e7e7e7" TabIndex="14" Width="100%">
+                                                                                                    Lead Status *
+                                                                                                </td>
+                                                                                                <td class="ControlDrpBorder" style="width: 22%;">
+                                                                                                    <asp:DropDownList ID="drpLeadStatus" runat="server" AppendDataBoundItems="True" BackColor="#E7E7E7" CssClass="drpDownListMedium" Enabled="False" EnableTheming="False" Height="26px" Style="border: 1px solid #e7e7e7" TabIndex="14" Width="100%">
                                                                                                         <asp:ListItem Text="Open" Value="Open"></asp:ListItem>
                                                                                                         <asp:ListItem Text="Won" Value="Won"></asp:ListItem>
                                                                                                         <asp:ListItem Text="Lost" Value="Lost"></asp:ListItem>
                                                                                                     </asp:DropDownList>
                                                                                                 </td>
-                                                                                                <td class="ControlLabel" style="width: 17%;">Predicted Closing Date                                                                                               
-                                                                                                </td>
-                                                                                                <td class="ControlTextBox3" style="width: 28%;">
-                                                                                                    <asp:TextBox ID="txtPredictedClosingDate" runat="server" TabIndex="2" Enabled="false"
-                                                                                                        SkinID="skinTxtBoxGrid"></asp:TextBox>
+                                                                                                <td class="ControlLabel" style="width: 17%;">Predicted Closing Date </td>
+                                                                                                <td class="ControlTextBox3" style="width: 28%">
+                                                                                                    <asp:TextBox ID="txtPredictedClosingDate" runat="server" Enabled="False" SkinID="skinTxtBoxGrid" TabIndex="2"></asp:TextBox>
                                                                                                 </td>
                                                                                                 <td style="width: 7%;">
-                                                                                                    <cc1:CalendarExtender ID="CalendarExtender4" runat="server" Animated="true" Format="dd/MM/yyyy" Enabled="True"
-                                                                                                        PopupButtonID="ImageButton2" PopupPosition="BottomLeft" TargetControlID="txtPredictedClosingDate">
+                                                                                                    <cc1:CalendarExtender ID="CalendarExtender4" runat="server" Enabled="True" Format="dd/MM/yyyy" PopupButtonID="ImageButton2" TargetControlID="txtPredictedClosingDate">
                                                                                                     </cc1:CalendarExtender>
-                                                                                                    <asp:ImageButton ID="ImageButton2" ImageUrl="App_Themes/NewTheme/images/cal.gif"
-                                                                                                        CausesValidation="False" Width="20px" runat="server" Visible="true" />
+                                                                                                    <asp:ImageButton ID="ImageButton2" runat="server" CausesValidation="False" ImageUrl="App_Themes/NewTheme/images/cal.gif" Width="20px" />
                                                                                                 </td>
                                                                                             </tr>
-                                                                                            <tr style="height: 2px">
-                                                                                                                </tr>
                                                                                             <tr style="height: 30px">
-                                                                                                <%-- <td class="ControlLabel" style="width: 23%;">
-                                                                                                    Branch *
-                                                                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator15" runat="server" ControlToValidate="txtBranch" Display="Dynamic" ErrorMessage="Branch is mandatory.">*</asp:RequiredFieldValidator>
-                                                                                                </td>
-                                                                                                <td class="ControlDrpBorder" style="width: 22%;">
-                                                                                                    <asp:TextBox ID="txtBranch" runat="server" SkinID="skinTxtBoxGrid"
-                                                                                                        TabIndex="12" Enabled="False"></asp:TextBox>
-                                                                                                </td>--%>
-                                                                                                <%-- <td class="ControlLabel" style="width: 18%;">Closing % *</td>
-                                                                                                <td class="ControlDrpBorder" style="width: 22%;">
-                                                                                                    <asp:TextBox ID="txtClosingPer" runat="server" TabIndex="13" SkinID="skinTxtBoxGrid" Enabled="False"></asp:TextBox>
-                                                                                                </td>--%>
-                                                                                                <td class="ControlLabel" style="width: 23%;">Information 1                                                                                                   
-                                                                                                </td>
-                                                                                                <td class="ControlDrpBorder" style="width: 22%;">
-                                                                                                    <asp:TextBox ID="txtInformation1" runat="server" SkinID="skinTxtBoxGrid"
-                                                                                                        TabIndex="12"></asp:TextBox>
-                                                                                                </td>
-                                                                                                <td class="ControlLabel" style="width: 18%;">Information 3</td>
-                                                                                                <td class="ControlDrpBorder" style="width: 22%;">
-                                                                                                    <asp:DropDownList ID="drpInformation3" runat="server" AppendDataBoundItems="True" BackColor="#E7E7E7" CssClass="drpDownListMedium" EnableTheming="False" Height="26px" Style="border: 1px solid #e7e7e7" TabIndex="14" Width="100%">
-                                                                                                    </asp:DropDownList>
-                                                                                                </td>
-                                                                                                <td style="width: 10%;"></td>
-                                                                                            </tr>
-                                                                                            <tr style="height: 2px">
+                                                                                                                <td class="ControlLabel" style="width: 23%;">Information 1 </td>
+                                                                                                                <td class="ControlDrpBorder" style="width: 22%;">
+                                                                                                                    <asp:TextBox ID="txtInformation1" runat="server" SkinID="skinTxtBoxGrid" TabIndex="12"></asp:TextBox>
+                                                                                                                </td>
+                                                                                                                <td class="ControlLabel" style="width: 18%;">Information 3</td>
+                                                                                                                <td class="ControlDrpBorder" style="width: 22%;">
+                                                                                                                    <asp:DropDownList ID="drpInformation3" runat="server" AppendDataBoundItems="True" BackColor="#E7E7E7" CssClass="drpDownListMedium" EnableTheming="False" Height="26px" Style="border: 1px solid #e7e7e7" TabIndex="14" Width="100%">
+                                                                                                                    </asp:DropDownList>
+                                                                                                                </td>
+                                                                                                                <td style="width: 10%;"></td>
                                                                                                                 </tr>
                                                                                             <tr style="height: 30px">
                                                                                                 <td class="ControlLabel" style="width: 18%;">Information 4</td>
@@ -1168,7 +1126,7 @@
                                                                                                                         Activity Date *
                                                                                                                     </td>
                                                                                                                     <td class="ControlTextBox3" style="width: 25%;">
-                                                                                                                        <asp:TextBox ID="txtActivityStartDate" runat="server" TabIndex="3"
+                                                                                                                        <asp:TextBox ID="txtActivityDate" runat="server" TabIndex="3"
                                                                                                                             CssClass="cssTextBox"></asp:TextBox>
                                                                                                                     </td>
                                                                                                                     <td style="width: 8%;" align="left">
