@@ -123,7 +123,7 @@
                                                                                                 ValidationGroup="purchaseval"></asp:RequiredFieldValidator>
                                                                                         </td>
                                                                                         <td class="ControlTextBox3" style="width:20%">
-                                                                                            <asp:TextBox ID="txtStartDate" CssClass="cssTextBox" Width="100px" MaxLength="10"
+                                                                                            <asp:TextBox ID="txtStartDate" Enabled="false" CssClass="cssTextBox" Width="100px" MaxLength="10"
                                                                                                 runat="server" />
                                                                                             <cc1:CalendarExtender ID="calBillDate" runat="server" Format="dd/MM/yyyy"
                                                                                                     PopupButtonID="btnBillDate" TargetControlID="txtStartDate" Enabled="True">
@@ -338,7 +338,7 @@
                                                                                             </asp:TemplateField>--%>
                                                                                             <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Reconciled Date" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="30px">
                                                                                                 <ItemTemplate>
-                                                                                                    <asp:TextBox ID="txtDate" runat="server" Width="70px" Text='<%# Bind("Reconcilateddate") %>'
+                                                                                                    <asp:TextBox ID="txtDate" Enabled="false" runat="server" Width="70px" Text='<%# Bind("Reconcilateddate") %>'
                                                                                                         ></asp:TextBox>
                                                                                                     <cc1:CalendarExtender ID="calBillDate" runat="server" Format="dd/MM/yyyy"
                                                                                                             PopupButtonID="btnBillDate" TargetControlID="txtDate" Enabled="True">

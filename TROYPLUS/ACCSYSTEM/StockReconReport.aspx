@@ -47,7 +47,7 @@
                                     Display="None" CssClass="lblFont" ErrorMessage="Please Enter Start Date"></asp:RequiredFieldValidator>
                             </td>
                             <td class="ControlTextBox3" style="width:20%">
-                                <asp:TextBox ID="txtStartDate" runat="server" CssClass="cssTextBox" Width="100px"
+                                <asp:TextBox ID="txtStartDate" Enabled="false" runat="server" CssClass="cssTextBox" Width="100px"
                                     MaxLength="10" />
                             </td>
                             <td align="left" style="width:40%">

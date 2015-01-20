@@ -239,7 +239,7 @@
                                                                         Text="*" Display="Dynamic" EnableClientScript="True" ErrorMessage="Date is mandatory"></asp:RequiredFieldValidator>
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width:20%">
-                                                                    <asp:TextBox ID="txtHolidayDateEdit" runat="server" Text='<%# Bind("Date") %>'
+                                                                    <asp:TextBox ID="txtHolidayDateEdit" Enabled="false" runat="server" Text='<%# Bind("Date") %>'
                                                                         SkinID="skinTxtBoxGrid" TabIndex="1"></asp:TextBox>
                                                                     <cc1:CalendarExtender ID="calEditDate" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                 PopupButtonID="btnEditDate" PopupPosition="BottomLeft" TargetControlID="txtHolidayDateEdit">
@@ -367,7 +367,7 @@
                                                                         Text="*" Display="Dynamic" EnableClientScript="True" ErrorMessage="Date is mandatory"></asp:RequiredFieldValidator>
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width:20%">
-                                                                    <asp:TextBox ID="txtHolidayDateAdd" runat="server" Text='<%# Bind("Date") %>'
+                                                                    <asp:TextBox ID="txtHolidayDateAdd" Enabled="false" runat="server" Text='<%# Bind("Date") %>'
                                                                         SkinID="skinTxtBoxGrid" TabIndex="1"></asp:TextBox>
                                                                 <cc1:CalendarExtender ID="calAddDate" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                 PopupButtonID="btnAddDate" PopupPosition="BottomLeft" TargetControlID="txtHolidayDateAdd">

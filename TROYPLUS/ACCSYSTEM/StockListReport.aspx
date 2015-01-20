@@ -61,7 +61,7 @@
                                     Display="None" CssClass="lblFont" ErrorMessage="Please Enter Start Date"></asp:RequiredFieldValidator>
                             </td>
                             <td class="ControlTextBox3" width="20%">
-                                <asp:TextBox ID="txtStartDate" CssClass="cssTextBox" MaxLength="10"
+                                <asp:TextBox ID="txtStartDate" Enabled="false" CssClass="cssTextBox" MaxLength="10"
                                     runat="server" />
                             </td>
                             <td align="left" width="5%">
@@ -77,7 +77,7 @@
                                     CssClass="lblFont" Operator="GreaterThanEqual" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
                             </td>
                             <td class="ControlTextBox3" width="25%">
-                                <asp:TextBox ID="txtEndDate" CssClass="cssTextBox" MaxLength="10" runat="server" />
+                                <asp:TextBox ID="txtEndDate" Enabled="false" CssClass="cssTextBox" MaxLength="10" runat="server" />
                                 
                             </td>
                             <td align="left" width="5%">

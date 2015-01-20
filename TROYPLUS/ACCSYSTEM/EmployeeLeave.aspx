@@ -189,7 +189,7 @@
                                                                         Display="Dynamic" EnableClientScript="True" ErrorMessage="Start Date is mandatory">*</asp:RequiredFieldValidator>
                                                                     </td>
                                                                     <td class="ControlNumberBox3" style="width: 30%">
-                                                                        <asp:TextBox ID="txtStartDate" runat="server"
+                                                                        <asp:TextBox ID="txtStartDate" Enabled="false" runat="server"
                                                                             SkinID="skinTxtBox" TabIndex="4" OnTextChanged="txtEndDate_TextChanged"></asp:TextBox>
                                                                         <cc1:CalendarExtender ID="calExtenderStartDate" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                             PopupButtonID="btnStartDate" PopupPosition="BottomLeft" TargetControlID="txtStartDate">
@@ -220,7 +220,7 @@
                                                                     </td>
                                                                     <td class="ControlNumberBox3" style="width: 30%">
                                                                         <asp:TextBox ID="txtEndDate" runat="server"
-                                                                            SkinID="skinTxtBoxGrid" TabIndex="4" OnTextChanged="txtEndDate_TextChanged"></asp:TextBox>
+                                                                            SkinID="skinTxtBoxGrid" Enabled="false" TabIndex="4" OnTextChanged="txtEndDate_TextChanged"></asp:TextBox>
                                                                         <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                             PopupButtonID="btnEndDate" PopupPosition="BottomLeft" TargetControlID="txtEndDate">
                                                                         </cc1:CalendarExtender>
@@ -248,7 +248,7 @@
 
                                                                     </td>
                                                                     <td style="width: 30%">
-                                                                        <asp:TextBox ID="txtTotalLeaveDays" runat="server" ReadOnly="true"
+                                                                        <asp:TextBox ID="txtTotalLeaveDays"  runat="server" ReadOnly="true"
                                                                             SkinID="skinTxtBoxGrid" TabIndex="4"></asp:TextBox>
                                                                     </td>
                                                                     <td style="width: 30%" align="left">

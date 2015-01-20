@@ -68,7 +68,7 @@
                                     Date *
                                 </td>
                                 <td style="width: 15%" class="ControlTextBox3">
-                                    <asp:TextBox ID="txtReconDate" runat="server" Width="100px" CssClass="cssTextBox"></asp:TextBox>
+                                    <asp:TextBox ID="txtReconDate" Enabled="false" runat="server" Width="100px" CssClass="cssTextBox"></asp:TextBox>
                                     
                                 </td>
                                 <td align="left" style="width: 10%">

@@ -70,7 +70,7 @@
                                 Date
                             </td>
                             <td style="width:20%"  align="left" class="ControlTextBox3">
-                                <asp:TextBox ID="txtStartDate" runat="server" CssClass="cssTextBox" Width="100px"
+                                <asp:TextBox ID="txtStartDate" Enabled="false" runat="server" CssClass="cssTextBox" Width="100px"
                                     MaxLength="10" />
                     
                             </td>

@@ -10,6 +10,9 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using System.IO;
+using System.Data;
+using ClosedXML.Excel;
 public partial class ReportExcelProjects : System.Web.UI.Page
 {
     //DBClass objdb = new DBClass();
@@ -37,16 +40,18 @@ public partial class ReportExcelProjects : System.Web.UI.Page
             {
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    DataTable dt = new DataTable();
-                    dt.Columns.Add(new DataColumn("Project Date"));
-                    dt.Columns.Add(new DataColumn("Project Code"));
-                    dt.Columns.Add(new DataColumn("Project Name"));
+                    DataTable dt = new DataTable("Project Details");
+                    dt.Columns.Add(new DataColumn("Project Created Date"));
+                    dt.Columns.Add(new DataColumn("Project ID"));
+                    dt.Columns.Add(new DataColumn("Project Title"));
+                    dt.Columns.Add(new DataColumn("Project Description"));
+                    dt.Columns.Add(new DataColumn("Project Manager"));
+                    dt.Columns.Add(new DataColumn("Project Status"));
                     dt.Columns.Add(new DataColumn("Expected Start Date"));
                     dt.Columns.Add(new DataColumn("Expected End Date"));
-                    dt.Columns.Add(new DataColumn("Project Manager"));
                     dt.Columns.Add(new DataColumn("Expected Effort Days"));
-                    dt.Columns.Add(new DataColumn("Project Status"));
-                    dt.Columns.Add(new DataColumn("Project Description"));
+                  
+                    
 
                     DataRow dr_final123 = dt.NewRow();
                     dt.Rows.Add(dr_final123);
@@ -54,11 +59,11 @@ public partial class ReportExcelProjects : System.Web.UI.Page
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
                         DataRow dr_final1 = dt.NewRow();
-                        dr_final1["Project Name"] = dr["Project_Name"];
+                        dr_final1["Project Title"] = dr["Project_Name"];
 
                         string aa = dr["Project_Date"].ToString().ToUpper().Trim();
                         string dtaa = Convert.ToDateTime(aa).ToString("dd/MM/yyyy");
-                        dr_final1["Project Date"] = dtaa;
+                        dr_final1["Project Created Date"] = dtaa;
 
                         string aad = dr["Expected_Start_Date"].ToString().ToUpper().Trim();
                         string dtaad = Convert.ToDateTime(aad).ToString("dd/MM/yyyy");
@@ -70,7 +75,7 @@ public partial class ReportExcelProjects : System.Web.UI.Page
 
                         dr_final1["Project Manager"] = dr["empfirstname"];
                         dr_final1["Project Status"] = dr["Project_Status"];
-                        dr_final1["Project Code"] = dr["Project_Code"];
+                        dr_final1["Project ID"] = dr["Project_Code"];
                         dr_final1["Project Description"] = dr["Project_Description"];
                         dr_final1["Expected Effort Days"] = dr["Expected_Effort_Days"];
                         dt.Rows.Add(dr_final1);
@@ -261,25 +266,42 @@ public partial class ReportExcelProjects : System.Web.UI.Page
 
         if (dt.Rows.Count > 0)
         {
-            string filename = "Project details.xls";
-            System.IO.StringWriter tw = new System.IO.StringWriter();
-            System.Web.UI.HtmlTextWriter hw = new System.Web.UI.HtmlTextWriter(tw);
-            DataGrid dgGrid = new DataGrid();
-            dgGrid.DataSource = dt;
-            dgGrid.DataBind();
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                string filename = "Project details.xlsx";
+                wb.Worksheets.Add(dt);
+                Response.Clear();
+                Response.Buffer = true;
+                Response.Charset = "";
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment;filename="+filename+"");
+                using (MemoryStream MyMemoryStream = new MemoryStream())
+                {
+                    wb.SaveAs(MyMemoryStream);
+                    MyMemoryStream.WriteTo(Response.OutputStream);
+                    Response.Flush();
+                    Response.End();
+                }
+            }
+            //string filename = "Project details.xlsx";
+            //System.IO.StringWriter tw = new System.IO.StringWriter();
+            //System.Web.UI.HtmlTextWriter hw = new System.Web.UI.HtmlTextWriter(tw);
+            //DataGrid dgGrid = new DataGrid();
+            //dgGrid.DataSource = dt;
+            //dgGrid.DataBind();
 
-            dgGrid.HeaderStyle.ForeColor = System.Drawing.Color.Black;
-            dgGrid.HeaderStyle.BackColor = System.Drawing.Color.LightSkyBlue;
-            dgGrid.HeaderStyle.BorderColor = System.Drawing.Color.RoyalBlue;
-            dgGrid.HeaderStyle.Font.Bold = true;
-            //Get the HTML for the control.
-            dgGrid.RenderControl(hw);
-            //Write the HTML back to the browser.
-            Response.ContentType = "application/vnd.ms-excel";
-            Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename + "");
-            this.EnableViewState = false;
-            Response.Write(tw.ToString());
-            Response.End();
+            //dgGrid.HeaderStyle.ForeColor = System.Drawing.Color.Black;
+            //dgGrid.HeaderStyle.BackColor = System.Drawing.Color.LightSkyBlue;
+            //dgGrid.HeaderStyle.BorderColor = System.Drawing.Color.RoyalBlue;
+            //dgGrid.HeaderStyle.Font.Bold = true;
+            ////Get the HTML for the control.
+            //dgGrid.RenderControl(hw);
+            ////Write the HTML back to the browser.
+            //Response.ContentType = "application/vnd.ms-excel";
+            //Response.AppendHeader("Content-Disposition", "attachment; filename=" + filename + "");
+            //this.EnableViewState = false;
+            //Response.Write(tw.ToString());
+            //Response.End();
         }
 
     }

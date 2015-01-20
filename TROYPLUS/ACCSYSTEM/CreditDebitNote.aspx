@@ -273,7 +273,7 @@
                                                                     Date *
                                                                                         </td>
                                                                                         <td class="ControlTextBox3" style="width: 25%">
-                                                                                            <asp:TextBox ID="txtTransDate" runat="server" Text='<%# Bind("NoteDate","{0:dd/MM/yyyy}") %>'
+                                                                                            <asp:TextBox ID="txtTransDate" Enabled="false" runat="server" Text='<%# Bind("NoteDate","{0:dd/MM/yyyy}") %>'
                                                                                                 CssClass="cssTextBox"></asp:TextBox>
                                                                                             <cc1:CalendarExtender ID="calExtender3" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                 PopupButtonID="btnDate3" PopupPosition="BottomLeft" TargetControlID="txtTransDate">
@@ -442,7 +442,7 @@
                                                                     Date *
                                                                                         </td>
                                                                                         <td class="ControlTextBox3" style="width: 25%">
-                                                                                            <asp:TextBox ID="txtTransDateAdd" runat="server" CssClass="cssTextBox" Width="100px"></asp:TextBox>
+                                                                                            <asp:TextBox ID="txtTransDateAdd" Enabled="false" runat="server" CssClass="cssTextBox" Width="100px"></asp:TextBox>
                                                                                             <cc1:CalendarExtender ID="calExtender312" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                 PopupButtonID="btnDate312" PopupPosition="BottomLeft" TargetControlID="txtTransDateAdd">
                                                                                             </cc1:CalendarExtender>

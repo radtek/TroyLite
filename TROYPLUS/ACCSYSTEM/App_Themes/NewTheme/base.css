@@ -1373,6 +1373,22 @@ h2
     text-decoration:none;
 }
 
+.ControlLabelproject1
+{
+    height:27px;    
+    padding-top:5px;
+    padding-left:5px;
+    padding-right:5px;
+    text-align:right;
+    vertical-align:middle;
+    color:#0567AE;
+    font-family:'ARIAL';
+    font-size:14px;
+    font-weight:bold;
+    text-decoration:none;
+
+}
+
 
 .ControlLabel
 {
@@ -1440,7 +1456,7 @@ h2
     border:1px solid #c3c3c3;
     background-color:#e7e7e7;
     padding-left:1px;
-    padding-right:30px;
+    padding-right:1px;
 }
 
 .ControlTextBoxRep
@@ -2874,6 +2890,67 @@ legend
     font-size: 12px;
 }
 
+.Buttonsampleproject
+{
+    /*background: url(images/addnew66.png) left no-repeat;*/
+    /*background-image: background-image: background-image: url('images/TroyAddNew.png');url('images/projectnewaddprojectnewbutton.png');url('images/example image.png'); background-image: url('images/projectaddnewbutton.png'); */
+    background: url(images/TroyAddNew.png) left no-repeat;
+    
+    border: none;
+    height: 25px;
+    width: 183px !important;
+    color: #134993;
+    cursor: pointer;
+    display: block;
+    font-family: 'Trebuchet MS';
+    font-size: 12px;
+}
+
+.buttondashboard
+{
+   
+    background: url(images/projectnewicons.png) left no-repeat;
+    
+    border: none;
+    height: 34px;
+    width: 180px !important;
+    color: #134993;
+    cursor: pointer;
+    display: block;
+    font-family: 'Trebuchet MS';
+    font-size: 12px;
+}
+
+.bulkupload
+{
+   
+    background: url(images/projectimportfile.png) left no-repeat;
+    
+    border: none;
+    height: 25px;
+    width: 185px !important;
+    color: #134993;
+    cursor: pointer;
+    display: block;
+    font-family: 'Trebuchet MS';
+    font-size: 12px;
+}
+
+.Printallbutton
+{
+    
+    background: url(images/projectprintalltheproject.png) left no-repeat;
+    
+    border: none;
+    height: 25px;
+    width: 180px !important;
+    color: #134993;
+    cursor: pointer;
+    display: block;
+    font-family: 'Trebuchet MS';
+    font-size: 12px;
+}
+
 .Btn1
 {
     background: url(images/btn1.png) left no-repeat;
@@ -2935,7 +3012,7 @@ legend
 .divArea
 {
     border: solid 1px #f4f4f4;
-    padding: 5px 5px 5px 5px;
+    padding: 5px 5px 5px 5px;http://localhost:51282/ProjectEntry.aspx
     text-align: right;
     /*width: 640px;*/
     background: url(images/popupbg.jpg) #FFFFFF repeat-y;
@@ -4512,6 +4589,17 @@ fieldset
     cursor: pointer;
 }
 
+.exportexl6forproject
+{
+   /*background-image: url('images/Projectexportnewone.png');*/
+    background: url(images/TroyExporttoExcel.png) no-repeat !important;
+    width: 183px !important;
+    height: 25px !important;
+    display: block !important;
+    border: none;
+    cursor: pointer;
+}
+
 
 .VatDetailedexport
 {
@@ -4621,6 +4709,17 @@ fieldset
 {
     background: url(images/TroyUpdate.png) no-repeat !important;
     width: 120px !important;
+    height: 34px !important;
+    display: block !important;
+    border: none;
+    cursor: pointer;
+}
+
+.Updatebuttonforproject
+{
+   
+    background: url(images/TroyUpdate.png) no-repeat !important;
+    width: 130px !important;
     height: 34px !important;
     display: block !important;
     border: none;
@@ -6467,6 +6566,16 @@ h2
     padding-right:2px;
 }
 
+.ControlTextBoxforproject
+{
+    width:110px;
+    height:20px;
+    border:1px solid #c3c3c3;
+    background-color:#e7e7e7;
+    padding-left:1px;
+    padding-right:1px;
+}
+
 .ControlTextBox3
 {
     width:100%;
@@ -6484,7 +6593,30 @@ h2
     border:1px solid #c3c3c3;
     background-color:#e7e7e7;
     padding-left:1px;
-    padding-right:30px;
+    padding-right:1px;
+}
+
+.ControlTextProject
+{
+    width:100px;
+    height:20px;
+    border:1px solid  #c3c3c3;
+    background-color:none;
+    /*background-color:#e7e7e7;*/
+    /*-webkit-padding-start:0 0 0 0px;*/
+   
+   
+}
+
+.ControlTextProject1
+{
+     width:100px;
+    height:20px;
+    border:1px solid  #c3c3c3;
+    background-color:#e7e7e7;
+    
+   
+   
 }
 
 .ControlTextBoxRep
@@ -6668,6 +6800,7 @@ h2
     font-family: 'Trebuchet MS';
     font-size: 13px;
     width: 100%;
+    font-weight:bold;
 }
 
 .cssTextBox666
@@ -8456,6 +8589,17 @@ fieldset
 
 .savebutton1231
 {
+   
+    background: url(images/TroySave.png) no-repeat !important;
+    width: 120px !important;
+    height: 34px !important;
+    display: block !important;
+    border: none;
+    cursor: pointer;
+}
+
+.savebuttonforproject
+{
     background: url(images/TroySave.png) no-repeat !important;
     width: 120px !important;
     height: 34px !important;
@@ -8621,6 +8765,17 @@ fieldset
 
 .cancelbutton6
 {
+    background: url(images/TroyCancel.png) no-repeat !important;
+    width: 120px !important;
+    height: 34px !important;
+    display: block !important;
+    border: none;
+    cursor: pointer;
+}
+
+.cancelbuttonforproject
+{
+   
     background: url(images/TroyCancel.png) no-repeat !important;
     width: 120px !important;
     height: 34px !important;
