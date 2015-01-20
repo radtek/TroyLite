@@ -540,7 +540,7 @@
                                                     </td>
                                                     <td style="width: 20%;">
                                                         <asp:Button ID="btnApproveCompOff" runat="server" CausesValidation="True"
-                                                            Text="Approve" ToolTip="Approve and save attendance." EnableTheming="false" OnClick="btnApproveCompOff_Click"></asp:Button>
+                                                            Text="Approve & Save" ToolTip="Approve and save attendance." EnableTheming="false" OnClick="btnApproveCompOff_Click"></asp:Button>
                                                     </td>
                                                     <td style="width: 20%;" colspan="2"></td>
                                                 </tr>
