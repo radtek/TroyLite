@@ -263,19 +263,19 @@
                                                             RepositionMode="RepositionOnWindowResizeAndScroll" CancelControlID="BtnPopUpCancel"
                                                             DynamicServicePath="" Enabled="True" PopupControlID="pnlSalesForm" TargetControlID="dummySales">
                                                         </cc1:ModalPopupExtender>
-                                                        <asp:Panel ID="pnlSalesForm" runat="server" Style="width: 63%; display: none">
+                                                        <asp:Panel ID="pnlSalesForm" runat="server" Style="width: 99%; display: none">
                                                             <asp:UpdatePanel ID="updatePnlSales" runat="server" UpdateMode="Conditional">
                                                                 <ContentTemplate>
-                                                                    <div id="Div1" style="background-color: white" class="divArea">
+                                                                    <div id="Div1" style="background-color: white; width: 95%" class="divArea">
                                                                         <table style="width: 100%;" align="center">
                                                                             <tr style="width: 100%">
                                                                                 <td style="width: 100%">
                                                                                     <table style="text-align: left;" width="100%" cellpadding="0" cellspacing="2">
                                                                                         <tr>
                                                                                             <td>
-                                                                                                <table class="headerPopUp" width="100%">
+                                                                                                <table class="headerPopUp" width="95%">
                                                                                                     <tr>
-                                                                                                        <td>Sales Details
+                                                                                                        <td style="width: 95%">Sales Details
                                                                                                         </td>
                                                                                                     </tr>
                                                                                                 </table>
@@ -283,8 +283,8 @@
                                                                                         </tr>
                                                                                         <tr>
                                                                                             <td>
-                                                                                                <cc1:TabContainer ID="tabs2" runat="server" ActiveTabIndex="0" CssClass="fancy fancy-green" Width="100%">
-                                                                                                    <cc1:TabPanel ID="tabMaster" runat="server" HeaderText="Sales Details">
+                                                                                                <cc1:TabContainer ID="tabs2" runat="server" ActiveTabIndex="0" CssClass="fancy fancy-green" Width="1280px">
+                                                                                                    <cc1:TabPanel ID="tabMaster" runat="server" HeaderText="Sales Details" Width="1260px">
                                                                                                         <HeaderTemplate>
                                                                                                             <div>
                                                                                                                 <table>
@@ -295,10 +295,10 @@
                                                                                                             </div>
                                                                                                         </HeaderTemplate>
                                                                                                         <ContentTemplate>
-                                                                                                            <table cellpadding="0" cellspacing="0" width="100%">
+                                                                                                            <table cellpadding="0" cellspacing="0" width="120%">
                                                                                                                 <tr>
                                                                                                                     <td>
-                                                                                                                        <table cellpadding="0" cellspacing="0" width="825px">
+                                                                                                                        <table cellpadding="0" cellspacing="0" width="1260px">
                                                                                                                             <tr>
                                                                                                                                 <td colspan="5"></td>
                                                                                                                             </tr>
@@ -374,15 +374,16 @@
                                                                                                                                 <td class="ControlLabel" style="width: 25%;">Name *
                                                                                                                                 <%--<asp:CompareValidator ID="cvCustomer" runat="server" ControlToValidate="cmbCustomer" Display="Dynamic" ErrorMessage="Please Select Customer!!" Operator="GreaterThan" Text="*" ValidationGroup="salesval" ValueToCompare="0"></asp:CompareValidator>--%>
                                                                                                                                 </td>
-                                                                                                                                <td class="ControlDrpBorder" style="width: 10%;">
+                                                                                                                                <td class="ControlDrpBorder" style="width: 24%;">
                                                                                                                                     <%--   <asp:TextBox ID="TextBox4" AutoPostBack="false" runat="server" Width="500px" onchange="OnChangetxt()"></asp:TextBox>--%>
-
+                                                                                                                                      
+                                                                                                                                    <asp:DropDownList Visible="false" ID="cmbCustomer" runat="server" AppendDataBoundItems="true" AutoPostBack="true" BackColor="#e7e7e7" CssClass="chzn-select" DataTextField="LedgerName" DataValueField="LedgerID" Height="26px" OnSelectedIndexChanged="cmbCustomer_SelectedIndexChanged" Style="border: 1px solid #e7e7e7" TabIndex="2" ValidationGroup="salesval" Width="313px">
+                                                                                                                                        <asp:ListItem style="background-color: #e7e7e7" Text="Select Customer" Value="0"></asp:ListItem>
+                                                                                                                                    </asp:DropDownList>
                                                                                                                                     <asp:UpdatePanel ID="UpdatePanel21" runat="server" UpdateMode="Conditional">
                                                                                                                                         <ContentTemplate>
                                                                                                                                             <asp:TextBox ID="TextBox4" AutoPostBack="true" runat="server" Width="99%" OnTextChanged="TextBox4_TextChanged" Visible="false"></asp:TextBox>
-                                                                                                                                            <asp:DropDownList Visible="false" ID="cmbCustomer" runat="server" AppendDataBoundItems="true" AutoPostBack="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="LedgerName" DataValueField="LedgerID" Height="26px" OnSelectedIndexChanged="cmbCustomer_SelectedIndexChanged" Style="border: 1px solid #e7e7e7" TabIndex="2" ValidationGroup="salesval" Width="100%">
-                                                                                                                                                <asp:ListItem style="background-color: #e7e7e7" Text="Select Customer" Value="0"></asp:ListItem>
-                                                                                                                                            </asp:DropDownList>
+
                                                                                                                                             <asp:TextBox ID="txtCustomerName" runat="server" SkinID="skinTxtBoxGrid" Visible="false"></asp:TextBox>
 
                                                                                                                                             <div style="height: 150px; width: 100%; overflow: scroll">
@@ -574,7 +575,7 @@
                                                                                                                                                    onclick="$('.chzn-select').chosen(); $('.chzn-select-deselect').chosen({ allow_single_deselect: true });"
                                                                                                                                                    </script>--%>
 
-                                                                                                                                                <asp:DropDownList ID="drpMobile1" runat="server" TabIndex="2" CssClass="chzn-select" Width="313px">
+                                                                                                                                                <asp:DropDownList ID="drpMobile1" runat="server" TabIndex="2" CssClass="chzn-select" Width="313px" Visible="false">
                                                                                                                                                     <%-- <asp:DropDownList ID="drpMobile1" runat="server" TabIndex="2" CssClass="chzn-select" Width="313px">--%>
                                                                                                                                                 </asp:DropDownList>
                                                                                                                                             </div>
@@ -713,7 +714,7 @@
                                                                                                             </div>
                                                                                                         </HeaderTemplate>
                                                                                                         <ContentTemplate>
-                                                                                                            <table cellpadding="3" cellspacing="1" class="tblLeft" width="700px">
+                                                                                                            <table cellpadding="3" cellspacing="1" class="tblLeft" width="650px">
                                                                                                                 <tr style="height: 5px">
                                                                                                                 </tr>
                                                                                                                 <tr>
@@ -736,9 +737,9 @@
                                                                                                                                                 <asp:Panel ID="pnlPopup" runat="server" CssClass="modalPopup" Width="700px">
                                                                                                                                                     <asp:UpdatePanel ID="updatePnlProduct" runat="server" UpdateMode="Conditional">
                                                                                                                                                         <ContentTemplate>
-                                                                                                                                                            <asp:Panel ID="pnlItems" runat="server" CssClass="pnlPopUp">
+                                                                                                                                                            <asp:Panel ID="pnlItems" runat="server" CssClass="pnlPopUp" Visible="false">
                                                                                                                                                                 <div id="contentPopUp">
-                                                                                                                                                                    <table cellpadding="3" cellspacing="1" class="tblLeft" style="border: 1px Solid blue;" width="100%">
+                                                                                                                                                                    <table cellpadding="3" cellspacing="1" class="tblLeft" style="border: 1px Solid blue;" width="85%">
                                                                                                                                                                         <tr>
                                                                                                                                                                             <td style="width: 2px;"></td>
                                                                                                                                                                             <td>
@@ -1035,13 +1036,11 @@
                                                                                                                                                         <asp:BoundField DataField="VatAmount" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="60px" HeaderText="VatAmount" Visible="false" />
                                                                                                                                                     </Columns>
                                                                                                                                                 </asp:GridView>
-
-
                                                                                                                                             </td>
                                                                                                                                         </tr>
                                                                                                                                         <tr>
                                                                                                                                             <td colspan="4">
-                                                                                                                                                <div style="height: 250px; width: 85%; overflow: scroll">
+                                                                                                                                                <div style="height: 250px; width: 100%; overflow: scroll">
                                                                                                                                                     <asp:GridView ID="grvStudentDetails" runat="server" Width="85%" AllowPaging="True" BorderWidth="1px" CssClass="someClass"
                                                                                                                                                         ShowFooter="True" AutoGenerateColumns="False"
                                                                                                                                                         CellPadding="4" ForeColor="#333333" OnRowDataBound="grvStudentDetails_RowDataBound"
@@ -1056,22 +1055,22 @@
                                                                                                                                                         <FooterStyle CssClass="dataRow" />
 
                                                                                                                                                         <Columns>
-                                                                                                                                                            <asp:BoundField DataField="RowNumber" HeaderText="SNo" ItemStyle-Width="50px" />
+                                                                                                                                                            <asp:BoundField DataField="RowNumber" HeaderText="SNo" ItemStyle-Width="45px" />
                                                                                                                                                             <asp:TemplateField HeaderText="Product Code-Name-Model" ItemStyle-Width="1px">
                                                                                                                                                                 <ItemTemplate>
-                                                                                                                                                                    <asp:DropDownList ID="drpPrd" Width="250px" runat="server" AppendDataBoundItems="true" BackColor="#e7e7e7" AutoPostBack="true" CssClass="chzn-select" DataTextField="ProductName" DataValueField="ItemCode" OnSelectedIndexChanged="drpPrd_SelectedIndexChanged">
+                                                                                                                                                                    <asp:DropDownList ID="drpPrd" Width="200px" runat="server" AppendDataBoundItems="true" BackColor="#e7e7e7" AutoPostBack="true" CssClass="chzn-select" DataTextField="ProductName" DataValueField="ItemCode" OnSelectedIndexChanged="drpPrd_SelectedIndexChanged">
                                                                                                                                                                         <%--<asp:ListItem style="background-color: #e7e7e7" Text="Select Product" Value="0"></asp:ListItem>   --%>
                                                                                                                                                                     </asp:DropDownList>
                                                                                                                                                                 </ItemTemplate>
                                                                                                                                                             </asp:TemplateField>
-                                                                                                                                                            <asp:TemplateField HeaderText="Description" ItemStyle-Width="1px">
+                                                                                                                                                            <asp:TemplateField HeaderText="Description" ItemStyle-Width="0.2px">
                                                                                                                                                                 <ItemTemplate>
-                                                                                                                                                                    <asp:TextBox ID="txtDesc" runat="server" Width="150px"></asp:TextBox>
+                                                                                                                                                                    <asp:TextBox ID="txtDesc" runat="server" ReadOnly="true" Width="150px"></asp:TextBox>
                                                                                                                                                                 </ItemTemplate>
                                                                                                                                                             </asp:TemplateField>
                                                                                                                                                             <asp:TemplateField HeaderText="Rate" ItemStyle-Width="0.3px">
                                                                                                                                                                 <ItemTemplate>
-                                                                                                                                                                    <asp:TextBox ID="txtRate" runat="server" Width="50px"></asp:TextBox>
+                                                                                                                                                                    <asp:TextBox ID="txtRate" runat="server" ReadOnly="true" Width="50px"></asp:TextBox>
                                                                                                                                                                 </ItemTemplate>
                                                                                                                                                             </asp:TemplateField>
                                                                                                                                                             <asp:TemplateField HeaderText="Stock" ItemStyle-Width="0.3px">
@@ -1082,17 +1081,17 @@
                                                                                                                                                             </asp:TemplateField>
                                                                                                                                                             <asp:TemplateField HeaderText="Quantity" ItemStyle-Width="0.3px">
                                                                                                                                                                 <ItemTemplate>
-                                                                                                                                                                    <asp:TextBox ID="txtQty" runat="server" Width="50px" AutoPostBack="true" OnTextChanged="txtQty_TextChanged" ></asp:TextBox>
+                                                                                                                                                                    <asp:TextBox ID="txtQty" runat="server" Width="50px" AutoPostBack="true" OnTextChanged="txtQty_TextChanged"></asp:TextBox>
                                                                                                                                                                 </ItemTemplate>
                                                                                                                                                             </asp:TemplateField>
-                                                                                                                                                            <asp:TemplateField HeaderText="Executive Commission" ItemStyle-Width="0.3px">
+                                                                                                                                                            <asp:TemplateField HeaderText="Exec Commission" ItemStyle-Width="0.1px">
                                                                                                                                                                 <ItemTemplate>
-                                                                                                                                                                    <asp:TextBox ID="txtExeComm" runat="server" Width="50px"></asp:TextBox>
+                                                                                                                                                                    <asp:TextBox ID="txtExeComm" runat="server" ReadOnly="true" Width="50px"></asp:TextBox>
                                                                                                                                                                 </ItemTemplate>
                                                                                                                                                             </asp:TemplateField>
                                                                                                                                                             <asp:TemplateField HeaderText="Disc(%)" ItemStyle-Width="0.3px">
                                                                                                                                                                 <ItemTemplate>
-                                                                                                                                                                    <asp:TextBox ID="txtDisPre" runat="server" Width="50px" AutoPostBack="true" OnTextChanged="txtQty_TextChanged"></asp:TextBox>
+                                                                                                                                                                    <asp:TextBox ID="txtDisPre" runat="server" Width="50px" ReadOnly="true" AutoPostBack="true" OnTextChanged="txtQty_TextChanged"></asp:TextBox>
                                                                                                                                                                 </ItemTemplate>
                                                                                                                                                             </asp:TemplateField>
                                                                                                                                                             <asp:TemplateField HeaderText="VAT(%)" ItemStyle-Width="0.3px">
@@ -1102,7 +1101,7 @@
                                                                                                                                                             </asp:TemplateField>
                                                                                                                                                             <asp:TemplateField HeaderText="CST(%)" ItemStyle-Width="0.3px">
                                                                                                                                                                 <ItemTemplate>
-                                                                                                                                                                    <asp:TextBox ID="txtCSTPre" runat="server" Width="50px"></asp:TextBox>
+                                                                                                                                                                    <asp:TextBox ID="txtCSTPre" runat="server" ReadOnly="true" Width="50px"></asp:TextBox>
                                                                                                                                                                 </ItemTemplate>
                                                                                                                                                             </asp:TemplateField>
                                                                                                                                                             <asp:TemplateField HeaderText="VAT Amount" ItemStyle-Width="0.3px">
@@ -1115,7 +1114,7 @@
                                                                                                                                                                     <asp:TextBox ID="txtRtVAT" runat="server" ReadOnly="true" Width="50px"></asp:TextBox>
                                                                                                                                                                 </ItemTemplate>
                                                                                                                                                             </asp:TemplateField>
-                                                                                                                                                            <asp:TemplateField HeaderText="Total" ItemStyle-Width="1px">
+                                                                                                                                                            <asp:TemplateField HeaderText="Total" ItemStyle-Width="0.2px">
                                                                                                                                                                 <ItemTemplate>
                                                                                                                                                                     <asp:TextBox ID="txtTotal" runat="server" ReadOnly="true" Width="50px"></asp:TextBox>
                                                                                                                                                                 </ItemTemplate>
@@ -1235,7 +1234,7 @@
                                                                                                                                                         <tr>
                                                                                                                                                             <td style="width: 48%;"></td>
                                                                                                                                                             <td style="width: 16%;">
-                                                                                                                                                                <asp:Button ID="AddNewProd" runat="server" CssClass="AddProd6" EnableTheming="false" OnClick="lnkAddProduct_Click" SkinID="skinBtnAddProduct" Text="" /></td>
+                                                                                                                                                                <asp:Button ID="AddNewProd" runat="server" CssClass="AddProd6" EnableTheming="false" OnClick="lnkAddProduct_Click" SkinID="skinBtnAddProduct" Text="" Visible="false" /></td>
                                                                                                                                                             <td style="width: 36%;"></td>
                                                                                                                                                             <td></td>
                                                                                                                                                             <td style="width: 6px"></td>
@@ -1243,7 +1242,7 @@
                                                                                                                                                         <tr>
                                                                                                                                                             <td style="width: 48%;"></td>
                                                                                                                                                             <td style="width: 16%;">
-                                                                                                                                                                <asp:Button ID="CmdProd" runat="server" CssClass="Newproductbutton6" EnableTheming="false" Height="27px" OnClick="cmdprod_click" SkinID="skinBtnGeneral" Text="" Width="28px" /></td>
+                                                                                                                                                                <asp:Button ID="CmdProd" runat="server" CssClass="Newproductbutton6" EnableTheming="false" Height="27px" OnClick="cmdprod_click" SkinID="skinBtnGeneral" Text="" Width="28px" Visible="false" /></td>
                                                                                                                                                             <td style="width: 36%;"></td>
                                                                                                                                                             <td style="width: 6px"></td>
                                                                                                                                                         </tr>
@@ -1280,7 +1279,7 @@
                                                                                                             </div>
                                                                                                         </HeaderTemplate>
                                                                                                         <ContentTemplate>
-                                                                                                            <table cellpadding="0" cellspacing="1" class="tblLeft" width="825px">
+                                                                                                            <table cellpadding="0" cellspacing="1" class="tblLeft" width="1260px">
                                                                                                                 <tr style="height: 5px">
                                                                                                                 </tr>
                                                                                                                 <tr>
@@ -1549,8 +1548,8 @@
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>
-                                                                                            <td colspan="5" align="center">
-                                                                                                <table width="100%">
+                                                                                            <td colspan="5" align="center" style="width: 1260px">
+                                                                                                <table>
                                                                                                     <tr>
                                                                                                         <td style="width: 18%"></td>
                                                                                                         <td style="width: 5%">
@@ -1722,146 +1721,6 @@
                         <cc1:ConfirmButtonExtender ID="CnrfmDel" TargetControlID="cmdDelete" ConfirmText="Are you sure you want to Delete this Sales?"
                             runat="server">
                         </cc1:ConfirmButtonExtender>
-                    </td>
-                </tr>
-                <tr>
-                    <%-- <td>
-                        <div>
-                            <asp:DropDownList ID="cbo" runat="server" TabIndex="2" CssClass="chzn-select" Width="313px">
-                            </asp:DropDownList>
-                        </div>
-                    </td>--%>
-                    <td>
-                        <%--<cc1:ModalPopupExtender ID="ModalPopupProductselect" runat="server" BackgroundCssClass="modalBackground" CancelControlID="cancelPopUpprd" DynamicServicePath="" Enabled="True" PopupControlID="pnlPopupprdselect" TargetControlID="ShowPopUpprd">
-                        </cc1:ModalPopupExtender>
-                        <input id="ShowPopUpprd" type="button" style="display: none" runat="server" />
-                        <input id="cancelPopUpprd" type="button" style="display: none" runat="server" />
-                        <asp:Panel ID="pnlPopupprdselect" runat="server" CssClass="modalPopup" Width="1200px">
-                            <asp:UpdatePanel ID="UpdatePanel9" runat="server" UpdateMode="Conditional">
-                                <ContentTemplate>
-                                    <table style="width: 100%">
-                                        <tr style="width: 100%">
-                                            <td>
-                                                <asp:Panel ID="Panel7" runat="server" ClientIDMode="Static" Direction="LeftToRight">
-                                                    <table style="/*margin: -6px 0px 0px 0px; */" width="100%">
-                                                        <tr style="width: 100%">
-                                                            <td style="width: 60%; font-size: 22px; color: White;">Product Add</td>
-                                                        </tr>
-                                                        <tr style="width: 100%">
-                                                            <td colspan="3">
-                                                                <asp:GridView ID="grvStudentDetails" runat="server" Width="100%"
-                                                                    ShowFooter="True" AutoGenerateColumns="False"
-                                                                    CellPadding="4" ForeColor="#333333"
-                                                                    GridLines="None" OnRowDeleting="grvStudentDetails_RowDeleting">
-                                                                    <Columns>
-                                                                        <asp:BoundField DataField="RowNumber" HeaderText="SNo" ItemStyle-Width="50px" />
-                                                                        <asp:TemplateField HeaderText="Product" ItemStyle-Width="1px">
-                                                                            <ItemTemplate>
-                                                                                <asp:DropDownList ID="drpPrd" runat="server">
-                                                                                    <asp:ListItem Value="G">Item1</asp:ListItem>
-                                                                                    <asp:ListItem Value="P">Item2</asp:ListItem>
-                                                                                </asp:DropDownList>
-
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderText="Description" ItemStyle-Width="1px">
-                                                                            <ItemTemplate>
-                                                                                <asp:TextBox ID="txtDesc" runat="server" Width="150px"></asp:TextBox>
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderText="Rate" ItemStyle-Width="1px">
-                                                                            <ItemTemplate>
-                                                                                <asp:TextBox ID="txtRate" runat="server" Width="50px"></asp:TextBox>
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderText="Quantity" ItemStyle-Width="1px">
-                                                                            <ItemTemplate>
-                                                                                <asp:TextBox ID="txtQty" runat="server" Width="50px"></asp:TextBox>
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderText="Executive Commission" ItemStyle-Width="1px">
-                                                                            <ItemTemplate>
-                                                                                <asp:TextBox ID="txtExeComm" runat="server" Width="50px"></asp:TextBox>
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderText="Disc(%)" ItemStyle-Width="1px">
-                                                                            <ItemTemplate>
-                                                                                <asp:TextBox ID="txtDisPre" runat="server" Width="50px"></asp:TextBox>
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderText="VAT(%)" ItemStyle-Width="1px">
-                                                                            <ItemTemplate>
-                                                                                <asp:TextBox ID="txtVATPre" runat="server" Width="50px"></asp:TextBox>
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderText="CST(%)" ItemStyle-Width="1px">
-                                                                            <ItemTemplate>
-                                                                                <asp:TextBox ID="txtCSTPre" runat="server" Width="50px"></asp:TextBox>
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderText="VAT Amount" ItemStyle-Width="1px">
-                                                                            <ItemTemplate>
-                                                                                <asp:TextBox ID="txtVATAmt" runat="server" Width="50px"></asp:TextBox>
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderText="Rate with VAT" ItemStyle-Width="1px">
-                                                                            <ItemTemplate>
-                                                                                <asp:TextBox ID="txtRtVAT" runat="server" Width="50px"></asp:TextBox>
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderText="Total" ItemStyle-Width="1px">
-                                                                            <ItemTemplate>
-                                                                                <asp:TextBox ID="txtTotal" runat="server" Width="50px"></asp:TextBox>
-                                                                            </ItemTemplate>
-                                                                            <FooterStyle HorizontalAlign="Right" />
-                                                                            <FooterTemplate>
-                                                                                <asp:Button ID="ButtonAdd" runat="server" AutoPostback="false" EnableTheming="false"
-                                                                                    Text="Add New Row" OnClick="ButtonAdd_Click" />
-                                                                            </FooterTemplate>
-                                                                        </asp:TemplateField>
-                                                                        <asp:CommandField ShowDeleteButton="True" />
-                                                                    </Columns>
-                                                                    <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                                                                    <RowStyle BackColor="#EFF3FB" />
-                                                                    <EditRowStyle BackColor="#2461BF" />
-                                                                    <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                                                                    <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                                                                    <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                                                                    <AlternatingRowStyle BackColor="White" />
-                                                                </asp:GridView>
-                                                            </td>
-                                                        </tr>
-                                                        <table cellpadding="1" cellspacing="2" width="100%">
-                                                            <tr>
-                                                                <td align="center">
-                                                                    <table>
-                                                                        <tr>
-                                                                            <td></td>
-                                                                            <td>
-                                                                                <asp:Panel ID="Panel9" runat="server" Width="120px">
-                                                                                    <asp:Button ID="Button3" runat="server" CssClass="savebutton1231" EnableTheming="false" Text="" ValidationGroup="contact" />
-                                                                                </asp:Panel>
-                                                                            </td>
-                                                                            <td>
-                                                                                <asp:Panel ID="Panel8" runat="server" Width="120px">
-                                                                                    <asp:Button ID="Button2" runat="server" CausesValidation="false" CssClass="cancelbutton6" EnableTheming="false" />
-                                                                                </asp:Panel>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                        <tr>
-                                                        </tr>
-                                                    </table>
-                                                </asp:Panel>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                        </asp:Panel>--%>
                     </td>
                 </tr>
             </table>
