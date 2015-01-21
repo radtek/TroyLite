@@ -136,8 +136,9 @@ public partial class TaskUpdates : System.Web.UI.Page
         BusinessLogic bl = new BusinessLogic(sDataSource);
 
         string connection = Request.Cookies["Company"].Value;
+        string Username = Request.Cookies["LoggedUserName"].Value;
 
-        DataSet ds = bl.GetTaskList(connection, textSearch, dropDown);
+        DataSet ds = bl.GetUsersTaskList(connection, textSearch, dropDown, Username);
 
         if (ds != null)
         {
