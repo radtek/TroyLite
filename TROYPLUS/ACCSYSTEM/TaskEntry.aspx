@@ -278,11 +278,15 @@
                                                                                             Project Name *
                                                                                         </td>
                                                                                          <td style="width: 25%" class="ControlDrpBorder">
-                                                                                            <asp:DropDownList ID="drpProjectCode" TabIndex="1" Enabled="True" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
-                                                                                                runat="server" Width="100%" DataTextField="Project_Name" BackColor="#e7e7e7" Style="border: 1px solid #e7e7e7" Height="26px"
-                                                                                                DataValueField="Project_Id">
-                                                                                                <%--<asp:ListItem Text="Select Project Name" Value="0"></asp:ListItem>--%>
-                                                                                            </asp:DropDownList>
+                                                                                              <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                                                                                                <ContentTemplate>
+                                                                                                    <asp:DropDownList ID="drpProjectCode" TabIndex="1" Enabled="True" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
+                                                                                                        runat="server" Width="100%" DataTextField="Project_Name" BackColor="#e7e7e7" Style="border: 1px solid #e7e7e7" Height="26px" 
+                                                                                                        DataValueField="Project_Id">
+                                                                                                        <%--<asp:ListItem Text="Select  OnSelectedIndexChanged="drpprojectcode_SelectedIndexChanged" Project Name" Value="0"></asp:ListItem>--%>
+                                                                                                    </asp:DropDownList>
+                                                                                                </ContentTemplate>
+                                                                                            </asp:UpdatePanel>
                                                                                         </td>
                                                                                      
                                                                                        
@@ -412,11 +416,15 @@
                                                                                         Dependency Task
                                                                                         </td>
                                                                                         <td style="width: 25%;" class="ControlDrpBorder">
+                                                                                              <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+                                                                                                <ContentTemplate>
                                                                                             <asp:DropDownList ID="drpDependencyTask" TabIndex="9" Enabled="True" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
                                                                                                 runat="server" Width="100%" DataTextField="Task_Name" BackColor="#e7e7e7" Style="border: 1px solid #e7e7e7" Height="26px"
                                                                                                 DataValueField="Task_Id">
                                                                                                 <%--<asp:ListItem Text="Select Dependency Task" Value="0"></asp:ListItem>--%>
                                                                                             </asp:DropDownList>
+                                                                                                      </ContentTemplate>
+                                                                                            </asp:UpdatePanel>
                                                                                         </td>
                                                                                    
                                                                                      

@@ -95,7 +95,9 @@ public partial class TaskEntry : System.Web.UI.Page
 
         drpIncharge.Items.Clear();
         drpIncharge.Items.Add(new ListItem("Select Owner", "0"));
-        ds = bl.ListExecutive();
+       // ds = bl.ListExecutive();
+        string Usernam = Request.Cookies["LoggedUserName"].Value;
+        ds = bl.ListOwner(connection,Usernam);
         drpIncharge.DataSource = ds;
         drpIncharge.DataBind();
         drpIncharge.DataTextField = "empFirstName";
@@ -110,20 +112,22 @@ public partial class TaskEntry : System.Web.UI.Page
         drpTaskType.DataValueField = "Task_Type_Id";
 
         drpProjectCode.Items.Clear();
-        drpProjectCode.Items.Add(new ListItem("Select Project Name", "0"));
-        dst = bl.GetProjectList(connection, "", "");
+        string Username = Request.Cookies["LoggedUserName"].Value;
+        drpProjectCode.Items.Add(new ListItem("Select Project Name"));
+      //  dst = bl.GetProjectList(connection, "", "",Username);
+        dst = bl.getfilterproject(Username);
         drpProjectCode.DataSource = dst;
         drpProjectCode.DataBind();
         drpProjectCode.DataTextField = "Project_Name";
         drpProjectCode.DataValueField = "Project_Id";
 
-        drpDependencyTask.Items.Clear();
-        drpDependencyTask.Items.Add(new ListItem("Select Dependency Task", "0"));
-        dstd = bl.GetTaskList(connection, "", "");
-        drpDependencyTask.DataSource = dstd;
-        drpDependencyTask.DataBind();
-        drpDependencyTask.DataTextField = "Task_Name";
-        drpDependencyTask.DataValueField = "Task_Id";
+        //drpDependencyTask.Items.Clear();
+        //drpDependencyTask.Items.Add(new ListItem("Select Dependency Task", "0"));
+        //dstd = bl.GetTaskList(connection, "", "");
+        //drpDependencyTask.DataSource = dstd;
+        //drpDependencyTask.DataBind();
+        //drpDependencyTask.DataTextField = "Task_Name";
+        //drpDependencyTask.DataValueField = "Task_Id";
 
         //drpsIncharge.DataSource = ds;
         //drpsIncharge.DataBind();
@@ -489,7 +493,7 @@ public partial class TaskEntry : System.Web.UI.Page
         txtEWstartDate.Text = "";
         txtEWEndDate.Text = "";
         drpTaskType.SelectedIndex = 0;
-        drpDependencyTask.SelectedIndex = 0;
+       // drpDependencyTask.SelectedIndex = 0;
         drpProjectCode.SelectedIndex = 0;
         txtTaskDesc.Text = "";
         Taskeffortdays.Text = "";
@@ -591,6 +595,8 @@ public partial class TaskEntry : System.Web.UI.Page
     {
         try
         {
+           
+
             Reset();
             headtitle.Text = "New Task Details";
             txtCDate.Text = DateTime.Now.ToShortDateString();
@@ -604,8 +610,8 @@ public partial class TaskEntry : System.Web.UI.Page
             btnSave.Enabled = true;
             
             sDataSource = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
-
             loadEmp();
+            
             ModalPopupExtender1.Show();
         }
         catch (Exception ex)
@@ -704,4 +710,38 @@ public partial class TaskEntry : System.Web.UI.Page
             TroyLiteExceptionManager.HandleException(ex);
         }
     }
+
+
+    //protected void drpprojectcode_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        BusinessLogic bl = new BusinessLogic(sDataSource);
+    //        int Project_Id = 0;
+          
+    //        string connection = Request.Cookies["Company"].Value;
+
+
+    //        Project_Id = Convert.ToInt32(drpProjectCode.SelectedValue);
+    //        //if (GrdWME.SelectedDataKey.Value != null && GrdWME.SelectedDataKey.Value.ToString() != "")
+    //        //    Project_Id = Convert.ToInt32(GrdWME.SelectedDataKey.Value.ToString());
+
+    //        drpDependencyTask.Items.Clear();
+    //        drpDependencyTask.Items.Add(new ListItem("Select Dependency Task", "0"));
+    //        DataSet ds = bl.GetDependencytask(connection,Project_Id);
+
+    //        drpDependencyTask.DataSource = ds;
+    //        drpDependencyTask.DataBind();
+    //        //drpDependencyTask.DataTextField = "Task_Name";
+    //        //drpDependencyTask.DataValueField = "Task_Id";
+    //        UpdatePanel2.Update();
+
+    //    }
+           
+    //    catch (Exception ex)
+    //    {
+    //        TroyLiteExceptionManager.HandleException(ex);
+    //    }
+    //   // UpdatePanel2.Update();
+    //}
 }

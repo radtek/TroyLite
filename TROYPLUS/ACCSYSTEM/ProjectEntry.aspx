@@ -132,9 +132,9 @@
                                                 <asp:DropDownList ID="ddCriteria" runat="server" BackColor="White" Width="157px" Height="24px" Style="text-align: center; border: 1px solid White">
                                                     <asp:ListItem Value="0">All</asp:ListItem>
                                                     <%--<asp:ListItem Value="ProjectID">Project ID</asp:ListItem>--%>
-                                                    <asp:ListItem Value="ProjectCode">Project Code</asp:ListItem>
+                                                    <asp:ListItem Value="ProjectCode">Project ID</asp:ListItem>
                                                     <asp:ListItem Value="ProjectDate">Project Date</asp:ListItem>
-                                                    <asp:ListItem Value="ProjectName">Project Name</asp:ListItem>
+                                                    <asp:ListItem Value="ProjectName">Project Title</asp:ListItem>
                                                     <asp:ListItem Value="ProjectManager">Project Manager</asp:ListItem>
                                                     <asp:ListItem Value="ProjectStatus">Project Status</asp:ListItem>
                                                 </asp:DropDownList>
@@ -522,7 +522,7 @@
                                             HeaderStyle-HorizontalAlign="Center" RowStyle-HorizontalAlign="Center" Width="100%" CssClass="someClass"
                                             AllowPaging="True" OnPageIndexChanging="GrdWME_PageIndexChanging" OnRowCreated="GrdWME_RowCreated"
                                             DataKeyNames="Project_Id" EmptyDataText="No Project Details found." OnSelectedIndexChanged="GrdWME_SelectedIndexChanged"
-                                            OnRowDeleting="GrdWME_RowDeleting">
+                                            OnRowDeleting="GrdWME_RowDeleting" OnRowDataBound="GrdView_RowDataBound">
                                             <HeaderStyle Height="70px" Font-Bold="true" />
                                             <Columns>
                                                 <asp:BoundField DataField="Project_Id" HeaderText="Project ID" HeaderStyle-Wrap="false" HeaderStyle-BorderColor="Gray" Visible="false" />
@@ -550,8 +550,10 @@
                                                         </cc1:ConfirmButtonExtender>
                                                         <asp:ImageButton ID="lnkB" SkinID="delete" runat="Server" CommandName="Delete"></asp:ImageButton>
                                                         <asp:ImageButton ID="lnkBDisabled" Enabled="false" SkinID="deleteDisable" runat="Server"></asp:ImageButton>
+                                                          <asp:HiddenField ID="ProjectID" runat="server" Value='<%# Bind("Project_Id") %>' />
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
+                                               
                                             </Columns>
                                             <PagerTemplate>
                                                 <table style="border-color: white">

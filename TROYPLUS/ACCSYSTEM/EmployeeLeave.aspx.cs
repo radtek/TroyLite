@@ -68,21 +68,21 @@ public partial class EmployeeLeave : System.Web.UI.Page
                 }
             }
         }
-    }    
-    
+    }
+
     protected void lnkBtnApplyLeave_Click(object sender, EventArgs e)
     {
         try
-        {            
+        {
             ModalPopupExtender1.Show();
             LeaveDetailPopUp.Visible = true;
             BusinessLogic bl = new BusinessLogic(sDataSource);
             UserInfo userInfo = bl.GetUserInfoByName(Request.Cookies["LoggedUserName"].Value);
 
-           lblApproverName.Text = userInfo.ManagerEmpName;
-           hdfApproverEmpNo.Value = userInfo.ManagerEmpNo.ToString();
-
-           ViewState["PopupMode"] = "NEW";
+            lblApproverName.Text = userInfo.ManagerEmpName;
+            hdfApproverEmpNo.Value = userInfo.ManagerEmpNo.ToString();
+            SetBalanceLeave();
+            ViewState["PopupMode"] = "NEW";
         }
         catch (Exception ex)
         {
@@ -94,7 +94,7 @@ public partial class EmployeeLeave : System.Web.UI.Page
     {
         try
         {
-            int leaveId=0;
+            int leaveId = 0;
             if (e.CommandName.Equals("EditLeave"))
             {
                 if (int.TryParse(e.CommandArgument.ToString(), out leaveId))
@@ -102,6 +102,7 @@ public partial class EmployeeLeave : System.Web.UI.Page
                     if (!IsLeaveApprovedOrRejected(leaveId))
                     {
                         PopupDialogBindData(leaveId);
+                        SetBalanceLeave();
                         ModalPopupExtender1.Show();
                         LeaveDetailPopUp.Visible = true;
                         ViewState["PopupMode"] = "UPDATE";
@@ -153,7 +154,7 @@ public partial class EmployeeLeave : System.Web.UI.Page
         }
         return false;
     }
-  
+
     protected void btnApplyLeave_Click(object sender, EventArgs e)
     {
         try
@@ -165,7 +166,11 @@ public partial class EmployeeLeave : System.Web.UI.Page
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Your leave request has been submitted successfully');", true);
                     ClearPopupData();
                     BindLeaveSummaryGrid();
-                    UpdatePanelMain.Update();                    
+                    UpdatePanelMain.Update();
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Your leave request not saved. Please contact Administrator.');", true);
                 }
             }
             else if (ViewState["PopupMode"] != null && ViewState["PopupMode"].ToString() == "UPDATE")
@@ -176,7 +181,11 @@ public partial class EmployeeLeave : System.Web.UI.Page
                     ClearPopupData();
                     BindLeaveSummaryGrid();
                     UpdatePanelMain.Update();
-                    
+
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Your leave request not saved. Please contact Administrator.');", true);
                 }
             }
         }
@@ -194,6 +203,14 @@ public partial class EmployeeLeave : System.Web.UI.Page
 
     protected void btnSearchAttendance_Click(object sender, EventArgs e)
     {
+        try
+        {
+            BindLeaveSummaryGrid();
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
         this.BindLeaveSummaryGrid();
     }
 
@@ -201,25 +218,8 @@ public partial class EmployeeLeave : System.Web.UI.Page
     {
         try
         {
-            if (ddlLeaveType.SelectedIndex >= 0)
-            {
-                int leaveTypeId = 0;
-                if (int.TryParse(ddlLeaveType.SelectedValue, out leaveTypeId))
-                {
-                    BusinessLogic bl = new BusinessLogic(sDataSource);
-                    double leaveBalance = 0;
-                    string username = Request.Cookies["LoggedUserName"].Value;
-                    int employeeNo = bl.GetUserInfoByName(username).EmpNo;
-                    double leaveLimit = double.Parse(bl.GetLeaveLimit(leaveTypeId, employeeNo).ToString());
-                    if (leaveLimit != 0)
-                    {
-                        double leavesTaken = bl.GetTotalLeavesTaken(DateTime.Today.Year, leaveTypeId, employeeNo);
-                        leaveBalance = (leaveLimit - leavesTaken);
-                    }
-                    txtBalanceLeaves.Text = string.Format("{0}", leaveBalance.ToString());
-                    ModalPopupExtender1.Show();
-                }
-            }
+            SetBalanceLeave();
+            ModalPopupExtender1.Show();
         }
         catch (Exception ex)
         {
@@ -260,10 +260,12 @@ public partial class EmployeeLeave : System.Web.UI.Page
     {
         ClearPopupData();
     }
+
     protected void ddlStartDateSession_SelectedIndexChanged(object sender, EventArgs e)
     {
         txtTotalLeaveDays.Text = string.Empty;
     }
+
     #region Private Methods
     private void BindLeaveSummaryGrid()
     {
@@ -273,14 +275,45 @@ public partial class EmployeeLeave : System.Web.UI.Page
         string connection = Request.Cookies["Company"].Value;
         string usernam = Request.Cookies["LoggedUserName"].Value;
         BusinessLogic bl = new BusinessLogic(sDataSource);
+        string filterExpression = GetSearchFilterExpression();
 
-        DataSet ds = bl.GetLeaveSummary(usernam,txtSearchInput.Text.Trim());
+        DataSet ds = bl.GetLeaveSummary(usernam, filterExpression);
         if (ds != null && ds.Tables.Count > 0)
         {
             grdViewLeaveSummary.DataSource = ds.Tables[0];
             grdViewLeaveSummary.DataBind();
             UpdatePanelMain.Update();
         }
+    }
+
+    private string GetSearchFilterExpression()
+    {
+        string filterExpression = string.Empty;
+        if (ddlSearchCriteria.SelectedIndex >= 0 && !string.IsNullOrEmpty(txtSearchInput.Text.Trim()))
+        {
+            string searchCriteriaField = ddlSearchCriteria.SelectedValue;
+            string searchCriteriaValue = txtSearchInput.Text.Trim();
+            switch (searchCriteriaField.ToLower())
+            {
+                case "leavetypename":
+                    filterExpression = string.Format("{0} LIKE '%{1}%'", searchCriteriaField, searchCriteriaValue);
+                    break;
+                case "dateapplied":
+                    {
+                        DateTime dtInput;
+                        if (DateTime.TryParse(searchCriteriaValue, out dtInput))
+                        {
+                            filterExpression = string.Format("Format({0},'dd/MM/yyyy') = #{1}#", searchCriteriaField, dtInput.ToString("dd/MM/yyyy"));
+                        }
+                        break;
+                    }
+                default:
+                    filterExpression = string.Empty;
+                    break;
+
+            }
+        }
+        return filterExpression;
     }
 
     private bool InsertLeave()
@@ -376,6 +409,7 @@ public partial class EmployeeLeave : System.Web.UI.Page
         ddlEndDateSession.SelectedValue = dt.Rows[0]["EndDateSession"].ToString();
 
         ddlLeaveType.SelectedValue = dt.Rows[0]["LeaveTypeId"].ToString();
+        txtTotalLeaveDays.Text = dt.Rows[0]["TotalDays"].ToString();
         txtReason.Text = dt.Rows[0]["Reason"].ToString();
         lblApproverName.Text = dt.Rows[0]["ApproverName"].ToString();
         hdfApproverEmpNo.Value = dt.Rows[0]["Approver"].ToString();
@@ -392,11 +426,34 @@ public partial class EmployeeLeave : System.Web.UI.Page
         ddlEndDateSession.SelectedValue = "AN";
         txtTotalLeaveDays.Text = string.Empty;
         txtBalanceLeaves.Text = string.Empty;
-        txtReason.Text =string.Empty;
-        lblApproverName.Text =string.Empty;
+        txtReason.Text = string.Empty;
+        lblApproverName.Text = string.Empty;
         hdfApproverEmpNo.Value = string.Empty;
-        txtEmailContact.Text =string.Empty;
-        txtPhoneContact.Text =string.Empty;
+        txtEmailContact.Text = string.Empty;
+        txtPhoneContact.Text = string.Empty;
     }
-    #endregion    
+
+    private void SetBalanceLeave()
+    {
+        if (ddlLeaveType.SelectedIndex >= 0)
+        {
+            int leaveTypeId = 0;
+            if (int.TryParse(ddlLeaveType.SelectedValue, out leaveTypeId))
+            {
+                BusinessLogic bl = new BusinessLogic(sDataSource);
+                double leaveBalance = 0;
+                string username = Request.Cookies["LoggedUserName"].Value;
+                int employeeNo = bl.GetUserInfoByName(username).EmpNo;
+                double leaveLimit = double.Parse(bl.GetLeaveLimit(leaveTypeId, employeeNo).ToString());
+                if (leaveLimit != 0)
+                {
+                    double leavesTaken = bl.GetTotalLeavesTaken(DateTime.Today.Year, leaveTypeId, employeeNo);
+                    leaveBalance = (leaveLimit - leavesTaken);
+                }
+                txtBalanceLeaves.Text = string.Format("{0}", leaveBalance.ToString());
+
+            }
+        }
+    }
+    #endregion
 }

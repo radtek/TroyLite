@@ -153,7 +153,7 @@ public partial class EmployeePayroll : System.Web.UI.Page
         grdViewPaySlipInfo.DataSource = null;
         grdViewPaySlipInfo.DataBind();
         if (Session["EmpPaySlipDt"] != null)
-        {            
+        {
             grdViewPaySlipInfo.DataSource = (Session["EmpPaySlipDt"] as DataTable);
             grdViewPaySlipInfo.DataBind();
             grdViewPaySlipInfo.Visible = true;
@@ -170,7 +170,7 @@ public partial class EmployeePayroll : System.Web.UI.Page
 
             }
         }
-        
+
         catch (Exception ex)
         {
             TroyLiteExceptionManager.HandleException(ex);
@@ -258,7 +258,7 @@ public partial class EmployeePayroll : System.Web.UI.Page
             TroyLiteExceptionManager.HandleException(ex);
         }
     }
-    
+
     protected void grdViewPaySlipInfo_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         try
