@@ -4457,6 +4457,9 @@ public partial class CustomerSales : System.Web.UI.Page
                             dc = new DataColumn("Rate");
                             dt.Columns.Add(dc);
 
+                            dc = new DataColumn("Stock");
+                            dt.Columns.Add(dc);                            
+
                             dc = new DataColumn("Qty");
                             dt.Columns.Add(dc);
 
@@ -4546,7 +4549,8 @@ public partial class CustomerSales : System.Web.UI.Page
                             //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
 
-                            int billNo = bl.UpdateSalesNew(hdSeries.Value, bill, sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dfixedtotal, purchaseReturn, prReason, Convert.ToInt32(executive), dFreight, dLU, dss, sOtherCusName, intTrans, userID, deliveryNote, sCustomerAddress2, sCustomerAddress3, executivename, receiptData, despatchedfrom, fixedtotal, manualno, dTotalAmt, usernam, MultiPayment, Types, snarr, cuscategory);
+                            int billNo = bl.UpdateSalesNew(hdSeries.Value, bill, sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dTotalAmt, purchaseReturn, prReason, Convert.ToInt32(executive), dFreight, dLU, dss, sOtherCusName, intTrans, userID, deliveryNote, sCustomerAddress2, sCustomerAddress3, executivename, receiptData, despatchedfrom, fixedtotal, manualno, dTotalAmt, usernam, MultiPayment, Types, snarr, cuscategory);
+                            
 
                             if (billNo == -1)
                             {
@@ -6543,6 +6547,7 @@ public partial class CustomerSales : System.Web.UI.Page
                     if (ds.Tables[0].Rows[0]["CustomerID"] != null)
                     {
                         sCustomer = Convert.ToString(ds.Tables[0].Rows[0]["CustomerID"]);
+                        cmbCustomer.Visible = true;
                         cmbCustomer.ClearSelection();
                         ListItem li = cmbCustomer.Items.FindByValue(System.Web.HttpUtility.HtmlDecode(sCustomer));
                         if (li != null) li.Selected = true;

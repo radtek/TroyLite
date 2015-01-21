@@ -302,7 +302,7 @@
                                     EnableTheming="false" Text=""></asp:Button>
                     </td>
                     <td style="width:15%">
-                        <asp:Button ID="BlkAdd" runat="server"  OnClientClick="window.open('BulkPriceUpdation.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=250,width=500,left=425,top=220, scrollbars=yes');" CssClass="bulkaddition"
+                        <asp:Button ID="BlkAdd" runat="server"  OnClientClick="window.open('BulkPriceUpdation.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=250,width=500,left=425,top=220, scrollbars=yes');" CssClass="Bulkupdation"
                                     EnableTheming="false" Text=""></asp:Button>
                     </td>
                     <td  style="width:35%">

@@ -331,6 +331,7 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
     {
         if (btnSender != null)
         {
+            BusinessLogic bl = new BusinessLogic(sDataSource);
             // verify the value and change the next applicable value for the button
             if (btnSender.Text == "Present")
             {
@@ -346,8 +347,7 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
             {
                 if (isUpdate)
                 {
-                    btnSender.Text = "Week Off";
-                    btnSender.CssClass = "btnBts btnBts-success";
+                    CheckCompOffOptionsForTheRequest(btnSender);
                 }
                 else { btnSender.CssClass = "btnBts btnBts-warning"; }
 
@@ -356,8 +356,16 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
             {
                 if (isUpdate)
                 {
-                    btnSender.Text = "Holiday";
-                    btnSender.CssClass = "btnBts btnBts-info";
+                    DateTime requestDate = getDateValueForTheRequest(btnSender);
+                    if (bl.IsHoliday(requestDate, requestDate.Year))
+                    {
+                        btnSender.Text = "Holiday";
+                        btnSender.CssClass = "btnBts btnBts-info";
+                    }
+                    else
+                    {
+                        CheckCompOffOptionsForTheRequest(btnSender);
+                    }
                 }
                 else { btnSender.CssClass = "btnBts btnBts-success"; }
 
@@ -366,21 +374,7 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
             {
                 if (isUpdate)
                 {
-                    string preState = btnSender.CommandArgument.Split(new string[] { "//" }, StringSplitOptions.None)[2];
-
-                    if (preState.Equals("Week Off") || preState.Equals("Leave") || preState.Equals("Holiday"))
-                    {
-                        if (!ShowCompOffRotaPopup(btnSender))
-                        {
-                            btnSender.Text = "Present";
-                            btnSender.CssClass = "btnBts btnBts-default";
-                        }
-                    }
-                    else
-                    {
-                        btnSender.Text = "Present";
-                        btnSender.CssClass = "btnBts btnBts-default";
-                    }
+                    CheckCompOffOptionsForTheRequest(btnSender);
                 }
                 else
                     btnSender.CssClass = "btnBts btnBts-info";
@@ -393,34 +387,58 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
         }
     }
 
+    private void CheckCompOffOptionsForTheRequest(Button btnSender)
+    {
+        string preState = btnSender.CommandArgument.Split(new string[] { "//" }, StringSplitOptions.None)[2];
+        if (preState.Equals("Week Off") || preState.Equals("Leave") || preState.Equals("Holiday"))
+        {
+            if (!ShowCompOffRotaPopup(btnSender))
+            {
+                btnSender.Text = "Present";
+                btnSender.CssClass = "btnBts btnBts-default";
+            }
+        }
+        else
+        {
+            btnSender.Text = "Present";
+            btnSender.CssClass = "btnBts btnBts-default";
+        }
+    }
+
+    private DateTime getDateValueForTheRequest(Button btnSender)
+    {
+        int year;
+        int.TryParse(ViewState["AttendanceYear"].ToString(), out year);
+        int month;
+        int.TryParse(ViewState["AttendanceMonth"].ToString(), out month);
+        int dayOfMonth;
+        int.TryParse(btnSender.ID.ToLower().Replace("button", string.Empty), out dayOfMonth);
+        DateTime requestDate;
+        DateTime.TryParse(string.Format("{0}-{1}-{2}", year, month, dayOfMonth), out requestDate);
+        return requestDate;
+    }
     private bool ShowCompOffRotaPopup(Button btnSender)
     {
         if (btnSender != null)
         {
             // Get the date value for the current request.
-            int year;
-            int.TryParse(ViewState["AttendanceYear"].ToString(), out year);
-            int month;
-            int.TryParse(ViewState["AttendanceMonth"].ToString(), out month);
-            int dayOfMonth;
-            int.TryParse(btnSender.ID.ToLower().Replace("button", string.Empty), out dayOfMonth);
-            DateTime requestDate;
-            if (DateTime.TryParse(string.Format("{0}-{1}-{2}", year, month, dayOfMonth), out requestDate))
-            {
-                hdnfRequestDayInfo.Value = requestDate.ToShortDateString();
-                hdnfCompOffRotaEmployeeNo.Value = btnSender.CommandArgument.Split(new char[] { '/' })[0];
-                hdnfRequestSenderId.Value = btnSender.ID;
 
-                DataTable consequenceDates = GetConsequenceOneWeekDate(requestDate);
-                ddlRotaAlternativeDays.DataSource = consequenceDates;
-                ddlRotaAlternativeDays.DataTextField = "LongDate";
-                ddlRotaAlternativeDays.DataValueField = "ShortDate";
-                ddlRotaAlternativeDays.DataBind();
+            DateTime requestDate = getDateValueForTheRequest(btnSender);
 
-                updPnlRotaCompOff.Update();
-                CompOffModalPopupExtender.Show();
-                return true;
-            }
+            hdnfRequestDayInfo.Value = requestDate.ToShortDateString();
+            hdnfCompOffRotaEmployeeNo.Value = btnSender.CommandArgument.Split(new char[] { '/' })[0];
+            hdnfRequestSenderId.Value = btnSender.ID;
+
+            DataTable consequenceDates = GetConsequenceOneWeekDate(requestDate);
+            ddlRotaAlternativeDays.DataSource = consequenceDates;
+            ddlRotaAlternativeDays.DataTextField = "LongDate";
+            ddlRotaAlternativeDays.DataValueField = "ShortDate";
+            ddlRotaAlternativeDays.DataBind();
+
+            updPnlRotaCompOff.Update();
+            CompOffModalPopupExtender.Show();
+            return true;
+
         }
         return false;
     }
