@@ -82,7 +82,11 @@ public partial class ProjectEntry : System.Web.UI.Page
         BusinessLogic bl = new BusinessLogic(sDataSource);
         DataSet ds = new DataSet();
 
-        ds = bl.ListExecutive();
+        string Username = Request.Cookies["LoggedUserName"].Value;
+
+        ds = bl.ListManager(Username);
+
+        //ds = bl.ListExecutive();
         drpIncharge.DataSource = ds;
         drpIncharge.DataBind();
         drpIncharge.DataTextField = "empFirstName";
@@ -459,6 +463,35 @@ public partial class ProjectEntry : System.Web.UI.Page
             TroyLiteExceptionManager.HandleException(ex);
         }
     }
+
+
+    protected void GrdView_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                sDataSource = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+                BusinessLogic bl = new BusinessLogic(sDataSource);
+
+                if (bl.CheckTaskNameUsed(int.Parse(((HiddenField)e.Row.FindControl("ProjectID")).Value)))
+   
+                {
+                    ((ImageButton)e.Row.FindControl("lnkB")).Visible = false;
+                    ((ImageButton)e.Row.FindControl("lnkBDisabled")).Visible = true;
+                    ((ImageButton)e.Row.FindControl("btnEdit")).Visible = false;
+                    ((ImageButton)e.Row.FindControl("btnEditDisabled")).Visible = true;
+                }
+            }
+        }
+
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+
 
     protected void GrdWME_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {

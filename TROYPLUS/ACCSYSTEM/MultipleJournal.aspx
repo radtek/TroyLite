@@ -1224,7 +1224,7 @@
                                                                                                                 </asp:TemplateField>
                                                                                                                 <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Date" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="35px">
                                                                                                                     <ItemTemplate>
-                                                                                                                        <asp:TextBox ID="txtDate" runat="server" Width="70%" Height="26px" Text='<%# Bind("Date") %>'
+                                                                                                                        <asp:TextBox ID="txtDate" runat="server" Width="70%" Height="26px"
                                                                                                                             ></asp:TextBox>
                                                                                                                         <cc1:CalendarExtender ID="calBillDate" runat="server" Format="dd/MM/yyyy"
                                                                                                                                 PopupButtonID="btnBillDate" TargetControlID="txtDate" Enabled="True">
@@ -1392,7 +1392,7 @@
                                                                                                                 </asp:TemplateField>
                                                                                                                 <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Date" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="35px">
                                                                                                                     <ItemTemplate>
-                                                                                                                        <asp:TextBox ID="txtDate" runat="server" Height="26px" Width="70%" Text='<%# Bind("Date") %>'
+                                                                                                                        <asp:TextBox ID="txtDate" runat="server" Height="26px" Width="70%"
                                                                                                                             ></asp:TextBox>
                                                                                                                         <cc1:CalendarExtender ID="calBillDate" runat="server" Format="dd/MM/yyyy"
                                                                                                                                 PopupButtonID="btnBillDate" TargetControlID="txtDate" Enabled="True">

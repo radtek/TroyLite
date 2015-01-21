@@ -111,6 +111,7 @@ public partial class TaskUpdates : System.Web.UI.Page
         drpTaskType.DataTextField = "Task_Type_Name";
         drpTaskType.DataValueField = "Task_Type_Id";
 
+        string Username = Request.Cookies["LoggedUserName"].Value;
         dst = bl.GetProjectList(connection, "", "");
         drpProjectCode.DataSource = dst;
         drpProjectCode.DataBind();

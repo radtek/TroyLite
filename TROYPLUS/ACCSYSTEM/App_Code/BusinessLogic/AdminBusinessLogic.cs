@@ -258,8 +258,10 @@ public class AdminBusinessLogic
             ValidatePayrollDetailsForEmployee(employeeNo, year, month, ref logMessage);
 
             // Get declared payable/deductiable amount for the employee.
-            int totalPayable = GetEmployeeTotalPayComponent(employeeNo);
-            int totalDeductions = GetEmployeeTotalDeduction(employeeNo);
+            int totalPayable = GetEmployeeTotalPayComponent(employeeNo, year, month);
+            int totalDeductions = GetEmployeeTotalDeduction(employeeNo, year, month);
+
+            // Get declared role based payable/deductiable amount for the employee.
 
             // Get loss of pay leaves.
             DataTable dtEmpLeavesApplied = GetEmployeeLOPLeavesAppliedForTheMonth(employeeNo, year, month);
@@ -288,33 +290,49 @@ public class AdminBusinessLogic
         }
     }
 
-    private int GetEmployeeTotalPayComponent(int employeeNo)
+    private int GetEmployeeTotalPayComponent(int employeeNo, int year, int month)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
         string dbQry = string.Empty;
-        int componentTotalPay = 0;
+        int empPayComponent = 0;
         try
         {
             manager.Open();
-
-            dbQry = string.Format(@"Select SUM(pcm.DeclaredAmount) as ComponentTotalPay 
+            dbQry = string.Format(@"Select SUM(pcm.DeclaredAmount) as ComponentTotalPay,'EmployeePayComponent' as PayComponentType
                                     FROM tblPayComponentEmployeeMapping pcm
-                                    INNER JOIN tblPayComponents pc ON pc.PayComponentId=pcm.PayComponentId                                    
-                                    WHERE pcm.EmployeeId={0} AND pc.PayComponentType_id={1} AND pc.IsDeduction=False", employeeNo, 2);
+                                    INNER JOIN tblPayComponents pc ON pc.PayComponentId=pcm.PayComponent_Id                                    
+                                    WHERE pcm.EmpNo={0} AND pc.PayComponentType_id=2 AND pc.IsDeduction=False 
+                                    AND EffectiveDate<= #{1}# AND EffectiveEndDate >=#{1}#
+                                    UNION
+                                    Select SUM(pcm.DeclaredAmount) as ComponentTotalPay,'EmployeeRolePayComponent' as PayComponentType 
+                                    FROM (( tblPayComponentRoleMapping pcm                                    
+                                    INNER JOIN tblPayComponents pc ON pc.PayComponentId=pcm.PayComponent_Id )  
+                                    INNER JOIN tblEmployee e ON e.EmployeeRoleId=pcm.Role_Id      )                           
+                                    WHERE e.EmpNo={0} AND pc.PayComponentType_id=1 AND pc.IsDeduction=False 
+                                    AND EffectiveDate<= #{1}# AND EffectiveEndDate >=#{1}#", employeeNo, string.Format("01-{0}-{1}", month, year));
+
+
             DataSet ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
             if (ds != null && ds.Tables.Count > 0)
             {
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    var totalComponentPay = ds.Tables[0].Rows[0][0].ToString();
-                    int.TryParse(totalComponentPay, out componentTotalPay);
-                    return componentTotalPay;
+                    var empPayComponent1 = ds.Tables[0].Rows[0][0].ToString();
+                    int.TryParse(empPayComponent1, out empPayComponent);
+                    if (ds.Tables[0].Rows.Count > 1)
+                    {
+                        var empPayComponent2 = ds.Tables[0].Rows[1][0].ToString();
+                        var totalPay = empPayComponent;
+                        int.TryParse(empPayComponent2, out empPayComponent);
+                        empPayComponent = empPayComponent + totalPay;
+                    }
+
+                    return empPayComponent;
                 }
             }
-            return componentTotalPay;
-
+            return empPayComponent;
         }
         catch (Exception ex)
         {
@@ -328,20 +346,28 @@ public class AdminBusinessLogic
         }
     }
 
-    private int GetEmployeeTotalDeduction(int employeeNo)
+    private int GetEmployeeTotalDeduction(int employeeNo, int year, int month)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
         string dbQry = string.Empty;
-        int componentTotalPay = 0;
+        int empPayComponent = 0;
         try
         {
             manager.Open();
 
-            dbQry = string.Format(@"Select SUM(pcm.DeclaredAmount) as TotalDeduction 
+            dbQry = string.Format(@"Select SUM(pcm.DeclaredAmount) as ComponentTotalPay,'EmployeePayComponent' as PayComponentType
                                     FROM tblPayComponentEmployeeMapping pcm
-                                    INNER JOIN tblPayComponents pc ON pc.PayComponentId=pcm.PayComponentId                                    
-                                    WHERE pcm.EmployeeId={0} AND pc.PayComponentType_id={1} AND pc.IsDeduction=True", employeeNo, 2);
+                                    INNER JOIN tblPayComponents pc ON pc.PayComponentId=pcm.PayComponent_Id                                    
+                                    WHERE pcm.EmpNo={0} AND pc.PayComponentType_id=2 AND pc.IsDeduction=True 
+                                    AND EffectiveDate<= #{1}# AND EffectiveEndDate >=#{1}#
+                                    UNION
+                                    Select SUM(pcm.DeclaredAmount) as ComponentTotalPay,'EmployeeRolePayComponent' as PayComponentType 
+                                    FROM (( tblPayComponentRoleMapping pcm                                    
+                                    INNER JOIN tblPayComponents pc ON pc.PayComponentId=pcm.PayComponent_Id )  
+                                    INNER JOIN tblEmployee e ON e.EmployeeRoleId=pcm.Role_Id      )                           
+                                    WHERE e.EmpNo={0} AND pc.PayComponentType_id=1 AND pc.IsDeduction=True 
+                                    AND EffectiveDate<= #{1}# AND EffectiveEndDate >=#{1}#", employeeNo, string.Format("01-{0}-{1}", month, year));
 
             DataSet ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
@@ -349,12 +375,20 @@ public class AdminBusinessLogic
             {
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    var totalComponentPay = ds.Tables[0].Rows[0][0].ToString();
-                    int.TryParse(totalComponentPay, out componentTotalPay);
-                    return componentTotalPay;
+                    var empPayComponent1 = ds.Tables[0].Rows[0][0].ToString();
+                    int.TryParse(empPayComponent1, out empPayComponent);
+                    if (ds.Tables[0].Rows.Count > 1)
+                    {
+                        var empPayComponent2 = ds.Tables[0].Rows[1][0].ToString();
+                        var totalPay = empPayComponent;
+                        int.TryParse(empPayComponent2, out empPayComponent);
+                        empPayComponent = empPayComponent + totalPay;
+                    }
+
+                    return empPayComponent;
                 }
             }
-            return componentTotalPay;
+            return empPayComponent;
         }
         catch (Exception ex)
         {
@@ -571,7 +605,7 @@ public class AdminBusinessLogic
                                             INNER JOIN tblEmployee e2 ON a.Approver = e2.EmpNo)
                             WHERE a.EmployeeNo = {0} AND
                                     ((YEAR(a.StartDate)={1} OR YEAR(a.EndDate)={1}) AND (MONTH(a.StartDate)={2} OR MONTH(a.EndDate)={2}))
-                                        AND a.Status<>'{3}'", empNo, year, month, "Approved");
+                                        AND a.Status ='{3}'", empNo, year, month, "Submitted");
 
 
         DBManager manager = new DBManager(DataProvider.OleDb);
@@ -583,7 +617,7 @@ public class AdminBusinessLogic
             if (ds.Tables[0].Rows.Count > 0)
             {
                 DataRow dRow = ds.Tables[0].Rows[0];
-                logMessage += string.Format("\r\n Leaves are not approved for the employee '{0}-{1}'.{Approver: {2}-{3}}", dRow["EmployeeNo"].ToString(), dRow["EmpName"].ToString(), dRow["Approver"].ToString(), dRow["ApproverName"].ToString());
+                logMessage += string.Format("\r\n Leaves are not approved for the employee '{0}-{1}'.Approver: {2}-{3}", dRow["EmployeeNo"].ToString(), dRow["EmpName"].ToString(), dRow["Approver"].ToString(), dRow["ApproverName"].ToString());
                 return false;
             }
         }
