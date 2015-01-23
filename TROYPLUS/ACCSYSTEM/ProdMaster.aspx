@@ -576,8 +576,11 @@
                                                                                                             </asp:TemplateField>
                                                                                                             <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Price Type" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20%">
                                                                                                                 <ItemTemplate>
-                                                                                                                    <asp:TextBox ID="txtPriceName" runat="server" Width="90%"  Text='<%# Eval("PriceName")%>' Enabled="false" Height="26px"
-                                                                                                                        ></asp:TextBox>
+                                                                                                                    <%--<asp:TextBox ID="txtPriceName" runat="server" Width="90%"  Text='<%# Eval("PriceName")%>' Enabled="false" Height="26px"
+                                                                                                                        ></asp:TextBox>--%>
+                                                                                                                    <asp:Label ID="txtPriceName" runat="server" Text='<%# Eval("PriceName")%>' Font-Bold="true">
+
+                                                                                                                    </asp:Label>
                                                                                                                 </ItemTemplate>
                                                                                                             </asp:TemplateField>
                                                                                                             <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Price" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20%">
@@ -965,22 +968,22 @@
                         
                     </td>
                     <td style="width:15%">
-                        <asp:Button ID="BlkAdd" runat="server"  OnClientClick="window.open('BulkAddition.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=250,width=500,left=425,top=220, scrollbars=yes');" CssClass="bulkaddition"
+                        <asp:Button ID="BlkAdd" runat="server" CausesValidation="false"  OnClientClick="window.open('BulkAddition.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=250,width=500,left=425,top=220, scrollbars=yes');" CssClass="bulkaddition"
                                     EnableTheming="false" Text=""></asp:Button>
                     </td>
                     <td  style="width:18%">
-                        <asp:Button ID="BlkUpd" runat="server" OnClick="BlkUpd_Click" SkinID="skinButtonCol2"  Width="80%"
+                        <asp:Button ID="BlkUpd" runat="server" OnClick="BlkUpd_Click" SkinID="skinButtonCol2"  Width="80%"  CausesValidation="false"
                                     Text="Bulk Updation By Screen"></asp:Button>
                     </td>
                     <td style="width:18%">
-                    <asp:Button ID="Button4" runat="server" Text="Bulk Updation By Excel" OnClientClick="window.open('BulkProductUpdation.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=400,width=480,left=425,top=150, scrollbars=yes');"
+                    <asp:Button ID="Button4"  CausesValidation="false" runat="server" Text="Bulk Updation By Excel" OnClientClick="window.open('BulkProductUpdation.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=400,width=480,left=425,top=150, scrollbars=yes');"
                                                 SkinID="skinButtonCol2"  Width="80%"></asp:Button>
                     </td>
                     <td  style="width:15%">
                         <asp:Button ID="cmdhistory" runat="server" Text="" EnableTheming="false" CausesValidation="False" cssclass="ShowHistory"  OnClientClick="window.open('ReportExcelProductsHistory.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=310,width=500,left=425,top=220, scrollbars=yes');"/>    
                     </td>
                     <td  style="width:15%">
-                        <asp:Button ID="btnExportToExcel" runat="server" CssClass="exportexl6" OnClientClick="window.open('ReportExcelProducts.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=310,width=500,left=425,top=220, scrollbars=yes');"
+                        <asp:Button ID="btnExportToExcel" runat="server" CssClass="exportexl6"  CausesValidation="false" OnClientClick="window.open('ReportExcelProducts.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=310,width=500,left=425,top=220, scrollbars=yes');"
                                                 EnableTheming="false"></asp:Button>
                     </td>
                     <td  style="width:10%">

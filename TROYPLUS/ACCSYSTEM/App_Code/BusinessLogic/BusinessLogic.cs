@@ -66944,4 +66944,151 @@ public class BusinessLogic
         }
     }
 
+    public DataSet GetPriceListForName(string connection, string PriceName)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+        try
+        {
+            dbQry = "select * from tblPriceList where PriceName = '" + PriceName + "' ";
+            manager.Open();
+
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    public bool CheckIfPriceNameDuplicate(string connection, string PriceName)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        int Totalqty = 0;
+        int qty = 0;
+        string dbQry = string.Empty;
+
+        try
+        {
+            manager.Open();
+            dbQry = "SELECT Count(*) FROM tblPriceList Where PriceName ='" + PriceName + "'";
+
+            object qtyObj = manager.ExecuteScalar(CommandType.Text, dbQry);
+
+            if (qtyObj != null && qtyObj != DBNull.Value)
+            {
+                qty = (int)qtyObj;
+
+                if (qty > 0)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
+    public bool CheckIfItemCodeDuplicatePriceList1(string ItemCode, string PriceName)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        int Totalqty = 0;
+        int qty = 0;
+        string dbQry = string.Empty;
+
+        try
+        {
+            manager.Open();
+            dbQry = "SELECT Count(*) FROM tblProductPrices Where ItemCode ='" + ItemCode + "' and PriceName = '" + PriceName + "' ";
+
+            object qtyObj = manager.ExecuteScalar(CommandType.Text, dbQry);
+
+            if (qtyObj != null && qtyObj != DBNull.Value)
+            {
+                qty = (int)qtyObj;
+
+                if (qty > 0)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
+    public bool CheckPriceListUsed(string PriceName)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        int Totalqty = 0;
+        int qty = 0;
+        string dbQry = string.Empty;
+
+        try
+        {
+            manager.Open();
+            dbQry = "SELECT Count(*) FROM tblProductPrices Where PriceName = '" + PriceName + "' ";
+
+            object qtyObj = manager.ExecuteScalar(CommandType.Text, dbQry);
+
+            if (qtyObj != null && qtyObj != DBNull.Value)
+            {
+                qty = (int)qtyObj;
+
+                if (qty > 0)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
 }
