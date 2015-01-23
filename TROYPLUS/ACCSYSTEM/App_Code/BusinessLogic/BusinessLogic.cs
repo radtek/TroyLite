@@ -16245,7 +16245,7 @@ public class BusinessLogic
         DataSet ds = new DataSet();
         StringBuilder dbQry = new StringBuilder();
         //dbQry = "Select empno,empFirstName From tblEmployee Order By empFirstName";
-        dbQry.Append("Select tblTasks.Task_Id,tblTasks.Task_Name");
+        dbQry.Append("Select tblTasks.Task_Id,tblTasks.Task_Name,tblProjects.Unit_Of_Measure");
         dbQry.Append(" FROM tblTasks Inner Join tblProjects On tblProjects.Project_Id = tblTasks.Project_Code ");
         dbQry.Append(" Where tblTasks.Project_Code = " + Project_Id + "");
 
@@ -66867,21 +66867,50 @@ public class BusinessLogic
 
         string dbQry2 = string.Empty;
 
+        string dbQry3 = string.Empty;
+        DataSet dsd = new DataSet();
+
         try
         {
+            int managerid=0;
+
+
             manager.Open();
+
+            dbQry3 = "SELECT * From tblEmployee inner join tblUserInfo on tblUserInfo.Empno = tblEmployee.empno WHERE tblUserinfo.Username='" + Username + "'";
+            dsd = manager.ExecuteDataSet(CommandType.Text, dbQry3);
+
+            if (dsd.Tables[0].Rows.Count > 0)
+                managerid =Convert.ToInt32( dsd.Tables[0].Rows[0]["ManagerId"].ToString());
+
             dbQry2 = "Select recon_date from last_recon";
             object retVal = manager.ExecuteScalar(CommandType.Text, dbQry2);
-
-            if ((retVal != null) && (retVal != DBNull.Value))
+            if (managerid == 0)
             {
-                dbQry.Append("SELECT tblTasks.Task_Id,tblTasks.Task_Code,tblTasks.Task_Name,tblTasks.Task_Date,tblTasks.Expected_Start_Date,tblTasks.Expected_End_Date,tblTasks.Actual_Start_Date,tblTasks.Actual_End_Date,tblTasks.Owner,tblTasks.Task_Type,tblTasks.IsActive,tblTasks.Task_Description,tblEmployee.empfirstname,tblTasks.Dependency_Task,tblTasks.Project_Code, tblProjects.Project_Code as ProjectCode, tblProjects.Project_Name as ProjectName  ");
-                dbQry.Append(" FROM ((tblTasks INNER JOIN  tblEmployee ON tblTasks.Owner = tblEmployee.empno) inner join tblProjects ON tblTasks.Project_Code = tblProjects.Project_Id) inner join tbluserinfo on tbluserinfo.empno = tblEmployee.managerid Where tblTasks.Task_Date > #" + DateTime.Parse(retVal.ToString()).ToString("MM/dd/yyyy") + "# and tbluserinfo.username = '" + Username + "' ");
+                if ((retVal != null) && (retVal != DBNull.Value))
+                {
+                    dbQry.Append("SELECT tblTasks.Task_Id,tblTasks.Task_Code,tblTasks.Task_Name,tblTasks.Task_Date,tblTasks.Expected_Start_Date,tblTasks.Expected_End_Date,tblTasks.Actual_Start_Date,tblTasks.Actual_End_Date,tblTasks.Owner,tblTasks.Task_Type,tblTasks.IsActive,tblTasks.Task_Description,tblEmployee.empfirstname,tblTasks.Dependency_Task,tblTasks.Project_Code, tblProjects.Project_Code as ProjectCode, tblProjects.Project_Name as ProjectName  ");
+                    dbQry.Append(" FROM ((tblTasks INNER JOIN  tblEmployee ON tblTasks.Owner = tblEmployee.empno) inner join tblProjects ON tblTasks.Project_Code = tblProjects.Project_Id) inner join tbluserinfo on tbluserinfo.empno = tblEmployee.managerid Where tblTasks.Task_Date > #" + DateTime.Parse(retVal.ToString()).ToString("MM/dd/yyyy") + "# and tbluserinfo.username = '" + Username + "' ");
+                }
+                else
+                {
+                    dbQry.Append("SELECT tblTasks.Task_Id,tblTasks.Task_Code,tblTasks.Task_Name,tblTasks.Task_Date,tblTasks.Expected_Start_Date,tblTasks.Expected_End_Date,tblTasks.Actual_Start_Date,tblTasks.Actual_End_Date,tblTasks.Owner,tblTasks.Task_Type,tblTasks.IsActive,tblTasks.Task_Description,tblEmployee.empfirstname,tblTasks.Dependency_Task,tblTasks.Project_Code, tblProjects.Project_Code as ProjectCode, tblProjects.Project_Name as ProjectName ");
+                    dbQry.Append(" FROM ((tblTasks INNER JOIN  tblEmployee ON tblTasks.Owner = tblEmployee.empno) inner join tblProjects ON tblTasks.Project_Code = tblProjects.Project_Id) inner join tbluserinfo on tbluserinfo.empno = tblEmployee.managerid Where 1=1  and tbluserinfo.username = '" + Username + "' ");
+                }
             }
             else
             {
-                dbQry.Append("SELECT tblTasks.Task_Id,tblTasks.Task_Code,tblTasks.Task_Name,tblTasks.Task_Date,tblTasks.Expected_Start_Date,tblTasks.Expected_End_Date,tblTasks.Actual_Start_Date,tblTasks.Actual_End_Date,tblTasks.Owner,tblTasks.Task_Type,tblTasks.IsActive,tblTasks.Task_Description,tblEmployee.empfirstname,tblTasks.Dependency_Task,tblTasks.Project_Code, tblProjects.Project_Code as ProjectCode, tblProjects.Project_Name as ProjectName ");
-                dbQry.Append(" FROM ((tblTasks INNER JOIN  tblEmployee ON tblTasks.Owner = tblEmployee.empno) inner join tblProjects ON tblTasks.Project_Code = tblProjects.Project_Id) inner join tbluserinfo on tbluserinfo.empno = tblEmployee.managerid Where 1=1  and tbluserinfo.username = '" + Username + "' ");
+                if ((retVal != null) && (retVal != DBNull.Value))
+                {
+                    dbQry.Append("SELECT tblTasks.Task_Id,tblTasks.Task_Code,tblTasks.Task_Name,tblTasks.Task_Date,tblTasks.Expected_Start_Date,tblTasks.Expected_End_Date,tblTasks.Actual_Start_Date,tblTasks.Actual_End_Date,tblTasks.Owner,tblTasks.Task_Type,tblTasks.IsActive,tblTasks.Task_Description,tblEmployee.empfirstname,tblTasks.Dependency_Task,tblTasks.Project_Code, tblProjects.Project_Code as ProjectCode, tblProjects.Project_Name as ProjectName  ");
+                    dbQry.Append(" FROM ((tblTasks INNER JOIN  tblEmployee ON tblTasks.Owner = tblEmployee.empno) inner join tblProjects ON tblTasks.Project_Code = tblProjects.Project_Id) inner join tbluserinfo on tbluserinfo.empno = tblEmployee.empno Where tblTasks.Task_Date > #" + DateTime.Parse(retVal.ToString()).ToString("MM/dd/yyyy") + "# and tbluserinfo.username = '" + Username + "' ");
+                }
+                else
+                {
+                    dbQry.Append("SELECT tblTasks.Task_Id,tblTasks.Task_Code,tblTasks.Task_Name,tblTasks.Task_Date,tblTasks.Expected_Start_Date,tblTasks.Expected_End_Date,tblTasks.Actual_Start_Date,tblTasks.Actual_End_Date,tblTasks.Owner,tblTasks.Task_Type,tblTasks.IsActive,tblTasks.Task_Description,tblEmployee.empfirstname,tblTasks.Dependency_Task,tblTasks.Project_Code, tblProjects.Project_Code as ProjectCode, tblProjects.Project_Name as ProjectName ");
+                    dbQry.Append(" FROM ((tblTasks INNER JOIN  tblEmployee ON tblTasks.Owner = tblEmployee.empno) inner join tblProjects ON tblTasks.Project_Code = tblProjects.Project_Id) inner join tbluserinfo on tbluserinfo.empno = tblEmployee.empno Where 1=1  and tbluserinfo.username = '" + Username + "' ");
+                }
+
             }
 
             if (txtSearch == null || txtSearch == "")
@@ -66942,6 +66971,260 @@ public class BusinessLogic
             if (manager != null)
                 manager.Dispose();
         }
+    }
+
+
+    public DataSet GetUserProjectList(string connection, string txtSearch, string dropDown,string UserName)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        DataSet ds = new DataSet();
+        StringBuilder dbQry = new StringBuilder();
+
+
+        if (dropDown == "ProjectDate" || dropDown == "ProjectID")
+            txtSearch = txtSearch;
+        else
+            txtSearch = "%" + txtSearch + "%";
+
+        string dbQry2 = string.Empty;
+
+        string dbQry3 = string.Empty;
+        DataSet dsd = new DataSet();
+
+        try
+        {
+            int managerid = 0;
+
+
+            manager.Open();
+
+            dbQry3 = "SELECT * From tblEmployee inner join tblUserInfo on tblUserInfo.Empno = tblEmployee.empno WHERE tblUserinfo.Username='" + UserName + "'";
+            dsd = manager.ExecuteDataSet(CommandType.Text, dbQry3);
+
+            if (dsd.Tables[0].Rows.Count > 0)
+                managerid = Convert.ToInt32(dsd.Tables[0].Rows[0]["ManagerId"].ToString());
+
+            dbQry2 = "Select recon_date from last_recon";
+            object retVal = manager.ExecuteScalar(CommandType.Text, dbQry2);
+
+            if ((retVal != null) && (retVal != DBNull.Value))
+            {
+                dbQry.Append("SELECT tblProjects.Project_Id,tblProjects.Project_Code,tblProjects.Project_Date,tblProjects.Expected_Start_Date,tblProjects.Expected_End_Date,tblProjects.Project_Manager_Id,tblProjects.Project_Name,tblProjects.Expected_Effort_Days,tblProjects.Project_Status,tblProjects.Project_Description,tblEmployee.empfirstname ");
+                //dbQry.Append(" FROM tblProjects INNER JOIN  tblEmployee ON tblProjects.Project_Manager_Id = tblEmployee.empno Where tblProjects.Project_Date > #" + DateTime.Parse(retVal.ToString()).ToString("MM/dd/yyyy") + "# ");
+                dbQry.Append(" FROM (tblProjects Inner Join tblUserInfo On  tblProjects.Project_Manager_Id= tblUserInfo.Empno) Inner join tblEmployee on tblProjects.Project_Manager_Id=tblEmployee.Empno Where tblProjects.Project_Date > #" + DateTime.Parse(retVal.ToString()).ToString("MM/dd/yyyy") + "# and tbluserinfo.username = '" + UserName + "' ");
+            }
+            else
+            {
+                dbQry.Append("SELECT tblProjects.Project_Id,tblProjects.Project_Code,tblProjects.Project_Date,tblProjects.Expected_Start_Date,tblProjects.Expected_End_Date,tblProjects.Project_Manager_Id,tblProjects.Project_Name,tblProjects.Expected_Effort_Days,tblProjects.Project_Status,tblProjects.Project_Description,tblEmployee.empfirstname ");
+                //dbQry.Append(" FROM tblProjects INNER JOIN  tblEmployee ON tblProjects.Project_Manager_Id = tblEmployee.empno Where 1=1 ");
+                dbQry.Append(" FROM (tblProjects Inner Join tblUserInfo On  tblProjects.Project_Manager_Id= tblUserInfo.Empno) Inner join tblEmployee on tblProjects.Project_Manager_Id=tblEmployee.Empno Where 1=1 ");
+            }
+
+            if (txtSearch == null || txtSearch == "")
+            {
+                dbQry.AppendFormat(" AND 1=1 ");
+            }
+            else
+            {
+                if (dropDown == "ProjectID" && txtSearch != null)
+                {
+                    dbQry.AppendFormat(" AND tblProjects.Project_Id = {0} ", txtSearch);
+                }
+                else if (dropDown == "ProjectCode" && txtSearch != null)
+                {
+                    dbQry.AppendFormat(" AND tblProjects.Project_Code like '{0}' ", txtSearch);
+                }
+                else if (dropDown == "ProjectDate" && txtSearch != null)
+                {
+                    dbQry.AppendFormat(" AND Format([tblProjects.Project_Date], 'dd/mm/yyyy') = '{0}' ", Convert.ToDateTime(txtSearch).ToShortDateString());
+                }
+                else if (dropDown == "ProjectName" && txtSearch != null)
+                {
+                    dbQry.AppendFormat(" AND tblProjects.Project_Name like '{0}' ", txtSearch);
+                }
+                else if (dropDown == "ProjectManager" && txtSearch != null)
+                {
+                    dbQry.AppendFormat(" AND tblEmployee.empfirstname like '{0}' ", txtSearch);
+                }
+                else if (dropDown == "ProjectStatus" && txtSearch != null)
+                {
+                    dbQry.AppendFormat(" AND tblProjects.Project_Status like '{0}' ", txtSearch);
+                }
+                else if (dropDown == "0" && txtSearch != "%%")
+                {
+                    dbQry.AppendFormat(" AND 1=1 ");
+                }
+                else
+                {
+                    dbQry.AppendFormat(" AND 1=1 ");
+                }
+            }
+
+            dbQry.Append(" ORDER BY tblProjects.Project_Date Desc,tblProjects.Project_Id Desc");
+
+
+
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+    public DataSet GetUserTaskList(string connection, string txtSearch, string dropDown,string Username)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        DataSet ds = new DataSet();
+        StringBuilder dbQry = new StringBuilder();
+
+
+        if (dropDown == "TaskDate")
+            txtSearch = txtSearch;
+        else
+            txtSearch = "%" + txtSearch + "%";
+
+        string dbQry2 = string.Empty;
+
+        string dbQry3 = string.Empty;
+        DataSet dsd = new DataSet();
+
+        try
+        {
+            int managerid = 0;
+
+
+            manager.Open();
+
+            dbQry3 = "SELECT * From tblEmployee inner join tblUserInfo on tblUserInfo.Empno = tblEmployee.empno WHERE tblUserinfo.Username='" + Username + "'";
+            dsd = manager.ExecuteDataSet(CommandType.Text, dbQry3);
+
+            if (dsd.Tables[0].Rows.Count > 0)
+                managerid = Convert.ToInt32(dsd.Tables[0].Rows[0]["ManagerId"].ToString());
+
+            dbQry2 = "Select recon_date from last_recon";
+            object retVal = manager.ExecuteScalar(CommandType.Text, dbQry2);
+
+            if ((retVal != null) && (retVal != DBNull.Value))
+            {
+                dbQry.Append("SELECT tblTasks.Task_Id,tblTasks.Task_Code,tblTasks.Task_Name,tblTasks.Task_Date,tblTasks.Expected_Start_Date,tblTasks.Expected_End_Date,tblTasks.Actual_Start_Date,tblTasks.Actual_End_Date,tblTasks.Owner,tblTasks.Task_Type,tblTasks.IsActive,tblTasks.Task_Description,tblEmployee.empfirstname,tblTasks.Dependency_Task,tblTasks.Project_Code, tblProjects.Project_Code as ProjectCode, tblProjects.Project_Name as ProjectName  ");
+                dbQry.Append("  FROM ((tblTasks INNER JOIN  tblEmployee ON tblTasks.Owner = tblEmployee.empno) inner join tblProjects ON tblTasks.Project_Code = tblProjects.Project_Id) inner join tblUserInfo on tblEmployee.ManagerID = tblUserInfo.empno Where tblTasks.Task_Date >  #" + DateTime.Parse(retVal.ToString()).ToString("MM/dd/yyyy") + "# and tbluserinfo.username = '" + Username + "' ");
+            }
+            else
+            {
+                dbQry.Append("SELECT tblTasks.Task_Id,tblTasks.Task_Code,tblTasks.Task_Name,tblTasks.Task_Date,tblTasks.Expected_Start_Date,tblTasks.Expected_End_Date,tblTasks.Actual_Start_Date,tblTasks.Actual_End_Date,tblTasks.Owner,tblTasks.Task_Type,tblTasks.IsActive,tblTasks.Task_Description,tblEmployee.empfirstname,tblTasks.Dependency_Task,tblTasks.Project_Code, tblProjects.Project_Code as ProjectCode, tblProjects.Project_Name as ProjectName ");
+                dbQry.Append("  FROM ((tblTasks INNER JOIN  tblEmployee ON tblTasks.Owner = tblEmployee.empno) inner join tblProjects ON tblTasks.Project_Code = tblProjects.Project_Id) inner join tblUserInfo on tblEmployee.ManagerID = tblUserInfo.empno Where 1=1 ");
+            }
+
+            if (txtSearch == null || txtSearch == "")
+            {
+                dbQry.AppendFormat(" AND 1=1 ");
+            }
+            else
+            {
+                if (dropDown == "TaskCode" && txtSearch != null)
+                {
+                    dbQry.AppendFormat(" AND tblTasks.Task_Code like '{0}' ", txtSearch);
+                }
+                else if (dropDown == "TaskDate" && txtSearch != null)
+                {
+                    dbQry.AppendFormat(" AND Format([tblTasks.Task_Date], 'dd/mm/yyyy') = '{0}' ", Convert.ToDateTime(txtSearch).ToShortDateString());
+                }
+                else if (dropDown == "ProjectCode" && txtSearch != null)
+                {
+                    dbQry.AppendFormat(" AND tblProjects.Project_Code like '{0}' ", txtSearch);
+                }
+                else if (dropDown == "ProjectName" && txtSearch != null)
+                {
+                    dbQry.AppendFormat(" AND tblProjects.Project_Name like '{0}' ", txtSearch);
+                }
+                else if (dropDown == "TaskName" && txtSearch != null)
+                {
+                    dbQry.AppendFormat(" AND tblTasks.Task_Name like '{0}' ", txtSearch);
+                }
+                else if (dropDown == "Owner" && txtSearch != null)
+                {
+                    dbQry.AppendFormat(" AND tblEmployee.empfirstname like '{0}' ", txtSearch);
+                }
+                else if (dropDown == "0" && txtSearch != "%%")
+                {
+                    dbQry.AppendFormat(" AND 1=1 ");
+                }
+                else
+                {
+                    dbQry.AppendFormat(" AND 1=1 ");
+                }
+            }
+
+            dbQry.Append(" ORDER BY tblTasks.Task_Date Desc,tblTasks.Task_Id Desc");
+
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    public bool CheckTaskUpdateUsed(int Task_Id)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        int qty = 0;
+        string dbQry = string.Empty;
+        try
+        {
+            manager.Open();
+
+            dbQry = "SELECT Count(*) FROM tblTaskUpdates Where Task_id =" + Task_Id.ToString();
+
+            object objServiceLedger = manager.ExecuteScalar(CommandType.Text, dbQry);
+
+            if (objServiceLedger != null && objServiceLedger != DBNull.Value)
+            {
+                if (objServiceLedger.ToString() != "")
+                    qty = qty + (int)objServiceLedger;
+                if (qty > 0)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
     }
 
 }

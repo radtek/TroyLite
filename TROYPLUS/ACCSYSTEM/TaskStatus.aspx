@@ -60,15 +60,10 @@
                             <table style="width: 99.8%; margin: -1px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
                                 <tr style="height: 25px; vertical-align: middle">
                                     <td style="width: 2%;"></td>
-                                    <td style="width: 20%; font-size: 22px; color: white;">Task Status
+                                    <td style="width: 75%; font-size: 22px; color: white;">List of Task Status For LookUp
                                     </td>
                                     <td style="width: 14%">
-                                        <div style="text-align: right;">
-                                            <asp:Panel ID="pnlSearch" runat="server" Width="100px">
-                                                <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
-                                                    EnableTheming="false" Width="80px" Text=""></asp:Button>
-                                            </asp:Panel>
-                                        </div>
+                                      
                                     </td>
                                     <td style="width: 10%; color: white;" align="right">Search
                                     </td>
@@ -374,7 +369,13 @@
                         <table align="center" style="width: 100%">
                             <tr>
                                 <td style="width: 35%"></td>
-                                <td style="width: 5%">
+                                <td style="width: 20%">
+                                      <div style="text-align: left;">
+                                            <asp:Panel ID="pnlSearch" runat="server" Width="100px">
+                                                <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
+                                                    EnableTheming="false" Width="80px" Text=""></asp:Button>
+                                            </asp:Panel>
+                                        </div>
                                     <%--<asp:Button ID="BlkAdd" runat="server"  OnClientClick="window.open('BulkAdditionCategory.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=250,width=500,left=425,top=220, scrollbars=yes');" CssClass="bulkaddition"
                                                 EnableTheming="false" Text="" Visible="false"></asp:Button>--%>
                                 </td>
@@ -382,7 +383,7 @@
                                     <asp:Button ID="btnExportToExcel" runat="server" CssClass="exportexl6" OnClientClick="window.open('ReportExcelTaskStatus.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=250,width=500,left=425,top=220, scrollbars=yes');"
                                         EnableTheming="false"></asp:Button>
                                 </td>
-                                <td style="width: 40%"></td>
+                                <td style="width: 30%"></td>
                             </tr>
                         </table>
                     </td>
