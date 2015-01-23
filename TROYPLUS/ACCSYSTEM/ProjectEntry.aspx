@@ -261,10 +261,11 @@
                                                                                         <td class="ControlTextProject1" style="width: 20%">
                                                                                             <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
                                                                                                 <ContentTemplate>
-                                                                                                    <asp:TextBox ID="txtEWstartDate" runat="server" AutoPostBack="True" CssClass="cssTextBox" Enabled="false" MaxLength="10" OnTextChanged="txtEWstartDate_TextChanged" Width="100px" />
+                                                                                                    <asp:TextBox ID="txtEWstartDate" runat="server"  CssClass="cssTextBox" Enabled="false" MaxLength="10"  Width="100px" />
                                                                                                     <cc1:CalendarExtender ID="calEWstartDate" runat="server" Animated="true" Format="dd/MM/yyyy" PopupButtonID="btnEWstartDate" PopupPosition="BottomLeft" TargetControlID="txtEWstartDate">
                                                                                                     </cc1:CalendarExtender>
-                                                                                                
+                                                                                                </ContentTemplate>
+                                                                                            </asp:UpdatePanel>
                                                                                         </td>
                                                                                         <td style="width: 5%">
                                                                                             <asp:ImageButton ID="btnEWstartDate" runat="server" CausesValidation="False" ImageUrl="App_Themes/NewTheme/images/cal.gif" TabIndex="7" Width="20px" />
