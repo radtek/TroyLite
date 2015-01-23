@@ -144,7 +144,7 @@
                                         
                             </td>
                             <td style="width:50%">
-                                <asp:Button ID="Button2" runat="server" SkinID="skinButtonCol2" Text="Download Sample Excel Format" Height="23px"   onclick="btnFormat_Click" Width="200px" />        
+                                <asp:Button ID="Button2" runat="server" SkinID="skinButtonCol2" Text="Download Sample Excel Format" Height="23px" CausesValidation="false"   onclick="btnFormat_Click" Width="200px" />        
                             </td>
                         </tr>
                     </table>

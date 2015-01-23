@@ -9,6 +9,10 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
+using System.IO;
+using System.Xml.Linq;
+using System.Net.NetworkInformation;
+using System.Data.OleDb;
 
 public partial class PriceList : System.Web.UI.Page
 {
@@ -26,9 +30,14 @@ public partial class PriceList : System.Web.UI.Page
             //    txtDueDate.Text = hdDueDate.Value.ToString();
             //if (hdServiceID.Value.ToString() != "")
             //    hdServiceID.Value = hdServiceID.Value.ToString();
+            Page.Form.Attributes.Add("enctype", "multipart/form-data");
+
+            
 
             if (!Page.IsPostBack)
             {
+                Session["conDs"] = "Load";
+
                 sDataSource = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
 
                 string connStr = string.Empty;
@@ -72,6 +81,9 @@ public partial class PriceList : System.Web.UI.Page
                 //    lnkBtnAdd.ToolTip = "Click to Add New ";
                 //}
 
+                
+
+                
 
             }
         }
@@ -110,81 +122,238 @@ public partial class PriceList : System.Web.UI.Page
         {
             if (Page.IsValid)
             {
-                string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
-                int CustomerID = 0;
-                int ServiceID = 0;
-                DateTime DueDate;
-                DateTime VisitDate;
-                string AccountNo = string.Empty;
-                double Amount = 0.0;
-                int PayMode;
-                string Visited;
-                string CreditCardNo;
-                int iBank = 0;
-                GridViewRow row = GrdViewSerVisit.SelectedRow;
-
-                int ID = Convert.ToInt32(GrdViewSerVisit.SelectedDataKey.Value);
-
-                string PriceName = string.Empty;
-                
-                string Username = Request.Cookies["LoggedUserName"].Value;
-                PriceName = txtPriceList.Text;
-                string Types = "Update";
-
-                string Description = string.Empty;
-
-                Description = txtDescription.Text.Trim();
-
-                BusinessLogic bl = new BusinessLogic(sDataSource);
-
-                //if (bl.IsChequeAlreadyEntered(connection, ddBankID, FromNo, ToNo))
-                //{
-                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Given Cheque No already entered for this bank.');", true);
-                //    ModalPopupExtender1.Show();
-                //    return;
-                //}
-
-                //if(bl.IsChequeNoNotLess(connection, BankID, FromNo, ToNo))
-                //{
-                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('ToCheque No Cannot be Less than FromChequeNo');", true);
-                //    return;
-                //}
-
-                //if (Convert.ToDouble(txtFromNoAdd.Text) > Convert.ToDouble(txtToNoAdd.Text))
-                //{
-                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('ToCheque No Cannot be Less than FromChequeNo');", true);
-                //    ModalPopupExtender1.Show();
-                //    return;
-                //}
-
-                //if (Convert.ToDouble(txtFromNoAdd.Text) == Convert.ToDouble(txtToNoAdd.Text))
-                //{
-                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('FromChequeNo Cannot be equal to ToCheque');", true);
-                //    ModalPopupExtender1.Show();
-                //    return;
-                //}
-
-                try
+                if (Session["conDs"] == "Edit")
                 {
-                    bl.UpdatePriceList(connection, ID, PriceName,Description, Username, Types);
+                    if (FileUpload1.HasFile == false)
+                    {
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Browse Excel before uploading.');", true);
+                        ModalPopupExtender1.Show();
+                        return;
+                    }
 
+                    //string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+                    int CustomerID = 0;
+                    int ServiceID = 0;
+                    DateTime DueDate;
+                    DateTime VisitDate;
+                    string AccountNo = string.Empty;
+                    double Amount = 0.0;
+                    int PayMode;
+                    string Visited;
+                    string CreditCardNo;
+                    int iBank = 0;
+                    GridViewRow row = GrdViewSerVisit.SelectedRow;
 
-                    //MyAccordion.Visible = true;
-                    pnlVisitDetails.Visible = false;
-                    lnkBtnAdd.Visible = true;
-                    Reset();
-                    GrdViewSerVisit.DataBind();
-                    GrdViewSerVisit.Visible = true;
+                    int ID = Convert.ToInt32(GrdViewSerVisit.SelectedDataKey.Value);
 
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Price List Details Updated Successfully.');", true);
+                    string PriceName = string.Empty;
+
+                    string Username = Request.Cookies["LoggedUserName"].Value;
+                    PriceName = txtPriceList.Text;
+                    string Types = "Update";
+
+                    string Description = string.Empty;
+
+                    Description = txtDescription.Text.Trim();
+
+                    BusinessLogic bl = new BusinessLogic(sDataSource);
+
+                    //if (bl.IsChequeAlreadyEntered(connection, ddBankID, FromNo, ToNo))
+                    //{
+                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Given Cheque No already entered for this bank.');", true);
+                    //    ModalPopupExtender1.Show();
+                    //    return;
+                    //}
+
+                    //if(bl.IsChequeNoNotLess(connection, BankID, FromNo, ToNo))
+                    //{
+                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('ToCheque No Cannot be Less than FromChequeNo');", true);
+                    //    return;
+                    //}
+
+                    //if (Convert.ToDouble(txtFromNoAdd.Text) > Convert.ToDouble(txtToNoAdd.Text))
+                    //{
+                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('ToCheque No Cannot be Less than FromChequeNo');", true);
+                    //    ModalPopupExtender1.Show();
+                    //    return;
+                    //}
+
+                    //if (Convert.ToDouble(txtFromNoAdd.Text) == Convert.ToDouble(txtToNoAdd.Text))
+                    //{
+                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('FromChequeNo Cannot be equal to ToCheque');", true);
+                    //    ModalPopupExtender1.Show();
+                    //    return;
+                    //}
+                    string connection = Request.Cookies["Company"].Value;
+
+                     String strConnection = "ConnectionString";
+            string connectionString = "";
+            if (FileUpload1.HasFile)
+            {
+                string datett = DateTime.Now.ToString();
+                string dtaa = Convert.ToDateTime(datett).ToString("dd-MM-yyyy-hh-mm-ss");
+                string fileName = Path.GetFileName(FileUpload1.PostedFile.FileName) + dtaa;
+                string fileExtension = Path.GetExtension(FileUpload1.PostedFile.FileName);
+                string fileLocation = Server.MapPath("~/App_Data/" + fileName);
+                FileUpload1.SaveAs(fileLocation);
+                if (fileExtension == ".xls")
+                {
+                    connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" +
+                        fileLocation + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+                }
+                else if (fileExtension == ".xlsx")
+                {
+                    connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+                        fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+
+                    //OleDbConnection Conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + excelPath + ";Extended Properties=\"Excel 12.0 Xml;HDR=YES\";");
+                }
+                OleDbConnection con = new OleDbConnection(connectionString);
+                OleDbCommand cmd = new OleDbCommand();
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.Connection = con;
+                OleDbDataAdapter dAdapter = new OleDbDataAdapter(cmd);
+                DataTable dtExcelRecords = new DataTable();
+                con.Open();
+                DataTable dtExcelSheetName = con.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                string getExcelSheetName = dtExcelSheetName.Rows[0]["Table_Name"].ToString();
+                cmd.CommandText = "SELECT * FROM [" + getExcelSheetName + "]";
+                dAdapter.SelectCommand = cmd;
+                dAdapter.Fill(dtExcelRecords);
+                DataSet ds = new DataSet();
+                ds.Tables.Add(dtExcelRecords);
+
+                string usernam = Request.Cookies["LoggedUserName"].Value;
+                BusinessLogic objBL = new BusinessLogic();
+                objBL = new BusinessLogic(ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString());
+               
+                if (ds == null)
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Uploading Excel is Empty');", true);
                     return;
                 }
-                catch (Exception ex)
+
+
+
+                foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    TroyLiteExceptionManager.HandleException(ex);
+                    string item = Convert.ToString(dr["ItemCode"]);
+
+                    if ((Convert.ToString(dr["ItemCode"]) == null) || (Convert.ToString(dr["ItemCode"]) == ""))
+                    {
+
+                    }
+                    else
+                    {
+                        if (!objBL.CheckIfItemCodeDuplicate(item))
+                        {
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product Code - " + item + " - does not exists in the Product master.');", true);
+                            return;
+                        }
+                    }
                 }
 
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    string item = Convert.ToString(dr["ItemCode"]);
+                    if ((Convert.ToString(dr["ItemCode"]) == null) || (Convert.ToString(dr["ItemCode"]) == ""))
+                    {
+
+                    }
+                    else
+                    {
+                        if (!objBL.CheckIfItemCodeDuplicatePriceList(item))
+                        {
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product code - " + item + " - does not exists in the price list.');", true);
+                            return;
+                        }
+                    }
+                }
+
+
+                int i = 1;
+                int ii = 1;
+                string itemc = string.Empty;
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    itemc = Convert.ToString(dr["ItemCode"]);
+
+                    if ((itemc == null) || (itemc == ""))
+                    {
+                    }
+                    else
+                    {
+                        foreach (DataRow drd in ds.Tables[0].Rows)
+                        {
+                            if (ii == i)
+                            {
+                            }
+                            else
+                            {
+                                if (itemc == Convert.ToString(drd["ItemCode"]))
+                                {
+                                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product code - " + itemc + " - already exists in the excel.');", true);
+                                    return;
+                                }
+                            }
+                            ii = ii + 1;
+                        }
+                    }
+                    i = i + 1;
+                    ii = 1;
+                }
+
+                //int type = Convert.ToInt32(drpPriceList.SelectedValue);
+                //string pricelist = drpPriceList.SelectedItem.Text;
+
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    string Model = Convert.ToString(dr["ItemCode"]);
+                    if ((Convert.ToString(dr["ItemCode"]) == null) || (Convert.ToString(dr["ItemCode"]) == ""))
+                    {
+
+                    }
+                    else
+                    {
+                        if ((Convert.ToString(dr["PRICE"]) == null) || (Convert.ToString(dr["PRICE"]) == "") || (Convert.ToString(dr["EFFECTIVEDATE"]) == null) || (Convert.ToString(dr["EFFECTIVEDATE"]) == "") || (Convert.ToString(dr["DISCOUNT"]) == null) || (Convert.ToString(dr["DISCOUNT"]) == ""))
+                       {
+                           ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill the empty in the excel sheet');", true);
+                           return;
+                       }                      
+                    }
+                }
+
+                    try
+                    {
+                        bl.UpdatePriceList(connection, ID, PriceName, Description, Username, Types);
+
+                        objBL.UpdateBulkProductPrices(connection, ds, usernam, PriceName, ID);
+                
+                        //MyAccordion.Visible = true;
+                        pnlVisitDetails.Visible = false;
+                        lnkBtnAdd.Visible = true;
+                        Reset();
+                        GrdViewSerVisit.DataBind();
+                        GrdViewSerVisit.Visible = true;
+
+                        Session["conDs"] = "Close";
+
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Price List Details Updated Successfully.');", true);
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        TroyLiteExceptionManager.HandleException(ex);
+                    }
+                    con.Close();
+                    }
+                }
             }
+            pnlVisitDetails.Visible = false;
+            lnkBtnAdd.Visible = true;
+            Reset();
+            GrdViewSerVisit.DataBind();
+            GrdViewSerVisit.Visible = true;
         }
         catch (Exception ex)
         {
@@ -424,7 +593,9 @@ public partial class PriceList : System.Web.UI.Page
     public void Reset()
     {
         txtPriceList.Text = "";
+        txtDescription.Text = "";
 
+        txtPriceList.Enabled = true;
     }
 
     protected void UpdateCancelButton_Click(object sender, EventArgs e)
@@ -436,6 +607,8 @@ public partial class PriceList : System.Web.UI.Page
             lnkBtnAdd.Visible = true;
             Reset();
             GrdViewSerVisit.Visible = true;
+
+            Session["conDs"] = "Close";
         }
         catch (Exception ex)
         {
@@ -463,19 +636,19 @@ public partial class PriceList : System.Web.UI.Page
 
                 string usernam = Request.Cookies["LoggedUserName"].Value;
 
-                //if (bl.CheckUserHaveEdit(usernam, "CHQMST"))
-                //{
-                //    ((ImageButton)e.Row.FindControl("btnEdit")).Visible = false;
-                //    ((ImageButton)e.Row.FindControl("btnEditDisabled")).Visible = true;
-                //}
+                if (bl.CheckPriceListUsed(Convert.ToString(DataBinder.Eval(e.Row.DataItem, "PriceName"))))
+                {
+                    ((ImageButton)e.Row.FindControl("lnkB")).Visible = false;
+                    ((ImageButton)e.Row.FindControl("lnkBDisabled")).Visible = true;
+                }
 
                 string rate = Convert.ToString(DataBinder.Eval(e.Row.DataItem, "PriceName"));
                 if (rate == "MRP")
                 {
                     ((ImageButton)e.Row.FindControl("lnkB")).Visible = false;
                     ((ImageButton)e.Row.FindControl("lnkBDisabled")).Visible = true;
-                    ((ImageButton)e.Row.FindControl("btnEdit")).Visible = false;
-                    ((ImageButton)e.Row.FindControl("btnEditDisabled")).Visible = true;
+                    //((ImageButton)e.Row.FindControl("btnEdit")).Visible = false;
+                    //((ImageButton)e.Row.FindControl("btnEditDisabled")).Visible = true;
                 }
             }
         }
@@ -522,6 +695,8 @@ public partial class PriceList : System.Web.UI.Page
                 txtPriceList.Text = ds.Tables[0].Rows[0]["PriceName"].ToString();
                 txtDescription.Text = ds.Tables[0].Rows[0]["Description"].ToString();
 
+                txtPriceList.Enabled = false;
+
                 UpdateButton.Visible = true;
                 SaveButton.Visible = false;
                 CancelButton.Visible = true;
@@ -532,6 +707,9 @@ public partial class PriceList : System.Web.UI.Page
                 pnlVisitDetails.Visible = true;
 
                 ModalPopupExtender1.Show();
+
+                Session["conDs"] = "Edit";
+                
             }
         }
         catch (Exception ex)
@@ -573,6 +751,7 @@ public partial class PriceList : System.Web.UI.Page
             ModalPopupExtender1.Show();
             pnlVisitDetails.Visible = true;
             Reset();
+            Session["conDs"] = "Add";
         }
         catch (Exception ex)
         {
@@ -606,73 +785,327 @@ public partial class PriceList : System.Web.UI.Page
     {
         try
         {
+            //Page.Form.Enctype = "multipart/form-data";
+
             if (Page.IsValid)
             {
-                string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
-                int CustomerID = 0;
-                int ServiceID = 0;
-                DateTime DueDate;
-                DateTime VisitDate;
-                string AccountNo = string.Empty;
-                double Amount = 0.0;
-                int PayMode;
-                string PriceName = string.Empty;
-                
-                string Username = Request.Cookies["LoggedUserName"].Value;
-                
-                string Types = "New";
-                PriceName = txtPriceList.Text.Trim();
-                string Description = string.Empty;
 
-                Description = txtDescription.Text.Trim();
-                BusinessLogic bl = new BusinessLogic(sDataSource);
-
-                //if (bl.IsChequeAlreadyEntered(connection, BankID, FromNo, ToNo))
-                //{
-                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Given Cheque No already entered for this bank.');", true);
-                //    ModalPopupExtender1.Show();
-                //    return;
-                //}
-
-                //if(bl.IsChequeNoNotLess(connection, BankID, FromNo, ToNo))
-                //{
-                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('ToCheque No Cannot be Less than FromChequeNo');", true);
-                //    return;
-                //}
-
-                //if (Convert.ToDouble(txtFromNoAdd.Text) > Convert.ToDouble(txtToNoAdd.Text))
-                //{
-                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('ToCheque No Cannot be Less than FromChequeNo');", true);
-                //    ModalPopupExtender1.Show();
-                //    return;
-                //}
-
-                //if (Convert.ToDouble(txtFromNoAdd.Text) == Convert.ToDouble(txtToNoAdd.Text))
-                //{
-                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('FromChequeNo Cannot be equal to ToCheque');", true);
-                //    ModalPopupExtender1.Show();
-                //    return;
-                //}
-
-                try
+                if (Session["conDs"] == "Add")
                 {
-                    bl.InsertPriceList(connection, PriceName,Description, Username, Types);
+                    //if (FileUpload1.HasFile == false)
+                    //{
+                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Browse Excel before uploading.');", true);
+                    //    ModalPopupExtender1.Show();
+                    //    return;
+                    //}
 
-                    //MyAccordion.Visible = true;
-                    pnlVisitDetails.Visible = false;
-                    lnkBtnAdd.Visible = true;
-                    Reset();
-                    GrdViewSerVisit.DataBind();
-                    GrdViewSerVisit.Visible = true;
+                    //string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+                    int CustomerID = 0;
+                    int ServiceID = 0;
+                    DateTime DueDate;
+                    DateTime VisitDate;
+                    string AccountNo = string.Empty;
+                    double Amount = 0.0;
+                    int PayMode;
+                    string PriceName = string.Empty;
 
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Price List Details Saved Successfully.');", true);
-                    return;
+                    string Username = Request.Cookies["LoggedUserName"].Value;
+
+                    string Types = "New";
+                    PriceName = txtPriceList.Text.Trim();
+                    string Description = string.Empty;
+
+                    Description = txtDescription.Text.Trim();
+                    BusinessLogic bl = new BusinessLogic(sDataSource);
+
+
+
+                    //if (bl.IsChequeAlreadyEntered(connection, BankID, FromNo, ToNo))
+                    //{
+                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Given Cheque No already entered for this bank.');", true);
+                    //    ModalPopupExtender1.Show();
+                    //    return;
+                    //}
+
+                    //if(bl.IsChequeNoNotLess(connection, BankID, FromNo, ToNo))
+                    //{
+                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('ToCheque No Cannot be Less than FromChequeNo');", true);
+                    //    return;
+                    //}
+
+                    //if (Convert.ToDouble(txtFromNoAdd.Text) > Convert.ToDouble(txtToNoAdd.Text))
+                    //{
+                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('ToCheque No Cannot be Less than FromChequeNo');", true);
+                    //    ModalPopupExtender1.Show();
+                    //    return;
+                    //}
+
+                    //if (Convert.ToDouble(txtFromNoAdd.Text) == Convert.ToDouble(txtToNoAdd.Text))
+                    //{
+                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('FromChequeNo Cannot be equal to ToCheque');", true);
+                    //    ModalPopupExtender1.Show();
+                    //    return;
+                    //}
+
+                    string connection = Request.Cookies["Company"].Value;
+
+                    if (bl.CheckIfPriceNameDuplicate(connection, PriceName))
+                    {
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Price Name - " + PriceName + " - already exists.');", true);
+                        ModalPopupExtender1.Show();
+                        return;
+                    }
+
+
+                    String strConnection = "ConnectionString";
+                    string connectionString = "";
+                    if (FileUpload1.HasFile)
+                    {
+                        string datett = DateTime.Now.ToString();
+                        string dtaa = Convert.ToDateTime(datett).ToString("dd-MM-yyyy-hh-mm-ss");
+                        string fileName = Path.GetFileName(FileUpload1.PostedFile.FileName) + dtaa;
+                        string fileExtension = Path.GetExtension(FileUpload1.PostedFile.FileName);
+                        string fileLocation = Server.MapPath("~/App_Data/" + fileName);
+                        FileUpload1.SaveAs(fileLocation);
+                        if (fileExtension == ".xls")
+                        {
+                            connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" +
+                                fileLocation + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+                        }
+                        else if (fileExtension == ".xlsx")
+                        {
+                            connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+                                fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+
+                            //OleDbConnection Conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + excelPath + ";Extended Properties=\"Excel 12.0 Xml;HDR=YES\";");
+                        }
+                        OleDbConnection con = new OleDbConnection(connectionString);
+                        OleDbCommand cmd = new OleDbCommand();
+                        cmd.CommandType = System.Data.CommandType.Text;
+                        cmd.Connection = con;
+                        OleDbDataAdapter dAdapter = new OleDbDataAdapter(cmd);
+                        DataTable dtExcelRecords = new DataTable();
+                        con.Open();
+                        DataTable dtExcelSheetName = con.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                        string getExcelSheetName = dtExcelSheetName.Rows[0]["Table_Name"].ToString();
+                        cmd.CommandText = "SELECT * FROM [" + getExcelSheetName + "]";
+                        dAdapter.SelectCommand = cmd;
+                        dAdapter.Fill(dtExcelRecords);
+                        DataSet ds = new DataSet();
+                        ds.Tables.Add(dtExcelRecords);
+
+                        string usernam = Request.Cookies["LoggedUserName"].Value;
+                        BusinessLogic objBL = new BusinessLogic();
+                        objBL = new BusinessLogic(ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString());
+
+
+                        //if(Convert.ToInt32(drpPriceList.SelectedIndex) == 0)
+                        //{
+                        //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select any one Price List before upload');", true);
+                        //    return;
+                        //}
+
+                        if (ds == null)
+                        {
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Uploading Excel is Empty');", true);
+                            ModalPopupExtender1.Show();
+                            return;
+                        }
+
+
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            if ((Convert.ToString(dr["ItemCode"]) == null) || (Convert.ToString(dr["ItemCode"]) == ""))
+                            {
+                                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('ItemCode Missing');", true);
+                                ModalPopupExtender1.Show();
+                                return;
+                            }
+                        }
+
+                        //foreach (DataRow dr in ds.Tables[0].Rows)
+                        //{
+                        //    string brand = Convert.ToString(dr["brand"]);
+                        //    if ((Convert.ToString(dr["ItemCode"]) == null) || (Convert.ToString(dr["ItemCode"]) == ""))
+                        //    {
+
+                        //    }
+                        //    else
+                        //    {
+                        //        if (!objBL.CheckIfbrandIsThere(brand))
+                        //        {
+                        //            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Brand with - " + brand + " - does not exists in the Brand Master');", true);
+                        //            return;
+                        //        }
+                        //    }
+                        //}
+
+
+                        //foreach (DataRow dr in ds.Tables[0].Rows)
+                        //{
+                        //    string category = Convert.ToString(dr["category"]);
+
+                        //    if ((Convert.ToString(dr["ItemCode"]) == null) || (Convert.ToString(dr["ItemCode"]) == ""))
+                        //    {
+
+                        //    }
+                        //    else
+                        //    {
+                        //        if (!objBL.CheckIfcategoryIsThere(category))
+                        //        {
+                        //            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Category with - " + category + " - does not exists in the Category Master');", true);
+                        //            return;
+                        //        }
+                        //    }
+                        //}
+
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            string item = Convert.ToString(dr["ItemCode"]);
+
+                            if ((Convert.ToString(dr["ItemCode"]) == null) || (Convert.ToString(dr["ItemCode"]) == ""))
+                            {
+
+                            }
+                            else
+                            {
+                                if (!objBL.CheckIfItemCodeDuplicate(item))
+                                {
+                                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product Code - " + item + " - does not exists in the Product master.');", true);
+                                    ModalPopupExtender1.Show();
+                                    return;
+                                }
+                            }
+                        }
+
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            string item = Convert.ToString(dr["ItemCode"]);
+                            if ((Convert.ToString(dr["ItemCode"]) == null) || (Convert.ToString(dr["ItemCode"]) == ""))
+                            {
+
+                            }
+                            else
+                            {
+                                if (objBL.CheckIfItemCodeDuplicatePriceList1(item, PriceName))
+                                {
+                                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product code - " + item + " - already exists in the price list.');", true);
+                                    ModalPopupExtender1.Show();
+                                    return;
+                                }
+                            }
+                        }
+
+
+                        int i = 1;
+                        int ii = 1;
+                        string itemc = string.Empty;
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            itemc = Convert.ToString(dr["ItemCode"]);
+
+                            if ((itemc == null) || (itemc == ""))
+                            {
+                            }
+                            else
+                            {
+                                foreach (DataRow drd in ds.Tables[0].Rows)
+                                {
+                                    if (ii == i)
+                                    {
+                                    }
+                                    else
+                                    {
+                                        if (itemc == Convert.ToString(drd["ItemCode"]))
+                                        {
+                                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product code - " + itemc + " - already exists in the excel.');", true);
+                                            ModalPopupExtender1.Show();
+                                            return;
+                                        }
+                                    }
+                                    ii = ii + 1;
+                                }
+                            }
+                            i = i + 1;
+                            ii = 1;
+                        }
+
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            string Model = Convert.ToString(dr["ItemCode"]);
+                            if ((Convert.ToString(dr["ItemCode"]) == null) || (Convert.ToString(dr["ItemCode"]) == ""))
+                            {
+
+                            }
+                            else
+                            {
+                                if ((Convert.ToString(dr["PRICE"]) == null) || (Convert.ToString(dr["PRICE"]) == "") || (Convert.ToString(dr["EFFECTIVEDATE"]) == null) || (Convert.ToString(dr["EFFECTIVEDATE"]) == "") || (Convert.ToString(dr["DISCOUNT"]) == null) || (Convert.ToString(dr["DISCOUNT"]) == ""))
+                                {
+                                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill the empty in the excel sheet');", true);
+                                    ModalPopupExtender1.Show();
+                                    return;
+                                }
+                            }
+                        }
+
+
+
+
+
+                        try
+                        {
+                            bl.InsertPriceList(connection, PriceName, Description, Username, Types);
+
+                            DataSet dsd = bl.GetPriceListForName(connection, PriceName);
+
+                            if (dsd != null)
+                            {
+                                if (dsd.Tables[0].Rows.Count > 0)
+                                {
+                                    foreach (DataRow dr in dsd.Tables[0].Rows)
+                                    {
+                                        bl.InsertBulkProductPrices(connection, ds, usernam, Convert.ToString(dr["PriceName"]), Convert.ToInt32(dr["Id"]));
+                                    }
+                                }
+                            }
+
+
+
+                            //MyAccordion.Visible = true;
+                            pnlVisitDetails.Visible = false;
+                            lnkBtnAdd.Visible = true;
+                            Reset();
+                            GrdViewSerVisit.DataBind();
+                            GrdViewSerVisit.Visible = true;
+
+                            Session["conDs"] = "Close";
+
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Price List Details Saved Successfully.');", true);
+                            return;
+                        }
+                        catch (Exception ex)
+                        {
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Exception Occured: " + ex.Message + "')", true);
+                        }
+                        con.Close();
+                    }
+                    else
+                    {
+                        bl.InsertPriceList(connection, PriceName, Description, Username, Types);
+                       
+                        //MyAccordion.Visible = true;
+                        pnlVisitDetails.Visible = false;
+                        lnkBtnAdd.Visible = true;
+                        Reset();
+                        GrdViewSerVisit.DataBind();
+                        GrdViewSerVisit.Visible = true;
+
+                        Session["conDs"] = "Close";
+
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Price List Details Saved Successfully.');", true);
+                        return;
+                    }
                 }
-                catch (Exception ex)
-                {
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Exception Occured: " + ex.Message + "')", true);
-                }
-
             }
         }
         catch (Exception ex)

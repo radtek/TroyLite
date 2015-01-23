@@ -1616,7 +1616,7 @@ public partial class ProdMaster : System.Web.UI.Page
                 {
                     TextBox txt1 = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtId");
                     ID = txt1.Text;
-                    TextBox PriceName1 = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtPriceName");
+                    Label PriceName1 = (Label)GrdViewItems.Rows[vLoop].FindControl("txtPriceName");
                     PriceName = PriceName1.Text;
                     TextBox Price1 = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtPrice");
                     Price = Price1.Text;
@@ -1905,7 +1905,7 @@ public partial class ProdMaster : System.Web.UI.Page
                 {
                     TextBox txt1 = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtId");
                     ID = txt1.Text;
-                    TextBox PriceName1 = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtPriceName");
+                    Label PriceName1 = (Label)GrdViewItems.Rows[vLoop].FindControl("txtPriceName");
                     PriceName = PriceName1.Text;
                     TextBox Price1 = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtPrice");
                     Price = Price1.Text;
