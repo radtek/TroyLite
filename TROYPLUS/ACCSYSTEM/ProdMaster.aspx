@@ -881,6 +881,8 @@
                                 AllowPaging="True" DataKeyNames="ItemCode" EmptyDataText="No Products found." OnRowDeleting="GrdViewProduct_RowDeleting"
                                 OnRowCommand="GrdViewProduct_RowCommand" OnRowDataBound="GrdViewProduct_RowDataBound" OnRowDeleted="GrdViewProduct_RowDeleted"
                                 OnSelectedIndexChanged="GrdViewProduct_SelectedIndexChanged">
+                                            <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small"/>
+                                <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE"/>
                                 <Columns>
                                     <asp:BoundField DataField="ItemCode" HeaderText="Product Code"  HeaderStyle-BorderColor="Gray"/>
                                     <asp:BoundField DataField="ProductName" HeaderText="Product Name"  HeaderStyle-BorderColor="Gray"/>

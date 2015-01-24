@@ -40,7 +40,7 @@ public partial class ProdMaster : System.Web.UI.Page
 
                 loadBanks();
 
-                GrdViewProduct.PageSize = 7;
+                GrdViewProduct.PageSize = 11;
                 loadSupplier();
                 string connection = Request.Cookies["Company"].Value;
                 string usernam = Request.Cookies["LoggedUserName"].Value;

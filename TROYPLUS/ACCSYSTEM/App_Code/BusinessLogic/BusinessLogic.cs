@@ -65258,11 +65258,11 @@ public class BusinessLogic
 
         if (dropDown == "PriceName")
         {
-            dbQry = "select * from tblPriceList Where PriceName like '" + txtSearch + "' Order By Id";
+            dbQry = "select A.Id,A.PriceName,A.Description, (Select count(*) from tblPriceList where A.Id>=Id) as Row from tblPriceList as A Where A.PriceName like '" + txtSearch + "' Order By A.Id";
         }
         else
         {
-            dbQry = string.Format("select * from tblPriceList Order By Id");
+            dbQry = string.Format("select A.Id,A.PriceName,A.Description, (Select count(*) from tblPriceList where A.Id>=Id) as Row from tblPriceList as A Order By A.Id");
         }
 
         try

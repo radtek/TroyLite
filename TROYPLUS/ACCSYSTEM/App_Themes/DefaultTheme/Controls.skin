@@ -15,6 +15,7 @@ Default skin template. The following skins are provided as examples only.
 --%>
 <asp:ImageButton SkinID="print" runat="server" ImageUrl="~/App_Themes/DefaultTheme/Images/RightLink1.gif" AlternateText="Print" ToolTip="Click to Print" />
 <asp:ImageButton SkinID="edit" runat="server" ImageUrl="~/App_Themes/DefaultTheme/Images/edit.png" AlternateText="Edit" ToolTip="Click to edit this item" />
+<asp:ImageButton SkinID="Plus" runat="server" ImageUrl="~/App_Themes/DefaultTheme/Images/imagesplus.png" AlternateText="Plus" ToolTip="Click to Add this item" />
 <asp:ImageButton SkinID="delete" runat="server" ImageUrl="~/App_Themes/DefaultTheme/Images/delete.png" AlternateText="Delete" ToolTip="Click to delete this item" />
 <asp:ImageButton SkinID="SoftDelete" runat="server" ImageUrl="~/img/delete.gif" AlternateText="Soft Delete" ToolTip="Click to Delete this item" />
 <asp:ImageButton SkinID="Restore" runat="server" ImageUrl="~/img/restore.gif" AlternateText="Restore" ToolTip="Click to Restore this item" />
