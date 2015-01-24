@@ -1,6 +1,9 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
     CodeFile="PriceList.aspx.cs" Inherits="PriceList"  %>
 
+
+<%@ Register Assembly="Shared.WebControls" Namespace="Shared.WebControls" TagPrefix="wc" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">
 </asp:Content>
@@ -13,7 +16,7 @@
             return false;
         }
     </script>
-    <asp:UpdatePanel ID="UpdatePanel16" runat="server" UpdateMode="Conditional">
+    <asp:UpdatePanel ID="UpdatePanel16" runat="server" UpdateMode="Always">
         <ContentTemplate>
         
             <table style="width: 100%">
@@ -140,17 +143,43 @@
                                                                     
                                                                 </td>
                                                             </tr>
+                                                            <tr style="height:2px">
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 10%">
+                                                                    
+                                                                </td>
+                                                                <td style="width: 25%" class="ControlLabel">
+                                                                    
+                                                                </td>
+                                                                <td style="width: 25%;" class="ControlDrpBorder">
+                                                                             
+                                                                            <asp:FileUpload ID="FileUpload1" runat="server" />
+                                                                        
+                                                                </td>
+                                                                <td style="width: 33%" >
+                                                                    
+                                                                </td>
+                                                            </tr>
                                                             <tr>
                                                                 <td align="center" style="width: 100%" colspan="4">
                                                                     <table width="100%">
                                                                         <tr>
                                                                             <td style="width: 30%">
                                                                             </td>
-                                                                            <td align="center" style="width: 18%">                                                                               
-                                                                                <asp:Button ID="SaveButton" runat="server" CommandName="Update" SkinID="skinBtnSave"
-                                                                                    CssClass="savebutton1231" EnableTheming="false" OnClick="SaveButton_Click"></asp:Button>
-                                                                                <asp:Button ID="UpdateButton" runat="server" CommandName="Update" SkinID="skinBtnSave"
-                                                                                    CssClass="Updatebutton1231" EnableTheming="false" OnClick="UpdateButton_Click"></asp:Button>
+                                                                            <td align="center" style="width: 18%">   
+                                                                                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Always">
+                                                                                    <ContentTemplate>                                                                            
+                                                                                        <asp:Button ID="SaveButton" runat="server" CommandName="Update" SkinID="skinBtnSave"
+                                                                                            CssClass="savebutton1231" EnableTheming="false" OnClick="SaveButton_Click"></asp:Button>
+                                                                                        <asp:Button ID="UpdateButton" runat="server" CommandName="Update" SkinID="skinBtnSave"
+                                                                                            CssClass="Updatebutton1231" EnableTheming="false" OnClick="UpdateButton_Click"></asp:Button>
+                                                                                    </ContentTemplate>    
+                                                                                    <Triggers>
+                                                                                        <asp:PostBackTrigger ControlID="SaveButton" />
+                                                                                        <asp:PostBackTrigger ControlID="UpdateButton" />
+                                                                                    </Triggers>
+                                                                                </asp:UpdatePanel>
                                                                             </td>
                                                                             <td align="center" style="width: 18%">
                                                                                  <asp:Button ID="CancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
@@ -298,12 +327,12 @@
                 <td  style="width:35%">
                     </td>
                     <td  style="width:15%">
-                        <asp:Button ID="Button2" runat="server"  OnClientClick="window.open('BulkPriceAddition.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=250,width=500,left=425,top=220, scrollbars=yes');" CssClass="bulkaddition"
-                                    EnableTheming="false" Text=""></asp:Button>
+                        <asp:Button ID="Button2" runat="server"  OnClientClick="window.open('BulkPriceAddition.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=250,width=500,left=425,top=220, scrollbars=yes');" 
+                                    EnableTheming="false" Text="Import New Prices using Excel"></asp:Button>
                     </td>
                     <td style="width:15%">
-                        <asp:Button ID="BlkAdd" runat="server"  OnClientClick="window.open('BulkPriceUpdation.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=250,width=500,left=425,top=220, scrollbars=yes');" CssClass="bulkaddition"
-                                    EnableTheming="false" Text=""></asp:Button>
+                        <asp:Button ID="BlkAdd" runat="server"  OnClientClick="window.open('BulkPriceUpdation.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=250,width=500,left=425,top=220, scrollbars=yes');"
+                                    EnableTheming="false" Text="Import Existing Prices using Excel"></asp:Button>
                     </td>
                     <td  style="width:35%">
                         
