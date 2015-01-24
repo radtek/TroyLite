@@ -104,8 +104,9 @@ public partial class ProjectEntry : System.Web.UI.Page
         BusinessLogic bl = new BusinessLogic(sDataSource);
 
         string connection = Request.Cookies["Company"].Value;
+        string Username = Request.Cookies["LoggedUserName"].Value;
 
-        DataSet ds = bl.GetProjectList(connection, textSearch, dropDown);
+        DataSet ds = bl.GetUserProjectList(connection, textSearch, dropDown,Username);
 
         if (ds != null)
         {
@@ -809,105 +810,105 @@ public partial class ProjectEntry : System.Web.UI.Page
     //}
 
 
-    protected void drpmeasure_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            int date = Convert.ToInt32(txtEffortDays.Text);
+    //protected void drpmeasure_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        int date = Convert.ToInt32(txtEffortDays.Text);
 
-            //string dtaa = Convert.ToDateTime(date).ToString("dd/MM/yyyy");              
-            //DateTime calculat = Convert.ToDateTime(dtaa);
+    //        //string dtaa = Convert.ToDateTime(date).ToString("dd/MM/yyyy");              
+    //        //DateTime calculat = Convert.ToDateTime(dtaa);
 
-            if (drpunitmeasure.SelectedValue == "Days")
-            {
-                int days = Convert.ToInt32(txtEffortDays.Text);
+    //        if (drpunitmeasure.SelectedValue == "Days")
+    //        {
+    //            int days = Convert.ToInt32(txtEffortDays.Text);
 
-                days = days / 24;
+    //            days = days / 24;
 
                 
 
-                txtEffortDays.Text = days.ToString();
+    //            txtEffortDays.Text = days.ToString();
 
-                //if (drpunitmeasure.SelectedValue == "Days")
-                //{
-                //    estimateheading.Text= "Estimate Duration in(Days)";
+    //            //if (drpunitmeasure.SelectedValue == "Days")
+    //            //{
+    //            //    estimateheading.Text= "Estimate Duration in(Days)";
 
-                //}
-                //estimateheading.Text = "Estimate Duration in(days)";
-            }
+    //            //}
+    //            //estimateheading.Text = "Estimate Duration in(days)";
+    //        }
          
                
-            //else if (drpunitmeasure.SelectedValue == "Months")
-            //{
-            //    int Months = Convert.ToInt32(txtEffortDays.Text);
+    //        //else if (drpunitmeasure.SelectedValue == "Months")
+    //        //{
+    //        //    int Months = Convert.ToInt32(txtEffortDays.Text);
 
-            //    //DateTime dat =Convert.ToString(date.AddMonths(Months));
-            //    txtEffortDays.Text = Months.ToString();
-            //}
-            else if (drpunitmeasure.SelectedValue == "Hours")
-            {
-                int hours = Convert.ToInt32(txtEffortDays.Text);
+    //        //    //DateTime dat =Convert.ToString(date.AddMonths(Months));
+    //        //    txtEffortDays.Text = Months.ToString();
+    //        //}
+    //        else if (drpunitmeasure.SelectedValue == "Hours")
+    //        {
+    //            int hours = Convert.ToInt32(txtEffortDays.Text);
 
-                hours = 24 * hours;
-                estimateheading.Text = "Estimate Duration in(Hours)";
+    //            hours = 24 * hours;
+    //            estimateheading.Text = "Estimate Duration in(Hours)";
               
-                //DateTime dat = Convert.ToDateTime(hours.ToS);
-                //TimeSpan ts = TimeSpan.FromHours(12);
-                //DateTime dt = Convert.ToDateTime(ts.ToString());
-                //Weeks = 7 * Weeks;
-                //DateTime dat = date.AddDays(Weeks);
-                txtEffortDays.Text = hours.ToString();
-                //estimateheading.Text = "Estimate Duration in (hours)";
-                //if (drpunitmeasure.SelectedValue == "Hours")
-                //{
-                //    estimateheading.Text = "Estimate Duration in(Hours)";
+    //            //DateTime dat = Convert.ToDateTime(hours.ToS);
+    //            //TimeSpan ts = TimeSpan.FromHours(12);
+    //            //DateTime dt = Convert.ToDateTime(ts.ToString());
+    //            //Weeks = 7 * Weeks;
+    //            //DateTime dat = date.AddDays(Weeks);
+    //            txtEffortDays.Text = hours.ToString();
+    //            //estimateheading.Text = "Estimate Duration in (hours)";
+    //            //if (drpunitmeasure.SelectedValue == "Hours")
+    //            //{
+    //            //    estimateheading.Text = "Estimate Duration in(Hours)";
 
-                //}
-            }
+    //            //}
+    //        }
            
 
-            UpdatePanel2.Update();
-        }
+    //        UpdatePanel2.Update();
+    //    }
         
-        catch (Exception ex)
-        {
-            TroyLiteExceptionManager.HandleException(ex);
-        }
+    //    catch (Exception ex)
+    //    {
+    //        TroyLiteExceptionManager.HandleException(ex);
+    //    }
 
-    }
-
-
+    //}
 
 
 
-    protected void txtEWstartDate_TextChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            string startdate = Convert.ToDateTime(txtEWstartDate.Text).ToString("dd/MM/yyyy");
 
-            string enddate = Convert.ToDateTime(txtEWEndDate.Text).ToString("dd/MM/yyyy");
 
-            TimeSpan ts = Convert.ToDateTime(enddate) - Convert.ToDateTime(startdate);
+    //protected void txtEWstartDate_TextChanged(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        string startdate = Convert.ToDateTime(txtEWstartDate.Text).ToString("dd/MM/yyyy");
+
+    //        string enddate = Convert.ToDateTime(txtEWEndDate.Text).ToString("dd/MM/yyyy");
+
+    //        TimeSpan ts = Convert.ToDateTime(enddate) - Convert.ToDateTime(startdate);
            
-            int days = Convert.ToInt32(ts.TotalDays);
-            if (days > 0)
-            {
-                txtEffortDays.Text = Convert.ToString(days);
+    //        int days = Convert.ToInt32(ts.TotalDays);
+    //        if (days > 0)
+    //        {
+    //            txtEffortDays.Text = Convert.ToString(days);
                 
-            }
-            else
-            {
-                days = 0;
-                txtEffortDays.Text = Convert.ToString(days);
-            }
-            UpdatePanel2.Update();
-        }
-        catch (Exception ex)
-        {
-            TroyLiteExceptionManager.HandleException(ex);
-        }
-    }
+    //        }
+    //        else
+    //        {
+    //            days = 0;
+    //            txtEffortDays.Text = Convert.ToString(days);
+    //        }
+    //        UpdatePanel2.Update();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        TroyLiteExceptionManager.HandleException(ex);
+    //    }
+    //}
 
     //protected void txtEWEndDate_TextChanged(object sender, EventArgs e)
     //{

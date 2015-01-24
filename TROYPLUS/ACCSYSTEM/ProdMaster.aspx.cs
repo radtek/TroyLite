@@ -566,6 +566,9 @@ public partial class ProdMaster : System.Web.UI.Page
                 GrdViewItems.DataBind();
             }
 
+            BulkEditGridView1.DataSource = null;
+            BulkEditGridView1.DataBind();
+
             ModalPopupExtender2.Show();
             UpdateButton.Visible = false;
             AddButton.Visible = true;

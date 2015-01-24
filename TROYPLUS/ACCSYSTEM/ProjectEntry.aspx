@@ -108,7 +108,7 @@
                                 <table style="width: 99.8%; margin: -2px 0px 0px 2px;" cellpadding="3" cellspacing="2" class="searchbg">
                                     <tr>
                                         <td style="width: 8%;"></td>
-                                        <td style="width: 15%; font-size: 22px; color: White">Projects
+                                        <td style="width: 40%; font-size: 22px; color: White"> Manage Projects
                                         </td>
                                         <td style="width: 17%">
                                             <div style="text-align: right;">
@@ -239,7 +239,7 @@
                                                             <td>
                                                                 <div style="text-align: left">
                                                                     <cc1:TabContainer ID="tbMain" runat="server" Width="100%" Visible="false" CssClass="fancy fancy-green">
-                                                                        <cc1:TabPanel ID="tabMaster" runat="server" HeaderText="New Project Details">
+                                                                        <cc1:TabPanel ID="tabMaster" runat="server" HeaderText="Project Details">
                                                                             <ContentTemplate>
                                                                                 <table style="width: 100%;" align="center" cellpadding="2" cellspacing="2">
                                                                                     <tr>
@@ -256,14 +256,16 @@
                                                                                              </td>
                                                                                          <td class="ControlLabelproject1" style="width: 30%">
                                                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtEWstartDate" ErrorMessage="Please select Expected Start Date. It cannot be left blank." Text="*" ValidationGroup="Save"></asp:RequiredFieldValidator>
-                                                                                            <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToCompare="txtEWstartDate" ControlToValidate="txtEWEndDate" CssClass="lblFont" ErrorMessage="Expected End Date should be Greater than or equal to Expected Start Date" Operator="GreaterThanEqual" SetFocusOnError="True" Text="*" Type="Date" ValidationGroup="Save"></asp:CompareValidator>
-                                                                                            Expected Starting Date * </td>
+                                                                                            <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToCompare="txtEWstartDate" ControlToValidate="txtEWEndDate" CssClass="lblFont" ErrorMessage="Due Date should be Greater than or equal to Expected Start Date" Operator="GreaterThanEqual" SetFocusOnError="True" Text="*" Type="Date" ValidationGroup="Save"></asp:CompareValidator>
+                                                                                            Expected Start Date * </td>
                                                                                         <td class="ControlTextProject1" style="width: 20%">
-                                                                                            
-                                                                                                    <asp:TextBox ID="txtEWstartDate" runat="server" CssClass="cssTextBox" Enabled="false" MaxLength="10" Width="100px" />
+                                                                                            <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
+                                                                                                <ContentTemplate>
+                                                                                                    <asp:TextBox ID="txtEWstartDate" runat="server"  CssClass="cssTextBox" Enabled="false" MaxLength="10"  Width="100px" />
                                                                                                     <cc1:CalendarExtender ID="calEWstartDate" runat="server" Animated="true" Format="dd/MM/yyyy" PopupButtonID="btnEWstartDate" PopupPosition="BottomLeft" TargetControlID="txtEWstartDate">
                                                                                                     </cc1:CalendarExtender>
-                                                                                                
+                                                                                                </ContentTemplate>
+                                                                                            </asp:UpdatePanel>
                                                                                         </td>
                                                                                         <td style="width: 5%">
                                                                                             <asp:ImageButton ID="btnEWstartDate" runat="server" CausesValidation="False" ImageUrl="App_Themes/NewTheme/images/cal.gif" TabIndex="7" Width="20px" />
@@ -276,8 +278,8 @@
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <td class="ControlLabelproject1" style="width: 20%">
-                                                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtProjectName" ErrorMessage="Please enter Project Title. It cannot be left blank." Text="*" ValidationGroup="Save"></asp:RequiredFieldValidator>
-                                                                                            Project Title * </td>
+                                                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtProjectName" ErrorMessage="Please enter Title Of Project. It cannot be left blank." Text="*" ValidationGroup="Save"></asp:RequiredFieldValidator>
+                                                                                             Title Of Project * </td>
                                                                                         <td class="ControlTextProject1" style="width: 20%">
                                                                                             <asp:TextBox ID="txtProjectName"  CssClass="cssTextBox" runat="server" TabIndex="2"></asp:TextBox>
                                                                                         </td>
@@ -285,13 +287,13 @@
                                                                                              </td>
                                                                                           <td class="ControlLabelproject1" style="width: 30%">
                                                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" Text="*" runat="server"
-                                                                                                ControlToValidate="txtEWEndDate" ValidationGroup="Save" ErrorMessage="Please select Expected End Date. It cannot be left blank."></asp:RequiredFieldValidator>
-                                                                                         Expected End Date *
+                                                                                                ControlToValidate="txtEWEndDate" ValidationGroup="Save" ErrorMessage="Please select Due Date. It cannot be left blank."></asp:RequiredFieldValidator>
+                                                                                         Due Date *
                                                                                         </td>
                                                                                         <td style="width: 20%" class="ControlTextProject1">
                                                                                             <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                                                                                                 <ContentTemplate>
-                                                                                                    <asp:TextBox ID="txtEWEndDate" Enabled="false" runat="server" CssClass="cssTextBox" Width="100px" AutoPostBack="True"   OnTextChanged="txtEWstartDate_TextChanged"
+                                                                                                    <asp:TextBox ID="txtEWEndDate" Enabled="false" runat="server" CssClass="cssTextBox" Width="100px"  
                                                                                                         MaxLength="10"  />
                                                                                                     <cc1:CalendarExtender ID="CalEWEndDate" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                                         PopupButtonID="BtnCalDate2" PopupPosition="BottomLeft" TargetControlID="txtEWEndDate">
@@ -329,13 +331,13 @@
                                                                                                
                                                                                            </td>
                                                                                         <td class="ControlTextProject1" style="width: 20%">
-                                                                                               <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
-                                                                                                    <ContentTemplate>
+                                                                                             <%--  <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+                                                                                                    <ContentTemplate>--%>
                                                                                                         <cc1:FilteredTextBoxExtender ID="OBvalid" runat="server" FilterType="Numbers" TargetControlID="txtEffortDays" />
-                                                                                                        <asp:TextBox ID="txtEffortDays" runat="server" Width="100%" Enabled="false"
+                                                                                                        <asp:TextBox ID="txtEffortDays" runat="server" Width="100%"
                                                                                                             CssClass="cssTextBox"></asp:TextBox>
-                                                                                                    </ContentTemplate>
-                                                                                                </asp:UpdatePanel>
+                                                                                                  <%--  </ContentTemplate>
+                                                                                                </asp:UpdatePanel>--%>
                                                                                               
                                                                                            <%-- <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
                                                                                                 <ContentTemplate>
@@ -365,11 +367,11 @@
                                                                                          <td style="width: 5%">
                                                                                              </td>
                                                                                          <td class="ControlLabelproject1" style="width:30%">
-                                                                                             <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToCompare="txtactdate"
+                                                                                            <%-- <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToCompare="txtactdate"
                                                                                                 ControlToValidate="txtCDate" Text="*" ErrorMessage="Actual Start Date should be Greater than or equal to Project Record Created Date."
                                                                                                 CssClass="lblFont" Operator="LessThanEqual" ValidationGroup="Save" SetFocusOnError="True"
-                                                                                                Type="Date"></asp:CompareValidator>
-                                                                                           Actual start date
+                                                                                                Type="Date"></asp:CompareValidator>--%>
+                                                                                           Actual Start Date
                                                                                             </td>
                                                                                        
                                                                                         <td style="width :20%" class="ControlTextProject1">
@@ -399,13 +401,13 @@
                                                                                                       <td style="width:5%"></td>
                                                                                                     <td class="ControlLabelproject1" style="width:30%">
                                                                                              <asp:CompareValidator ID="CompareValidator5" runat="server" ControlToCompare="txtacenddate"
-                                                                                                ControlToValidate="txtactdate" Text="*" ErrorMessage="Actual End Date should be Greater than or equal to Actual Start Date."
+                                                                                                ControlToValidate="txtactdate" Text="*" ErrorMessage=" Date Of Completion should be Greater than or equal to Actual Start Date."
                                                                                                 CssClass="lblFont" Operator="LessThanEqual" ValidationGroup="Save" SetFocusOnError="True"
                                                                                                 Type="Date"></asp:CompareValidator>
-                                                                                            <asp:CompareValidator ID="CompareValidator7" runat="server" ControlToCompare="txtacenddate"
+                                                                                          <%--  <asp:CompareValidator ID="CompareValidator7" runat="server" ControlToCompare="txtacenddate"
                                                                                                 ControlToValidate="txtCDate" Text="*" ErrorMessage="Actual End Date should be Greater than or equal to Project Created Date."
                                                                                                 CssClass="lblFont" Operator="LessThanEqual" ValidationGroup="Save" SetFocusOnError="True"
-                                                                                                Type="Date"></asp:CompareValidator>
+                                                                                                Type="Date"></asp:CompareValidator>--%>
 
                                                                                             Date Of Completion
                                                                                             </td>
@@ -430,10 +432,10 @@
                                                                                     <td class="ControlLabelproject1" style="width: 39%">
                                                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" Text="*" runat="server"
                                                                                                 ControlToValidate="txtCDate" ValidationGroup="Save" ErrorMessage="Creation Date is mandatory"></asp:RequiredFieldValidator>
-                                                                                            <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToCompare="txtCDate"
+                                                                                            <%--<asp:CompareValidator ID="CompareValidator2" runat="server" ControlToCompare="txtCDate"
                                                                                                 ControlToValidate="txtEWstartDate" Text="*" ErrorMessage="Expected Start Date should be Greater than or equal to Project Created Date."
                                                                                                 CssClass="lblFont" Operator="GreaterThanEqual" ValidationGroup="Save" SetFocusOnError="True"
-                                                                                                Type="Date"></asp:CompareValidator>
+                                                                                                Type="Date"></asp:CompareValidator>--%>
                                                                                             Project Record Created Date *
                                                                                         </td>
                                                                                         <td style="width: 20%" class="ControlTextProject1">
@@ -453,7 +455,7 @@
                                                                                               <asp:UpdatePanel ID="UpdatePanel13" runat="server" UpdateMode="Conditional">
                                                                                                     <ContentTemplate>
                                                                                                         <asp:DropDownList ID="drpunitmeasure" TabIndex="11" Enabled="True" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
-                                                                                                            runat="server" Width="100%" BackColor="#e7e7e7" Style="border: 1px solid Gray" AutoPostBack="True" OnSelectedIndexChanged="drpmeasure_SelectedIndexChanged" >
+                                                                                                            runat="server" Width="100%" BackColor="#e7e7e7" Style="border: 1px solid Gray"  >
                                                                                                              <asp:ListItem Text="Days" Value="Days" ></asp:ListItem>
                                                                                                             <asp:ListItem Text="Months" Value="Months"></asp:ListItem>
                                                                                                             <asp:ListItem Text="Hours" Value="Hours"></asp:ListItem>
@@ -499,7 +501,7 @@
                                                                         </table>
                                                                     </asp:Panel>
                                                                     <asp:ValidationSummary ID="valSum" DisplayMode="BulletList" ShowMessageBox="true"
-                                                                        ValidationGroup="Save" ShowSummary="false" HeaderText="Validation Message(s)" Font-Names="'Trebuchet MS'"
+                                                                        ValidationGroup="Save" ShowSummary="false" HeaderText=" " Font-Names="'Trebuchet MS'"
                                                                         Font-Size="12" runat="server" />
                                                                 </div>
                                                             </td>
@@ -523,15 +525,15 @@
                                             OnRowDeleting="GrdWME_RowDeleting" OnRowDataBound="GrdView_RowDataBound">
                                             <HeaderStyle Height="70px" Font-Bold="true" />
                                             <Columns>
-                                                <asp:BoundField DataField="Project_Id" HeaderText="Project ID" HeaderStyle-Wrap="false" HeaderStyle-BorderColor="Gray" Visible="false" />
+                                                <asp:BoundField DataField="Project_Id" HeaderText="Project ID"  HeaderStyle-Wrap="false" HeaderStyle-BorderColor="Green" Visible="false" />
                                                 <asp:BoundField DataField="Project_Code" HeaderText="Project ID" HeaderStyle-Wrap="false" HeaderStyle-BorderColor="Gray" />
-                                                <asp:BoundField DataField="Project_Date" HeaderText="Project Created Date" DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-BorderColor="Gray" />
-                                                <asp:BoundField DataField="Project_Name" HeaderText="Project Title" HeaderStyle-BorderColor="Gray" />
-                                                <asp:BoundField DataField="Expected_Start_Date" HeaderText="Expected  Start Date" HeaderStyle-BorderColor="Gray"
+                                                <asp:BoundField DataField="Project_Date" HeaderText="Project Record Created Date" DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-BorderColor="Gray" />
+                                                <asp:BoundField DataField="Project_Name" HeaderText="Project Title" HeaderStyle-BorderColor="Gray" ItemStyle-HorizontalAlign="Left" />
+                                                <asp:BoundField DataField="Expected_Start_Date" HeaderText="Expected Start Date" HeaderStyle-BorderColor="Gray"
                                                     DataFormatString="{0:dd/MM/yyyy}" />
-                                                <asp:BoundField DataField="Expected_End_Date" HeaderText="Expected End date" HeaderStyle-BorderColor="Gray"
+                                                <asp:BoundField DataField="Expected_End_Date" HeaderText="Due Date" HeaderStyle-BorderColor="Gray"
                                                     DataFormatString="{0:dd/MM/yyyy}" />
-                                                <asp:BoundField DataField="empfirstname" HeaderText="Project Manager" HeaderStyle-BorderColor="Gray" />
+                                                <asp:BoundField DataField="empfirstname" HeaderText="Project Manager" HeaderStyle-BorderColor="Gray" ItemStyle-HorizontalAlign="Left" />
                                                 <asp:BoundField DataField="Project_Status" HeaderText="Project Status" HeaderStyle-BorderColor="Gray" />
                                                 <asp:TemplateField ItemStyle-CssClass="command" HeaderStyle-Width="50px" HeaderText="Edit" HeaderStyle-BorderColor="Gray"
                                                     ItemStyle-HorizontalAlign="Center">

@@ -633,7 +633,7 @@ public class LeadBusinessLogic : BaseLogic
 
     }
 
-    public void UpdateReference(string connection, int ID, string TextValue, string TypeName, string Types)
+    public void UpdateReference(string connection, int ID, string TextValue, string TypeName, string Types, int TypeID)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(connection);
@@ -657,7 +657,7 @@ public class LeadBusinessLogic : BaseLogic
                 }
             }
 
-            dbQry = string.Format("Update tblLeadReferences SET TextValue='{1}', TypeName='{2}', Type ='{3}' WHERE ID={0}", ID, TextValue, TypeName, Types);
+            dbQry = string.Format("Update tblLeadReferences SET TextValue='{1}', TypeName='{2}', Type ='{3}',TypeID ={4} WHERE ID={0}", ID, TextValue, TypeName, Types,TypeID);
 
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -677,7 +677,7 @@ public class LeadBusinessLogic : BaseLogic
 
 
 
-    public void InsertReference(string connection, string TextValue, string TypeName, string Types)
+    public void InsertReference(string connection, string TextValue, string TypeName, string Types,int TypeID)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(connection);
@@ -703,8 +703,8 @@ public class LeadBusinessLogic : BaseLogic
 
             //int IDD = (Int32)manager.ExecuteScalar(CommandType.Text, "SELECT MAX(ID) FROM tblLeadReferences");
 
-            dbQry = string.Format("INSERT INTO tblLeadReferences(TextValue, TypeName,Type) VALUES('{0}','{1}','{2}')",
-                TextValue, TypeName, Types);
+            dbQry = string.Format("INSERT INTO tblLeadReferences(TextValue, TypeName,Type,TypeID) VALUES('{0}','{1}','{2}',{3})",
+                TextValue, TypeName, Types, TypeID);
 
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -764,7 +764,7 @@ public class LeadBusinessLogic : BaseLogic
 
         try
         {
-            dbQry = "select ID,TextValue,TypeName,Type from tblLeadReferences where ID = " + ID.ToString();
+            dbQry = "select ID,TextValue,TypeName,Type,TypeID from tblLeadReferences where ID = " + ID.ToString();
             manager.Open();
 
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);

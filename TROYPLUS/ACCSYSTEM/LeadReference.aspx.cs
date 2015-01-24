@@ -15,17 +15,27 @@ public partial class LeadReference : System.Web.UI.Page
 {
     public string sDataSource = string.Empty;
     string dbfileName = string.Empty;
-    
+
     protected void Page_Load(object sender, EventArgs e)
     {
         try
         {
+            string connStr = string.Empty;
+
+            if (Request.Cookies["Company"] != null)
+                connStr = System.Configuration.ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+            else
+                Response.Redirect("~/Login.aspx");
+
             sDataSource = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
             dbfileName = sDataSource.Remove(0, sDataSource.LastIndexOf(@"App_Data\") + 9);
             dbfileName = dbfileName.Remove(dbfileName.LastIndexOf(";Persist Security Info"));
 
             if (!Page.IsPostBack)
             {
+                string connection = Request.Cookies["Company"].Value;
+                string usernam = Request.Cookies["LoggedUserName"].Value;
+
                 //myRangeValidator.MinimumValue = System.DateTime.Now.AddYears(-100).ToShortDateString();
                 //myRangeValidator.MaximumValue = System.DateTime.Now.ToShortDateString();
 
@@ -42,9 +52,11 @@ public partial class LeadReference : System.Web.UI.Page
                 //{
                 //    lnkBtnAdd.Visible = false;
 
-                //}
+                //}              
 
+             
                 GrdViewLedger.PageSize = 8;
+                //loadReferenceType();
 
             }
         }
@@ -53,6 +65,23 @@ public partial class LeadReference : System.Web.UI.Page
             TroyLiteExceptionManager.HandleException(ex);
         }
     }
+
+
+    //private void loadReferenceType()
+    //{
+    //    BusinessLogic bl = new BusinessLogic(sDataSource);
+    //    DataSet ds = new DataSet();
+    //    string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+
+
+    //    ((DropDownList)this.frmViewAdd.FindControl("ddType")).Items.Clear();
+    //    ((DropDownList)this.frmViewAdd.FindControl("ddType")).Items.Add(new ListItem("Select Reference type", "0"));
+    //    ds = bl.ListReferenceType();
+    //    ((DropDownList)this.frmViewAdd.FindControl("ddType")).DataSource = ds;
+    //    ((DropDownList)this.frmViewAdd.FindControl("ddType")).DataBind();
+    //    ((DropDownList)this.frmViewAdd.FindControl("ddType")).DataTextField = "ReferenceType";
+    //    ((DropDownList)this.frmViewAdd.FindControl("ddType")).DataValueField = "TypeID";
+    //}
 
     protected void BtnClearFilter_Click(object sender, EventArgs e)
     {
@@ -389,7 +418,7 @@ public partial class LeadReference : System.Web.UI.Page
 
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
-            
+
         }
     }
 
@@ -445,10 +474,15 @@ public partial class LeadReference : System.Web.UI.Page
             e.InputParameters["TypeName"] = ((DropDownList)this.frmViewAdd.FindControl("ddType")).SelectedItem.Text;
         }
 
+        if (((DropDownList)this.frmViewAdd.FindControl("ddType")).SelectedValue != "")
+        {
+            e.InputParameters["TypeID"] = ((DropDownList)this.frmViewAdd.FindControl("ddType")).SelectedValue;
+        }
+
         if (((DropDownList)this.frmViewAdd.FindControl("ddType")).SelectedValue == "Activity Name")
         {
             e.InputParameters["Types"] = "ACTIVITY";
-        }       
+        }
     }
 
     private void setUpdateParameters(ObjectDataSourceMethodEventArgs e)
@@ -459,6 +493,11 @@ public partial class LeadReference : System.Web.UI.Page
         if (((DropDownList)this.frmViewAdd.FindControl("ddTypedd")).SelectedValue != "")
         {
             e.InputParameters["TypeName"] = ((DropDownList)this.frmViewAdd.FindControl("ddTypedd")).SelectedItem.Text;
+        }
+
+        if (((DropDownList)this.frmViewAdd.FindControl("ddTypedd")).SelectedValue != "")
+        {
+            e.InputParameters["TypeID"] = ((DropDownList)this.frmViewAdd.FindControl("ddTypedd")).SelectedValue;
         }
 
         if (((DropDownList)this.frmViewAdd.FindControl("ddTypedd")).SelectedValue == "Activity Name")

@@ -142,7 +142,9 @@ public partial class TaskEntry : System.Web.UI.Page
 
         string connection = Request.Cookies["Company"].Value;
 
-        DataSet ds = bl.GetTaskList(connection, textSearch, dropDown);
+        string Username = Request.Cookies["LoggedUserName"].Value;
+
+        DataSet ds = bl.GetUserTaskList(connection, textSearch, dropDown,Username);
 
         if (ds != null)
         {
@@ -317,6 +319,7 @@ public partial class TaskEntry : System.Web.UI.Page
             string status = string.Empty;
             string TaskDesc = string.Empty;
             string IsActive = string.Empty;
+           // string unitofmeasure = string.Empty;
             int ProjectCode = 0;
             int DependencyTask = 0;
             int Task_Id = 0;
@@ -392,6 +395,8 @@ public partial class TaskEntry : System.Web.UI.Page
                     TaskDesc = txtTaskDesc.Text.Trim();
                 if (Taskeffortdays.Text.Trim() != string.Empty)
                     effortdays = Convert.ToInt32(Taskeffortdays.Text.Trim());
+                //if (drpunitmeasure.Text.Trim() != string.Empty)
+                //    unitofmeasure = drpunitmeasure.Text.Trim();
 
                 string Username = Request.Cookies["LoggedUserName"].Value;
 
@@ -598,7 +603,7 @@ public partial class TaskEntry : System.Web.UI.Page
            
 
             Reset();
-            headtitle.Text = "New Task Details";
+            headtitle.Text = "Add New Task Details";
             txtCDate.Text = DateTime.Now.ToShortDateString();
             btnUpdate.Enabled = false;
             tbMain.Visible = true;
@@ -608,6 +613,8 @@ public partial class TaskEntry : System.Web.UI.Page
             btnSave.Visible = true;
             btnUpdate.Visible = false;
             btnSave.Enabled = true;
+            unitofmeasureheading.Text = "";
+            //drpunitmeasure.Visible = true;
             
             sDataSource = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
             loadEmp();
@@ -625,7 +632,7 @@ public partial class TaskEntry : System.Web.UI.Page
         {
             BusinessLogic bl = new BusinessLogic(sDataSource);
             int Task_Id = 0;
-            headtitle.Text = "Modify Details";
+            headtitle.Text = "Modify Task Details";
             string connection = Request.Cookies["Company"].Value;
 
             if (GrdWME.SelectedDataKey.Value != null && GrdWME.SelectedDataKey.Value.ToString() != "")
@@ -662,9 +669,22 @@ public partial class TaskEntry : System.Web.UI.Page
                         ListItem li = drpProjectCode.Items.FindByValue(System.Web.HttpUtility.HtmlDecode(sCs));
                         if (li != null) li.Selected = true;
                     }
+                    //if (ds.Tables[0].Rows[0]["Unit_Of_Measure"] != null)
+                    //    drpunitmeasure.SelectedValue = ds.Tables[0].Rows[0]["Unit_Of_Measure"].ToString();
 
                     if (ds.Tables[0].Rows[0]["Task_Description"] != null)
                         txtTaskDesc.Text = ds.Tables[0].Rows[0]["Task_Description"].ToString();
+
+                    int Project_Id = Convert.ToInt32(ds.Tables[0].Rows[0]["Project_Code"]);
+                    drpDependencyTask.Items.Clear();
+                    drpDependencyTask.Items.Add(new ListItem("Select Dependency Task", "0"));
+                    DataSet dsd = bl.GetDependencytask(connection, Project_Id);
+                    drpDependencyTask.DataSource = dsd;
+                    drpDependencyTask.DataBind();
+                    drpDependencyTask.DataTextField = "Task_Name";
+                    drpDependencyTask.DataValueField = "Task_Id";
+                    UpdatePanel2.Update();
+
 
                     if (ds.Tables[0].Rows[0]["Dependency_Task"] != null)
                     {
@@ -692,6 +712,16 @@ public partial class TaskEntry : System.Web.UI.Page
                         ListItem li = drpIncharge.Items.FindByValue(System.Web.HttpUtility.HtmlDecode(sCustomer));
                         if (li != null) li.Selected = true;
                     }
+                    DataSet dst = bl.GetDependencytask(connection, Project_Id);
+                    if (dst != null)
+                    {
+                        if (dst.Tables[0].Rows.Count > 0)
+                        {
+                            unitofmeasureheading.Text = "(" + Convert.ToString(dst.Tables[0].Rows[0]["Unit_Of_Measure"].ToString()) + ")";
+                            UpdatePanel4.Update();
+                        }
+                    }
+
                 }
             }
 
@@ -712,36 +742,72 @@ public partial class TaskEntry : System.Web.UI.Page
     }
 
 
-    //protected void drpprojectcode_SelectedIndexChanged(object sender, EventArgs e)
-    //{
-    //    try
-    //    {
-    //        BusinessLogic bl = new BusinessLogic(sDataSource);
-    //        int Project_Id = 0;
-          
-    //        string connection = Request.Cookies["Company"].Value;
+
+    protected void GrdView_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                sDataSource = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+                BusinessLogic bl = new BusinessLogic(sDataSource);
+
+                if (bl.CheckTaskUpdateUsed(int.Parse(((HiddenField)e.Row.FindControl("TaskID")).Value)))
+                {
+                    ((ImageButton)e.Row.FindControl("lnkB")).Visible = false;
+                    ((ImageButton)e.Row.FindControl("lnkBDisabled")).Visible = true;
+                    ((ImageButton)e.Row.FindControl("btnEdit")).Visible = false;
+                    ((ImageButton)e.Row.FindControl("btnEditDisabled")).Visible = true;
+                }
+            }
+        }
+
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
 
 
-    //        Project_Id = Convert.ToInt32(drpProjectCode.SelectedValue);
-    //        //if (GrdWME.SelectedDataKey.Value != null && GrdWME.SelectedDataKey.Value.ToString() != "")
-    //        //    Project_Id = Convert.ToInt32(GrdWME.SelectedDataKey.Value.ToString());
+    protected void drpprojectcode_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+            int Project_Id = 0;
 
-    //        drpDependencyTask.Items.Clear();
-    //        drpDependencyTask.Items.Add(new ListItem("Select Dependency Task", "0"));
-    //        DataSet ds = bl.GetDependencytask(connection,Project_Id);
+            string connection = Request.Cookies["Company"].Value;
 
-    //        drpDependencyTask.DataSource = ds;
-    //        drpDependencyTask.DataBind();
-    //        //drpDependencyTask.DataTextField = "Task_Name";
-    //        //drpDependencyTask.DataValueField = "Task_Id";
-    //        UpdatePanel2.Update();
 
-    //    }
-           
-    //    catch (Exception ex)
-    //    {
-    //        TroyLiteExceptionManager.HandleException(ex);
-    //    }
-    //   // UpdatePanel2.Update();
-    //}
+            Project_Id = Convert.ToInt32(drpProjectCode.SelectedValue);
+            //if (GrdWME.SelectedDataKey.Value != null && GrdWME.SelectedDataKey.Value.ToString() != "")
+            //    Project_Id = Convert.ToInt32(GrdWME.SelectedDataKey.Value.ToString());
+
+            drpDependencyTask.Items.Clear();
+            drpDependencyTask.Items.Add(new ListItem("Select Dependency Task", "0"));
+            DataSet ds = bl.GetDependencytask(connection, Project_Id);
+
+            drpDependencyTask.DataSource = ds;
+            drpDependencyTask.DataBind();
+            drpDependencyTask.DataTextField = "Task_Name";
+            drpDependencyTask.DataValueField = "Task_Id";
+            UpdatePanel2.Update();
+            DataSet dst =bl.GetProjectForId (connection, Project_Id);
+            if (dst != null)
+            {
+                if (dst.Tables[0].Rows.Count > 0)
+                {
+                    unitofmeasureheading.Text ="("+ Convert.ToString(dst.Tables[0].Rows[0]["Unit_Of_Measure"].ToString())+")";
+                    UpdatePanel4.Update();
+                }
+            }
+        }
+
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+        // UpdatePanel2.Update();
+    }
+
 }
