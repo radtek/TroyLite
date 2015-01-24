@@ -16330,6 +16330,330 @@ public class BusinessLogic
                 manager.Dispose();
         }
     }
+
+    public DataSet ListReferenceType(string connection)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        string dbQry = string.Empty;
+        DataSet ds = new DataSet();
+
+
+        dbQry = "Select ReferenceType,TypeID From tblLeadReferenceType Order By TypeID";
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    public DataSet ListActivityName()
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        string dbQry = string.Empty;
+        DataSet ds = new DataSet();
+        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Activity Name' Order By ID";
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    public DataSet ListNextActivity()
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        string dbQry = string.Empty;
+        DataSet ds = new DataSet();
+        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Next Activity' Order By ID";
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    public DataSet ListInformation2()
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        string dbQry = string.Empty;
+        DataSet ds = new DataSet();
+        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Information 2' Order By ID";
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    public DataSet ListInformation5()
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        string dbQry = string.Empty;
+        DataSet ds = new DataSet();
+        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Information 5' Order By ID";
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    public DataSet ListInformation3()
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        string dbQry = string.Empty;
+        DataSet ds = new DataSet();
+        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Information 3' Order By ID";
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    public DataSet ListInformation4()//Information 5
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        string dbQry = string.Empty;
+        DataSet ds = new DataSet();
+        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Information 4' Order By ID";
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    public DataSet ListBusinessType()//Information 5
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        string dbQry = string.Empty;
+        DataSet ds = new DataSet();
+        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Business Type' Order By ID";
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    public DataSet ListCategory()//Information 5
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        string dbQry = string.Empty;
+        DataSet ds = new DataSet();
+        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Category' Order By ID";
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+
+    public DataSet ListArea()//Information 5
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        string dbQry = string.Empty;
+        DataSet ds = new DataSet();
+        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Area' Order By ID";
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    public DataSet ListInterestLevel()//Information 5
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        string dbQry = string.Empty;
+        DataSet ds = new DataSet();
+        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Interest level' Order By ID";
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+
     public DataSet ListExecutive(string connection)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
@@ -65290,11 +65614,11 @@ public class BusinessLogic
 
         if (dropDown == "PriceName")
         {
-            dbQry = "select * from tblPriceList Where PriceName like '" + txtSearch + "' Order By Id";
+            dbQry = "select A.Id,A.PriceName,A.Description, (Select count(*) from tblPriceList where A.Id>=Id) as Row from tblPriceList as A Where A.PriceName like '" + txtSearch + "' Order By A.Id";
         }
         else
         {
-            dbQry = string.Format("select * from tblPriceList Order By Id");
+            dbQry = string.Format("select A.Id,A.PriceName,A.Description, (Select count(*) from tblPriceList where A.Id>=Id) as Row from tblPriceList as A Order By A.Id");
         }
 
         try

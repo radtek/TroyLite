@@ -42,35 +42,30 @@
                             <div class="mainConBody">
                                 <table style="width: 99.8%; margin: -2px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
                                     <tr style="height: 25px; vertical-align: middle">
-                                        <td style="width: 2%;"></td>
-                                        <td style="width: 18%; font-size: 22px; color: White;" >
-                                            Price List
+                                        <td style="width: 1%;"></td>
+                                        <td style="width: 30%; font-size: 22px; color: White;" >
+                                            Manage Price Lists
                                         </td>
                                         <td style="width: 16%">
-                                            <div style="text-align: right;">
-                                                <asp:Panel ID="pnlSearch" runat="server" Width="100px">
-                                                    <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
-                                                        EnableTheming="false" Width="80px" Text=""></asp:Button>
-                                                </asp:Panel>
-                                            </div>
+                                            
                                         </td>
-                                        <td style="width: 13%; color: White;" align="right">
+                                        <td style="width: 8%; color: White;" align="right">
                                             Search
                                         </td>
-                                        <td style="width: 20%" class="NewBox">
+                                        <td style="width: 18%" class="NewBox">
                                             <asp:TextBox ID="txtSearch" runat="server" SkinID="skinTxtBoxSearch"></asp:TextBox>
                                         </td>
-                                        <td style="width: 20%" class="NewBox">
+                                        <td style="width: 18%" class="NewBox">
                                             <div style="width: 160px; font-family: 'Trebuchet MS';">
                                                 <asp:DropDownList ID="ddCriteria" runat="server" Width="154px" BackColor="White" Height="23px" style="text-align:center;border:1px solid White ">
                                                     <asp:ListItem Value="PriceName">Price Name</asp:ListItem>
                                                 </asp:DropDownList>
                                             </div>
                                         </td>
-                                        <td style="width: 22%" class="tblLeftNoPad">
+                                        <td style="width: 17%" class="tblLeftNoPad">
                                             <asp:Button ID="btnSearch" runat="server" Text="" EnableTheming="false" CssClass="ButtonSearch6" OnClick="btnSearch_Click" />
                                         </td>
-                                         <td style="width: 16%" class="tblLeftNoPad">
+                                         <td style="width: 15%" class="tblLeftNoPad">
                                             <asp:Button ID="BtnClearFilter" runat="server"  OnClick="BtnClearFilter_Click"  EnableTheming="false" Text="" CssClass="ClearFilter6" />
                                         </td>
                                     </tr>
@@ -83,7 +78,7 @@
                             CancelControlID="Button1" DynamicServicePath="" Enabled="True" PopupControlID="popUp"
                             TargetControlID="dummy">
                         </cc1:ModalPopupExtender>
-                        <asp:Panel runat="server" ID="popUp" Style="width: 40%">
+                        <asp:Panel runat="server" ID="popUp" Style="width: 50%">
                             <div id="contentPopUp">
                                 <table cellpadding="2" cellspacing="2" style="border: 1px solid blue;
                                     background-color: #fff; color: #000;" width="100%">
@@ -99,7 +94,9 @@
                                                                     <table class="headerPopUp" width="100%">
                                                                         <tr>
                                                                             <td>
-                                                                                Price List
+                                                                                <asp:Label ID="Title1" runat="server">
+
+                                                                                </asp:Label>
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -111,8 +108,8 @@
                                                                 <td style="width: 10%">
                                                                     
                                                                 </td>
-                                                                <td style="width: 25%" class="ControlLabel">
-                                                                    Price List *
+                                                                <td style="width: 45%" class="ControlLabelNew">
+                                                                    Name of Price Component *
                                                                     <asp:RequiredFieldValidator ID="rvAliasNameAdd" runat="server" ControlToValidate="txtPriceList"
                                                                         Display="Dynamic" ErrorMessage="Price List is mandatory">*</asp:RequiredFieldValidator>
                                                                 </td>
@@ -120,7 +117,7 @@
                                                                     <asp:TextBox ID="txtPriceList" runat="server"
                                                                         SkinID="skinTxtBoxGrid" TabIndex="2"></asp:TextBox>
                                                                 </td>
-                                                                <td style="width: 33%" >
+                                                                <td style="width: 20%" >
                                                                     
                                                                 </td>
                                                             </tr>
@@ -130,8 +127,8 @@
                                                                 <td style="width: 10%">
                                                                     
                                                                 </td>
-                                                                <td style="width: 25%" class="ControlLabel">
-                                                                    Description *
+                                                                <td style="width: 45%" class="ControlLabelNew">
+                                                                    Description of Price Component *
                                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtDescription"
                                                                         Display="Dynamic" ErrorMessage="Description is mandatory">*</asp:RequiredFieldValidator>
                                                                 </td>
@@ -139,27 +136,29 @@
                                                                     <asp:TextBox ID="txtDescription" runat="server" 
                                                                         SkinID="skinTxtBoxGrid" TabIndex="2"></asp:TextBox>
                                                                 </td>
-                                                                <td style="width: 33%" >
+                                                                <td style="width: 20%" >
                                                                     
                                                                 </td>
                                                             </tr>
-                                                            <tr style="height:2px">
+                                                            <tr style="height:6px">
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 10%">
                                                                     
                                                                 </td>
-                                                                <td style="width: 25%" class="ControlLabel">
-                                                                    
+                                                                <td style="width: 45%" class="ControlLabelNew">
+                                                                    Import Prices from Excel file *
                                                                 </td>
                                                                 <td style="width: 25%;" class="ControlDrpBorder">
                                                                              
                                                                             <asp:FileUpload ID="FileUpload1" runat="server" />
                                                                         
                                                                 </td>
-                                                                <td style="width: 33%" >
+                                                                <td style="width: 20%" >
                                                                     
                                                                 </td>
+                                                            </tr>
+                                                            <tr style="height:10px">
                                                             </tr>
                                                             <tr>
                                                                 <td align="center" style="width: 100%" colspan="4">
@@ -172,12 +171,15 @@
                                                                                     <ContentTemplate>                                                                            
                                                                                         <asp:Button ID="SaveButton" runat="server" CommandName="Update" SkinID="skinBtnSave"
                                                                                             CssClass="savebutton1231" EnableTheming="false" OnClick="SaveButton_Click"></asp:Button>
+                                                                                        <asp:Button ID="Button4" runat="server" CommandName="Update" SkinID="skinBtnSave"
+                                                                                            CssClass="savebutton1231" EnableTheming="false" OnClick="Button4_Click"></asp:Button>
                                                                                         <asp:Button ID="UpdateButton" runat="server" CommandName="Update" SkinID="skinBtnSave"
                                                                                             CssClass="Updatebutton1231" EnableTheming="false" OnClick="UpdateButton_Click"></asp:Button>
                                                                                     </ContentTemplate>    
                                                                                     <Triggers>
                                                                                         <asp:PostBackTrigger ControlID="SaveButton" />
                                                                                         <asp:PostBackTrigger ControlID="UpdateButton" />
+                                                                                        <asp:PostBackTrigger ControlID="Button4" />
                                                                                     </Triggers>
                                                                                 </asp:UpdatePanel>
                                                                             </td>
@@ -228,11 +230,20 @@
                                 OnSelectedIndexChanged="GrdViewSerVisit_SelectedIndexChanged" OnRowDeleting="GrdViewSerVisit_RowDeleting"
                                 OnRowDeleted="GrdViewSerVisit_RowDeleted">
                                 <EmptyDataRowStyle CssClass="GrdContent" />
+                                <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small"/>
+                                <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE"/>
+                                  <%--ItemStyle-HorizontalAlign="Center" ItemStyle-Height="30px" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="Medium" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="75px"--%>
                                 <Columns>
-                                    <asp:BoundField DataField="PriceName" HeaderText="Price Name"  HeaderStyle-BorderColor="Gray" HeaderStyle-Wrap="false"/>
-                                    <asp:BoundField DataField="Description" HeaderText="Description"  HeaderStyle-BorderColor="Gray" HeaderStyle-Wrap="false"/>
-                                    
-                                    <asp:TemplateField ItemStyle-CssClass="command" HeaderStyle-Width="50px" HeaderText="Edit" HeaderStyle-BorderColor="Gray">
+                                    <asp:BoundField DataField="Row" HeaderText="#" HeaderStyle-Width="60px"/>
+                                    <asp:BoundField DataField="PriceName" HeaderText="Name of Price Component"  HeaderStyle-BorderColor="Gray" HeaderStyle-Wrap="false"/>
+                                    <asp:BoundField DataField="Description" HeaderText="Description of Price Component"  HeaderStyle-BorderColor="Gray" HeaderStyle-Wrap="false"/>
+                                    <asp:TemplateField ItemStyle-CssClass="command" HeaderStyle-Width="120px" HeaderText="Add Price List" HeaderStyle-BorderColor="Gray">
+                                        <ItemTemplate>
+                                            <asp:ImageButton ID="btnEdit1" runat="server" CausesValidation="false" SkinID="Plus"
+                                                CommandName="Select" OnClick="UpdButton_Click" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField ItemStyle-CssClass="command" HeaderStyle-Width="120px" HeaderText="Update Price List" HeaderStyle-BorderColor="Gray">
                                         <ItemTemplate>
                                             <asp:ImageButton ID="btnEdit" runat="server" CausesValidation="false" SkinID="edit"
                                                 CommandName="Select" />
@@ -324,15 +335,25 @@
     <div>
         <table style="width: 100%">
             <tr>
-                <td  style="width:35%">
+                <td  style="width:30%">
                     </td>
-                    <td  style="width:15%">
+                    <td  style="width:5%">
                         <asp:Button ID="Button2" runat="server"  OnClientClick="window.open('BulkPriceAddition.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=250,width=500,left=425,top=220, scrollbars=yes');" 
-                                    EnableTheming="false" Text="Import New Prices using Excel"></asp:Button>
+                                    EnableTheming="false" Text="Import New Prices using Excel" Visible="false"></asp:Button>
                     </td>
                     <td style="width:15%">
+                        <div style="text-align: right;">
+                                                <asp:Panel ID="pnlSearch" runat="server" Width="100px">
+                                                    <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
+                                                        EnableTheming="false" Text=""></asp:Button>
+                                                </asp:Panel>
+                                            </div>
                         <asp:Button ID="BlkAdd" runat="server"  OnClientClick="window.open('BulkPriceUpdation.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=250,width=500,left=425,top=220, scrollbars=yes');"
-                                    EnableTheming="false" Text="Import Existing Prices using Excel"></asp:Button>
+                                    EnableTheming="false" Text="Import Existing Prices using Excel" Visible="false"></asp:Button>
+                    </td>
+                    <td  style="width:15%">
+                        <asp:Button ID="Button3" runat="server" OnClick="Button3_Click"
+                                    EnableTheming="false" Text="Update Price for single Product"></asp:Button>
                     </td>
                     <td  style="width:35%">
                         

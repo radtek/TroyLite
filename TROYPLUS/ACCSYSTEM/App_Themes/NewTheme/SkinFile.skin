@@ -32,6 +32,7 @@ Default skin template. The following skins are provided as examples only.
     <HeaderStyle Height="25px" CssClass="HeadataRow" />
     <FooterStyle Height="27px" CssClass="SelectdataRow" />
     <PagerStyle Height="25px"  CssClass="footer-row allPad" VerticalAlign="Middle" HorizontalAlign="Left"  />
+
 </asp:GridView>
 
 <asp:GridView SkinID="GrdNoPaging" runat="server" AutoGenerateColumns="false" AllowPaging="False" BackColor="White">

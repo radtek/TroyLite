@@ -61,12 +61,109 @@ public partial class LeadMgmt : System.Web.UI.Page
                 BindGrid("Open", "DocStatus");
                 drpLeadStatus.Enabled = true;
                 drpStatus.Enabled = true;
+                loadInformation3();
+                loadInformation4();
+                loadBusinessType();
+                loadCategory();
+                loadArea();
+                loadInterestlevel();
+
             }
         }
         catch (Exception ex)
         {
             TroyLiteExceptionManager.HandleException(ex);
         }
+    }
+
+    private void loadInformation3()
+    {
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataSet ds = new DataSet();
+        string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+
+        drpInformation3.Items.Clear();
+        drpInformation3.Items.Add(new ListItem("Select Information 3", "0"));
+        ds = bl.ListInformation3();
+        drpInformation3.DataSource = ds;
+        drpInformation3.DataBind();
+        drpInformation3.DataTextField = "TextValue";
+        drpInformation3.DataValueField = "ID";
+    }
+
+    private void loadInformation4()
+    {
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataSet ds = new DataSet();
+        string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+
+        drpInformation4.Items.Clear();
+        drpInformation4.Items.Add(new ListItem("Select Information 4", "0"));
+        ds = bl.ListInformation4();
+        drpInformation4.DataSource = ds;
+        drpInformation4.DataBind();
+        drpInformation4.DataTextField = "TextValue";
+        drpInformation4.DataValueField = "ID";
+    }
+
+    private void loadBusinessType()
+    {
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataSet ds = new DataSet();
+        string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+
+        drpBusinessType.Items.Clear();
+        drpBusinessType.Items.Add(new ListItem("Select Business Type", "0"));
+        ds = bl.ListBusinessType();
+        drpBusinessType.DataSource = ds;
+        drpBusinessType.DataBind();
+        drpBusinessType.DataTextField = "TextValue";
+        drpBusinessType.DataValueField = "ID";
+    }
+
+    private void loadCategory()
+    {
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataSet ds = new DataSet();
+        string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+
+        drpCategory.Items.Clear();
+        drpCategory.Items.Add(new ListItem("Select Category", "0"));
+        ds = bl.ListCategory();
+        drpCategory.DataSource = ds;
+        drpCategory.DataBind();
+        drpCategory.DataTextField = "TextValue";
+        drpCategory.DataValueField = "ID";
+    }
+
+    private void loadArea()
+    {
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataSet ds = new DataSet();
+        string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+
+        drpArea.Items.Clear();
+        drpArea.Items.Add(new ListItem("Select Area", "0"));
+        ds = bl.ListArea();
+        drpArea.DataSource = ds;
+        drpArea.DataBind();
+        drpArea.DataTextField = "TextValue";
+        drpArea.DataValueField = "ID";
+    }
+
+    private void loadInterestlevel()
+    {
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataSet ds = new DataSet();
+        string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+
+        drpIntLevel.Items.Clear();
+        drpIntLevel.Items.Add(new ListItem("Select Interest level", "0"));
+        ds = bl.ListInterestLevel();
+        drpIntLevel.DataSource = ds;
+        drpIntLevel.DataBind();
+        drpIntLevel.DataTextField = "TextValue";
+        drpIntLevel.DataValueField = "ID";
     }
 
     protected void ComboBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -117,7 +214,7 @@ public partial class LeadMgmt : System.Web.UI.Page
             else
             {
                 txtAddress.Text = string.Empty;
-               // txtContactName.Text = string.Empty;
+                // txtContactName.Text = string.Empty;
                 txtTelephone.Text = string.Empty;
                 txtMobile.Text = string.Empty;
             }
@@ -125,11 +222,11 @@ public partial class LeadMgmt : System.Web.UI.Page
             DataSet Ds = bl.getSalesForId(iLedgerID);
             if (customerDs != null && customerDs.Tables[0].Rows.Count > 0)
             {
-               // txtTotalAmount.Text = Ds.Tables[0].Rows[0]["rate"].ToString();
+                // txtTotalAmount.Text = Ds.Tables[0].Rows[0]["rate"].ToString();
             }
             else
             {
-               // txtTotalAmount.Text = "0";
+                // txtTotalAmount.Text = "0";
             }
         }
         catch (Exception ex)
@@ -150,7 +247,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         cmbCustomer.DataTextField = "LedgerName";
         cmbCustomer.DataValueField = "LedgerID";
 
-       
+
     }
 
     private void loadStages()
@@ -158,7 +255,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         BusinessLogic bl = new BusinessLogic(sDataSource);
         DataSet dsd = new DataSet();
 
-       // drpStageName.Items.Clear();
+        // drpStageName.Items.Clear();
         //drpStageName.Items.Add(new ListItem("Select Stage Name", "0"));
         dsd = bl.ListStagesSetup(sDataSource, "N", 0);
         //drpStageName.DataSource = dsd;
@@ -202,7 +299,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         DataSet ds = new DataSet();
 
         LeadBusinessLogic bll = new LeadBusinessLogic(sDataSource);
-        
+
 
         drpActivityName.Items.Clear();
         drpActivityName.Items.Add(new ListItem("Select Activity Name", "0"));
@@ -242,20 +339,20 @@ public partial class LeadMgmt : System.Web.UI.Page
         {
             BusinessLogic bl = new BusinessLogic(sDataSource);
             DataSet dsd = new DataSet();
-           // int iStageID = Convert.ToInt32(drpStageName.SelectedItem.Value);
+            // int iStageID = Convert.ToInt32(drpStageName.SelectedItem.Value);
 
             //dsd = bl.ListStagesSetup(sDataSource, "Y", iStageID);
 
             if (dsd != null && dsd.Tables[0].Rows.Count > 0)
             {
                 //if (dsd.Tables[0].Rows[0]["Stage_Perc"] != null)
-                    //txtStagePerc.Text = dsd.Tables[0].Rows[0]["Stage_Perc"].ToString();
+                //txtStagePerc.Text = dsd.Tables[0].Rows[0]["Stage_Perc"].ToString();
             }
             //UpdatePanel1.Update();
 
-           // double calculation = (Convert.ToDouble(txtStagePotentialAmount.Text) * Convert.ToDouble(txtStagePerc.Text)) / 100;
-           // txtStageWeightedAmount.Text = Convert.ToString(calculation);
-           // UpdatePanel8.Update();
+            // double calculation = (Convert.ToDouble(txtStagePotentialAmount.Text) * Convert.ToDouble(txtStagePerc.Text)) / 100;
+            // txtStageWeightedAmount.Text = Convert.ToString(calculation);
+            // UpdatePanel8.Update();
         }
         catch (Exception ex)
         {
@@ -268,9 +365,9 @@ public partial class LeadMgmt : System.Web.UI.Page
     {
         try
         {
-           // double calculation = (Convert.ToDouble(txtStagePotentialAmount.Text) * Convert.ToDouble(txtStagePerc.Text)) / 100;
-           // txtStageWeightedAmount.Text = Convert.ToString(calculation);
-           // UpdatePanel8.Update();
+            // double calculation = (Convert.ToDouble(txtStagePotentialAmount.Text) * Convert.ToDouble(txtStagePerc.Text)) / 100;
+            // txtStageWeightedAmount.Text = Convert.ToString(calculation);
+            // UpdatePanel8.Update();
         }
         catch (Exception ex)
         {
@@ -342,9 +439,9 @@ public partial class LeadMgmt : System.Web.UI.Page
     {
         try
         {
-           // double calculation = (Convert.ToDouble(txtStagePotentialAmount.Text) * Convert.ToDouble(txtStagePerc.Text)) /100;
-           // txtStageWeightedAmount.Text = Convert.ToString(calculation);
-           // UpdatePanel8.Update();
+            // double calculation = (Convert.ToDouble(txtStagePotentialAmount.Text) * Convert.ToDouble(txtStagePerc.Text)) /100;
+            // txtStageWeightedAmount.Text = Convert.ToString(calculation);
+            // UpdatePanel8.Update();
         }
         catch (Exception ex)
         {
@@ -356,10 +453,10 @@ public partial class LeadMgmt : System.Web.UI.Page
     {
         try
         {
-                DateTime date = Convert.ToDateTime(txtCreationDate.Text);
+            DateTime date = Convert.ToDateTime(txtCreationDate.Text);
 
-                //string dtaa = Convert.ToDateTime(date).ToString("dd/MM/yyyy");              
-                //DateTime calculat = Convert.ToDateTime(dtaa);
+            //string dtaa = Convert.ToDateTime(date).ToString("dd/MM/yyyy");              
+            //DateTime calculat = Convert.ToDateTime(dtaa);
 
             //if(drpPredictedClosingPeriod.SelectedValue == "Days")
             //{
@@ -552,7 +649,7 @@ public partial class LeadMgmt : System.Web.UI.Page
 
             //        string sQl = string.Format("Insert Into tblCompetitors(Competitor_Name) Values('{0}')", unit);
             //        string connection = Request.Cookies["Company"].Value;
-                    
+
             //        //srcGridView.InsertParameters.Add("sQl", TypeCode.String, sQl);
             //        //srcGridView.InsertParameters.Add("connection", TypeCode.String, GetConnectionString());
 
@@ -668,7 +765,7 @@ public partial class LeadMgmt : System.Web.UI.Page
     {
         LeadBusinessLogic bl = new LeadBusinessLogic(sDataSource);
         DataSet ds = new DataSet();
-        
+
         //ds = bl.GetDropdownList(sDataSource, "CONTACT");
         //cmbModeOfContact.DataSource = ds;
         //cmbModeOfContact.DataBind();
@@ -789,20 +886,20 @@ public partial class LeadMgmt : System.Web.UI.Page
 
             //txtCreationDate.Text = DateTime.Now.ToShortDateString();
 
-           // BtnAddStage.Visible = true;
-           // pnlStage.Visible = false;
-           // GrdViewLeadStage.Visible = true;
+            // BtnAddStage.Visible = true;
+            // pnlStage.Visible = false;
+            // GrdViewLeadStage.Visible = true;
             loadEmp();
 
-            BtnAddproduct.Visible = true;
+            // BtnAddproduct.Visible = true;
             GrdViewLeadproduct.Visible = true;
             pnlproduct.Visible = false;
 
-            BtnAddCompetitor.Visible = true;
+            // BtnAddCompetitor.Visible = true;
             GrdViewLeadCompetitor.Visible = true;
             pnlCompetitor.Visible = false;
 
-            BtnAddActivity.Visible = true;
+            // BtnAddActivity.Visible = true;
             GrdViewLeadActivity.Visible = true;
             pnlActivity.Visible = false;
 
@@ -851,7 +948,9 @@ public partial class LeadMgmt : System.Web.UI.Page
             txtLeadNo.Text = "- TBA -";
             txtCreationDate.Focus();
             BindStage();
-            
+            FirstGridViewRow_ProductTab();
+            FirstGridViewRow_CompetitorsTab();
+            FirstGridViewRow_ActivityTab();
             //DropDownList1.SelectedItem.Text = "NO";
         }
         catch (Exception ex)
@@ -863,7 +962,7 @@ public partial class LeadMgmt : System.Web.UI.Page
     private void loadEmp()
     {
         BusinessLogic bl = new BusinessLogic(sDataSource);
-        DataSet ds = new DataSet();        
+        DataSet ds = new DataSet();
         string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
 
         drpIncharge.Items.Clear();
@@ -960,7 +1059,7 @@ public partial class LeadMgmt : System.Web.UI.Page
     protected void GrdStage_DataBound(object sender, EventArgs e)
     {
 
-        
+
     }
 
 
@@ -998,16 +1097,16 @@ public partial class LeadMgmt : System.Web.UI.Page
 
             //if (ds != null)
             //{
-                //txtDivision.Text = ds.Tables[0].Rows[0]["DivisionName"].ToString();
-                //txtDivAddress.Text = ds.Tables[0].Rows[0]["Address"].ToString();
-                //txtDivCity.Text = ds.Tables[0].Rows[0]["City"].ToString();
-                //txtDivState.Text = ds.Tables[0].Rows[0]["State"].ToString();
-                //txtDivPinNo.Text = ds.Tables[0].Rows[0]["PinCode"].ToString();
-                //txtDivPhoneNo.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
-                //txtDivEmail.Text = ds.Tables[0].Rows[0]["eMail"].ToString();
-                //txtDivFax.Text = ds.Tables[0].Rows[0]["Fax"].ToString();
-                //txtDivTinNo.Text = ds.Tables[0].Rows[0]["TINNo"].ToString();
-                //txtDivGSTNo.Text = ds.Tables[0].Rows[0]["GSTNo"].ToString();
+            //txtDivision.Text = ds.Tables[0].Rows[0]["DivisionName"].ToString();
+            //txtDivAddress.Text = ds.Tables[0].Rows[0]["Address"].ToString();
+            //txtDivCity.Text = ds.Tables[0].Rows[0]["City"].ToString();
+            //txtDivState.Text = ds.Tables[0].Rows[0]["State"].ToString();
+            //txtDivPinNo.Text = ds.Tables[0].Rows[0]["PinCode"].ToString();
+            //txtDivPhoneNo.Text = ds.Tables[0].Rows[0]["Phone"].ToString();
+            //txtDivEmail.Text = ds.Tables[0].Rows[0]["eMail"].ToString();
+            //txtDivFax.Text = ds.Tables[0].Rows[0]["Fax"].ToString();
+            //txtDivTinNo.Text = ds.Tables[0].Rows[0]["TINNo"].ToString();
+            //txtDivGSTNo.Text = ds.Tables[0].Rows[0]["GSTNo"].ToString();
             //}
         }
         catch (Exception ex)
@@ -1051,7 +1150,7 @@ public partial class LeadMgmt : System.Web.UI.Page
             loadStages();
 
             //txtStagePotentialAmount.Text = txtPotentialPotAmount.Text;
-            
+
         }
         catch (Exception ex)
         {
@@ -1064,7 +1163,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         try
         {
             ResetCompetitor();
-            BtnAddCompetitor.Visible = false;
+            // BtnAddCompetitor.Visible = false;
             cmdSaveCompetitor.Visible = true;
             cmdUpdateCompetitor.Visible = false;
             pnlCompetitor.Visible = true;
@@ -1082,12 +1181,12 @@ public partial class LeadMgmt : System.Web.UI.Page
         {
             loadActivities();
             ResetActivity();
-            BtnAddActivity.Visible = false;
+            // BtnAddActivity.Visible = false;
             cmdSaveActivity.Visible = true;
             cmdUpdateActivity.Visible = false;
             pnlActivity.Visible = true;
             GrdViewLeadActivity.Visible = false;
-            
+
         }
         catch (Exception ex)
         {
@@ -1106,7 +1205,9 @@ public partial class LeadMgmt : System.Web.UI.Page
             cmdUpdateproduct.Visible = false;
             pnlproduct.Visible = true;
             GrdViewLeadproduct.Visible = false;
-
+            //ModalPopupExtender2.Show();
+            //ModalPopupProduct.Show();
+            //updatePnlProduct.Update();
         }
         catch (Exception ex)
         {
@@ -1146,14 +1247,14 @@ public partial class LeadMgmt : System.Web.UI.Page
 
     private void ResetStage()
     {
-       // hdBtnAddStage.Value = string.Empty;
-       // txtStageStartDate.Text = string.Empty;
-      //  txtStageEndDate.Text = string.Empty;
-      //  drpStageName.SelectedIndex = 0;
-       // txtStagePerc.Text = "0";
-       // txtStagePotentialAmount.Text = "0";
-       // txtStageWeightedAmount.Text = "0";
-      //  txtStageRemarks.Text = string.Empty;
+        // hdBtnAddStage.Value = string.Empty;
+        // txtStageStartDate.Text = string.Empty;
+        //  txtStageEndDate.Text = string.Empty;
+        //  drpStageName.SelectedIndex = 0;
+        // txtStagePerc.Text = "0";
+        // txtStagePotentialAmount.Text = "0";
+        // txtStageWeightedAmount.Text = "0";
+        //  txtStageRemarks.Text = string.Empty;
     }
 
     private void ResetCompetitor()
@@ -1221,7 +1322,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         drpStatus.SelectedIndex = 0;
         //drpPredictedClosingPeriod.SelectedIndex = 0;
         //txtTotalAmount.Text = "0";
-       // txtClosingPer.Text = "0";
+        // txtClosingPer.Text = "0";
         txtClosingDate.Text = "";
         //txtContactName.Text = "";
         //txtPotentialPotAmount.Text = "";
@@ -1241,7 +1342,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         {
             txtBPName.Visible = true;
             cmbCustomer.Visible = false;
-           // txtContactName.Enabled = true;
+            // txtContactName.Enabled = true;
             txtAddress.Enabled = true;
             txtMobile.Enabled = true;
             txtTelephone.Enabled = true;
@@ -1250,7 +1351,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         {
             cmbCustomer.Visible = true;
             txtBPName.Visible = false;
-           // txtContactName.Enabled = false;
+            // txtContactName.Enabled = false;
             txtAddress.Enabled = false;
             txtMobile.Enabled = false;
             txtTelephone.Enabled = false;
@@ -1271,19 +1372,19 @@ public partial class LeadMgmt : System.Web.UI.Page
             //    GrdViewLeadStage.DataSource = ds.Tables[0];
             //    GrdViewLeadStage.DataBind();
             //}
-           // GrdViewLeadStage.DataSource = null;
-           // GrdViewLeadStage.DataBind();
+            // GrdViewLeadStage.DataSource = null;
+            // GrdViewLeadStage.DataBind();
         }
         else
         {
-           // GrdViewLeadStage.DataSource = null;
-           // GrdViewLeadStage.DataBind();
+            // GrdViewLeadStage.DataSource = null;
+            // GrdViewLeadStage.DataBind();
         }
     }
 
     private string GetConnectionString()
     {
-         string connStr = string.Empty;
+        string connStr = string.Empty;
 
         if (Request.Cookies["Company"] != null)
             connStr = System.Configuration.ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
@@ -1339,16 +1440,16 @@ public partial class LeadMgmt : System.Web.UI.Page
                 drNew = dt.NewRow();
 
                 drNew["Stage_Id"] = 1;
-               // drNew["Stage_Name"] = drpStageName.SelectedItem.Text;
-               // drNew["Stage_Setup_Id"] = drpStageName.SelectedValue;
-               // drNew["Stage_Perc"] = txtStagePerc.Text;
+                // drNew["Stage_Name"] = drpStageName.SelectedItem.Text;
+                // drNew["Stage_Setup_Id"] = drpStageName.SelectedValue;
+                // drNew["Stage_Perc"] = txtStagePerc.Text;
                 //txtClosingPer.Text = txtStagePerc.Text;
-               // txtPotentialWeightedAmount.Text = txtStageWeightedAmount.Text;
-               // drNew["Remarks"] = txtStageRemarks.Text;
-               // drNew["Weighted_Amount"] = txtStageWeightedAmount.Text;
-               // drNew["Potential_Amount"] = txtStagePotentialAmount.Text;
-               // drNew["Start_Date"] = txtStageStartDate.Text;
-               // drNew["End_Date"] = txtStageEndDate.Text;
+                // txtPotentialWeightedAmount.Text = txtStageWeightedAmount.Text;
+                // drNew["Remarks"] = txtStageRemarks.Text;
+                // drNew["Weighted_Amount"] = txtStageWeightedAmount.Text;
+                // drNew["Potential_Amount"] = txtStagePotentialAmount.Text;
+                // drNew["Start_Date"] = txtStageStartDate.Text;
+                // drNew["End_Date"] = txtStageEndDate.Text;
                 ds.Tables[0].Rows.Add(drNew);
                 Session["contactDs"] = ds;
             }
@@ -1364,8 +1465,8 @@ public partial class LeadMgmt : System.Web.UI.Page
                 drNew = ds.Tables[0].NewRow();
                 drNew["Stage_Id"] = maxID + 1;
                 //drNew["Stage_Name"] = drpStageName.SelectedItem.Text;
-               // drNew["Stage_Setup_Id"] = drpStageName.SelectedValue;
-               // drNew["Stage_Perc"] = txtStagePerc.Text;
+                // drNew["Stage_Setup_Id"] = drpStageName.SelectedValue;
+                // drNew["Stage_Perc"] = txtStagePerc.Text;
                 //txtClosingPer.Text = txtStagePerc.Text;
                 //txtPotentialWeightedAmount.Text = txtStageWeightedAmount.Text;
                 //drNew["Remarks"] = txtStageRemarks.Text;
@@ -1464,7 +1565,7 @@ public partial class LeadMgmt : System.Web.UI.Page
 
             pnlCompetitor.Visible = false;
             GrdViewLeadCompetitor.Visible = true;
-            BtnAddCompetitor.Visible = true;
+            //BtnAddCompetitor.Visible = true;
         }
         catch (Exception ex)
         {
@@ -1532,7 +1633,7 @@ public partial class LeadMgmt : System.Web.UI.Page
 
             pnlproduct.Visible = false;
             GrdViewLeadproduct.Visible = true;
-            BtnAddproduct.Visible = true;
+            // BtnAddproduct.Visible = true;
         }
         catch (Exception ex)
         {
@@ -1545,7 +1646,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         try
         {
             var ds = (DataSet)Session["contactDs"];
-           // int currentRow = int.Parse(hdCurrentRow.Value);
+            // int currentRow = int.Parse(hdCurrentRow.Value);
 
             //ds.Tables[0].Rows[currentRow]["Stage_Name"] = drpStageName.SelectedItem.Text;
             //ds.Tables[0].Rows[currentRow]["Stage_Setup_Id"] = drpStageName.SelectedValue;
@@ -1557,14 +1658,14 @@ public partial class LeadMgmt : System.Web.UI.Page
             //ds.Tables[0].Rows[currentRow]["End_Date"] = txtStageEndDate.Text;
 
             //ds.Tables[0].Rows[currentRow].EndEdit();
-           // ds.Tables[0].Rows[currentRow].AcceptChanges();
+            // ds.Tables[0].Rows[currentRow].AcceptChanges();
 
             //GrdViewLeadStage.DataSource = ds.Tables[0];
             //GrdViewLeadStage.DataBind();
             //pnlStage.Visible = false;
             Session["contactDs"] = ds;
 
-            if(ds != null)
+            if (ds != null)
             {
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -1575,7 +1676,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                 }
             }
 
-           // pnlStage.Visible = false;
+            // pnlStage.Visible = false;
             //GrdViewLeadStage.Visible = true;
             //BtnAddStage.Visible = true;
 
@@ -1603,7 +1704,7 @@ public partial class LeadMgmt : System.Web.UI.Page
             {
                 ds.Tables[0].Rows[currentRow]["Remarks"] = txtCompetitorRemarks.Text;
             }
-            
+
             ds.Tables[0].Rows[currentRow].EndEdit();
             ds.Tables[0].Rows[currentRow].AcceptChanges();
 
@@ -1614,7 +1715,7 @@ public partial class LeadMgmt : System.Web.UI.Page
 
             pnlCompetitor.Visible = false;
             GrdViewLeadCompetitor.Visible = true;
-            BtnAddCompetitor.Visible = true;
+            // BtnAddCompetitor.Visible = true;
 
         }
         catch (Exception ex)
@@ -1644,7 +1745,7 @@ public partial class LeadMgmt : System.Web.UI.Page
 
             pnlproduct.Visible = false;
             GrdViewLeadproduct.Visible = true;
-            BtnAddproduct.Visible = true;
+            //BtnAddproduct.Visible = true;
 
         }
         catch (Exception ex)
@@ -1690,7 +1791,7 @@ public partial class LeadMgmt : System.Web.UI.Page
 
                 dc = new DataColumn("Next_Activity_Id");
                 dt.Columns.Add(dc);
-                
+
                 dc = new DataColumn("NextActivity_Date");
                 dt.Columns.Add(dc);
 
@@ -1719,7 +1820,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                 drNew["Next_Activity"] = drpNextActivity.SelectedItem.Text;
                 drNew["Next_Activity_Id"] = drpNextActivity.SelectedValue;
                 drNew["NextActivity_Date"] = txtNextActivityDate.Text;
-               // drNew["FollowUp"] = drpFollowUp.SelectedValue;
+                // drNew["FollowUp"] = drpFollowUp.SelectedValue;
                 drNew["Emp_Name"] = drpActivityEmployee.SelectedItem.Text;
                 drNew["Emp_No"] = drpActivityEmployee.SelectedValue;
                 drNew["Remarks"] = txtActivityRemarks.Text;
@@ -1745,7 +1846,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                 drNew["Next_Activity"] = drpNextActivity.SelectedItem.Text;
                 drNew["Next_Activity_Id"] = drpNextActivity.SelectedValue;
                 drNew["NextActivity_Date"] = txtNextActivityDate.Text;
-               // drNew["FollowUp"] = drpFollowUp.SelectedValue;
+                // drNew["FollowUp"] = drpFollowUp.SelectedValue;
                 drNew["Emp_Name"] = drpActivityEmployee.SelectedItem.Text;
                 drNew["Emp_No"] = drpActivityEmployee.SelectedValue;
                 drNew["Remarks"] = txtActivityRemarks.Text;
@@ -1758,7 +1859,7 @@ public partial class LeadMgmt : System.Web.UI.Page
 
             pnlActivity.Visible = false;
             GrdViewLeadActivity.Visible = true;
-            BtnAddActivity.Visible = true;
+            //BtnAddActivity.Visible = true;
         }
         catch (Exception ex)
         {
@@ -1781,7 +1882,7 @@ public partial class LeadMgmt : System.Web.UI.Page
             ds.Tables[0].Rows[currentRow]["Next_Activity"] = drpNextActivity.SelectedItem.Text;
             ds.Tables[0].Rows[currentRow]["Next_Activity_Id"] = drpNextActivity.SelectedValue;
             ds.Tables[0].Rows[currentRow]["NextActivity_Date"] = txtNextActivityDate.Text;
-           // ds.Tables[0].Rows[currentRow]["FollowUp"] = drpFollowUp.SelectedValue;
+            // ds.Tables[0].Rows[currentRow]["FollowUp"] = drpFollowUp.SelectedValue;
             ds.Tables[0].Rows[currentRow]["Emp_Name"] = drpActivityEmployee.SelectedItem.Text;
             ds.Tables[0].Rows[currentRow]["Emp_No"] = drpActivityEmployee.SelectedValue;
             ds.Tables[0].Rows[currentRow]["Remarks"] = txtActivityRemarks.Text;
@@ -1796,7 +1897,7 @@ public partial class LeadMgmt : System.Web.UI.Page
 
             pnlActivity.Visible = false;
             GrdViewLeadActivity.Visible = true;
-            BtnAddActivity.Visible = true;
+            //BtnAddActivity.Visible = true;
         }
         catch (Exception ex)
         {
@@ -1833,7 +1934,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         {
             loadStages();
             DataSet ds = new DataSet();
-           // GridViewRow row = GrdViewLeadStage.SelectedRow;
+            // GridViewRow row = GrdViewLeadStage.SelectedRow;
 
             //hdCurrentRow.Value = Convert.ToString(row.DataItemIndex);
 
@@ -1877,12 +1978,12 @@ public partial class LeadMgmt : System.Web.UI.Page
             {
                 txtCompetitorRemarks.Text = row.Cells[2].Text;
             }
-            
+
             cmdSaveCompetitor.Visible = false;
             cmdUpdateCompetitor.Visible = true;
             pnlCompetitor.Visible = true;
             GrdViewLeadCompetitor.Visible = false;
-            BtnAddCompetitor.Visible = false;
+            // BtnAddCompetitor.Visible = false;
         }
         catch (Exception ex)
         {
@@ -1905,7 +2006,7 @@ public partial class LeadMgmt : System.Web.UI.Page
             cmdUpdateproduct.Visible = true;
             pnlproduct.Visible = true;
             GrdViewLeadproduct.Visible = false;
-            BtnAddproduct.Visible = false;
+            // BtnAddproduct.Visible = false;
         }
         catch (Exception ex)
         {
@@ -1925,7 +2026,7 @@ public partial class LeadMgmt : System.Web.UI.Page
 
             drpActivityName.SelectedValue = row.Cells[1].Text;
             txtActivityDate.Text = row.Cells[2].Text;
-           // txtActivityEndDate.Text = row.Cells[3].Text;
+            // txtActivityEndDate.Text = row.Cells[3].Text;
             txtNextActivityDate.Text = row.Cells[7].Text;
             txtActivityLocation.Text = row.Cells[4].Text;
             drpNextActivity.SelectedValue = row.Cells[6].Text;
@@ -1937,7 +2038,7 @@ public partial class LeadMgmt : System.Web.UI.Page
             cmdUpdateActivity.Visible = true;
             pnlActivity.Visible = true;
             GrdViewLeadActivity.Visible = false;
-            BtnAddActivity.Visible = false;
+            //  BtnAddActivity.Visible = false;
         }
         catch (Exception ex)
         {
@@ -1998,103 +2099,76 @@ public partial class LeadMgmt : System.Web.UI.Page
 
     protected void GrdViewLeadCompetitor_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
-        try
+        SetRowDataCompetitors();
+        if (ViewState["CurrentTable"] != null)
         {
-            if (Session["CompetitorDs"] != null)
+            DataTable dt = (DataTable)ViewState["CurrentTable"];
+            DataRow drCurrentRow = null;
+            int rowIndex = Convert.ToInt32(e.RowIndex);
+            if (dt.Rows.Count > 1)
             {
-                string connStr = string.Empty;
-                DataSet ds;
+                dt.Rows.Remove(dt.Rows[rowIndex]);
+                drCurrentRow = dt.NewRow();
+                ViewState["CurrentTable"] = dt;
+                GrdViewLeadCompetitor.DataSource = dt;
+                GrdViewLeadCompetitor.DataBind();
 
-                /*
-                if (Request.Cookies["Company"] != null)
-                    connStr = System.Configuration.ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
-                else
-                    Response.Redirect("~/Login.aspx");
-
-                GridViewRow row = GrdViewLeadContact.Rows[e.RowIndex];
-                string refID = row.Cells[0].Text;
-                LeadBusinessLogic bl = new LeadBusinessLogic(connStr);
-                bl.DeleteLeadContact(refID);*/
-
-                //ds = (DataSet)Session["contactDs"];
-                //ds.Tables[0].Rows[GrdViewLeadContact.Rows[e.RowIndex].DataItemIndex].Delete();
-                //ds.Tables[0].AcceptChanges();
-                //GrdViewLeadContact.DataSource = ds;
-                //GrdViewLeadContact.DataBind();
-                //Session["contactDs"] = ds;
+                for (int i = 0; i < GrdViewLeadCompetitor.Rows.Count - 1; i++)
+                {
+                    GrdViewLeadCompetitor.Rows[i].Cells[0].Text = Convert.ToString(i + 1);
+                }
+                SetPreviousDataCompetitors();
             }
-        }
-        catch (Exception ex)
-        {
-            TroyLiteExceptionManager.HandleException(ex);
         }
     }
 
     protected void GrdViewLeadproduct_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
-        try
+        SetRowDataProduct();
+        if (ViewState["CurrentTable"] != null)
         {
-            if (Session["ProductDs"] != null)
+            DataTable dt = (DataTable)ViewState["CurrentTable"];
+            DataRow drCurrentRow = null;
+            int rowIndex = Convert.ToInt32(e.RowIndex);
+            if (dt.Rows.Count > 1)
             {
-                string connStr = string.Empty;
-                DataSet ds;
+                dt.Rows.Remove(dt.Rows[rowIndex]);
+                drCurrentRow = dt.NewRow();
+                ViewState["CurrentTable"] = dt;
+                GrdViewLeadproduct.DataSource = dt;
+                GrdViewLeadproduct.DataBind();
 
-                /*
-                if (Request.Cookies["Company"] != null)
-                    connStr = System.Configuration.ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
-                else
-                    Response.Redirect("~/Login.aspx");
-
-                GridViewRow row = GrdViewLeadContact.Rows[e.RowIndex];
-                string refID = row.Cells[0].Text;
-                LeadBusinessLogic bl = new LeadBusinessLogic(connStr);
-                bl.DeleteLeadContact(refID);*/
-
-                //ds = (DataSet)Session["contactDs"];
-                //ds.Tables[0].Rows[GrdViewLeadContact.Rows[e.RowIndex].DataItemIndex].Delete();
-                //ds.Tables[0].AcceptChanges();
-                //GrdViewLeadContact.DataSource = ds;
-                //GrdViewLeadContact.DataBind();
-                //Session["contactDs"] = ds;
+                for (int i = 0; i < GrdViewLeadproduct.Rows.Count - 1; i++)
+                {
+                    GrdViewLeadproduct.Rows[i].Cells[0].Text = Convert.ToString(i + 1);
+                }
+                SetPreviousDataProduct();
             }
-        }
-        catch (Exception ex)
-        {
-            TroyLiteExceptionManager.HandleException(ex);
         }
     }
 
     protected void GrdViewLeadActivity_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
-        try
+        SetRowDataActivity();
+        if (ViewState["CurrentTable"] != null)
         {
-            if (Session["ActivityDs"] != null)
+            DataTable dt = (DataTable)ViewState["CurrentTable"];
+            DataRow drCurrentRow = null;
+            int rowIndex = Convert.ToInt32(e.RowIndex);
+            if (dt.Rows.Count > 1)
             {
-                string connStr = string.Empty;
-                DataSet ds;
+                dt.Rows.Remove(dt.Rows[rowIndex]);
+                drCurrentRow = dt.NewRow();
+                ViewState["CurrentTable"] = dt;
+                GrdViewLeadActivity.DataSource = dt;
+                GrdViewLeadActivity.DataBind();
 
-                /*
-                if (Request.Cookies["Company"] != null)
-                    connStr = System.Configuration.ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
-                else
-                    Response.Redirect("~/Login.aspx");
-
-                GridViewRow row = GrdViewLeadContact.Rows[e.RowIndex];
-                string refID = row.Cells[0].Text;
-                LeadBusinessLogic bl = new LeadBusinessLogic(connStr);
-                bl.DeleteLeadContact(refID);*/
-
-                //ds = (DataSet)Session["contactDs"];
-                //ds.Tables[0].Rows[GrdViewLeadContact.Rows[e.RowIndex].DataItemIndex].Delete();
-                //ds.Tables[0].AcceptChanges();
-                //GrdViewLeadContact.DataSource = ds;
-                //GrdViewLeadContact.DataBind();
-                //Session["contactDs"] = ds;
+                for (int i = 0; i < GrdViewLeadCompetitor.Rows.Count - 1; i++)
+                {
+                    GrdViewLeadActivity.Rows[i].Cells[0].Text = Convert.ToString(i + 1);
+                }
+                SetPreviousDataActivity();
             }
-        }
-        catch (Exception ex)
-        {
-            TroyLiteExceptionManager.HandleException(ex);
         }
     }
 
@@ -2119,7 +2193,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         {
             pnlCompetitor.Visible = false;
             GrdViewLeadCompetitor.Visible = true;
-            BtnAddCompetitor.Visible = true;
+            // BtnAddCompetitor.Visible = true;
         }
         catch (Exception ex)
         {
@@ -2133,7 +2207,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         {
             pnlActivity.Visible = false;
             GrdViewLeadActivity.Visible = true;
-            BtnAddActivity.Visible = true;
+            // BtnAddActivity.Visible = true;
         }
         catch (Exception ex)
         {
@@ -2147,7 +2221,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         {
             pnlproduct.Visible = false;
             GrdViewLeadproduct.Visible = true;
-            BtnAddproduct.Visible = true;
+            //BtnAddproduct.Visible = true;
         }
         catch (Exception ex)
         {
@@ -2487,9 +2561,9 @@ public partial class LeadMgmt : System.Web.UI.Page
                 txtAddress.Text = dsDetails.Tables[0].Rows[0]["Address"].ToString();
                 txtTelephone.Text = dsDetails.Tables[0].Rows[0]["Telephone"].ToString();
                 txtLeadName.Text = dsDetails.Tables[0].Rows[0]["Lead_Name"].ToString();
-               // txtTotalAmount.Text = dsDetails.Tables[0].Rows[0]["InvoicedAmt"].ToString();
-               // txtContactName.Text = dsDetails.Tables[0].Rows[0]["Contact_Name"].ToString();
-               // txtClosingPer.Text = dsDetails.Tables[0].Rows[0]["Closing_Per"].ToString();
+                // txtTotalAmount.Text = dsDetails.Tables[0].Rows[0]["InvoicedAmt"].ToString();
+                // txtContactName.Text = dsDetails.Tables[0].Rows[0]["Contact_Name"].ToString();
+                // txtClosingPer.Text = dsDetails.Tables[0].Rows[0]["Closing_Per"].ToString();
 
                 if ((Convert.ToDateTime(dsDetails.Tables[0].Rows[0]["Closing_Date"])) == Convert.ToDateTime("01/01/2000"))
                 {
@@ -2511,12 +2585,12 @@ public partial class LeadMgmt : System.Web.UI.Page
 
                 if (ds != null && ds.Tables[0].Rows.Count > 0)
                 {
-                   // txtPredictedClosing.Text = ds.Tables[0].Rows[0]["Predicted_Closing"].ToString();
-                   // drpPredictedClosingPeriod.SelectedValue = ds.Tables[0].Rows[0]["Predicted_Closing_Period"].ToString();
-                   // txtPredictedClosingDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["Predicted_Closing_Date"]).ToString("dd/MM/yyyy");
-                   // drpInterestLevel.SelectedValue = ds.Tables[0].Rows[0]["Interest_Level"].ToString();
-                   // txtPotentialPotAmount.Text = ds.Tables[0].Rows[0]["Potential_Amount"].ToString();
-                   // txtPotentialWeightedAmount.Text = ds.Tables[0].Rows[0]["Weighted_Amount"].ToString();
+                    // txtPredictedClosing.Text = ds.Tables[0].Rows[0]["Predicted_Closing"].ToString();
+                    // drpPredictedClosingPeriod.SelectedValue = ds.Tables[0].Rows[0]["Predicted_Closing_Period"].ToString();
+                    // txtPredictedClosingDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["Predicted_Closing_Date"]).ToString("dd/MM/yyyy");
+                    // drpInterestLevel.SelectedValue = ds.Tables[0].Rows[0]["Interest_Level"].ToString();
+                    // txtPotentialPotAmount.Text = ds.Tables[0].Rows[0]["Potential_Amount"].ToString();
+                    // txtPotentialWeightedAmount.Text = ds.Tables[0].Rows[0]["Weighted_Amount"].ToString();
                 }
 
 
@@ -2524,7 +2598,7 @@ public partial class LeadMgmt : System.Web.UI.Page
 
                 if (dsStages != null && dsStages.Tables[0].Rows.Count > 0)
                 {
-                   // GrdViewLeadStage.DataSource = dsStages.Tables[0];
+                    // GrdViewLeadStage.DataSource = dsStages.Tables[0];
                     //GrdViewLeadStage.DataBind();
                     Session["contactDs"] = dsStages;
                 }
@@ -2554,7 +2628,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                     Session["CompetitorDs"] = null;
                 }
                 GrdViewLeadCompetitor.Visible = true;
-                BtnAddCompetitor.Visible = true;
+                // BtnAddCompetitor.Visible = true;
                 pnlCompetitor.Visible = false;
 
 
@@ -2573,7 +2647,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                     Session["ActivityDs"] = null;
                 }
                 GrdViewLeadActivity.Visible = true;
-                BtnAddActivity.Visible = true;
+                //  BtnAddActivity.Visible = true;
                 pnlActivity.Visible = false;
 
                 DataSet dsProduct = bl.GetLeadProduct(LeadNo);
@@ -2591,7 +2665,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                     Session["ProductDs"] = null;
                 }
                 GrdViewLeadproduct.Visible = true;
-                BtnAddproduct.Visible = true;
+                // BtnAddproduct.Visible = true;
                 pnlproduct.Visible = false;
 
 
@@ -2664,6 +2738,8 @@ public partial class LeadMgmt : System.Web.UI.Page
         DataSet dsActivity;
 
         DataSet dsProduct;
+
+
         DateTime PredictedClosingDate;
         int PredictedClosing = 0;
         string PredictedClosingPeriod = string.Empty;
@@ -2699,13 +2775,13 @@ public partial class LeadMgmt : System.Web.UI.Page
                     check = "Y";
                 }
 
-               // ContactName = txtContactName.Text;
+                // ContactName = txtContactName.Text;
                 EmpId = Convert.ToInt32(drpIncharge.SelectedValue);
                 EmpName = drpIncharge.SelectedItem.Text;
                 Status = drpStatus.SelectedValue;
-               // branch = txtBranch.Text;
+                // branch = txtBranch.Text;
                 LeadStatus = drpLeadStatus.SelectedValue;
-               // TotalAmount = Convert.ToDouble(txtTotalAmount.Text);
+                // TotalAmount = Convert.ToDouble(txtTotalAmount.Text);
                 //ClosingPer = Convert.ToInt32(txtClosingPer.Text);
 
                 if (txtClosingDate.Text == "")
@@ -2717,18 +2793,18 @@ public partial class LeadMgmt : System.Web.UI.Page
                     ClosingDate = DateTime.Parse(txtClosingDate.Text);
                 }
 
-               // PredictedClosing = Convert.ToInt32(txtPredictedClosing.Text);
-               // PredictedClosingDate = DateTime.Parse(txtPredictedClosingDate.Text);
-               // PotentialPotAmount = Convert.ToDouble(txtPotentialPotAmount.Text);
-               // PotentialWeightedAmount = Convert.ToDouble(txtPotentialWeightedAmount.Text);
-               // PredictedClosingPeriod = drpPredictedClosingPeriod.SelectedValue;
-               // InterestLevel = drpInterestLevel.SelectedValue;
+                // PredictedClosing = Convert.ToInt32(txtPredictedClosing.Text);
+                // PredictedClosingDate = DateTime.Parse(txtPredictedClosingDate.Text);
+                // PotentialPotAmount = Convert.ToDouble(txtPotentialPotAmount.Text);
+                // PotentialWeightedAmount = Convert.ToDouble(txtPotentialWeightedAmount.Text);
+                // PredictedClosingPeriod = drpPredictedClosingPeriod.SelectedValue;
+                // InterestLevel = drpInterestLevel.SelectedValue;
 
                 string connStr = GetConnectionString();
                 LeadBusinessLogic bl = new LeadBusinessLogic(connStr);
                 string usernam = Request.Cookies["LoggedUserName"].Value;
 
-                
+
 
                 dsStages = (DataSet)Session["contactDs"];
                 dsCompetitor = (DataSet)Session["CompetitorDs"];
@@ -2738,7 +2814,7 @@ public partial class LeadMgmt : System.Web.UI.Page
 
                 // as per new functionality remove PredictedClosing, PredictedClosingDate
                 //bl.UpdateLead(LeadNo, startDate, LeadName, address, mobile, Telephone, BpName, BpId, ContactName, EmpId, EmpName, Status, branch, LeadStatus, TotalAmount, ClosingPer, ClosingDate, PredictedClosing, PredictedClosingDate, PotentialPotAmount, PotentialWeightedAmount, PredictedClosingPeriod, InterestLevel, usernam, dsStages, dsCompetitor, dsActivity, dsProduct, check);
-                
+
                 //GrdViewLead.DataBind();
                 //System.Threading.Thread.Sleep(1000);
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Lead Details Updated successfully.')", true);
@@ -2786,11 +2862,23 @@ public partial class LeadMgmt : System.Web.UI.Page
         string LeadStatus = string.Empty;
         string Status = string.Empty;
         string branch = string.Empty;
-        string status = string.Empty;        
+        string status = string.Empty;
         string ContactName = string.Empty;
+        string info1 = string.Empty;
+
         DataSet dsStages;
+        DataSet dss;
+        DataSet dss1;
+        DataSet dss2; 
         int BpId = 0;
         int EmpId = 0;
+        int info3 = 0;
+        int info4 = 0;
+        int businesstype = 0;
+        int category = 0;
+        int area = 0;
+        int intLevel = 0;
+
         double TotalAmount = 0;
         int ClosingPer = 0;
         DataSet dsActivity;
@@ -2802,7 +2890,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         string PredictedClosingPeriod = string.Empty;
         string InterestLevel = string.Empty;
         double PotentialPotAmount = 0;
-        double PotentialWeightedAmount=0;
+        double PotentialWeightedAmount = 0;
 
         try
         {
@@ -2813,36 +2901,33 @@ public partial class LeadMgmt : System.Web.UI.Page
                 //    LeadNo = int.Parse(txtLeadNo.Text);
 
                 startDate = DateTime.Parse(txtCreationDate.Text);
-                LeadName = txtLeadName.Text;
-                address = txtAddress.Text;
-                mobile = txtMobile.Text;
-                Telephone = txtTelephone.Text;
+                LeadName = txtLeadName.Text;//lead ref
+                address = txtAddress.Text;//
+                mobile = txtMobile.Text;//
+                Telephone = txtTelephone.Text;//
 
                 string check = string.Empty;
 
-                if (chk.Checked == false)
+                if (chk.Checked == false)//
                 {
                     BpName = txtBPName.Text;
                     BpId = 0;
                     check = "N";
                 }
-                else
+                else//
                 {
                     BpName = cmbCustomer.SelectedItem.Text;
                     BpId = Convert.ToInt32(cmbCustomer.SelectedValue);
                     check = "Y";
                 }
 
-                //ContactName = txtContactName.Text;
-                EmpId = Convert.ToInt32(drpIncharge.SelectedValue);
+                ContactName = txtContactName.Text;
+                EmpId = Convert.ToInt32(drpIncharge.SelectedValue);//
                 EmpName = drpIncharge.SelectedItem.Text;
-                Status = drpStatus.SelectedValue;
-                //branch = txtBranch.Text;              
-                LeadStatus = drpLeadStatus.SelectedValue;                                
-                //TotalAmount = Convert.ToDouble(txtTotalAmount.Text);
-                //ClosingPer = Convert.ToInt32(txtClosingPer.Text);
+                Status = drpStatus.SelectedValue;//
+                LeadStatus = drpLeadStatus.SelectedValue;//   
 
-                if (txtClosingDate.Text == "")
+                if (txtClosingDate.Text == "")//
                 {
                     ClosingDate = DateTime.Parse("01/01/2000");
                 }
@@ -2850,27 +2935,240 @@ public partial class LeadMgmt : System.Web.UI.Page
                 {
                     ClosingDate = DateTime.Parse(txtClosingDate.Text);
                 }
-                
-              //  PredictedClosing = Convert.ToInt32(txtPredictedClosing.Text);
-              //  PredictedClosingDate = DateTime.Parse(txtPredictedClosingDate.Text);
-              //  PotentialPotAmount = Convert.ToDouble(txtPotentialPotAmount.Text);
-             //   PotentialWeightedAmount = Convert.ToDouble(txtPotentialWeightedAmount.Text);
-             //   PredictedClosingPeriod = drpPredictedClosingPeriod.SelectedValue;
-              //  InterestLevel = drpInterestLevel.SelectedValue;
+
+                PredictedClosingDate = DateTime.Parse(txtPredictedClosingDate.Text);//
+                info1 = txtInformation1.Text;
+                info3 = Convert.ToInt32(drpInformation3.SelectedValue);//
+                info4 = Convert.ToInt32(drpInformation4.SelectedValue);//
+                businesstype = Convert.ToInt32(drpBusinessType.SelectedValue);//
+                category = Convert.ToInt32(drpCategory.SelectedValue);//
+                area = Convert.ToInt32(drpArea.SelectedValue);//
+                intLevel = Convert.ToInt32(drpIntLevel.SelectedValue);//
+
+
                 string usernam = Request.Cookies["LoggedUserName"].Value;
 
                 dsStages = (DataSet)Session["contactDs"];
 
-                dsCompetitor = (DataSet)Session["CompetitorDs"];
-                dsActivity = (DataSet)Session["ActivityDs"];
 
-                dsProduct = (DataSet)Session["ProductDs"];
+                dss = (DataSet)Session["ProductDs"];
+                //&&&&&& Product tab Insert Dataset &&&&&&&&&&&&&&&&& 
+                if (Session["ProductDs"] == null) // New code
+                {
+                    dss = (DataSet)Session["ProductDs"];
+
+                    if (dss == null)
+                    {
+
+                        for (int vLoop = 0; vLoop < GrdViewLeadproduct.Rows.Count; vLoop++)
+                        {
+                            DropDownList drpProduct = (DropDownList)GrdViewLeadproduct.Rows[vLoop].FindControl("drpproduct");
+                            TextBox txtPrdID = (TextBox)GrdViewLeadproduct.Rows[vLoop].FindControl("txtPrdId");
+                        }
+
+
+                        //DataSet dss;
+                        DataTable dt;
+                        DataRow drNew;
+
+                        DataColumn dc;
+
+                        dss = new DataSet();
+                        dt = new DataTable();
+
+                        dc = new DataColumn("Prd");
+                        dt.Columns.Add(dc);
+
+                        dc = new DataColumn("PrdID");
+                        dt.Columns.Add(dc);                       
+
+                        dss.Tables.Add(dt);
+
+                        for (int vLoop = 0; vLoop < GrdViewLeadproduct.Rows.Count; vLoop++)
+                        {
+                            DropDownList drpProduct = (DropDownList)GrdViewLeadproduct.Rows[vLoop].FindControl("drpproduct");
+                            TextBox txtPrdID = (TextBox)GrdViewLeadproduct.Rows[vLoop].FindControl("txtPrdId");
+
+
+
+                            drNew = dt.NewRow();
+                            drNew["Prd"] = Convert.ToString(drpProduct.SelectedItem.Text);
+                            drNew["PrdID"] = txtPrdID.Text;
+                            dss.Tables[0].Rows.Add(drNew);
+                        }
+                    }
+                }
+                //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+
+                dss1 = (DataSet)Session["CompetitorDs"];
+                //&&&&&& Competitors tab Insert Dataset &&&&&&&&&&&&&&&&& 
+                if (Session["CompetitorDs"] == null) // New code
+                {
+                    dss1 = (DataSet)Session["CompetitorDs"];
+
+                    if (dss1 == null)
+                    {
+                        for (int vLoop = 0; vLoop < GrdViewLeadCompetitor.Rows.Count; vLoop++)
+                        {
+                            TextBox txtComName = (TextBox)GrdViewLeadCompetitor.Rows[vLoop].FindControl("txtComeName");
+                            TextBox txtThrlvl = (TextBox)GrdViewLeadCompetitor.Rows[vLoop].FindControl("txtThrLvl");
+                            TextBox txtOuestrweak = (TextBox)GrdViewLeadCompetitor.Rows[vLoop].FindControl("txtOurStrWeakness");
+                            TextBox txtComstrweak = (TextBox)GrdViewLeadCompetitor.Rows[vLoop].FindControl("txtCompStrWeakness");
+                            TextBox txtremarks = (TextBox)GrdViewLeadCompetitor.Rows[vLoop].FindControl("txtRemarks");
+                        }
+
+                        //DataSet dss1;
+                        DataTable dt;
+                        DataRow drNew;
+
+                        DataColumn dc;
+
+                        dss1 = new DataSet();
+                        dt = new DataTable();
+
+                        dc = new DataColumn("ComName");
+                        dt.Columns.Add(dc);
+
+                        dc = new DataColumn("ThrLvl");
+                        dt.Columns.Add(dc);
+
+                        dc = new DataColumn("OurStrWeak");
+                        dt.Columns.Add(dc);
+
+                        dc = new DataColumn("ComStrWeak");
+                        dt.Columns.Add(dc);
+
+                        dc = new DataColumn("Remarks");
+                        dt.Columns.Add(dc);
+
+                        dss1.Tables.Add(dt);
+
+                        for (int vLoop = 0; vLoop < GrdViewLeadproduct.Rows.Count; vLoop++)
+                        {
+                            TextBox txtComName = (TextBox)GrdViewLeadCompetitor.Rows[vLoop].FindControl("txtComeName");
+                            TextBox txtThrlvl = (TextBox)GrdViewLeadCompetitor.Rows[vLoop].FindControl("txtThrLvl");
+                            TextBox txtOuestrweak = (TextBox)GrdViewLeadCompetitor.Rows[vLoop].FindControl("txtOurStrWeakness");
+                            TextBox txtComstrweak = (TextBox)GrdViewLeadCompetitor.Rows[vLoop].FindControl("txtCompStrWeakness");
+                            TextBox txtremarks = (TextBox)GrdViewLeadCompetitor.Rows[vLoop].FindControl("txtRemarks");
+
+
+                            drNew = dt.NewRow();
+                            drNew["ComName"] = txtComName.Text;
+                            drNew["ThrLvl"] = txtThrlvl.Text;
+                            drNew["OurStrWeak"] = txtOuestrweak.Text;
+                            drNew["ComStrWeak"] = txtComstrweak.Text;
+                            drNew["Remarks"] = txtremarks.Text;
+                            dss1.Tables[0].Rows.Add(drNew);
+                        }
+                    }
+                }
+                //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+                dss2 = (DataSet)Session["ActivityDs"];
+                //&&&&&& Activity tab Insert Dataset &&&&&&&&&&&&&&&&& 
+                if (Session["CompetitorDs"] == null) // New code
+                {
+                    dss2 = (DataSet)Session["ActivityDs"];
+
+                    if (dss2 == null)
+                    {
+                        for (int vLoop = 0; vLoop < GrdViewLeadActivity.Rows.Count; vLoop++)
+                        {
+                            DropDownList drpactivityName = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpactivityName");
+                            TextBox txtactivityLoc = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtActiLoc");
+                            TextBox txtactivityDate = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtActiDate");
+                            DropDownList drpnxtActivity = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpnxtActivity");
+                            TextBox txtnxtActDate = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtNxtActyDate");
+                            DropDownList drpemployee = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpemployee");
+                            TextBox txtmodeofCnt = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtModrofcnt");
+                            DropDownList drpinfo2 = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpinfo2");
+                            DropDownList drpinfo5 = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpinfo5");
+                            TextBox txtremarks = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtremarks");
+                        }
+
+                       // DataSet dss2;
+                        DataTable dt;
+                        DataRow drNew;
+
+                        DataColumn dc;
+
+                        dss2 = new DataSet();
+                        dt = new DataTable();
+
+                        dc = new DataColumn("ActName");
+                        dt.Columns.Add(dc);
+
+                        dc = new DataColumn("ActLoc");
+                        dt.Columns.Add(dc);
+
+                        dc = new DataColumn("ActDate");
+                        dt.Columns.Add(dc);
+
+                        dc = new DataColumn("NxtAct");
+                        dt.Columns.Add(dc);
+
+                        dc = new DataColumn("NxtActDte");
+                        dt.Columns.Add(dc);
+
+                        dc = new DataColumn("Emp");
+                        dt.Columns.Add(dc);
+
+                        dc = new DataColumn("MdeofCnt");
+                        dt.Columns.Add(dc);
+
+                        dc = new DataColumn("Info2");
+                        dt.Columns.Add(dc);
+
+                        dc = new DataColumn("Info5");
+                        dt.Columns.Add(dc);
+
+                        dc = new DataColumn("Remarks");
+                        dt.Columns.Add(dc);
+
+                        dss2.Tables.Add(dt);
+
+                        for (int vLoop = 0; vLoop < GrdViewLeadActivity.Rows.Count; vLoop++)
+                        {
+                            DropDownList drpactivityName = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpactivityName");
+                            TextBox txtactivityLoc = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtActiLoc");
+                            TextBox txtactivityDate = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtActiDate");
+                            DropDownList drpnxtActivity = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpnxtActivity");
+                            TextBox txtnxtActDate = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtNxtActyDate");
+                            DropDownList drpemployee = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpemployee");
+                            TextBox txtmodeofCnt = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtModrofcnt");
+                            DropDownList drpinfo2 = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpinfo2");
+                            DropDownList drpinfo5 = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpinfo5");
+                            TextBox txtremarks = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtremarks");
+
+
+                            drNew = dt.NewRow();
+                            drNew["ActName"] = Convert.ToString(drpactivityName.SelectedItem.Value);
+                            drNew["ActLoc"] = txtactivityLoc.Text;
+                            drNew["ActDate"] = txtactivityDate.Text;
+                            drNew["NxtAct"] = Convert.ToString(drpnxtActivity.SelectedItem.Value);
+                            drNew["NxtActDte"] = txtnxtActDate.Text;
+                            drNew["Emp"] = Convert.ToString(drpemployee.SelectedItem.Value);
+                            drNew["MdeofCnt"] = txtmodeofCnt.Text;
+                            drNew["Info2"] = Convert.ToString(drpinfo2.SelectedItem.Value);
+                            drNew["Info5"] = Convert.ToString(drpinfo5.SelectedItem.Value);
+                            drNew["Remarks"] = txtremarks.Text;
+                            dss2.Tables[0].Rows.Add(drNew);
+                        }
+                    }
+                }
+                //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+
+
                 string connStr = GetConnectionString();
 
                 LeadBusinessLogic bl = new LeadBusinessLogic(connStr);
+                //pass dss for prodct tab
+                //pass dss1 for completor tab
+                //pass dss2 for activity tab
 
-                // as per new functionality remove PredictedClosing, PredictedClosingDate
-                //bl.AddLead(LeadNo, startDate, LeadName, address, mobile, Telephone, BpName, BpId, ContactName, EmpId, EmpName, Status, branch, LeadStatus, TotalAmount, ClosingPer, ClosingDate, PredictedClosing, PredictedClosingDate, PotentialPotAmount, PotentialWeightedAmount, PredictedClosingPeriod, InterestLevel, usernam, dsStages, dsCompetitor, dsActivity, dsProduct, check);
+                bl.AddLead(LeadNo, startDate, LeadName, address, mobile, Telephone, BpName, BpId, ContactName, EmpId, EmpName, Status, branch, LeadStatus, TotalAmount, ClosingPer, ClosingDate, PredictedClosing, PredictedClosingDate, PotentialPotAmount, PotentialWeightedAmount, PredictedClosingPeriod, InterestLevel, usernam, dsStages, dss1, dss2, dss, check);
 
                 GrdViewLead.DataBind();
 
@@ -2894,5 +3192,656 @@ public partial class LeadMgmt : System.Web.UI.Page
         txtSearch.Text = "";
         ddCriteria.SelectedIndex = 0;
         BindGrid("", "");
+    }
+
+
+    private void AddNewRowProduct()
+    {
+        int rowIndex = 0;
+
+        if (ViewState["CurrentTable1"] != null)
+        {
+            DataTable dtCurrentTable1 = (DataTable)ViewState["CurrentTable1"];
+            DataRow drCurrentRow = null;
+            if (dtCurrentTable1.Rows.Count > 0)
+            {
+                for (int i = 1; i <= dtCurrentTable1.Rows.Count; i++)
+                {
+                    DropDownList drpProduct =
+                     (DropDownList)GrdViewLeadproduct.Rows[rowIndex].Cells[1].FindControl("drpproduct");
+                    TextBox txtPrdID =
+                      (TextBox)GrdViewLeadproduct.Rows[rowIndex].Cells[2].FindControl("txtPrdId");
+
+                    drCurrentRow = dtCurrentTable1.NewRow();
+                    drCurrentRow["RowNumber"] = i + 1;
+
+                    dtCurrentTable1.Rows[i - 1]["Col1"] = drpProduct.SelectedValue;
+                    dtCurrentTable1.Rows[i - 1]["Col2"] = txtPrdID.Text;
+
+
+                    rowIndex++;
+                }
+                dtCurrentTable1.Rows.Add(drCurrentRow);
+                ViewState["CurrentTable"] = dtCurrentTable1;
+
+                GrdViewLeadproduct.DataSource = dtCurrentTable1;
+                GrdViewLeadproduct.DataBind();
+            }
+        }
+        else
+        {
+            Response.Write("ViewState is null");
+        }
+        SetPreviousDataProduct();
+    }
+
+    private void AddNewRowCompetitors()
+    {
+        int rowIndex = 0;
+
+        if (ViewState["CurrentTable2"] != null)
+        {
+            DataTable dtCurrentTable2 = (DataTable)ViewState["CurrentTable2"];
+            DataRow drCurrentRow = null;
+            if (dtCurrentTable2.Rows.Count > 0)
+            {
+                for (int i = 1; i <= dtCurrentTable2.Rows.Count; i++)
+                {
+                    TextBox txtComName =
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[1].FindControl("txtComeName");
+                    TextBox txtThrlvl =
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtThrLvl");
+                    TextBox txtOuestrweak =
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtOurStrWeakness");
+                    TextBox txtComstrweak =
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[3].FindControl("txtCompStrWeakness");
+                    TextBox txtremarks =
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[4].FindControl("txtRemarks");
+
+
+                    drCurrentRow = dtCurrentTable2.NewRow();
+                    drCurrentRow["RowNumber"] = i + 1;
+
+                    dtCurrentTable2.Rows[i - 1]["Col1"] = txtComName.Text;
+                    dtCurrentTable2.Rows[i - 1]["Col2"] = txtThrlvl.Text;
+                    dtCurrentTable2.Rows[i - 1]["Col3"] = txtOuestrweak.Text;
+                    dtCurrentTable2.Rows[i - 1]["Col4"] = txtComstrweak.Text;
+                    dtCurrentTable2.Rows[i - 1]["Col5"] = txtremarks.Text;
+
+                    rowIndex++;
+                }
+                dtCurrentTable2.Rows.Add(drCurrentRow);
+                ViewState["CurrentTable2"] = dtCurrentTable2;
+
+                GrdViewLeadCompetitor.DataSource = dtCurrentTable2;
+                GrdViewLeadCompetitor.DataBind();
+            }
+        }
+        else
+        {
+            Response.Write("ViewState is null");
+        }
+        SetPreviousDataCompetitors();
+    }
+
+    private void AddNewRowActivity()
+    {
+        int rowIndex = 0;
+
+        if (ViewState["CurrentTable3"] != null)
+        {
+            DataTable dtCurrentTable3 = (DataTable)ViewState["CurrentTable3"];
+            DataRow drCurrentRow = null;
+            if (dtCurrentTable3.Rows.Count > 0)
+            {
+                for (int i = 1; i <= dtCurrentTable3.Rows.Count; i++)
+                {
+                    DropDownList drpactivityName =
+                     (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpactivityName");
+                    TextBox txtactivityLoc =
+                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[2].FindControl("txtActiLoc");
+                    TextBox txtactivityDate =
+                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[2].FindControl("txtActiDate");
+                    DropDownList drpnxtActivity =
+                     (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpnxtActivity");
+                    TextBox txtnxtActDate =
+                     (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[3].FindControl("txtNxtActyDate");
+                    DropDownList drpemployee =
+                     (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpemployee");
+                    TextBox txtmodeofCnt =
+                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("txtModrofcnt");
+                    DropDownList drpinfo2 =
+                       (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpinfo2");
+                    DropDownList drpinfo5 =
+                       (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpinfo5");
+                    TextBox txtremarks =
+                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("txtremarks");
+
+
+                    drCurrentRow = dtCurrentTable3.NewRow();
+                    drCurrentRow["RowNumber"] = i + 1;
+
+                    dtCurrentTable3.Rows[i - 1]["Col1"] = drpactivityName.SelectedValue;
+                    dtCurrentTable3.Rows[i - 1]["Col2"] = txtactivityLoc.Text;
+                    dtCurrentTable3.Rows[i - 1]["Col3"] = txtactivityDate.Text;
+                    dtCurrentTable3.Rows[i - 1]["Col4"] = drpnxtActivity.SelectedValue;
+                    dtCurrentTable3.Rows[i - 1]["Col5"] = txtnxtActDate.Text;
+                    dtCurrentTable3.Rows[i - 1]["Col6"] = drpemployee.SelectedValue;
+                    dtCurrentTable3.Rows[i - 1]["Col7"] = txtmodeofCnt.Text;
+                    dtCurrentTable3.Rows[i - 1]["Col8"] = drpinfo2.SelectedValue;
+                    dtCurrentTable3.Rows[i - 1]["Col9"] = drpinfo5.SelectedValue;
+                    dtCurrentTable3.Rows[i - 1]["Col10"] = txtremarks.Text;
+
+                    rowIndex++;
+                }
+                dtCurrentTable3.Rows.Add(drCurrentRow);
+                ViewState["CurrentTable3"] = dtCurrentTable3;
+
+                GrdViewLeadActivity.DataSource = dtCurrentTable3;
+                GrdViewLeadActivity.DataBind();
+            }
+        }
+        else
+        {
+            Response.Write("ViewState is null");
+        }
+        SetPreviousDataActivity();
+    }
+
+    private void SetPreviousDataProduct()
+    {
+        int rowIndex = 0;
+        if (ViewState["CurrentTable1"] != null)
+        {
+            DataTable dt = (DataTable)ViewState["CurrentTable1"];
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    DropDownList drpProduct =
+                     (DropDownList)GrdViewLeadproduct.Rows[rowIndex].Cells[1].FindControl("drpproduct");
+                    TextBox txtPrdID =
+                      (TextBox)GrdViewLeadproduct.Rows[rowIndex].Cells[2].FindControl("txtPrdId");
+
+                    drpProduct.SelectedValue = dt.Rows[i]["Col1"].ToString();
+                    txtPrdID.Text = dt.Rows[i]["Col2"].ToString();
+
+                    rowIndex++;
+                }
+            }
+        }
+    }
+
+    private void SetPreviousDataCompetitors()
+    {
+        int rowIndex = 0;
+        if (ViewState["CurrentTable2"] != null)
+        {
+            DataTable dt = (DataTable)ViewState["CurrentTable2"];
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    TextBox txtComName =
+                     (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtComeName");
+                    TextBox txtThrlvl =
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtThrLvl");
+                    TextBox txtOuestrweak =
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtOurStrWeakness");
+                    TextBox txtComstrweak =
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtCompStrWeakness");
+                    TextBox txtremarks =
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtRemarks");
+
+
+                    txtComName.Text = dt.Rows[i]["Col1"].ToString();
+                    txtThrlvl.Text = dt.Rows[i]["Col2"].ToString();
+                    txtOuestrweak.Text = dt.Rows[i]["Col3"].ToString();
+                    txtComstrweak.Text = dt.Rows[i]["Col4"].ToString();
+                    txtremarks.Text = dt.Rows[i]["Col5"].ToString();
+
+                    rowIndex++;
+                }
+            }
+        }
+    }
+
+    private void SetPreviousDataActivity()
+    {
+        int rowIndex = 0;
+        if (ViewState["CurrentTable3"] != null)
+        {
+            DataTable dt = (DataTable)ViewState["CurrentTable3"];
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    DropDownList drpactivityName =
+                    (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpactivityName");
+                    TextBox txtactivityLoc =
+                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[2].FindControl("txtActiLoc");
+                    TextBox txtactivityDate =
+                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[2].FindControl("txtActiDate");
+                    DropDownList drpnxtActivity =
+                     (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpnxtActivity");
+                    TextBox txtnxtActDate =
+                     (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[3].FindControl("txtNxtActyDate");
+                    DropDownList drpemployee =
+                     (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpemployee");
+                    TextBox txtmodeofCnt =
+                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("txtModrofcnt");
+                    DropDownList drpinfo2 =
+                       (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpinfo2");
+                    DropDownList drpinfo5 =
+                       (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpinfo5");
+                    TextBox txtremarks =
+                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("txtremarks");
+
+
+                    drpactivityName.SelectedValue = dt.Rows[i]["Col1"].ToString();
+                    txtactivityLoc.Text = dt.Rows[i]["Col2"].ToString();
+                    txtactivityDate.Text = dt.Rows[i]["Col3"].ToString();
+                    drpnxtActivity.SelectedValue = dt.Rows[i]["Col4"].ToString();
+                    txtnxtActDate.Text = dt.Rows[i]["Col5"].ToString();
+                    drpemployee.SelectedValue = dt.Rows[i]["Col6"].ToString();
+                    txtmodeofCnt.Text = dt.Rows[i]["Col7"].ToString();
+                    drpinfo2.SelectedValue = dt.Rows[i]["Col8"].ToString();
+                    drpinfo5.SelectedValue = dt.Rows[i]["Col9"].ToString();
+                    txtremarks.Text = dt.Rows[i]["Col10"].ToString();
+
+                    rowIndex++;
+                }
+            }
+        }
+    }
+
+    private void SetRowDataProduct()
+    {
+        int rowIndex = 0;
+
+        if (ViewState["CurrentTable1"] != null)
+        {
+            DataTable dtCurrentTable1 = (DataTable)ViewState["CurrentTable1"];
+            DataRow drCurrentRow = null;
+            if (dtCurrentTable1.Rows.Count > 0)
+            {
+                for (int i = 1; i <= dtCurrentTable1.Rows.Count; i++)
+                {
+                    DropDownList DrpProduct =
+                    (DropDownList)GrdViewLeadproduct.Rows[rowIndex].Cells[1].FindControl("drpproduct");
+                    TextBox txtprdID =
+                     (TextBox)GrdViewLeadproduct.Rows[rowIndex].Cells[2].FindControl("txtPrdId");
+
+
+                    drCurrentRow = dtCurrentTable1.NewRow();
+                    drCurrentRow["RowNumber"] = i + 1;
+
+                    dtCurrentTable1.Rows[i - 1]["Col1"] = DrpProduct.SelectedValue;
+                    dtCurrentTable1.Rows[i - 1]["Col2"] = txtprdID.Text;
+                    rowIndex++;
+
+                }
+
+                ViewState["CurrentTable1"] = dtCurrentTable1;
+                GrdViewLeadproduct.DataSource = dtCurrentTable1;
+                GrdViewLeadproduct.DataBind();
+            }
+        }
+        else
+        {
+            Response.Write("ViewState is null");
+        }
+        SetPreviousDataProduct();
+    }
+
+    private void SetRowDataCompetitors()
+    {
+        int rowIndex = 0;
+
+        if (ViewState["CurrentTable2"] != null)
+        {
+            DataTable dtCurrentTable2 = (DataTable)ViewState["CurrentTable2"];
+            DataRow drCurrentRow = null;
+            if (dtCurrentTable2.Rows.Count > 0)
+            {
+                for (int i = 1; i <= dtCurrentTable2.Rows.Count; i++)
+                {
+                    TextBox txtComName =
+                    (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtComeName");
+                    TextBox txtThrlvl =
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtThrLvl");
+                    TextBox txtOuestrweak =
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtOurStrWeakness");
+                    TextBox txtComstrweak =
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtCompStrWeakness");
+                    TextBox txtremarks =
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtRemarks");
+
+
+                    drCurrentRow = dtCurrentTable2.NewRow();
+                    drCurrentRow["RowNumber"] = i + 1;
+
+                    dtCurrentTable2.Rows[i - 1]["Col1"] = txtComName.Text;
+                    dtCurrentTable2.Rows[i - 1]["Col2"] = txtThrlvl.Text;
+                    dtCurrentTable2.Rows[i - 1]["Col3"] = txtOuestrweak.Text;
+                    dtCurrentTable2.Rows[i - 1]["Col4"] = txtComstrweak.Text;
+                    dtCurrentTable2.Rows[i - 1]["Col5"] = txtremarks.Text;
+                    rowIndex++;
+
+                }
+
+                ViewState["CurrentTable2"] = dtCurrentTable2;
+                GrdViewLeadCompetitor.DataSource = dtCurrentTable2;
+                GrdViewLeadCompetitor.DataBind();
+            }
+        }
+        else
+        {
+            Response.Write("ViewState is null");
+        }
+        SetPreviousDataCompetitors();
+    }
+
+    private void SetRowDataActivity()
+    {
+        int rowIndex = 0;
+
+        if (ViewState["CurrentTable3"] != null)
+        {
+            DataTable dtCurrentTable3 = (DataTable)ViewState["CurrentTable3"];
+            DataRow drCurrentRow = null;
+            if (dtCurrentTable3.Rows.Count > 0)
+            {
+                for (int i = 1; i <= dtCurrentTable3.Rows.Count; i++)
+                {
+                    DropDownList drpactivityName =
+                   (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpactivityName");
+                    TextBox txtactivityLoc =
+                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[2].FindControl("txtActiLoc");
+                    TextBox txtactivityDate =
+                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[2].FindControl("txtActiDate");
+                    DropDownList drpnxtActivity =
+                     (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpnxtActivity");
+                    TextBox txtnxtActDate =
+                     (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[3].FindControl("txtNxtActyDate");
+                    DropDownList drpemployee =
+                     (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpemployee");
+                    TextBox txtmodeofCnt =
+                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("txtModrofcnt");
+                    DropDownList drpinfo2 =
+                       (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpinfo2");
+                    DropDownList drpinfo5 =
+                       (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpinfo5");
+                    TextBox txtremarks =
+                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("txtremarks");
+
+
+                    drCurrentRow = dtCurrentTable3.NewRow();
+                    drCurrentRow["RowNumber"] = i + 1;
+
+                    dtCurrentTable3.Rows[i - 1]["Col1"] = drpactivityName.SelectedValue;
+                    dtCurrentTable3.Rows[i - 1]["Col2"] = txtactivityLoc.Text;
+                    dtCurrentTable3.Rows[i - 1]["Col3"] = txtactivityDate.Text;
+                    dtCurrentTable3.Rows[i - 1]["Col4"] = drpnxtActivity.SelectedValue;
+                    dtCurrentTable3.Rows[i - 1]["Col5"] = txtnxtActDate.Text;
+                    dtCurrentTable3.Rows[i - 1]["Col6"] = drpemployee.SelectedValue;
+                    dtCurrentTable3.Rows[i - 1]["Col7"] = txtmodeofCnt.Text;
+                    dtCurrentTable3.Rows[i - 1]["Col8"] = drpinfo2.SelectedValue;
+                    dtCurrentTable3.Rows[i - 1]["Col9"] = drpinfo5.SelectedValue;
+                    dtCurrentTable3.Rows[i - 1]["Col10"] = txtremarks.Text;
+
+                    rowIndex++;
+
+                }
+
+                ViewState["CurrentTable3"] = dtCurrentTable3;
+                GrdViewLeadActivity.DataSource = dtCurrentTable3;
+                GrdViewLeadActivity.DataBind();
+            }
+        }
+        else
+        {
+            Response.Write("ViewState is null");
+        }
+        SetPreviousDataActivity();
+    }
+
+
+    protected void GrdViewLeadproduct_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+            DataSet ds = new DataSet();
+
+            ds = bl.ListProducts(sDataSource, "", "");
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                var ddl = (DropDownList)e.Row.FindControl("drpproduct");
+                ddl.Items.Clear();
+                ListItem lifzzh = new ListItem("Select Product", "0");
+                lifzzh.Attributes.Add("style", "color:Black");
+                ddl.Items.Add(lifzzh);
+                ddl.DataSource = ds;
+                ddl.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+                ddl.DataBind();
+                ddl.DataTextField = "ProductName";
+                ddl.DataValueField = "ItemCode";
+            }
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+    private void FirstGridViewRow_ProductTab()
+    {
+        DataTable dt = new DataTable();
+        DataRow dr = null;
+        dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col1", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col2", typeof(string)));
+        dr = dt.NewRow();
+        dr["RowNumber"] = 1;
+        dr["Col1"] = string.Empty;
+        dr["Col2"] = string.Empty;
+
+        dt.Rows.Add(dr);
+
+        ViewState["CurrentTable1"] = dt;
+
+        GrdViewLeadproduct.DataSource = dt;
+        GrdViewLeadproduct.DataBind();
+        GrdViewLeadproduct.Visible = true;
+    }
+
+    private void FirstGridViewRow_CompetitorsTab()
+    {
+        DataTable dt = new DataTable();
+        DataRow dr = null;
+        dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col1", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col2", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col3", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col4", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col5", typeof(string)));
+
+        dr = dt.NewRow();
+        dr["RowNumber"] = 1;
+        dr["Col1"] = string.Empty;
+        dr["Col2"] = string.Empty;
+        dr["Col3"] = string.Empty;
+        dr["Col4"] = string.Empty;
+        dr["Col5"] = string.Empty;
+
+        dt.Rows.Add(dr);
+
+        ViewState["CurrentTable2"] = dt;
+
+        GrdViewLeadCompetitor.DataSource = dt;
+        GrdViewLeadCompetitor.DataBind();
+        GrdViewLeadCompetitor.Visible = true;
+    }
+
+    private void FirstGridViewRow_ActivityTab()
+    {
+        DataTable dt = new DataTable();
+        DataRow dr = null;
+        dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col1", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col2", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col3", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col4", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col5", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col6", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col7", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col8", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col9", typeof(string)));
+        dt.Columns.Add(new DataColumn("Col10", typeof(string)));
+
+        dr = dt.NewRow();
+        dr["RowNumber"] = 1;
+        dr["Col1"] = string.Empty;
+        dr["Col2"] = string.Empty;
+        dr["Col3"] = string.Empty;
+        dr["Col4"] = string.Empty;
+        dr["Col5"] = string.Empty;
+        dr["Col6"] = string.Empty;
+        dr["Col7"] = string.Empty;
+        dr["Col8"] = string.Empty;
+        dr["Col9"] = string.Empty;
+        dr["Col10"] = string.Empty;
+
+        dt.Rows.Add(dr);
+
+        ViewState["CurrentTable3"] = dt;
+
+        GrdViewLeadActivity.DataSource = dt;
+        GrdViewLeadActivity.DataBind();
+        GrdViewLeadActivity.Visible = true;
+    }
+    protected void GrdViewLeadCompetitor_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+
+    }
+    protected void GrdViewLeadActivity_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+            DataSet dsactname = new DataSet();
+            DataSet dsnextacty = new DataSet();
+            DataSet dsEmp = new DataSet();
+            DataSet dsinfo2 = new DataSet();
+            DataSet dsinfo5 = new DataSet();
+            string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+
+
+            dsactname = bl.ListActivityName();
+            //dsnextacty = bl.ListNextActivity();
+            dsEmp = bl.ListExecutive();
+            dsinfo2 = bl.ListInformation2();
+            dsinfo5 = bl.ListInformation5();
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                var ddl3 = (DropDownList)e.Row.FindControl("drpactivityName");
+                ddl3.Items.Clear();
+                ListItem lifzzh = new ListItem("Select Activity Name", "0");
+                lifzzh.Attributes.Add("style", "color:Black");
+                ddl3.Items.Add(lifzzh);
+                ddl3.DataSource = dsactname;
+                ddl3.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+                ddl3.DataBind();
+                ddl3.DataTextField = "TextValue";
+                ddl3.DataValueField = "ID";
+            }
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                var ddl1 = (DropDownList)e.Row.FindControl("drpnxtActivity");
+                ddl1.Items.Clear();
+                ListItem lifzzh1 = new ListItem("Select Next Activity", "0");
+                lifzzh1.Attributes.Add("style", "color:Black");
+                ddl1.Items.Add(lifzzh1);
+                ddl1.DataSource = dsactname;
+                ddl1.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+                ddl1.DataBind();
+                ddl1.DataTextField = "TextValue";
+                ddl1.DataValueField = "ID";
+            }
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                var ddl2 = (DropDownList)e.Row.FindControl("drpemployee");
+                ddl2.Items.Clear();
+                ListItem lifzzh2 = new ListItem("Select Employee", "0");
+                lifzzh2.Attributes.Add("style", "color:Black");
+                ddl2.Items.Add(lifzzh2);
+                ddl2.DataSource = dsEmp;
+                ddl2.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+                ddl2.DataBind();
+                ddl2.DataTextField = "empFirstName";
+                ddl2.DataValueField = "empno";
+            }
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                var ddl3 = (DropDownList)e.Row.FindControl("drpinfo2");
+                ddl3.Items.Clear();
+                ListItem lifzzh3 = new ListItem("Select Information1", "0");
+                lifzzh3.Attributes.Add("style", "color:Black");
+                ddl3.Items.Add(lifzzh3);
+                ddl3.DataSource = dsinfo2;
+                ddl3.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+                ddl3.DataBind();
+                ddl3.DataTextField = "TextValue";
+                ddl3.DataValueField = "ID";
+            }
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                var ddl5 = (DropDownList)e.Row.FindControl("drpinfo5");
+                ddl5.Items.Clear();
+                ListItem lifzzh5 = new ListItem("Select Information5", "0");
+                lifzzh5.Attributes.Add("style", "color:Black");
+                ddl5.Items.Add(lifzzh5);
+                ddl5.DataSource = dsinfo5;
+                ddl5.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+                ddl5.DataBind();
+                ddl5.DataTextField = "TextValue";
+                ddl5.DataValueField = "ID";
+            }
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+    protected void ButtonAdd_Click(object sender, EventArgs e)
+    {
+        AddNewRowProduct();
+    }
+    protected void drpproduct_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        for (int i = GrdViewLeadproduct.Rows.Count; i == GrdViewLeadproduct.Rows.Count; i++)
+        {
+            DropDownList DrpProduct =
+              (DropDownList)GrdViewLeadproduct.Rows[i - 1].Cells[1].FindControl("drpproduct");
+            TextBox txtPrdID =
+              (TextBox)GrdViewLeadproduct.Rows[i - 1].Cells[2].FindControl("txtPrdId");
+
+            txtPrdID.Text = DrpProduct.SelectedValue;
+        }
+    }
+    protected void ButtonAddCom_Click(object sender, EventArgs e)
+    {
+        AddNewRowCompetitors();
+    }
+    protected void ButtonAddActivity_Click(object sender, EventArgs e)
+    {
+        AddNewRowActivity();
     }
 }

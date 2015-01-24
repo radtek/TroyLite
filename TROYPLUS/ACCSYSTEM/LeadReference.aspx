@@ -155,9 +155,9 @@
                                                                 
                                                                 </td>
                                                                 <td class="ControlDrpBorder" style="width:30%">
-                                                                    <asp:DropDownList ID="ddTypedd" runat="server" Width="100%" BackColor = "#e7e7e7"  style="border: 1px solid #e7e7e7" height="26px" CssClass="drpDownListMedium" SelectedValue='<%# Bind("TypeName") %>'
-                                                                        TabIndex="2">
-                                                                        <asp:ListItem Text="Activity Name" Value="Activity Name"></asp:ListItem>
+                                                                    <asp:DropDownList ID="ddTypedd" runat="server" Width="100%" BackColor = "#e7e7e7"  style="border: 1px solid #e7e7e7" height="26px" CssClass="drpDownListMedium" SelectedValue='<%# Bind("TypeID") %>'
+                                                                        DataSourceID="srcReferenceType"  DataTextField="ReferenceType" DataValueField="TypeID" TabIndex="2">
+                                                                       <%-- <asp:ListItem Text="Activity Name" Value="Activity Name"></asp:ListItem>--%>
                                                                     </asp:DropDownList>
                                                                 </td>
                                                                 <td style="width:30%">
@@ -203,6 +203,14 @@
                                                                         <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
                                                                     </SelectParameters>
                                                                 </asp:ObjectDataSource>
+                                                                
+                                                                <asp:ObjectDataSource ID="srcReferenceType" runat="server" SelectMethod="ListReferenceType"
+                                                                    TypeName="BusinessLogic" OldValuesParameterFormatString="original_{0}">
+                                                                    <SelectParameters>
+                                                                        <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
+                                                                    </SelectParameters>
+                                                                </asp:ObjectDataSource>
+                                                           
                                                                 <td>
                                                                     <asp:ValidationSummary ID="valSum" DisplayMode="BulletList" ShowMessageBox="true"
                                                                         ShowSummary="false" HeaderText="Validation Messages" Font-Names="'Trebuchet MS'"
@@ -254,9 +262,9 @@
                                                                     
                                                                 </td>
                                                                 <td class="ControlDrpBorder" style="width:30%">
-                                                                    <asp:DropDownList ID="ddType" runat="server" Width="100%" BackColor = "#e7e7e7"  style="border: 1px solid #e7e7e7" height="26px" CssClass="drpDownListMedium" SelectedValue='<%# Bind("TypeName") %>'
-                                                                        TabIndex="2">
-                                                                        <asp:ListItem Text="Activity Name" Value="Activity Name"></asp:ListItem>
+                                                                    <asp:DropDownList ID="ddType" runat="server" Width="100%" BackColor = "#e7e7e7"  style="border: 1px solid #e7e7e7" height="26px" CssClass="drpDownListMedium" SelectedValue='<%# Bind("TypeID") %>'
+                                                                      DataSourceID="srcReferenceTypeAdd"  DataTextField="ReferenceType" DataValueField="TypeID" TabIndex="2">
+                                                                        <%--<asp:ListItem Text="Activity Name" Value="Activity Name"></asp:ListItem>--%>
                                                                     </asp:DropDownList>
                                                                 </td>
                                                                 <td style="width:30%">
@@ -303,6 +311,14 @@
                                                             </td>
                                                             <td colspan="2">
                                                                 <asp:ObjectDataSource ID="srcGroupInfoAdd" runat="server" SelectMethod="ListGroupInfoExp"
+                                                                    TypeName="BusinessLogic" OldValuesParameterFormatString="original_{0}">
+                                                                    <SelectParameters>
+                                                                        <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
+                                                                    </SelectParameters>
+                                                                </asp:ObjectDataSource>
+                                                            </td>
+                                                            <td colspan="2">
+                                                                <asp:ObjectDataSource ID="srcReferenceTypeAdd" runat="server" SelectMethod="ListReferenceType"
                                                                     TypeName="BusinessLogic" OldValuesParameterFormatString="original_{0}">
                                                                     <SelectParameters>
                                                                         <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
@@ -413,6 +429,7 @@
                                 <asp:Parameter Name="TextValue" Type="String" />
                                 <asp:Parameter Name="TypeName" Type="String" />
                                 <asp:Parameter Name="Types" Type="String" />
+                                <asp:Parameter Name="TypeID" Type="Int32" />
                             </UpdateParameters>
                             <SelectParameters>
                                 <asp:ControlParameter ControlID="GrdViewLedger" Name="ID" PropertyName="SelectedValue"
@@ -424,6 +441,7 @@
                                 <asp:Parameter Name="TextValue" Type="String" />
                                 <asp:Parameter Name="TypeName" Type="String" />
                                 <asp:Parameter Name="Types" Type="String" />
+                                <asp:Parameter Name="TypeID" Type="Int32" />
                             </InsertParameters>
                         </asp:ObjectDataSource>
                     </td>
