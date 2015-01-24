@@ -549,7 +549,7 @@
                                                                                                 <tr>
                                                                                                     <td style="width: 750px" align="center">
                                                                                                         <asp:Button ID="BtnAddproduct" runat="server" OnClick="BtnAddproduct_Click" SkinID="skinBtnAddProduct" CssClass="ButtonAdd66" CausesValidation="False"
-                                                                                                            Text="" EnableTheming="false" Visible="true"></asp:Button>
+                                                                                                            Text="" EnableTheming="false" Visible="false"></asp:Button>
                                                                                                         <asp:HiddenField ID="HiddenField6" runat="server" Value="0" />
                                                                                                     </td>
                                                                                                 </tr>
@@ -1225,7 +1225,7 @@
                                                                                                 </tr>
                                                                                                 <tr>
                                                                                                     <td style="width: 750px" align="center">
-                                                                                                        <asp:Button ID="BtnAddActivity" runat="server" OnClick="BtnAddActivity_Click" CssClass="ButtonAdd66" CausesValidation="False"
+                                                                                                        <asp:Button ID="BtnAddActivity" runat="server" OnClick="BtnAddActivity_Click" CssClass="ButtonAdd66" CausesValidation="False" Visible="false"
                                                                                                             Text="" EnableTheming="false"></asp:Button>
                                                                                                         <asp:HiddenField ID="HiddenField4" runat="server" Value="0" />
                                                                                                     </td>
