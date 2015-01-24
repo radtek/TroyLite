@@ -114,7 +114,7 @@
   background: url('chosen-sprite.png') no-repeat 100% -22px, -ms-linear-gradient(top, #ffffff 85%,#eeeeee 99%);
   background: url('chosen-sprite.png') no-repeat 100% -22px, -ms-linear-gradient(top, #ffffff 85%,#eeeeee 99%);
   background: url('chosen-sprite.png') no-repeat 100% -22px, linear-gradient(top, #ffffff 85%,#eeeeee 99%);
-  margin: 1px 0;
+  margin: -25px 0;
   padding: 4px 20px 4px 5px;
   outline: 0;
   border: 1px solid #aaa;

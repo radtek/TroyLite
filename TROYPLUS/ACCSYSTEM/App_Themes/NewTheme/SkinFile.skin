@@ -14,7 +14,7 @@ Default skin template. The following skins are provided as examples only.
 <asp:Image runat="server" ImageUrl="~/images/image1.jpg" />
 --%>
 
-<asp:GridView runat="server" AutoGenerateColumns="false" PageSize="15" AllowPaging="True" GridLines="Both" >
+<%--<asp:GridView runat="server" AutoGenerateColumns="false" PageSize="15" AllowPaging="True" GridLines="Both" >
     <RowStyle CssClass="dataRow" />
     <SelectedRowStyle CssClass="SelectdataRow" Font-Bold="true" />
     <AlternatingRowStyle CssClass="altRow" />
@@ -32,6 +32,7 @@ Default skin template. The following skins are provided as examples only.
     <HeaderStyle Height="25px" CssClass="HeadataRow" />
     <FooterStyle Height="27px" CssClass="SelectdataRow" />
     <PagerStyle Height="25px"  CssClass="footer-row allPad" VerticalAlign="Middle" HorizontalAlign="Left"  />
+
 </asp:GridView>
 
 <asp:GridView SkinID="GrdNoPaging" runat="server" AutoGenerateColumns="false" AllowPaging="False" BackColor="White">
@@ -51,7 +52,7 @@ Default skin template. The following skins are provided as examples only.
     <HeaderStyle Height="30px" CssClass="HeadataRow" />
     <FooterStyle CssClass="footer-row" Height="25px" />
     <PagerStyle Height="25px"  CssClass="footer-row allPad" VerticalAlign="Middle" HorizontalAlign="Left"  />
-</asp:GridView>
+</asp:GridView>--%>
 
 <asp:Button runat="server" CssClass="pageButton" SkinID="skinButtonCol"/>
 <asp:Button runat="server" CssClass="pageButtonNew" SkinID="skinButtonCol2"/>
