@@ -229,7 +229,7 @@
                     TargetControlID="dummy">
                 </cc1:ModalPopupExtender>
                 <div class="alignLeft">
-                    <asp:Panel runat="server" ID="popUp" Style="width: 60%; display: none">
+                    <asp:Panel runat="server" ID="popUp" Style="width: 75%; display: none">
                         <div id="contentPopUp">
                             <table class="tblLeft" cellpadding="0" cellspacing="0" style="border: 0px solid #5078B3;
                                 background-color: #fff; color: #000;" width="100%">
@@ -255,7 +255,7 @@
                                                             <cc1:TabContainer ID="tbMain" runat="server" Width="100%" Visible="false" CssClass="fancy fancy-green">
                                                                 <cc1:TabPanel ID="tabInsRates" runat="server" HeaderText="Task Update Details">
                                                                     <ContentTemplate>
-                                                                        <table style="width: 1000px;" align="center" cellpadding="2" cellspacing="2">
+                                                                        <table style="width: 100%;" align="center" cellpadding="2" cellspacing="2">
                                                                             <tr>
                                                                                     <td class="ControlLabelproject" style="width: 20%">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator9" Text="*" runat="server"
@@ -322,8 +322,8 @@
                                                                                     <td style="width: 5%">
                                                                                         
                                                                                     </td>
-                                                                                    <td class="ControlLabelproject" style="width: 25%">
-                                                                                        Effort Putin since last update
+                                                                                    <td class="ControlLabelproject" style="width: 27%">
+                                                                                        Effort Putin since last update in %
                                                                                      <%--   <asp:RequiredFieldValidator ID="RequiredFieldValidator12" Text="*" runat="server"
                                                                                             ControlToValidate="txtTaskUpdateDate" ValidationGroup="Save" ErrorMessage="Task Update Date is mandatory"></asp:RequiredFieldValidator>--%>
                                                                                        <%-- Task Update Date *--%>
@@ -360,7 +360,7 @@
                                                                                         
                                                                                     </td>
                                                                                     <td class="ControlLabelproject" style="width: 20%">
-                                                                                       Effort Remaining
+                                                                                       Effort Remaining in %
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlTextBox3">
                                                                                          <asp:TextBox ID="TextBox1" MaxLength="10" runat="server" CssClass="cssTextBox" Width="100px" Visible="false" Enabled="false" />
@@ -402,7 +402,7 @@
                                                                                    
                                                                                           
                                                                                                    <td class="ControlTextBoxforproject">
-                                                                                                         <asp:TextBox ID="txtTaskupdate" runat="server" BackColor="#E7E7E7" Height="10px" Style="overflow: hidden; padding: 0px; font-family: 'Trebuchet MS';border: 1px solid #e7e7e7; font-size: 13px;" TabIndex="5" TextMode="MultiLine" Width="99%"></asp:TextBox>
+                                                                                                         <asp:TextBox ID="txtTaskupdate" runat="server" BorderWidth="25px" BackColor="#E7E7E7" Height="27px" Style="overflow: hidden; padding: 0px; font-family: 'Trebuchet MS';border: 1px solid #e7e7e7; font-size: 13px;" TabIndex="5" TextMode="MultiLine" Width="99%"></asp:TextBox>
                                                                                                      </td>
                                                                                  <td style="width: 5%">
                                                                                         
@@ -443,13 +443,16 @@
                                                                                  
                                                                             <tr style="height: 2px">
                                                                                     </tr>
-                                                                        </table>
-                                                                    </ContentTemplate>
-                                                                </cc1:TabPanel>
-                                                            
-                                                                <cc1:TabPanel ID="TabPanel1" runat="server" HeaderText="Task Update Details History">
-                                                                    <ContentTemplate>
-                                                                         <table style="width: 1000px;" align="center" cellpadding="2" cellspacing="2">
+                                                                            <tr style="height: 2px">
+                                                                                <td colspan="6">
+                                                                                    Task Update History
+                                                                                    </td>
+                                                                                    </tr>
+                                                                            <tr>
+                                                                                <td colspan="6">
+                                                                                      <div id="div"  runat="server" style="height:200px; width:100%; overflow:scroll">
+                                                                          
+                                                                         <table style="width: 100%;" align="center" cellpadding="2" cellspacing="2">
                                                                              <tr style="width: 100%">
                                                                                 <td>
                                                                                     <asp:GridView ID="GridView1" runat="server" AllowSorting="True" AutoGenerateColumns="False"
@@ -457,12 +460,13 @@
                                                                                         AllowPaging="True" OnPageIndexChanging="GridView1_PageIndexChanging" OnRowCreated="GridView1_RowCreated"
                                                                                         EmptyDataText="No Task History Details found."
                                                                                         >
-                                                                                        <HeaderStyle Height="70px" Font-Bold="true" />
+                                                                                        <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small"/>
+                                                                                        <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE"/>
                                                                                         <Columns>
                                                                                             <asp:BoundField DataField="Task_Update_Date" HeaderText="Task Update Date" DataFormatString="{0:dd/MM/yyyy}"  HeaderStyle-BorderColor="Gray"/>
                                                                                              <asp:BoundField DataField="Task_Status_Name" HeaderText="Status Of Task"  HeaderStyle-BorderColor="Gray"/>
-                                                                                            <asp:BoundField DataField="Effort_Spend_Last_Update" HeaderText="Effort Putin since Last Update" HeaderStyle-BorderColor="Gray" />
-                                                                                            <asp:BoundField DataField="Effort_Remaining" HeaderText="Effort Remaining" HeaderStyle-BorderColor="Gray" />
+                                                                                            <asp:BoundField DataField="Effort_Spend_Last_Update" HeaderText="Effort Putin since Last Update in %" HeaderStyle-BorderColor="Gray" />
+                                                                                            <asp:BoundField DataField="Effort_Remaining" HeaderText="Effort Remaining in %" HeaderStyle-BorderColor="Gray" />
                                                                                         <%--    <asp:BoundField DataField="Actual_Start_Date" Visible="false" HeaderText="Actual Start Date" HeaderStyle-BorderColor="Gray"
                                                                                                 DataFormatString="{0:dd/MM/yyyy}" />
                                                                                             <asp:BoundField DataField="Actual_End_Date" Visible="false" HeaderText="Actual end date" HeaderStyle-BorderColor="Gray"
@@ -510,48 +514,32 @@
                                                                                 </td>
                                                                              </tr>
                                                                          </table>
+                                                                    
+                                                                            </div>
+
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                        
+
+                                                                        
+
                                                                     </ContentTemplate>
-                                                               </cc1:TabPanel>
+                                                                  
+                                                                </cc1:TabPanel>
+                                                            
+                                                            
 
                                                                     <cc1:TabPanel ID="tabMaster" runat="server" HeaderText="Task Details For Reference">
                                                                     <ContentTemplate>
                                                                          <table style="width: 1000px;" align="center" cellpadding="2" cellspacing="2">
+                                                                              
+                                                                            
                                                                                 <tr>
-                                                                                    <td style="width: 20%" class="ControlLabelproject">
-                                                                                       <%-- <asp:RequiredFieldValidator ValidationGroup="Save" ID="RequiredFieldValidator2" runat="server"
-                                                                                            Text="*" ErrorMessage="Task ID is mandatory" ControlToValidate="txtTaskID"></asp:RequiredFieldValidator>--%>
-                                                                                        Task Code *
-                                                                                    </td>
-                                                                                    <td style="width: 25%" class="ControlTextBox3">
-                                                                                        <asp:TextBox ID="txtTaskID"  runat="server" SkinID="skinTxtBoxGrid"
-                                                                                            TabIndex="1" Enabled="false" />
-                                                                                    </td>
-                                                                                    <td style="width: 5%">
-                                                                                        
-                                                                                    </td>
-                                                                                    <td class="ControlLabelproject" style="width: 15%">
-                                                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" Text="*" runat="server"
-                                                                                            ControlToValidate="txtCDate" ValidationGroup="Save" ErrorMessage="Creation Date is mandatory"></asp:RequiredFieldValidator>
-                                                                                        Task Date *
-                                                                                    </td>
-                                                                                    <td style="width: 25%" class="ControlTextBox3">
-                                                                                        <asp:TextBox ID="txtCDate"  Width="100px" MaxLength="10" runat="server" CssClass="cssTextBox" TabIndex="2"  Enabled="false"/>
-                                                                                        <cc1:CalendarExtender ID="calCDate" runat="server" Animated="true" Format="dd/MM/yyyy"
-                                                                                            PopupButtonID="btnCDate" PopupPosition="BottomLeft" TargetControlID="txtCDate">
-                                                                                        </cc1:CalendarExtender>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <asp:ImageButton ID="btnCDate" ImageUrl="App_Themes/NewTheme/images/cal.gif" CausesValidation="false"
-                                                                                            Width="20px" runat="server" TabIndex="3" Visible="false"/>
-                                                                                    </td>
-                                                                                </tr>
-                                                                             <tr style="height: 2px">
-                                                                                    </tr>
-                                                                                <tr>
-                                                                                    <td style="width: 20%" class="ControlLabelproject">
+                                                                                    <td style="width: 25%" class="ControlLabelproject">
                                                                                       <%--  <asp:RequiredFieldValidator ValidationGroup="Save" ID="RequiredFieldValidator8" runat="server"
                                                                                             Text="*" ErrorMessage="Task Name is mandatory" ControlToValidate="txtTaskID"></asp:RequiredFieldValidator>--%>
-                                                                                        Task Name *
+                                                                                      Title Of Task *
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlTextBox3">
                                                                                         <asp:TextBox ID="txtTaskName"  runat="server" SkinID="skinTxtBoxGrid" Enabled="false"
@@ -560,10 +548,10 @@
                                                                                     <td style="width: 5%">
                                                                                         
                                                                                     </td>
-                                                                                    <td class="ControlLabelproject" style="width: 15%">
+                                                                                    <td class="ControlLabelproject" style="width: 29%">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator15" Text="*" runat="server"
                                                                                             ControlToValidate="drpIsActive" ValidationGroup="Save" ErrorMessage="Is Active is mandatory"></asp:RequiredFieldValidator>
-                                                                                        Is Active *
+                                                                                        Is this An Active Task *
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlDrpBorder">
                                                                                         <asp:DropDownList ID="drpIsActive" TabIndex="5"  Enabled="false" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
@@ -573,18 +561,21 @@
                                                                                             <asp:ListItem Text="No" Value="N"></asp:ListItem>
                                                                                         </asp:DropDownList>
                                                                                     </td>
+                                                                                      <td style="width: 5%">
+                                                                                        
+                                                                                    </td>
                                                                                 </tr> 
                                                                             <tr style="height: 2px">
                                                                                     </tr>
                                                                                 <tr>
-                                                                                     <td style="width: 20%" class="ControlLabelproject">
+                                                                                     <td style="width: 25%" class="ControlLabelproject">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator6" InitialValue="0" Text="*"
                                                                                             ErrorMessage="Project Code is mandatory" runat="server" ControlToValidate="drpProjectCode"
                                                                                             ValidationGroup="Save"></asp:RequiredFieldValidator>
-                                                                                        Project Name *
+                                                                                        Title Of The project *
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlDrpBorder">
-                                                                                        <asp:DropDownList ID="drpProjectCode" TabIndex="5" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
+                                                                                        <asp:DropDownList ID="drpProjectCode"  TabIndex="5" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
                                                                                             runat="server" Width="100%" DataTextField="Project_Name" backcolor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px" Enabled="false"
                                                                                             DataValueField="Project_Id" >
                                                                                             <asp:ListItem Text="Select Project Name" Value="0"></asp:ListItem>
@@ -593,11 +584,11 @@
                                                                                     <td style="width: 5%">
                                                                                         
                                                                                     </td>
-                                                                                    <td style="width: 15%;" class="ControlLabelproject">
+                                                                                    <td style="width: 29%;" class="ControlLabelproject">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" InitialValue="0" Text="*"
                                                                                             ErrorMessage="Project Manager is mandatory" runat="server" ControlToValidate="drpIncharge"
                                                                                             ValidationGroup="Save"></asp:RequiredFieldValidator>
-                                                                                        Owner *
+                                                                                        Owner Of The Task *
                                                                                     </td>
                                                                                     <td style="width: 25%;" class="ControlDrpBorder">
                                                                                         <asp:DropDownList ID="drpIncharge" TabIndex="5"  EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
@@ -606,16 +597,19 @@
                                                                                             <asp:ListItem Text="Select Owner" Value="0"></asp:ListItem>
                                                                                         </asp:DropDownList>
                                                                                     </td>
+                                                                                      <td style="width: 5%">
+                                                                                        
+                                                                                    </td>
                                                                                     
                                                                                 </tr>
                                                                              <tr style="height: 2px">
                                                                                     </tr>
                                                                              <tr>
-                                                                                     <td style="width: 20%" class="ControlLabelproject">
+                                                                                     <td style="width: 25%" class="ControlLabelproject">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator7" InitialValue="0" Text="*"
                                                                                             ErrorMessage="Task Type is mandatory" runat="server" ControlToValidate="drpTaskType"
                                                                                             ValidationGroup="Save"></asp:RequiredFieldValidator>
-                                                                                        Task Type *
+                                                                                       Type Of Task *
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlDrpBorder">
                                                                                         <asp:DropDownList ID="drpTaskType" TabIndex="5" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
@@ -627,11 +621,11 @@
                                                                                     <td style="width: 5%">
                                                                                         
                                                                                     </td>
-                                                                                    <td style="width: 15%;" class="ControlLabelproject">
+                                                                                    <td style="width: 29%;" class="ControlLabelproject">
                                                                                         <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator9" InitialValue="0" Text="*"
                                                                                             ErrorMessage="Dependency Task is mandatory" runat="server" ControlToValidate="drpDependencyTask"
                                                                                             ValidationGroup="Save"></asp:RequiredFieldValidator>--%>
-                                                                                        Dependency Task
+                                                                                       Task On Which this Task Dependency
                                                                                     </td>
                                                                                     <td style="width: 25%;" class="ControlDrpBorder">
                                                                                         <asp:DropDownList ID="drpDependencyTask" TabIndex="5"  EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
@@ -640,19 +634,22 @@
                                                                                             <asp:ListItem Text="Select Dependency Task" Value="0"></asp:ListItem>
                                                                                         </asp:DropDownList>
                                                                                     </td>
+                                                                                   <td style="width: 5%">
+                                                                                        
+                                                                                    </td>
                                                                                     
                                                                                 </tr>
                                                                             <tr style="height: 2px">
                                                                                     </tr>
                                                                                 <tr>
-                                                                                    <td class="ControlLabelproject" style="width: 20%">
+                                                                                    <td class="ControlLabelproject" style="width: 25%">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" Text="*" runat="server"
                                                                                             ControlToValidate="txtEWstartDate" ValidationGroup="Save" ErrorMessage="Expected Start Date is mandatory"></asp:RequiredFieldValidator>
                                                                                         <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToCompare="txtEWstartDate"
                                                                                             ControlToValidate="txtEWEndDate" Text="*" ErrorMessage="Start Date Should Be Less Than the End Date"
                                                                                             CssClass="lblFont" Operator="GreaterThanEqual" ValidationGroup="Save" SetFocusOnError="True"
                                                                                             Type="Date"></asp:CompareValidator>
-                                                                                        Expected Start Date *
+                                                                                        Expected Task Start Date *
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlTextBox3">
                                                                                         <asp:TextBox ID="txtEWstartDate" runat="server" CssClass="cssTextBox" Width="100px"
@@ -665,10 +662,10 @@
                                                                                         <asp:ImageButton ID="btnEWstartDate" ImageUrl="App_Themes/NewTheme/images/cal.gif"
                                                                                             CausesValidation="false" Width="20px" runat="server" TabIndex="7" Visible="false"/>
                                                                                     </td>
-                                                                                    <td class="ControlLabelproject" style="width: 15%">
+                                                                                    <td class="ControlLabelproject" style="width: 29%">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" Text="*" runat="server"
                                                                                             ControlToValidate="txtEWEndDate" ValidationGroup="Save" ErrorMessage="Expected End Date is mandatory"></asp:RequiredFieldValidator>
-                                                                                        Expected End Date *
+                                                                                        Expected Due Date *
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlTextBox3">
                                                                                         <asp:TextBox ID="txtEWEndDate" runat="server" CssClass="cssTextBox" Width="100px"
@@ -677,7 +674,7 @@
                                                                                             PopupButtonID="ImageButton1" PopupPosition="BottomLeft" TargetControlID="txtEWEndDate">
                                                                                         </cc1:CalendarExtender>
                                                                                     </td>
-                                                                                    <td>
+                                                                                      <td style="width: 5%">
                                                                                         <asp:ImageButton ID="ImageButton1" ImageUrl="App_Themes/NewTheme/images/cal.gif"
                                                                                             CausesValidation="false" Width="20px" runat="server" TabIndex="9"  Visible="false"/>
                                                                                     </td>
@@ -686,18 +683,33 @@
                                                                                     </tr>
                                                                                 <tr>
                                                                                     
-                                                                                            <tr>
-                                                                                                <td style="width: 20%" class="ControlLabelproject">
-                                                                                                    Task Description
+                                                                                            
+                                                                                                <td style="width: 25%" class="ControlLabelproject">
+                                                                                                    Description of the task
                                                                                                 </td>
-                                                                                                 <td class="ControlTextBoxforproject" style="width: 20%">
+                                                                                                 <td class="ControlTextBoxforproject" style="width: 25%">
                                                                                                          <asp:TextBox ID="txtTaskDesc" runat="server" BackColor="#E7E7E7" Height="10px" Style="overflow: hidden; padding: 0px; font-family: 'Trebuchet MS';border: 1px solid #e7e7e7; font-size: 13px;" TabIndex="5" TextMode="MultiLine" Width="99%"></asp:TextBox>
                                                                                                      </td>
-                                                                                            </tr>
+                                                                                           
                                                                                       <td style="width: 5%">
-                                                                                            <td style="width: 20%">
-                                                                                                  <td style="width: 20%">
+                                                                                          </td>
+                                                                                            <td style="width: 27%" class="ControlLabelproject">
+                                                                                            Estimated Effort Duration
+                                                                                               <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
+                                                                                                <ContentTemplate>
+                                                                                              <asp:Label runat="server" ID="unitofmeasureheading"></asp:Label>
+                                                                                                     </ContentTemplate>
+                                                                                            </asp:UpdatePanel>
+                                                                                         </td>
+                                                                                         <td style="width: 25%" class="ControlTextBox3">
+                                                                                               <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
+                                                                                                <ContentTemplate>
+                                                                                             <asp:TextBox ID="Taskeffortdays" Height="50px" runat="server"  MaxLength="10" SkinID="skinTxtBoxGrid" Text="0"/>
+                                                                                                     </ContentTemplate>
+                                                                                            </asp:UpdatePanel>
+                                                                                         </td>
                                                                                                         <td style="width: 5%">
+                                                                                                            </td>
                                                                                        
                                                                                     
                                                                                 </tr>    
@@ -751,24 +763,26 @@
                     HeaderStyle-HorizontalAlign="Center" RowStyle-HorizontalAlign="Center" Width="100%" CssClass="someClass"
                     AllowPaging="True" OnPageIndexChanging="GrdWME_PageIndexChanging" OnRowCreated="GrdWME_RowCreated"
                     DataKeyNames="Task_Id" EmptyDataText="No Task Details found." OnSelectedIndexChanged="GrdWME_SelectedIndexChanged"
-                    >
+                     >
                     <HeaderStyle Height="40px" Font-Bold="true" />
+                    <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small"/>
+                                <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE"/>
                     <Columns>
                         <asp:BoundField DataField="Task_Id" HeaderText="Task ID" HeaderStyle-Wrap="false"  HeaderStyle-BorderColor="Gray" Visible="false"/>
-                        <asp:BoundField DataField="Task_Id" HeaderText="Task Code" HeaderStyle-Font-Bold="true" HeaderStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" HeaderStyle-BorderColor="Gray" />
-                        <asp:BoundField DataField="Task_Date" HeaderText="Task Date" DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Font-Bold="true" HeaderStyle-Font-Size="Small"  ItemStyle-ForeColor="#0567AE" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" HeaderStyle-BorderColor="Gray"/>
-                        <asp:BoundField DataField="Task_Name" HeaderText="Task Name"  HeaderStyle-BorderColor="Gray" HeaderStyle-Font-Bold="true" HeaderStyle-Font-Size="Small"  ItemStyle-ForeColor="#0567AE" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" />         
+                        <asp:BoundField DataField="Task_Id" HeaderText="Task Code" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Height="20px" ItemStyle-HorizontalAlign="Center" ItemStyle-Height="30px" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="Small" HeaderStyle-BorderColor="Gray" />
+                        <asp:BoundField DataField="Task_Date" HeaderText="Task Date" DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Height="20px" ItemStyle-HorizontalAlign="Center" ItemStyle-Height="30px" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="Small" HeaderStyle-BorderColor="Gray" />
+                        <asp:BoundField DataField="Task_Name" HeaderText="Task Name"  HeaderStyle-HorizontalAlign="Center" HeaderStyle-Height="20px" ItemStyle-HorizontalAlign="Center" ItemStyle-Height="30px" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="Small" HeaderStyle-BorderColor="Gray" />
                         <asp:BoundField DataField="ProjectCode" HeaderText="Project Code" HeaderStyle-Font-Bold="true" HeaderStyle-Font-Size="Small"  ItemStyle-ForeColor="#0567AE" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" HeaderStyle-BorderColor="Gray"/>
                         <asp:BoundField DataField="ProjectName" HeaderText="Project Name" HeaderStyle-Font-Bold="true" HeaderStyle-Font-Size="Small"  ItemStyle-ForeColor="#0567AE" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small"  HeaderStyle-BorderColor="Gray"/>               
-                        <asp:BoundField DataField="Expected_Start_Date" HeaderText="Expected Start Date" HeaderStyle-BorderColor="Gray"
-                            DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Font-Bold="true" HeaderStyle-Font-Size="Small"  ItemStyle-ForeColor="#0567AE" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" />
-                        <asp:BoundField DataField="Actual_Start_Date" HeaderText="Actual Start Date" HeaderStyle-BorderColor="Gray"
-                            DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Font-Bold="true" HeaderStyle-Font-Size="Small"  ItemStyle-ForeColor="#0567AE" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" />
-                        <asp:BoundField DataField="Expected_End_Date" HeaderText="Expected end date" HeaderStyle-BorderColor="Gray"
-                            DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Font-Bold="true" HeaderStyle-Font-Size="Small"  ItemStyle-ForeColor="#0567AE" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" />
-                        <asp:BoundField DataField="Actual_End_Date" HeaderText="Actual end date" HeaderStyle-BorderColor="Gray"
-                            DataFormatString="{0:dd/MM/yyyy}"  HeaderStyle-Font-Bold="true" HeaderStyle-Font-Size="Small"  ItemStyle-ForeColor="#0567AE" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small"/>
-                        <asp:BoundField DataField="empfirstname" HeaderText="Owner" HeaderStyle-Font-Bold="true" HeaderStyle-Font-Size="Small"  ItemStyle-ForeColor="#0567AE" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" HeaderStyle-BorderColor="Gray"/>
+                        <asp:BoundField DataField="Expected_Start_Date" HeaderText="Expected Start Date" 
+                            DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Height="20px" ItemStyle-HorizontalAlign="Center" ItemStyle-Height="30px" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="Small" HeaderStyle-BorderColor="Gray" />
+                        <asp:BoundField DataField="Actual_Start_Date" HeaderText="Actual Start Date"
+                            DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Height="20px" ItemStyle-HorizontalAlign="Center" ItemStyle-Height="30px" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="Small" HeaderStyle-BorderColor="Gray" />
+                        <asp:BoundField DataField="Expected_End_Date" HeaderText="Expected end date" 
+                            DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Height="20px" ItemStyle-HorizontalAlign="Center" ItemStyle-Height="30px" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="Small" HeaderStyle-BorderColor="Gray" />
+                        <asp:BoundField DataField="Actual_End_Date" HeaderText="Actual end date" 
+                            DataFormatString="{0:dd/MM/yyyy}"  HeaderStyle-HorizontalAlign="Center" HeaderStyle-Height="20px" ItemStyle-HorizontalAlign="Center" ItemStyle-Height="30px" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="Small" HeaderStyle-BorderColor="Gray" />
+                        <asp:BoundField DataField="empfirstname" HeaderText="Owner" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Height="20px" ItemStyle-HorizontalAlign="Center" ItemStyle-Height="30px" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="Small" HeaderStyle-BorderColor="Gray" />
                         <asp:TemplateField ItemStyle-CssClass="command" HeaderStyle-Width="50px" HeaderText="Edit" HeaderStyle-BorderColor="Gray"
                             ItemStyle-HorizontalAlign="Center">
                             <ItemTemplate>

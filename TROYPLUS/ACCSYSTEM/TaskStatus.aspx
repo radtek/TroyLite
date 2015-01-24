@@ -60,7 +60,7 @@
                             <table style="width: 99.8%; margin: -1px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
                                 <tr style="height: 25px; vertical-align: middle">
                                     <td style="width: 2%;"></td>
-                                    <td style="width: 75%; font-size: 22px; color: white;">List of Task Status For LookUp
+                                    <td style="width: 75%; font-size: 22px; color: white;">Defined List of Task Status
                                     </td>
                                     <td style="width: 14%">
                                       
@@ -262,8 +262,11 @@
                                             AllowPaging="True" DataKeyNames="Task_Status_Id" EmptyDataText="No Task Status Found."
                                             OnRowCommand="GrdViewLedger_RowCommand" OnRowDataBound="GrdViewLedger_RowDataBound" OnRowDeleting="GrdViewLedger_RowDeleting"
                                             OnRowDeleted="GrdViewLedger_RowDeleted">
+                                            <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small"/>
+                                <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE"/>
                                             <Columns>
-                                                <asp:BoundField DataField="Task_Status_Name" HeaderText="Task Status" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="690px" />
+                                                <asp:BoundField DataField="Row" HeaderText="#" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Height="20px" ItemStyle-HorizontalAlign="Center" ItemStyle-Height="30px" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="Small" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="75px" />
+                                                <asp:BoundField DataField="Task_Status_Name" HeaderText="Task Status" HeaderStyle-Height="20px" ItemStyle-HorizontalAlign="Left" ItemStyle-Height="30px" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="Small" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="690px" />
                                                 <asp:TemplateField ItemStyle-CssClass="command" HeaderText="Edit" ItemStyle-Width="50px" HeaderStyle-BorderColor="Gray"
                                                     ItemStyle-HorizontalAlign="Center">
                                                     <ItemTemplate>
@@ -326,7 +329,7 @@
                         <asp:ObjectDataSource ID="GridSource" runat="server" SelectMethod="ListTaskStatusInfo"
                             TypeName="BusinessLogic" DeleteMethod="DeleteTaskStatus" OnDeleting="GridSource_Deleting">
                             <DeleteParameters>
-                                <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
+                                <asp:CookieParameter Name="connection" CookieName="Company"  Type="String" />
                                 <asp:Parameter Name="Task_Status_Id" Type="Int32" />
                                 <asp:Parameter Name="Username" Type="String" />
                             </DeleteParameters>
