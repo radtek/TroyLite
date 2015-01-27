@@ -335,13 +335,13 @@
     <div>
         <table style="width: 100%">
             <tr>
-                <td  style="width:30%">
+                <td  style="width:25%">
                     </td>
                     <td  style="width:5%">
                         <asp:Button ID="Button2" runat="server"  OnClientClick="window.open('BulkPriceAddition.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=250,width=500,left=425,top=220, scrollbars=yes');" 
                                     EnableTheming="false" Text="Import New Prices using Excel" Visible="false"></asp:Button>
                     </td>
-                    <td style="width:15%">
+                    <td style="width:20%">
                         <div style="text-align: right;">
                                                 <asp:Panel ID="pnlSearch" runat="server" Width="100px">
                                                     <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
@@ -355,9 +355,12 @@
                         <asp:Button ID="Button3" runat="server" OnClick="Button3_Click"
                                     EnableTheming="false" Text="Update Price for single Product"></asp:Button>
                     </td>
-                    <td  style="width:35%">
-                        
-                    </td>                    
+                    <td  style="width:15%">
+                        <asp:Button ID="Button5" runat="server" OnClick="Button5_Click"
+                                    EnableTheming="false" Text="Download Sample Excel For Import Prices"></asp:Button>
+                    </td> 
+                 <td  style="width:20%">
+                    </td>                   
                 </tr>
         </table>
     </div>
