@@ -8623,6 +8623,16 @@ fieldset
     cursor: pointer;
 }
 
+.saveandreturnbuttonforproject
+{
+    background: url(images/projectsaveandreturn.png) no-repeat !important;
+    width: 100% !important;
+    height: 28px !important;
+    display: block !important;
+    border: none;
+    cursor: pointer;
+}
+
 .NewCat
 {
     background: url(images/NewCat.png) no-repeat !important;
