@@ -516,6 +516,7 @@ public partial class ProdMaster : System.Web.UI.Page
             DataSet ds = bl.ListPriceListInfo(connection, "", "");
 
             txtItemCodeAdd.Enabled = true;
+            title1.Text = "Add New Product details";
 
             DataTable dtt;
             DataRow drNew;
@@ -1260,6 +1261,8 @@ public partial class ProdMaster : System.Web.UI.Page
             {
                 if (ds.Tables[0].Rows.Count > 0)
                 {
+                    title1.Text = "Update Product details";
+
                     if (ds.Tables[0].Rows[0]["ItemCode"] != null)
                         txtItemCodeAdd.Text = ds.Tables[0].Rows[0]["ItemCode"].ToString();
 

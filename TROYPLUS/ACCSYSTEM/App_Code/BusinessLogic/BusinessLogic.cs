@@ -8215,8 +8215,8 @@ public class BusinessLogic
                         }
                         else
                         {
-                            dbQry2 = string.Format("INSERT INTO tblProductPricehistory VALUES('{0}','{1}', '{2}',{3},'{4}',{5},Format('{6}', 'dd/mm/yyyy'),Format('{7}', 'dd/mm/yyyy'),Format('{8}', 'dd/mm/yyyy'),'{9}',{10},{11},{12})",
-                                     ItemCode, ProductName, Model, CategoryID, ProductDesc, ROL, Convert.ToDateTime(dr["EffDate"]), mrpdat.ToShortDateString(), mrpprevdat.ToShortDateString(), Convert.ToString(dr["PriceName"]), Convert.ToDouble(dr["Price"]), Convert.ToDouble(dr["Discount"]), Convert.ToInt32(dr["Id"]));
+                            dbQry2 = string.Format("INSERT INTO tblProductPricehistory VALUES('{0}','{1}', '{2}',{3},'{4}',{5},Format('{6}', 'dd/mm/yyyy'),Format('{7}', 'dd/mm/yyyy'),Format('{8}', 'dd/mm/yyyy'),'{9}',{10},{11},{12},'{13}')",
+                                     ItemCode, ProductName, Model, CategoryID, ProductDesc, ROL, Convert.ToDateTime(dr["EffDate"]), mrpdat.ToShortDateString(), mrpprevdat.ToShortDateString(), Convert.ToString(dr["PriceName"]), Convert.ToDouble(dr["Price"]), Convert.ToDouble(dr["Discount"]), Convert.ToInt32(dr["Id"]),Username);
 
                             manager.ExecuteDataSet(CommandType.Text, dbQry2);
                         }
@@ -8456,8 +8456,8 @@ public class BusinessLogic
 
                         manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
-                        dbQry2 = string.Format("INSERT INTO tblProductPricehistory VALUES('{0}','{1}', '{2}',{3},'{4}',{5},Format('{6}', 'dd/mm/yyyy'),Format('{7}', 'dd/mm/yyyy'),Format('{8}', 'dd/mm/yyyy'),'{9}',{10},{11},{12})",
-                                    ItemCode, ProductName, Model, CategoryID, ProductDesc, ROL, Convert.ToDateTime(dr["EffDate"]), Convert.ToDateTime(dr["EffDate"]), Convert.ToDateTime(dr["EffDate"]), Convert.ToString(dr["PriceName"]), Convert.ToDouble(dr["Price"]), Convert.ToDouble(dr["Discount"]), Convert.ToInt32(dr["Id"]));
+                        dbQry2 = string.Format("INSERT INTO tblProductPricehistory VALUES('{0}','{1}', '{2}',{3},'{4}',{5},Format('{6}', 'dd/mm/yyyy'),Format('{7}', 'dd/mm/yyyy'),Format('{8}', 'dd/mm/yyyy'),'{9}',{10},{11},{12},'{13}')",
+                                    ItemCode, ProductName, Model, CategoryID, ProductDesc, ROL, Convert.ToDateTime(dr["EffDate"]), Convert.ToDateTime(dr["EffDate"]), Convert.ToDateTime(dr["EffDate"]), Convert.ToString(dr["PriceName"]), Convert.ToDouble(dr["Price"]), Convert.ToDouble(dr["Discount"]), Convert.ToInt32(dr["Id"]),Username);
 
                         manager.ExecuteDataSet(CommandType.Text, dbQry2);
 
@@ -66354,8 +66354,8 @@ public class BusinessLogic
 
                             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
-                            dbQry2 = string.Format("INSERT INTO tblProductPricehistory VALUES('{0}','{1}', '{2}',{3},'{4}',{5},Format('{6}', 'dd/mm/yyyy'),Format('{7}', 'dd/mm/yyyy'),Format('{8}', 'dd/mm/yyyy'),'{9}',{10},{11},{12})",
-                                        Convert.ToString(dr["itemcode"]), PrName, Model, Cate, Bnd, rl, Convert.ToDateTime(dr["EffectiveDate"]), Convert.ToDateTime(dr["EffectiveDate"]), Convert.ToDateTime(dr["EffectiveDate"]), Price, Convert.ToDouble(dr["Price"]), Convert.ToDouble(dr["Discount"]), PriceId);
+                            dbQry2 = string.Format("INSERT INTO tblProductPricehistory VALUES('{0}','{1}', '{2}',{3},'{4}',{5},Format('{6}', 'dd/mm/yyyy'),Format('{7}', 'dd/mm/yyyy'),Format('{8}', 'dd/mm/yyyy'),'{9}',{10},{11},{12},'{13}')",
+                                        Convert.ToString(dr["itemcode"]), PrName, Model, Cate, Bnd, rl, Convert.ToDateTime(dr["EffectiveDate"]), Convert.ToDateTime(dr["EffectiveDate"]), Convert.ToDateTime(dr["EffectiveDate"]), Price, Convert.ToDouble(dr["Price"]), Convert.ToDouble(dr["Discount"]), PriceId, Username);
                             manager.ExecuteDataSet(CommandType.Text, dbQry2);
 
                         }
@@ -66488,8 +66488,8 @@ public class BusinessLogic
                             }
                             else
                             {
-                                dbQry2 = string.Format("INSERT INTO tblProductPricehistory VALUES('{0}','{1}', '{2}',{3},'{4}',{5},Format('{6}', 'dd/mm/yyyy'),Format('{7}', 'dd/mm/yyyy'),Format('{8}', 'dd/mm/yyyy'),'{9}',{10},{11},{12})",
-                                    Convert.ToString(dr["itemcode"]), PrName, Model, Cate, Bnd, rl, EffDate.ToShortDateString(), mrpdat.ToShortDateString(), mrpprevdat.ToShortDateString(), pricelist, Convert.ToInt32(dr["Price"]), Convert.ToInt32(dr["Discount"]), type);
+                                dbQry2 = string.Format("INSERT INTO tblProductPricehistory VALUES('{0}','{1}', '{2}',{3},'{4}',{5},Format('{6}', 'dd/mm/yyyy'),Format('{7}', 'dd/mm/yyyy'),Format('{8}', 'dd/mm/yyyy'),'{9}',{10},{11},{12},'{13}')",
+                                    Convert.ToString(dr["itemcode"]), PrName, Model, Cate, Bnd, rl, EffDate.ToShortDateString(), mrpdat.ToShortDateString(), mrpprevdat.ToShortDateString(), pricelist, Convert.ToInt32(dr["Price"]), Convert.ToInt32(dr["Discount"]), type,Username);
                                 manager.ExecuteDataSet(CommandType.Text, dbQry2);
                             }
                         }
@@ -66521,7 +66521,7 @@ public class BusinessLogic
         string dbQry = string.Empty;
         //txtSearch = "%" + txtSearch + "%";
 
-        dbQry = string.Format("select PriceName,ItemCode,Price,Discount,EffDate, PriceId as id from tblProductPriceHistory where ItemCode = '" + ItemCode + "' ");
+        dbQry = string.Format("select PriceName,ItemCode,Price,Discount,EffDate, PriceId as id,UserName from tblProductPriceHistory where ItemCode = '" + ItemCode + "' order by PriceName,EffDate desc ");
 
         try
         {
