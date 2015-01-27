@@ -181,19 +181,25 @@ public partial class Leave_AdminLeaveType : System.Web.UI.Page
                 if (e.Exception != null)
                 {
                     StringBuilder script = new StringBuilder();
-                    //script.Append("alert('Supplier with this name already exists, Please try with a different name.');");
+                    script.Append("alert('Leave Type with this name already exists, Please try with a different name.');");
 
                     if (e.Exception.InnerException != null)
                     {
                         if ((e.Exception.InnerException.Message.IndexOf("duplicate values in the index") > -1) ||
-                            (e.Exception.InnerException.Message.IndexOf("Ledger Exists") > -1))
+                            (e.Exception.InnerException.Message.IndexOf("Leave Type Name Exists") > -1))
+                        {
                             ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), script.ToString(), true);
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('" + e.Exception.InnerException.Message.ToString() + "');", true);
+                        }
                     }
                     else
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "Exception: " + e.Exception.Message + e.Exception.StackTrace, true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Expection :" + e.Exception.InnerException + "');", true);
                     }
-                } 
+                }
                 e.KeepInInsertMode = true;
                 e.ExceptionHandled = true;
             }
