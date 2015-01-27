@@ -61,7 +61,7 @@
                                     <tr style="height: 25px; vertical-align: middle">
                                         <td style="width: 2%;"></td>
                                         <td style="width: 80%; font-size: 22px; color: white;" >
-                                            List Of Task Types For LookUp
+                                            Defined Types of Task
                                         </td>
                                         <td style="width: 13%">
                                           
@@ -283,10 +283,12 @@
                                 AllowPaging="True" DataKeyNames="Task_Type_Id" EmptyDataText="No Task Type Found."
                                 OnRowCommand="GrdViewLedger_RowCommand" OnRowDataBound="GrdViewLedger_RowDataBound" OnRowDeleting="GrdViewLedger_RowDeleting"
                                 OnRowDeleted="GrdViewLedger_RowDeleted">
+                                <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small"/>
+                                <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE"/>
                                 <Columns>
-                                    <asp:BoundField DataField="Task_Type_Name" HeaderText="Task Type Name"  HeaderStyle-BorderColor="Gray" HeaderStyle-Width="690px"/>
-                                    <asp:TemplateField ItemStyle-CssClass="command" HeaderText="Edit" ItemStyle-Width="50px" HeaderStyle-BorderColor="Gray"
-                                        ItemStyle-HorizontalAlign="Center">
+                                      <asp:BoundField DataField="Row" HeaderText="#" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Height="20px" ItemStyle-HorizontalAlign="Center" ItemStyle-Height="30px" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="Medium" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="75px" />
+                                    <asp:BoundField DataField="Task_Type_Name" HeaderText="Task Types" HeaderStyle-Height="20px" ItemStyle-HorizontalAlign="Left" ItemStyle-Height="30px" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="Medium" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="690px" />
+                                    <asp:TemplateField ItemStyle-CssClass="command" HeaderText="Edit" ItemStyle-Width="50px" ItemStyle-HorizontalAlign="Center" ItemStyle-Height="30px" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="Medium" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="75px">
                                         <ItemTemplate>
                                             <asp:ImageButton ID="btnEdit" runat="server" SkinID="edit" CommandName="Select" />
                                             <asp:ImageButton ID="btnEditDisabled" Enabled="false" SkinID="editDisable" runat="Server">

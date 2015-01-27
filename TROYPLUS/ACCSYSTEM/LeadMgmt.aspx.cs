@@ -2100,16 +2100,16 @@ public partial class LeadMgmt : System.Web.UI.Page
     protected void GrdViewLeadCompetitor_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
         SetRowDataCompetitors();
-        if (ViewState["CurrentTable"] != null)
+        if (ViewState["CurrentTable2"] != null)
         {
-            DataTable dt = (DataTable)ViewState["CurrentTable"];
+            DataTable dt = (DataTable)ViewState["CurrentTable2"];
             DataRow drCurrentRow = null;
             int rowIndex = Convert.ToInt32(e.RowIndex);
             if (dt.Rows.Count > 1)
             {
                 dt.Rows.Remove(dt.Rows[rowIndex]);
                 drCurrentRow = dt.NewRow();
-                ViewState["CurrentTable"] = dt;
+                ViewState["CurrentTable2"] = dt;
                 GrdViewLeadCompetitor.DataSource = dt;
                 GrdViewLeadCompetitor.DataBind();
 
@@ -2125,16 +2125,16 @@ public partial class LeadMgmt : System.Web.UI.Page
     protected void GrdViewLeadproduct_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
         SetRowDataProduct();
-        if (ViewState["CurrentTable"] != null)
+        if (ViewState["CurrentTable1"] != null)
         {
-            DataTable dt = (DataTable)ViewState["CurrentTable"];
+            DataTable dt = (DataTable)ViewState["CurrentTable1"];
             DataRow drCurrentRow = null;
             int rowIndex = Convert.ToInt32(e.RowIndex);
             if (dt.Rows.Count > 1)
             {
                 dt.Rows.Remove(dt.Rows[rowIndex]);
                 drCurrentRow = dt.NewRow();
-                ViewState["CurrentTable"] = dt;
+                ViewState["CurrentTable1"] = dt;
                 GrdViewLeadproduct.DataSource = dt;
                 GrdViewLeadproduct.DataBind();
 
@@ -2150,16 +2150,16 @@ public partial class LeadMgmt : System.Web.UI.Page
     protected void GrdViewLeadActivity_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
         SetRowDataActivity();
-        if (ViewState["CurrentTable"] != null)
+        if (ViewState["CurrentTable3"] != null)
         {
-            DataTable dt = (DataTable)ViewState["CurrentTable"];
+            DataTable dt = (DataTable)ViewState["CurrentTable3"];
             DataRow drCurrentRow = null;
             int rowIndex = Convert.ToInt32(e.RowIndex);
             if (dt.Rows.Count > 1)
             {
                 dt.Rows.Remove(dt.Rows[rowIndex]);
                 drCurrentRow = dt.NewRow();
-                ViewState["CurrentTable"] = dt;
+                ViewState["CurrentTable3"] = dt;
                 GrdViewLeadActivity.DataSource = dt;
                 GrdViewLeadActivity.DataBind();
 

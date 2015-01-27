@@ -16270,6 +16270,38 @@ public class BusinessLogic
         }
     }
 
+    public DataSet GetDependencytaskupdate(string connection, int Project_Id)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        DataSet ds = new DataSet();
+        StringBuilder dbQry = new StringBuilder();
+        //dbQry = "Select empno,empFirstName From tblEmployee Order By empFirstName";
+        dbQry.Append("Select tblTaskUpdatesHistory.Task_Update_Id,tblTaskUpdatesHistory.Task_update,tblProjects.Unit_Of_Measure");
+        dbQry.Append(" FROM tblTaskUpdatesHistory Inner Join tblProjects On tblProjects.Project_Id = tblTaskUpdatesHistory.Task_id ");
+        dbQry.Append(" Where tblTaskUpdatesHistory.Task_id = " + Project_Id + "");
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
     public DataSet ListExecutive()
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
@@ -60345,11 +60377,11 @@ public class BusinessLogic
 
         if (dropDown == "TaskStatusName")
         {
-            dbQry = "select Task_Status_Name,Task_Status_Id from tblTaskStatus Where Task_Status_Name like '" + txtSearch + "'" + " Order By Task_Status_Name";
+            dbQry = "select A.Task_Status_Name,A.Task_Status_Id, (Select count(*) from tblTaskStatus where A.Task_Status_Id>=Task_Status_Id) as Row from tblTaskStatus as A Where A.Task_Status_Name like '" + txtSearch + "'" + " Order By A.Task_Status_Id";
         }
         else
         {
-            dbQry = string.Format("select Task_Status_Name,Task_Status_Id from tblTaskStatus Where (Task_Status_Name like '{0}') Order By Task_Status_Name", txtSearch);
+            dbQry = string.Format("select A.Task_Status_Name,A.Task_Status_Id, (Select count(*) from tblTaskStatus where A.Task_Status_Id>=Task_Status_Id) as Row from tblTaskStatus as A Where (A.Task_Status_Name like '{0}') Order By A.Task_Status_Id", txtSearch);
         }
 
         try
@@ -60651,12 +60683,12 @@ public class BusinessLogic
 
         if (dropDown == "TaskTypeName")
         {
-            dbQry = "select Task_Type_Name,Task_Type_Id from tblTaskTypes Where Task_Type_Name like '" + txtSearch + "'" + " Order By Task_Type_Name";
+            dbQry = "select A.Task_Type_Name,A.Task_Type_Id, (Select count(*) from tblTaskTypes where A.Task_Type_Id>=Task_Type_Id) as Row from tblTaskTypes as A  Where A.Task_Type_Name like '" + txtSearch + "'" + " Order By A.Task_Type_Id";
         }
         else
         {
             //dbQry = string.Format("select Task_Type_Name,Task_Type_Id from tblTaskTypes Order By Task_Type_Name");
-            dbQry = string.Format("select Task_Type_Name,Task_Type_Id from tblTaskTypes Where (Task_Type_Name like '{0}') Order By Task_Type_Name", txtSearch);
+            dbQry = string.Format("select A.Task_Type_Name,A.Task_Type_Id, (Select count(*) from tblTaskTypes where A.Task_Type_Id>=Task_Type_Id) as Row from tblTaskTypes as A  Where (A.Task_Type_Name like '{0}') Order By A.Task_Type_Id", txtSearch);
         }
 
         try
@@ -60920,7 +60952,7 @@ public class BusinessLogic
         //dbQry = "Select empno,empFirstName From tblEmployee Order By empFirstName";
         dbQry.Append("Select tblProjects.Project_Name,tblProjects.Project_Id ,tblProjects.Project_Manager_Id");
         dbQry.Append(" FROM tblProjects Inner Join tblUserInfo On  tblProjects.Project_Manager_Id= tblUserInfo.Empno  ");
-        dbQry.Append(" Where tblUserInfo.UserName = '" + Username + "'");
+        dbQry.Append(" Where tblProjects.Project_Status='Open' and tblUserInfo.UserName = '" + Username + "'");
 
         try
         {

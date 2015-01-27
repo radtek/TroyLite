@@ -301,7 +301,7 @@ public partial class TaskUpdates : System.Web.UI.Page
                         }
                         else if (Convert.ToDateTime(txtActualStartDate.Text) < Convert.ToDateTime(sss))
                         {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Validation Message(s) \\n\\n - Task Actual Start Date should be greater than or equal to Task Expected Start Date');", true);
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Task Actual Start Date should be greater than or equal to Task Expected Start Date');", true);
                             ModalPopupExtender1.Show();
                             tbMain.Visible = true;
                             return;
@@ -314,10 +314,46 @@ public partial class TaskUpdates : System.Web.UI.Page
                         }
                         else if (Convert.ToDateTime(txtActualEndDate.Text) < Convert.ToDateTime(ss))
                         {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Validation Message(s) \\n\\n -  Task Actual End Date should be greater than or equal to Task Actual Start Date');", true);
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Task Actual End Date should be greater than or equal to Task Actual Start Date');", true);
                             ModalPopupExtender1.Show();
                             tbMain.Visible = true;
                             return;
+                        }
+                        if (Convert.ToString(drpTaskStatus.SelectedItem.Text) == "Completed" || Convert.ToString(drpTaskStatus.SelectedItem.Text) == "completed")
+                        {
+                          if (txteffortremain.Text == null || Convert.ToInt32(txteffortremain.Text) == 0)
+                         {
+
+                         }
+                         else
+                         {
+                             ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Effort Remaining % Value should be either 0 or blank for the Task to be set as Completed');", true);
+                            ModalPopupExtender1.Show();
+                            tbMain.Visible = true;
+                            return;
+
+                         }
+                            //if(Convert.ToInt32(txteffortremain.Text) == 0)
+                            //{
+
+                            //}
+                            //else
+                            //{
+                            //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Validation Message(s) \\n\\n - Please Remove Effort Remain %');", true);
+                            //ModalPopupExtender1.Show();
+                            //tbMain.Visible = true;
+                            //return;
+
+                            //}
+
+                        }
+                        else
+                        {
+                            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Validation Message(s) \\n\\n - Please Remove Effort Remain %');", true);
+                            //ModalPopupExtender1.Show();
+                            //tbMain.Visible = true;
+                            //return;
+
                         }
                         //if (Convert.ToDateTime(txtEWEndDate.Text) < Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Project_Date"]))
                         //{
@@ -340,9 +376,6 @@ public partial class TaskUpdates : System.Web.UI.Page
 
 
                 }
-
-
-
 
                 if (txtTaskupdate.Text.Trim() != string.Empty)
                     Taskupdate = txtTaskupdate.Text.Trim();
@@ -420,8 +453,9 @@ public partial class TaskUpdates : System.Web.UI.Page
         btnCancel.Enabled = true;
         btnUpdate.Enabled = false;
         drpIsActive.SelectedIndex = 0;
-        txtTaskID.Text = "";
-        txtCDate.Text = "";
+        //txtTaskID.Text = "";
+        //txtCDate.Text = "";
+        Taskeffortdays.Text = "";
         TextBox1.Text = "";
         txtEWstartDate.Text = "";
         txtEWEndDate.Text = "";
@@ -611,10 +645,14 @@ public partial class TaskUpdates : System.Web.UI.Page
             txtTaskUpdateDate.Text = "";
             txtlastupdate.Text = "";
             txteffortremain.Text = "";
+            Taskeffortdays.Text = "";
             
 
             BusinessLogic bl = new BusinessLogic(sDataSource);
             int Task_Id = 0;
+            int Project_Id = 0;
+
+            Project_Id = Convert.ToInt32(drpProjectCode.SelectedValue);
 
             string connection = Request.Cookies["Company"].Value;
 
@@ -633,14 +671,14 @@ public partial class TaskUpdates : System.Web.UI.Page
                     if (ds.Tables[0].Rows[0]["Expected_End_Date"] != null)
                         txtEWEndDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["Expected_End_Date"]).ToString("dd/MM/yyyy");
 
-                    if (ds.Tables[0].Rows[0]["Task_Date"] != null)
-                    {
-                        txtCDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["Task_Date"]).ToString("dd/MM/yyyy");
-                        TextBox1.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["Task_Date"]).ToString("dd/MM/yyyy");
-                    }
+                    //if (ds.Tables[0].Rows[0]["Task_Date"] != null)
+                    //{
+                    //    txtCDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["Task_Date"]).ToString("dd/MM/yyyy");
+                    //    TextBox1.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["Task_Date"]).ToString("dd/MM/yyyy");
+                    //}
 
-                    if (ds.Tables[0].Rows[0]["Task_Id"] != null)
-                        txtTaskID.Text = ds.Tables[0].Rows[0]["Task_Id"].ToString();
+                    if (ds.Tables[0].Rows[0]["Effort_Task_Days"] != null)
+                        Taskeffortdays.Text = Convert.ToInt32(ds.Tables[0].Rows[0]["Effort_Task_Days"]).ToString();
 
                     if (ds.Tables[0].Rows[0]["Task_Name"] != null)
                         txtTaskName.Text = ds.Tables[0].Rows[0]["Task_Name"].ToString();
@@ -687,6 +725,34 @@ public partial class TaskUpdates : System.Web.UI.Page
                         drpIncharge.ClearSelection();
                         ListItem li = drpIncharge.Items.FindByValue(System.Web.HttpUtility.HtmlDecode(sCustomer));
                         if (li != null) li.Selected = true;
+                    }
+                    drpDependencyTask.Items.Clear();
+                    drpDependencyTask.Items.Add(new ListItem("Select Dependency Task", "0"));
+                    DataSet dsp = bl.GetDependencytaskupdate(connection, Project_Id);
+
+                    drpDependencyTask.DataSource = dsp;
+                    drpDependencyTask.DataBind();
+                    drpDependencyTask.DataTextField = "Task_Name";
+                    drpDependencyTask.DataValueField = "Task_Id";
+                    UpdatePanel2.Update();
+                    DataSet dst = bl.GetProjectForId(connection, Project_Id);
+                    if ( dst!= null)
+                    {
+                        //if (dst.Tables[0].Rows.Count > 0)
+                        //{
+                        //    unitofmeasureheading.Text = "(" + Convert.ToString(dst.Tables[0].Rows[0]["Unit_Of_Measure"].ToString()) + ")";
+                        //    UpdatePanel4.Update();
+                        //}
+                        //else
+                        
+                            unitofmeasureheading.Text = "(" + Convert.ToString(dst.Tables[0].Rows[0]["Unit_Of_Measure"].ToString()) + ")";
+                            UpdatePanel4.Update();
+                        
+                    }
+                    else
+                    {
+                        unitofmeasureheading.Text = "(" + Convert.ToString(dst.Tables[0].Rows[0]["Unit_Of_Measure"].ToString()) + ")";
+                        UpdatePanel4.Update();
                     }
                 }
             }
@@ -794,4 +860,5 @@ public partial class TaskUpdates : System.Web.UI.Page
             TroyLiteExceptionManager.HandleException(ex);
         }
     }
+    
 }
