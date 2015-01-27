@@ -15,6 +15,12 @@
             window.open('Service.aspx?ID=' + iLedger, '', "height=400, width=700,resizable=yes, toolbar =no");
             return false;
         }
+
+        function CheckDate() {            
+            alert('Please search for a product and edit the prices');
+                   
+        }
+
     </script>
     <asp:UpdatePanel ID="UpdatePanel16" runat="server" UpdateMode="Always">
         <ContentTemplate>
@@ -114,8 +120,8 @@
                                                                         Display="Dynamic" ErrorMessage="Price List is mandatory">*</asp:RequiredFieldValidator>
                                                                 </td>
                                                                 <td style="width: 25%;" class="ControlDrpBorder">
-                                                                    <asp:TextBox ID="txtPriceList" runat="server"
-                                                                        SkinID="skinTxtBoxGrid" TabIndex="2"></asp:TextBox>
+                                                                    <asp:TextBox ID="txtPriceList" runat="server" CssClass="cssTextBox"
+                                                                        TabIndex="2"></asp:TextBox>
                                                                 </td>
                                                                 <td style="width: 20%" >
                                                                     
@@ -133,8 +139,8 @@
                                                                         Display="Dynamic" ErrorMessage="Description is mandatory">*</asp:RequiredFieldValidator>
                                                                 </td>
                                                                 <td style="width: 25%;" class="ControlDrpBorder">
-                                                                    <asp:TextBox ID="txtDescription" runat="server" 
-                                                                        SkinID="skinTxtBoxGrid" TabIndex="2"></asp:TextBox>
+                                                                    <asp:TextBox ID="txtDescription" runat="server" CssClass="cssTextBox"
+                                                                        TabIndex="2"></asp:TextBox>
                                                                 </td>
                                                                 <td style="width: 20%" >
                                                                     
@@ -147,7 +153,7 @@
                                                                     
                                                                 </td>
                                                                 <td style="width: 45%" class="ControlLabelNew">
-                                                                    Import Prices from Excel file *
+                                                                    Import Price List from Excel file *
                                                                 </td>
                                                                 <td style="width: 25%;" class="ControlDrpBorder">
                                                                              
@@ -225,7 +231,7 @@
                         <div class="mainGridHold" id="searchGrid">
                             <asp:GridView ID="GrdViewSerVisit" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                                 OnRowCreated="GrdViewSerVisit_RowCreated" Width="100.4%" DataSourceID="GridSource" CssClass="someClass"
-                                AllowPaging="True" DataKeyNames="ID" EmptyDataText="No Price List found!"
+                                AllowPaging="True" DataKeyNames="ID" EmptyDataText="No Price List found!"  OnPageIndexChanging="GrdViewSerVisit_PageIndexChanging"
                                 OnRowCommand="GrdViewSerVisit_RowCommand" OnRowDataBound="GrdViewSerVisit_RowDataBound"
                                 OnSelectedIndexChanged="GrdViewSerVisit_SelectedIndexChanged" OnRowDeleting="GrdViewSerVisit_RowDeleting"
                                 OnRowDeleted="GrdViewSerVisit_RowDeleted">
@@ -235,8 +241,8 @@
                                   <%--ItemStyle-HorizontalAlign="Center" ItemStyle-Height="30px" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="Medium" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="75px"--%>
                                 <Columns>
                                     <asp:BoundField DataField="Row" HeaderText="#" HeaderStyle-Width="60px"/>
-                                    <asp:BoundField DataField="PriceName" HeaderText="Name of Price Component"  HeaderStyle-BorderColor="Gray" HeaderStyle-Wrap="false"/>
-                                    <asp:BoundField DataField="Description" HeaderText="Description of Price Component"  HeaderStyle-BorderColor="Gray" HeaderStyle-Wrap="false"/>
+                                    <asp:BoundField DataField="PriceName" HeaderText="Name of Price Component" ItemStyle-HorizontalAlign="Left"  HeaderStyle-BorderColor="Gray" HeaderStyle-Wrap="false"/>
+                                    <asp:BoundField DataField="Description" HeaderText="Description of Price Component" ItemStyle-HorizontalAlign="Left"  HeaderStyle-BorderColor="Gray" HeaderStyle-Wrap="false"/>
                                     <asp:TemplateField ItemStyle-CssClass="command" HeaderStyle-Width="120px" HeaderText="Add Price List" HeaderStyle-BorderColor="Gray">
                                         <ItemTemplate>
                                             <asp:ImageButton ID="btnEdit1" runat="server" CausesValidation="false" SkinID="Plus"
@@ -272,7 +278,7 @@
                                                 Goto Page
                                             </td>
                                             <td style="border-color:white">
-                                                <asp:DropDownList ID="ddlPageSelector" runat="server" Width="65px" style="border:1px solid Gray" BackColor="#e7e7e7">
+                                                <asp:DropDownList ID="ddlPageSelector" runat="server" Width="65px" AutoPostBack="true" OnSelectedIndexChanged="ddlPageSelector_SelectedIndexChanged" style="border:1px solid Gray" BackColor="#e7e7e7">
                                                 </asp:DropDownList>
                                             </td>
                                             <td style="border-color:white;Width:5px">
@@ -335,29 +341,32 @@
     <div>
         <table style="width: 100%">
             <tr>
-                <td  style="width:30%">
+                <td  style="width:19%">
                     </td>
                     <td  style="width:5%">
                         <asp:Button ID="Button2" runat="server"  OnClientClick="window.open('BulkPriceAddition.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=250,width=500,left=425,top=220, scrollbars=yes');" 
                                     EnableTheming="false" Text="Import New Prices using Excel" Visible="false"></asp:Button>
                     </td>
-                    <td style="width:15%">
+                    <td style="width:26%">
                         <div style="text-align: right;">
                                                 <asp:Panel ID="pnlSearch" runat="server" Width="100px">
-                                                    <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
-                                                        EnableTheming="false" Text=""></asp:Button>
+                                                    <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" Text="Add New Price Component"
+                                                        EnableTheming="false" ></asp:Button>
                                                 </asp:Panel>
                                             </div>
                         <asp:Button ID="BlkAdd" runat="server"  OnClientClick="window.open('BulkPriceUpdation.aspx','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=250,width=500,left=425,top=220, scrollbars=yes');"
                                     EnableTheming="false" Text="Import Existing Prices using Excel" Visible="false"></asp:Button>
                     </td>
                     <td  style="width:15%">
-                        <asp:Button ID="Button3" runat="server" OnClick="Button3_Click"
-                                    EnableTheming="false" Text="Update Price for single Product"></asp:Button>
+                        <asp:Button ID="Button3" runat="server" OnClick="Button3_Click" OnClientClick="javascript:CheckDate();"
+                                    EnableTheming="false" Text="Update Price for Single Product"></asp:Button>
                     </td>
-                    <td  style="width:35%">
-                        
-                    </td>                    
+                    <td  style="width:15%">
+                        <asp:Button ID="Button5" runat="server" OnClick="Button5_Click"
+                                    EnableTheming="false" Text="Download sample Excel sheet for importing Prices"></asp:Button>
+                    </td> 
+                 <td  style="width:20%">
+                    </td>                   
                 </tr>
         </table>
     </div>

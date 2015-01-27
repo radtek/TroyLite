@@ -736,13 +736,23 @@ public partial class TaskUpdates : System.Web.UI.Page
                     drpDependencyTask.DataValueField = "Task_Id";
                     UpdatePanel2.Update();
                     DataSet dst = bl.GetProjectForId(connection, Project_Id);
-                    if (dst != null)
+                    if ( dst!= null)
                     {
-                        if (dst.Tables[0].Rows.Count > 0)
-                        {
+                        //if (dst.Tables[0].Rows.Count > 0)
+                        //{
+                        //    unitofmeasureheading.Text = "(" + Convert.ToString(dst.Tables[0].Rows[0]["Unit_Of_Measure"].ToString()) + ")";
+                        //    UpdatePanel4.Update();
+                        //}
+                        //else
+                        
                             unitofmeasureheading.Text = "(" + Convert.ToString(dst.Tables[0].Rows[0]["Unit_Of_Measure"].ToString()) + ")";
                             UpdatePanel4.Update();
-                        }
+                        
+                    }
+                    else
+                    {
+                        unitofmeasureheading.Text = "(" + Convert.ToString(dst.Tables[0].Rows[0]["Unit_Of_Measure"].ToString()) + ")";
+                        UpdatePanel4.Update();
                     }
                 }
             }

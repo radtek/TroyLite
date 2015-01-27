@@ -113,8 +113,9 @@ public partial class TaskStatus : System.Web.UI.Page
             {
                 StringBuilder script = new StringBuilder();
                 script.Append("alert('Task Status with this name already exists, Please try with a different name.');");
+
                // tbMain.Visible = true;
-                return;
+                //return;
 
                 if (e.Exception.InnerException != null)
                 {
@@ -181,6 +182,7 @@ public partial class TaskStatus : System.Web.UI.Page
 
             StringBuilder script = new StringBuilder();
             script.Append("alert('Task Status with this name already exists, Please try with a different name.');");
+           
 
             if (e.Exception.InnerException != null)
             {
