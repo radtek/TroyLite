@@ -647,6 +647,12 @@ public partial class PriceList : System.Web.UI.Page
                     ((ImageButton)e.Row.FindControl("lnkBDisabled")).Visible = true;
                 }
 
+                if (!bl.CheckPriceListUsed(Convert.ToString(DataBinder.Eval(e.Row.DataItem, "PriceName"))))
+                {
+                    ((ImageButton)e.Row.FindControl("btnEdit")).Visible = false;
+                    ((ImageButton)e.Row.FindControl("btnEditDisabled")).Visible = true;
+                }
+
                 string rate = Convert.ToString(DataBinder.Eval(e.Row.DataItem, "PriceName"));
                 if (rate == "MRP")
                 {
@@ -714,6 +720,7 @@ public partial class PriceList : System.Web.UI.Page
                 
 
                 txtPriceList.Enabled = false;
+                txtPriceList.Font.Bold = true;
 
                 if (Session["Dsd"] == "DSD")
                 {
@@ -797,6 +804,31 @@ public partial class PriceList : System.Web.UI.Page
     {
 
     }
+
+    protected void GrdViewSerVisit_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        try
+        {
+ 
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+    protected void ddlPageSelector_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
 
     protected void GridSource_Deleting(object sender, ObjectDataSourceMethodEventArgs e)
     {
@@ -1150,7 +1182,7 @@ public partial class PriceList : System.Web.UI.Page
 
     protected void Button3_Click(object sender, EventArgs e)
     {
-        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please search a product and edit the prices');", true);
+        //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please search a product and edit the prices');", true);
         //return;
         Response.Redirect("ProdMaster.aspx");
         

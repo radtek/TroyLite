@@ -93,7 +93,7 @@
                     <table style="width: 100%; margin: -1px 0px 0px 1px;" cellpadding="2px" cellspacing="2px" class="searchbg">
                         <tr>
                             <td style="width: 1%"></td>
-                            <td style="width: 50%; font-size: 22px; color: #000000;">Your Passowrd has been expired
+                            <td style="width: 50%; font-size: 22px; color: #000000;">Your Password has been expired
                             </td>
                             <td style="width: 14%"></td>
                             <td style="width: 10%; color: #000000;" align="right"></td>
@@ -147,7 +147,7 @@
                                                     </tr>
 
                                                     <tr>
-                                                        <td style="width: 25%" class="ControlLabel">Conform Password :
+                                                        <td style="width: 25%" class="ControlLabel">Confirm Password :
                                                         </td>
                                                         <td style="width: 25%" class="ControlTextBox3">
                                                             <asp:TextBox TextMode="Password" ID="txtConPwd" runat="server" CssClass="cssTextBox"

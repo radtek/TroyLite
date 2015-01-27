@@ -35,7 +35,7 @@
             $(".chzn-select").chosen();
             $(".chzn-select-deselect").chosen({ allow_single_deselect: true });
         });
-    </script>   
+    </script>
 
     <script language="javascript" type="text/javascript">
 
@@ -121,7 +121,7 @@
 </head>
 <body onload="ChangeSize();">
     <form id="aspnetForm" runat="server">
-       <%-- <asp:ScriptManager ID="ScriptManager1" runat="server" AsyncPostBackTimeout="6000"
+        <%-- <asp:ScriptManager ID="ScriptManager1" runat="server" AsyncPostBackTimeout="6000"
             OnAsyncPostBackError="ScriptManager1_AsyncPostBackError">
         </asp:ScriptManager>--%>
         <asp:ToolkitScriptManager ID="ScriptManager1" runat="server"></asp:ToolkitScriptManager>
@@ -599,7 +599,7 @@
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('OutStandingMasterReport.aspx ','Summary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=350,width=700,left=350,top=220, scrollbars=yes');">Outstanding Ageing</a></li>
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('VATSumaryReport.aspx','trialBalance', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=220,width=500,left=425,top=220, scrollbars=yes');">Vat summary</a></li>
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('VATReconReport.aspx','trialBalance', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=1000,width=900,left=210,top=10, scrollbars=yes');">Vat reconciliation</a></li>
-                                                       <li class="color submenumenu"><a href="#" onclick="Popup=window.open('CSTSumaryReport.aspx','CSTSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=230,width=500,left=425,top=220, scrollbars=yes');">CST summary</a></li>
+                                                        <li class="color submenumenu"><a href="#" onclick="Popup=window.open('CSTSumaryReport.aspx','CSTSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=230,width=500,left=425,top=220, scrollbars=yes');">CST summary</a></li>
                                                     </ul>
                                                 </li>
                                             </ul>
@@ -646,6 +646,8 @@
                                                                 <li class="color submenumenu"><a href="./EmployeeAttendance.aspx" runat="server" id="A12">Attendance</a></li>
                                                                 <li class="color submenumenu"><a href="./EmployeeLeave.aspx" runat="server" id="A13">Leave Requests</a></li>
                                                                 <li class="color submenumenu"><a href="./EmployeeLeaveApproval.aspx" runat="server" id="A14">Leave Approval</a></li>
+                                                                <li class="color submenumenu"><a href="./EmployeePermission.aspx" runat="server" id="A21">Permission Requests</a></li>
+                                                                <li class="color submenumenu"><a href="./EmployeePermissionApproval.aspx" runat="server" id="A22">Permission Approval</a></li>
                                                                 <li class="color submenumenu"><a href="./EmployeePayroll.aspx" runat="server" id="A16">Payroll</a></li>
                                                             </ul>
                                                         </li>
