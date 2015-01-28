@@ -224,7 +224,7 @@ public partial class TaskEntry : System.Web.UI.Page
                         }
                         else if (Convert.ToDateTime(txtEWstartDate.Text) < Convert.ToDateTime(sss))
                         {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Validation Message(s) \\n\\n - Task Start Date should be greater than or equal to selected Project Created Date');", true);
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert(' Task Start Date should be greater than or equal to selected Project Created Date');", true);
                             ModalPopupExtender1.Show();
                             tbMain.Visible = true;
                             return;
@@ -348,7 +348,7 @@ public partial class TaskEntry : System.Web.UI.Page
                         }
                         else if(Convert.ToDateTime(txtEWstartDate.Text) < Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Project_Date"]))
                         {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Validation Message(s) \\n\\n -Task Expected Start Date should be Greater than or equal to Selected Project Expected Start Date.');", true);
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Task Expected Start Date should be Greater than or equal to Selected Project Expected Start Date.');", true);
                             ModalPopupExtender1.Show();
                             tbMain.Visible = true;
                             return;
@@ -604,6 +604,7 @@ public partial class TaskEntry : System.Web.UI.Page
 
             Reset();
             headtitle.Text = "Add New Task Details";
+            tabMaster.HeaderText = "New Task Details";
             txtCDate.Text = DateTime.Now.ToShortDateString();
             btnUpdate.Enabled = false;
             tbMain.Visible = true;
@@ -632,7 +633,8 @@ public partial class TaskEntry : System.Web.UI.Page
         {
             BusinessLogic bl = new BusinessLogic(sDataSource);
             int Task_Id = 0;
-            headtitle.Text = "Modify Task Details";
+            headtitle.Text = "Update Task Details";
+            tabMaster.HeaderText = "Update Task";
             string connection = Request.Cookies["Company"].Value;
 
             if (GrdWME.SelectedDataKey.Value != null && GrdWME.SelectedDataKey.Value.ToString() != "")

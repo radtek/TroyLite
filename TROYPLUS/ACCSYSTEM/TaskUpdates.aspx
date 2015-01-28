@@ -742,7 +742,7 @@
                                                                 </table>
                                                             </asp:Panel>
                                                             <asp:ValidationSummary ID="valSum" DisplayMode="BulletList" ShowMessageBox="true"
-                                                                ValidationGroup="Save" ShowSummary="false" HeaderText="Validation Messages" Font-Names="'Trebuchet MS'"
+                                                                ValidationGroup="Save" ShowSummary="false" HeaderText=" " Font-Names="'Trebuchet MS'"
                                                                 Font-Size="12" runat="server" />
                                                         </div>
                                                     </td>
@@ -768,6 +768,7 @@
                     <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small"/>
                                 <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE"/>
                     <Columns>
+                        <asp:BoundField DataField="Row" HeaderText="#" HeaderStyle-Width="30px" />
                         <asp:BoundField DataField="Task_Id" HeaderText="Task ID" HeaderStyle-Wrap="false"  HeaderStyle-BorderColor="Gray" Visible="false"/>
                         <asp:BoundField DataField="Task_Id" HeaderText="Task Code" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Height="20px" ItemStyle-HorizontalAlign="Center" ItemStyle-Height="30px" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="Small" HeaderStyle-BorderColor="Gray" />
                         <asp:BoundField DataField="Task_Date" HeaderText="Task Date" DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Height="20px" ItemStyle-HorizontalAlign="Center" ItemStyle-Height="30px" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="Small" HeaderStyle-BorderColor="Gray" />

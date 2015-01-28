@@ -70,6 +70,7 @@ public partial class ProjectEntry : System.Web.UI.Page
         if (objChk.CheckForOffline(Server.MapPath("Offline\\" + dbfileName + ".offline")))
         {
             btnSave.Enabled = false;
+            btnsavereturn.Enabled = false;
             btnUpdate.Enabled = false;
             lnkBtnAdd.Visible = false;
             GrdWME.Columns[10].Visible = false;
@@ -177,7 +178,7 @@ public partial class ProjectEntry : System.Web.UI.Page
 
                 if (bl.IsProjectCodeAlreadyFound(connection, ProjectCode))
                 {
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Validation Message(s) \\n\\n - Project ID \\'"+txtProjectCode.Text+"\\' already exists');", true);
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert(' Project ID \\'"+txtProjectCode.Text+"\\' already exists');", true);
 
                     ModalPopupExtender1.Show();
                     tbMain.Visible = true;
@@ -237,6 +238,7 @@ public partial class ProjectEntry : System.Web.UI.Page
                     //MyAccordion.Visible = true;
                     tbMain.Visible = false;
                     GrdWME.Visible = true;
+                    lnkBtnAdd_Click(sender, e);
                 //}
                 //else
                 //{
@@ -372,6 +374,7 @@ public partial class ProjectEntry : System.Web.UI.Page
         pnsSave.Visible = false;
         lnkBtnAdd.Visible = true;
         btnSave.Enabled = true;
+        btnsavereturn.Enabled = true;
         btnCancel.Enabled = true;
         btnUpdate.Enabled = false;
         txtProjectCode.Text = "";
@@ -510,6 +513,7 @@ public partial class ProjectEntry : System.Web.UI.Page
             BindWME("", "");
             btnUpdate.Enabled = false;
             btnSave.Enabled = true;
+            btnsavereturn.Enabled = true;
         }
         catch (Exception ex)
         {
@@ -525,6 +529,7 @@ public partial class ProjectEntry : System.Web.UI.Page
             Reset();
            
             headtitle.Text = "Add New Project";
+            tabMaster.HeaderText = "New Project Details";
             txtCDate.Text = DateTime.Now.ToShortDateString();
             btnUpdate.Enabled = false;
             tbMain.Visible = true;
@@ -532,8 +537,10 @@ public partial class ProjectEntry : System.Web.UI.Page
             drpProjectstatus.Enabled = false;
             btnCancel.Enabled = true;
             btnSave.Visible = true;
+            btnsavereturn.Visible = true;
             btnUpdate.Visible = false;
             btnSave.Enabled = true;
+            btnsavereturn.Enabled = true;
             drpunitmeasure.Visible = true;
             //estimateheading.Text = "Estimate duration in(Days)";
            
@@ -971,7 +978,8 @@ public partial class ProjectEntry : System.Web.UI.Page
             BusinessLogic bl = new BusinessLogic(sDataSource);
             int Project_ID = 0;
 
-            headtitle.Text = "Modify Project";
+            headtitle.Text = "Update Project Details";
+            tabMaster.HeaderText = "Update Project";
             estimateheading.Visible=false;
 
             string connection = Request.Cookies["Company"].Value;
@@ -1057,8 +1065,10 @@ public partial class ProjectEntry : System.Web.UI.Page
             pnsSave.Visible = true;
             btnCancel.Enabled = true;
             btnSave.Enabled = false;
+            btnsavereturn.Enabled = false;
             tbMain.Visible = true;
             btnSave.Visible = false;
+            btnsavereturn.Visible = false;
             btnUpdate.Visible = true;
             ModalPopupExtender1.Show();
         }
@@ -1179,6 +1189,121 @@ public partial class ProjectEntry : System.Web.UI.Page
             Response.Write(tw.ToString());
             Response.End();
         }
+    }
+
+
+    protected void btnsavereturn_Click(object sender, EventArgs e)
+    {
+        sDataSource = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+
+        string ProjectDate = string.Empty;
+        string EWStartDate = string.Empty;
+        string EWEndDate = string.Empty;
+        int empNO = 0;
+        string ProjectName = string.Empty;
+        string ActStartDate = string.Empty;
+        string ActEndDate = string.Empty;
+        string ProjectDesc = string.Empty;
+        string Projectstatus = string.Empty;
+        string ProjectCode = string.Empty;
+        string unitofmeasure = string.Empty;
+        int EffortDays = 0;
+        //string ActStartDate = string.Empty;
+        //string ActStartDate = string.Empty;
+        string ProjectRecordClosedDate = string.Empty;
+        int ActEffortDays = 0;
+        int DueEffortDate = 0;
+        int StartDelayDate = 0;
+        int EndDueDate = 0;
+        int OverDueDate = 0;
+
+
+        try
+        {
+            if (Page.IsValid)
+            {
+                if (txtProjectCode.Text.Trim() != string.Empty)
+                    ProjectCode = txtProjectCode.Text.Trim();
+
+                string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+
+                if (bl.IsProjectCodeAlreadyFound(connection, ProjectCode))
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert(' Project ID \\'" + txtProjectCode.Text + "\\' already exists');", true);
+
+                    ModalPopupExtender1.Show();
+                    tbMain.Visible = true;
+                    return;
+
+
+                }
+
+
+                if (txtCDate.Text.Trim() != string.Empty)
+                    ProjectDate = txtCDate.Text.Trim();
+                if (txtEWstartDate.Text.Trim() != string.Empty)
+                    EWStartDate = txtEWstartDate.Text.Trim();
+                if (txtEWEndDate.Text.Trim() != string.Empty)
+                    EWEndDate = txtEWEndDate.Text.Trim();
+                if (drpIncharge.Text.Trim() != string.Empty)
+                    empNO = Convert.ToInt32(drpIncharge.Text.Trim());
+                if (txtProjectName.Text.Trim() != string.Empty)
+                    ProjectName = txtProjectName.Text.Trim();
+                if (txtEffortDays.Text.Trim() != string.Empty)
+                    EffortDays = Convert.ToInt32(txtEffortDays.Text.Trim());
+                if (drpProjectstatus.Text.Trim() != string.Empty)
+                    Projectstatus = drpProjectstatus.Text.Trim();
+                if (txtProjectDesc.Text.Trim() != string.Empty)
+                    ProjectDesc = txtProjectDesc.Text.Trim();
+                //if (txtCLSDate.Text.Trim() != string.Empty)
+                //    ProjectRecordClosedDate = txtCLSDate.Text.Trim();
+                if (txtactdate.Text.Trim() != string.Empty)
+                    ActStartDate = txtactdate.Text.Trim();
+                if (txtacenddate.Text.Trim() != string.Empty)
+                    ActEndDate = txtacenddate.Text.Trim();
+                if (drpunitmeasure.Text.Trim() != string.Empty)
+                    unitofmeasure = drpunitmeasure.Text.Trim();
+                //if (txtacteffortdays.Text.Trim() != string.Empty)
+                //    ActEffortDays = Convert.ToInt32(txtacteffortdays.Text.Trim());
+                //if (txtproclodate.Text.Trim() != string.Empty)
+                //    DueEffortDate = Convert.ToInt32(txtproclodate.Text.Trim());
+                //if (txtdelaydate.Text.Trim() != string.Empty)
+                //    StartDelayDate = Convert.ToInt32(txtdelaydate.Text.Trim());
+                //if (txtduedays.Text.Trim() != string.Empty)
+                //    EndDueDate = Convert.ToInt32(txtduedays.Text.Trim());
+                //if (txtoverduedays.Text.Trim() != string.Empty)
+                //    OverDueDate = Convert.ToInt32(txtoverduedays.Text.Trim());
+
+                string Username = Request.Cookies["LoggedUserName"].Value;
+
+                //DataSet checkemp = bl.SearchWME(WorkId, empNO, EWStartDate, EWEndDate, CreationDate, status);
+
+                //if (checkemp == null || checkemp.Tables[0].Rows.Count == 0)
+                //{
+                bl.InsertProjectEntry(ProjectCode, ProjectDate, EWStartDate, EWEndDate, empNO, ProjectName, EffortDays, Projectstatus, ProjectDesc, Username, ActStartDate, ActEndDate, unitofmeasure);
+
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('New Project Details Saved Successfully.');", true);
+                Reset();
+                ResetSearch();
+                BindWME("", "");
+                //MyAccordion.Visible = true;
+                tbMain.Visible = false;
+                GrdWME.Visible = true;
+                //}
+                //else
+                //{
+                //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Duplicate work Management Entry EmpNo " + empNO + " ');", true);
+                //}
+               // btnSave_Click(sender,e);
+                
+            }
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+
     }
 
     //protected void Dashboard_Click(object sender, EventArgs e)

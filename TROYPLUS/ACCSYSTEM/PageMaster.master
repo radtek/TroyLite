@@ -771,8 +771,8 @@
                                             <ul>
                                                 <li class="color submenumenu"><a href="#">Master Data<span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: right">►</span></a>
                                                     <ul>
-                                                        <li class="color submenumenu"><a href="./TaskStatus.aspx" runat="server" id="A3">Task Status</a></li>
-                                                        <li class="color submenumenu"><a href="./TaskTypes.aspx" runat="server" id="A4">Task Types</a></li>
+                                                        <li class="color submenumenu"><a href="./TaskStatus.aspx" runat="server" id="A3">Define Status of Tasks</a></li>
+                                                        <li class="color submenumenu"><a href="./TaskTypes.aspx" runat="server" id="A4">Define Types of Tasks</a></li>
                                                     </ul>
                                                 </li>
                                                 <li class="color submenumenu"><a href="#">Transactions<span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: right">►</span></a>
@@ -786,8 +786,9 @@
                                                         </li>
                                                     </ul>
                                                 </li>
-                                                <li class="color submenumenu"><a href="#">Reports</a>
+                                                <li class="color submenumenu"><a href="#">Reports <span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: right">►</span></a>
                                                     <ul>
+                                                        <li class="color submenumenu"><a href="#" onclick="Popup=window.open('ProjectReport.aspx','Summary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=310,width=700,left=359,top=220, scrollbars=no');">Project Report</a>
                                                     </ul>
                                                 </li>
                                             </ul>
