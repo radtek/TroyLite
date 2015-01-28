@@ -10133,6 +10133,33 @@ fieldset
     cursor: pointer;
 }
 
+.cssTextBoxGrid
+{
+    background: transparent;
+    width: 100% !important;    
+    margin: 0px 0px 0px 0px;
+    border: 1px solid #86b2d1;
+    color: #333333;
+    padding: 1px;
+    overflow: hidden;
+    font-family: 'Trebuchet MS';
+    font-size: 13px;
+    
+}
+
+.cssTextBoxGrid1
+{
+    background: transparent;
+    width: 70% !important;    
+    margin: 0px 0px 0px 0px;
+    border: 1px solid #86b2d1;
+    color: #333333;
+    padding: 1px;
+    overflow: hidden;
+    font-family: 'Trebuchet MS';
+    font-size: 13px;
+   
+}
 
 /* Navigation MENU */
 #Menu1 {
