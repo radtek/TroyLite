@@ -306,7 +306,7 @@
                                                                                             Text="*" ErrorMessage="Percentage of completion is mandatory" ControlToValidate="txtPer"></asp:RequiredFieldValidator>
                                                                                           <asp:RangeValidator ID="cvper" runat="server" ControlToValidate="txtPer" Display="Dynamic"
                                                                                                                 Text="*" EnableClientScript="True" MaximumValue="100" Type="Double" MinimumValue="0"  ValidationGroup="Save"
-                                                                                                                ErrorMessage="Percentage Of Completion cannot be Greater than 100% and Less than 0%"></asp:RangeValidator>
+                                                                                                                ErrorMessage="Percentage of Completion cannot be Greater than 100% and Less than 0%"></asp:RangeValidator>
                                                                                         Percentage Of Completion *
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlTextBox3">

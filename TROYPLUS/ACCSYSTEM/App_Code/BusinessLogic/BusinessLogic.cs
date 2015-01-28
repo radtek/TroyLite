@@ -16270,16 +16270,18 @@ public class BusinessLogic
         }
     }
 
-    public DataSet Getstatustasks(string connection, int stat_Id, int pro_Id )
+
+
+    public DataSet Getactivetask(string connection, int Project_Id)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(connection); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
         DataSet ds = new DataSet();
         StringBuilder dbQry = new StringBuilder();
         //dbQry = "Select empno,empFirstName From tblEmployee Order By empFirstName";
-        dbQry.Append("Select tblTasks.Task_Id,tblTasks.Task_Name,tblTaskStatus.Task_Status_Name,tblTaskUpdates.Blocked_Flag ");
-        dbQry.Append(" FROM ((tblTasks Inner Join tblProjects On tblProjects.Project_Id = tblTasks.Project_Code) Inner Join tblTaskUpdates On tblTaskUpdates.Task_Id = tblTasks.Task_Id)  Inner join  tblTaskStatus on  tblTaskStatus.Task_Status_Id=tblTaskUpdates.Task_Status ");
-        dbQry.Append(" Where tblTaskUpdates.Blocked_Flag='N' or tblTaskUpdates.Blocked_Flag='Y' and tblTaskStatus.Task_Status_Id=" + stat_Id + " and tblProjects.Project_Id=" + pro_Id + " ");
+        dbQry.Append("Select tblTasks.Task_Id,tblTasks.Task_Name,tblProjects.Unit_Of_Measure");
+        dbQry.Append(" FROM tblTasks Inner Join tblProjects On tblProjects.Project_Id = tblTasks.Project_Code ");
+        dbQry.Append(" Where tblTasks.IsActive='Y' and tblTasks.Project_Code = " + Project_Id + "");
 
         try
         {
@@ -16302,6 +16304,168 @@ public class BusinessLogic
         }
     }
 
+    public DataSet Getinactivetask(string connection, int Project_Id)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        DataSet ds = new DataSet();
+        StringBuilder dbQry = new StringBuilder();
+        //dbQry = "Select empno,empFirstName From tblEmployee Order By empFirstName";
+        dbQry.Append("Select tblTasks.Task_Id,tblTasks.Task_Name,tblProjects.Unit_Of_Measure");
+        dbQry.Append(" FROM tblTasks Inner Join tblProjects On tblProjects.Project_Id = tblTasks.Project_Code ");
+        dbQry.Append(" Where tblTasks.IsActive='N' and tblTasks.Project_Code = " + Project_Id + "");
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+
+    public DataSet Getstatustasksyes(string connection, int stat_Id, int pro_Id )
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        DataSet ds = new DataSet();
+        StringBuilder dbQry = new StringBuilder();
+        //dbQry = "Select empno,empFirstName From tblEmployee Order By empFirstName";
+        dbQry.Append("Select tblTasks.Task_Id,tblTasks.Task_Name,tblTaskStatus.Task_Status_Name,tblTaskUpdates.Blocked_Flag,tblTasks.IsActive ");
+        dbQry.Append(" FROM ((tblTasks Inner Join tblProjects On tblProjects.Project_Id = tblTasks.Project_Code) Inner Join tblTaskUpdates On tblTaskUpdates.Task_Id = tblTasks.Task_Id)  Inner join  tblTaskStatus on  tblTaskStatus.Task_Status_Id=tblTaskUpdates.Task_Status ");
+        dbQry.Append(" Where tblTasks.IsActive='Y' and  tblTaskUpdates.Blocked_Flag='Y' and tblTaskStatus.Task_Status_Id=" + stat_Id + " and tblProjects.Project_Id=" + pro_Id + " ");
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+
+
+    public DataSet Gettaskfromemployee(string connection, int emp_no)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        DataSet ds = new DataSet();
+        StringBuilder dbQry = new StringBuilder();
+        //dbQry = "Select empno,empFirstName From tblEmployee Order By empFirstName";
+        dbQry.Append("SELECT A.Task_Name,A.Owner,A.Task_Id ");
+        dbQry.Append(" from tblTasks As A INNER JOIN  tblEmployee ON A.Owner = tblEmployee.empno ");
+        dbQry.Append(" where tblEmployee.empno=" + emp_no + " ");
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    public DataSet Getstatustasksno(string connection, int stat_Id, int pro_Id)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        DataSet ds = new DataSet();
+        StringBuilder dbQry = new StringBuilder();
+        //dbQry = "Select empno,empFirstName From tblEmployee Order By empFirstName";
+        dbQry.Append("Select tblTasks.Task_Id,tblTasks.Task_Name,tblTaskStatus.Task_Status_Name,tblTaskUpdates.Blocked_Flag ");
+        dbQry.Append(" FROM ((tblTasks Inner Join tblProjects On tblProjects.Project_Id = tblTasks.Project_Code) Inner Join tblTaskUpdates On tblTaskUpdates.Task_Id = tblTasks.Task_Id)  Inner join  tblTaskStatus on  tblTaskStatus.Task_Status_Id=tblTaskUpdates.Task_Status ");
+        dbQry.Append(" Where tblTasks.IsActive='Y' and tblTaskUpdates.Blocked_Flag='N' and tblTaskStatus.Task_Status_Id=" + stat_Id + " and tblProjects.Project_Id=" + pro_Id + " ");
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    public DataSet Getstatustasksnostatus(string connection, int stat_Id, int pro_Id)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        DataSet ds = new DataSet();
+        StringBuilder dbQry = new StringBuilder();
+        //dbQry = "Select empno,empFirstName From tblEmployee Order By empFirstName";
+        dbQry.Append("Select tblTasks.Task_Id,tblTasks.Task_Name,tblTaskStatus.Task_Status_Name,tblTaskUpdates.Blocked_Flag,tblTasks.IsActive ");
+        dbQry.Append(" FROM ((tblTasks Inner Join tblProjects On tblProjects.Project_Id = tblTasks.Project_Code) Inner Join tblTaskUpdates On tblTaskUpdates.Task_Id = tblTasks.Task_Id)  Inner join  tblTaskStatus on  tblTaskStatus.Task_Status_Id=tblTaskUpdates.Task_Status ");
+        dbQry.Append(" Where tblTaskStatus.Task_Status_Id=" + stat_Id + " and tblProjects.Project_Id=" + pro_Id + " ");
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
 
     public DataSet GetblocktaskNO(string connection, int Project_Id)
     {
@@ -67883,6 +68047,52 @@ public class BusinessLogic
         finally
         {
             manager.Dispose();
+        }
+    }
+
+    public DataSet GetProjectManagementReport(string connection,int incharge,int empno,int pro_Id,string flag,int status,int taskid,int deptask,string isactive,string cond)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        DataSet ds = new DataSet();
+        StringBuilder dbQry = new StringBuilder();
+
+        string dbQry2 = string.Empty;
+
+        string dbQry3 = string.Empty;
+        DataSet dsd = new DataSet();
+
+        try
+        {
+            int managerid = 0;
+
+
+            manager.Open();
+
+
+            dbQry.Append("SELECT tblEmployee.empfirstname,tblProjects.Expected_Start_Date,tblProjects.Expected_End_Date,tblProjects.Project_Status,tblProjects.Project_Date, tblProjects.Project_Code as ProjectCode, tblProjects.Project_Name as ProjectName ");
+                dbQry.Append("  FROM ((((tblTasks As A INNER JOIN  tblEmployee ON A.Owner = tblEmployee.empno) inner join tblProjects ON A.Project_Code = tblProjects.Project_Id) inner join tblUserInfo on tblEmployee.ManagerID = tblUserInfo.empno) Inner join tblTaskUpdates on A.task_Id=tblTaskUpdates.Task_Id) Inner join tblTaskStatus on tblTaskStatus.Task_Status_Id=tblTaskUpdates.Task_Status Where " + cond );
+               
+
+          
+
+            dbQry.Append(" ORDER BY A.Task_Id ");
+
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
         }
     }
 
