@@ -609,13 +609,13 @@
                                             <ul>
                                                 <li class="color submenumenu"><a href="#"><span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: right">►</span>Master Data</a>
                                                     <ul>
-                                                        <li class="color submenumenu"><a href="./LeadReference.aspx" runat="server" id="A2">Lead Reference</a>
+                                                        <li class="color submenumenu"><a href="./LeadReference.aspx" runat="server" id="A2">Define Drop-down Lists</a>
                                                         </li>
                                                     </ul>
                                                 </li>
                                                 <li class="color submenumenu"><a href="#"><span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: right">►</span>Transactions</a>
                                                     <ul>
-                                                        <li class="color submenumenu"><a href="./LeadMgmt.aspx" runat="server" id="lnkLeadManagement">Lead Management</a>
+                                                        <li class="color submenumenu"><a href="./LeadMgmt.aspx" runat="server" id="lnkLeadManagement">Manage Leads</a>
                                                         </li>
                                                     </ul>
                                                 </li>

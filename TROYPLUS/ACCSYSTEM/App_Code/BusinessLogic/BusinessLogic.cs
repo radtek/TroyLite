@@ -3645,23 +3645,23 @@ public class BusinessLogic
 
         if (dropDown == "ItemCode")
         {
-            dbQry = "select ItemCode,ProductName, Model,CST, tblCategories.CategoryID, tblCategories.CategoryName, ProductDesc,Stock,ROL, Rate, Unit, VAT, Discount,BuyUnit, BuyRate, BuyVAT, BuyDiscount,DealerUnit, DealerRate, DealerVAT, DealerDiscount,Complex,Measure_Unit,Accept_Role,block,NLC,Productlevel,MRPEffDate,DPEffDate,NLCEffDate, Outdated,tblProductMaster.Deviation, tblProductMaster.IsActive from tblProductMaster inner join tblCategories on tblProductMaster.CategoryID = tblCategories.CategoryID Where ItemCode like '" + txtSearch + "' Order By ItemCode";
+            dbQry = "select A.ItemCode,A.ProductName, A.Model,A.CST, tblCategories.CategoryID, tblCategories.CategoryName, A.ProductDesc,A.Stock,A.ROL, A.Rate, A.Unit, A.VAT, A.Discount,A.BuyUnit, A.BuyRate, A.BuyVAT, BuyDiscount,A.DealerUnit, A.DealerRate, A.DealerVAT, A.DealerDiscount,A.Complex,A.Measure_Unit,A.Accept_Role,A.block,A.NLC,A.Productlevel,A.MRPEffDate,A.DPEffDate,A.NLCEffDate, A.Outdated,A.Deviation, A.IsActive, (Select count(*) from tblProductMaster where A.ItemCode>=ItemCode) as Row from tblProductMaster as A inner join tblCategories on A.CategoryID = tblCategories.CategoryID Where A.ItemCode like '" + txtSearch + "' Order By A.ItemCode";
         }
         else if (dropDown == "ProductName")
         {
-            dbQry = "select ItemCode,ProductName, Model,CST, tblCategories.CategoryID, tblCategories.CategoryName, ProductDesc,Stock,ROL, Rate, Unit, VAT, Discount,BuyUnit, BuyRate, BuyVAT, BuyDiscount,DealerUnit, DealerRate, DealerVAT, DealerDiscount,Complex,Measure_Unit,Accept_Role,block,NLC,Productlevel,MRPEffDate,DPEffDate,NLCEffDate, Outdated, tblProductMaster.Deviation, tblProductMaster.IsActive from tblProductMaster inner join tblCategories on tblProductMaster.CategoryID = tblCategories.CategoryID Where ProductName like '" + txtSearch + "' Order By ItemCode";
+            dbQry = "select A.ItemCode,A.ProductName, A.Model,A.CST, tblCategories.CategoryID, tblCategories.CategoryName, A.ProductDesc,A.Stock,A.ROL, A.Rate, A.Unit, A.VAT, A.Discount,A.BuyUnit, A.BuyRate, A.BuyVAT, A.BuyDiscount,A.DealerUnit, A.DealerRate, A.DealerVAT, A.DealerDiscount,A.Complex,A.Measure_Unit,A.Accept_Role,A.block,A.NLC,A.Productlevel,A.MRPEffDate,A.DPEffDate,A.NLCEffDate, A.Outdated, A.Deviation, A.IsActive, (Select count(*) from tblProductMaster where A.ItemCode>=ItemCode) as Row  from tblProductMaster as A inner join tblCategories on A.CategoryID = tblCategories.CategoryID Where A.ProductName like '" + txtSearch + "' Order By A.ItemCode";
         }
         else if (dropDown == "Model")
         {
-            dbQry = "select ItemCode,ProductName, Model,CST, tblCategories.CategoryID, tblCategories.CategoryName, ProductDesc,Stock,ROL, Rate, Unit, VAT, Discount,BuyUnit, BuyRate, BuyVAT, BuyDiscount,DealerUnit, DealerRate, DealerVAT, DealerDiscount,Complex,Measure_Unit,Accept_Role,block,NLC,Productlevel,MRPEffDate,DPEffDate,NLCEffDate, Outdated, tblProductMaster.Deviation, tblProductMaster.IsActive from tblProductMaster inner join tblCategories on tblProductMaster.CategoryID = tblCategories.CategoryID Where Model like '" + txtSearch + "' Order By ItemCode";
+            dbQry = "select A.ItemCode,A.ProductName, A.Model,A.CST, tblCategories.CategoryID, tblCategories.CategoryName, A.ProductDesc,A.Stock,A.ROL, A.Rate, A.Unit, A.VAT, A.Discount,A.BuyUnit, A.BuyRate, A.BuyVAT, A.BuyDiscount,A.DealerUnit,A.DealerRate, A.DealerVAT, A.DealerDiscount,A.Complex,A.Measure_Unit,A.Accept_Role,A.block,A.NLC,A.Productlevel,A.MRPEffDate,A.DPEffDate,A.NLCEffDate, A.Outdated, A.Deviation, A.IsActive, (Select count(*) from tblProductMaster where A.ItemCode>=ItemCode) as Row  from tblProductMaster as A inner join tblCategories on A.CategoryID = tblCategories.CategoryID Where A.Model like '" + txtSearch + "' Order By A.ItemCode";
         }
         else if (dropDown == "Brand")
         {
-            dbQry = "select ItemCode,ProductName, Model,CST, tblCategories.CategoryID, tblCategories.CategoryName, ProductDesc,Stock,ROL, Rate, Unit, VAT, Discount,BuyUnit, BuyRate, BuyVAT, BuyDiscount,DealerUnit, DealerRate, DealerVAT, DealerDiscount,Complex,Measure_Unit,Accept_Role,block,NLC,Productlevel,MRPEffDate,DPEffDate,NLCEffDate, Outdated, tblProductMaster.Deviation, tblProductMaster.IsActive from tblProductMaster inner join tblCategories on tblProductMaster.CategoryID = tblCategories.CategoryID Where ProductDesc like '" + txtSearch + "' Order By ItemCode";
+            dbQry = "select A.ItemCode,A.ProductName, A.Model,A.CST, tblCategories.CategoryID, tblCategories.CategoryName, A.ProductDesc,A.Stock,A.ROL, A.Rate, A.Unit, A.VAT, A.Discount,A.BuyUnit, A.BuyRate, A.BuyVAT, A.BuyDiscount,A.DealerUnit, A.DealerRate, A.DealerVAT, DealerDiscount,A.Complex,A.Measure_Unit,A.Accept_Role,A.block,A.NLC,A.Productlevel,A.MRPEffDate,A.DPEffDate,A.NLCEffDate, A.Outdated, A.Deviation, A.IsActive, (Select count(*) from tblProductMaster where A.ItemCode>=ItemCode) as Row  from tblProductMaster as A inner join tblCategories on A.CategoryID = tblCategories.CategoryID Where A.ProductDesc like '" + txtSearch + "' Order By A.ItemCode";
         }
         else
         {
-            dbQry = string.Format("select ItemCode,ProductName, CST,Model, tblCategories.CategoryID, tblCategories.CategoryName, ProductDesc,Stock,ROL, Rate, Unit, VAT, Discount,BuyUnit, BuyRate, BuyVAT, BuyDiscount,DealerUnit, DealerRate, DealerVAT, DealerDiscount,Complex,Measure_Unit,Accept_Role,block,NLC,Productlevel,MRPEffDate,DPEffDate,NLCEffDate, Outdated, tblProductMaster.Deviation, tblProductMaster.IsActive from tblProductMaster inner join tblCategories on tblProductMaster.CategoryID = tblCategories.CategoryID Order By ItemCode");
+            dbQry = string.Format("select A.ItemCode,A.ProductName, A.CST,A.Model, tblCategories.CategoryID, tblCategories.CategoryName, A.ProductDesc,A.Stock,A.ROL, A.Rate, A.Unit, A.VAT, A.Discount,A.BuyUnit, A.BuyRate, A.BuyVAT, A.BuyDiscount,A.DealerUnit, A.DealerRate, A.DealerVAT, A.DealerDiscount,A.Complex,A.Measure_Unit,A.Accept_Role,A.block,A.NLC,A.Productlevel,A.MRPEffDate,A.DPEffDate,A.NLCEffDate, A.Outdated, A.Deviation, A.IsActive, (Select count(*) from tblProductMaster where A.ItemCode>=ItemCode) as Row  from tblProductMaster as A inner join tblCategories on A.CategoryID = tblCategories.CategoryID Order By A.ItemCode");
         }
 
         try
@@ -16659,6 +16659,35 @@ public class BusinessLogic
         string dbQry = string.Empty;
         DataSet ds = new DataSet();
         dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Next Activity' Order By ID";
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+    public DataSet ListModeofContact()
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        string dbQry = string.Empty;
+        DataSet ds = new DataSet();
+        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Mode of Contact' Order By ID";
 
         try
         {
@@ -66349,7 +66378,7 @@ public class BusinessLogic
         string dbQry = string.Empty;
         //txtSearch = "%" + txtSearch + "%";
 
-        dbQry = string.Format("select PriceName,ItemCode,Price,Discount,EffDate, PriceId as id from tblProductPrices where ItemCode = '" + ItemCode + "' Order By PriceId");
+        dbQry = string.Format("select A.PriceName,A.ItemCode,A.Price,A.Discount,A.EffDate, A.PriceId as id, (Select count(*) from tblProductPrices where A.Id>=Id and ItemCode = '" + ItemCode + "') as Row  from tblProductPrices as A where A.ItemCode = '" + ItemCode + "' Order By A.PriceId");
 
         try
         {
@@ -66826,7 +66855,7 @@ public class BusinessLogic
         string dbQry = string.Empty;
         //txtSearch = "%" + txtSearch + "%";
 
-        dbQry = string.Format("select PriceName,ItemCode,Price,Discount,EffDate, PriceId as id,UserName from tblProductPriceHistory where ItemCode = '" + ItemCode + "' order by PriceName,EffDate desc ");
+        dbQry = string.Format("select A.PriceName,A.ItemCode,A.Price,A.Discount,A.EffDate, A.PriceId as id,UserName from tblProductPriceHistory as A where A.ItemCode = '" + ItemCode + "' order by A.PriceName,A.EffDate desc ");
 
         try
         {

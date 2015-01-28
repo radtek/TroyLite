@@ -527,6 +527,9 @@ public partial class ProdMaster : System.Web.UI.Page
             dct = new DataColumn("ID");
             dtt.Columns.Add(dct);
 
+            dct = new DataColumn("Row");
+            dtt.Columns.Add(dct);
+
             dct = new DataColumn("PriceName");
             dtt.Columns.Add(dct);
 
@@ -548,6 +551,7 @@ public partial class ProdMaster : System.Web.UI.Page
                     for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                     {
                         drNew = dtt.NewRow();
+                        drNew["Row"] = Convert.ToInt32(ds.Tables[0].Rows[i]["Row"]);
                         drNew["ID"] = Convert.ToInt32(ds.Tables[0].Rows[i]["ID"]);
                         drNew["PriceName"] = Convert.ToString(ds.Tables[0].Rows[i]["PriceName"]);
                         drNew["Price"] = "";
@@ -1435,7 +1439,60 @@ public partial class ProdMaster : System.Web.UI.Page
                     DataSet dstt = bl.ListProductPriceHistory(connection, ItemCode);
                     if (dstt != null && dstt.Tables[0].Rows.Count > 0)
                     {
-                        BulkEditGridView1.DataSource = dstt.Tables[0];
+                        DataTable dttt;
+                        DataRow drNew;
+                        DataColumn dct;
+                        DataSet dstd = new DataSet();
+                        dttt = new DataTable();
+
+                        dct = new DataColumn("ID");
+                        dttt.Columns.Add(dct);
+
+                        dct = new DataColumn("Row");
+                        dttt.Columns.Add(dct);
+
+                        dct = new DataColumn("PriceName");
+                        dttt.Columns.Add(dct);
+
+                        dct = new DataColumn("Price");
+                        dttt.Columns.Add(dct);
+
+                        dct = new DataColumn("EffDate");
+                        dttt.Columns.Add(dct);
+
+                        dct = new DataColumn("Discount");
+                        dttt.Columns.Add(dct);
+
+                        dct = new DataColumn("UserName");
+                        dttt.Columns.Add(dct);
+
+                        dstd.Tables.Add(dttt);
+
+                        int sno = 1;
+                        if (dstt != null)
+                        {
+                            if (dstt.Tables[0].Rows.Count > 0)
+                            {
+                                for (int i = 0; i < dstt.Tables[0].Rows.Count; i++)
+                                {
+                                    drNew = dttt.NewRow();
+                                    drNew["Row"] = sno;
+                                    drNew["ID"] = Convert.ToInt32(dstt.Tables[0].Rows[i]["ID"]);
+                                    drNew["PriceName"] = Convert.ToString(dstt.Tables[0].Rows[i]["PriceName"]);
+                                    drNew["Price"] = Convert.ToDouble(dstt.Tables[0].Rows[i]["Price"]);
+
+                                    string dtaa = Convert.ToDateTime(dstt.Tables[0].Rows[i]["EffDate"]).ToString("dd/MM/yyyy");
+
+                                    drNew["EffDate"] = dtaa;
+                                    drNew["Discount"] = Convert.ToDouble(dstt.Tables[0].Rows[i]["Discount"]);
+                                    drNew["UserName"] = Convert.ToString(dstt.Tables[0].Rows[i]["UserName"]);
+                                    dstd.Tables[0].Rows.Add(drNew);
+                                    sno = sno + 1;
+                                }
+                            }
+                        }
+
+                        BulkEditGridView1.DataSource = dstd.Tables[0];
                         BulkEditGridView1.DataBind();                            
                     }
                     else
