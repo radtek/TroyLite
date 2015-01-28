@@ -47,4 +47,3 @@ C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\ReportsBL\bin\Debug\ReportsBL.d
 C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\ReportsBL\bin\Debug\ReportsBL.pdb
 C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\ReportsBL\obj\Debug\ReportsBL.dll
 C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\ReportsBL\obj\Debug\ReportsBL.pdb
-C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\ReportsBL\obj\Debug\ReportsBL.csprojResolveAssemblyReference.cache

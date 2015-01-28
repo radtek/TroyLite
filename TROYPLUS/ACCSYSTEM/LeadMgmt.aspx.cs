@@ -67,7 +67,8 @@ public partial class LeadMgmt : System.Web.UI.Page
                 loadCategory();
                 loadArea();
                 loadInterestlevel();
-
+                txtInformation1.Text = "";
+                txtContactName.Text = "";
             }
         }
         catch (Exception ex)
@@ -945,7 +946,7 @@ public partial class LeadMgmt : System.Web.UI.Page
             drpLeadStatus.Enabled = false;
             drpStatus.Enabled = false;
 
-            txtLeadNo.Text = "- TBA -";
+            txtLeadNo.Text = "Auto Generated.No need to enter";
             txtCreationDate.Focus();
             BindStage();
             FirstGridViewRow_ProductTab();
@@ -1334,13 +1335,15 @@ public partial class LeadMgmt : System.Web.UI.Page
         //txtContactName.Text = "";
         //txtPotentialPotAmount.Text = "";
         //txtPotentialWeightedAmount.Text = "";
-        //txtPredictedClosingDate.Text = "";
+        txtPredictedClosingDate.Text = "";
         //txtPredictedClosing.Text = "";
         //txtBranch.Text = "";
         chk.Checked = true;
         txtBPName.Text = "";
         cmbCustomer.Visible = true;
         txtBPName.Visible = false;
+        txtInformation1.Text = "";
+        txtContactName.Text = "";
     }
 
     protected void chk_CheckedChanged(object sender, EventArgs e)
@@ -2602,7 +2605,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                 drpIntLevel.SelectedValue = dsDetails.Tables[0].Rows[0]["InterestLevel"].ToString();
 
                 drpLeadStatus.Enabled = true;
-                drpStatus.Enabled = true;
+                drpStatus.Enabled = false;
 
                 //load product tab details
                 itemDs = Producttab(LeadNo);
@@ -2615,7 +2618,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                 {
 
                     DropDownList drpProduct = (DropDownList)GrdViewLeadproduct.Rows[vLoop].FindControl("drpproduct");
-                    TextBox txtPrdID = (TextBox)GrdViewLeadproduct.Rows[vLoop].FindControl("txtPrdId");
+                    Label txtPrdID = (Label)GrdViewLeadproduct.Rows[vLoop].FindControl("txtPrdId");
 
                     if (itemDs.Tables[0].Rows[vLoop]["Prd"] != null)
                     {
@@ -2668,7 +2671,8 @@ public partial class LeadMgmt : System.Web.UI.Page
                     DropDownList drpnxtActivity = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpnxtActivity");
                     TextBox txtnxtActDate = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtNxtActyDate");
                     DropDownList drpemployee = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpemployee");
-                    TextBox txtmodeofCnt = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtModrofcnt");
+                    //TextBox txtmodeofCnt = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtModrofcnt");
+                    DropDownList drpmodeofCnt = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpModrofcnt");
                     DropDownList drpinfo2 = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpinfo2");
                     DropDownList drpinfo5 = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpinfo5");
                     TextBox txtremarks = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtremarks");
@@ -2681,7 +2685,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                         if (li != null) li.Selected = true;
                     }
                     txtactivityLoc.Text = itemDsAct.Tables[0].Rows[vLoop]["ActLoc"].ToString();
-                    txtactivityDate.Text = itemDsAct.Tables[0].Rows[vLoop]["ActDate"].ToString();
+                    txtactivityDate.Text = Convert.ToDateTime(itemDsAct.Tables[0].Rows[vLoop]["ActDate"]).ToString("dd/MM/yyyy");
                     if (itemDsAct.Tables[0].Rows[vLoop]["NxtActID"] != null)
                     {
                         sCustomer = Convert.ToString(itemDsAct.Tables[0].Rows[vLoop]["NxtActID"]);
@@ -2689,7 +2693,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                         ListItem li = drpnxtActivity.Items.FindByValue(System.Web.HttpUtility.HtmlDecode(sCustomer));
                         if (li != null) li.Selected = true;
                     }
-                    txtnxtActDate.Text = itemDsAct.Tables[0].Rows[vLoop]["NxtActDte"].ToString();
+                    txtnxtActDate.Text = Convert.ToDateTime(itemDsAct.Tables[0].Rows[vLoop]["NxtActDte"]).ToString("dd/MM/yyyy");
                     if (itemDsAct.Tables[0].Rows[vLoop]["EmpID"] != null)
                     {
                         sCustomer = Convert.ToString(itemDsAct.Tables[0].Rows[vLoop]["EmpID"]);
@@ -2697,7 +2701,14 @@ public partial class LeadMgmt : System.Web.UI.Page
                         ListItem li = drpemployee.Items.FindByValue(System.Web.HttpUtility.HtmlDecode(sCustomer));
                         if (li != null) li.Selected = true;
                     }
-                    txtmodeofCnt.Text = itemDsAct.Tables[0].Rows[vLoop]["MdeofCnt"].ToString();
+                    //txtmodeofCnt.Text = itemDsAct.Tables[0].Rows[vLoop]["MdeofCnt"].ToString();
+                    if (itemDsAct.Tables[0].Rows[vLoop]["MdeofCnt"] != null)
+                    {
+                        sCustomer = Convert.ToString(itemDsAct.Tables[0].Rows[vLoop]["MdeofCnt"]);
+                        drpmodeofCnt.ClearSelection();
+                        ListItem li = drpmodeofCnt.Items.FindByValue(System.Web.HttpUtility.HtmlDecode(sCustomer));
+                        if (li != null) li.Selected = true;
+                    }
                     if (itemDsAct.Tables[0].Rows[vLoop]["Info2"] != null)
                     {
                         sCustomer = Convert.ToString(itemDsAct.Tables[0].Rows[vLoop]["Info2"]);
@@ -2735,7 +2746,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         DataTable dt;
         DataRow dr;
         DataColumn dc;
-
+        int m = 0;
         string strRole = string.Empty;
         string roleFlag = string.Empty;
         string strBundles = string.Empty;
@@ -2766,6 +2777,7 @@ public partial class LeadMgmt : System.Web.UI.Page
             {
                 foreach (DataRow dR in ds.Tables[0].Rows)
                 {
+                    m = m + 1;
                     dr = itemDs.Tables[0].NewRow();
 
 
@@ -2774,7 +2786,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                     if (dR["Product_Name"] != null)
                         dr["Prd"] = Convert.ToString(dR["Product_Name"]);
                     if (dR["Product_interest_Id"] != null)
-                        dr["RowNumber"] = Convert.ToString(dR["Product_interest_Id"]);
+                        dr["RowNumber"] = m.ToString();// Convert.ToString(dR["Product_interest_Id"]);
 
                     itemDs.Tables[0].Rows.Add(dr);
                     strRole = "";
@@ -2794,7 +2806,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         DataTable dt;
         DataRow dr;
         DataColumn dc;
-
+        int p = 0;
         string strRole = string.Empty;
         string roleFlag = string.Empty;
         string strBundles = string.Empty;
@@ -2833,6 +2845,7 @@ public partial class LeadMgmt : System.Web.UI.Page
             {
                 foreach (DataRow dR in ds.Tables[0].Rows)
                 {
+                    p = p + 1;
                     dr = itemDscom.Tables[0].NewRow();
 
 
@@ -2845,7 +2858,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                     if (dR["ComStr_Weak"] != null)
                         dr["ComStrWeak"] = Convert.ToString(dR["ComStr_Weak"]);
                     if (dR["Competitor_Id"] != null)
-                        dr["RowNumber"] = Convert.ToString(dR["Competitor_Id"]);
+                        dr["RowNumber"] = p.ToString();// Convert.ToString(dR["Competitor_Id"]);
                     if (dR["Remarks"] != null)
                         dr["Remarks"] = Convert.ToString(dR["Remarks"]);
 
@@ -2867,7 +2880,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         DataTable dt;
         DataRow dr;
         DataColumn dc;
-
+        int j = 0;
         string strRole = string.Empty;
         string roleFlag = string.Empty;
         string strBundles = string.Empty;
@@ -2930,6 +2943,7 @@ public partial class LeadMgmt : System.Web.UI.Page
             {
                 foreach (DataRow dR in ds.Tables[0].Rows)
                 {
+                    j = j + 1;
                     dr = itemDsAct.Tables[0].NewRow();
 
                     if (dR["Activity_Name"] != null)
@@ -2959,7 +2973,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                     if (dR["Remarks"] != null)
                         dr["Remarks"] = Convert.ToString(dR["Remarks"]);
                     if (dR["Activity_Id"] != null)
-                        dr["RowNumber"] = Convert.ToString(dR["Activity_Id"]);
+                        dr["RowNumber"] = j.ToString();// Convert.ToString(dR["Activity_Id"]);
 
                     itemDsAct.Tables[0].Rows.Add(dr);
                     strRole = "";
@@ -3130,7 +3144,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                         for (int vLoop = 0; vLoop < GrdViewLeadproduct.Rows.Count; vLoop++)
                         {
                             DropDownList drpProduct = (DropDownList)GrdViewLeadproduct.Rows[vLoop].FindControl("drpproduct");
-                            TextBox txtPrdID = (TextBox)GrdViewLeadproduct.Rows[vLoop].FindControl("txtPrdId");
+                            Label txtPrdID = (Label)GrdViewLeadproduct.Rows[vLoop].FindControl("txtPrdId");
                         }
 
 
@@ -3154,7 +3168,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                         for (int vLoop = 0; vLoop < GrdViewLeadproduct.Rows.Count; vLoop++)
                         {
                             DropDownList drpProduct = (DropDownList)GrdViewLeadproduct.Rows[vLoop].FindControl("drpproduct");
-                            TextBox txtPrdID = (TextBox)GrdViewLeadproduct.Rows[vLoop].FindControl("txtPrdId");
+                            Label txtPrdID = (Label)GrdViewLeadproduct.Rows[vLoop].FindControl("txtPrdId");
 
                             drNew = dt.NewRow();
                             drNew["Prd"] = Convert.ToString(drpProduct.SelectedItem.Text);
@@ -3167,7 +3181,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                 for (int vLoop = 0; vLoop < GrdViewLeadproduct.Rows.Count; vLoop++)
                 {
                     DropDownList drpProduct = (DropDownList)GrdViewLeadproduct.Rows[vLoop].FindControl("drpproduct");
-                    TextBox txtPrdID = (TextBox)GrdViewLeadproduct.Rows[vLoop].FindControl("txtPrdId");
+                    Label txtPrdID = (Label)GrdViewLeadproduct.Rows[vLoop].FindControl("txtPrdId");
 
                     int col = vLoop + 1;
                     if (drpProduct.SelectedValue != "0" && txtPrdID.Text != "")
@@ -3311,7 +3325,8 @@ public partial class LeadMgmt : System.Web.UI.Page
                             DropDownList drpnxtActivity = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpnxtActivity");
                             TextBox txtnxtActDate = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtNxtActyDate");
                             DropDownList drpemployee = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpemployee");
-                            TextBox txtmodeofCnt = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtModrofcnt");
+                            //TextBox txtmodeofCnt = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtModrofcnt");
+                            DropDownList drpmodeofCnt = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpModrofcnt");
                             DropDownList drpinfo2 = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpinfo2");
                             DropDownList drpinfo5 = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpinfo5");
                             TextBox txtremarks = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtremarks");
@@ -3375,7 +3390,8 @@ public partial class LeadMgmt : System.Web.UI.Page
                             DropDownList drpnxtActivity = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpnxtActivity");
                             TextBox txtnxtActDate = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtNxtActyDate");
                             DropDownList drpemployee = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpemployee");
-                            TextBox txtmodeofCnt = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtModrofcnt");
+                            //TextBox txtmodeofCnt = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtModrofcnt");
+                            DropDownList drpmodeofCnt = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpModrofcnt");
                             DropDownList drpinfo2 = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpinfo2");
                             DropDownList drpinfo5 = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpinfo5");
                             TextBox txtremarks = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtremarks");
@@ -3391,7 +3407,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                             drNew["NxtActDte"] = txtnxtActDate.Text;
                             drNew["Emp"] = Convert.ToString(drpemployee.SelectedItem.Text);
                             drNew["EmpID"] = Convert.ToInt32(drpemployee.SelectedItem.Value);
-                            drNew["MdeofCnt"] = txtmodeofCnt.Text;
+                            drNew["MdeofCnt"] = Convert.ToString(drpmodeofCnt.SelectedItem.Value);
                             drNew["Info2"] = Convert.ToString(drpinfo2.SelectedItem.Value);
                             drNew["Info5"] = Convert.ToString(drpinfo5.SelectedItem.Value);
                             drNew["Remarks"] = txtremarks.Text;
@@ -3409,7 +3425,8 @@ public partial class LeadMgmt : System.Web.UI.Page
                     DropDownList drpnxtActivity = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpnxtActivity");
                     TextBox txtnxtActDate = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtNxtActyDate");
                     DropDownList drpemployee = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpemployee");
-                    TextBox txtmodeofCnt = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtModrofcnt");
+                    //TextBox txtmodeofCnt = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtModrofcnt");
+                    DropDownList drpmodeofCnt = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpModrofcnt");
                     DropDownList drpinfo2 = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpinfo2");
                     DropDownList drpinfo5 = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpinfo5");
                     TextBox txtremarks = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtremarks");
@@ -3446,9 +3463,9 @@ public partial class LeadMgmt : System.Web.UI.Page
                         ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Employee in row " + col + " ')", true);
                         return;
                     }
-                    else if (txtmodeofCnt.Text == "")
+                    else if (drpmodeofCnt.SelectedValue == "0")
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Mode of contact in row " + col + " ')", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Mode of contact in row " + col + " ')", true);
                         return;
                     }
                     else if (drpinfo2.SelectedValue == "0")
@@ -3631,7 +3648,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                         for (int vLoop = 0; vLoop < GrdViewLeadproduct.Rows.Count; vLoop++)
                         {
                             DropDownList drpProduct = (DropDownList)GrdViewLeadproduct.Rows[vLoop].FindControl("drpproduct");
-                            TextBox txtPrdID = (TextBox)GrdViewLeadproduct.Rows[vLoop].FindControl("txtPrdId");
+                            Label txtPrdID = (Label)GrdViewLeadproduct.Rows[vLoop].FindControl("txtPrdId");
                         }
 
 
@@ -3655,7 +3672,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                         for (int vLoop = 0; vLoop < GrdViewLeadproduct.Rows.Count; vLoop++)
                         {
                             DropDownList drpProduct = (DropDownList)GrdViewLeadproduct.Rows[vLoop].FindControl("drpproduct");
-                            TextBox txtPrdID = (TextBox)GrdViewLeadproduct.Rows[vLoop].FindControl("txtPrdId");
+                            Label txtPrdID = (Label)GrdViewLeadproduct.Rows[vLoop].FindControl("txtPrdId");
 
                             drNew = dt.NewRow();
                             drNew["Prd"] = Convert.ToString(drpProduct.SelectedItem.Text);
@@ -3668,7 +3685,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                 for (int vLoop = 0; vLoop < GrdViewLeadproduct.Rows.Count; vLoop++)
                 {
                     DropDownList drpProduct = (DropDownList)GrdViewLeadproduct.Rows[vLoop].FindControl("drpproduct");
-                    TextBox txtPrdID = (TextBox)GrdViewLeadproduct.Rows[vLoop].FindControl("txtPrdId");
+                    Label txtPrdID = (Label)GrdViewLeadproduct.Rows[vLoop].FindControl("txtPrdId");
 
                     int col = vLoop + 1;
 
@@ -3733,7 +3750,7 @@ public partial class LeadMgmt : System.Web.UI.Page
 
                         dss1.Tables.Add(dt);
 
-                        for (int vLoop = 0; vLoop < GrdViewLeadproduct.Rows.Count; vLoop++)
+                        for (int vLoop = 0; vLoop < GrdViewLeadCompetitor.Rows.Count; vLoop++)
                         {
                             TextBox txtComName = (TextBox)GrdViewLeadCompetitor.Rows[vLoop].FindControl("txtComeName");
                             TextBox txtThrlvl = (TextBox)GrdViewLeadCompetitor.Rows[vLoop].FindControl("txtThrLvl");
@@ -3812,7 +3829,8 @@ public partial class LeadMgmt : System.Web.UI.Page
                             DropDownList drpnxtActivity = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpnxtActivity");
                             TextBox txtnxtActDate = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtNxtActyDate");
                             DropDownList drpemployee = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpemployee");
-                            TextBox txtmodeofCnt = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtModrofcnt");
+                            //TextBox txtmodeofCnt = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtModrofcnt");
+                            DropDownList drpmodeofCnt = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpModrofcnt");
                             DropDownList drpinfo2 = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpinfo2");
                             DropDownList drpinfo5 = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpinfo5");
                             TextBox txtremarks = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtremarks");
@@ -3876,7 +3894,8 @@ public partial class LeadMgmt : System.Web.UI.Page
                             DropDownList drpnxtActivity = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpnxtActivity");
                             TextBox txtnxtActDate = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtNxtActyDate");
                             DropDownList drpemployee = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpemployee");
-                            TextBox txtmodeofCnt = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtModrofcnt");
+                            //TextBox txtmodeofCnt = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtModrofcnt");
+                            DropDownList drpmodeofCnt = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpModrofcnt");
                             DropDownList drpinfo2 = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpinfo2");
                             DropDownList drpinfo5 = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpinfo5");
                             TextBox txtremarks = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtremarks");
@@ -3892,7 +3911,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                             drNew["NxtActDte"] = txtnxtActDate.Text;
                             drNew["Emp"] = Convert.ToString(drpemployee.SelectedItem.Text);
                             drNew["EmpID"] = Convert.ToInt32(drpemployee.SelectedItem.Value);
-                            drNew["MdeofCnt"] = txtmodeofCnt.Text;
+                            drNew["MdeofCnt"] = Convert.ToString(drpmodeofCnt.SelectedItem.Value);
                             drNew["Info2"] = Convert.ToString(drpinfo2.SelectedItem.Value);
                             drNew["Info5"] = Convert.ToString(drpinfo5.SelectedItem.Value);
                             drNew["Remarks"] = txtremarks.Text;
@@ -3910,7 +3929,8 @@ public partial class LeadMgmt : System.Web.UI.Page
                     DropDownList drpnxtActivity = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpnxtActivity");
                     TextBox txtnxtActDate = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtNxtActyDate");
                     DropDownList drpemployee = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpemployee");
-                    TextBox txtmodeofCnt = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtModrofcnt");
+                    //TextBox txtmodeofCnt = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtModrofcnt");
+                    DropDownList drpmodeofCnt = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpModrofcnt");
                     DropDownList drpinfo2 = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpinfo2");
                     DropDownList drpinfo5 = (DropDownList)GrdViewLeadActivity.Rows[vLoop].FindControl("drpinfo5");
                     TextBox txtremarks = (TextBox)GrdViewLeadActivity.Rows[vLoop].FindControl("txtremarks");
@@ -3922,11 +3942,11 @@ public partial class LeadMgmt : System.Web.UI.Page
                         ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Activity Name in row " + col + " ')", true);
                         return;
                     }
-                    else if (txtactivityLoc.Text == "")
-                    {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Activity Location in row " + col + " ')", true);
-                        return;
-                    }
+                    //else if (txtactivityLoc.Text == "")
+                    //{
+                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Activity Location in row " + col + " ')", true);
+                    //    return;
+                    //}
                     else if (txtactivityDate.Text == "")
                     {
                         ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Activity Date in row " + col + " ')", true);
@@ -3934,12 +3954,12 @@ public partial class LeadMgmt : System.Web.UI.Page
                     }
                     else if (drpnxtActivity.SelectedValue == "0")
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Next Activity in row " + col + " ')", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Followup Activity in row " + col + " ')", true);
                         return;
                     }
                     else if (txtnxtActDate.Text == "")
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Next Activity Date in row " + col + " ')", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Followup Activity Date in row " + col + " ')", true);
                         return;
                     }
                     else if (drpemployee.SelectedValue == "0")
@@ -3947,21 +3967,21 @@ public partial class LeadMgmt : System.Web.UI.Page
                         ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Employee in row " + col + " ')", true);
                         return;
                     }
-                    else if (txtmodeofCnt.Text == "")
+                    else if (drpmodeofCnt.SelectedValue == "0")
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Mode of contact in row " + col + " ')", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Mode of contact in row " + col + " ')", true);
                         return;
                     }
-                    else if (drpinfo2.SelectedValue == "0")
-                    {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Information2 in row " + col + " ')", true);
-                        return;
-                    }
-                    else if (drpinfo5.SelectedValue == "0")
-                    {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Information5 in row " + col + " ')", true);
-                        return;
-                    }
+                    //else if (drpinfo2.SelectedValue == "0")
+                    //{
+                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Information2 in row " + col + " ')", true);
+                    //    return;
+                    //}
+                    //else if (drpinfo5.SelectedValue == "0")
+                    //{
+                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Information5 in row " + col + " ')", true);
+                    //    return;
+                    //}
                     else if (txtremarks.Text == "")
                     {
                         ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Remarks in row " + col + " ')", true);
@@ -4021,8 +4041,8 @@ public partial class LeadMgmt : System.Web.UI.Page
                 {
                     DropDownList drpProduct =
                      (DropDownList)GrdViewLeadproduct.Rows[rowIndex].Cells[1].FindControl("drpproduct");
-                    TextBox txtPrdID =
-                      (TextBox)GrdViewLeadproduct.Rows[rowIndex].Cells[2].FindControl("txtPrdId");
+                    Label txtPrdID =
+                      (Label)GrdViewLeadproduct.Rows[rowIndex].Cells[2].FindControl("txtPrdId");
 
                     drCurrentRow = dtCurrentTable1.NewRow();
                     drCurrentRow["RowNumber"] = i + 1;
@@ -4120,8 +4140,10 @@ public partial class LeadMgmt : System.Web.UI.Page
                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[3].FindControl("txtNxtActyDate");
                     DropDownList drpemployee =
                      (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpemployee");
-                    TextBox txtmodeofCnt =
-                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("txtModrofcnt");
+                    //TextBox txtmodeofCnt =
+                    //  (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("txtModrofcnt");
+                    DropDownList drpmodeofCnt =
+                    (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpModrofcnt");
                     DropDownList drpinfo2 =
                        (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpinfo2");
                     DropDownList drpinfo5 =
@@ -4139,7 +4161,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                     dtCurrentTable3.Rows[i - 1]["NxtAct"] = drpnxtActivity.SelectedValue;
                     dtCurrentTable3.Rows[i - 1]["NxtActDte"] = txtnxtActDate.Text;
                     dtCurrentTable3.Rows[i - 1]["Emp"] = drpemployee.SelectedValue;
-                    dtCurrentTable3.Rows[i - 1]["MdeofCnt"] = txtmodeofCnt.Text;
+                    dtCurrentTable3.Rows[i - 1]["MdeofCnt"] = drpmodeofCnt.SelectedValue;
                     dtCurrentTable3.Rows[i - 1]["Info2"] = drpinfo2.SelectedValue;
                     dtCurrentTable3.Rows[i - 1]["Info5"] = drpinfo5.SelectedValue;
                     dtCurrentTable3.Rows[i - 1]["Remarks"] = txtremarks.Text;
@@ -4172,8 +4194,8 @@ public partial class LeadMgmt : System.Web.UI.Page
                 {
                     DropDownList drpProduct =
                      (DropDownList)GrdViewLeadproduct.Rows[rowIndex].Cells[1].FindControl("drpproduct");
-                    TextBox txtPrdID =
-                      (TextBox)GrdViewLeadproduct.Rows[rowIndex].Cells[2].FindControl("txtPrdId");
+                    Label txtPrdID =
+                      (Label)GrdViewLeadproduct.Rows[rowIndex].Cells[2].FindControl("txtPrdId");
 
                     drpProduct.SelectedValue = dt.Rows[i]["Prd"].ToString();
                     txtPrdID.Text = dt.Rows[i]["PrdID"].ToString();
@@ -4240,8 +4262,10 @@ public partial class LeadMgmt : System.Web.UI.Page
                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[3].FindControl("txtNxtActyDate");
                     DropDownList drpemployee =
                      (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpemployee");
-                    TextBox txtmodeofCnt =
-                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("txtModrofcnt");
+                    //TextBox txtmodeofCnt =
+                    //  (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("txtModrofcnt");
+                    DropDownList drpmodeofCnt =
+                   (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpModrofcnt");
                     DropDownList drpinfo2 =
                        (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpinfo2");
                     DropDownList drpinfo5 =
@@ -4256,7 +4280,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                     drpnxtActivity.SelectedValue = dt.Rows[i]["NxtAct"].ToString();
                     txtnxtActDate.Text = dt.Rows[i]["NxtActDte"].ToString();
                     drpemployee.SelectedValue = dt.Rows[i]["Emp"].ToString();
-                    txtmodeofCnt.Text = dt.Rows[i]["MdeofCnt"].ToString();
+                    drpmodeofCnt.SelectedValue = dt.Rows[i]["MdeofCnt"].ToString();
                     drpinfo2.SelectedValue = dt.Rows[i]["Info2"].ToString();
                     drpinfo5.SelectedValue = dt.Rows[i]["Info5"].ToString();
                     txtremarks.Text = dt.Rows[i]["Remarks"].ToString();
@@ -4281,8 +4305,8 @@ public partial class LeadMgmt : System.Web.UI.Page
                 {
                     DropDownList DrpProduct =
                     (DropDownList)GrdViewLeadproduct.Rows[rowIndex].Cells[1].FindControl("drpproduct");
-                    TextBox txtprdID =
-                     (TextBox)GrdViewLeadproduct.Rows[rowIndex].Cells[2].FindControl("txtPrdId");
+                    Label txtprdID =
+                     (Label)GrdViewLeadproduct.Rows[rowIndex].Cells[2].FindControl("txtPrdId");
 
 
                     drCurrentRow = dtCurrentTable1.NewRow();
@@ -4378,8 +4402,10 @@ public partial class LeadMgmt : System.Web.UI.Page
                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[3].FindControl("txtNxtActyDate");
                     DropDownList drpemployee =
                      (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpemployee");
-                    TextBox txtmodeofCnt =
-                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("txtModrofcnt");
+                    //TextBox txtmodeofCnt =
+                    //  (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("txtModrofcnt");
+                    DropDownList drpmodeofCnt =
+                    (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpModrofcnt");
                     DropDownList drpinfo2 =
                        (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpinfo2");
                     DropDownList drpinfo5 =
@@ -4397,7 +4423,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                     dtCurrentTable3.Rows[i - 1]["NxtAct"] = drpnxtActivity.SelectedValue;
                     dtCurrentTable3.Rows[i - 1]["NxtActDte"] = txtnxtActDate.Text;
                     dtCurrentTable3.Rows[i - 1]["Emp"] = drpemployee.SelectedValue;
-                    dtCurrentTable3.Rows[i - 1]["MdeofCnt"] = txtmodeofCnt.Text;
+                    dtCurrentTable3.Rows[i - 1]["MdeofCnt"] = drpmodeofCnt.SelectedValue;
                     dtCurrentTable3.Rows[i - 1]["Info2"] = drpinfo2.SelectedValue;
                     dtCurrentTable3.Rows[i - 1]["Info5"] = drpinfo5.SelectedValue;
                     dtCurrentTable3.Rows[i - 1]["Remarks"] = txtremarks.Text;
@@ -4547,6 +4573,7 @@ public partial class LeadMgmt : System.Web.UI.Page
             DataSet dsnextacty = new DataSet();
             DataSet dsEmp = new DataSet();
             DataSet dsinfo2 = new DataSet();
+            DataSet dsMoofcnt = new DataSet();
             DataSet dsinfo5 = new DataSet();
             string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
 
@@ -4556,6 +4583,7 @@ public partial class LeadMgmt : System.Web.UI.Page
             dsEmp = bl.ListExecutive();
             dsinfo2 = bl.ListInformation2();
             dsinfo5 = bl.ListInformation5();
+            dsMoofcnt = bl.ListModeofContact();
 
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
@@ -4626,6 +4654,20 @@ public partial class LeadMgmt : System.Web.UI.Page
                 ddl5.DataTextField = "TextValue";
                 ddl5.DataValueField = "ID";
             }
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                var ddl6 = (DropDownList)e.Row.FindControl("drpModrofcnt");
+                ddl6.Items.Clear();
+                ListItem lifzzh6 = new ListItem("Select Mode of Contact", "0");
+                lifzzh6.Attributes.Add("style", "color:Black");
+                ddl6.Items.Add(lifzzh6);
+                ddl6.DataSource = dsMoofcnt;
+                ddl6.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+                ddl6.DataBind();
+                ddl6.DataTextField = "TextValue";
+                ddl6.DataValueField = "ID";
+            }
         }
         catch (Exception ex)
         {
@@ -4642,8 +4684,8 @@ public partial class LeadMgmt : System.Web.UI.Page
         {
             DropDownList DrpProduct =
               (DropDownList)GrdViewLeadproduct.Rows[i - 1].Cells[1].FindControl("drpproduct");
-            TextBox txtPrdID =
-              (TextBox)GrdViewLeadproduct.Rows[i - 1].Cells[2].FindControl("txtPrdId");
+            Label txtPrdID =
+              (Label)GrdViewLeadproduct.Rows[i - 1].Cells[2].FindControl("txtPrdId");
 
             txtPrdID.Text = DrpProduct.SelectedValue;
         }
@@ -4662,7 +4704,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         {
             txtClosingDate.Text = "";
             drpStatus.Text = "Open";
-            drpStatus.Enabled = true;
+            drpStatus.Enabled = false;
         }
         else
         {

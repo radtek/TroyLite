@@ -565,51 +565,52 @@ public class LeadBusinessLogic : BaseLogic
 
         if (dropDown == "Mode of Contact")
         {
-            dbQry = "select Id,Type,TextValue,TypeName from tblLeadReferences Where TextValue like '" + txtSearch + "'" + " and TypeName = 'Mode of Contact' Order By TypeName";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Mode of Contact' Order By A.Id";
+            //dbQry = "select A.Task_Status_Name,A.Task_Status_Id, (Select count(*) from tblTaskStatus where A.Task_Status_Id>=Task_Status_Id) as Row from tblTaskStatus as A Where A.Task_Status_Name like '" + txtSearch + "'" + " Order By A.Task_Status_Id";
         }
         else if (dropDown == "Personal Responsible")
         {
-            dbQry = "select Id,Type,TextValue,TypeName from tblLeadReferences Where TextValue like '" + txtSearch + "'" + " and TypeName = 'Personal Responsible' Order By TypeName";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Personal Responsible' Order By A.Id";
         }
         else if (dropDown == "Business Type")
         {
-            dbQry = "select Id,Type,TextValue,TypeName from tblLeadReferences Where TextValue like '" + txtSearch + "'" + " and TypeName = 'Business Type' Order By TypeName";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Business Type' Order By A.Id";
         }
         else if (dropDown == "Branch")
         {
-            dbQry = "select Id,Type,TextValue,TypeName from tblLeadReferences Where TextValue like '" + txtSearch + "'" + " and TypeName = 'Branch' Order By TypeName";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Branch' Order By A.Id";
         }
         else if (dropDown == "Last Completed Action")
         {
-            dbQry = "select Id,Type,TextValue,TypeName from tblLeadReferences Where TextValue like '" + txtSearch + "'" + " and TypeName = 'Last Completed Action' Order By TypeName";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Last Completed Action' Order By A.Id";
         }
         else if (dropDown == "Next Action")
         {
-            dbQry = "select Id,Type,TextValue,TypeName from tblLeadReferences Where TextValue like '" + txtSearch + "'" + " and TypeName = 'Next Action' Order By TypeName";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Next Action' Order By A.Id";
         }
         else if (dropDown == "Category")
         {
-            dbQry = "select Id,Type,TextValue,TypeName from tblLeadReferences Where TextValue like '" + txtSearch + "'" + " and TypeName = 'Category' Order By TypeName";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Category' Order By A.Id";
         }
         else if (dropDown == "Status")
         {
-            dbQry = "select Id,Type,TextValue,TypeName from tblLeadReferences Where TextValue like '" + txtSearch + "'" + " and TypeName = 'Status' Order By TypeName";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Status' Order By A.Id";
         }
         else if (dropDown == "Information3")
         {
-            dbQry = "select Id,Type,TextValue,TypeName from tblLeadReferences Where TextValue like '" + txtSearch + "'" + " and TypeName = 'Information3' Order By TypeName";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Information3' Order By A.Id";
         }
         else if (dropDown == "Information4")
         {
-            dbQry = "select Id,Type,TextValue,TypeName from tblLeadReferences Where TextValue like '" + txtSearch + "'" + " and TypeName = 'Information4' Order By TypeName";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Information4' Order By A.Id";
         }
         else if (dropDown == "Information5")
         {
-            dbQry = "select Id,Type,TextValue,TypeName from tblLeadReferences Where TextValue like '" + txtSearch + "'" + " and TypeName = 'Information5' Order By TypeName";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Information5' Order By A.Id";
         }
         else
         {
-            dbQry = string.Format("select Id,Type,TextValue,TypeName from tblLeadReferences Order By TypeName", txtSearch);            
+            dbQry = string.Format("select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Order By A.Id", txtSearch);          
         }
 
         try
@@ -941,7 +942,8 @@ public class LeadBusinessLogic : BaseLogic
         DataSet ds = new DataSet();
         string dbQry = string.Empty;
         string dQry = string.Empty;
-        dbQry = "select Lead_No,Lead_Name,BP_Name,Address,Mobile,Telephone,Doc_Status,Closing_Date,Emp_Name,Emp_Id,Start_Date,Lead_Status,Contact_Name,Bp_Id,chec,Predicted_Closing_Date,Information1,Information3,Information4,BusinessType,Category,Area,InterestLevel from tblLeadHeader Where 1 = 1 ";
+        dbQry = "select A.Lead_No,A.Lead_Name,A.BP_Name,A.Address,A.Mobile,A.Telephone,A.Doc_Status,A.Closing_Date,A.Emp_Name,A.Emp_Id,A.Start_Date,A.Lead_Status,A.Contact_Name,A.Bp_Id,A.chec,A.Predicted_Closing_Date,A.Information1,A.Information3,A.Information4,A.BusinessType,A.Category,A.Area,A.InterestLevel, (Select count(*) from tblLeadHeader where A.Lead_No>=Lead_No) as Row from tblLeadHeader as A Where 1 = 1 ";
+       // dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Mode of Contact' Order By A.Id";
 
         if (txtSearch == "" || txtSearch == null)
         {
@@ -951,31 +953,31 @@ public class LeadBusinessLogic : BaseLogic
         {
             if (dropDown == "StartDate")
             {
-                dbQry = dbQry + " AND Start_Date = #" + DateTime.Parse(txtSearch.ToString()).ToString("MM/dd/yyyy") + "#";
+                dbQry = dbQry + " AND A.Start_Date = #" + DateTime.Parse(txtSearch.ToString()).ToString("MM/dd/yyyy") + "#";
             }
             else if (dropDown == "BPName")
             {
-                dbQry = dbQry + " AND BP_Name like '%" + txtSearch + "%'";
+                dbQry = dbQry + " AND A.BP_Name like '%" + txtSearch + "%'";
             }
             else if (dropDown == "LeadNo")
             {
-                dbQry = dbQry + " AND Lead_No = " + txtSearch + " ";
+                dbQry = dbQry + " AND A.Lead_No = " + txtSearch + " ";
             }
             else if (dropDown == "LeadStatus")
             {
-                dbQry = dbQry + " AND Lead_Status like '%" + txtSearch + "%'";
+                dbQry = dbQry + " AND A.Lead_Status like '%" + txtSearch + "%'";
             }
             else if (dropDown == "DocStatus")
             {
-                dbQry = dbQry + " AND Doc_Status like '%" + txtSearch + "%'";
+                dbQry = dbQry + " AND A.Doc_Status like '%" + txtSearch + "%'";
             }
             else if (dropDown == "Mobile")
             {
-                dbQry = dbQry + " AND Mobile like '%" + txtSearch + "%'";
+                dbQry = dbQry + " AND A.Mobile like '%" + txtSearch + "%'";
             }
             else if (dropDown == "LeadName")
             {
-                dbQry = dbQry + " AND Lead_Name like '%" + txtSearch + "%'";
+                dbQry = dbQry + " AND A.Lead_Name like '%" + txtSearch + "%'";
             }
             else if (dropDown == "All" || dropDown=="0")
             {
@@ -983,7 +985,7 @@ public class LeadBusinessLogic : BaseLogic
             }
         }
 
-        dbQry = dbQry + " Order By Lead_No, Start_Date Desc";
+        dbQry = dbQry + " Order By A.Lead_No Desc";
 
         try
         {
@@ -1048,6 +1050,8 @@ public class LeadBusinessLogic : BaseLogic
                 dt.Columns.Add(dc);
                 dc = new DataColumn("Next_Activity");
                 dt.Columns.Add(dc);
+                dc = new DataColumn("Row");
+                dt.Columns.Add(dc);
                 dsd.Tables.Add(dt);
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
@@ -1109,6 +1113,8 @@ public class LeadBusinessLogic : BaseLogic
                         drNew["Contact_Name"] = dr["Contact_Name"].ToString();
                     if (dr["Bp_Id"] != null)
                         drNew["Bp_Id"] = dr["Bp_Id"].ToString();
+                    if (dr["Row"] != null)
+                        drNew["Row"] = dr["Row"].ToString();
 
                     dsd.Tables[0].Rows.Add(drNew);                        
                 }

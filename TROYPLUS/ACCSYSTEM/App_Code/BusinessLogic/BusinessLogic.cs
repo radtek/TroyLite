@@ -16420,6 +16420,35 @@ public class BusinessLogic
         }
     }
 
+    public DataSet ListModeofContact()
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        string dbQry = string.Empty;
+        DataSet ds = new DataSet();
+        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Mode of Contact' Order By ID";
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
     public DataSet ListInformation2()
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
