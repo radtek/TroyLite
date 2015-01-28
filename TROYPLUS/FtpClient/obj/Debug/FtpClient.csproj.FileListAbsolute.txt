@@ -48,12 +48,12 @@ D:\TroyLite_05JAN\TroyLite\TROYPLUS\FtpClient\bin\Debug\FtpClient.pdb
 D:\TroyLite_05JAN\TroyLite\TROYPLUS\FtpClient\obj\Debug\FtpClient.csprojResolveAssemblyReference.cache
 D:\TroyLite_05JAN\TroyLite\TROYPLUS\FtpClient\obj\Debug\FtpClient.dll
 D:\TroyLite_05JAN\TroyLite\TROYPLUS\FtpClient\obj\Debug\FtpClient.pdb
+C:\Users\troy\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\bin\Debug\FtpClient.dll
+C:\Users\troy\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\bin\Debug\FtpClient.pdb
+C:\Users\troy\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\obj\Debug\FtpClient.dll
+C:\Users\troy\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\obj\Debug\FtpClient.pdb
 C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\bin\Debug\FtpClient.dll
 C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\bin\Debug\FtpClient.pdb
 C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\obj\Debug\FtpClient.dll
 C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\obj\Debug\FtpClient.pdb
 C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\obj\Debug\FtpClient.csprojResolveAssemblyReference.cache
-C:\Users\troy\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\bin\Debug\FtpClient.dll
-C:\Users\troy\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\bin\Debug\FtpClient.pdb
-C:\Users\troy\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\obj\Debug\FtpClient.dll
-C:\Users\troy\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\obj\Debug\FtpClient.pdb

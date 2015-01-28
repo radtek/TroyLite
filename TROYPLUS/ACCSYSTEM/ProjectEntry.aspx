@@ -239,7 +239,7 @@
                                                             <td>
                                                                 <div style="text-align: left">
                                                                     <cc1:TabContainer ID="tbMain" runat="server" Width="100%" Visible="false" CssClass="fancy fancy-green">
-                                                                        <cc1:TabPanel ID="tabMaster" runat="server" HeaderText="Project Details">
+                                                                        <cc1:TabPanel ID="tabMaster" runat="server" OnDataBinding="GrdWME_SelectedIndexChanged" HeaderText="New Project Details">
                                                                             <ContentTemplate>
                                                                                 <table style="width: 100%;" align="center" cellpadding="2" cellspacing="2">
                                                                                     <tr>
@@ -279,7 +279,7 @@
                                                                                     <tr>
                                                                                         <td class="ControlLabelproject1" style="width: 20%">
                                                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtProjectName" ErrorMessage="Please enter Title Of Project. It cannot be left blank." Text="*" ValidationGroup="Save"></asp:RequiredFieldValidator>
-                                                                                             Title Of Project * </td>
+                                                                                             Title of Project * </td>
                                                                                         <td class="ControlTextProject1" style="width: 20%">
                                                                                             <asp:TextBox ID="txtProjectName"  CssClass="cssTextBox" runat="server" TabIndex="2"></asp:TextBox>
                                                                                         </td>
@@ -324,7 +324,7 @@
                                                                                           <td style="width: 5%">
                                                                                              </td>
                                                                                      
-                                                                                           <td class="ControlLabelproject1" style="width: 30%">
+                                                                                           <td class="ControlLabelproject1" style="width: 35%">
                                                                                                  Estimated Effort Duration
                                                                                                  <asp:Label runat="server" ID="estimateheading">
                                                                                                      </asp:Label>
@@ -409,7 +409,7 @@
                                                                                                 CssClass="lblFont" Operator="LessThanEqual" ValidationGroup="Save" SetFocusOnError="True"
                                                                                                 Type="Date"></asp:CompareValidator>--%>
 
-                                                                                            Date Of Completion
+                                                                                            Date of Completion
                                                                                             </td>
                                                                                         
                                                                                          <td style="width :20%" class="ControlTextProject1">
@@ -450,7 +450,7 @@
                                                                                         </td>
                                                                                    <td class="ControlLabelproject1" style="width: 30%">
                                                                                           
-                                                                                            Unit Of Measure * </td>
+                                                                                            Unit of Measure * </td>
                                                                                         <td class="ControlDrpBorder" style="width: 20%">
                                                                                               <asp:UpdatePanel ID="UpdatePanel13" runat="server" UpdateMode="Conditional">
                                                                                                     <ContentTemplate>
@@ -481,18 +481,23 @@
                                                                     <asp:Panel ID="pnsSave" runat="server" Visible="False">
                                                                         <table style="width: 100%;" cellpadding="1" cellspacing="2">
                                                                             <tr>
-                                                                                <td style="width: 25%"></td>
-                                                                                <td style="width: 25%" align="right"> 
+                                                                                <td style="width: 30%" ></td>
+                                                                                <td style="width: 19%" align="right">
+                                                                                      <asp:Button ID="btnsavereturn" ValidationGroup="Save" runat="server" CssClass="saveandreturnbuttonforproject"
+                                                                                        EnableTheming="false" SkinID="skinBtnSave" OnClick="btnsavereturn_Click" />
+                                                                                </td>
+                                                                                <td style="width: 8%" align="right" > 
+                                                                                  
                                                                                        <asp:Button ID="btnSave" ValidationGroup="Save" runat="server" CssClass="savebuttonforproject"
                                                                                         EnableTheming="false" SkinID="skinBtnSave" OnClick="btnSave_Click" TabIndex="12" />
                                                                                      <asp:Button ID="btnUpdate" runat="server" ValidationGroup="Save" CssClass="Updatebuttonforproject"
                                                                                         EnableTheming="false" SkinID="skinBtnSave" OnClick="btnUpdate_Click" Enabled="false" />  
                                                                                 </td>
-                                                                                 <td style="width: 25%" align="left">
+                                                                                 <td style="width: 8%" align="left">
                                                                                    <asp:Button ID="btnCancel" runat="server" CssClass="cancelbuttonforproject" EnableTheming="false"
                                                                                         SkinID="skinBtnCancel" OnClick="btnCancel_Click" Enabled="false" TabIndex="13" />
                                                                                 </td>
-                                                                                <td style="width: 25%">
+                                                                                <td style="width: 30%">
                                                                                     
                                                                                 </td>
                                                                                
@@ -527,6 +532,7 @@
                                             <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small"/>
                                 <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE"/>
                                             <Columns>
+                                                <asp:BoundField DataField="Row" HeaderText="#" HeaderStyle-Width="30px" />
                                                 <asp:BoundField DataField="Project_Id" HeaderText="Project ID"  HeaderStyle-Wrap="false" HeaderStyle-BorderColor="Green" Visible="false" />
                                                 <asp:BoundField DataField="Project_Code" HeaderText="Project ID" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Height="20px" ItemStyle-HorizontalAlign="Center" ItemStyle-Height="30px" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="Small" HeaderStyle-BorderColor="Gray" />
                                                 <asp:BoundField DataField="Project_Date" HeaderText="Project Record Created Date" DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Height="20px" ItemStyle-HorizontalAlign="Center" ItemStyle-Height="30px" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="Small" ItemStyle-ForeColor="#0567AE" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="Small" HeaderStyle-BorderColor="Gray" />

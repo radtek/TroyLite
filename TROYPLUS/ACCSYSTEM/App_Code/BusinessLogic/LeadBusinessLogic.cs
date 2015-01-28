@@ -856,7 +856,8 @@ public class LeadBusinessLogic : BaseLogic
         }
     }
 
-    public void AddLead(int LeadNo, DateTime startDate, string LeadName, string address, string mobile, string Telephone, string BpName, int BpId, string ContactName, int EmpId, string EmpName, string Status, string branch, string LeadStatus, double TotalAmount, int ClosingPer, DateTime ClosingDate, int PredictedClosing, DateTime PredictedClosingDate, double PotentialPotAmount, double PotentialWeightedAmount, string PredictedClosingPeriod, string InterestLevel, string usernam, DataSet dsStages, DataSet dsCompetitor, DataSet dsActivity, DataSet dsProduct, string check)
+    //public void AddLead(int LeadNo, DateTime startDate, string LeadName, string address, string mobile, string Telephone, string BpName, int BpId, string ContactName, int EmpId, string EmpName, string Status, string branch, string LeadStatus, double TotalAmount, int ClosingPer, DateTime ClosingDate, int PredictedClosing, DateTime PredictedClosingDate,string Info1,int Info3,int Info4,int businesstype,int category,int area,int InterestLevel, double PotentialPotAmount, double PotentialWeightedAmount, string PredictedClosingPeriod, string usernam, DataSet dsStages, DataSet dsCompetitor, DataSet dsActivity, DataSet dsProduct, string check)
+    public void AddLead(int LeadNo, DateTime startDate, string LeadName, string address, string mobile, string Telephone, string BpName, int BpId, string ContactName, int EmpId, string EmpName, string Status, string LeadStatus, DateTime ClosingDate,DateTime PredictedClosingDate,string Info1,int Info3,int Info4,int businesstype,int category,int area,int InterestLevel,string usernam,DataSet dsCompetitor, DataSet dsActivity, DataSet dsProduct, string check)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
@@ -872,30 +873,17 @@ public class LeadBusinessLogic : BaseLogic
 
             manager.BeginTransaction();
 
-            dbQry = string.Format("INSERT INTO tblLeadHeader(Start_Date,Lead_Name,Address,Mobile,Telephone,BP_Name,Bp_Id,Contact_Name,Emp_Id,Emp_Name,Doc_Status,Branch,Lead_Status,InvoicedAmt,Closing_Per,Closing_Date,chec) VALUES(Format('{0}', 'dd/mm/yyyy'),'{1}','{2}','{3}','{4}','{5}',{6},'{7}',{8},'{9}','{10}','{11}','{12}',{13},{14},Format('{15}', 'dd/mm/yyyy'),'{16}')",
-                    startDate.ToShortDateString(), LeadName, address, mobile, Telephone, BpName, BpId, ContactName, EmpId, EmpName, Status, branch, LeadStatus, TotalAmount, ClosingPer, ClosingDate, check);
+            //dbQry = string.Format("INSERT INTO tblLeadHeader(Start_Date,Lead_Name,Address,Mobile,Telephone,BP_Name,Bp_Id,Contact_Name,Emp_Id,Emp_Name,Doc_Status,Branch,Lead_Status,InvoicedAmt,Closing_Per,Closing_Date,chec) VALUES(Format('{0}', 'dd/mm/yyyy'),'{1}','{2}','{3}','{4}','{5}',{6},'{7}',{8},'{9}','{10}','{11}','{12}',{13},{14},Format('{15}', 'dd/mm/yyyy'),'{16}')",
+            //        startDate.ToShortDateString(), LeadName, address, mobile, Telephone, BpName, BpId, ContactName, EmpId, EmpName, Status, branch, LeadStatus, TotalAmount, ClosingPer, ClosingDate, check);
+
+
+            dbQry = string.Format("INSERT INTO tblLeadHeader(Lead_Name,BP_Name,Address,Mobile,Telephone,Doc_Status,Closing_Date,Emp_Name,Emp_Id,Start_Date,Lead_Status,Contact_Name,Bp_Id,chec,Predicted_Closing_Date,Information1,Information3,Information4,BusinessType,Category,Area,InterestLevel) VALUES('{0}','{1}','{2}','{3}','{4}','{5}',Format('{6}', 'dd/mm/yyyy'),'{7}',{8},Format('{9}', 'dd/mm/yyyy'),'{10}','{11}',{12},'{13}',Format('{14}', 'dd/mm/yyyy'),'{15}',{16},{17},{18},{19},{20},{21})",
+                LeadName, BpName, address, mobile, Telephone, Status, ClosingDate, EmpName, EmpId, startDate.ToShortDateString(), Status, ContactName, BpId, check, PredictedClosingDate.ToShortDateString(), Info1, Info3, Info4, businesstype, category, area, InterestLevel);
 
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
             LeadIDD = (Int32)manager.ExecuteScalar(CommandType.Text, "SELECT MAX(Lead_No) FROM tblLeadHeader");
-
-            dbQry = string.Format("INSERT INTO tblLeadPotential(Lead_No, Predicted_Closing, Predicted_Closing_Period, Predicted_Closing_Date, Potential_Amount, Weighted_Amount, Interest_Level) VALUES({0},{1},'{2}',Format('{3}', 'dd/mm/yyyy'),{4},{5},'{6}')",
-                    LeadIDD, PredictedClosing, PredictedClosingPeriod, PredictedClosingDate.ToShortDateString(), PotentialPotAmount, PotentialWeightedAmount, InterestLevel);
-
-            manager.ExecuteNonQuery(CommandType.Text, dbQry);
-
-
-            if (dsStages != null)
-            {
-                if (dsStages.Tables[0].Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dsStages.Tables[0].Rows)
-                    {
-                        dbQry = string.Format("INSERT INTO tblStages(Lead_No,Start_Date,End_Date,Stage_Name,Stage_Setup_Id,Stage_Perc,Potential_Amount,Weighted_Amount,Remarks) VALUES({0},Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),'{3}',{4},{5},{6},{7},'{8}')", LeadIDD, dr["Start_Date"].ToString(), dr["End_Date"].ToString(), dr["Stage_Name"].ToString(), Convert.ToInt32(dr["Stage_Setup_Id"]), Convert.ToInt32(dr["Stage_Perc"]), Convert.ToDouble(dr["Potential_Amount"]), Convert.ToDouble(dr["Weighted_Amount"]), dr["Remarks"].ToString());
-                        manager.ExecuteNonQuery(CommandType.Text, dbQry);
-                    }
-                }
-            }
+                       
 
             if (dsCompetitor != null)
             {
@@ -903,7 +891,7 @@ public class LeadBusinessLogic : BaseLogic
                 {
                     foreach (DataRow dr in dsCompetitor.Tables[0].Rows)
                     {
-                        dbQry = string.Format("INSERT INTO tblCompetitors(Lead_No,Competitor_Name,Threat_Level,Remarks) VALUES({0},'{1}','{2}','{3}')", LeadIDD, dr["Competitor_Name"].ToString(), dr["Threat_Level"].ToString(), dr["Remarks"].ToString());
+                        dbQry = string.Format("INSERT INTO tblCompetitors(Lead_No,Competitor_Name,OurStr_Weak,ComStr_Weak,Remarks,Threat_Level) VALUES({0},'{1}','{2}','{3}','{4}','{5}')", LeadIDD, dr["ComName"].ToString(), dr["OurStrWeak"].ToString(), dr["ComStrWeak"].ToString(), dr["Remarks"].ToString(), dr["ThrLvl"].ToString());
                         manager.ExecuteNonQuery(CommandType.Text, dbQry);
                     }
                 }
@@ -915,7 +903,8 @@ public class LeadBusinessLogic : BaseLogic
                 {
                     foreach (DataRow dr in dsActivity.Tables[0].Rows)
                     {
-                        dbQry = string.Format("INSERT INTO tblActivities(Lead_No,Start_Date,End_Date,NextActivity_Date,Activity_Name,Activity_Name_Id,Activity_Location,Next_Activity,Next_Activity_Id,FollowUp,Emp_Name,Emp_No,Remarks) VALUES({0},Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),Format('{3}', 'dd/mm/yyyy'),'{4}',{5},'{6}','{7}',{8},'{9}','{10}',{11},'{12}')", LeadIDD, dr["Start_Date"].ToString(), dr["End_Date"].ToString(), dr["NextActivity_Date"].ToString(), dr["Activity_Name"].ToString(), Convert.ToInt32(dr["Activity_Name_Id"]), Convert.ToString(dr["Activity_Location"]), Convert.ToString(dr["Next_Activity"]), Convert.ToInt32(dr["Next_Activity_Id"]), Convert.ToString(dr["FollowUp"]), Convert.ToString(dr["Emp_Name"]), Convert.ToInt32(dr["Emp_No"]), dr["Remarks"].ToString());
+                        //dbQry = string.Format("INSERT INTO tblActivities(Lead_No,Start_Date,End_Date,NextActivity_Date,Activity_Name,Activity_Name_Id,Activity_Location,Next_Activity,Next_Activity_Id,FollowUp,Emp_Name,Emp_No,Remarks) VALUES({0},Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),Format('{3}', 'dd/mm/yyyy'),'{4}',{5},'{6}','{7}',{8},'{9}','{10}',{11},'{12}')", LeadIDD, dr["Start_Date"].ToString(), dr["End_Date"].ToString(), dr["NextActivity_Date"].ToString(), dr["Activity_Name"].ToString(), Convert.ToInt32(dr["Activity_Name_Id"]), Convert.ToString(dr["Activity_Location"]), Convert.ToString(dr["Next_Activity"]), Convert.ToInt32(dr["Next_Activity_Id"]), Convert.ToString(dr["FollowUp"]), Convert.ToString(dr["Emp_Name"]), Convert.ToInt32(dr["Emp_No"]), dr["Remarks"].ToString());
+                        dbQry = string.Format("INSERT INTO tblActivities(Lead_No,Activity_Name,Activity_Name_Id,Activity_Date,Activity_Location,Next_Activity,Next_Activity_Id,NextActivity_Date,Remarks,Emp_Name,Emp_No,ModeofContact,Information2,Information5) VALUES({0},'{1}',{2},Format('{3}', 'dd/mm/yyyy'),'{4}','{5}',{6},Format('{7}', 'dd/mm/yyyy'),'{8}','{9}',{10},'{11}',{12},{13})", LeadIDD, dr["ActName"].ToString(), Convert.ToInt32(dr["ActNameID"]), dr["ActDate"].ToString(), dr["ActLoc"].ToString(), dr["NxtAct"].ToString(), Convert.ToInt32(dr["NxtActID"]), dr["NxtActDte"].ToString(), dr["Remarks"].ToString(), dr["Emp"].ToString(), Convert.ToInt32(dr["EmpID"]), dr["MdeofCnt"].ToString(), Convert.ToInt32(dr["Info2"]), Convert.ToInt32(dr["Info5"]));
                         manager.ExecuteNonQuery(CommandType.Text, dbQry);
                     }
                 }
@@ -927,7 +916,7 @@ public class LeadBusinessLogic : BaseLogic
                 {
                     foreach (DataRow dr in dsProduct.Tables[0].Rows)
                     {
-                        dbQry = string.Format("INSERT INTO tblProductInterest(Lead_No,Product_Id,Product_Name,SlNo) VALUES({0},'{1}','{2}',{3})", LeadIDD, dr["Product_Id"].ToString(), dr["Product_Name"].ToString(), Convert.ToInt32(dr["SlNo"]));
+                        dbQry = string.Format("INSERT INTO tblProductInterest(Lead_No,Product_Id,Product_Name) VALUES({0},'{1}','{2}')", LeadIDD, dr["PrdID"].ToString(), dr["Prd"].ToString());
                         manager.ExecuteNonQuery(CommandType.Text, dbQry);
                     }
                 }
@@ -952,7 +941,7 @@ public class LeadBusinessLogic : BaseLogic
         DataSet ds = new DataSet();
         string dbQry = string.Empty;
         string dQry = string.Empty;
-        dbQry = "select Lead_No,Start_Date,Lead_Name,Address,Mobile,Telephone,BP_Name,Bp_Id,Contact_Name,Emp_Id,Emp_Name,Doc_Status,Branch,Lead_Status,InvoicedAmt,Closing_Per,Closing_Date from tblLeadHeader Where 1 = 1 ";
+        dbQry = "select Lead_No,Lead_Name,BP_Name,Address,Mobile,Telephone,Doc_Status,Closing_Date,Emp_Name,Emp_Id,Start_Date,Lead_Status,Contact_Name,Bp_Id,chec,Predicted_Closing_Date,Information1,Information3,Information4,BusinessType,Category,Area,InterestLevel from tblLeadHeader Where 1 = 1 ";
 
         if (txtSearch == "" || txtSearch == null)
         {
@@ -988,10 +977,6 @@ public class LeadBusinessLogic : BaseLogic
             {
                 dbQry = dbQry + " AND Lead_Name like '%" + txtSearch + "%'";
             }
-            else if (dropDown == "Branch")
-            {
-                dbQry = dbQry + " AND Branch like '%" + txtSearch + "%'";
-            }
             else if (dropDown == "All" || dropDown=="0")
             {
                 
@@ -1015,9 +1000,9 @@ public class LeadBusinessLogic : BaseLogic
                 dt = new DataTable();
                 dc = new DataColumn("Lead_No");
                 dt.Columns.Add(dc);
-                dc = new DataColumn("Start_Date");
-                dt.Columns.Add(dc);
                 dc = new DataColumn("Lead_Name");
+                dt.Columns.Add(dc);
+                dc = new DataColumn("BP_Name");
                 dt.Columns.Add(dc);
                 dc = new DataColumn("Address");
                 dt.Columns.Add(dc);
@@ -1025,27 +1010,39 @@ public class LeadBusinessLogic : BaseLogic
                 dt.Columns.Add(dc);
                 dc = new DataColumn("Telephone");
                 dt.Columns.Add(dc);
-                dc = new DataColumn("Branch");
-                dt.Columns.Add(dc);
-                dc = new DataColumn("BP_Name");
-                dt.Columns.Add(dc);
-                dc = new DataColumn("InvoicedAmt");
-                dt.Columns.Add(dc);
                 dc = new DataColumn("Doc_Status");
+                dt.Columns.Add(dc);
+                dc = new DataColumn("Closing_Date");
                 dt.Columns.Add(dc);
                 dc = new DataColumn("Emp_Name");
                 dt.Columns.Add(dc);
                 dc = new DataColumn("Emp_Id");
                 dt.Columns.Add(dc);
-                dc = new DataColumn("Closing_Date");
+                dc = new DataColumn("Start_Date");
                 dt.Columns.Add(dc);
                 dc = new DataColumn("Lead_Status");
-                dt.Columns.Add(dc);
-                dc = new DataColumn("Closing_Per");
                 dt.Columns.Add(dc);
                 dc = new DataColumn("Contact_Name");
                 dt.Columns.Add(dc);
                 dc = new DataColumn("Bp_Id");
+                dt.Columns.Add(dc);
+                dc = new DataColumn("chec");
+                dt.Columns.Add(dc);
+                dc = new DataColumn("Predicted_Closing_Date");
+                dt.Columns.Add(dc);
+                dc = new DataColumn("Information1");
+                dt.Columns.Add(dc);
+                dc = new DataColumn("Information3");
+                dt.Columns.Add(dc);
+                dc = new DataColumn("Information4");
+                dt.Columns.Add(dc);
+                dc = new DataColumn("BusinessType");
+                dt.Columns.Add(dc);
+                dc = new DataColumn("Category");
+                dt.Columns.Add(dc);
+                dc = new DataColumn("Area");
+                dt.Columns.Add(dc);
+                dc = new DataColumn("InterestLevel");
                 dt.Columns.Add(dc);
                 dc = new DataColumn("Activity_Name");
                 dt.Columns.Add(dc);
@@ -1095,13 +1092,9 @@ public class LeadBusinessLogic : BaseLogic
                     if (dr["Mobile"] != null)
                         drNew["Mobile"] = dr["Mobile"].ToString();
                     if (dr["Telephone"] != null)
-                        drNew["Telephone"] = dr["Telephone"].ToString();
-                    if (dr["Branch"] != null)
-                        drNew["Branch"] = dr["Branch"].ToString();
+                        drNew["Telephone"] = dr["Telephone"].ToString();                  
                     if (dr["BP_Name"] != null)
-                        drNew["BP_Name"] = dr["BP_Name"].ToString();
-                    if (dr["InvoicedAmt"] != null)
-                        drNew["InvoicedAmt"] = dr["InvoicedAmt"].ToString();
+                        drNew["BP_Name"] = dr["BP_Name"].ToString();                  
                     if (dr["Doc_Status"] != null)
                         drNew["Doc_Status"] = dr["Doc_Status"].ToString();
                     if (dr["Emp_Name"] != null)
@@ -1111,9 +1104,7 @@ public class LeadBusinessLogic : BaseLogic
                     if (dr["Closing_Date"] != null)
                         drNew["Closing_Date"] = dr["Closing_Date"].ToString();
                     if (dr["Lead_Status"] != null)
-                        drNew["Lead_Status"] = dr["Lead_Status"].ToString();
-                    if (dr["Closing_Per"] != null)
-                        drNew["Closing_Per"] = dr["Closing_Per"].ToString();
+                        drNew["Lead_Status"] = dr["Lead_Status"].ToString();                   
                     if (dr["Contact_Name"] != null)
                         drNew["Contact_Name"] = dr["Contact_Name"].ToString();
                     if (dr["Bp_Id"] != null)
@@ -1143,7 +1134,7 @@ public class LeadBusinessLogic : BaseLogic
         DataSet ds = new DataSet();
         string dbQry = string.Empty;
 
-        dbQry = "select Lead_No,Start_Date,Lead_Name,Address,Mobile,Telephone,BP_Name,Bp_Id,Contact_Name,Emp_Id,Emp_Name,Doc_Status,Branch,Lead_Status,InvoicedAmt,Closing_Per,Closing_Date,chec from tblLeadHeader Where Lead_No=" + LeadNo;
+        dbQry = "select Lead_No,Lead_Name,BP_Name,Address,Mobile,Telephone,Doc_Status,Closing_Date,Emp_Name,Emp_Id,Start_Date,Lead_Status,Contact_Name,Bp_Id,chec,Predicted_Closing_Date,Information1,Information3,Information4,BusinessType,Category,Area,InterestLevel from tblLeadHeader Where Lead_No=" + LeadNo;
 
         try
         {
@@ -1194,7 +1185,9 @@ public class LeadBusinessLogic : BaseLogic
         }
     }
 
-    public void UpdateLead(int LeadNo, DateTime startDate, string LeadName, string address, string mobile, string Telephone, string BpName, int BpId, string ContactName, int EmpId, string EmpName, string Status, string branch, string LeadStatus, double TotalAmount, int ClosingPer, DateTime ClosingDate, int PredictedClosing, DateTime PredictedClosingDate, double PotentialPotAmount, double PotentialWeightedAmount, string PredictedClosingPeriod, string InterestLevel, string usernam, DataSet dsStages, DataSet dsCompetitor, DataSet dsActivity, DataSet dsProduct, string check)
+   
+   
+    public void UpdateLead(int LeadNo, DateTime startDate, string LeadName, string address, string mobile, string Telephone, string BpName, int BpId, string ContactName, int EmpId, string EmpName, string Status, string LeadStatus,DateTime ClosingDate, DateTime PredictedClosingDate,string Info1,int Info3,int Info4,int businesstype,int category,int area,int InterestLevel,string usernam,DataSet dsCompetitor, DataSet dsActivity, DataSet dsProduct, string check)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
@@ -1216,7 +1209,7 @@ public class LeadBusinessLogic : BaseLogic
 
             manager.BeginTransaction();
 
-            dbQryData = "select Lead_No,Start_Date,Lead_Name,Address,Mobile,Telephone,BP_Name,Bp_Id,Contact_Name,Emp_Id,Emp_Name,Doc_Status,Branch,Lead_Status,InvoicedAmt,Closing_Per,Closing_Date from tblLeadHeader Where Lead_No =" + LeadNo;
+            dbQryData = "select Lead_No,Lead_Name,BP_Name,Address,Mobile,Telephone,Doc_Status,Closing_Date,Emp_Name,Emp_Id,Start_Date,Lead_Status,Contact_Name,Bp_Id,chec,Predicted_Closing_Date,Information1,Information3,Information4,BusinessType,Category,Area,InterestLevel from tblLeadHeader Where Lead_No =" + LeadNo;
             dsOld = manager.ExecuteDataSet(CommandType.Text, dbQryData.ToString());
             if (dsOld != null)
             {
@@ -1235,28 +1228,13 @@ public class LeadBusinessLogic : BaseLogic
                 }
             }
 
-            dbQry = string.Format("Update tblLeadHeader Set Start_Date=Format('{0}', 'dd/mm/yyyy'),Lead_Name='{1}',Address='{2}',Mobile='{3}',Telephone='{4}',BP_Name='{5}',Bp_Id={6},Contact_Name='{7}',Emp_Id={8},Emp_Name='{9}',Doc_Status='{10}',Branch='{11}',Lead_Status='{12}',InvoicedAmt={13}, Closing_Per={14}, Closing_Date=Format('{15}', 'dd/mm/yyyy'),chec='{17}'  Where Lead_No={16}", startDate.ToShortDateString(), LeadName, address, mobile, Telephone, BpName, BpId, ContactName, EmpId, EmpName, Status, branch, LeadStatus, TotalAmount, ClosingPer, ClosingDate, LeadNo, check);
+            //dbQry = string.Format("INSERT INTO tblLeadHeader(Lead_Name,BP_Name,Address,Mobile,Telephone,Doc_Status,Closing_Date,Emp_Name,Emp_Id,Start_Date,Lead_Status,Contact_Name,Bp_Id,chec,Predicted_Closing_Date,Information1,Information3,Information4,BusinessType,Category,Area,InterestLevel) VALUES('{0}','{1}','{2}','{3}','{4}','{5}',Format('{6}', 'dd/mm/yyyy'),'{7}',{8},Format('{9}', 'dd/mm/yyyy'),'{10}','{11}',{12},'{13}',Format('{14}', 'dd/mm/yyyy'),'{15}',{16},{17},{18},{19},{20},{21})",
+            //LeadName, BpName, address, mobile, Telephone, Status, ClosingDate, EmpName, EmpId, startDate.ToShortDateString(), Status, ContactName, BpId, check, PredictedClosingDate.ToShortDateString(), Info1, Info3, Info4, businesstype, category, area, InterestLevel);
+
+
+            dbQry = string.Format("Update tblLeadHeader Set Lead_Name='{1}',BP_Name='{2}',Address='{3}',Mobile='{4}',Telephone='{5}',Doc_Status='{6}',Closing_Date=Format('{7}', 'dd/mm/yyyy'),Emp_Name='{8}',Emp_Id={9},Start_Date=Format('{10}', 'dd/mm/yyyy'),Lead_Status='{11}',Contact_Name='{12}',Bp_Id={13},chec='{14}', Predicted_Closing_Date=Format('{15}', 'dd/mm/yyyy'), Information1='{16}',Information3={17},Information4={18},BusinessType={19},Category={20},Area={21},InterestLevel={22}  Where Lead_No={0}",LeadNo, LeadName, BpName, address, mobile, Telephone, Status, ClosingDate, EmpName, EmpId, startDate.ToShortDateString(), Status, ContactName, BpId, check, PredictedClosingDate.ToShortDateString(), Info1, Info3, Info4, businesstype, category, area, InterestLevel);
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
-
-            dbQry = string.Format("Update tblLeadPotential Set Predicted_Closing_Date=Format('{0}', 'dd/mm/yyyy'),Predicted_Closing={1},Predicted_Closing_Period='{2}',Potential_Amount={3},Weighted_Amount={4},Interest_Level='{5}' Where Lead_No={6}", PredictedClosingDate.ToShortDateString(), PredictedClosing, PredictedClosingPeriod, PotentialPotAmount, PotentialWeightedAmount, InterestLevel, LeadNo);
-            manager.ExecuteNonQuery(CommandType.Text, dbQry);
-
-
-
-            dbQry = string.Format("Delete From tblStages Where Lead_No={0}", LeadNo);
-            manager.ExecuteNonQuery(CommandType.Text, dbQry);
-            if (dsStages != null)
-            {
-                if (dsStages.Tables[0].Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dsStages.Tables[0].Rows)
-                    {
-                        dbQry = string.Format("INSERT INTO tblStages(Lead_No,Start_Date,End_Date,Stage_Name,Stage_Setup_Id,Stage_Perc,Potential_Amount,Weighted_Amount,Remarks) VALUES({0},Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),'{3}',{4},{5},{6},{7},'{8}')", LeadNo, dr["Start_Date"].ToString(), dr["End_Date"].ToString(), dr["Stage_Name"].ToString(), Convert.ToInt32(dr["Stage_Setup_Id"]), Convert.ToInt32(dr["Stage_Perc"]), Convert.ToDouble(dr["Potential_Amount"]), Convert.ToDouble(dr["Weighted_Amount"]), dr["Remarks"].ToString());
-                        manager.ExecuteNonQuery(CommandType.Text, dbQry);
-                    }
-                }
-            }
 
             dbQry = string.Format("Delete From tblCompetitors Where Lead_No={0}", LeadNo);
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
@@ -1266,7 +1244,8 @@ public class LeadBusinessLogic : BaseLogic
                 {
                     foreach (DataRow dr in dsCompetitor.Tables[0].Rows)
                     {
-                        dbQry = string.Format("INSERT INTO tblCompetitors(Lead_No,Competitor_Name,Threat_Level,Remarks) VALUES({0},'{1}','{2}','{3}')", LeadNo, dr["Competitor_Name"].ToString(), dr["Threat_Level"].ToString(), dr["Remarks"].ToString());
+                        //dbQry = string.Format("INSERT INTO tblCompetitors(Lead_No,Competitor_Name,Threat_Level,Remarks) VALUES({0},'{1}','{2}','{3}')", LeadNo, dr["Competitor_Name"].ToString(), dr["Threat_Level"].ToString(), dr["Remarks"].ToString());
+                        dbQry = string.Format("INSERT INTO tblCompetitors(Lead_No,Competitor_Name,OurStr_Weak,ComStr_Weak,Remarks,Threat_Level) VALUES({0},'{1}','{2}','{3}','{4}','{5}')", LeadNo, dr["ComName"].ToString(), dr["OurStrWeak"].ToString(), dr["ComStrWeak"].ToString(), dr["Remarks"].ToString(), dr["ThrLvl"].ToString());
                         manager.ExecuteNonQuery(CommandType.Text, dbQry);
                     }
                 }
@@ -1280,7 +1259,8 @@ public class LeadBusinessLogic : BaseLogic
                 {
                     foreach (DataRow dr in dsActivity.Tables[0].Rows)
                     {
-                        dbQry = string.Format("INSERT INTO tblActivities(Lead_No,Start_Date,End_Date,NextActivity_Date,Activity_Name,Activity_Name_Id,Activity_Location,Next_Activity,Next_Activity_Id,FollowUp,Emp_Name,Emp_No,Remarks) VALUES({0},Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),Format('{3}', 'dd/mm/yyyy'),'{4}',{5},'{6}','{7}',{8},'{9}','{10}',{11},'{12}')", LeadNo, dr["Start_Date"].ToString(), dr["End_Date"].ToString(), dr["NextActivity_Date"].ToString(), dr["Activity_Name"].ToString(), Convert.ToInt32(dr["Activity_Name_Id"]), Convert.ToString(dr["Activity_Location"]), Convert.ToString(dr["Next_Activity"]), Convert.ToInt32(dr["Next_Activity_Id"]), Convert.ToString(dr["FollowUp"]), Convert.ToString(dr["Emp_Name"]), Convert.ToInt32(dr["Emp_No"]), dr["Remarks"].ToString());
+                        //dbQry = string.Format("INSERT INTO tblActivities(Lead_No,Start_Date,End_Date,NextActivity_Date,Activity_Name,Activity_Name_Id,Activity_Location,Next_Activity,Next_Activity_Id,FollowUp,Emp_Name,Emp_No,Remarks) VALUES({0},Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),Format('{3}', 'dd/mm/yyyy'),'{4}',{5},'{6}','{7}',{8},'{9}','{10}',{11},'{12}')", LeadNo, dr["Start_Date"].ToString(), dr["End_Date"].ToString(), dr["NextActivity_Date"].ToString(), dr["Activity_Name"].ToString(), Convert.ToInt32(dr["Activity_Name_Id"]), Convert.ToString(dr["Activity_Location"]), Convert.ToString(dr["Next_Activity"]), Convert.ToInt32(dr["Next_Activity_Id"]), Convert.ToString(dr["FollowUp"]), Convert.ToString(dr["Emp_Name"]), Convert.ToInt32(dr["Emp_No"]), dr["Remarks"].ToString());
+                        dbQry = string.Format("INSERT INTO tblActivities(Lead_No,Activity_Name,Activity_Name_Id,Activity_Date,Activity_Location,Next_Activity,Next_Activity_Id,NextActivity_Date,Remarks,Emp_Name,Emp_No,ModeofContact,Information2,Information5) VALUES({0},'{1}',{2},Format('{3}', 'dd/mm/yyyy'),'{4}','{5}',{6},Format('{7}', 'dd/mm/yyyy'),'{8}','{9}',{10},'{11}',{12},{13})", LeadNo, dr["ActName"].ToString(), Convert.ToInt32(dr["ActNameID"]), dr["ActDate"].ToString(), dr["ActLoc"].ToString(), dr["NxtAct"].ToString(), Convert.ToInt32(dr["NxtActID"]), dr["NxtActDte"].ToString(), dr["Remarks"].ToString(), dr["Emp"].ToString(), Convert.ToInt32(dr["EmpID"]), dr["MdeofCnt"].ToString(), Convert.ToInt32(dr["Info2"]), Convert.ToInt32(dr["Info5"]));
                         manager.ExecuteNonQuery(CommandType.Text, dbQry);
                     }
                 }
@@ -1294,7 +1274,8 @@ public class LeadBusinessLogic : BaseLogic
                 {
                     foreach (DataRow dr in dsProduct.Tables[0].Rows)
                     {
-                        dbQry = string.Format("INSERT INTO tblProductInterest(Lead_No,Product_Id,Product_Name,SlNo) VALUES({0},'{1}','{2}',{3})", LeadNo, dr["Product_Id"].ToString(), dr["Product_Name"].ToString(), Convert.ToInt32(dr["SlNo"]));
+                        //dbQry = string.Format("INSERT INTO tblProductInterest(Lead_No,Product_Id,Product_Name,SlNo) VALUES({0},'{1}','{2}',{3})", LeadNo, dr["Product_Id"].ToString(), dr["Product_Name"].ToString(), Convert.ToInt32(dr["SlNo"]));
+                        dbQry = string.Format("INSERT INTO tblProductInterest(Lead_No,Product_Id,Product_Name) VALUES({0},'{1}','{2}')", LeadNo, dr["PrdID"].ToString(), dr["Prd"].ToString());
                         manager.ExecuteNonQuery(CommandType.Text, dbQry);
                     }
                 }
@@ -1355,7 +1336,7 @@ public class LeadBusinessLogic : BaseLogic
         DataSet ds = new DataSet();
         string dbQry = string.Empty;
 
-        dbQry = "select Lead_No,Competitor_Name,Remarks,Threat_Level,Competitor_Id From tblCompetitors Where Lead_No=" + LeadNo;
+        dbQry = "select Lead_No,Competitor_Name,OurStr_Weak,ComStr_Weak,Threat_Level,Competitor_Id,Remarks From tblCompetitors Where Lead_No=" + LeadNo;
 
         try
         {
@@ -1384,7 +1365,7 @@ public class LeadBusinessLogic : BaseLogic
         DataSet ds = new DataSet();
         string dbQry = string.Empty;
 
-        dbQry = "select Lead_No,Start_Date,End_Date,Activity_Name,Activity_Name_Id,Activity_Id,Activity_Location,Next_Activity,Next_Activity_Id,NextActivity_Date,FollowUp,Emp_Name,Emp_No,Remarks From tblActivities Where Lead_No=" + LeadNo;
+        dbQry = "select Activity_Id,Lead_No,Activity_Name,Activity_Name_Id,Activity_Date,Activity_Location,Next_Activity,Next_Activity_Id,NextActivity_Date,Remarks,Emp_Name,Emp_No,ModeofContact,Information2,Information5 From tblActivities Where Lead_No=" + LeadNo;
 
         try
         {
