@@ -1053,8 +1053,9 @@ public class LeadBusinessLogic : BaseLogic
                 dc = new DataColumn("Row");
                 dt.Columns.Add(dc);
                 dsd.Tables.Add(dt);
+               
                 foreach (DataRow dr in ds.Tables[0].Rows)
-                {
+                {                    
                     drNew = dt.NewRow();
                     if (dr["Lead_No"] != null)
                         drNew["Lead_No"] = dr["Lead_No"].ToString();
@@ -1114,7 +1115,7 @@ public class LeadBusinessLogic : BaseLogic
                     if (dr["Bp_Id"] != null)
                         drNew["Bp_Id"] = dr["Bp_Id"].ToString();
                     if (dr["Row"] != null)
-                        drNew["Row"] = dr["Row"].ToString();
+                        drNew["Row"] =  dr["Row"].ToString();
 
                     dsd.Tables[0].Rows.Add(drNew);                        
                 }
