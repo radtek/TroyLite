@@ -84,8 +84,8 @@ public partial class LeadMgmt : System.Web.UI.Page
         string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
 
         drpInformation3.Items.Clear();
-        drpInformation3.Items.Add(new ListItem("Select Information 3", "0"));
-        ds = bl.ListInformation3();
+        drpInformation3.Items.Add(new ListItem("Select Information 2", "0"));
+        ds = bl.ListInformation2();
         drpInformation3.DataSource = ds;
         drpInformation3.DataBind();
         drpInformation3.DataTextField = "TextValue";
@@ -99,8 +99,8 @@ public partial class LeadMgmt : System.Web.UI.Page
         string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
 
         drpInformation4.Items.Clear();
-        drpInformation4.Items.Add(new ListItem("Select Information 4", "0"));
-        ds = bl.ListInformation4();
+        drpInformation4.Items.Add(new ListItem("Select Information 3", "0"));
+        ds = bl.ListInformation3();
         drpInformation4.DataSource = ds;
         drpInformation4.DataBind();
         drpInformation4.DataTextField = "TextValue";
@@ -3184,8 +3184,8 @@ public partial class LeadMgmt : System.Web.UI.Page
                     Label txtPrdID = (Label)GrdViewLeadproduct.Rows[vLoop].FindControl("txtPrdId");
 
                     int col = vLoop + 1;
-                    if (drpProduct.SelectedValue != "0" && txtPrdID.Text != "")
-                    {
+                    //if (drpProduct.SelectedValue != "0" && txtPrdID.Text != "")
+                    //{
                         if (drpProduct.SelectedValue == "0")
                         {
                             ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Product in row " + col + " ')", true);
@@ -3196,7 +3196,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                             ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill ProductID in row " + col + " ')", true);
                             return;
                         }
-                    }
+                    //}
                 }
 
                 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
@@ -3290,12 +3290,12 @@ public partial class LeadMgmt : System.Web.UI.Page
                         }
                         else if (txtOuestrweak.Text == "")
                         {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Our Strength and Weakness in row " + col + " ')", true);
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Our Strengths and Weaknesses in row " + col + " ')", true);
                             return;
                         }
                         else if (txtComstrweak.Text == "")
                         {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Competitors Strength and Weakness in row " + col + " ')", true);
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Competitor's Strengths and Weaknesses in row " + col + " ')", true);
                             return;
                         }
                         else if (txtremarks.Text == "")
@@ -3435,32 +3435,32 @@ public partial class LeadMgmt : System.Web.UI.Page
 
                     if (drpactivityName.SelectedValue == "0")
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Activity Name in row " + col + " ')", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Lead Activity in row " + col + " ')", true);
                         return;
                     }
-                    else if (txtactivityLoc.Text == "")
-                    {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Activity Location in row " + col + " ')", true);
-                        return;
-                    }
+                    //else if (txtactivityLoc.Text == "")
+                    //{
+                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Lead Location in row " + col + " ')", true);
+                    //    return;
+                    //}
                     else if (txtactivityDate.Text == "")
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Activity Date in row " + col + " ')", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Lead Activity Date in row " + col + " ')", true);
                         return;
                     }
                     else if (drpnxtActivity.SelectedValue == "0")
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Next Activity in row " + col + " ')", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Follow-up Activity in row " + col + " ')", true);
                         return;
                     }
                     else if (txtnxtActDate.Text == "")
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Next Activity Date in row " + col + " ')", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Follow-up Activity Date in row " + col + " ')", true);
                         return;
                     }
                     else if (drpemployee.SelectedValue == "0")
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Employee in row " + col + " ')", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Employee Responsible in row " + col + " ')", true);
                         return;
                     }
                     else if (drpmodeofCnt.SelectedValue == "0")
@@ -3468,16 +3468,16 @@ public partial class LeadMgmt : System.Web.UI.Page
                         ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Mode of contact in row " + col + " ')", true);
                         return;
                     }
-                    else if (drpinfo2.SelectedValue == "0")
-                    {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Information2 in row " + col + " ')", true);
-                        return;
-                    }
-                    else if (drpinfo5.SelectedValue == "0")
-                    {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Information5 in row " + col + " ')", true);
-                        return;
-                    }
+                    //else if (drpinfo2.SelectedValue == "0")
+                    //{
+                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Additional Information4 in row " + col + " ')", true);
+                    //    return;
+                    //}
+                    //else if (drpinfo5.SelectedValue == "0")
+                    //{
+                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Additional Information5 in row " + col + " ')", true);
+                    //    return;
+                    //}
                     else if (txtremarks.Text == "")
                     {
                         ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Remarks in row " + col + " ')", true);
@@ -3689,8 +3689,8 @@ public partial class LeadMgmt : System.Web.UI.Page
 
                     int col = vLoop + 1;
 
-                    if (drpProduct.SelectedValue != "0" && txtPrdID.Text != "")
-                    {
+                    //if (drpProduct.SelectedValue != "0" && txtPrdID.Text != "")
+                    //{
                         if (drpProduct.SelectedValue == "0")
                         {
                             ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Product in row " + col + " ')", true);
@@ -3701,7 +3701,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                             ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill ProductID in row " + col + " ')", true);
                             return;
                         }
-                    }                   
+                    //}                   
                 }
 
                 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
@@ -3795,12 +3795,12 @@ public partial class LeadMgmt : System.Web.UI.Page
                         }
                         else if (txtOuestrweak.Text == "")
                         {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Our Strength and Weakness in row " + col + " ')", true);
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Our Strengths and Weaknesses in row " + col + " ')", true);
                             return;
                         }
                         else if (txtComstrweak.Text == "")
                         {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Competitors Strength and Weakness in row " + col + " ')", true);
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Competitor's Strengths and Weaknesses in row " + col + " ')", true);
                             return;
                         }
                         else if (txtremarks.Text == "")
@@ -3939,32 +3939,32 @@ public partial class LeadMgmt : System.Web.UI.Page
 
                     if (drpactivityName.SelectedValue == "0")
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Activity Name in row " + col + " ')", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Lead Activity in row " + col + " ')", true);
                         return;
                     }
                     //else if (txtactivityLoc.Text == "")
                     //{
-                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Activity Location in row " + col + " ')", true);
+                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Lead Location in row " + col + " ')", true);
                     //    return;
                     //}
                     else if (txtactivityDate.Text == "")
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Activity Date in row " + col + " ')", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Lead Activity Date in row " + col + " ')", true);
                         return;
                     }
                     else if (drpnxtActivity.SelectedValue == "0")
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Followup Activity in row " + col + " ')", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Follow-up Activity in row " + col + " ')", true);
                         return;
                     }
                     else if (txtnxtActDate.Text == "")
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Followup Activity Date in row " + col + " ')", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Follow-up Activity Date in row " + col + " ')", true);
                         return;
                     }
                     else if (drpemployee.SelectedValue == "0")
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Employee in row " + col + " ')", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Employee Responsible in row " + col + " ')", true);
                         return;
                     }
                     else if (drpmodeofCnt.SelectedValue == "0")
@@ -3974,12 +3974,12 @@ public partial class LeadMgmt : System.Web.UI.Page
                     }
                     //else if (drpinfo2.SelectedValue == "0")
                     //{
-                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Information2 in row " + col + " ')", true);
+                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Additional Information4 in row " + col + " ')", true);
                     //    return;
                     //}
                     //else if (drpinfo5.SelectedValue == "0")
                     //{
-                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Information5 in row " + col + " ')", true);
+                    //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Additional Information5 in row " + col + " ')", true);
                     //    return;
                     //}
                     else if (txtremarks.Text == "")
@@ -4476,37 +4476,37 @@ public partial class LeadMgmt : System.Web.UI.Page
 
     private void FirstGridViewRow_ProductTab()
     {
-        DataTable dt = new DataTable();
+        DataTable dt1 = new DataTable();
         DataRow dr = null;
-        dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
-        dt.Columns.Add(new DataColumn("Prd", typeof(string)));
-        dt.Columns.Add(new DataColumn("PrdID", typeof(string)));
-        dr = dt.NewRow();
+        dt1.Columns.Add(new DataColumn("RowNumber", typeof(string)));
+        dt1.Columns.Add(new DataColumn("Prd", typeof(string)));
+        dt1.Columns.Add(new DataColumn("PrdID", typeof(string)));
+        dr = dt1.NewRow();
         dr["RowNumber"] = 1;
         dr["Prd"] = string.Empty;
         dr["PrdID"] = string.Empty;
 
-        dt.Rows.Add(dr);
+        dt1.Rows.Add(dr);
 
-        ViewState["CurrentTable1"] = dt;
+        ViewState["CurrentTable1"] = dt1;
 
-        GrdViewLeadproduct.DataSource = dt;
+        GrdViewLeadproduct.DataSource = dt1;
         GrdViewLeadproduct.DataBind();
         GrdViewLeadproduct.Visible = true;
     }
 
     private void FirstGridViewRow_CompetitorsTab()
     {
-        DataTable dt = new DataTable();
+        DataTable dt3 = new DataTable();
         DataRow dr = null;
-        dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
-        dt.Columns.Add(new DataColumn("ComName", typeof(string)));
-        dt.Columns.Add(new DataColumn("ThrLvl", typeof(string)));
-        dt.Columns.Add(new DataColumn("OurStrWeak", typeof(string)));
-        dt.Columns.Add(new DataColumn("ComStrWeak", typeof(string)));
-        dt.Columns.Add(new DataColumn("Remarks", typeof(string)));
+        dt3.Columns.Add(new DataColumn("RowNumber", typeof(string)));
+        dt3.Columns.Add(new DataColumn("ComName", typeof(string)));
+        dt3.Columns.Add(new DataColumn("ThrLvl", typeof(string)));
+        dt3.Columns.Add(new DataColumn("OurStrWeak", typeof(string)));
+        dt3.Columns.Add(new DataColumn("ComStrWeak", typeof(string)));
+        dt3.Columns.Add(new DataColumn("Remarks", typeof(string)));
 
-        dr = dt.NewRow();
+        dr = dt3.NewRow();
         dr["RowNumber"] = 1;
         dr["ComName"] = string.Empty;
         dr["ThrLvl"] = string.Empty;
@@ -4514,32 +4514,32 @@ public partial class LeadMgmt : System.Web.UI.Page
         dr["ComStrWeak"] = string.Empty;
         dr["Remarks"] = string.Empty;
 
-        dt.Rows.Add(dr);
+        dt3.Rows.Add(dr);
 
-        ViewState["CurrentTable2"] = dt;
+        ViewState["CurrentTable2"] = dt3;
 
-        GrdViewLeadCompetitor.DataSource = dt;
+        GrdViewLeadCompetitor.DataSource = dt3;
         GrdViewLeadCompetitor.DataBind();
         GrdViewLeadCompetitor.Visible = true;
     }
 
     private void FirstGridViewRow_ActivityTab()
     {
-        DataTable dt = new DataTable();
+        DataTable dt2 = new DataTable();
         DataRow dr = null;
-        dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
-        dt.Columns.Add(new DataColumn("ActName", typeof(string)));
-        dt.Columns.Add(new DataColumn("ActLoc", typeof(string)));
-        dt.Columns.Add(new DataColumn("ActDate", typeof(string)));
-        dt.Columns.Add(new DataColumn("NxtAct", typeof(string)));
-        dt.Columns.Add(new DataColumn("NxtActDte", typeof(string)));
-        dt.Columns.Add(new DataColumn("Emp", typeof(string)));
-        dt.Columns.Add(new DataColumn("MdeofCnt", typeof(string)));
-        dt.Columns.Add(new DataColumn("Info2", typeof(string)));
-        dt.Columns.Add(new DataColumn("Info5", typeof(string)));
-        dt.Columns.Add(new DataColumn("Remarks", typeof(string)));
+        dt2.Columns.Add(new DataColumn("RowNumber", typeof(string)));
+        dt2.Columns.Add(new DataColumn("ActName", typeof(string)));
+        dt2.Columns.Add(new DataColumn("ActLoc", typeof(string)));
+        dt2.Columns.Add(new DataColumn("ActDate", typeof(string)));
+        dt2.Columns.Add(new DataColumn("NxtAct", typeof(string)));
+        dt2.Columns.Add(new DataColumn("NxtActDte", typeof(string)));
+        dt2.Columns.Add(new DataColumn("Emp", typeof(string)));
+        dt2.Columns.Add(new DataColumn("MdeofCnt", typeof(string)));
+        dt2.Columns.Add(new DataColumn("Info2", typeof(string)));
+        dt2.Columns.Add(new DataColumn("Info5", typeof(string)));
+        dt2.Columns.Add(new DataColumn("Remarks", typeof(string)));
 
-        dr = dt.NewRow();
+        dr = dt2.NewRow();
         dr["RowNumber"] = 1;
         dr["ActName"] = string.Empty;
         dr["ActLoc"] = string.Empty;
@@ -4552,11 +4552,11 @@ public partial class LeadMgmt : System.Web.UI.Page
         dr["Info5"] = string.Empty;
         dr["Remarks"] = string.Empty;
 
-        dt.Rows.Add(dr);
+        dt2.Rows.Add(dr);
 
-        ViewState["CurrentTable3"] = dt;
+        ViewState["CurrentTable3"] = dt2;
 
-        GrdViewLeadActivity.DataSource = dt;
+        GrdViewLeadActivity.DataSource = dt2;
         GrdViewLeadActivity.DataBind();
         GrdViewLeadActivity.Visible = true;
     }
@@ -4581,7 +4581,7 @@ public partial class LeadMgmt : System.Web.UI.Page
             dsactname = bl.ListActivityName();
             //dsnextacty = bl.ListNextActivity();
             dsEmp = bl.ListExecutive();
-            dsinfo2 = bl.ListInformation2();
+            dsinfo2 = bl.ListInformation4();
             dsinfo5 = bl.ListInformation5();
             dsMoofcnt = bl.ListModeofContact();
 
@@ -4631,7 +4631,7 @@ public partial class LeadMgmt : System.Web.UI.Page
             {
                 var ddl3 = (DropDownList)e.Row.FindControl("drpinfo2");
                 ddl3.Items.Clear();
-                ListItem lifzzh3 = new ListItem("Select Information1", "0");
+                ListItem lifzzh3 = new ListItem("Select Information4", "0");
                 lifzzh3.Attributes.Add("style", "color:Black");
                 ddl3.Items.Add(lifzzh3);
                 ddl3.DataSource = dsinfo2;

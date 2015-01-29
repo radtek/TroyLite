@@ -637,6 +637,7 @@
                                                         <li class="color submenumenu"><a href="./AdminLeaveType.aspx" runat="server" id="A9">Leave Types</a></li>
                                                         <li class="color submenumenu"><a href="./HRAdminHoliday.aspx" runat="server" id="A11">Holidays Declaration</a></li>
                                                         <li class="color submenumenu"><a href="./HRAdminPayComponent.aspx" runat="server" id="A15">Pay Fixation</a></li>
+                                                        <li class="color submenumenu"><a href="./HRAdminEmployeeRoleList.aspx" runat="server" id="A23">Define Employee Role</a></li>
                                                     </ul>
                                                 </li>
                                                 <li class="color submenumenu"><a href="#">Transactions<span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: right">►</span></a>
