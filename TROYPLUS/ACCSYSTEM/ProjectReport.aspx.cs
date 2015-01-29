@@ -386,7 +386,7 @@ public partial class ProjectReport : System.Web.UI.Page
             isactive = radisactive.SelectedItem.Text;
             string cond = getCond();
 
-            Response.Write("<script language='javascript'> window.open('ProjectReport1.aspx?incharge =" + Convert.ToInt32(incharge) + "&employee=" + Convert.ToInt32(Empno) + "&project=" + Convert.ToInt32(ProjectId) + "&BlockedTask=" + BlockedTask + "&CompletedTask=" + Convert.ToInt32(CompletedTask) + "&Task=" + Convert.ToInt32(Task) + "&DependencyTask=" + Convert.ToInt32(DependencyTask) + "&isactive=" + isactive + "&cond =" + cond + " ' , 'window','height=700,width=1000,left=172,top=10,toolbar=yes,scrollbars=yes,resizable=yes');</script>");
+            Response.Write("<script language='javascript'> window.open('ProjectReport1.aspx?incharge =" + Convert.ToString(incharge) + "&employee=" + Convert.ToString(Empno) + "&project=" + Convert.ToString(ProjectId) + "&BlockedTask=" + BlockedTask + "&CompletedTask=" + Convert.ToString(CompletedTask) + "&Task=" + Convert.ToString(Task) + "&DependencyTask=" + Convert.ToString(DependencyTask) + "&isactive=" + isactive + " ' , 'window','height=700,width=1000,left=172,top=10,toolbar=yes,scrollbars=yes,resizable=yes');</script>");
 
             //Response.Redirect("ProjectReport1.aspx");
         }
@@ -407,7 +407,7 @@ public partial class ProjectReport : System.Web.UI.Page
         {
 
 
-            cond += " and tblProjects.ProjectId=" + drpproject.SelectedValue + "";
+            cond += "  tblProjects.ProjectId=" + drpproject.SelectedValue + "";
         }
        
         if ((drpEmployee.SelectedItem.Text != "---ALL---"))

@@ -204,10 +204,12 @@ public partial class CreateFormula : System.Web.UI.Page
     {
         try
         {
+           
             string formulaName = txtFormulaName.Text.Trim().ToUpper();
             string ItemCode = cmbProdAdd.SelectedValue.Trim();
             string Qty = txtQtyAdd.Text;
             string inOut = ddType.SelectedValue;
+            string unit = ddUnit.SelectedValue;
             BindItemsGrid();
             ModalPopupExtender1.Show();
             DataSet ds = (DataSet)GrdViewItems.DataSource;
@@ -233,6 +235,8 @@ public partial class CreateFormula : System.Web.UI.Page
                 dt.Columns.Add(dc);
                 dc = new DataColumn("InOut");
                 dt.Columns.Add(dc);
+                dc = new DataColumn("Unit_Of_Measure");
+                dt.Columns.Add(dc);
 
                 drNew["FormulaId"] = hdTempId.Value;
                 drNew["ProductDesc"] = lblProdDescAdd.Text;
@@ -241,6 +245,7 @@ public partial class CreateFormula : System.Web.UI.Page
                 drNew["ItemCode"] = ItemCode;
                 drNew["Qty"] = Qty;
                 drNew["InOut"] = inOut;
+                drNew["Unit_Of_Measure"] = unit;
                 ds.Tables.Add(dt);
                 ds.Tables[0].Rows.Add(drNew);
                 //ds.WriteXml(Server.MapPath("Reports\\" + hdFilename.Value + "_Formula.xml"));
@@ -268,6 +273,7 @@ public partial class CreateFormula : System.Web.UI.Page
                 dr["ProductDesc"] = lblProdDescAdd.Text;
                 dr["Qty"] = txtQtyAdd.Text.Trim();
                 dr["InOut"] = ddType.SelectedValue;
+                dr["Unit_Of_Measure"] = ddUnit.SelectedValue;
 
                 ds.Tables[0].Rows.Add(dr);
                 //ds.WriteXml(Server.MapPath("Reports\\" + hdFilename.Value + "_template.xml"));
@@ -521,7 +527,7 @@ public partial class CreateFormula : System.Web.UI.Page
                 string cntB = bl.isDuplicateFormule(FormulaName);
                 if (cntB != "")
                 {
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Duplicate Definition Name')", true);
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Name Of Product  " + cntB + "  Already Exists.Enter Different Name')", true);
                     return;
                 }
 
@@ -919,6 +925,7 @@ public partial class CreateFormula : System.Web.UI.Page
         lblProdDescAdd.Text = "";
 
         txtQtyAdd.Text = "";
+        ddUnit.SelectedValue = "";
 
         foreach (Control control in cmbProdAdd.Controls)
         {
@@ -1017,14 +1024,46 @@ public partial class CreateFormula : System.Web.UI.Page
     {
         try
         {
-            salesPanel.Visible = true;
-            ModalPopupExtender1.Show();
+            if (txtFormulaName.Text == null || txtFormulaName.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product Name is Required.It cannot be Left blank.');", true);
+                return;
+            }
+            else
+            {
+                salesPanel.Visible = true;
+                ModalPopupExtender1.Show();
+            }
         }
         catch (Exception ex)
         {
             TroyLiteExceptionManager.HandleException(ex);
         }
     }
+
+    //private void loadEmp()
+    //{
+    //    BusinessLogic bl = new BusinessLogic(sDataSource);
+        
+
+
+    //    string connection = Request.Cookies["Company"].Value;
+
+    //    string Username = Request.Cookies["LoggedUserName"].Value;
+
+    //    ds = bl.InsertUnitRecord(connection, Username);
+
+    //    //ds = bl.ListExecutive();
+    //    ddUnit.DataSource = ds;
+    //    ddUnit.DataBind();
+    //    ddUnit.DataTextField = "empFirstName";
+    //    ddUnit.DataValueField = "empno";
+
+    //    //drpsIncharge.DataSource = ds;
+    //    //drpsIncharge.DataBind();
+    //    //drpsIncharge.DataTextField = "empFirstName";
+    //    //drpsIncharge.DataValueField = "empno";
+    //}
 
 
 }

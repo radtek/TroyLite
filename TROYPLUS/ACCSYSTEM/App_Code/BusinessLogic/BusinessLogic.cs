@@ -18415,19 +18415,22 @@ public class BusinessLogic
 
             if ((name != null) && (name != ""))
             {
-                dbQry.Append("SELECT FormulaName");
-                dbQry.Append(" FROM tblFormula");
+                dbQry.Append("SELECT FormulaName ,(Select count(*) from tblFormula where A.FormulaID>=FormulaID) as Row ");
+                dbQry.Append("  from tblFormula as A ");
                 dbQry.Append(" Where FormulaName like %" + name + "%");
-                dbQry.Append(" Group By FormulaName ");
+               // dbQry.Append(" Group By A.FormulaID ");
             }
             else
             {
-                dbQry.Append("SELECT FormulaName");
-                dbQry.Append(" FROM tblFormula");
-                dbQry.Append(" Group By FormulaName ");
+                dbQry.Append("SELECT FormulaName ,(Select count(*) from tblFormula where A.FormulaID>=FormulaID) as Row ");
+                dbQry.Append("  from tblFormula as A ");
+               // dbQry.Append(" Group By A.FormulaID ");
+                //dbQry.Append("SELECT FormulaName");
+                //dbQry.Append(" FROM tblFormula");
+                //dbQry.Append(" Group By FormulaName ");
             }
 
-            dbQry.Append(" ORDER BY FormulaName Asc");
+            dbQry.Append(" ORDER BY A.FormulaID Asc");
 
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
 
@@ -18666,7 +18669,7 @@ public class BusinessLogic
                 {
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        dbQry = string.Format("Insert Into tblFormula(FormulaName,ItemCode,Qty,InOut) Values('{0}','{1}',{2},'{3}')", FormulaName, dr["ItemCode"].ToString(), Convert.ToDouble(dr["Qty"].ToString()), dr["InOut"].ToString());
+                        dbQry = string.Format("Insert Into tblFormula(FormulaName,ItemCode,Qty,InOut,Unit_Of_Measure) Values('{0}','{1}',{2},'{3}','{4}')", FormulaName, dr["ItemCode"].ToString(), Convert.ToDouble(dr["Qty"].ToString()), dr["InOut"].ToString(), dr["Unit_Of_Measure"].ToString());
                         manager.ExecuteNonQuery(CommandType.Text, dbQry);
                     }
                 }
@@ -18732,7 +18735,7 @@ public class BusinessLogic
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
                         //dbQry = string.Format("Insert Into tblFormula(FormulaName,ItemCode,Qty,InOut) Values('{0}','{1}',{2},'{3}')", FormulaName, dr["ItemCode"].ToString(), Convert.ToInt32(dr["Qty"].ToString()), dr["InOut"].ToString());
-                        dbQry = string.Format("Update tblFormula Set FormulaName='{0}', ItemCode='{1}', Qty={2}, InOut='{3}' Where FormulaID={4}", FormulaName, dr["ItemCode"].ToString(), Convert.ToInt32(dr["Qty"].ToString()), dr["InOut"].ToString(), dr["FormulaID"].ToString());
+                        dbQry = string.Format("Update tblFormula Set FormulaName='{0}', ItemCode='{1}', Qty={2}, InOut='{3}',Unit_Of_Measure='{4}' Where FormulaID={5}", FormulaName, dr["ItemCode"].ToString(), Convert.ToInt32(dr["Qty"].ToString()), dr["InOut"].ToString(),dr["Unit_Of_Measure"].ToString(), dr["FormulaID"].ToString());
                         manager.ExecuteNonQuery(CommandType.Text, dbQry);
                     }
                 }
@@ -68098,7 +68101,7 @@ public class BusinessLogic
 
             manager.Open();
 
-
+            cond = "tblEmployee.ManagerID" + incharge + " and tblEmployee.empno " + empno + " and tblProjects.Project_Id " + pro_Id + " and tblTaskUpdates.Blocked_Flag '" + flag + "'and tblTaskUpdates.Task_Status" + status + " and tblTasks.Task_Id " + taskid + " and tbltasks.Dependency_Task " + deptask + " and tbltasks.IsActive'" + isactive + "'";
             dbQry.Append("SELECT tblEmployee.empfirstname,tblProjects.Expected_Start_Date,tblProjects.Expected_End_Date,tblProjects.Project_Status,tblProjects.Project_Date, tblProjects.Project_Code as ProjectCode, tblProjects.Project_Name as ProjectName ");
                 dbQry.Append("  FROM ((((tblTasks As A INNER JOIN  tblEmployee ON A.Owner = tblEmployee.empno) inner join tblProjects ON A.Project_Code = tblProjects.Project_Id) inner join tblUserInfo on tblEmployee.ManagerID = tblUserInfo.empno) Inner join tblTaskUpdates on A.task_Id=tblTaskUpdates.Task_Id) Inner join tblTaskStatus on tblTaskStatus.Task_Status_Id=tblTaskUpdates.Task_Status Where " + cond );
                
