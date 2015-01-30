@@ -396,7 +396,7 @@
                                                                                                  <tr>
                                                                                                      <td class="ControlLabelproject1" style="width: 20%">Project Description </td>
                                                                                                      <td class="ControlTextBoxforproject" style="width: 20%">
-                                                                                                         <asp:TextBox ID="txtProjectDesc" runat="server" BackColor="#E7E7E7" Height="10px" Style="overflow: hidden; padding: 0px; font-family: 'Trebuchet MS';border: 1px solid #e7e7e7; font-size: 13px;" TabIndex="5" TextMode="MultiLine" Width="99%"></asp:TextBox>
+                                                                                                         <asp:TextBox ID="txtProjectDesc" runat="server" BorderWidth="25px" BackColor="#E7E7E7" Height="27px" Style="overflow: hidden; padding: 0px; font-family: 'Trebuchet MS';border: 1px solid #e7e7e7; font-size: 13px;" TabIndex="5" TextMode="MultiLine" Width="99%"></asp:TextBox>
                                                                                                      </td>
                                                                                                       <td style="width:5%"></td>
                                                                                                     <td class="ControlLabelproject1" style="width:30%">

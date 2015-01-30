@@ -210,6 +210,7 @@ public partial class CreateFormula : System.Web.UI.Page
             string Qty = txtQtyAdd.Text;
             string inOut = ddType.SelectedValue;
             string unit = ddUnit.SelectedValue;
+            
             BindItemsGrid();
             ModalPopupExtender1.Show();
             DataSet ds = (DataSet)GrdViewItems.DataSource;
@@ -246,6 +247,8 @@ public partial class CreateFormula : System.Web.UI.Page
                 drNew["Qty"] = Qty;
                 drNew["InOut"] = inOut;
                 drNew["Unit_Of_Measure"] = unit;
+
+             
                 ds.Tables.Add(dt);
                 ds.Tables[0].Rows.Add(drNew);
                 //ds.WriteXml(Server.MapPath("Reports\\" + hdFilename.Value + "_Formula.xml"));
@@ -276,11 +279,13 @@ public partial class CreateFormula : System.Web.UI.Page
                 dr["Unit_Of_Measure"] = ddUnit.SelectedValue;
 
                 ds.Tables[0].Rows.Add(dr);
+               
                 //ds.WriteXml(Server.MapPath("Reports\\" + hdFilename.Value + "_template.xml"));
                 Session["TemplateItems"] = ds;
 
                 BindItemsGrid();
                 ResetProduct();
+              
 
             }
 
@@ -303,6 +308,7 @@ public partial class CreateFormula : System.Web.UI.Page
             txtFormulaName.Enabled = true;
             PanelCmd.Visible = true;
             PanelItems.Visible = true;
+            heading.Text = "New Product Specification";
             //        salesPanel.Visible = true;
             cmdSaveProduct.Visible = true;
             cmdSave.Enabled = true;
@@ -431,6 +437,7 @@ public partial class CreateFormula : System.Web.UI.Page
         {
             if (Page.IsValid)
             {
+                
 
                 if (GrdViewItems.EditIndex != -1)
                 {
@@ -467,7 +474,7 @@ public partial class CreateFormula : System.Web.UI.Page
 
                     if ((InCount == 0) || (OutCount == 0))
                     {
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Minimum one IN and one OUT products should be added.');", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Minimum one Raw Materials and one Products should be added.');", true);
                         return;
                     }
                     bl.UpdateFormulaItem(FormulaName, ds);
@@ -476,6 +483,7 @@ public partial class CreateFormula : System.Web.UI.Page
                     //BusinessLogic bl = new BusinessLogic(sDataSource);
                     //int billNo = bl.InsertSales(sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dTotalAmt, purchaseReturn, prReason, Convert.ToInt32(executive), ds);
                     Reset();
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product Update Successfully.')", true);
                     //ResetProduct();
                     if (File.Exists(Server.MapPath("Reports\\" + hdFilename.Value + "_template.xml")))
                         File.Delete(Server.MapPath("Reports\\" + hdFilename.Value + "_template.xml"));
@@ -498,6 +506,7 @@ public partial class CreateFormula : System.Web.UI.Page
                     //MyAccordion.Visible = true;
                     UpdatePanelFormula.Update();
                     ModalPopupExtender1.Hide();
+                   
                     UpdatePanel16.Update();
                     //tabContol.Visible = false;
                 }
@@ -569,6 +578,7 @@ public partial class CreateFormula : System.Web.UI.Page
                     //BusinessLogic bl = new BusinessLogic(sDataSource);
                     //int billNo = bl.InsertSales(sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dTotalAmt, purchaseReturn, prReason, Convert.ToInt32(executive), ds);
                     Reset();
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product saved Successfully.')", true);
                     //ResetProduct();
                     if (File.Exists(Server.MapPath("Reports\\" + hdFilename.Value + "_template.xml")))
                         File.Delete(Server.MapPath("Reports\\" + hdFilename.Value + "_template.xml"));
@@ -706,6 +716,7 @@ public partial class CreateFormula : System.Web.UI.Page
     }
     protected void GrdViewItems_RowDataBound(object sender, GridViewRowEventArgs e)
     {
+        
         //if (hdMode.Value == "Edit")
         //{
         //    GrdViewItems.Columns[6].Visible = false;
@@ -840,14 +851,16 @@ public partial class CreateFormula : System.Web.UI.Page
             //BindGrid("");
             //else
             //BindGrid(txtFormName.Text);
+            heading.Text = "Update Product Specification";
             ModalPopupExtender1.Show();
             string formName = GridViewFormula.SelectedDataKey.Value.ToString();
             hdMode.Value = "Edit";
             hdFormula.Value = formName;
             formXml();
+            
             BindItemsGrid();
             cmdSaveProduct.Visible = false;
-            GrdViewItems.Columns[6].Visible = false;
+            GrdViewItems.Columns[6].Visible = true;
             //BusinessLogic bl = new BusinessLogic(sDataSource);
             //DataSet ds = bl.GetFormulaForID(formName);
             //GrdViewItems.DataSource = ds;

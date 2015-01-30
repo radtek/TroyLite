@@ -634,7 +634,7 @@ public partial class TaskEntry : System.Web.UI.Page
             BusinessLogic bl = new BusinessLogic(sDataSource);
             int Task_Id = 0;
             headtitle.Text = "Update Task Details";
-            tabMaster.HeaderText = "Update Task";
+            tabMaster.HeaderText = "Update Task Details";
             string connection = Request.Cookies["Company"].Value;
 
             if (GrdWME.SelectedDataKey.Value != null && GrdWME.SelectedDataKey.Value.ToString() != "")
