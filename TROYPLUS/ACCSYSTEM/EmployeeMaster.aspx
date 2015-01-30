@@ -297,6 +297,26 @@
                                                                                 Width="20px" runat="server" />
                                                                         </td>
                                                                     </tr>
+                                                                    <tr style="vertical-align: bottom">
+                                                                        <td style="width: 25%" class="ControlLabel">
+                                                                            Manager
+                                                                        </td>
+                                                                        <td style="width: 25%" class="ControlDrpBorder">
+                                                                            <asp:DropDownList ID="drpIncharge" TabIndex="11" Enabled="True" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
+                                                                                            runat="server" Width="100%" DataTextField="empFirstName" backcolor = "#90c9fc" style="border: 1px solid #90c9fc" height="26px"
+                                                                                            DataValueField="empno" >
+                                                                                            <asp:ListItem Text="Select Manager" Value="0"></asp:ListItem>
+                                                                                        </asp:DropDownList>
+                                                                        </td>
+                                                                        <td style="width: 15%" class="ControlLabel">
+                                                                            <%--<asp:RequiredFieldValidator ValidationGroup="Save" ID="RequiredFieldValidator5" runat="server"
+                                                                                ErrorMessage="User Group is mandatory" Text="*" ControlToValidate="txtUserGroup"></asp:RequiredFieldValidator>--%>
+                                                                            User Group
+                                                                        </td>
+                                                                        <td style="width: 25%" class="ControlTextBox3">
+                                                                            <asp:TextBox ID="txtUserGroup" runat="server" CssClass="cssTextBox" Width="92%"></asp:TextBox>
+                                                                        </td>
+                                                                    </tr>
                                                                     <tr style="width: 100%">
                                                                         <td colspan="4" style="width: 100%">
                                                                             <table cellpadding="3" cellspacing="1" style="width:100%" >

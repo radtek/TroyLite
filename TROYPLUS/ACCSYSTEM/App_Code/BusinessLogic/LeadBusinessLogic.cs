@@ -24,14 +24,15 @@ public class LeadBusinessLogic : BaseLogic
 {
 
 
-	public LeadBusinessLogic()
-	{
-		//
-		// TODO: Add constructor logic here
-		//
-	}
+    public LeadBusinessLogic()
+    {
+        //
+        // TODO: Add constructor logic here
+        //
+    }
 
-    public LeadBusinessLogic(string con) : base(con)
+    public LeadBusinessLogic(string con)
+        : base(con)
     {
         //
         // TODO: Add constructor logic here
@@ -46,7 +47,7 @@ public class LeadBusinessLogic : BaseLogic
         string dbQry = string.Empty;
 
         dbQry = "select ContactRefID,ContactDate,ContactSummary From tblLeadContact Where LeadID=" + LeadID;
-        
+
         try
         {
             manager.Open();
@@ -335,7 +336,7 @@ public class LeadBusinessLogic : BaseLogic
         try
         {
             //dbQry = string.Format("select LedgerId, LedgerName from tblLedger inner join tblGroups on tblGroups.GroupID = tblLedger.GroupID Where tblGroups.GroupName IN ('{0}','{1}') Order By LedgerName Asc ", "Sundry Debtors", "Sundry Creditors");
-            dbQry = string.Format("select TextValue, TextValue from tblLeadReferences Where Type = '"+ type +"' Order By 1");
+            dbQry = string.Format("select TextValue, TextValue from tblLeadReferences Where Type = '" + type + "' Order By 1");
             manager.Open();
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
@@ -430,12 +431,12 @@ public class LeadBusinessLogic : BaseLogic
             manager.BeginTransaction();
 
             dbQry = string.Format("INSERT INTO tblLeadMaster(CreationDate,ProspectCustName,Address,Mobile,Landline,Email,ModeOfContact,PersonalResponsible,BusinessType,Branch,Status,LastCompletedAction,NextAction,Category,Information1,Information2,Information3,Information4,Information5,callbackflag,Callbackdate) VALUES(Format('{0}', 'dd/mm/yyyy'),'{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}')",
-                    creationDate.ToShortDateString(), prospectCustomer, address, mobile, landline, email, modeOfContact, personalResponsible, businessType, branch, status, LastCompletedAction, nextAction, category, info1, info2, info3, info4, info5,callbackflag, callbackdate);
+                    creationDate.ToShortDateString(), prospectCustomer, address, mobile, landline, email, modeOfContact, personalResponsible, businessType, branch, status, LastCompletedAction, nextAction, category, info1, info2, info3, info4, info5, callbackflag, callbackdate);
 
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
             LeadIDD = (Int32)manager.ExecuteScalar(CommandType.Text, "SELECT MAX(LeadID) FROM tblLeadMaster");
-           
+
             if (dsLeadContact.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow dr in dsLeadContact.Tables[0].Rows)
@@ -517,7 +518,7 @@ public class LeadBusinessLogic : BaseLogic
             //else
             //{
             dbQry = string.Format("Update tblLeadMaster Set CreationDate=Format('{0}', 'dd/mm/yyyy'),ProspectCustName='{1}',Address='{2}',Mobile='{3}',Landline='{4}',Email='{5}',ModeOfContact='{6}',PersonalResponsible='{7}',BusinessType='{8}',Branch='{9}',Status='{10}',LastCompletedAction='{11}',NextAction='{12}',Category='{13}', Information1='{15}', Information2='{16}', Information3='{17}', Information4='{18}', Information5='{19}',callbackflag='{20}',Callbackdate='{21}'  Where LeadID={14}", creationDate.ToShortDateString(), prospectCustomer, address, mobile, landline, email, modeOfContact, personalResponsible, businessType, branch, status, LastCompletedAction, nextAction, category, LeadID, info1, info2, info3, info4, info5, callbackflag, callbackdate);
-                manager.ExecuteNonQuery(CommandType.Text, dbQry);
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
             //}
 
             dbQry = string.Format("Delete From tblLeadContact Where LeadID={0}", LeadID);
@@ -610,7 +611,7 @@ public class LeadBusinessLogic : BaseLogic
         }
         else
         {
-            dbQry = string.Format("select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Order By A.Id", txtSearch);          
+            dbQry = string.Format("select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Order By A.Id", txtSearch);
         }
 
         try
@@ -658,7 +659,7 @@ public class LeadBusinessLogic : BaseLogic
                 }
             }
 
-            dbQry = string.Format("Update tblLeadReferences SET TextValue='{1}', TypeName='{2}', Type ='{3}',TypeID ={4} WHERE ID={0}", ID, TextValue, TypeName, Types,TypeID);
+            dbQry = string.Format("Update tblLeadReferences SET TextValue='{1}', TypeName='{2}', Type ='{3}',TypeID ={4} WHERE ID={0}", ID, TextValue, TypeName, Types, TypeID);
 
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -678,7 +679,7 @@ public class LeadBusinessLogic : BaseLogic
 
 
 
-    public void InsertReference(string connection, string TextValue, string TypeName, string Types,int TypeID)
+    public void InsertReference(string connection, string TextValue, string TypeName, string Types, int TypeID)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(connection);
@@ -858,7 +859,7 @@ public class LeadBusinessLogic : BaseLogic
     }
 
     //public void AddLead(int LeadNo, DateTime startDate, string LeadName, string address, string mobile, string Telephone, string BpName, int BpId, string ContactName, int EmpId, string EmpName, string Status, string branch, string LeadStatus, double TotalAmount, int ClosingPer, DateTime ClosingDate, int PredictedClosing, DateTime PredictedClosingDate,string Info1,int Info3,int Info4,int businesstype,int category,int area,int InterestLevel, double PotentialPotAmount, double PotentialWeightedAmount, string PredictedClosingPeriod, string usernam, DataSet dsStages, DataSet dsCompetitor, DataSet dsActivity, DataSet dsProduct, string check)
-    public void AddLead(int LeadNo, DateTime startDate, string LeadName, string address, string mobile, string Telephone, string BpName, int BpId, string ContactName, int EmpId, string EmpName, string Status, string LeadStatus, DateTime ClosingDate,DateTime PredictedClosingDate,string Info1,int Info3,int Info4,int businesstype,int category,int area,int InterestLevel,string usernam,DataSet dsCompetitor, DataSet dsActivity, DataSet dsProduct, string check)
+    public void AddLead(int LeadNo, DateTime startDate, string LeadName, string address, string mobile, string Telephone, string BpName, int BpId, string ContactName, int EmpId, string EmpName, string Status, string LeadStatus, DateTime ClosingDate, DateTime PredictedClosingDate, string Info1, int Info3, int Info4, int businesstype, int category, int area, int InterestLevel, string usernam, DataSet dsCompetitor, DataSet dsActivity, DataSet dsProduct, string check)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
@@ -884,7 +885,7 @@ public class LeadBusinessLogic : BaseLogic
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
             LeadIDD = (Int32)manager.ExecuteScalar(CommandType.Text, "SELECT MAX(Lead_No) FROM tblLeadHeader");
-                       
+
 
             if (dsCompetitor != null)
             {
@@ -1053,9 +1054,11 @@ public class LeadBusinessLogic : BaseLogic
                 dc = new DataColumn("Row");
                 dt.Columns.Add(dc);
                 dsd.Tables.Add(dt);
-               
+                int co=ds.Tables[0].Rows.Count;
+                co = co - ds.Tables[0].Rows.Count;
+                co = co + 1;
                 foreach (DataRow dr in ds.Tables[0].Rows)
-                {                    
+                { 
                     drNew = dt.NewRow();
                     if (dr["Lead_No"] != null)
                         drNew["Lead_No"] = dr["Lead_No"].ToString();
@@ -1115,8 +1118,8 @@ public class LeadBusinessLogic : BaseLogic
                     if (dr["Bp_Id"] != null)
                         drNew["Bp_Id"] = dr["Bp_Id"].ToString();
                     if (dr["Row"] != null)
-                        drNew["Row"] =  dr["Row"].ToString();
-
+                        drNew["Row"] = co;// dr["Row"].ToString();
+                    co = co + 1;
                     dsd.Tables[0].Rows.Add(drNew);                        
                 }
                 return dsd;
@@ -1192,9 +1195,9 @@ public class LeadBusinessLogic : BaseLogic
         }
     }
 
-   
-   
-    public void UpdateLead(int LeadNo, DateTime startDate, string LeadName, string address, string mobile, string Telephone, string BpName, int BpId, string ContactName, int EmpId, string EmpName, string Status, string LeadStatus,DateTime ClosingDate, DateTime PredictedClosingDate,string Info1,int Info3,int Info4,int businesstype,int category,int area,int InterestLevel,string usernam,DataSet dsCompetitor, DataSet dsActivity, DataSet dsProduct, string check)
+
+
+    public void UpdateLead(int LeadNo, DateTime startDate, string LeadName, string address, string mobile, string Telephone, string BpName, int BpId, string ContactName, int EmpId, string EmpName, string Status, string LeadStatus, DateTime ClosingDate, DateTime PredictedClosingDate, string Info1, int Info3, int Info4, int businesstype, int category, int area, int InterestLevel, string usernam, DataSet dsCompetitor, DataSet dsActivity, DataSet dsProduct, string check)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
@@ -1239,7 +1242,7 @@ public class LeadBusinessLogic : BaseLogic
             //LeadName, BpName, address, mobile, Telephone, Status, ClosingDate, EmpName, EmpId, startDate.ToShortDateString(), Status, ContactName, BpId, check, PredictedClosingDate.ToShortDateString(), Info1, Info3, Info4, businesstype, category, area, InterestLevel);
 
 
-            dbQry = string.Format("Update tblLeadHeader Set Lead_Name='{1}',BP_Name='{2}',Address='{3}',Mobile='{4}',Telephone='{5}',Doc_Status='{6}',Closing_Date=Format('{7}', 'dd/mm/yyyy'),Emp_Name='{8}',Emp_Id={9},Start_Date=Format('{10}', 'dd/mm/yyyy'),Lead_Status='{11}',Contact_Name='{12}',Bp_Id={13},chec='{14}', Predicted_Closing_Date=Format('{15}', 'dd/mm/yyyy'), Information1='{16}',Information3={17},Information4={18},BusinessType={19},Category={20},Area={21},InterestLevel={22}  Where Lead_No={0}",LeadNo, LeadName, BpName, address, mobile, Telephone, Status, ClosingDate, EmpName, EmpId, startDate.ToShortDateString(), Status, ContactName, BpId, check, PredictedClosingDate.ToShortDateString(), Info1, Info3, Info4, businesstype, category, area, InterestLevel);
+            dbQry = string.Format("Update tblLeadHeader Set Lead_Name='{1}',BP_Name='{2}',Address='{3}',Mobile='{4}',Telephone='{5}',Doc_Status='{6}',Closing_Date=Format('{7}', 'dd/mm/yyyy'),Emp_Name='{8}',Emp_Id={9},Start_Date=Format('{10}', 'dd/mm/yyyy'),Lead_Status='{11}',Contact_Name='{12}',Bp_Id={13},chec='{14}', Predicted_Closing_Date=Format('{15}', 'dd/mm/yyyy'), Information1='{16}',Information3={17},Information4={18},BusinessType={19},Category={20},Area={21},InterestLevel={22}  Where Lead_No={0}", LeadNo, LeadName, BpName, address, mobile, Telephone, Status, ClosingDate, EmpName, EmpId, startDate.ToShortDateString(), Status, ContactName, BpId, check, PredictedClosingDate.ToShortDateString(), Info1, Info3, Info4, businesstype, category, area, InterestLevel);
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
 

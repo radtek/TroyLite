@@ -2569,7 +2569,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                     chk.Checked = false;
                 }
 
-                //chk.Checked = Convert.ToBoolean(dsDetails.Tables[0].Rows[0]["chec"]);
+                //chk.Checked = Convert.ToBoolean(dsDetails.Tables[0].Rows[0]["chec"]);   
                 txtMobile.Text = dsDetails.Tables[0].Rows[0]["Mobile"].ToString();
                 txtAddress.Text = dsDetails.Tables[0].Rows[0]["Address"].ToString();
                 txtTelephone.Text = dsDetails.Tables[0].Rows[0]["Telephone"].ToString();
@@ -3492,13 +3492,13 @@ public partial class LeadMgmt : System.Web.UI.Page
 
                 
                 bl.UpdateLead(LeadNo, startDate, LeadName, address, mobile, Telephone, BpName, BpId, ContactName, EmpId, EmpName, Status, LeadStatus, ClosingDate, PredictedClosingDate, info1, info3, info4, businesstype, category, area, intLevel, usernam, dss1, dss2, dss, check);
-                
-
+                               
                 GrdViewLead.DataBind();
+              
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Lead Details Updated successfully.')", true);
 
-                //UpdatePanelPage.Update();
-                BindGrid("", "");
+                UpdatePanelPage.Update();
+                BindGrid("Open", "DocStatus");
                 ModalPopupExtender2.Hide();
 
                 return;
@@ -4006,7 +4006,7 @@ public partial class LeadMgmt : System.Web.UI.Page
 
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Lead Details saved successfully.')", true);
 
-                BindGrid("", "");
+                BindGrid("Open", "DocStatus");
                 UpdatePanelPage.Update();
                 ModalPopupExtender2.Hide();
 

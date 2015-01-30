@@ -16716,7 +16716,7 @@ public class BusinessLogic
         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
         string dbQry = string.Empty;
         DataSet ds = new DataSet();
-        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Information 2' Order By ID";
+        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Additional Information 2' Order By ID";
 
         try
         {
@@ -16745,7 +16745,7 @@ public class BusinessLogic
         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
         string dbQry = string.Empty;
         DataSet ds = new DataSet();
-        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Information 5' Order By ID";
+        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Additional Information 5' Order By ID";
 
         try
         {
@@ -16774,7 +16774,7 @@ public class BusinessLogic
         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
         string dbQry = string.Empty;
         DataSet ds = new DataSet();
-        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Information 3' Order By ID";
+        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Additional Information 3' Order By ID";
 
         try
         {
@@ -16803,7 +16803,7 @@ public class BusinessLogic
         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
         string dbQry = string.Empty;
         DataSet ds = new DataSet();
-        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Information 4' Order By ID";
+        dbQry = "Select TextValue,ID From tblLeadReferences where TypeName='Additional Information 4' Order By ID";
 
         try
         {
@@ -62250,7 +62250,16 @@ public class BusinessLogic
         {
             manager.Open();
 
-            dbQry = ("SELECT * FROM tblLeadHeader WHERE Start_Date>=#" + startDate.ToString("MM/dd/yyyy") + "# AND Start_Date <=#" + endDate.ToString("MM/dd/yyyy") + "# ");
+            dbQry = (" SELECT tblLeadHeader.Lead_No, tblLeadHeader.Lead_Name, tblLeadHeader.BP_Name, tblLeadHeader.Address, " +
+                   " tblLeadHeader.Mobile, tblLeadHeader.Telephone, tblLeadHeader.Doc_Status, tblLeadHeader.Closing_Date, tblLeadHeader.Emp_Name, " +
+                   " tblLeadHeader.Start_Date, tblLeadHeader.Lead_Status, tblLeadHeader.Contact_Name, tblLeadHeader.Predicted_Closing_Date, " +
+                   " tblCompetitors.Competitor_Name, tblActivities.Activity_Name, tblActivities.Activity_Date, tblActivities.Activity_Location, " +
+                   " tblActivities.Next_Activity, tblActivities.NextActivity_Date,tblActivities.ModeofContact, tblProductInterest.Product_Name " +
+                   " FROM ((tblLeadHeader INNER JOIN tblProductInterest ON tblLeadHeader.Lead_No = tblProductInterest.Lead_No) " +
+                   " INNER JOIN tblCompetitors ON tblLeadHeader.Lead_No = tblCompetitors.Lead_No) INNER JOIN tblActivities ON tblLeadHeader.Lead_No = tblActivities.Lead_No" +
+                   " WHERE Start_Date>=#" + startDate.ToString("MM/dd/yyyy") + "# AND Start_Date <=#" + endDate.ToString("MM/dd/yyyy") + "# ");
+
+           // dbQry = ("SELECT * FROM tblLeadHeader WHERE Start_Date>=#" + startDate.ToString("MM/dd/yyyy") + "# AND Start_Date <=#" + endDate.ToString("MM/dd/yyyy") + "# ");
 
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 

@@ -35,7 +35,7 @@
 
                     $addHandler(
                     tab.get_headerTab(),
-                    'mouseover',
+                    'mouseclick',
                     Function.createDelegate(tab, function () {
                         tabContainer.set_activeTab(this);
                     }
@@ -244,36 +244,36 @@
                                                                                             <center>
                                                                                                 <table style="width: 1000px;" cellpadding="1" cellspacing="1">
                                                                                                     <tr style="width: 1000px">
-                                                                                                        <td class="ControlLabelproject" style="width: 21%;">Lead ID
+                                                                                                        <td class="ControlLabelproject" style="width: 20%;">Lead ID
                                                                                                         </td>
-                                                                                                        <td class="ControlTextBox3" style="width: 24%;">
+                                                                                                        <td class="ControlTextBox3" style="width: 20%;">
                                                                                                             <asp:TextBox ID="txtLeadNo" runat="server" Enabled="False"
                                                                                                                 SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                                                         </td>
-                                                                                                        <td style="width: 5%;" />
-                                                                                                        <td class="ControlLabelproject" style="width: 21%;">Address </td>
-                                                                                                        <td class="ControlTextBox3" style="width: 24%;">
+                                                                                                        <td style="width: 15%;" />
+                                                                                                        <td class="ControlLabelproject" style="width: 20%;">Address </td>
+                                                                                                        <td class="ControlTextBox3" style="width: 20%;">
                                                                                                             <asp:TextBox ID="txtAddress" runat="server" SkinID="skinTxtBoxGrid" TabIndex="10"></asp:TextBox>
                                                                                                         </td>
                                                                                                         <td style="width: 5%;" />
                                                                                                     </tr>
                                                                                                     <tr style="height: 2px;" />
                                                                                                     <tr style="height: 30px">
-                                                                                                        <td class="ControlLabelproject" style="width: 23%;">Lead Name *
+                                                                                                        <td class="ControlLabelproject" style="width: 20%;">Lead Name *
                                                                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtLeadName" Display="Dynamic" ErrorMessage="Lead Name is mandatory">*</asp:RequiredFieldValidator>
                                                                                                         </td>
-                                                                                                        <td class="ControlTextBox3" style="width: 22%;">
+                                                                                                        <td class="ControlTextBox3" style="width: 20%;">
                                                                                                             <asp:TextBox ID="txtLeadName" runat="server" SkinID="skinTxtBoxGrid" TabIndex="1"></asp:TextBox>
                                                                                                         </td>
-                                                                                                        <td style="width: 5%;" />
-                                                                                                       <td class="ControlLabelproject" style="width: 23%;">
+                                                                                                        <td style="width: 15%;" />
+                                                                                                       <td class="ControlLabelproject" style="width: 20%;">
                                                                                                             <asp:CompareValidator ID="CompareValidator13" runat="server" ControlToValidate="drpStatus" Display="Dynamic" ErrorMessage="Please Select Doc Status" Operator="GreaterThan" Text="*" ValueToCompare="0"></asp:CompareValidator>
                                                                                                             Interest Level *
                                                                                                         <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="drpIntLevel"
                                                                                                             Display="Dynamic" ErrorMessage="Please Select Interest level" Operator="GreaterThan"
                                                                                                             Text="*" ValueToCompare="0"></asp:CompareValidator>
                                                                                                         </td>
-                                                                                                        <td class="ControlDrpBorder" style="width: 22%;">
+                                                                                                        <td class="ControlDrpBorder" style="width: 20%;">
                                                                                                             <asp:DropDownList ID="drpIntLevel" runat="server" AppendDataBoundItems="True" BackColor="#E7E7E7" CssClass="drpDownListMedium" EnableTheming="False" Height="26px" Style="border: 1px solid #e7e7e7" TabIndex="11" Width="100%" DataTextField="TextValue" DataValueField="ID">
                                                                                                             </asp:DropDownList>
                                                                                                         </td>
@@ -281,28 +281,28 @@
                                                                                                     </tr>
                                                                                                     <tr style="height: 2px;" />
                                                                                                     <tr style="height: 30px">
-                                                                                                        <td class="ControlLabelproject" style="width: 18%;">
+                                                                                                        <td class="ControlLabelproject" style="width: 20%;">
                                                                                                             <asp:CompareValidator ID="cvModeOfContact" runat="server" ControlToValidate="drpStatus" Display="Dynamic" ErrorMessage="Please Select Doc Status" Operator="GreaterThan" Text="*" ValueToCompare="0"></asp:CompareValidator>
                                                                                                             Employee Responsible *
                                                                                                <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="drpIncharge"
                                                                                                    Display="Dynamic" ErrorMessage="Please Select Employee" Operator="GreaterThan"
                                                                                                    Text="*" ValueToCompare="0"></asp:CompareValidator>
                                                                                                         </td>
-                                                                                                        <td class="ControlDrpBorder" style="width: 22%;">
+                                                                                                        <td class="ControlDrpBorder" style="width: 20%;">
                                                                                                             <asp:DropDownList ID="drpIncharge" TabIndex="2" EnableTheming="False" AppendDataBoundItems="True" CssClass="drpDownListMedium"
                                                                                                                 runat="server" Width="100%" DataTextField="empFirstName" BackColor="#E7E7E7" Style="border: 1px solid #e7e7e7" Height="26px"
                                                                                                                 DataValueField="empno">
                                                                                                             </asp:DropDownList>
                                                                                                         </td>
-                                                                                                        <td style="width: 5%;" />
-                                                                                                          <td class="ControlLabelproject" style="width: 18%;">
+                                                                                                        <td style="width: 15%;" />
+                                                                                                          <td class="ControlLabelproject" style="width: 20%;">
                                                                                                             <asp:RequiredFieldValidator ID="rvStock" runat="server" ControlToValidate="txtCreationDate"
                                                                                                                 ErrorMessage="Start Date is mandatory" Display="Dynamic">*</asp:RequiredFieldValidator>
                                                                                                             <asp:CompareValidator ControlToValidate="txtCreationDate" Operator="DataTypeCheck" Type="Date"
                                                                                                                 ErrorMessage="Please enter a valid date" runat="server" ID="cmpValtxtDate">*</asp:CompareValidator>
                                                                                                             Lead Start Date *
                                                                                                         </td>
-                                                                                                        <td class="ControlTextBox3" style="width: 30%;">
+                                                                                                        <td class="ControlTextBox3" style="width: 20%;">
                                                                                                             <asp:TextBox ID="txtCreationDate" runat="server" TabIndex="1" Enabled="False"
                                                                                                                 CssClass="cssTextBox"></asp:TextBox>
                                                                                                         </td>                                                                                                       
@@ -311,14 +311,14 @@
                                                                                                     </tr>
                                                                                                     <tr style="height: 2px;" />
                                                                                                     <tr style="height: 30px">
-                                                                                                        <td class="ControlLabelproject" style="width: 18%;">
+                                                                                                        <td class="ControlLabelproject" style="width: 20%;">
                                                                                                             <asp:CompareValidator ID="CompareValidator15" runat="server" ControlToValidate="drpStatus" Display="Dynamic" ErrorMessage="Please Select Doc Status" Operator="GreaterThan" Text="*" ValueToCompare="0"></asp:CompareValidator>
                                                                                                             Name of Customer * 
                                                                                                          <asp:CompareValidator ID="CompareValidator16" runat="server" ControlToValidate="cmbCustomer"
                                                                                                              Display="Dynamic" ErrorMessage="Please Select Business Partner Name" Operator="GreaterThan"
                                                                                                              Text="*" ValueToCompare="0"></asp:CompareValidator>
                                                                                                         </td>
-                                                                                                        <td class="ControlDrpBorder" style="width: 22%;">
+                                                                                                        <td class="ControlDrpBorder" style="width: 20%;">
                                                                                                             <asp:UpdatePanel ID="UpdatePanel21" runat="server" UpdateMode="Conditional">
                                                                                                                 <ContentTemplate>
                                                                                                                     <asp:DropDownList ID="cmbCustomer" runat="server" AppendDataBoundItems="true" AutoPostBack="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="LedgerName" DataValueField="LedgerID" Height="26px" OnSelectedIndexChanged="cmbCustomer_SelectedIndexChanged" Style="border: 1px solid #e7e7e7" TabIndex="3" Width="100%">
@@ -328,15 +328,15 @@
                                                                                                             </asp:UpdatePanel>
                                                                                                             <asp:TextBox ID="txtBPName" runat="server" SkinID="skinTxtBoxGrid" TabIndex="4" Visible="False"></asp:TextBox>
                                                                                                         </td>
-                                                                                                        <td style="width: 5%;">
+                                                                                                        <td style="width: 15%;">
                                                                                                             <asp:UpdatePanel ID="UpdatePanel10" runat="server" UpdateMode="Conditional">
                                                                                                                 <ContentTemplate>
-                                                                                                                    <asp:CheckBox ID="chk" runat="server" AutoPostBack="true" OnCheckedChanged="chk_CheckedChanged" Text="Existing" />
+                                                                                                                    <asp:CheckBox ID="chk" runat="server" AutoPostBack="true" OnCheckedChanged="chk_CheckedChanged" Text="Existing Customer" />
                                                                                                                 </ContentTemplate>
                                                                                                             </asp:UpdatePanel>
                                                                                                         </td>
-                                                                                                         <td class="ControlLabelproject" style="width: 17%;">Predicted Closing Date </td>
-                                                                                                        <td class="ControlTextBox3" style="width: 28%">
+                                                                                                         <td class="ControlLabelproject" style="width: 20%;">Predicted Closing Date </td>
+                                                                                                        <td class="ControlTextBox3" style="width: 20%">
                                                                                                             <asp:TextBox ID="txtPredictedClosingDate" runat="server" Enabled="False" SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                                                         </td>
                                                                                                         <td style="width: 7%;">
@@ -347,17 +347,17 @@
                                                                                                         <td style="width: 5%;" />
                                                                                                     </tr>
                                                                                                     <tr style="height: 2px;" />
-                                                                                                    <tr>
-                                                                                                        <td class="ControlLabelproject" style="width: 18%;">Contact Number-Mobile </td>
-                                                                                                        <td class="ControlTextBox3" style="width: 22%;">
+                                                                                                    <tr style="height: 30px">
+                                                                                                        <td class="ControlLabelproject" style="width: 20%;">Contact Number-Mobile </td>
+                                                                                                        <td class="ControlTextBox3" style="width: 20%;">
                                                                                                             <asp:TextBox ID="txtMobile" runat="server" MaxLength="10" SkinID="skinTxtBoxGrid" TabIndex="4"></asp:TextBox>
                                                                                                             <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" Enabled="True" FilterType="Numbers" TargetControlID="txtMobile">
                                                                                                             </cc1:FilteredTextBoxExtender>
                                                                                                         </td>
-                                                                                                        <td style="width: 5%;" />
-                                                                                                         <td class="ControlLabelproject" style="width: 18%;">&nbsp;&nbsp;&nbsp;Status of Record *
+                                                                                                        <td style="width: 15%;" />
+                                                                                                         <td class="ControlLabelproject" style="width: 20%;">&nbsp;&nbsp;&nbsp;Status of Record *
                                                                                                         </td>
-                                                                                                        <td class="ControlDrpBorder" style="width: 22%;">
+                                                                                                        <td class="ControlDrpBorder" style="width: 20%;">
                                                                                                             <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                                                                                                                 <ContentTemplate>
                                                                                                                     <asp:DropDownList ID="drpStatus" Enabled="false" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
@@ -373,16 +373,16 @@
                                                                                                     </tr>
                                                                                                     <tr style="height: 2px;" />
                                                                                                     <tr style="height: 30px">
-                                                                                                        <td class="ControlLabelproject" style="width: 18%;">Contact Name</td>
-                                                                                                        <td class="ControlDrpBorder" style="width: 22%;">
+                                                                                                        <td class="ControlLabelproject" style="width: 20%;">Contact Name</td>
+                                                                                                        <td class="ControlDrpBorder" style="width: 20%;">
                                                                                                             <asp:TextBox ID="txtContactName" TabIndex="5" runat="server" SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                                                         </td>
-                                                                                                        <td style="width: 5%;" />
-                                                                                                         <td class="ControlLabelproject" style="width: 23%;">
+                                                                                                        <td style="width: 15%;" />
+                                                                                                         <td class="ControlLabelproject" style="width: 20%;">
                                                                                                             <asp:CompareValidator ID="CompareValidator17" runat="server" ControlToValidate="drpLeadStatus" Display="Dynamic" ErrorMessage="Please Select Lead Status" Operator="GreaterThan" Text="*" ValueToCompare="0"></asp:CompareValidator>
                                                                                                             Status of Lead *
                                                                                                         </td>
-                                                                                                        <td class="ControlDrpBorder" style="width: 22%;">
+                                                                                                        <td class="ControlDrpBorder" style="width: 20%;">
                                                                                                             <asp:DropDownList ID="drpLeadStatus" runat="server" AppendDataBoundItems="True" BackColor="#E7E7E7" CssClass="drpDownListMedium" Enabled="False" EnableTheming="False" Height="26px" Style="border: 1px solid #e7e7e7" TabIndex="14" Width="100%" AutoPostBack="true" OnSelectedIndexChanged="drpLeadStatus_SelectedIndexChanged">
                                                                                                                 <asp:ListItem Text="Open" Value="Open"></asp:ListItem>
                                                                                                                 <asp:ListItem Text="Won" Value="Won"></asp:ListItem>
@@ -393,13 +393,13 @@
                                                                                                     </tr>
                                                                                                     <tr style="height: 2px;" />
                                                                                                     <tr style="height: 30px">
-                                                                                                        <td class="ControlLabelproject" style="width: 18%;">Contact Number-Landline </td>
-                                                                                                        <td class="ControlTextBox3" style="width: 22%;">
+                                                                                                        <td class="ControlLabelproject" style="width: 20%;">Contact Number-Landline </td>
+                                                                                                        <td class="ControlTextBox3" style="width: 20%;">
                                                                                                             <asp:TextBox ID="txtTelephone" runat="server" SkinID="skinTxtBoxGrid" TabIndex="6"></asp:TextBox>
                                                                                                         </td>
-                                                                                                        <td style="width: 5%;" />
-                                                                                                         <td class="ControlLabelproject" style="width: 18%;">Closing Date</td>
-                                                                                                        <td class="ControlTextBox3" style="width: 22%">
+                                                                                                        <td style="width: 15%;" />
+                                                                                                         <td class="ControlLabelproject" style="width: 20%;">Closing Date</td>
+                                                                                                        <td class="ControlTextBox3" style="width: 20%">
                                                                                                             <asp:TextBox ID="txtClosingDate" runat="server" Enabled="False" SkinID="skinTxtBoxGrid" TabIndex="5"></asp:TextBox>
                                                                                                         </td>
                                                                                                         <td style="width: 5%;">
@@ -411,40 +411,40 @@
                                                                                                     </tr>
                                                                                                     <tr style="height: 2px;" />
                                                                                                     <tr style="height: 30px">
-                                                                                                        <td class="ControlLabelproject" style="width: 18%">
+                                                                                                        <td class="ControlLabelproject" style="width: 20%">
                                                                                                             <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="drpStatus" Display="Dynamic" ErrorMessage="Please Select Doc Status" Operator="GreaterThan" Text="*" ValueToCompare="0"></asp:CompareValidator>
                                                                                                             Type of Business *
                                                                                                          <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="drpBusinessType"
                                                                                                              Display="Dynamic" ErrorMessage="Please Select Business Type" Operator="GreaterThan"
                                                                                                              Text="*" ValueToCompare="0"></asp:CompareValidator>
                                                                                                         </td>
-                                                                                                        <td class="ControlDrpBorder" style="width: 22%;">
+                                                                                                        <td class="ControlDrpBorder" style="width: 20%;">
                                                                                                             <asp:DropDownList ID="drpBusinessType" runat="server" AppendDataBoundItems="True" BackColor="#E7E7E7" CssClass="drpDownListMedium" EnableTheming="False" Height="26px" Style="border: 1px solid #e7e7e7" TabIndex="7" Width="100%" DataTextField="TextValue" DataValueField="ID">
                                                                                                             </asp:DropDownList>
                                                                                                         </td>
-                                                                                                        <td style="width: 5%;" />
-                                                                                                         <td class="ControlLabelproject" style="width: 23%;">Additional Information 1 </td>
-                                                                                                        <td class="ControlDrpBorder" style="width: 22%;">
+                                                                                                        <td style="width: 15%;" />
+                                                                                                         <td class="ControlLabelproject" style="width: 20%;">Additional Information 1 </td>
+                                                                                                        <td class="ControlDrpBorder" style="width: 20%;">
                                                                                                             <asp:TextBox ID="txtInformation1" runat="server" SkinID="skinTxtBoxGrid" TabIndex="13"></asp:TextBox>
                                                                                                         </td>                                                                                                       
                                                                                                         <td style="width: 5%;"></td>
                                                                                                     </tr>
                                                                                                     <tr style="height: 2px;" />
                                                                                                     <tr style="height: 30px">
-                                                                                                        <td class="ControlLabelproject" style="width: 18%">
+                                                                                                        <td class="ControlLabelproject" style="width: 20%">
                                                                                                             <asp:CompareValidator ID="CompareValidator11" runat="server" ControlToValidate="drpStatus" Display="Dynamic" ErrorMessage="Please Select Doc Status" Operator="GreaterThan" Text="*" ValueToCompare="0"></asp:CompareValidator>
                                                                                                             Location *
                                                                                                          <asp:CompareValidator ID="CompareValidator12" runat="server" ControlToValidate="drpArea"
                                                                                                              Display="Dynamic" ErrorMessage="Please Select Area" Operator="GreaterThan"
                                                                                                              Text="*" ValueToCompare="0"></asp:CompareValidator>
                                                                                                         </td>
-                                                                                                        <td class="ControlDrpBorder" style="width: 22%;">
+                                                                                                        <td class="ControlDrpBorder" style="width: 20%;">
                                                                                                             <asp:DropDownList ID="drpArea" runat="server" AppendDataBoundItems="True" BackColor="#E7E7E7" CssClass="drpDownListMedium" EnableTheming="False" Height="26px" Style="border: 1px solid #e7e7e7" TabIndex="8" Width="100%" DataTextField="TextValue" DataValueField="ID">
                                                                                                             </asp:DropDownList>
                                                                                                         </td>
-                                                                                                        <td style="width: 5%;" />
-                                                                                                         <td class="ControlLabelproject" style="width: 18%;">Additional Information 2</td>
-                                                                                                        <td class="ControlDrpBorder" style="width: 22%;">
+                                                                                                        <td style="width: 15%;" />
+                                                                                                         <td class="ControlLabelproject" style="width: 20%;">Additional Information 2</td>
+                                                                                                        <td class="ControlDrpBorder" style="width: 20%;">
                                                                                                             <asp:DropDownList ID="drpInformation3" runat="server" AppendDataBoundItems="True" BackColor="#E7E7E7" CssClass="drpDownListMedium" EnableTheming="False" Height="26px" Style="border: 1px solid #e7e7e7" TabIndex="14" Width="100%" DataTextField="TextValue" DataValueField="ID">
                                                                                                             </asp:DropDownList>
                                                                                                         </td>                                                                                                       
@@ -452,20 +452,20 @@
                                                                                                     </tr>
                                                                                                     <tr style="height: 2px;" />
                                                                                                     <tr style="height: 30px">
-                                                                                                        <td class="ControlLabelproject" style="width: 23%;">
+                                                                                                        <td class="ControlLabelproject" style="width: 20%;">
                                                                                                             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="drpStatus" Display="Dynamic" ErrorMessage="Please Select Doc Status" Operator="GreaterThan" Text="*" ValueToCompare="0"></asp:CompareValidator>
                                                                                                             Type of Category *
                                                                                                         <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="drpCategory"
                                                                                                             Display="Dynamic" ErrorMessage="Please Select Category" Operator="GreaterThan"
                                                                                                             Text="*" ValueToCompare="0"></asp:CompareValidator>
                                                                                                         </td>
-                                                                                                        <td class="ControlDrpBorder" style="width: 22%;">
+                                                                                                        <td class="ControlDrpBorder" style="width: 20%;">
                                                                                                             <asp:DropDownList ID="drpCategory" runat="server" AppendDataBoundItems="True" BackColor="#E7E7E7" CssClass="drpDownListMedium" EnableTheming="False" Height="26px" Style="border: 1px solid #e7e7e7" TabIndex="9" Width="100%" DataTextField="TextValue" DataValueField="ID">
                                                                                                             </asp:DropDownList>
                                                                                                         </td>
-                                                                                                        <td style="width: 5%;" />
-                                                                                                         <td class="ControlLabelproject" style="width: 23%;">Additional Information 3</td>
-                                                                                                        <td class="ControlDrpBorder" style="width: 22%;">
+                                                                                                        <td style="width: 15%;" />
+                                                                                                         <td class="ControlLabelproject" style="width: 20%;">Additional Information 3</td>
+                                                                                                        <td class="ControlDrpBorder" style="width: 20%;">
                                                                                                             <asp:DropDownList ID="drpInformation4" runat="server" AppendDataBoundItems="True" BackColor="#E7E7E7" CssClass="drpDownListMedium" EnableTheming="False" Height="26px" Style="border: 1px solid #e7e7e7" TabIndex="15" Width="100%" DataTextField="TextValue" DataValueField="ID">
                                                                                                             </asp:DropDownList>
                                                                                                         </td>

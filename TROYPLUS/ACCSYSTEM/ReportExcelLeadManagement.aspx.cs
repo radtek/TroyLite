@@ -256,38 +256,81 @@ public partial class ReportExcelLeadManagement : System.Web.UI.Page
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     DataTable dt = new DataTable();
+                    dt.Columns.Add(new DataColumn("Lead No"));
                     dt.Columns.Add(new DataColumn("Lead Name"));
-                    dt.Columns.Add(new DataColumn("Start Date"));
-                    dt.Columns.Add(new DataColumn("BP Name"));
+                    dt.Columns.Add(new DataColumn("Customer Name"));
                     dt.Columns.Add(new DataColumn("Address"));
                     dt.Columns.Add(new DataColumn("Mobile"));
-                    dt.Columns.Add(new DataColumn("Doc Status"));
-                    dt.Columns.Add(new DataColumn("Emp Name"));
+                    dt.Columns.Add(new DataColumn("Telephone"));
+                    dt.Columns.Add(new DataColumn("Record Status"));
                     dt.Columns.Add(new DataColumn("Closing Date"));
+                    dt.Columns.Add(new DataColumn("Employee Name"));
+                    dt.Columns.Add(new DataColumn("Start Date"));                  
                     dt.Columns.Add(new DataColumn("Lead Status"));
-                    
+                    dt.Columns.Add(new DataColumn("Contact Name"));
+                    dt.Columns.Add(new DataColumn("Predicted Closing Date"));
+                    dt.Columns.Add(new DataColumn("Competitor Name"));
+                    dt.Columns.Add(new DataColumn("Activity Name"));
+                    dt.Columns.Add(new DataColumn("Activity Date"));
+                    dt.Columns.Add(new DataColumn("Activity Location"));
+                    dt.Columns.Add(new DataColumn("Next Activity"));
+                    dt.Columns.Add(new DataColumn("Next Activity Date"));
+                    //dt.Columns.Add(new DataColumn("Activity Employee Name"));
+                    //dt.Columns.Add(new DataColumn("Mode of Contact"));
+                    //dt.Columns.Add(new DataColumn("Product Name"));
+
                     DataRow dr_final123 = dt.NewRow();
                     dt.Rows.Add(dr_final123);
 
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
                         DataRow dr_final1 = dt.NewRow();
+                        dr_final1["Lead No"] = dr["Lead_No"];
                         dr_final1["Lead Name"] = dr["Lead_Name"];
+                        dr_final1["Customer Name"] = dr["BP_Name"];
+                        dr_final1["Address"] = dr["Address"];
+                        dr_final1["Telephone"] = dr["Telephone"];
+                        dr_final1["Record Status"] = dr["Doc_Status"];                                              
+
+                        string aad = dr["Closing_Date"].ToString().ToUpper().Trim();
+                        string dtaad = Convert.ToDateTime(aad).ToString("dd/MM/yyyy");
+                        if (dtaad != "01/01/2000")
+                        {
+                            dr_final1["Closing Date"] = dtaad;
+                        }
+                        
+
+                        dr_final1["Employee Name"] = dr["Emp_Name"];
 
                         string aa = dr["Start_Date"].ToString().ToUpper().Trim();
                         string dtaa = Convert.ToDateTime(aa).ToString("dd/MM/yyyy");
                         dr_final1["Start Date"] = dtaa;
 
-                        string aad = dr["Closing_Date"].ToString().ToUpper().Trim();
-                        string dtaad = Convert.ToDateTime(aad).ToString("dd/MM/yyyy");
-                        dr_final1["Closing Date"] = dtaad;
-
-                        dr_final1["BP Name"] = dr["BP_Name"];
-                        dr_final1["Address"] = dr["Address"];
-                        dr_final1["Mobile"] = dr["Mobile"];
-                        dr_final1["Doc Status"] = dr["Doc_Status"];
-                        dr_final1["Emp Name"] = dr["Emp_Name"];
                         dr_final1["Lead Status"] = dr["Lead_Status"];
+                        dr_final1["Contact Name"] = dr["Contact_Name"];                       
+
+                        string aae = dr["Predicted_Closing_Date"].ToString().ToUpper().Trim();
+                        string dtaae = Convert.ToDateTime(aae).ToString("dd/MM/yyyy");
+                        dr_final1["Predicted Closing Date"] = dtaae;
+
+                        dr_final1["Competitor Name"] = dr["Competitor_Name"];
+                        dr_final1["Activity Name"] = dr["Activity_Name"];
+
+                        string aaee = dr["Activity_Date"].ToString().ToUpper().Trim();
+                        string dtaaee = Convert.ToDateTime(aaee).ToString("dd/MM/yyyy");
+                        dr_final1["Activity Date"] = dtaaee;
+
+                        dr_final1["Activity Location"] = dr["Activity_Location"];
+                        dr_final1["Next Activity"] = dr["Next_Activity"];
+
+                        string aaeee = dr["NextActivity_Date"].ToString().ToUpper().Trim();
+                        string dtaaeee = Convert.ToDateTime(aaeee).ToString("dd/MM/yyyy");
+                        dr_final1["Next Activity Date"] = dtaaeee;
+
+                        //dr_final1["Activity Employee Name"] = dr["Emp_Name"];
+                        //dr_final1["Mode of Contact"] = dr["ModeofContact"];
+                        //dr_final1["Product Name"] = dr["Product_Name"];
+
                         dt.Rows.Add(dr_final1);
                     }
                     DataRow dr_final2 = dt.NewRow();
@@ -378,6 +421,43 @@ public partial class ReportExcelLeadManagement : System.Web.UI.Page
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
             
+        }
+    }
+    protected void btnReport_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if (Page.IsValid)
+            {
+                string connection = string.Empty;
+
+                if (Request.Cookies["Company"] != null)
+                    connection = Request.Cookies["Company"].Value;
+                else
+                    Response.Redirect("Login.aspx");
+
+
+                DateTime startDate, endDate;
+                string category = string.Empty;
+
+                startDate = Convert.ToDateTime(txtStrtDt.Text.Trim());
+                endDate = Convert.ToDateTime(txtEndDt.Text.Trim());
+
+                string condtion = "";
+                condtion = getCond();            
+
+                DataSet BillDs = new DataSet();
+                BusinessLogic bl = new BusinessLogic(sDataSource);
+
+                BillDs = bl.GetLeadManagementList(connection, startDate, endDate);
+
+
+                Response.Write("<script language='javascript'> window.open('LeadManagementReport.aspx?startDate=" + Convert.ToDateTime(startDate) + "&endDate=" + Convert.ToDateTime(endDate) + " ' , 'window','height=700,width=1000,left=172,top=10,toolbar=yes,scrollbars=yes,resizable=yes');</script>");
+            }
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
         }
     }
 }

@@ -194,9 +194,12 @@ public partial class EmployeeMaster : System.Web.UI.Page
             string sDesig = string.Empty;
             string sRemarks = string.Empty;
             string sTitle = string.Empty;
+            int ManagerId = 0;
 
             string dDOJ = string.Empty;
             string dDOB = string.Empty;
+            string UserGroup = string.Empty;
+
             if (Page.IsValid)
             {
                 if (txtEmpno.Text.Trim() != string.Empty)
@@ -218,6 +221,11 @@ public partial class EmployeeMaster : System.Web.UI.Page
                     dDOB = txtDOB.Text.Trim();
                 if (txtRemarks.Text.Trim() != string.Empty)
                     sRemarks = txtRemarks.Text.Trim();
+                if (drpIncharge.Text.Trim() != string.Empty)
+                    ManagerId = Convert.ToInt32(drpIncharge.SelectedValue);
+                if (txtUserGroup.Text.Trim() != string.Empty)
+                    UserGroup = txtUserGroup.Text.Trim();
+
                 sTitle = drpTitle.SelectedItem.Text;
                 string stype = drptype.SelectedItem.Text;
 
@@ -228,7 +236,8 @@ public partial class EmployeeMaster : System.Web.UI.Page
 
                 if (checkemp == null || checkemp.Tables[0].Rows.Count == 0)
                 {
-                    //int empno = bl.InsertEmpDetails(empNO, sTitle, sEmpFName, sEmpMName, sEmpSName, sDesig, sRemarks, dDOJ, dDOB);
+                    //int empno = bl.InsertEmpDetails(empNO, sTitle, sEmpFName, sEmpMName, sEmpSName, sDesig, sRemarks, dDOJ, dDOB, stype);
+                    int empno = bl.InsertEmpDetails(empNO, sTitle, sEmpFName, sEmpMName, sEmpSName, sDesig, sRemarks, dDOJ, dDOB, ManagerId, UserGroup);
 
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Business Partner Details Saved Successfully.');", true);
                     Reset();
@@ -267,10 +276,11 @@ public partial class EmployeeMaster : System.Web.UI.Page
             string sDesig = string.Empty;
             string sRemarks = string.Empty;
             string sTitle = string.Empty;
-
-
+            int ManagerId = 0;
+            string UserGroup = string.Empty;
             string dDOJ = string.Empty;
             string dDOB = string.Empty;
+
             if (Page.IsValid)
             {
 
@@ -293,9 +303,15 @@ public partial class EmployeeMaster : System.Web.UI.Page
                 sTitle = drpTitle.SelectedItem.Text;
                 string stype = drptype.SelectedItem.Text;
 
-                //int empno = bl.UpdateEmpDetails(empNO, sTitle, sEmpFName, sEmpMName, sEmpSName, sDesig, sRemarks, dDOJ, dDOB);
+                if (drpIncharge.Text.Trim() != string.Empty)
+                    ManagerId = Convert.ToInt32(drpIncharge.SelectedValue);
+                if (txtUserGroup.Text.Trim() != string.Empty)
+                    UserGroup = txtUserGroup.Text.Trim();
 
-                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Business Partner Details Updated Successfully. Partner No " + empno + "');", true);
+                //int empno = bl.UpdateEmpDetails(empNO, sTitle, sEmpFName, sEmpMName, sEmpSName, sDesig, sRemarks, dDOJ, dDOB, stype);
+                int empno = bl.UpdateEmpDetails(empNO, sTitle, sEmpFName, sEmpMName, sEmpSName, sDesig, sRemarks, dDOJ, dDOB, ManagerId, UserGroup);
+
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Business Partner Details Updated Successfully. Partner No " + empno + "');", true);
 
 
                 Reset();
