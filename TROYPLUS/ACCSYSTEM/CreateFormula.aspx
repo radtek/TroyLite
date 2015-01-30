@@ -287,7 +287,7 @@
                                                                         <asp:Panel ID="PanelItems"  Height="50%" runat="server" Visible="False">
                                                                             <asp:GridView ID="GrdViewItems" runat="server" AllowSorting="True" Width="100%"  DataKeyNames="FormulaID"
                                                                                 AllowPaging="True" OnRowEditing="GrdViewItems_RowEditing" OnRowCancelingEdit="GrdViewItems_RowCancelingEdit"
-                                                                                EmptyDataText="No Product Added. Please add products by Clicking Add Product button." 
+                                                                                EmptyDataText="No Product Added. Please add products by Clicking Define Specification." 
                                                                                 OnPageIndexChanging="GrdViewItems_PageIndexChanging" OnRowDataBound="GrdViewItems_RowDataBound"
                                                                                 OnRowUpdating="GrdViewItems_RowUpdating" OnRowDeleting="GrdViewItems_RowDeleting"
                                                                                 OnRowCreated="GrdViewItems_RowCreated" CssClass="someClass" >

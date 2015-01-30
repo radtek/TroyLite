@@ -563,7 +563,7 @@ public partial class CreateFormula : System.Web.UI.Page
 
                 if ((InCount == 0) || (OutCount == 0))
                 {
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Minimum one IN and one OUT products should be added.');", true);
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Minimum one Raw Materials and one Products should be added.');", true);
                     return;
                 }
 
