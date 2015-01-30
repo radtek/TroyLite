@@ -18461,13 +18461,13 @@ public class BusinessLogic
 
             if (formName != "")
             {
-                dbQry.Append("SELECT FormulaID,FormulaName,tblFormula.ItemCode,ProductName,ProductDesc,Qty,InOut ");
+                dbQry.Append("SELECT FormulaID,FormulaName,tblFormula.ItemCode,ProductName,ProductDesc,Qty,InOut,Unit_Of_Measure ");
                 dbQry.Append(" FROM tblFormula Inner Join tblProductMaster On tblFormula.ItemCode = tblProductMaster.ItemCode ");
                 dbQry.Append(" Where FormulaName = '" + formName + "'");
             }
             else
             {
-                dbQry.Append("SELECT FormulaID,FormulaName,tblFormula.ItemCode,ProductName,ProductDesc,Qty,InOut ");
+                dbQry.Append("SELECT FormulaID,FormulaName,tblFormula.ItemCode,ProductName,ProductDesc,Qty,InOut,Unit_Of_Measure ");
                 dbQry.Append(" FROM tblFormula Inner Join tblProductMaster On tblFormula.ItemCode = tblProductMaster.ItemCode ");
             }
 
@@ -68101,7 +68101,7 @@ public class BusinessLogic
 
             manager.Open();
 
-            cond = "tblEmployee.ManagerID" + incharge + " and tblEmployee.empno " + empno + " and tblProjects.Project_Id " + pro_Id + " and tblTaskUpdates.Blocked_Flag '" + flag + "'and tblTaskUpdates.Task_Status" + status + " and tblTasks.Task_Id " + taskid + " and tbltasks.Dependency_Task " + deptask + " and tbltasks.IsActive'" + isactive + "'";
+            cond = "tblEmployee.ManagerID" + incharge + " and tblEmployee.empno " + empno + " and tblProjects.Project_Id " + pro_Id + " and tblTaskUpdates.Blocked_Flag '" + flag + "'and tblTaskUpdates.Task_Status" + status + " and tblTasks.Task_Id " + taskid + " and tbltasks.Dependency_Task " + deptask + " and tbltasks.IsActive'" + isactive + "' ";
             dbQry.Append("SELECT tblEmployee.empfirstname,tblProjects.Expected_Start_Date,tblProjects.Expected_End_Date,tblProjects.Project_Status,tblProjects.Project_Date, tblProjects.Project_Code as ProjectCode, tblProjects.Project_Name as ProjectName ");
                 dbQry.Append("  FROM ((((tblTasks As A INNER JOIN  tblEmployee ON A.Owner = tblEmployee.empno) inner join tblProjects ON A.Project_Code = tblProjects.Project_Id) inner join tblUserInfo on tblEmployee.ManagerID = tblUserInfo.empno) Inner join tblTaskUpdates on A.task_Id=tblTaskUpdates.Task_Id) Inner join tblTaskStatus on tblTaskStatus.Task_Status_Id=tblTaskUpdates.Task_Status Where " + cond );
                

@@ -244,7 +244,7 @@
                                                     <cc1:TabContainer ID="tabs2" runat="server" Width="100%" ActiveTabIndex="0" CssClass="fancy fancy-green">
                                                         <cc1:TabPanel ID="tabMaster" runat="server" HeaderText="Process Products">
                                                             <ContentTemplate>
-                                                                <table style="width: 720px; border: 0px solid #86b2d1" align="left" cellpadding="0"
+                                                                <table style="width: 800px; border: 0px solid #86b2d1" align="left" cellpadding="0"
                                                                     cellspacing="0" class="accordionContent">
                                                                     <tr class="tblLeft" style="width: 100%">
                                                                         <td style="width: 100%" colspan="5">
@@ -302,7 +302,7 @@
                                                                         <td>
                                                                             <table width="100%">
                                                                                 <tr>
-                                                                                    <td style="width: 100%; font-size:larger; font-weight: bold">IN
+                                                                                    <td style="width: 100%; font-size:larger; font-weight: bold">Raw Materials
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
@@ -367,7 +367,7 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td style="width: 100%; font-size:larger; font-weight: bold">OUT
+                                                                                    <td style="width: 100%; font-size:larger; font-weight: bold">Product
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
@@ -548,10 +548,10 @@
                                         <tr>
                                             <td style="width: 35%"></td>
                       
-                                             <td style="width: 15% " align="left">
+                                             <td style="width: 15% " align="center">
                                                     <asp:Panel ID="pnlSearch" runat="server" Width="100px">
                                                 <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" 
-                                                    EnableTheming="false" Width="220px" BackColor="WhiteSmoke" Text="Process New Product/Component"></asp:Button>
+                                                    EnableTheming="false" Width="220px" BackColor="WhiteSmoke" Font-Size="12px" Font-Bold="true" Text="Process New Product/Component"></asp:Button>
                                             </asp:Panel>
                                                  
                                             </td>

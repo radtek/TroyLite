@@ -59,7 +59,7 @@ public partial class ProjectReport1 : System.Web.UI.Page
                 int taskid = 0;
                 string isactive = "";
                 int deptask = 0;
-                int incharge = 0;
+                int incharge = 6;
 
                 if (Request.QueryString["incharge"] != null)
                 {
