@@ -386,7 +386,7 @@ public partial class ProjectReport : System.Web.UI.Page
             isactive = radisactive.SelectedItem.Text;
             string cond = getCond();
 
-            Response.Write("<script language='javascript'> window.open('ProjectReport1.aspx?incharge =" + Convert.ToString(incharge) + "&employee=" + Convert.ToString(Empno) + "&project=" + Convert.ToString(ProjectId) + "&BlockedTask=" + BlockedTask + "&CompletedTask=" + Convert.ToString(CompletedTask) + "&Task=" + Convert.ToString(Task) + "&DependencyTask=" + Convert.ToString(DependencyTask) + "&isactive=" + isactive + " ' , 'window','height=700,width=1000,left=172,top=10,toolbar=yes,scrollbars=yes,resizable=yes');</script>");
+            Response.Write("<script language='javascript'> window.open('ProjectReport1.aspx?incharge =" + Convert.ToString(incharge) + "&employee=" + Convert.ToString(Empno) + "&project=" + Convert.ToString(ProjectId) + "&BlockedTask=" + BlockedTask + "&CompletedTask=" + Convert.ToString(CompletedTask) + "&Task=" + Convert.ToString(Task) + "&DependencyTask=" + Convert.ToString(DependencyTask) + "&isactive=" + isactive + "&cond=" + Convert.ToString(cond) +" ' , 'window','height=700,width=1000,left=172,top=10,toolbar=yes,scrollbars=yes,resizable=yes');</script>");
 
             //Response.Redirect("ProjectReport1.aspx");
         }
