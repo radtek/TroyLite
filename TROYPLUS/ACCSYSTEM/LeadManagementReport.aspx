@@ -71,8 +71,7 @@
                                 CssClass="lblFont" Operator="GreaterThanEqual" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
                         </td>
 
-                    </tr>
-
+                    </tr> 
                     <tr>
                         <td colspan="3">
                             <table width="100%">
@@ -241,7 +240,7 @@
                                 HeaderText="Closing Date">
                                 <ItemTemplate>
                                     <asp:Label Style="font-family: 'Trebuchet MS'; font-size: 11px;" ID="lblNetRate"
-                                        runat="server" Text='<%# Eval("Closing_Date") %>' />
+                                        runat="server" Text='<%# ProcessMyDataItem(Eval("Closing_Date")) %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Top"

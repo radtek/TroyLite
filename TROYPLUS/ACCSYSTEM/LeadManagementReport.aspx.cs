@@ -36,16 +36,30 @@ public partial class PurchaseSummaryReport1 : System.Web.UI.Page
     string strBillno = string.Empty;
     int cnt = 0;
 
+    BusinessLogic objBL;
+    DateTime startDate, endDate;
+    string empname = string.Empty;
+    string area = string.Empty;
+    string category = string.Empty;
+    string actname = string.Empty;
+    string nxtactname = string.Empty;
+    string info3 = string.Empty;
+    string info4 = string.Empty;
+    string status = string.Empty;
+    string condtion = string.Empty;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         try
         {
             sDataSource = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+            objBL = new BusinessLogic(ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString());
+
 
             if (!Page.IsPostBack)
             {
                 txtStartDate.Text = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToShortDateString();
-                //txtEndDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                lblBillDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
 
                 DateTime indianStd = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "India Standard Time");
                 string dtaa = Convert.ToDateTime(indianStd).ToString("dd/MM/yyyy");
@@ -86,8 +100,7 @@ public partial class PurchaseSummaryReport1 : System.Web.UI.Page
                     Response.Redirect("Login.aspx");
 
 
-                DateTime startDate, endDate;
-                                          
+
                 DateTime stdt = Convert.ToDateTime(txtStartDate.Text);
                 DateTime etdt = Convert.ToDateTime(txtEndDate.Text);
 
@@ -99,13 +112,49 @@ public partial class PurchaseSummaryReport1 : System.Web.UI.Page
                 {
                     etdt = Convert.ToDateTime(Request.QueryString["endDate"].ToString());
                 }
+                if (Request.QueryString["status"] != null)
+                {
+                    status = Convert.ToString(Request.QueryString["status"].ToString());
+                }
+                if (Request.QueryString["empname"] != null)
+                {
+                    empname = Convert.ToString(Request.QueryString["empname"].ToString());
+                }
+                if (Request.QueryString["area"] != null)
+                {
+                    area = Convert.ToString(Request.QueryString["area"].ToString());
+                }
+                if (Request.QueryString["category"] != null)
+                {
+                    category = Convert.ToString(Request.QueryString["category"].ToString());
+                }
+                if (Request.QueryString["actname"] != null)
+                {
+                    actname = Convert.ToString(Request.QueryString["actname"].ToString());
+                }
+                if (Request.QueryString["nxtactname"] != null)
+                {
+                    nxtactname = Convert.ToString(Request.QueryString["nxtactname"].ToString());
+                }
+                if (Request.QueryString["info3"] != null)
+                {
+                    info3 = Convert.ToString(Request.QueryString["info3"].ToString());
+                }
+                if (Request.QueryString["info4"] != null)
+                {
+                    info4 = Convert.ToString(Request.QueryString["info4"].ToString());
+                }
 
                 startDate = Convert.ToDateTime(stdt);
                 endDate = Convert.ToDateTime(etdt);
-                              
+
+                string condtion = "";
+                condtion = getCond();
+
                 DataSet BillDs = new DataSet();
-                BillDs = bl.GetLeadManagementList(connection, startDate, endDate);
-               
+
+                BillDs = bl.GetLeadManagementListFilter(connection, condtion);
+                
                 gvMain.DataSource = BillDs;
                 gvMain.DataBind();
                 divPrint.Visible = true;
@@ -119,5 +168,69 @@ public partial class PurchaseSummaryReport1 : System.Web.UI.Page
         {
             TroyLiteExceptionManager.HandleException(ex);
         }
+    }
+
+    protected string getCond()
+    {
+        string cond = "";
+
+        objBL.StartDate = Convert.ToString(startDate);
+
+        objBL.StartDate = string.Format("{0:MM/dd/yyyy}", startDate.ToString());
+        objBL.EndDate = Convert.ToString(endDate);
+        objBL.EndDate = string.Format("{0:MM/dd/yyyy}", endDate.ToString());
+
+        string aa = Convert.ToString(startDate);
+        string dt = Convert.ToDateTime(aa).ToString("MM/dd/yyyy");
+
+        string aaa = Convert.ToString(endDate);
+        string dtt = Convert.ToDateTime(aaa).ToString("MM/dd/yyyy");
+
+        cond = " Start_Date >= #" + dt + "# and Start_Date <= #" + dtt + "# ";
+
+        if ((status != "Select Lead Status"))
+        {
+            cond += " and Doc_Status='" + status + "'";
+        }
+        if ((empname != "0"))
+        {
+            cond += " and Emp_Id=" + Convert.ToInt32(empname) + "";
+        }
+        if ((area != "0"))
+        {
+            cond += " and Area=" + Convert.ToInt32(area) + "";
+        }
+        if ((category != "0"))
+        {
+            cond += " and Category=" + Convert.ToInt32(category) + "";
+        }
+        if ((actname != "0"))
+        {
+            cond += " and Activity_Name_Id=" + Convert.ToInt32(actname) + "";
+        }
+        if ((nxtactname != "0"))
+        {
+            cond += " and Next_Activity_Id=" + Convert.ToInt32(nxtactname) + "";
+        }
+        if ((info3 != "0"))
+        {
+            cond += " and Information3=" + Convert.ToInt32(info3) + "";
+        }
+        if ((info4 != "0"))
+        {
+            cond += " and Information4=" + Convert.ToInt32(info4) + "";
+        }
+        return cond;
+    }
+
+    public string ProcessMyDataItem(object myValue)
+    {
+        string ss = Convert.ToString(myValue);
+        if (ss == "01/01/2000 00:00:00")
+        {
+            return "";
+        }
+
+        return ss.ToString();
     }
 }

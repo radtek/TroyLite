@@ -14,76 +14,178 @@
         <div align="center">
             <table width="100%" style="background-color: White; border: 1px solid blue;">
                 <tr>
-                    <td colspan="4" class="headerPopUp">Lead Management Report
+                    <td colspan="7" class="headerPopUp">Lead Management Report
                     </td>
                 </tr>
                 <tr style="height: 10px">
                 </tr>
                 <tr>
+                    <td style="width: 5%"></td>
                     <td class="ControlLabel2" style="width: 35%">StartDate
                     </td>
-                    <td class="ControlTextBox3" style="width: 25%">
+                    <td class="ControlTextBox3" style="width: 45%">
                         <asp:TextBox ID="txtStrtDt" Enabled="false" runat="server" CssClass="textbox" Style="border: 1px solid #e7e7e7" BackColor="#e7e7e7"></asp:TextBox>
                         <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True"
                             Format="dd/MM/yyyy"
                             PopupButtonID="ImageButton2" TargetControlID="txtStrtDt">
                         </cc1:CalendarExtender>
                     </td>
-                    <td style="width: 3%" align="left">
+                    <td style="width: 30%" align="left">
                         <asp:ImageButton ID="ImageButton2" runat="server" CausesValidation="False"
                             ImageUrl="App_Themes/NewTheme/images/cal.gif"
                             Width="20px" />
                     </td>
-                    <td style="width: 25%"></td>
+                    <td style="width: 15%"></td>
+                    <%--<td style="width: 0%"></td>--%>
                 </tr>
-                <tr style="height: 2px;" />
+                <tr style="height: 2px">
+                </tr>
                 <tr>
+                    <td style="width: 5%"></td>
                     <td class="ControlLabel2" style="width: 35%">EndDate
                     </td>
-                    <td class="ControlTextBox3" style="width: 25%">
+                    <td class="ControlTextBox3" style="width: 45%">
                         <asp:TextBox ID="txtEndDt" Enabled="false" runat="server" CssClass="textbox" Style="border: 1px solid #e7e7e7" BackColor="#e7e7e7"></asp:TextBox>
                         <cc1:CalendarExtender ID="CalendarExtender123" runat="server" Enabled="True"
                             Format="dd/MM/yyyy"
                             PopupButtonID="ImageButton1" TargetControlID="txtEndDt">
                         </cc1:CalendarExtender>
                     </td>
-                    <td style="width: 4%" align="left">
+                    <td style="width:30%" align="left">
                         <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="False"
                             ImageUrl="App_Themes/NewTheme/images/cal.gif"
                             Width="20px" />
                     </td>
-                    <td style="width: 25%"></td>
+                    <td style="width: 15%"></td>
+                    <%--<td style="width: 0%"></td>--%>
                 </tr>
-
-                <tr style="height: 10px">
+                <tr style="height: 2px">
                 </tr>
                 <tr>
-                    <td colspan="4">
-                        <table width="100%">
+                    <td colspan="5">
+                        <table width="100%" style="background-color: White;">
                             <tr>
-                                <td style="width: 25%">
-                                    
+                                <td colspan="5"></td>
+                            </tr>
+                            <tr style="height: 10px">
+                            </tr>
+                            <tr>
+                                <td style="width: 15%; font-family: 'ARIAL'; font-size: 11px; font-weight: normal; color: #000000; text-align: right; text-decoration: none; padding-right: 5px; padding-left: 5px; padding-top: 5px;" height="27px">Status *                                
                                 </td>
-                                <td style="width: 25%">
-                                    <asp:Button ID="btnReport" runat="server" CssClass="NewReport6" OnClick="btnReport_Click" EnableTheming="false" />
+                                <td class="ControlDrpBorder" style="width: 30%;">
+                                   
+                                    <asp:DropDownList ID="drpStatus" runat="server" AutoPostBack="true" BackColor="#e7e7e7"
+                                        Width="100%" AppendDataBoundItems="True" Height="26px" CssClass="drpDownListMedium">
+                                        <asp:ListItem Selected="True" Value="0" style="background-color: #e7e7e7">Select Lead Status</asp:ListItem>
+                                          <asp:ListItem Text="Open" Value="1"></asp:ListItem>
+                                          <asp:ListItem Text="Closed" Value="2"></asp:ListItem>
+                                    </asp:DropDownList>
+
                                 </td>
-                                <td style="width: 25%">
-                                    
-                                    <asp:Button ID="btnxls" runat="server" OnClick="btnxls_Click" CssClass="exportexl6" EnableTheming="false" />
+
+                                <td style="width: 15%; font-family: 'ARIAL'; font-size: 11px; font-weight: normal; color: #000000; text-align: right; text-decoration: none; padding-right: 5px; padding-left: 5px; padding-top: 5px;" height="27px">Employee
                                 </td>
-                                <td style="width: 25%">
-                                    <asp:Button ID="btnData" runat="server" OnClick="btnData_Click" CssClass="generatebutton" EnableTheming="false" Visible="False" />
+                                <td class="ControlDrpBorder" style="width: 30%">
+                                    <asp:DropDownList ID="drpIncharge" DataTextField="empFirstName" DataValueField="empno" runat="server" Width="100%" AutoPostBack="true" BackColor="#e7e7e7" Height="26px" CssClass="drpDownListMedium"
+                                        AppendDataBoundItems="True">
+                                        <asp:ListItem Selected="True" Value="0" style="background-color: #e7e7e7">Select Employee Responsible</asp:ListItem>
+                                    </asp:DropDownList>
                                 </td>
+                                <td style="width: 10%"></td>
+                            </tr>
+                            <tr style="height: 2px">
+                            </tr>
+                            <tr>
+                                <td style="width: 15%; font-family: 'ARIAL'; font-size: 11px; font-weight: normal; color: #000000; text-align: right; text-decoration: none; padding-right: 5px; padding-left: 5px; padding-top: 5px;" height="27px">Location
+                                </td>
+                                <td class="ControlDrpBorder" style="width: 30%">
+                                    <asp:DropDownList ID="drpArea" runat="server" DataTextField="TextValue" DataValueField="ID" Width="100%" AutoPostBack="true" BackColor="#e7e7e7" Height="26px" CssClass="drpDownListMedium"
+                                        AppendDataBoundItems="True">
+                                        <asp:ListItem Selected="True" Value="0" style="background-color: #e7e7e7">Select Location</asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                                <td style="width: 15%; font-family: 'ARIAL'; font-size: 11px; font-weight: normal; color: #000000; text-align: right; text-decoration: none; padding-right: 5px; padding-left: 5px; padding-top: 5px;" height="27px">Category
+                                </td>
+                                <td class="ControlDrpBorder" style="width: 30%">
+                                    <asp:DropDownList ID="drpCategory" runat="server" DataTextField="TextValue" DataValueField="ID" Width="100%" AutoPostBack="true" BackColor="#e7e7e7" Height="26px" CssClass="drpDownListMedium"
+                                        AppendDataBoundItems="True">
+                                        <asp:ListItem Selected="True" Value="0" style="background-color: #e7e7e7">Select Category</asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                                <td style="width: 10%"></td>
+                            </tr>
+                            <tr style="height: 2px">
+                            </tr>
+                            <tr>
+                                <td style="width: 15%; font-family: 'ARIAL'; font-size: 11px; font-weight: normal; color: #000000; text-align: right; text-decoration: none; padding-right: 5px; padding-left: 5px; padding-top: 5px;" height="27px">Lead Activity
+                                </td>
+                                <td class="ControlDrpBorder" style="width: 30%">
+                                    <asp:DropDownList ID="drpactivityName" runat="server" DataTextField="TextValue" DataValueField="ID" Width="100%" AutoPostBack="true" BackColor="#e7e7e7" Height="26px" CssClass="drpDownListMedium"
+                                        AppendDataBoundItems="True">
+                                        <asp:ListItem Selected="True" Value="0" style="background-color: #e7e7e7">Select Lead Activity</asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                                <td style="width: 15%; font-family: 'ARIAL'; font-size: 11px; font-weight: normal; color: #000000; text-align: right; text-decoration: none; padding-right: 5px; padding-left: 5px; padding-top: 5px;" height="27px">Follow-up Activity
+                                </td>
+                                <td class="ControlDrpBorder" style="width: 30%">
+                                    <asp:DropDownList ID="drpnxtActivity" runat="server" DataTextField="TextValue" DataValueField="ID" Width="100%" AutoPostBack="true" BackColor="#e7e7e7" Height="26px" CssClass="drpDownListMedium"
+                                        AppendDataBoundItems="True">
+                                        <asp:ListItem Selected="True" Value="0" style="background-color: #e7e7e7">Select Follow-up Activity</asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                                <td style="width: 10%"></td>
+                            </tr>
+                            <tr style="height: 2px">
+                            </tr>
+                            <tr>
+                                <td style="width: 15%; font-family: 'ARIAL'; font-size: 11px; font-weight: normal; color: #000000; text-align: right; text-decoration: none; padding-right: 5px; padding-left: 5px; padding-top: 5px;" height="27px">Additional Information3
+                                </td>
+                                <td class="ControlDrpBorder" style="width: 30%">
+                                    <asp:DropDownList ID="drpInformation3" runat="server" Width="100%" DataTextField="TextValue" DataValueField="ID" AutoPostBack="true" BackColor="#e7e7e7" Height="26px" CssClass="drpDownListMedium"
+                                        AppendDataBoundItems="True">
+                                        <asp:ListItem Selected="True" Value="0" style="background-color: #e7e7e7">Select Additional Information 3</asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                                <td style="width: 15%; font-family: 'ARIAL'; font-size: 11px; font-weight: normal; color: #000000; text-align: right; text-decoration: none; padding-right: 5px; padding-left: 5px; padding-top: 5px;" height="27px">Additional Information4
+                                </td>
+                                <td class="ControlDrpBorder" style="width: 30%">
+                                    <asp:DropDownList ID="drpInformation4" runat="server" Width="100%" DataTextField="TextValue" DataValueField="ID" AutoPostBack="true" BackColor="#e7e7e7" Height="26px" CssClass="drpDownListMedium"
+                                        AppendDataBoundItems="True">
+                                        <asp:ListItem Selected="True" Value="0" style="background-color: #e7e7e7">Select Additional Information 4</asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                                <td style="width: 10%"></td>
+                            </tr>
+                             <tr style="height: 7px">
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <table width="100%">
+                                        <tr>
+                                            <td style="width: 25%"></td>
+                                            <td style="width: 25%">
+                                                <asp:Button ID="btnReport" runat="server" CssClass="NewReport6" OnClick="btnReport_Click" EnableTheming="false" />
+                                            </td>                                           
+                                            <td style="width: 25%">
+                                                <asp:Button ID="btnxls" runat="server" OnClick="btnxls_Click" CssClass="exportexl6" EnableTheming="false" />
+                                            </td>
+                                            <td style="width: 25%">
+                                                <asp:Button ID="btnData" runat="server" CssClass="generatebutton" EnableTheming="false" Visible="False" />
+                                            </td>                                            
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr style="height: 7px">
                             </tr>
                         </table>
                     </td>
                 </tr>
-                <tr style="height: 7px">
-                </tr>
             </table>
+
         </div>
 
-        <table style="width: 100%">
+   <%--     <table style="width: 100%">
             <tr style="height: 6px">
             </tr>
             <tr>
@@ -91,27 +193,7 @@
                     <asp:GridView ID="GridCust" runat="server" BackColor="White" BorderColor="blue" Width="100%" OnRowCreated="GridCust_RowCreated" OnPageIndexChanging="GridCust_PageIndexChanging"
                         BorderStyle="Solid" BorderWidth="1px" CellPadding="3" CellSpacing="1" Font-Size="Small" Font-Names="Trebuchet MS" CssClass="someClass"
                         AutoGenerateColumns="False" OnRowDataBound="GridCust_RowDataBound" AllowPaging="True" HeaderStyle-ForeColor="Black">
-                        <Columns>
-                            <%--<asp:TemplateField HeaderText="Rate Type"  HeaderStyle-BorderColor="Blue" >
-                                <ItemTemplate>
-                                    <asp:Label ID="lblLedger" runat="server" Text='<%# Eval("ProductName") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Start Date"  HeaderStyle-BorderColor="Blue" >
-                                <ItemTemplate>
-                                    <asp:Label ID="lblLed" runat="server" Text='<%# Eval("ItemCode") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="End Date"  HeaderStyle-BorderColor="Blue" >
-                                <ItemTemplate>
-                                    <asp:Label ID="lblLedg" runat="server" Text='<%# Eval("Model") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Rate"  HeaderStyle-BorderColor="Blue" >
-                                <ItemTemplate>
-                                    <asp:Label ID="lblLedg" runat="server" Text='<%# Eval("Rate") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>--%>
+                        <Columns>                          
                             <asp:TemplateField HeaderText="Product Name" HeaderStyle-BorderColor="Blue">
                                 <ItemTemplate>
                                     <asp:Label ID="lblLedger" runat="server" Text='<%# Eval("ProductName") %>'></asp:Label>
@@ -201,7 +283,7 @@
                 </td>
 
             </tr>
-        </table>
+        </table>--%>
 
     </center>
 </asp:Content>
