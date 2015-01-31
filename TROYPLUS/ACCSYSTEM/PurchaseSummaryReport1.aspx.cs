@@ -46,6 +46,7 @@ public partial class PurchaseSummaryReport1 : System.Web.UI.Page
             {
                 txtStartDate.Text = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToShortDateString();
                 //txtEndDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                lblBillDate.Text = DateTime.Now.ToShortDateString();
 
                 DateTime indianStd = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "India Standard Time");
                 string dtaa = Convert.ToDateTime(indianStd).ToString("dd/MM/yyyy");

@@ -60717,11 +60717,11 @@ public class BusinessLogic
 
         if (dropDown == "TaskStatusName")
         {
-            dbQry = "select A.Task_Status_Name,A.Task_Status_Id, (Select count(*) from tblTaskStatus where A.Task_Status_Id>=Task_Status_Id) as Row from tblTaskStatus as A Where A.Task_Status_Name like '" + txtSearch + "'" + " Order By A.Task_Status_Id";
+            dbQry = "select A.Task_Status_Name,A.Task_Status_Id, (Select count(*) from tblTaskStatus where A.Task_Status_Id>=Task_Status_Id) as Row from tblTaskStatus as A Where A.Task_Status_Name like '" + txtSearch + "'" + " Order By A.Task_Status_Id desc";
         }
         else
         {
-            dbQry = string.Format("select A.Task_Status_Name,A.Task_Status_Id, (Select count(*) from tblTaskStatus where A.Task_Status_Id>=Task_Status_Id) as Row from tblTaskStatus as A Where (A.Task_Status_Name like '{0}') Order By A.Task_Status_Id", txtSearch);
+            dbQry = string.Format("select A.Task_Status_Name,A.Task_Status_Id, (Select count(*) from tblTaskStatus where A.Task_Status_Id>=Task_Status_Id) as Row from tblTaskStatus as A Where (A.Task_Status_Name like '{0}') Order By A.Task_Status_Id desc", txtSearch);
         }
 
         try
@@ -61023,12 +61023,12 @@ public class BusinessLogic
 
         if (dropDown == "TaskTypeName")
         {
-            dbQry = "select A.Task_Type_Name,A.Task_Type_Id, (Select count(*) from tblTaskTypes where A.Task_Type_Id>=Task_Type_Id) as Row from tblTaskTypes as A  Where A.Task_Type_Name like '" + txtSearch + "'" + " Order By A.Task_Type_Id";
+            dbQry = "select A.Task_Type_Name,A.Task_Type_Id, (Select count(*) from tblTaskTypes where A.Task_Type_Id>=Task_Type_Id) as Row from tblTaskTypes as A  Where A.Task_Type_Name like '" + txtSearch + "'" + " Order By A.Task_Type_Id desc";
         }
         else
         {
             //dbQry = string.Format("select Task_Type_Name,Task_Type_Id from tblTaskTypes Order By Task_Type_Name");
-            dbQry = string.Format("select A.Task_Type_Name,A.Task_Type_Id, (Select count(*) from tblTaskTypes where A.Task_Type_Id>=Task_Type_Id) as Row from tblTaskTypes as A  Where (A.Task_Type_Name like '{0}') Order By A.Task_Type_Id", txtSearch);
+            dbQry = string.Format("select A.Task_Type_Name,A.Task_Type_Id, (Select count(*) from tblTaskTypes where A.Task_Type_Id>=Task_Type_Id) as Row from tblTaskTypes as A  Where (A.Task_Type_Name like '{0}') Order By A.Task_Type_Id desc", txtSearch);
         }
 
         try
@@ -62306,8 +62306,78 @@ public class BusinessLogic
                    " INNER JOIN tblCompetitors ON tblLeadHeader.Lead_No = tblCompetitors.Lead_No) INNER JOIN tblActivities ON tblLeadHeader.Lead_No = tblActivities.Lead_No" +
                    " WHERE Start_Date>=#" + startDate.ToString("MM/dd/yyyy") + "# AND Start_Date <=#" + endDate.ToString("MM/dd/yyyy") + "# ");
 
-           // dbQry = ("SELECT * FROM tblLeadHeader WHERE Start_Date>=#" + startDate.ToString("MM/dd/yyyy") + "# AND Start_Date <=#" + endDate.ToString("MM/dd/yyyy") + "# ");
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
+    public DataSet GetLeadManagementListFilter(string sDataSource,string condtion)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);// +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        DataSet ds = new DataSet();
+
+        string dbQry = string.Empty;
+
+        string dbQry2 = string.Empty;
+        string sQry = string.Empty;
+        string oQry = string.Empty;
+        string sConStr = string.Empty;
+        string tQry = string.Empty;
+        string pQry = string.Empty;
+
+        OleDbConnection oleConn;
+        OleDbCommand oleCmd;
+        OleDbDataAdapter oleAdp;
+        DataSet dso, dsSales, dsPurcahse;
+        oleCmd = new OleDbCommand();
+
+        Double closestock;
+
+        try
+        {
+            manager.Open();
+
+            //dbQry = (" SELECT tblLeadHeader.Lead_No, tblLeadHeader.Lead_Name, tblLeadHeader.BP_Name, tblLeadHeader.Address, " +
+            //       " tblLeadHeader.Mobile, tblLeadHeader.Telephone, tblLeadHeader.Doc_Status, tblLeadHeader.Closing_Date, tblLeadHeader.Emp_Name, " +
+            //       " tblLeadHeader.Start_Date, tblLeadHeader.Lead_Status, tblLeadHeader.Contact_Name, tblLeadHeader.Predicted_Closing_Date, " +
+            //       " tblCompetitors.Competitor_Name, tblActivities.Activity_Name, tblActivities.Activity_Date, tblActivities.Activity_Location, " +
+            //       " tblActivities.Next_Activity, tblActivities.NextActivity_Date,tblActivities.ModeofContact, tblProductInterest.Product_Name " +
+            //       " FROM ((tblLeadHeader INNER JOIN tblProductInterest ON tblLeadHeader.Lead_No = tblProductInterest.Lead_No) " +
+            //       " INNER JOIN tblCompetitors ON tblLeadHeader.Lead_No = tblCompetitors.Lead_No) INNER JOIN tblActivities ON tblLeadHeader.Lead_No = tblActivities.Lead_No" +
+            //       " WHERE Start_Date>=#" + startDate.ToString("MM/dd/yyyy") + "# AND Start_Date <=#" + endDate.ToString("MM/dd/yyyy") + "# ");
+
+            //dbQry=(" SELECT tblLeadHeader.Lead_No, tblLeadHeader.Lead_Name, tblLeadHeader.BP_Name, tblLeadHeader.Address, tblLeadHeader.Mobile, " +
+            //       " tblLeadHeader.Telephone, tblLeadHeader.Doc_Status, tblLeadHeader.Closing_Date, tblLeadHeader.Emp_Name,tblLeadHeader.Emp_Id, tblLeadHeader.Start_Date, " +
+            //       " tblLeadHeader.Lead_Status, tblLeadHeader.Contact_Name, tblLeadHeader.Predicted_Closing_Date, tblCompetitors.Competitor_Name, " +
+            //       " tblActivities.Activity_Name, tblActivities.Activity_Date, tblActivities.Activity_Location, tblActivities.Next_Activity, " +
+            //       " tblActivities.NextActivity_Date, tblActivities.ModeofContact, tblProductInterest.Product_Name, tblLeadHeader.Emp_Id, tblLeadHeader.Bp_Id, " +
+            //       " tblLeadHeader.Area, tblLeadHeader.Category, tblLeadHeader.Information3, tblLeadHeader.Information4, tblActivities.Activity_Name_Id, " +
+            //       " tblActivities.Next_Activity_Id, tblProductInterest.Product_Name, tblProductInterest.Product_Id " +
+            //       " FROM ((tblLeadHeader INNER JOIN tblProductInterest ON tblLeadHeader.Lead_No = tblProductInterest.Lead_No) " +
+            //       " INNER JOIN tblCompetitors ON tblLeadHeader.Lead_No = tblCompetitors.Lead_No) INNER JOIN tblActivities ON tblLeadHeader.Lead_No = tblActivities.Lead_No " +
+            //       " WHERE Doc_Status='" + status + "' AND Emp_Id= '" + empname + "' AND Area= " + area + "AND Category=" + category + " AND Activity_Name_Id=" + actname + " AND Next_Activity_Id=" + nxtactname + " AND Information3=" + info3 + " AND Information4= " + info4 + "" +
+            //       " AND Start_Date>=#" + startDate.ToString("MM/dd/yyyy") + "# AND Start_Date <=#" + endDate.ToString("MM/dd/yyyy") + "# ");
+
+
+            dbQry = (" SELECT tblLeadHeader.Lead_No, tblLeadHeader.Lead_Name, tblLeadHeader.BP_Name, tblLeadHeader.Address, tblLeadHeader.Mobile, " +
+                  " tblLeadHeader.Telephone, tblLeadHeader.Doc_Status, tblLeadHeader.Closing_Date, tblLeadHeader.Emp_Name,tblLeadHeader.Emp_Id, tblLeadHeader.Start_Date, " +
+                  " tblLeadHeader.Lead_Status, tblLeadHeader.Contact_Name, tblLeadHeader.Predicted_Closing_Date, tblCompetitors.Competitor_Name, " +
+                  " tblActivities.Activity_Name, tblActivities.Activity_Date, tblActivities.Activity_Location, tblActivities.Next_Activity, " +
+                  " tblActivities.NextActivity_Date, tblActivities.ModeofContact, tblProductInterest.Product_Name, tblLeadHeader.Emp_Id, tblLeadHeader.Bp_Id, " +
+                  " tblLeadHeader.Area, tblLeadHeader.Category, tblLeadHeader.Information3, tblLeadHeader.Information4, tblActivities.Activity_Name_Id, " +
+                  " tblActivities.Next_Activity_Id, tblProductInterest.Product_Name, tblProductInterest.Product_Id " +
+                  " FROM ((tblLeadHeader INNER JOIN tblProductInterest ON tblLeadHeader.Lead_No = tblProductInterest.Lead_No) " +
+                  " INNER JOIN tblCompetitors ON tblLeadHeader.Lead_No = tblCompetitors.Lead_No) INNER JOIN tblActivities ON tblLeadHeader.Lead_No = tblActivities.Lead_No " +
+                  " WHERE " + condtion);
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
             if (ds.Tables[0].Rows.Count > 0)

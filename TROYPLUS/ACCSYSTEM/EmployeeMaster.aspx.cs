@@ -45,6 +45,7 @@ public partial class EmployeeMaster : System.Web.UI.Page
                 GrdEmp.PageSize = 8;
 
                 BindEmp();
+                loadEmp();
 
                 string connection = Request.Cookies["Company"].Value;
                 string usernam = Request.Cookies["LoggedUserName"].Value;
@@ -134,6 +135,21 @@ public partial class EmployeeMaster : System.Web.UI.Page
         GrdEmp.DataBind();
     }
 
+    private void loadEmp()
+    {
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        DataSet ds = new DataSet();
+        string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+        drpIncharge.Items.Clear();
+        drpIncharge.Items.Add(new ListItem("Select Manager", "0"));
+        ds = bl.ListExecutive();
+        drpIncharge.DataSource = ds;
+        drpIncharge.DataBind();
+        drpIncharge.DataTextField = "empFirstName";
+        drpIncharge.DataValueField = "empno";
+
+    }
+
     protected void lnkBtnAdd_Click(object sender, EventArgs e)
     {
         try
@@ -156,7 +172,7 @@ public partial class EmployeeMaster : System.Web.UI.Page
             DateTime indianStd = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "India Standard Time");
             string dtaa = Convert.ToDateTime(indianStd).ToString("dd/MM/yyyy");
             txtDoj.Text = dtaa;
-
+            loadEmp();
             ModalPopupExtender2.Show();
             //BusinessLogic bl = new BusinessLogic(sDataSource);
             //int empnum = bl.GetNextEmpno();

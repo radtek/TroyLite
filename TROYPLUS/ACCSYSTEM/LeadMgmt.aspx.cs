@@ -4084,11 +4084,11 @@ public partial class LeadMgmt : System.Web.UI.Page
                     TextBox txtThrlvl =
                       (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtThrLvl");
                     TextBox txtOuestrweak =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtOurStrWeakness");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[3].FindControl("txtOurStrWeakness");
                     TextBox txtComstrweak =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[3].FindControl("txtCompStrWeakness");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[4].FindControl("txtCompStrWeakness");
                     TextBox txtremarks =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[4].FindControl("txtRemarks");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[5].FindControl("txtRemarks");
 
 
                     drCurrentRow = dtCurrentTable2.NewRow();
@@ -4133,23 +4133,23 @@ public partial class LeadMgmt : System.Web.UI.Page
                     TextBox txtactivityLoc =
                       (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[2].FindControl("txtActiLoc");
                     TextBox txtactivityDate =
-                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[2].FindControl("txtActiDate");
+                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[3].FindControl("txtActiDate");
                     DropDownList drpnxtActivity =
-                     (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpnxtActivity");
+                     (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("drpnxtActivity");
                     TextBox txtnxtActDate =
-                     (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[3].FindControl("txtNxtActyDate");
+                     (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[5].FindControl("txtNxtActyDate");
                     DropDownList drpemployee =
-                     (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpemployee");
+                     (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[6].FindControl("drpemployee");
                     //TextBox txtmodeofCnt =
                     //  (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("txtModrofcnt");
                     DropDownList drpmodeofCnt =
-                    (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpModrofcnt");
+                    (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[7].FindControl("drpModrofcnt");
                     DropDownList drpinfo2 =
-                       (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpinfo2");
+                       (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[8].FindControl("drpinfo2");
                     DropDownList drpinfo5 =
-                       (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpinfo5");
+                       (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[9].FindControl("drpinfo5");
                     TextBox txtremarks =
-                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("txtremarks");
+                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[10].FindControl("txtremarks");
 
 
                     drCurrentRow = dtCurrentTable3.NewRow();
@@ -4217,15 +4217,15 @@ public partial class LeadMgmt : System.Web.UI.Page
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     TextBox txtComName =
-                     (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtComeName");
+                     (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[1].FindControl("txtComeName");
                     TextBox txtThrlvl =
                       (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtThrLvl");
                     TextBox txtOuestrweak =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtOurStrWeakness");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[3].FindControl("txtOurStrWeakness");
                     TextBox txtComstrweak =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtCompStrWeakness");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[4].FindControl("txtCompStrWeakness");
                     TextBox txtremarks =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtRemarks");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[5].FindControl("txtRemarks");
 
 
                     txtComName.Text = dt.Rows[i]["ComName"].ToString();
@@ -4255,23 +4255,23 @@ public partial class LeadMgmt : System.Web.UI.Page
                     TextBox txtactivityLoc =
                       (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[2].FindControl("txtActiLoc");
                     TextBox txtactivityDate =
-                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[2].FindControl("txtActiDate");
+                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[3].FindControl("txtActiDate");
                     DropDownList drpnxtActivity =
-                     (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpnxtActivity");
+                     (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("drpnxtActivity");
                     TextBox txtnxtActDate =
-                     (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[3].FindControl("txtNxtActyDate");
+                     (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[5].FindControl("txtNxtActyDate");
                     DropDownList drpemployee =
-                     (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpemployee");
+                     (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[6].FindControl("drpemployee");
                     //TextBox txtmodeofCnt =
                     //  (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("txtModrofcnt");
                     DropDownList drpmodeofCnt =
-                   (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpModrofcnt");
+                   (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[7].FindControl("drpModrofcnt");
                     DropDownList drpinfo2 =
-                       (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpinfo2");
+                       (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[8].FindControl("drpinfo2");
                     DropDownList drpinfo5 =
-                       (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpinfo5");
+                       (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[9].FindControl("drpinfo5");
                     TextBox txtremarks =
-                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("txtremarks");
+                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[10].FindControl("txtremarks");
 
 
                     drpactivityName.SelectedValue = dt.Rows[i]["ActName"].ToString();
@@ -4343,15 +4343,15 @@ public partial class LeadMgmt : System.Web.UI.Page
                 for (int i = 1; i <= dtCurrentTable2.Rows.Count; i++)
                 {
                     TextBox txtComName =
-                    (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtComeName");
+                    (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[1].FindControl("txtComeName");
                     TextBox txtThrlvl =
                       (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtThrLvl");
                     TextBox txtOuestrweak =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtOurStrWeakness");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[3].FindControl("txtOurStrWeakness");
                     TextBox txtComstrweak =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtCompStrWeakness");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[4].FindControl("txtCompStrWeakness");
                     TextBox txtremarks =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtRemarks");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[5].FindControl("txtRemarks");
 
 
                     drCurrentRow = dtCurrentTable2.NewRow();
@@ -4395,23 +4395,23 @@ public partial class LeadMgmt : System.Web.UI.Page
                     TextBox txtactivityLoc =
                       (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[2].FindControl("txtActiLoc");
                     TextBox txtactivityDate =
-                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[2].FindControl("txtActiDate");
+                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[3].FindControl("txtActiDate");
                     DropDownList drpnxtActivity =
-                     (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpnxtActivity");
+                     (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("drpnxtActivity");
                     TextBox txtnxtActDate =
-                     (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[3].FindControl("txtNxtActyDate");
+                     (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[5].FindControl("txtNxtActyDate");
                     DropDownList drpemployee =
-                     (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpemployee");
+                     (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[6].FindControl("drpemployee");
                     //TextBox txtmodeofCnt =
                     //  (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("txtModrofcnt");
                     DropDownList drpmodeofCnt =
-                    (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpModrofcnt");
+                    (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[7].FindControl("drpModrofcnt");
                     DropDownList drpinfo2 =
-                       (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpinfo2");
+                       (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[8].FindControl("drpinfo2");
                     DropDownList drpinfo5 =
-                       (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[1].FindControl("drpinfo5");
+                       (DropDownList)GrdViewLeadActivity.Rows[rowIndex].Cells[9].FindControl("drpinfo5");
                     TextBox txtremarks =
-                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[4].FindControl("txtremarks");
+                      (TextBox)GrdViewLeadActivity.Rows[rowIndex].Cells[10].FindControl("txtremarks");
 
 
                     drCurrentRow = dtCurrentTable3.NewRow();
