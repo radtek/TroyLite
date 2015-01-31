@@ -94,9 +94,11 @@ public partial class ProjectReport : System.Web.UI.Page
             string connection = Request.Cookies["Company"].Value;
 
             Emp_Id = Convert.ToInt32(drpIncharge.SelectedValue);
+
             drpproject.Items.Clear();
-            drpproject.Items.Add(new ListItem("---ALL---", "0"));
+           
             DataSet ds = bl.getfilterprojectfromemployee(connection, Emp_Id);
+            drpproject.Items.Add(new ListItem("---ALL---", "0"));
             drpproject.DataSource = ds;
             drpproject.DataBind();
             drpproject.DataTextField = "Project_Name";
@@ -379,15 +381,15 @@ public partial class ProjectReport : System.Web.UI.Page
             incharge = Convert.ToInt32(drpIncharge.SelectedValue);
 
             ProjectId = Convert.ToInt32(drpproject.SelectedValue);
-            BlockedTask = radblocktask.SelectedItem.Text;
+            BlockedTask = radblocktask.SelectedValue;
             CompletedTask = Convert.ToInt32(drpTaskStatus.SelectedValue);
             Task = Convert.ToInt32(drptask.SelectedValue);
             DependencyTask = Convert.ToInt32(drpdependencytask.SelectedValue);
-            isactive = radisactive.SelectedItem.Text;
-            string cond = getCond();
+            isactive = radisactive.SelectedValue;
+            //string cond = getCond();
 
-            Response.Write("<script language='javascript'> window.open('ProjectReport1.aspx?incharge =" + Convert.ToString(incharge) + "&employee=" + Convert.ToString(Empno) + "&project=" + Convert.ToString(ProjectId) + "&BlockedTask=" + BlockedTask + "&CompletedTask=" + Convert.ToString(CompletedTask) + "&Task=" + Convert.ToString(Task) + "&DependencyTask=" + Convert.ToString(DependencyTask) + "&isactive=" + isactive + "&cond=" + Convert.ToString(cond) +" ' , 'window','height=700,width=1000,left=172,top=10,toolbar=yes,scrollbars=yes,resizable=yes');</script>");
-
+            //Response.Write("<script language='javascript'> window.open('ProjectReport1.aspx?incharge =" + Convert.ToString(incharge) + "&employee=" + Convert.ToString(Empno) + "&project=" + Convert.ToString(ProjectId) + "&BlockedTask=" + BlockedTask + "&CompletedTask=" + Convert.ToString(CompletedTask) + "&Task=" + Convert.ToString(Task) + "&DependencyTask=" + Convert.ToString(DependencyTask) + "&isactive=" + isactive + "&cond=" + Convert.ToString(cond) +" ' , 'window','height=700,width=1000,left=172,top=10,toolbar=yes,scrollbars=yes,resizable=yes');</script>");
+            Response.Write("<script language='javascript'> window.open('ProjectReport1.aspx?incharge=" + incharge + "&employee=" +Empno + "&project=" + ProjectId + "&BlockedTask=" + BlockedTask + "&CompletedTask=" + CompletedTask + "&Task=" + Task + "&DependencyTask=" + DependencyTask + "&isactive=" + isactive + " ' , 'window','height=700,width=1000,left=172,top=10,toolbar=yes,scrollbars=yes,resizable=yes');</script>");
             //Response.Redirect("ProjectReport1.aspx");
         }
         catch (Exception ex)
@@ -396,59 +398,312 @@ public partial class ProjectReport : System.Web.UI.Page
         }
     }
 
-    protected string getCond()
-    {
-        string cond = "";
+    //protected string getCond()
+    //{
+    //    string cond = "";
 
-        //cond = "1=1";
-
-
-        if ((drpproject.SelectedItem.Text != "---ALL---"))
-        {
+    //    //cond = "1=1";
 
 
-            cond += "  tblProjects.ProjectId=" + drpproject.SelectedValue + "";
-        }
+    //    if ((drpproject.SelectedItem.Text != "---ALL---"))
+    //    {
+
+
+    //        cond += "  tblProjects.ProjectId=" + drpproject.SelectedValue + "";
+    //    }
        
-        if ((drpEmployee.SelectedItem.Text != "---ALL---"))
-        {
+    //    if ((drpEmployee.SelectedItem.Text != "---ALL---"))
+    //    {
 
-            cond += " and tblEmployee.empno=" + drpEmployee.SelectedValue + "";
-        }
+    //        cond += " and tblEmployee.empno=" + drpEmployee.SelectedValue + "";
+    //    }
         
         
 
-            cond += " and  tblTaskUpdates.Blocked_Flag ='" + radblocktask.SelectedValue + "'";
+    //        cond += " and  tblTaskUpdates.Blocked_Flag ='" + radblocktask.SelectedValue + "'";
         
 
-        if ((drpTaskStatus.SelectedItem.Text != "---ALL---"))
-        {
+    //    if ((drpTaskStatus.SelectedItem.Text != "---ALL---"))
+    //    {
 
-            cond += " and tblTaskUpdates.Task_Status =" + Convert.ToInt32(drpTaskStatus.SelectedValue) + " ";
+    //        cond += " and tblTaskUpdates.Task_Status =" + Convert.ToInt32(drpTaskStatus.SelectedValue) + " ";
 
-        }
-        if ((drptask.SelectedItem.Text != "---ALL---"))
-        {
+    //    }
+    //    if ((drptask.SelectedItem.Text != "---ALL---"))
+    //    {
 
-            cond += " and tblTasks.Task_Id =" + Convert.ToInt32(drptask.SelectedValue) + " ";
-        }
+    //        cond += " and tblTasks.Task_Id =" + Convert.ToInt32(drptask.SelectedValue) + " ";
+    //    }
 
-        if ((drpdependencytask.SelectedItem.Text != "---ALL---"))
-        {
+    //    if ((drpdependencytask.SelectedItem.Text != "---ALL---"))
+    //    {
 
-            cond += " and tblTasks.Dependency_Task =" + Convert.ToInt32(drpdependencytask.SelectedValue) + " ";
-        }
+    //        cond += " and tblTasks.Dependency_Task =" + Convert.ToInt32(drpdependencytask.SelectedValue) + " ";
+    //    }
      
 
-            cond += " and tblTasks.IsActive ='" + radisactive.SelectedValue + "' ";
+    //        cond += " and tblTasks.IsActive ='" + radisactive.SelectedValue + "' ";
         
 
-        cond += " and tblEmployee.ManagerID='" + drpIncharge.SelectedValue + "'";
+    //    cond += " and tblEmployee.ManagerID='" + drpIncharge.SelectedValue + "'";
 
 
-        return cond;
+    //    return cond;
+    //}
+    protected void btnReport_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            int empno = 0;
+            int pro_Id = 0;
+            string flag = "";
+            int status = 0;
+            int taskid = 0;
+            string isactive = "";
+            int deptask = 0;
+            int incharge = 0;
+            string connection = Request.Cookies["Company"].Value;
+            string cond = string.Empty;
+
+
+            System.Text.StringBuilder htmlcode = new System.Text.StringBuilder();
+            htmlcode.Append("<html><body>");
+            //htmlcode.Append("<form id=form1 runat=server>");
+            htmlcode.Append("<div id=divPrint style=font-family:'Trebuchet MS'; font-size:10px;  >");
+
+            htmlcode.Append("<Table id = table1 border=1px solid blue cellpadding=0 cellspacing=0 class=tblLeft width=100% >");
+            DataSet dsVat = new DataSet();
+            DataSet dsCst = new DataSet();
+            DataSet ds1 = new DataSet();
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+
+            htmlcode.Append("<tr class=ReportHeadataRow style=text-align:left>");
+            htmlcode.Append("<td> Project Name");
+            htmlcode.Append("</td>");
+            htmlcode.Append("<td> Project Date");
+            htmlcode.Append("</td>");
+            htmlcode.Append("<td> Expected Start Date");
+            htmlcode.Append("</td>");
+            htmlcode.Append("<td> Expected End Date");
+            htmlcode.Append("</td>");
+            htmlcode.Append("<td> Expected start date");
+            htmlcode.Append("</td>");
+
+            int i = 0;
+            int j = 0;
+
+            DataSet dspro = new DataSet();
+            dspro = bl.GetProjectManagementReport(connection, incharge, empno, pro_Id, flag, status, taskid, deptask, isactive, cond);
+
+            for (i = 0; i < dspro.Tables[0].Rows.Count; i++)
+            {
+                if (dspro.Tables[0].Rows[i].ItemArray[0].ToString() == "0")
+                {
+                    htmlcode.Append("<td> NO Data Found");
+                    htmlcode.Append("</td>");
+
+                }
+                else
+                {
+                    htmlcode.Append("<td> " + dsVat.Tables[0].Rows[i].ItemArray[0].ToString() + "  Project Name");
+                    htmlcode.Append("</td>");
+                    htmlcode.Append("<td> " + dsVat.Tables[0].Rows[i].ItemArray[0].ToString() + "  Project Date");
+                    htmlcode.Append("</td>");
+                    htmlcode.Append("<td> " + dsVat.Tables[0].Rows[i].ItemArray[0].ToString() + "  Expected Start Date");
+                    htmlcode.Append("</td>");
+                    htmlcode.Append("<td> " + dsVat.Tables[0].Rows[i].ItemArray[0].ToString() + "  Expected End Date");
+                    htmlcode.Append("</td>");
+                    htmlcode.Append("<td> " + dsVat.Tables[0].Rows[i].ItemArray[0].ToString() + "  Expected start date");
+                    htmlcode.Append("</td>");
+
+
+                    //htmlcode.Append("<td>" + dsVat.Tables[0].Rows[i].ItemArray[0].ToString() + " Purchase Value");
+                    //htmlcode.Append("</td>");
+                    //htmlcode.Append("<td>" + dsVat.Tables[0].Rows[i].ItemArray[0].ToString() + " Input VAT");
+                    //htmlcode.Append("</td>");
+                }
+            }
+            //dsCst = bl.ListPurchaseCst();
+            //for (i = 1; i < dsCst.Tables[0].Rows.Count; i++)
+            //{
+            //    htmlcode.Append("<td>" + dsCst.Tables[0].Rows[i].ItemArray[0].ToString() + " Purchase Value");
+            //    htmlcode.Append("</td>");
+            //    htmlcode.Append("<td>" + dsCst.Tables[0].Rows[i].ItemArray[0].ToString() + " Input CST");
+            //    htmlcode.Append("</td>");
+            //}
+            //htmlcode.Append("<td> Total Sales");
+            //htmlcode.Append("</td>");
+            //htmlcode.Append("</tr>");
+
+
+
+            //Double[] Total;
+            //Total = new double[50];
+            //int TotCount = 0;
+
+            //ds1 = bl.ListPurchaseVatCstAmtDet(Convert.ToDateTime(txtStartDate.Text), Convert.ToDateTime(txtEndDate.Text), Convert.ToInt16(drpLedgerName.SelectedValue), Convert.ToInt16(drpVat.SelectedValue), Convert.ToInt16(drpCst.SelectedValue));
+            //if (ds1 != null)
+            //{
+            //    for (j = 0; j < ds1.Tables[0].Rows.Count; j++)
+            //    {
+            //        TotCount = 0;
+            //        htmlcode.Append("<tr class=ReportdataRow>");
+            //        htmlcode.Append("<td>" + ds1.Tables[0].Rows[j].ItemArray[0].ToString());
+            //        htmlcode.Append("</td>");
+            //        htmlcode.Append("<td>" + ds1.Tables[0].Rows[j].ItemArray[1].ToString());
+            //        htmlcode.Append("</td>");
+            //        htmlcode.Append("<td>" + ds1.Tables[0].Rows[j].ItemArray[2].ToString());
+            //        htmlcode.Append("</td>");
+            //        TotSal = Convert.ToDouble(ds1.Tables[0].Rows[j].ItemArray[3].ToString());
+            //        Total[TotCount] = Total[TotCount] + TotSal;
+            //        for (i = 0; i < dsVat.Tables[0].Rows.Count; i++)
+            //        {
+
+            //            TotCount = TotCount + 1;
+            //            if (ds1.Tables[0].Rows[j].ItemArray[6].ToString() == dsVat.Tables[0].Rows[i].ItemArray[0].ToString())
+            //            {
+            //                if (ds1.Tables[0].Rows[j].ItemArray[6].ToString() == "0")
+            //                {
+            //                    if (ds1.Tables[0].Rows[j].ItemArray[7].ToString() == "0")
+            //                    {
+            //                        htmlcode.Append("<td>" + ds1.Tables[0].Rows[j].ItemArray[3].ToString());
+            //                        htmlcode.Append("</td>");
+            //                        Total[TotCount] = Total[TotCount] + Convert.ToDouble(ds1.Tables[0].Rows[j].ItemArray[3].ToString());
+            //                        TotSal = TotSal + ((TotSal * Convert.ToDouble(Convert.ToDouble(ds1.Tables[0].Rows[j].ItemArray[6].ToString()))) / 100);
+            //                        //htmlcode.Append("<td>" + ((Convert.ToDouble(ds1.Tables[0].Rows[j].ItemArray[3].ToString())) * Convert.ToDouble(ds1.Tables[0].Rows[j].ItemArray[6].ToString())) / 100);
+            //                        //htmlcode.Append("</td>");
+
+            //                    }
+            //                    else
+            //                    {
+
+            //                        htmlcode.Append("<td>");
+            //                        htmlcode.Append("</td>");
+            //                        Total[TotCount] = Total[TotCount] + 0;
+            //                    }
+            //                }
+            //                else
+            //                {
+            //                    htmlcode.Append("<td>" + ds1.Tables[0].Rows[j].ItemArray[3].ToString());
+            //                    htmlcode.Append("</td>");
+
+            //                    TotSal = TotSal + ((TotSal * Convert.ToDouble(Convert.ToDouble(ds1.Tables[0].Rows[j].ItemArray[6].ToString()))) / 100);
+            //                    htmlcode.Append("<td>" + ((Convert.ToDouble(ds1.Tables[0].Rows[j].ItemArray[3].ToString())) * Convert.ToDouble(ds1.Tables[0].Rows[j].ItemArray[6].ToString())) / 100);
+            //                    htmlcode.Append("</td>");
+            //                    Total[TotCount] = Total[TotCount] + Convert.ToDouble(ds1.Tables[0].Rows[j].ItemArray[3].ToString());
+            //                    TotCount = TotCount + 1;
+            //                    Total[TotCount] = Total[TotCount] + (Convert.ToDouble(ds1.Tables[0].Rows[j].ItemArray[3].ToString()) * Convert.ToDouble(ds1.Tables[0].Rows[j].ItemArray[6].ToString()) / 100);
+            //                }
+            //            }
+            //            else
+            //            {
+            //                if (dsVat.Tables[0].Rows[i].ItemArray[0].ToString() == "0")
+            //                {
+            //                    htmlcode.Append("<td>");
+            //                    htmlcode.Append("</td>");
+            //                    Total[TotCount] = Total[TotCount] + 0;
+            //                }
+            //                else
+            //                {
+            //                    htmlcode.Append("<td>");
+            //                    htmlcode.Append("</td>");
+            //                    htmlcode.Append("<td>");
+            //                    htmlcode.Append("</td>");
+            //                    Total[TotCount] = Total[TotCount] + 0;
+            //                    TotCount = TotCount + 1;
+            //                    Total[TotCount] = Total[TotCount] + 0;
+
+            //                }
+            //            }
+            //        }
+            //        for (i = 1; i < dsCst.Tables[0].Rows.Count; i++)
+            //        {
+
+            //            TotCount = TotCount + 1;
+            //            if (ds1.Tables[0].Rows[j].ItemArray[7].ToString() == dsCst.Tables[0].Rows[i].ItemArray[0].ToString())
+            //            {
+            //                htmlcode.Append("<td>" + ds1.Tables[0].Rows[j].ItemArray[3].ToString());
+            //                htmlcode.Append("</td>");
+            //                TotSal = TotSal + ((TotSal * Convert.ToDouble(Convert.ToDouble(ds1.Tables[0].Rows[j].ItemArray[7].ToString()))) / 100);
+            //                htmlcode.Append("<td>" + ((Convert.ToDouble(ds1.Tables[0].Rows[j].ItemArray[3].ToString())) * Convert.ToDouble(ds1.Tables[0].Rows[j].ItemArray[7].ToString())) / 100);
+            //                htmlcode.Append("</td>");
+            //                Total[TotCount] = Total[TotCount] + Convert.ToDouble(ds1.Tables[0].Rows[j].ItemArray[3].ToString());
+            //                TotCount = TotCount + 1;
+            //                Total[TotCount] = Total[TotCount] + (Convert.ToDouble(ds1.Tables[0].Rows[j].ItemArray[3].ToString()) * Convert.ToDouble(ds1.Tables[0].Rows[j].ItemArray[7].ToString()) / 100);
+            //            }
+            //            //else
+            //            //{
+            //            //    htmlcode.Append("<td>");
+            //            //    htmlcode.Append("</td>");
+            //            //    htmlcode.Append("<td>");
+            //            //    htmlcode.Append("</td>");
+            //            //    Total[TotCount] = Total[TotCount] + 0;
+            //            //    TotCount = TotCount + 1;
+            //            //    Total[TotCount] = Total[TotCount] + 0;
+            //            //}
+            //        }
+            //        //TotCount = TotCount + 1;
+            //        //Total[TotCount] = Total[TotCount] + TotSal;
+            //        //htmlcode.Append("<td>" + TotSal);
+            //        //htmlcode.Append("</td>");
+            //        //htmlcode.Append("</tr>");
+
+            //    }
+            //htmlcode.Append("<tr class=ReportFooterRow>");
+            //htmlcode.Append("<td>");
+            //htmlcode.Append("</td>");
+            //htmlcode.Append("<td>");
+            //htmlcode.Append("</td>");
+            //htmlcode.Append("<td>");
+            //htmlcode.Append("</td>");
+            //TotCount = 1;
+            //for (i = 0; i < dsVat.Tables[0].Rows.Count; i++)
+            //{
+            //    if (i == 0)
+            //    {
+            //        htmlcode.Append("<td>" + Total[TotCount]);
+            //        htmlcode.Append("</td>");
+            //        TotCount = TotCount + 1;
+            //    }
+            //    else
+            //    {
+            //        htmlcode.Append("<td>" + Total[TotCount]);
+            //        htmlcode.Append("</td>");
+            //        TotCount = TotCount + 1;
+            //        htmlcode.Append("<td>" + Total[TotCount]);
+            //        htmlcode.Append("</td>");
+            //        TotCount = TotCount + 1;
+            //    }
+            //}
+            //for (i = 1; i < dsCst.Tables[0].Rows.Count; i++)
+            //{
+            //    htmlcode.Append("<td>" + Total[TotCount]);
+            //    htmlcode.Append("</td>");
+            //    TotCount = TotCount + 1;
+            //    htmlcode.Append("<td>" + Total[TotCount]);
+            //    htmlcode.Append("</td>");
+            //    TotCount = TotCount + 1;
+            //}
+            //htmlcode.Append("<td>" + Total[TotCount]);
+            //htmlcode.Append("</td>");
+            //htmlcode.Append("</tr>");
+            //htmlcode.Append("</div>");
+            //htmlcode.Append("</Table>");
+
+            ////htmlcode.Append("</form>");
+            //htmlcode.Append("</body></html>");
+
+            //string s = htmlcode.ToString();
+            //divReport.InnerHtml = htmlcode.ToString();
+
+            //ExportToExcel();
+        }
+
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
     }
-
 
     
 }

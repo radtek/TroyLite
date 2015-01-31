@@ -364,7 +364,7 @@
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlTextBox3">
                                                                                          <asp:TextBox ID="TextBox1" MaxLength="10" runat="server" CssClass="cssTextBox" Width="100px" Visible="false" Enabled="false" />
-                                                                                        <asp:TextBox ID="txteffortremain" MaxLength="10" runat="server" CssClass="cssTextBox" Width="100px" />
+                                                                                        <asp:TextBox ID="txteffortremain" Text="0" MaxLength="10" runat="server" CssClass="cssTextBox" Width="100px" />
                                                                                        
                                                                                     </td>
                                                                                  <td style="width:5%">
