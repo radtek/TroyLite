@@ -200,7 +200,7 @@ public partial class CustReceipt : System.Web.UI.Page
 
             for (int vLoop = 0; vLoop < GrdViewItems.Rows.Count; vLoop++)
             {
-                TextBox txtttd = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtType");
+                Label txtttd = (Label)GrdViewItems.Rows[vLoop].FindControl("txtType");
                 if(txtttd.Text == "Cash")
                 {
 
@@ -470,6 +470,57 @@ public partial class CustReceipt : System.Web.UI.Page
         GrdViewSales.DataSource = dsSales;
         GrdViewSales.DataBind();
 
+        //if (dsSales != null)
+        //{
+        //    hdPendingCount.Value = dsSales.Tables[0].Rows.Count.ToString();
+        //}
+
+    }
+
+    private void ShowPendingBillsAuto()
+    {
+        string connStr = string.Empty;
+
+        if (Request.Cookies["Company"] != null)
+            connStr = System.Configuration.ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+        else
+            Response.Redirect("~/Login.aspx");
+
+        BusinessLogic bl = new BusinessLogic();
+        var customerID = ddReceivedFrom.SelectedValue.Trim();
+
+        var dsSales = bl.ListCreditSales(connStr.Trim(), customerID);
+
+        var receivedData = bl.GetCustReceivedAmount(connStr);
+
+        if (dsSales != null)
+        {
+
+            foreach (DataRow dr in receivedData.Tables[0].Rows)
+            {
+                var billNo = dr["BillNo"].ToString();
+                var billAmount = dr["TotalAmount"].ToString();
+
+                for (int i = 0; i < dsSales.Tables[0].Rows.Count; i++)
+                {
+                    if (billNo.Trim() == dsSales.Tables[0].Rows[i]["BillNo"].ToString())
+                    {
+                        dsSales.Tables[0].Rows[i].BeginEdit();
+                        double val = (double.Parse(dsSales.Tables[0].Rows[i]["Amount"].ToString()) - double.Parse(billAmount));
+                        dsSales.Tables[0].Rows[i]["Amount"] = val;
+                        dsSales.Tables[0].Rows[i].EndEdit();
+
+                        if (val == 0.0)
+                            dsSales.Tables[0].Rows[i].Delete();
+                    }
+                }
+                dsSales.Tables[0].AcceptChanges();
+            }
+
+        }
+        GridView1.DataSource = dsSales;
+        GridView1.DataBind();
+        
         //if (dsSales != null)
         //{
         //    hdPendingCount.Value = dsSales.Tables[0].Rows.Count.ToString();
@@ -1006,7 +1057,7 @@ public partial class CustReceipt : System.Web.UI.Page
                 ddl.DataTextField = "LedgerName";
                 ddl.DataValueField = "LedgerID";
 
-                var ddll = (TextBox)e.Row.FindControl("txtType");
+                var ddll = (Label)e.Row.FindControl("txtType");
                 if(ddll.Text == "Cash")
                 {
                     var dd = (TextBox)e.Row.FindControl("txtChequeNo");
@@ -1065,7 +1116,7 @@ public partial class CustReceipt : System.Web.UI.Page
 
         for (int vLoop = 0; vLoop < GrdViewItems.Rows.Count; vLoop++)
         {
-            TextBox txtttd = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtType");
+            Label txtttd = (Label)GrdViewItems.Rows[vLoop].FindControl("txtType");
             TextBox txttt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtRefNo");
             TextBox txt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtAmount");
             TextBox txtt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtNarration");
@@ -1148,7 +1199,7 @@ public partial class CustReceipt : System.Web.UI.Page
         for (int vLoop = 0; vLoop < GrdViewItems.Rows.Count; vLoop++)
         {
             TextBox txttt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtRefNo");
-            TextBox txtttd = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtType");
+            Label txtttd = (Label)GrdViewItems.Rows[vLoop].FindControl("txtType");
             TextBox txt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtAmount");
             TextBox txtt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtNarration");
             DropDownList txttd = (DropDownList)GrdViewItems.Rows[vLoop].FindControl("drpBank");
@@ -1257,6 +1308,87 @@ public partial class CustReceipt : System.Web.UI.Page
         {
             TroyLiteExceptionManager.HandleException(ex);
         }
+    }
+
+    protected void drpLedger_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            int debtorID = Convert.ToInt32(drpLedger.SelectedValue);
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+
+            DataSet customerDs = bl.getAddressInfo(debtorID);
+
+            if (customerDs != null && customerDs.Tables[0].Rows.Count > 0)
+            {
+                if (customerDs.Tables[0].Rows[0]["Add1"] != null)
+                    txtAddress.Text = customerDs.Tables[0].Rows[0]["Add1"].ToString();
+
+                if (customerDs.Tables[0].Rows[0]["Add2"] != null)
+                    txtAddress2.Text = customerDs.Tables[0].Rows[0]["Add2"].ToString();
+
+                if (customerDs.Tables[0].Rows[0]["Add3"] != null)
+                    txtAddress3.Text = customerDs.Tables[0].Rows[0]["Add3"].ToString();
+
+                if (customerDs.Tables[0].Rows[0]["Mobile"] != null)
+                {
+                    txtCustomerId.Text = Convert.ToString(customerDs.Tables[0].Rows[0]["Mobile"]);
+                }
+
+                drpMobile.ClearSelection();
+                ListItem lit = drpMobile.Items.FindByValue(Convert.ToString(debtorID));
+                if (lit != null) lit.Selected = true;
+
+            }
+            else
+            {
+                txtAddress.Text = string.Empty;
+                txtAddress2.Text = string.Empty;
+                txtAddress3.Text = string.Empty;
+                txtCustomerId.Text = string.Empty;
+            }
+
+            ShowPendingBillsAuto();
+            div1.Visible = true;
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+    protected void chk_CheckedChanged(object sender, EventArgs e)
+    {
+        if (chk.Checked == false)
+        {
+            txtCustomerName.Visible = true;
+            drpLedger.Visible = false;
+
+            txtCustomerId.Visible = true;
+            drpMobile.Visible = false;
+
+            txtAddress.Enabled = true;
+            txtAddress2.Enabled = true;
+            txtAddress3.Enabled = true;
+            txtCustomerId.Enabled = true;
+            txtCustomerName.Enabled = true;
+
+        }
+        else
+        {
+            drpLedger.Visible = true;
+            txtCustomerName.Visible = false;
+
+            drpMobile.Visible = true;
+            txtCustomerId.Visible = false;
+
+            txtAddress.Enabled = false;
+            txtAddress2.Enabled = false;
+            txtAddress3.Enabled = false;
+            txtCustomerId.Enabled = false;
+            txtCustomerName.Enabled = false;
+        }
+        //UpdatePanel21.Update();
     }
 
     protected void chkPayTo_SelectedIndexChanged(object sender, EventArgs e)
@@ -1421,6 +1553,86 @@ public partial class CustReceipt : System.Web.UI.Page
         {
             TroyLiteExceptionManager.HandleException(ex);
         }
+    }
+
+    protected void drpReceiptType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            if(drpReceiptType.SelectedValue == "1")
+            {
+                txtAddress.Enabled = false;
+                txtAddress2.Enabled = false;
+                txtAddress3.Enabled = false;
+                drpLedger.Visible = true;
+                drpMobile.Visible = true;
+                txtCustomerId.Enabled = false;
+                txtCustomerName.Enabled = false;
+            }
+            else
+            {
+                txtAddress.Enabled = true;
+                txtAddress2.Enabled = true;
+                txtAddress3.Enabled = true;
+                txtCustomerId.Enabled = true;
+                txtCustomerName.Enabled = true;
+            }
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+    protected void drpMobile_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+
+            int iLedgerID = Convert.ToInt32(drpMobile.SelectedItem.Value);
+                                   
+            DataSet customerDs = bl.getAddressInfo(iLedgerID);
+            string address = string.Empty;
+
+            if (customerDs != null && customerDs.Tables[0].Rows.Count > 0)
+            {
+                if (customerDs.Tables[0].Rows[0]["Add1"] != null)
+                    txtAddress.Text = customerDs.Tables[0].Rows[0]["Add1"].ToString();
+
+                if (customerDs.Tables[0].Rows[0]["Add2"] != null)
+                    txtAddress2.Text = customerDs.Tables[0].Rows[0]["Add2"].ToString();
+
+                if (customerDs.Tables[0].Rows[0]["Add3"] != null)
+                    txtAddress3.Text = customerDs.Tables[0].Rows[0]["Add3"].ToString();
+
+                if (customerDs.Tables[0].Rows[0]["Mobile"] != null)
+                {
+                    txtCustomerId.Text = Convert.ToString(customerDs.Tables[0].Rows[0]["Mobile"]);
+                }
+
+                drpLedger.ClearSelection();
+                ListItem lit = drpLedger.Items.FindByValue(Convert.ToString(iLedgerID));
+                if (lit != null) lit.Selected = true;
+
+            }
+            else
+            {
+                txtAddress.Text = string.Empty;
+                txtAddress2.Text = string.Empty;
+                txtAddress3.Text = string.Empty;
+                txtCustomerId.Text = string.Empty;
+            }
+
+            ShowPendingBillsAuto();
+            div1.Visible = true;
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+
     }
 
     protected void GrdViewReceipt_RowDeleted(object sender, GridViewDeletedEventArgs e)
