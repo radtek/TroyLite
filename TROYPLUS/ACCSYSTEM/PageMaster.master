@@ -500,6 +500,7 @@
                                                     <ul>
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('PurchaseSummaryReport.aspx ','Summary', 'toolbar=no,status=yes,menu=no,location=no,resizable=yes,height=310,width=500,left=425,top=220, scrollbars=yes');">Purchase Summary</a></li>
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('ReportExlPurchase.aspx','CSTSummary', 'toolbar=no,status=no,menu=no,location=no,height=570,width=805,resizable=yes,left=210,top=100, scrollbars=yes');">Purchase Comprehency</a></li>
+                                                       <li class="color submenumenu"><a href="#" onclick="Popup=window.open('PurchaseVatCstSummaryReport.aspx','VatSummary', 'toolbar=no,status=no,menu=no,location=no,height=570,width=805,resizable=yes,left=210,top=100, scrollbars=yes');">Purchase Comprehency</a></li>
                                                     </ul>
                                                 </li>
                                             </ul>

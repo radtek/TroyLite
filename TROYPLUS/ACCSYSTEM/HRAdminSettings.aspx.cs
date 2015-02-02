@@ -83,14 +83,22 @@ public partial class HR_AdminSettings : System.Web.UI.Page
                 strWorkdaysWeek = Convert.ToInt32(txtWorkDays.Text);
                 boolSupervisorOverwrite = chkSupervisor.Checked;
 
-                BusinessLogic bl = new BusinessLogic(sDataSource);
-
-                int affectedRows = bl.InsertAdminSettingsInfo(settingsId, strHolidayCount, strPermissionHr, strNumPermission, strCompOff, strWorkdaysWeek, boolSupervisorOverwrite);
-
-                if (affectedRows == 1)
+                if (strWorkdaysWeek > 7)
                 {
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Settings Information Successfully Stored. Please Logout and Login again to refelect the Changes. Thank You.');", true);
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Work days per week is not valid number');", true);
                     //Page.Response.Redirect(HttpContext.Current.Request.Url.ToString(), true);
+                }
+                else
+                {
+                    BusinessLogic bl = new BusinessLogic(sDataSource);
+
+                    int affectedRows = bl.InsertAdminSettingsInfo(settingsId, strHolidayCount, strPermissionHr, strNumPermission, strCompOff, strWorkdaysWeek, boolSupervisorOverwrite);
+
+                    if (affectedRows == 1)
+                    {
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Settings Information Successfully Stored. Please Logout and Login again to refelect the Changes. Thank You.');", true);
+                        //Page.Response.Redirect(HttpContext.Current.Request.Url.ToString(), true);
+                    }
                 }
             }
         }

@@ -97,8 +97,9 @@
                                   <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
                                                                                                 <ContentTemplate>
                                <asp:RadioButtonList id="radblocktask" OnSelectedIndexChanged="radblocktask_SelectedIndexChanged" AutoPostBack="true"  runat="server">
-                                   <asp:listitem   Text="NO"  value="NO" selected="true"></asp:ListItem>
-                                   <asp:listitem   Text="YES" value="YES"></asp:ListItem>
+                                   <asp:listitem   Text="NO"  value="N" ></asp:ListItem>
+                                   <asp:listitem   Text="YES" value="Y"></asp:ListItem>
+                                    <asp:listitem   Text="N/A" value="NA" selected="true"></asp:ListItem>
                                        </asp:RadioButtonList>
                                                                                                         </ContentTemplate>
                                                                                             </asp:UpdatePanel>
@@ -159,8 +160,8 @@
                                   <asp:UpdatePanel ID="UpdatePanel7" runat="server" UpdateMode="Conditional">
                                                                                                 <ContentTemplate>
                                <asp:RadioButtonList id="radisactive"  OnSelectedIndexChanged="radisactive_SelectedIndexChanged" AutoPostBack="true" runat="server">
-                                   <asp:listitem   Text="NO"  value="NO" selected="true"></asp:ListItem>
-                                   <asp:listitem   Text="YES" value="YES"></asp:ListItem>
+                                   <asp:listitem   Text="NO"  value="N" ></asp:ListItem>
+                                   <asp:listitem   Text="YES" value="Y" selected="true"></asp:ListItem>
                                        </asp:RadioButtonList>
                                                                                                         </ContentTemplate>
                                                                                             </asp:UpdatePanel>
@@ -190,8 +191,7 @@
                                     ValidationGroup="btnAgeing" EnableTheming="false"/>
                             </td>
                             <td  style="width:20%;">
-                                <asp:Button ID="btnExcel" runat="server" CssClass="exportexl6"
-                                    EnableTheming="false" ValidationGroup="btnAgeing" />
+                               
                             </td>
                             <td style="width:30%;">
                             </td>
@@ -336,7 +336,7 @@
                 <br />
             </PageFooterTemplate>--%>
       <%--  </asp:GridView>--%>--%>
-       <wc:ReportGridView runat="server" BorderWidth="1" ID="gvOuts" GridLines="Both"
+       <%--<wc:ReportGridView runat="server" BorderWidth="1" ID="gvOuts" GridLines="Both"
                                 AlternatingRowStyle-CssClass="even" AutoGenerateColumns="true"
                                 AllowPrintPaging="true" EmptyDataText="No Data Found" SkinID="gridview" CssClass="someClass"
                                 Width="100%" >
@@ -351,22 +351,22 @@
                                     <br />
                                     <br />
                                 </PageHeaderTemplate>
-                                <Columns>
+                                <Columns>--%>
                         <%--<asp:BoundField ItemStyle-Width="15%" DataField="empfirstname" HeaderText="Employee Name" ItemStyle-HorizontalAlign="Center" />--%>
-                        <asp:BoundField ItemStyle-Width="12%" DataField="Project_Name" HeaderStyle-HorizontalAlign="Right"
-                            HeaderText="Project Name" DataFormatString="{0:f2}" ItemStyle-HorizontalAlign="Right" />
+                        <%--<asp:BoundField ItemStyle-Width="12%" DataField="Project_Name" HeaderStyle-HorizontalAlign="Right"
+                            HeaderText="Project Name" DataFormatString="{0:f2}" ItemStyle-HorizontalAlign="Right" />--%>
                       <%--  <asp:BoundField ItemStyle-Width="12%" DataField="Task_Name" HeaderStyle-HorizontalAlign="Right"
                             HeaderText="Task Name" DataFormatString="{0:f2}" ItemStyle-HorizontalAlign="Right" />--%>
                      
                        
-                    </Columns>
+                    <%--</Columns>
                                 <PagerTemplate>
                                 </PagerTemplate>
                                 <PageFooterTemplate>
                                     <br />
                                 </PageFooterTemplate>
                             </wc:ReportGridView>
-                            <br />
+                            <br />--%>
     </div>
     </div>
 

@@ -319,9 +319,13 @@ public partial class TaskUpdates : System.Web.UI.Page
                             tbMain.Visible = true;
                             return;
                         }
+                        int effremain=0;
+                        if (txteffortremain.Text.Trim() != string.Empty)
+                            effremain = Convert.ToInt32(txteffortremain.Text.Trim());
+
                         if (Convert.ToString(drpTaskStatus.SelectedItem.Text) == "Completed" || Convert.ToString(drpTaskStatus.SelectedItem.Text) == "completed")
                         {
-                          if (txteffortremain.Text == null || Convert.ToInt32(txteffortremain.Text) == 0)
+                            if ((effremain == null) || (Convert.ToInt32(effremain) == 0))
                          {
 
                          }
@@ -644,7 +648,7 @@ public partial class TaskUpdates : System.Web.UI.Page
             drpTaskStatus.SelectedIndex = 0;
             txtTaskUpdateDate.Text = "";
             txtlastupdate.Text = "";
-            txteffortremain.Text = "";
+            txteffortremain.Text = "0";
             Taskeffortdays.Text = "";
             
 
@@ -735,6 +739,7 @@ public partial class TaskUpdates : System.Web.UI.Page
                     drpDependencyTask.DataTextField = "Task_Name";
                     drpDependencyTask.DataValueField = "Task_Id";
                     UpdatePanel2.Update();
+                    Project_Id = Convert.ToInt32(drpProjectCode.SelectedValue);
                     DataSet dst = bl.GetProjectForId(connection, Project_Id);
                     if ( dst!= null)
                     {
