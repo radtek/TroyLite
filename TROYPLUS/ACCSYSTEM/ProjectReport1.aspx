@@ -196,7 +196,7 @@
                 </tr>
             </table>
             <br />
-            <div id="divPrint" align="center" visible="false" style="font-family: 'Trebuchet MS'; font-size: 11px; width: 100%"
+            <div id="divPrint" align="center" visible="false"  style="font-family: 'Trebuchet MS'; font-size: 11px; width: 100%"
                 runat="server">
                 <table width="600px" border="0" style="font-family: Trebuchet MS; font-size: 14px;">
                     <tr>
@@ -256,10 +256,10 @@
                 </table>
                 <br />
                 <br />
-                <table width="1000px"  border="0" style="font-family: Trebuchet MS; font-size: 14px;">
+                <table width="1000px" visible="false" Enabled="false"  border="0" style="font-family: Trebuchet MS; font-size: 14px;">
                     <tr>
                         <td>
-                            <wc:ReportGridView runat="server" BorderWidth="1" ID="gvOuts1" GridLines="Both"
+                            <wc:ReportGridView runat="server" Visible="false" BorderWidth="1" ID="gvOuts1" GridLines="Both"
                                 AlternatingRowStyle-CssClass="even" AutoGenerateColumns="false"
                                 EmptyDataText="No Data Found" CssClass="someClass"
                                 Width="100%" OnRowDataBound="gvOuts1_RowDataBound">

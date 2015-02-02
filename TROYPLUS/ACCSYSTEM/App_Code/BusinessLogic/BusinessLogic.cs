@@ -68228,7 +68228,7 @@ public class BusinessLogic
             manager.Open();
 
            // cond = "tblEmployee.ManagerID" + incharge + " and tblEmployee.empno " + empno + " and tblProjects.Project_Id " + pro_Id + " and tblTaskUpdates.Blocked_Flag '" + flag + "'and tblTaskUpdates.Task_Status" + status + " and tblTasks.Task_Id " + taskid + " and tbltasks.Dependency_Task " + deptask + " and tbltasks.IsActive'" + isactive + "' ";
-            dbQry.Append("SELECT tblEmployee.empfirstname,tblProjects.Expected_Start_Date,tblProjects.Expected_End_Date,tblProjects.Project_Status,tblProjects.Project_Date, tblProjects.Project_Code as ProjectCode, tblProjects.Project_Name as ProjectName ");
+            dbQry.Append("SELECT tblProjects.Project_Name as ProjectName, tblEmployee.empfirstname,tblProjects.Project_Date,tblProjects.Expected_Start_Date,tblProjects.Project_Status,tblProjects.Expected_End_Date,tblProjects.Project_Id,tblProjects.Project_Code as ProjectCode ");
 
 
 
@@ -68243,6 +68243,106 @@ public class BusinessLogic
 
             dbQry.Append(" Where " + cond + " ORDER BY tblProjects.Project_Id ");
 
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+
+    public DataSet GettaskforProjectNamereport(string connection, int Project_Id, string Isactive, int type, string getCondfortask)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        DataSet ds = new DataSet();
+        StringBuilder dbQry = new StringBuilder();
+        //dbQry = "Select empno,empFirstName From tblEmployee Order By empFirstName";
+
+
+        //if (Isactive == "Y" && type == 0)
+        //{
+
+        dbQry.Append("SELECT tblTasks.Task_Name ,tblTasks.Expected_Start_Date,tblTasks.Expected_End_Date,tblEmployee.empfirstname AS ownername,tblTaskTypes.Task_Type_Name as taskname,tblTasks.IsActive,tblTasks.Task_id,tblTasks.Task_Type,tblProjects.Project_Name ");
+
+            dbQry.Append("  from ((tblTasks Inner Join tblProjects On tblProjects.Project_Id = tblTasks.Project_Code) Inner join tblEmployee on tblEmployee.empno = tblTasks.Owner) Inner join tblTaskTypes on tblTaskTypes.Task_Type_Id = tblTasks.Task_Type ");
+
+            dbQry.Append(" Where tblProjects.Project_id= "+ Project_Id +"  " + getCondfortask+" ");
+        //}
+        //else
+        //{
+        //    dbQry.Append("Select tblTasks.Task_Id,tblTasks.Task_Name,tblProjects.Unit_Of_Measure,tblTasks.Expected_Start_Date,tblTasks.Expected_End_Date,tblTasks.IsActive,tblTasks.Task_Date,tblEmployee.empfirstname as Ownername,tblTaskTypes.Task_Type_Name as TaskName,tblTaskStatus.Task_status_Name as TaskStatusName ");
+
+        //    dbQry.Append("  FROM (((((tblTasks  INNER JOIN  tblEmployee ON tblTasks.Owner = tblEmployee.empno) inner join tblProjects ON tblTasks.Project_Code = tblProjects.Project_Id) inner join tblUserInfo on tblEmployee.ManagerID = tblUserInfo.empno) Inner join tblTaskUpdates on tblTasks.task_Id=tblTaskUpdates.Task_Id) Inner join tblTaskStatus on tblTaskStatus.Task_Status_Id=tblTaskUpdates.Task_Status) Inner join tblTaskTypes on tblTaskTypes.Task_Type_Id = tblTasks.Task_Type ");
+        //    dbQry.Append(" Where tblProjects.Project_Id = " + Project_Id + " ");
+        //    // dbQry.Append(" FROM ((tblTasks Inner Join tblProjects On tblProjects.Project_Id = tblTasks.Project_Code) Inner join tblEmployee on tblEmployee.empno = tblTasks.Owner) Inner join tblTaskTypes on tblTaskTypes.Task_Type_Id = tblTasks.Task_Type ");
+        //}
+       
+              // where tbltasks.Project_code=4 and tblTasks.IsActive='Y' and tblTaskTypes.Task_Type_Id=8
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
+
+    public DataSet GettaskupdatehistoryfortaskNamereport(string connection, int tasksid,  string flag, int type, string condtaskupdate)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        DataSet ds = new DataSet();
+        StringBuilder dbQry = new StringBuilder();
+        //dbQry = "Select empno,empFirstName From tblEmployee Order By empFirstName";
+
+
+        //if (Isactive == "Y" && type == 0)
+        //{
+
+        dbQry.Append("SELECT tblTaskUpdatesHistory.Actual_Start_Date,tblTaskUpdatesHistory.Actual_End_Date,tblTaskUpdatesHistory.Per_of_Completion,tblTaskStatus.Task_Status_Name as Taskstatusname,tblTaskUpdatesHistory.Effort_Remaining,tblTaskUpdatesHistory.Effort_Spend_Last_Update,tblTaskUpdatesHistory.Blocked_Flag,tblTaskUpdatesHistory.Blocking_Reason,tblTaskUpdatesHistory.Task_id,tblTasks.Task_Name ,tblTasks.Expected_Start_Date,tblTasks.Expected_End_Date,tblTasks.IsActive,tblTasks.Task_Type,tblTaskUpdatesHistory.Task_Update_Id,tblTaskUpdatesHistory.Task_Update_Date ");
+
+        dbQry.Append("  from (tblTaskUpdatesHistory Inner join tblTasks on tblTasks.Task_Id=tblTaskUpdatesHistory.Task_id) Inner join tbltaskStatus on tblTaskstatus.Task_status_Id=tblTaskUpdatesHistory.Task_status ");
+
+        dbQry.Append(" Where tblTasks.Task_id="+ tasksid +"  " + condtaskupdate + " ");
+        //}
+        //else
+        //{
+        //    dbQry.Append("Select tblTasks.Task_Id,tblTasks.Task_Name,tblProjects.Unit_Of_Measure,tblTasks.Expected_Start_Date,tblTasks.Expected_End_Date,tblTasks.IsActive,tblTasks.Task_Date,tblEmployee.empfirstname as Ownername,tblTaskTypes.Task_Type_Name as TaskName,tblTaskStatus.Task_status_Name as TaskStatusName ");
+
+        //    dbQry.Append("  FROM (((((tblTasks  INNER JOIN  tblEmployee ON tblTasks.Owner = tblEmployee.empno) inner join tblProjects ON tblTasks.Project_Code = tblProjects.Project_Id) inner join tblUserInfo on tblEmployee.ManagerID = tblUserInfo.empno) Inner join tblTaskUpdates on tblTasks.task_Id=tblTaskUpdates.Task_Id) Inner join tblTaskStatus on tblTaskStatus.Task_Status_Id=tblTaskUpdates.Task_Status) Inner join tblTaskTypes on tblTaskTypes.Task_Type_Id = tblTasks.Task_Type ");
+        //    dbQry.Append(" Where tblProjects.Project_Id = " + Project_Id + " ");
+        //    // dbQry.Append(" FROM ((tblTasks Inner Join tblProjects On tblProjects.Project_Id = tblTasks.Project_Code) Inner join tblEmployee on tblEmployee.empno = tblTasks.Owner) Inner join tblTaskTypes on tblTaskTypes.Task_Type_Id = tblTasks.Task_Type ");
+        //}
+
+        // where tbltasks.Project_code=4 and tblTasks.IsActive='Y' and tblTaskTypes.Task_Type_Id=8
+        try
+        {
+            manager.Open();
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
 
             if (ds.Tables[0].Rows.Count > 0)
