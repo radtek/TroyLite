@@ -114,14 +114,11 @@
                             <table style="width: 99.8%; margin: -2px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
                                 <tr style="height: 25px; vertical-align: middle">
                                     <%--<td style="width: 2%;"></td>--%>
-                                    <td style="width: 15%; font-size: 17px; color: white;">Manufacturing
+                                    <td style="width: 25%; font-size: 22px; color: white;">Process Manufacturing 
                                     </td>
-                                    <td style="width: 12%">
+                                    <td style="width: 2%">
                                         <div style="text-align: right;">
-                                            <asp:Panel ID="pnlSearch" runat="server" Width="100px">
-                                                <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
-                                                    EnableTheming="false" Width="80px" Text=""></asp:Button>
-                                            </asp:Panel>
+                                         
                                         </div>
                                     </td>
                                     <%--<td  style="width: 5%; color: #000000;" align="right">
@@ -181,7 +178,7 @@
                                         <td colspan="4">
                                             <table class="headerPopUp" style="border: 1px solid #86b2d1" width="750px">
                                                 <tr>
-                                                    <td>Stock Management Processing
+                                                    <td>Process Products
                                                     </td>
                                                 </tr>
                                             </table>
@@ -190,17 +187,17 @@
                                     <tr style="width: 100%;">
                                         <td style="width: 100%">
                                             <div style="text-align: center">
-                                                <asp:Label ID="lblMsg" runat="server" Width="90%" CssClass="info" SkinID="skinHistoryMsg"></asp:Label>
+                                                <asp:Label ID="lblMsg" runat="server" Font-Bold="true"  Font-Size="15px" Width="90%" CssClass="info" SkinID="skinHistoryMsg"></asp:Label>
                                             </div>
-                                            <asp:Panel ID="PanelTemplatesList" runat="server" Visible="false" Style="text-align: center">
+                                            <asp:Panel ID="PanelTemplatesList"  runat="server" Visible="false" Style="text-align: center">
                                                 <asp:GridView ID="GridViewTemplates" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                                                    Width="750px" AllowPaging="True" DataKeyNames="FormulaName" EmptyDataText="No Stock Definations found. Please add new Stock Mgmt Defination."
+                                                    Width="814px" AllowPaging="True" DataKeyNames="FormulaName" EmptyDataText="No Stock Definations found. Please add new Stock Mgmt Defination."
                                                     OnPageIndexChanging="GridViewTemplates_PageIndexChanging" OnSelectedIndexChanged="GridViewTemplates_SelectedIndexChanged"
                                                     PageSize="7" OnRowCreated="GridViewTemplates_RowCreated" OnRowDataBound="GridViewTemplates_RowDataBound" CssClass="someClass">
                                                     <EmptyDataRowStyle CssClass="GrdContent" />
                                                     <Columns>
-                                                        <asp:BoundField DataField="FormulaName" HeaderText="Definition" HeaderStyle-BorderColor="Gray" />
-                                                        <asp:CommandField ShowSelectButton="True" ControlStyle-ForeColor="#3464cc" SelectText="Use Definition" HeaderStyle-BorderColor="Gray">
+                                                        <asp:BoundField DataField="FormulaName" HeaderText="Process Products" HeaderStyle-Font-Bold="true"  HeaderStyle-Font-Size="15px" HeaderStyle-BackColor="#cccccc" ItemStyle-ForeColor="#0567AE" ItemStyle-Font-Bold="true" ItemStyle-Font-Size="13px" ItemStyle-Height="20px"  HeaderStyle-BorderColor="Gray" />
+                                                        <asp:CommandField ShowSelectButton="True" ControlStyle-ForeColor="#3464cc" SelectText="Process this Product" ControlStyle-Font-Size="small" HeaderStyle-BackColor="#cccccc"  HeaderStyle-BorderColor="Gray">
                                                             <ItemStyle Width="20%" HorizontalAlign="Center" />
                                                             <ControlStyle ForeColor="#3464CC"></ControlStyle>
                                                         </asp:CommandField>
@@ -245,22 +242,22 @@
                                             <asp:Panel ID="PanelTemplateGrids" runat="server" Visible="false">
                                                 <div style="text-align: left">
                                                     <cc1:TabContainer ID="tabs2" runat="server" Width="100%" ActiveTabIndex="0" CssClass="fancy fancy-green">
-                                                        <cc1:TabPanel ID="tabMaster" runat="server" HeaderText="Stock Management Processing">
+                                                        <cc1:TabPanel ID="tabMaster" runat="server" HeaderText="Process Products">
                                                             <ContentTemplate>
-                                                                <table style="width: 720px; border: 0px solid #86b2d1" align="left" cellpadding="0"
+                                                                <table style="width: 800px; border: 0px solid #86b2d1" align="left" cellpadding="0"
                                                                     cellspacing="0" class="accordionContent">
                                                                     <tr class="tblLeft" style="width: 100%">
                                                                         <td style="width: 100%" colspan="5">
                                                                             <table width="100%">
                                                                                 <tr>
-                                                                                    <td style="width: 20%" class="ControlLabel">Stock Mgmt Definition :
+                                                                                    <td style="width: 25%" class="ControlLabelproject1">Name of Product 
                                                                                     </td>
                                                                                     <td style="width: 20%" class="ControlTextBox3">
                                                                                         <asp:Label ID="lblFormula" runat="server" Font-Bold="True"></asp:Label>
                                                                                     </td>
-                                                                                    <td style="width: 20%" class="ControlLabel">
+                                                                                    <td style="width: 20%" class="ControlLabelproject1">
                                                                                         <asp:CompareValidator ControlToValidate="txtDate" Operator="DataTypeCheck" Type="Date"
-                                                                                            ValidationGroup="FormulaInfo" ErrorMessage="Please enter a valid date(dd/MM/yyyy)"
+                                                                                            ValidationGroup="FormulaInfo" ErrorMessage="Please Select a valid date(dd/MM/yyyy)"
                                                                                             runat="server" ID="cmpValtxtDate"></asp:CompareValidator>
                                                                                         <asp:RequiredFieldValidator ValidationGroup="FormulaInfo" ID="rqDate" runat="server"
                                                                                             Display="Dynamic" ControlToValidate="txtDate" ErrorMessage="Mandatory Field"></asp:RequiredFieldValidator>
@@ -269,18 +266,20 @@
                                                                                     </td>
                                                                                     <td style="width: 17%;" class="ControlTextBox3">
                                                                                         <asp:TextBox ID="txtDate" Enabled="false" runat="server" CssClass="cssTextBox" Width="80px"></asp:TextBox>
+                                                                                       
                                                                                         <cc1:CalendarExtender ID="calExtender3" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                                             PopupButtonID="btnDate3" PopupPosition="BottomLeft" TargetControlID="txtDate">
                                                                                         </cc1:CalendarExtender>
+                                                                                        </td>
                                                                                         <td>
                                                                                             <asp:ImageButton ID="btnDate3" ImageUrl="App_Themes/NewTheme/images/cal.gif" CausesValidation="false"
                                                                                                 Width="20px" runat="server" />
                                                                                         </td>
-                                                                                    </td>
+                                                                                    
                                                                                     <td align="left" style="width: 10%"></td>
                                                                                 </tr>
                                                                                 <tr class="tblLeft">
-                                                                                    <td style="width: 20%" class="ControlLabel">Processing Completed? :
+                                                                                    <td style="width: 25%" class="ControlLabelproject1">Processing Completed?
                                                                                     </td>
                                                                                     <td style="width: 20%;" class="ControlTextBox3">
                                                                                         <asp:RadioButtonList ID="rdComplete" runat="server" RepeatDirection="Horizontal">
@@ -288,7 +287,7 @@
                                                                                             <asp:ListItem Text="No" Selected="True" Value="N"></asp:ListItem>
                                                                                         </asp:RadioButtonList>
                                                                                     </td>
-                                                                                    <td style="width: 20%" class="ControlLabel">Comments :
+                                                                                    <td style="width: 20%" class="ControlLabelproject1">Comments
                                                                                     </td>
                                                                                     <td style="width: 17%;" class="ControlTextBox3">
                                                                                         <asp:TextBox ID="txtComments" runat="server" Width="50px" MaxLength="250" Height="30px"
@@ -303,7 +302,7 @@
                                                                         <td>
                                                                             <table width="100%">
                                                                                 <tr>
-                                                                                    <td style="width: 100%; font-weight: bold">IN
+                                                                                    <td style="width: 100%; font-size:larger; font-weight: bold">Raw Materials
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
@@ -312,6 +311,10 @@
                                                                                             AllowPaging="True" OnRowCreated="grdIn_RowCreated" DataKeyNames="ID" EmptyDataText="No Input Products to Found."
                                                                                             OnDataBound="grdIn_DataBound" OnRowDataBound="grdIn_RowDataBound">
                                                                                             <EmptyDataRowStyle Font-Bold="False" />
+
+                                                                                                <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="15px" />
+                                                                                               <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="15px" ForeColor="#0567AE" />
+
                                                                                             <Columns>
                                                                                                 <asp:BoundField HeaderText="Item Code" ReadOnly="True" DataField="itemCode" HeaderStyle-BorderColor="Gray" />
                                                                                                 <asp:BoundField HeaderText="Description" ReadOnly="True" DataField="ProductDesc" HeaderStyle-BorderColor="Gray" />
@@ -364,7 +367,7 @@
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td style="width: 100%; font-weight: bold">OUT
+                                                                                    <td style="width: 100%; font-size:larger; font-weight: bold">Product
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
@@ -373,6 +376,10 @@
                                                                                             OnRowDataBound="grdOut_RowDataBound" AllowPaging="True" OnRowCreated="grdOut_RowCreated"
                                                                                             DataKeyNames="ID" EmptyDataText="No Input Products to Found.">
                                                                                             <EmptyDataRowStyle Font-Bold="False" />
+
+                                                                                              <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="15px" />
+                                                                                               <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="15px" ForeColor="#0567AE" />
+
                                                                                             <Columns>
                                                                                                 <asp:BoundField HeaderText="Item Code" ReadOnly="True" DataField="itemCode" HeaderStyle-BorderColor="Gray" />
                                                                                                 <asp:BoundField HeaderText="Description" ReadOnly="True" DataField="ProductDesc" HeaderStyle-BorderColor="Gray" />
@@ -454,7 +461,7 @@
                                                                     <tr align="center">
                                                                         <td style="width: 100%" colspan="3">
                                                                             <asp:Label runat="server" ID="Error" ForeColor="Red"></asp:Label>
-                                                                            <asp:ValidationSummary ID="valSum" ShowMessageBox="True" ShowSummary="False" HeaderText="Validation Messages"
+                                                                            <asp:ValidationSummary ID="valSum" ShowMessageBox="True" ShowSummary="False" HeaderText=" "
                                                                                 Font-Names="'Trebuchet MS'" runat="server" />
                                                                         </td>
                                                                     </tr>
@@ -535,6 +542,29 @@
                                         </div>
                                     </td>
                                 </tr>
+                                 <tr>
+                                <td>
+                                    <table align="center" style="width: 100%">
+                                        <tr>
+                                            <td style="width: 35%"></td>
+                      
+                                             <td style="width: 15% " align="center">
+                                                    <asp:Panel ID="pnlSearch" runat="server" Width="100px">
+                                                <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" 
+                                                    EnableTheming="false" Width="220px" BackColor="WhiteSmoke" Font-Size="12px" Font-Bold="true" Text="Process New Product/Component"></asp:Button>
+                                            </asp:Panel>
+                                                 
+                                            </td>
+                                             <td style="width: 5%" align="left">
+                                               
+                                            </td>
+                                            <td style="width: 40%"></td>
+                                           
+                                        </tr>
+                                      
+                                    </table>
+                                </td>
+                            </tr>
                             </table>
                         </asp:Panel>
                         <asp:HiddenField ID="hdStockHold" runat="server" Value="N" />

@@ -500,6 +500,7 @@
                                                     <ul>
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('PurchaseSummaryReport.aspx ','Summary', 'toolbar=no,status=yes,menu=no,location=no,resizable=yes,height=310,width=500,left=425,top=220, scrollbars=yes');">Purchase Summary</a></li>
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('ReportExlPurchase.aspx','CSTSummary', 'toolbar=no,status=no,menu=no,location=no,height=570,width=805,resizable=yes,left=210,top=100, scrollbars=yes');">Purchase Comprehency</a></li>
+                                                       <li class="color submenumenu"><a href="#" onclick="Popup=window.open('PurchaseVatCstSummaryReport.aspx','VatSummary', 'toolbar=no,status=no,menu=no,location=no,height=570,width=805,resizable=yes,left=210,top=100, scrollbars=yes');">Purchase Comprehency</a></li>
                                                     </ul>
                                                 </li>
                                             </ul>
@@ -609,19 +610,19 @@
                                             <ul>
                                                 <li class="color submenumenu"><a href="#"><span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: right">►</span>Master Data</a>
                                                     <ul>
-                                                        <li class="color submenumenu"><a href="./LeadReference.aspx" runat="server" id="A2">Lead Reference</a>
+                                                        <li class="color submenumenu"><a href="./LeadReference.aspx" runat="server" id="A2">Define Drop-down Lists</a>
                                                         </li>
                                                     </ul>
                                                 </li>
                                                 <li class="color submenumenu"><a href="#"><span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: right">►</span>Transactions</a>
                                                     <ul>
-                                                        <li class="color submenumenu"><a href="./LeadMgmt.aspx" runat="server" id="lnkLeadManagement">Lead Management</a>
+                                                        <li class="color submenumenu"><a href="./LeadMgmt.aspx" runat="server" id="lnkLeadManagement">Manage Leads</a>
                                                         </li>
                                                     </ul>
                                                 </li>
                                                 <li class="color submenumenu"><a href="#"><span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: right">►</span>Reports</a>
                                                     <ul>
-                                                        <li class="color submenumenu"><a href="#" onclick="Popup=window.open('ReportExcelLeadManagement.aspx','Summary', 'toolbar=no,status=no,menu=no,location=no,height=280,width=500,left=405,top=220 ,resizable=yes, scrollbars=yes');">Lead Management</a>
+                                                        <li class="color submenumenu"><a href="#" onclick="Popup=window.open('ReportExcelLeadManagement.aspx','Summary', 'toolbar=no,status=no,menu=no,location=no,height=380,width=480,left=405,top=220 ,resizable=yes, scrollbars=no');">Lead Management</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -637,6 +638,7 @@
                                                         <li class="color submenumenu"><a href="./AdminLeaveType.aspx" runat="server" id="A9">Leave Types</a></li>
                                                         <li class="color submenumenu"><a href="./HRAdminHoliday.aspx" runat="server" id="A11">Holidays Declaration</a></li>
                                                         <li class="color submenumenu"><a href="./HRAdminPayComponent.aspx" runat="server" id="A15">Pay Fixation</a></li>
+                                                        <li class="color submenumenu"><a href="./HRAdminEmployeeRoleList.aspx" runat="server" id="A23">Define Employee Role</a></li>
                                                     </ul>
                                                 </li>
                                                 <li class="color submenumenu"><a href="#">Transactions<span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: right">►</span></a>
@@ -744,7 +746,7 @@
                                             <ul>
                                                 <li class="color submenumenu"><a href="#">Master Data<span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: right">►</span></a>
                                                     <ul>
-                                                        <li class="color submenumenu"><a href="./CreateFormula.aspx" runat="server" id="lnkTransferDefn">Manufacturing Configuration</a></li>
+                                                        <li class="color submenumenu"><a href="./CreateFormula.aspx" runat="server" id="lnkTransferDefn">Define Product Specification</a></li>
                                                     </ul>
                                                 </li>
                                                 <li class="color submenumenu"><a href="#">Transactions<span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: right">►</span></a>

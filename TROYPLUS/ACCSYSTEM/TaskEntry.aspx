@@ -214,7 +214,7 @@
                                         width="100%">
                                         <tr>
                                             <td>
-                                                <div class="divArea">
+                                                <div>
                                                     <table class="tblLeft" cellpadding="3" cellspacing="3" style="border: 1px solid #5078B3;"
                                                         width="100%">
                                                         <tr>
@@ -268,7 +268,7 @@
                                                                                     <tr>
                                                                                            <td style="width: 20%" class="ControlLabelproject">
                                                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" InitialValue="0" Text="*"
-                                                                                                ErrorMessage="Please select Title Of Project. It cannot be left blank. " runat="server" ControlToValidate="drpProjectCode"
+                                                                                                ErrorMessage="Please select Title of Project. It cannot be left blank. " runat="server" ControlToValidate="drpProjectCode"
                                                                                                 ValidationGroup="Save"></asp:RequiredFieldValidator>
                                                                                             Title of Project *
                                                                                         </td>
@@ -316,7 +316,7 @@
                                                                                          
                                                                                         <td style="width: 20%" class="ControlLabelproject">
                                                                                             <asp:RequiredFieldValidator ValidationGroup="Save" ID="RequiredFieldValidator9" runat="server"
-                                                                                                Text="*" ErrorMessage="Please enter Title Of Task. It cannot be left blank. " ControlToValidate="txtTaskName"></asp:RequiredFieldValidator>
+                                                                                                Text="*" ErrorMessage="Please enter Title of Task. It cannot be left blank. " ControlToValidate="txtTaskName"></asp:RequiredFieldValidator>
                                                                                             Title of Task *
                                                                                         </td>
                                                                                          <td style="width: 25%" class="ControlTextBox3">
@@ -360,7 +360,7 @@
                                                                                     <tr>
                                                                                         <td style="width: 20%" class="ControlLabelproject">
                                                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator7" InitialValue="0" Text="*"
-                                                                                                ErrorMessage="Please select Type Of Task. It cannot be left blank." runat="server" ControlToValidate="drpTaskType"
+                                                                                                ErrorMessage="Please select Type of Task. It cannot be left blank." runat="server" ControlToValidate="drpTaskType"
                                                                                                 ValidationGroup="Save"></asp:RequiredFieldValidator>
                                                                                             Type of Task *
                                                                                         </td>
@@ -397,7 +397,7 @@
                                                                                     <tr>
                                                                                            <td style="width: 20%;" class="ControlLabelproject">
                                                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" InitialValue="0" Text="*"
-                                                                                                ErrorMessage="Please select Owner Of The Task. It cannot be left blank. " runat="server" ControlToValidate="drpIncharge"
+                                                                                                ErrorMessage="Please select Owner of The Task. It cannot be left blank. " runat="server" ControlToValidate="drpIncharge"
                                                                                                 ValidationGroup="Save"></asp:RequiredFieldValidator>
                                                                                             Owner of Tasks *
                                                                                         </td>
@@ -433,10 +433,10 @@
                                                                                     </tr>
                                                                                     <tr>
                                                                                        
-                                                                                        <td style="width: 20%" class="ControlLabelproject">Description Of the Task
+                                                                                        <td style="width: 20%" class="ControlLabelproject">Description of the Task
                                                                                                     </td>
                                                                                                     <td class="ControlTextBoxforproject" style="width: 20%">
-                                                                                                         <asp:TextBox ID="txtTaskDesc" runat="server" BackColor="#E7E7E7" Height="10px" Style="overflow: hidden; padding: 0px; font-family: 'Trebuchet MS';border: 1px solid #e7e7e7; font-size: 13px;" TabIndex="5" TextMode="MultiLine" Width="99%"></asp:TextBox>
+                                                                                                         <asp:TextBox ID="txtTaskDesc" runat="server" BorderWidth="25px" BackColor="#E7E7E7" Height="27px" Style="overflow: hidden; padding: 0px; font-family: 'Trebuchet MS';border: 1px solid #e7e7e7; font-size: 13px;" TabIndex="5" TextMode="MultiLine" Width="99%"></asp:TextBox>
                                                                                                      </td>
                                                                                          <td style="width: 5%"></td>
                                                                                           <td style="width: 27%" class="ControlLabelproject">

@@ -1464,6 +1464,16 @@ h2
     padding-right:30px;
 }
 
+.ControlTextBox30
+{
+    width:100%;
+    height:20px;
+    border:1px solid #c3c3c3;
+    background-color:#e7e7e7;
+    padding-left:1px;
+    padding-right:1px;
+}
+
 .ControlText3
 {
     width:100px;
@@ -7999,6 +8009,15 @@ legend
     border: none;
 }
 
+.cssTextBoxmanu
+{
+    background: transparent;
+    width: 96px !important;
+    float: left;
+    margin: 0px 0px 0px 1px;
+    border: none;
+}
+
 .ButtonAdd
 {
     background: url(images/addnew.png) left no-repeat;
@@ -9755,8 +9774,9 @@ fieldset
 
 .someClass td
 {
-    font-size: 12px;
+    font-size: 15px;
     border : 1px solid Gray ;
+    
 }
 
 .AddGetRefNo

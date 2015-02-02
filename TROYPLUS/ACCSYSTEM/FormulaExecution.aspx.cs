@@ -238,7 +238,7 @@ public partial class FormulaExecution : System.Web.UI.Page
             //cmdUpdate.Enabled = false;
             //cmdUpdate.Visible = false;
             GridViewTemplates.Visible = false;
-            lblMsg.Text = "Please enter the Stock Processing Details";
+            lblMsg.Text = "Please enter the Product Processing Details";
             lblMsg.Visible = true;
             BtnDefnBack.Visible = false;
             //cmdRelease.Visible = false;
@@ -420,7 +420,7 @@ public partial class FormulaExecution : System.Web.UI.Page
             lnkBtnAdd.Visible = false;
             //MyAccordion.Visible = false;
             lblMsg.Visible = true;
-            lblMsg.Text = "Please select one of the available Stock Definition.";
+            lblMsg.Text = "Please select one of the available Product Stocks.";
             BtnDefnBack.Visible = true;
             ModalPopupExtender1.Show();
         }
@@ -451,7 +451,7 @@ public partial class FormulaExecution : System.Web.UI.Page
             {
                 lnkBtnAdd.Visible = false;
                 //cmdUpdate.Enabled = false;
-                GridViewProducts.Columns[3].Visible = false;
+                GridViewProducts.Columns[3].Visible = true;
             }
         }
         catch (Exception ex)

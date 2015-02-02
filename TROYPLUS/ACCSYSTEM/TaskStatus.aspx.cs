@@ -112,7 +112,12 @@ public partial class TaskStatus : System.Web.UI.Page
             if (e.Exception != null)
             {
                 StringBuilder script = new StringBuilder();
-                script.Append("alert('Task Status with this name already exists, Please try with a different name.');");
+               script.Append("alert('Task Status with this name already exists, Please try with a different name.');");
+               // Response.Write("Task Status with this name already exists, Please try with a different name.");
+               
+                //Response.Write("TaskStatus.aspx");
+               
+                
 
                // tbMain.Visible = true;
                 //return;
@@ -122,14 +127,24 @@ public partial class TaskStatus : System.Web.UI.Page
                     if ((e.Exception.InnerException.Message.IndexOf("duplicate values in the index") > -1) ||
                         (e.Exception.InnerException.Message.IndexOf("Task Status Exists") > -1))
                         ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), script.ToString(), true);
+                   
+
+                   
+                    return;
                 }
                 else
                 {
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "Exception: " + e.Exception.Message + e.Exception.StackTrace, true);
                 }
             }
+            Response.Redirect("TaskStatus.aspx");
+           // this.frmViewAdd_ItemInserting(sender, e);
             e.KeepInInsertMode = true;
             e.ExceptionHandled = true;
+          
+            
+            //Response.Write("alert('Task Status with this name already exists, Please try with a different name.');");
+           
         }
     }
 
@@ -240,6 +255,7 @@ public partial class TaskStatus : System.Web.UI.Page
 
     protected void frmSource_Inserting(object sender, ObjectDataSourceMethodEventArgs e)
     {
+     
         this.setInsertParameters(e);
     }
 
@@ -373,6 +389,7 @@ public partial class TaskStatus : System.Web.UI.Page
     }
     protected void frmViewAdd_ItemInserting(object sender, FormViewInsertEventArgs e)
     {
+      
 
     }
 

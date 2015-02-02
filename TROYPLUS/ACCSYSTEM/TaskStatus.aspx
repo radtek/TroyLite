@@ -96,9 +96,9 @@
                             TargetControlID="dummy">
                         </cc1:ModalPopupExtender>
 
-                        <asp:Panel runat="server" ID="popUp" Style="width: 40%">
+                        <asp:Panel runat="server" ID="popUp" Style="width: 60%">
                             <div id="contentPopUp">
-                                <table style="width: 100%;" align="center">
+                                <table style="width:100%;" align="center">
                                     <tr style="width: 100%">
                                         <td style="width: 100%">
                                             <asp:FormView ID="frmViewAdd" runat="server" Width="100%" DataSourceID="frmSource"
@@ -114,12 +114,16 @@
                                                     Height="25px" BorderColor="#cccccc" VerticalAlign="Middle" />
                                                 <EditItemTemplate>
                                                     <div class="divArea">
-                                                        <table cellpadding="1" cellspacing="1" style="border: 1px solid #86b2d1; width: 100%;">
+                                                        <table cellpadding="1" cellspacing="1" style="height:250px; border: 1px solid #86b2d1; width: 100%;">
                                                             <tr>
                                                                 <td colspan="4" class="headerPopUp">Task Status
                                                                 </td>
                                                             </tr>
-                                                            <tr style="height: 5px">
+                                                            <tr style="height: 25px">
+                                                            </tr>
+                                                              <tr style="height: 5px">
+                                                            </tr>
+                                                              <tr style="height: 5px">
                                                             </tr>
                                                             <tr>
                                                                 <td class="ControlLabelproject" style="width: 40%">Task Status *
@@ -180,12 +184,16 @@
                                                 </FooterTemplate>
                                                 <InsertItemTemplate>
                                                     <div class="divArea">
-                                                        <table cellpadding="1" cellspacing="1" style="border: 1px solid #86b2d1; width: 100%;">
+                                                        <table cellpadding="1" cellspacing="1" style=" height:250px; border: 1px solid #86b2d1; width: 100%;">
                                                             <tr>
                                                                 <td colspan="4" class="headerPopUp">Task Status
                                                                 </td>
                                                             </tr>
-                                                            <tr style="height: 5px">
+                                                            <tr style="height: 25px">
+                                                            </tr>
+                                                             <tr style="height: 5px">
+                                                            </tr>
+                                                             <tr style="height: 5px">
                                                             </tr>
                                                             <tr>
                                                                 <td class="ControlLabelproject" style="width: 40%">Task Status *
@@ -212,7 +220,7 @@
                                                                                     CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave"
                                                                                     OnClick="InsertButton_Click"></asp:Button>
                                                                             </td>
-                                                                            <td align="center" style="width: 20%">
+                                                                            <td align="center" style="width: 15%">
                                                                                 <asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
                                                                                     CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="InsertCancelButton_Click"></asp:Button>
 

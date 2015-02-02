@@ -267,7 +267,7 @@
                                                             <asp:Panel ID="pnlSalesForm" runat="server" Style="width: 99%; display: none">
                                                                 <asp:UpdatePanel ID="updatePnlSales" runat="server" UpdateMode="Conditional">
                                                                     <ContentTemplate>
-                                                                        <div id="Div1" style="background-color: white; width: 95%" class="divArea">
+                                                                        <div id="Div1" style="background-color: white; width: 95%">
                                                                             <table style="width: 100%;" align="center">
                                                                                 <tr style="width: 100%">
                                                                                     <td style="width: 100%">

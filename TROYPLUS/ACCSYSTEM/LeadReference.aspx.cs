@@ -57,7 +57,6 @@ public partial class LeadReference : System.Web.UI.Page
              
                 GrdViewLedger.PageSize = 8;
                 //loadReferenceType();
-
             }
         }
         catch (Exception ex)
@@ -506,5 +505,4 @@ public partial class LeadReference : System.Web.UI.Page
         }
 
     }
-
 }

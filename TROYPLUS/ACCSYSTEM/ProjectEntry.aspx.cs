@@ -979,7 +979,7 @@ public partial class ProjectEntry : System.Web.UI.Page
             int Project_ID = 0;
 
             headtitle.Text = "Update Project Details";
-            tabMaster.HeaderText = "Update Project";
+            tabMaster.HeaderText = "Update Project Details";
             estimateheading.Visible=false;
 
             string connection = Request.Cookies["Company"].Value;

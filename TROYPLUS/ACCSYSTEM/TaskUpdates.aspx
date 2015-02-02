@@ -243,7 +243,7 @@
                                                         <table class="headerPopUp" style="border: 1px solid #86b2d1" width="100%">
                                                             <tr>
                                                                 <td>
-                                                                    Update Task
+                                                                    Update Task Details
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -306,8 +306,8 @@
                                                                                             Text="*" ErrorMessage="Percentage of completion is mandatory" ControlToValidate="txtPer"></asp:RequiredFieldValidator>
                                                                                           <asp:RangeValidator ID="cvper" runat="server" ControlToValidate="txtPer" Display="Dynamic"
                                                                                                                 Text="*" EnableClientScript="True" MaximumValue="100" Type="Double" MinimumValue="0"  ValidationGroup="Save"
-                                                                                                                ErrorMessage="Percentage Of Completion cannot be Greater than 100% and Less than 0%"></asp:RangeValidator>
-                                                                                        Percentage Of Completion *
+                                                                                                                ErrorMessage="Percentage of Completion cannot be Greater than 100% and Less than 0%"></asp:RangeValidator>
+                                                                                        Percentage of Completion *
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlTextBox3">
                                                                                         <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
@@ -347,7 +347,7 @@
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator13" InitialValue="0" Text="*"
                                                                                             ErrorMessage="Task Status is mandatory" runat="server" ControlToValidate="drpTaskStatus"
                                                                                             ValidationGroup="Save"></asp:RequiredFieldValidator>
-                                                                                        Status Of Task *
+                                                                                        Status of Task *
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlDrpBorder">
                                                                                         <asp:DropDownList ID="drpTaskStatus" TabIndex="5" Enabled="True" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
@@ -364,7 +364,7 @@
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlTextBox3">
                                                                                          <asp:TextBox ID="TextBox1" MaxLength="10" runat="server" CssClass="cssTextBox" Width="100px" Visible="false" Enabled="false" />
-                                                                                        <asp:TextBox ID="txteffortremain" MaxLength="10" runat="server" CssClass="cssTextBox" Width="100px" />
+                                                                                        <asp:TextBox ID="txteffortremain" Text="0" MaxLength="10" runat="server" CssClass="cssTextBox" Width="100px" />
                                                                                        
                                                                                     </td>
                                                                                  <td style="width:5%">
@@ -539,7 +539,7 @@
                                                                                     <td style="width: 25%" class="ControlLabelproject">
                                                                                       <%--  <asp:RequiredFieldValidator ValidationGroup="Save" ID="RequiredFieldValidator8" runat="server"
                                                                                             Text="*" ErrorMessage="Task Name is mandatory" ControlToValidate="txtTaskID"></asp:RequiredFieldValidator>--%>
-                                                                                      Title Of Task *
+                                                                                      Title of Task *
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlTextBox3">
                                                                                         <asp:TextBox ID="txtTaskName"  runat="server" SkinID="skinTxtBoxGrid" Enabled="false"
@@ -551,7 +551,7 @@
                                                                                     <td class="ControlLabelproject" style="width: 29%">
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator15" Text="*" runat="server"
                                                                                             ControlToValidate="drpIsActive" ValidationGroup="Save" ErrorMessage="Is Active is mandatory"></asp:RequiredFieldValidator>
-                                                                                        Is this An Active Task *
+                                                                                        Is this an Active Task *
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlDrpBorder">
                                                                                         <asp:DropDownList ID="drpIsActive" TabIndex="5"  Enabled="false" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
@@ -572,7 +572,7 @@
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator6" InitialValue="0" Text="*"
                                                                                             ErrorMessage="Project Code is mandatory" runat="server" ControlToValidate="drpProjectCode"
                                                                                             ValidationGroup="Save"></asp:RequiredFieldValidator>
-                                                                                        Title Of The project *
+                                                                                        Title of The project *
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlDrpBorder">
                                                                                         <asp:DropDownList ID="drpProjectCode"  TabIndex="5" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
@@ -588,7 +588,7 @@
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator5" InitialValue="0" Text="*"
                                                                                             ErrorMessage="Project Manager is mandatory" runat="server" ControlToValidate="drpIncharge"
                                                                                             ValidationGroup="Save"></asp:RequiredFieldValidator>
-                                                                                        Owner Of The Task *
+                                                                                        Owner of The Task *
                                                                                     </td>
                                                                                     <td style="width: 25%;" class="ControlDrpBorder">
                                                                                         <asp:DropDownList ID="drpIncharge" TabIndex="5"  EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
@@ -609,7 +609,7 @@
                                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator7" InitialValue="0" Text="*"
                                                                                             ErrorMessage="Task Type is mandatory" runat="server" ControlToValidate="drpTaskType"
                                                                                             ValidationGroup="Save"></asp:RequiredFieldValidator>
-                                                                                       Type Of Task *
+                                                                                       Type of Task *
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlDrpBorder">
                                                                                         <asp:DropDownList ID="drpTaskType" TabIndex="5" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
@@ -625,7 +625,7 @@
                                                                                         <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator9" InitialValue="0" Text="*"
                                                                                             ErrorMessage="Dependency Task is mandatory" runat="server" ControlToValidate="drpDependencyTask"
                                                                                             ValidationGroup="Save"></asp:RequiredFieldValidator>--%>
-                                                                                       Task On Which this Task Dependency
+                                                                                       Task on Which this Task Dependency
                                                                                     </td>
                                                                                     <td style="width: 25%;" class="ControlDrpBorder">
                                                                                         <asp:DropDownList ID="drpDependencyTask" TabIndex="5"  EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
@@ -688,7 +688,7 @@
                                                                                                     Description of the task
                                                                                                 </td>
                                                                                                  <td class="ControlTextBoxforproject" style="width: 25%">
-                                                                                                         <asp:TextBox ID="txtTaskDesc" runat="server" BackColor="#E7E7E7" Height="10px" Style="overflow: hidden; padding: 0px; font-family: 'Trebuchet MS';border: 1px solid #e7e7e7; font-size: 13px;" TabIndex="5" TextMode="MultiLine" Width="99%"></asp:TextBox>
+                                                                                                         <asp:TextBox ID="txtTaskDesc" Enabled="false" runat="server" BackColor="#E7E7E7" Height="20px" Font-Size="Medium" TabIndex="5" Width="99%"></asp:TextBox>
                                                                                                      </td>
                                                                                            
                                                                                       <td style="width: 5%">
@@ -704,7 +704,7 @@
                                                                                          <td style="width: 25%" class="ControlTextBox3">
                                                                                                <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
                                                                                                 <ContentTemplate>
-                                                                                             <asp:TextBox ID="Taskeffortdays" Height="50px" runat="server"  MaxLength="10" SkinID="skinTxtBoxGrid" Text="0"/>
+                                                                                             <asp:TextBox ID="Taskeffortdays" Enabled="false" Height="50px" runat="server"  MaxLength="10" SkinID="skinTxtBoxGrid" Text="0"/>
                                                                                                      </ContentTemplate>
                                                                                             </asp:UpdatePanel>
                                                                                          </td>
@@ -764,7 +764,7 @@
                     AllowPaging="True" OnPageIndexChanging="GrdWME_PageIndexChanging" OnRowCreated="GrdWME_RowCreated"
                     DataKeyNames="Task_Id" EmptyDataText="No Task Details found." OnSelectedIndexChanged="GrdWME_SelectedIndexChanged"
                      >
-                    <HeaderStyle Height="40px" Font-Bold="true" />
+                    <HeaderStyle Height="40px"  Font-Bold="true" />
                     <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small"/>
                                 <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE"/>
                     <Columns>

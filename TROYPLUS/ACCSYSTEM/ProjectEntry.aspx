@@ -219,7 +219,7 @@
                                         width="100%">
                                         <tr>
                                             <td>
-                                                <div class="divArea">
+                                                <div >
                                                     <table class="tblLeft" cellpadding="3" cellspacing="3" style="border: 1px solid #5078B3;"
                                                         width="100%">
                                                         <tr>
@@ -241,7 +241,7 @@
                                                                     <cc1:TabContainer ID="tbMain" runat="server" Width="100%" Visible="false" CssClass="fancy fancy-green">
                                                                         <cc1:TabPanel ID="tabMaster" runat="server" OnDataBinding="GrdWME_SelectedIndexChanged" HeaderText="New Project Details">
                                                                             <ContentTemplate>
-                                                                                <table style="width: 100%;" align="center" cellpadding="2" cellspacing="2">
+                                                                                <table style="width: 1000px;" align="center" cellpadding="2" cellspacing="2">
                                                                                     <tr>
                                                                                         <td style="width: 20%" class="ControlLabelproject1">
                                                                                             <asp:RequiredFieldValidator ValidationGroup="Save" ID="RequiredFieldValidator2" runat="server"
@@ -324,7 +324,7 @@
                                                                                           <td style="width: 5%">
                                                                                              </td>
                                                                                      
-                                                                                           <td class="ControlLabelproject1" style="width: 35%">
+                                                                                           <td class="ControlLabelproject1" style="width: 30%">
                                                                                                  Estimated Effort Duration
                                                                                                  <asp:Label runat="server" ID="estimateheading">
                                                                                                      </asp:Label>
@@ -396,12 +396,12 @@
                                                                                                  <tr>
                                                                                                      <td class="ControlLabelproject1" style="width: 20%">Project Description </td>
                                                                                                      <td class="ControlTextBoxforproject" style="width: 20%">
-                                                                                                         <asp:TextBox ID="txtProjectDesc" runat="server" BackColor="#E7E7E7" Height="10px" Style="overflow: hidden; padding: 0px; font-family: 'Trebuchet MS';border: 1px solid #e7e7e7; font-size: 13px;" TabIndex="5" TextMode="MultiLine" Width="99%"></asp:TextBox>
+                                                                                                         <asp:TextBox ID="txtProjectDesc" runat="server" BorderWidth="25px" BackColor="#E7E7E7" Height="27px" Style="overflow: hidden; padding: 0px; font-family: 'Trebuchet MS';border: 1px solid #e7e7e7; font-size: 13px;" TabIndex="5" TextMode="MultiLine" Width="99%"></asp:TextBox>
                                                                                                      </td>
                                                                                                       <td style="width:5%"></td>
                                                                                                     <td class="ControlLabelproject1" style="width:30%">
                                                                                              <asp:CompareValidator ID="CompareValidator5" runat="server" ControlToCompare="txtacenddate"
-                                                                                                ControlToValidate="txtactdate" Text="*" ErrorMessage=" Date Of Completion should be Greater than or equal to Actual Start Date."
+                                                                                                ControlToValidate="txtactdate" Text="*" ErrorMessage=" Date of Completion should be Greater than or equal to Actual Start Date."
                                                                                                 CssClass="lblFont" Operator="LessThanEqual" ValidationGroup="Save" SetFocusOnError="True"
                                                                                                 Type="Date"></asp:CompareValidator>
                                                                                           <%--  <asp:CompareValidator ID="CompareValidator7" runat="server" ControlToCompare="txtacenddate"
@@ -429,7 +429,7 @@
                                                                                                  </tr>
                                                                                      <tr style="height: 2px">
                                                                                     </tr>
-                                                                                    <td class="ControlLabelproject1" style="width: 39%">
+                                                                                    <td class="ControlLabelproject1" style="width: 24%">
                                                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" Text="*" runat="server"
                                                                                                 ControlToValidate="txtCDate" ValidationGroup="Save" ErrorMessage="Creation Date is mandatory"></asp:RequiredFieldValidator>
                                                                                             <%--<asp:CompareValidator ID="CompareValidator2" runat="server" ControlToCompare="txtCDate"
