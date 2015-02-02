@@ -8637,7 +8637,7 @@ public class BusinessLogic
         try
         {
             //dbQry = string.Format("select LedgerId, LedgerName from tblLedger inner join tblGroups on tblGroups.GroupID = tblLedger.GroupID Where tblGroups.GroupName IN ('{0}','{1}','{2}','{3}','{4}') OR tblGroups.HeadingID IN (11) Order By LedgerName Asc ", "Sundry Debtors", "Sundry Creditors", "Bank Accounts", "Cash in Hand", "InCome");
-            dbQry = string.Format("select LedgerId, LedgerName from tblLedger inner join tblGroups on tblGroups.GroupID = tblLedger.GroupID Where GroupName = 'Sundry Debtors' and tblLedger.Unuse = 'YES' ORDER By LedgerName");
+            dbQry = string.Format("select LedgerId, LedgerName, Mobile from tblLedger inner join tblGroups on tblGroups.GroupID = tblLedger.GroupID Where GroupName = 'Sundry Debtors' and tblLedger.Unuse = 'YES' ORDER By LedgerName");
             manager.Open();
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 

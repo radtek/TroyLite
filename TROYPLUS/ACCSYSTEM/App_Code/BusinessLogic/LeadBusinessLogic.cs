@@ -566,52 +566,52 @@ public class LeadBusinessLogic : BaseLogic
 
         if (dropDown == "Mode of Contact")
         {
-            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Mode of Contact' Order By A.Id";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Mode of Contact' Order By A.Id desc";
             //dbQry = "select A.Task_Status_Name,A.Task_Status_Id, (Select count(*) from tblTaskStatus where A.Task_Status_Id>=Task_Status_Id) as Row from tblTaskStatus as A Where A.Task_Status_Name like '" + txtSearch + "'" + " Order By A.Task_Status_Id";
         }
         else if (dropDown == "Personal Responsible")
         {
-            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Personal Responsible' Order By A.Id";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Personal Responsible' Order By A.Id desc";
         }
         else if (dropDown == "Business Type")
         {
-            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Business Type' Order By A.Id";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Business Type' Order By A.Id desc";
         }
         else if (dropDown == "Branch")
         {
-            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Branch' Order By A.Id";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Branch' Order By A.Id desc";
         }
         else if (dropDown == "Last Completed Action")
         {
-            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Last Completed Action' Order By A.Id";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Last Completed Action' Order By A.Id desc";
         }
         else if (dropDown == "Next Action")
         {
-            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Next Action' Order By A.Id";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Next Action' Order By A.Id desc";
         }
         else if (dropDown == "Category")
         {
-            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Category' Order By A.Id";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Category' Order By A.Id desc";
         }
         else if (dropDown == "Status")
         {
-            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Status' Order By A.Id";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Status' Order By A.Id desc";
         }
         else if (dropDown == "Information3")
         {
-            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Information3' Order By A.Id";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Information3' Order By A.Id desc";
         }
         else if (dropDown == "Information4")
         {
-            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Information4' Order By A.Id";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Information4' Order By A.Id desc";
         }
         else if (dropDown == "Information5")
         {
-            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Information5' Order By A.Id";
+            dbQry = "select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Where A.TextValue like '" + txtSearch + "'" + " and A.TypeName = 'Information5' Order By A.Id desc";
         }
         else
         {
-            dbQry = string.Format("select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id>=Id) as Row from tblLeadReferences as A Order By A.Id", txtSearch);
+            dbQry = string.Format("select A.Id,A.Type,A.TextValue,A.TypeName, (Select count(*) from tblLeadReferences where A.Id<=Id) as Row from tblLeadReferences as A Order By A.Id desc", txtSearch);
         }
 
         try

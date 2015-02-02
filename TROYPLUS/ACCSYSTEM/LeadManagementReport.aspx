@@ -194,130 +194,130 @@
                                         runat="server" Text='<%# Eval("Lead_No") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Top"
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Left" ItemStyle-VerticalAlign="Top"
                                 HeaderText="Lead Name">
                                 <ItemTemplate>
                                     <asp:Label Style="font-family: 'Trebuchet MS'; font-size: 11px;" ID="lblNetRate"
                                         runat="server" Text='<%# Eval("Lead_Name") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Top"
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Left" ItemStyle-VerticalAlign="Top"
                                 HeaderText="Customer Name">
                                 <ItemTemplate>
                                     <asp:Label Style="font-family: 'Trebuchet MS'; font-size: 11px;" ID="lblNetRate"
                                         runat="server" Text='<%# Eval("BP_Name") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Top"
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Left" ItemStyle-VerticalAlign="Top"
                                 HeaderText="Address">
                                 <ItemTemplate>
                                     <asp:Label Style="font-family: 'Trebuchet MS'; font-size: 11px;" ID="lblNetRate"
                                         runat="server" Text='<%# Eval("Address") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Top"
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Top"
                                 HeaderText="Mobile">
                                 <ItemTemplate>
                                     <asp:Label Style="font-family: 'Trebuchet MS'; font-size: 11px;" ID="lblNetRate"
                                         runat="server" Text='<%# Eval("Mobile") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Top"
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Top"
                                 HeaderText="Telephone">
                                 <ItemTemplate>
                                     <asp:Label Style="font-family: 'Trebuchet MS'; font-size: 11px;" ID="lblNetRate"
                                         runat="server" Text='<%# Eval("Telephone") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Top"
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Top"
                                 HeaderText="Record Status">
                                 <ItemTemplate>
                                     <asp:Label Style="font-family: 'Trebuchet MS'; font-size: 11px;" ID="lblNetRate"
                                         runat="server" Text='<%# Eval("Doc_Status") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Top"
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Top"
                                 HeaderText="Closing Date">
                                 <ItemTemplate>
                                     <asp:Label Style="font-family: 'Trebuchet MS'; font-size: 11px;" ID="lblNetRate"
-                                        runat="server" Text='<%# ProcessMyDataItem(Eval("Closing_Date")) %>' />
+                                        runat="server" Text='<%# ProcessMyDataItem(Eval("Closing_Date", "{0:d}")) %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Top"
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Left" ItemStyle-VerticalAlign="Top"
                                 HeaderText="Employee Name">
                                 <ItemTemplate>
                                     <asp:Label Style="font-family: 'Trebuchet MS'; font-size: 11px;" ID="lblNetRate"
                                         runat="server" Text='<%# Eval("Emp_Name") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Top"
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Top"
                                 HeaderText="Start Date">
                                 <ItemTemplate>
                                     <asp:Label Style="font-family: 'Trebuchet MS'; font-size: 11px;" ID="lblNetRate"
-                                        runat="server" Text='<%# Eval("Start_Date") %>' />
+                                        runat="server" Text='<%# Eval("Start_Date", "{0:d}") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Top"
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Top"
                                 HeaderText="Lead Status">
                                 <ItemTemplate>
                                     <asp:Label Style="font-family: 'Trebuchet MS'; font-size: 11px;" ID="lblNetRate"
                                         runat="server" Text='<%# Eval("Lead_Status") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Top"
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Left" ItemStyle-VerticalAlign="Top"
                                 HeaderText="Contact Name">
                                 <ItemTemplate>
                                     <asp:Label Style="font-family: 'Trebuchet MS'; font-size: 11px;" ID="lblNetRate"
                                         runat="server" Text='<%# Eval("Contact_Name") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Top"
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Top"
                                 HeaderText="Predicted Closing date">
                                 <ItemTemplate>
                                     <asp:Label Style="font-family: 'Trebuchet MS'; font-size: 11px;" ID="lblNetRate"
-                                        runat="server" Text='<%# Eval("Predicted_Closing_Date") %>' />
+                                        runat="server" Text='<%# Eval("Predicted_Closing_Date", "{0:d}") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Top"
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Left" ItemStyle-VerticalAlign="Top"
                                 HeaderText="Competitor Name">
                                 <ItemTemplate>
                                     <asp:Label Style="font-family: 'Trebuchet MS'; font-size: 11px;" ID="lblNetRate"
                                         runat="server" Text='<%# Eval("Competitor_Name") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Top"
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Left" ItemStyle-VerticalAlign="Top"
                                 HeaderText="Lead Activity">
                                 <ItemTemplate>
                                     <asp:Label Style="font-family: 'Trebuchet MS'; font-size: 11px;" ID="lblNetRate"
                                         runat="server" Text='<%# Eval("Activity_Name") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Top"
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Top"
                                 HeaderText="Lead Activity Date">
                                 <ItemTemplate>
                                     <asp:Label Style="font-family: 'Trebuchet MS'; font-size: 11px;" ID="lblNetRate"
-                                        runat="server" Text='<%# Eval("Activity_Date") %>' />
+                                        runat="server" Text='<%# Eval("Activity_Date", "{0:d}") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Top"
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Left" ItemStyle-VerticalAlign="Top"
                                 HeaderText="Lead Location">
                                 <ItemTemplate>
                                     <asp:Label Style="font-family: 'Trebuchet MS'; font-size: 11px;" ID="lblNetRate"
                                         runat="server" Text='<%# Eval("Activity_Location") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Top"
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Left" ItemStyle-VerticalAlign="Top"
                                 HeaderText="Follow-up Activity">
                                 <ItemTemplate>
                                     <asp:Label Style="font-family: 'Trebuchet MS'; font-size: 11px;" ID="lblNetRate"
                                         runat="server" Text='<%# Eval("Next_Activity") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Right" ItemStyle-VerticalAlign="Top"
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Top"
                                 HeaderText="Follow-up Activity Date">
                                 <ItemTemplate>
                                     <asp:Label Style="font-family: 'Trebuchet MS'; font-size: 11px;" ID="lblNetRate"
-                                        runat="server" Text='<%# Eval("NextActivity_Date") %>' />
+                                        runat="server" Text='<%# Eval("NextActivity_Date", "{0:d}") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>

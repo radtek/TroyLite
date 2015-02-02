@@ -21,7 +21,7 @@
                 </tr>
                 <tr>
                     <td style="width: 5%"></td>
-                    <td class="ControlLabel2" style="width: 35%">StartDate
+                    <td class="ControlLabelproject" style="width: 35%">Start Date
                     </td>
                     <td class="ControlTextBox3" style="width: 45%">
                         <asp:TextBox ID="txtStrtDt" Enabled="false" runat="server" CssClass="textbox" Style="border: 1px solid #e7e7e7" BackColor="#e7e7e7"></asp:TextBox>
@@ -42,7 +42,7 @@
                 </tr>
                 <tr>
                     <td style="width: 5%"></td>
-                    <td class="ControlLabel2" style="width: 35%">EndDate
+                    <td class="ControlLabelproject" style="width: 35%">End Date
                     </td>
                     <td class="ControlTextBox3" style="width: 45%">
                         <asp:TextBox ID="txtEndDt" Enabled="false" runat="server" CssClass="textbox" Style="border: 1px solid #e7e7e7" BackColor="#e7e7e7"></asp:TextBox>
@@ -70,25 +70,25 @@
                             <tr style="height: 10px">
                             </tr>
                             <tr>
-                                <td style="width: 15%; font-family: 'ARIAL'; font-size: 11px; font-weight: normal; color: #000000; text-align: right; text-decoration: none; padding-right: 5px; padding-left: 5px; padding-top: 5px;" height="27px">Status *                                
+                                <td class="ControlLabelproject" style="width: 15%;">Status                              
                                 </td>
                                 <td class="ControlDrpBorder" style="width: 30%;">
                                    
-                                    <asp:DropDownList ID="drpStatus" runat="server" AutoPostBack="true" BackColor="#e7e7e7"
+                                    <asp:DropDownList ID="drpStatus" runat="server" AutoPostBack="true" BackColor="White" ForeColor="#0567AE" Font-Bold="true"
                                         Width="100%" AppendDataBoundItems="True" Height="26px" CssClass="drpDownListMedium">
-                                        <asp:ListItem Selected="True" Value="0" style="background-color: #e7e7e7">Select Lead Status</asp:ListItem>
+                                        <asp:ListItem Selected="True" Value="0" style="background-color: white">Select Lead Status</asp:ListItem>
                                           <asp:ListItem Text="Open" Value="1"></asp:ListItem>
                                           <asp:ListItem Text="Closed" Value="2"></asp:ListItem>
                                     </asp:DropDownList>
 
                                 </td>
 
-                                <td style="width: 15%; font-family: 'ARIAL'; font-size: 11px; font-weight: normal; color: #000000; text-align: right; text-decoration: none; padding-right: 5px; padding-left: 5px; padding-top: 5px;" height="27px">Employee
+                                <td class="ControlLabelproject" style="width: 15%;">Employee
                                 </td>
                                 <td class="ControlDrpBorder" style="width: 30%">
-                                    <asp:DropDownList ID="drpIncharge" DataTextField="empFirstName" DataValueField="empno" runat="server" Width="100%" AutoPostBack="true" BackColor="#e7e7e7" Height="26px" CssClass="drpDownListMedium"
+                                    <asp:DropDownList ID="drpIncharge" DataTextField="empFirstName" DataValueField="empno" runat="server" Width="100%" AutoPostBack="true" BackColor="White" ForeColor="#0567AE" Font-Bold="true" Height="26px" CssClass="drpDownListMedium"
                                         AppendDataBoundItems="True">
-                                        <asp:ListItem Selected="True" Value="0" style="background-color: #e7e7e7">Select Employee Responsible</asp:ListItem>
+                                        <asp:ListItem Selected="True" Value="0" style="background-color: White">Select Employee Responsible</asp:ListItem>
                                     </asp:DropDownList>
                                 </td>
                                 <td style="width: 10%"></td>
@@ -96,41 +96,20 @@
                             <tr style="height: 2px">
                             </tr>
                             <tr>
-                                <td style="width: 15%; font-family: 'ARIAL'; font-size: 11px; font-weight: normal; color: #000000; text-align: right; text-decoration: none; padding-right: 5px; padding-left: 5px; padding-top: 5px;" height="27px">Location
+                                <td class="ControlLabelproject" style="width: 15%;">Location
                                 </td>
                                 <td class="ControlDrpBorder" style="width: 30%">
-                                    <asp:DropDownList ID="drpArea" runat="server" DataTextField="TextValue" DataValueField="ID" Width="100%" AutoPostBack="true" BackColor="#e7e7e7" Height="26px" CssClass="drpDownListMedium"
+                                    <asp:DropDownList ID="drpArea" runat="server" DataTextField="TextValue" DataValueField="ID" Width="100%" AutoPostBack="true" BackColor="White" ForeColor="#0567AE" Font-Bold="true" Height="26px" CssClass="drpDownListMedium"
                                         AppendDataBoundItems="True">
-                                        <asp:ListItem Selected="True" Value="0" style="background-color: #e7e7e7">Select Location</asp:ListItem>
+                                        <asp:ListItem Selected="True" Value="0" style="background-color: white">Select Location</asp:ListItem>
                                     </asp:DropDownList>
                                 </td>
-                                <td style="width: 15%; font-family: 'ARIAL'; font-size: 11px; font-weight: normal; color: #000000; text-align: right; text-decoration: none; padding-right: 5px; padding-left: 5px; padding-top: 5px;" height="27px">Category
+                                <td class="ControlLabelproject" style="width: 15%;">Category
                                 </td>
                                 <td class="ControlDrpBorder" style="width: 30%">
-                                    <asp:DropDownList ID="drpCategory" runat="server" DataTextField="TextValue" DataValueField="ID" Width="100%" AutoPostBack="true" BackColor="#e7e7e7" Height="26px" CssClass="drpDownListMedium"
+                                    <asp:DropDownList ID="drpCategory" runat="server" DataTextField="TextValue" DataValueField="ID" Width="100%" AutoPostBack="true" BackColor="White" ForeColor="#0567AE" Font-Bold="true" Height="26px" CssClass="drpDownListMedium"
                                         AppendDataBoundItems="True">
-                                        <asp:ListItem Selected="True" Value="0" style="background-color: #e7e7e7">Select Category</asp:ListItem>
-                                    </asp:DropDownList>
-                                </td>
-                                <td style="width: 10%"></td>
-                            </tr>
-                            <tr style="height: 2px">
-                            </tr>
-                            <tr>
-                                <td style="width: 15%; font-family: 'ARIAL'; font-size: 11px; font-weight: normal; color: #000000; text-align: right; text-decoration: none; padding-right: 5px; padding-left: 5px; padding-top: 5px;" height="27px">Lead Activity
-                                </td>
-                                <td class="ControlDrpBorder" style="width: 30%">
-                                    <asp:DropDownList ID="drpactivityName" runat="server" DataTextField="TextValue" DataValueField="ID" Width="100%" AutoPostBack="true" BackColor="#e7e7e7" Height="26px" CssClass="drpDownListMedium"
-                                        AppendDataBoundItems="True">
-                                        <asp:ListItem Selected="True" Value="0" style="background-color: #e7e7e7">Select Lead Activity</asp:ListItem>
-                                    </asp:DropDownList>
-                                </td>
-                                <td style="width: 15%; font-family: 'ARIAL'; font-size: 11px; font-weight: normal; color: #000000; text-align: right; text-decoration: none; padding-right: 5px; padding-left: 5px; padding-top: 5px;" height="27px">Follow-up Activity
-                                </td>
-                                <td class="ControlDrpBorder" style="width: 30%">
-                                    <asp:DropDownList ID="drpnxtActivity" runat="server" DataTextField="TextValue" DataValueField="ID" Width="100%" AutoPostBack="true" BackColor="#e7e7e7" Height="26px" CssClass="drpDownListMedium"
-                                        AppendDataBoundItems="True">
-                                        <asp:ListItem Selected="True" Value="0" style="background-color: #e7e7e7">Select Follow-up Activity</asp:ListItem>
+                                        <asp:ListItem Selected="True" Value="0" style="background-color: white">Select Category</asp:ListItem>
                                     </asp:DropDownList>
                                 </td>
                                 <td style="width: 10%"></td>
@@ -138,20 +117,41 @@
                             <tr style="height: 2px">
                             </tr>
                             <tr>
-                                <td style="width: 15%; font-family: 'ARIAL'; font-size: 11px; font-weight: normal; color: #000000; text-align: right; text-decoration: none; padding-right: 5px; padding-left: 5px; padding-top: 5px;" height="27px">Additional Information3
+                                <td class="ControlLabelproject" style="width: 15%;">Lead Activity
                                 </td>
                                 <td class="ControlDrpBorder" style="width: 30%">
-                                    <asp:DropDownList ID="drpInformation3" runat="server" Width="100%" DataTextField="TextValue" DataValueField="ID" AutoPostBack="true" BackColor="#e7e7e7" Height="26px" CssClass="drpDownListMedium"
+                                    <asp:DropDownList ID="drpactivityName" runat="server" DataTextField="TextValue" DataValueField="ID" Width="100%" AutoPostBack="true" BackColor="White" ForeColor="#0567AE" Font-Bold="true" Height="26px" CssClass="drpDownListMedium"
                                         AppendDataBoundItems="True">
-                                        <asp:ListItem Selected="True" Value="0" style="background-color: #e7e7e7">Select Additional Information 3</asp:ListItem>
+                                        <asp:ListItem Selected="True" Value="0" style="background-color: white">Select Lead Activity</asp:ListItem>
                                     </asp:DropDownList>
                                 </td>
-                                <td style="width: 15%; font-family: 'ARIAL'; font-size: 11px; font-weight: normal; color: #000000; text-align: right; text-decoration: none; padding-right: 5px; padding-left: 5px; padding-top: 5px;" height="27px">Additional Information4
+                                <td class="ControlLabelproject" style="width: 15%;">Follow-up Activity
                                 </td>
                                 <td class="ControlDrpBorder" style="width: 30%">
-                                    <asp:DropDownList ID="drpInformation4" runat="server" Width="100%" DataTextField="TextValue" DataValueField="ID" AutoPostBack="true" BackColor="#e7e7e7" Height="26px" CssClass="drpDownListMedium"
+                                    <asp:DropDownList ID="drpnxtActivity" runat="server" DataTextField="TextValue" DataValueField="ID" Width="100%" AutoPostBack="true" BackColor="White" ForeColor="#0567AE" Font-Bold="true" Height="26px" CssClass="drpDownListMedium"
                                         AppendDataBoundItems="True">
-                                        <asp:ListItem Selected="True" Value="0" style="background-color: #e7e7e7">Select Additional Information 4</asp:ListItem>
+                                        <asp:ListItem Selected="True" Value="0" style="background-color: white">Select Follow-up Activity</asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                                <td style="width: 10%"></td>
+                            </tr>
+                            <tr style="height: 2px">
+                            </tr>
+                            <tr>
+                                <td class="ControlLabelproject" style="width: 15%;">Additional Information3
+                                </td>
+                                <td class="ControlDrpBorder" style="width: 30%">
+                                    <asp:DropDownList ID="drpInformation3" runat="server" Width="100%" DataTextField="TextValue" DataValueField="ID" AutoPostBack="true" BackColor="White" ForeColor="#0567AE" Font-Bold="true" Height="26px" CssClass="drpDownListMedium"
+                                        AppendDataBoundItems="True">
+                                        <asp:ListItem Selected="True" Value="0" style="background-color: white">Select Additional Information 3</asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                                <td class="ControlLabelproject" style="width: 15%;">Additional Information4
+                                </td>
+                                <td class="ControlDrpBorder" style="width: 30%">
+                                    <asp:DropDownList ID="drpInformation4" runat="server" Width="100%" DataTextField="TextValue" DataValueField="ID" AutoPostBack="true" BackColor="White" ForeColor="#0567AE" Font-Bold="true" Height="26px" CssClass="drpDownListMedium"
+                                        AppendDataBoundItems="True">
+                                        <asp:ListItem Selected="True" Value="0" style="background-color: white">Select Additional Information 4</asp:ListItem>
                                     </asp:DropDownList>
                                 </td>
                                 <td style="width: 10%"></td>
