@@ -13659,6 +13659,9 @@ public partial class ReportExlSales : System.Web.UI.Page
         objBL = new BusinessLogic(ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString());
 
         dt.Columns.Add(new DataColumn("Customer Name"));
+        dt.Columns.Add(new DataColumn("Customer Address1"));
+        dt.Columns.Add(new DataColumn("Customer Address2"));
+        dt.Columns.Add(new DataColumn("Customer Address3"));
         dt.Columns.Add(new DataColumn("Category Name"));
         dt.Columns.Add(new DataColumn("Brand"));
         dt.Columns.Add(new DataColumn("ProductName"));
@@ -13807,6 +13810,9 @@ public partial class ReportExlSales : System.Web.UI.Page
 
                     DataRow dr_final12 = dt.NewRow();
                     dr_final12["Customer Name"] = dr["customername"];
+                    dr_final12["Customer Address1"] = dr["customeraddress"];
+                    dr_final12["Customer Address2"] = dr["customeraddress2"];
+                    dr_final12["Customer Address3"] = dr["customeraddress3"];
                     dr_final12["Category Name"] = dr["categoryname"];
                     dr_final12["Brand"] = dr["productdesc"];
                     dr_final12["ProductName"] = dr["ProductName"];
