@@ -226,7 +226,7 @@ public partial class PurchaseSummaryReport1 : System.Web.UI.Page
     public string ProcessMyDataItem(object myValue)
     {
         string ss = Convert.ToString(myValue);
-        if (ss == "01/01/2000 00:00:00")
+        if (ss == "01/01/2000")
         {
             return "";
         }

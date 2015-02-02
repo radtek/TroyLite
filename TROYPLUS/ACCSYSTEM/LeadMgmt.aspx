@@ -142,7 +142,7 @@
                                     class="searchbg">
                                     <tr>
                                         <td style="width: 2%"></td>
-                                        <td style="width: 25%; font-size: 22px; color: White;">Manage Leads
+                                        <td style="width: 25%; font-size: 22px; color: White;">Manage Sale Leads
                                         </td>
                                         <td style="width: 16%">
                                             <div style="text-align: right;">
@@ -219,7 +219,7 @@
                                                                         <td colspan="5">
                                                                             <table class="headerPopUp">
                                                                                 <tr>
-                                                                                    <td>Add New Lead
+                                                                                    <td>Add New Sale Lead
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
