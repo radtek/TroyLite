@@ -38,7 +38,7 @@
                 <td colspan="5">
                     <table style="width:100%">
                         <tr>
-                             <td  style="width:25%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
+                             <td  style="width:25%; font-family:'ARIAL';font-size:14px;font-weight:bold; color: #0567AE;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                                Select the Manager
                             </td>
                                <td style="text-align: left; width:20%" class="ControlDrpBorder">
@@ -53,8 +53,60 @@
                                                                                             </asp:UpdatePanel>
 
                             </td>
+                              <td  style="width:25%; font-family:'ARIAL';font-size:14px;font-weight:bold; color: #0567AE;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
+                                Task Status
+                            </td>
+                            <td style="text-align: left; width:20%" class="ControlDrpBorder">
+                                <asp:DropDownList ID="drpTaskStatus" OnSelectedIndexChanged="drpTaskStatus_SelectedIndexChanged" AutoPostBack="true" TabIndex="5" Enabled="True" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
+                                                                                            runat="server" Width="100%" DataTextField="Task_Status_Name" backcolor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px"
+                                                                                            DataValueField="Task_Status_Id" >
+                                                                                           <%-- <asp:ListItem Text="Select Task Status" Value="0"></asp:ListItem>--%>
+                                                                                        </asp:DropDownList>
+                            </td>
                            
-                            <td  style="width:25%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
+                           
+                          
+                            <td style="width:10%">
+                            </td>
+                        </tr>
+                        <tr style="height: 2px;"/> 
+                        <tr>
+                              <td  style="width:25%; font-family:'ARIAL';font-size:14px;font-weight:bold; color: #0567AE;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
+                                Select the Project
+                            </td>
+                            <td style="text-align: left; width:20%" class="ControlDrpBorder">
+                                  <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
+                                                                                                <ContentTemplate>
+                                <asp:DropDownList ID="drpproject" OnSelectedIndexChanged="drpproject_SelectedIndexChanged" AutoPostBack="true" runat="server" DataTextField="Project_Name" DataValueField="Project_Id" AppendDataBoundItems="True"  BackColor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px" Width="100%"
+                                    CssClass="textbox">
+                                    <%--<asp:ListItem Selected="True" Value="0" style="background-color: #bce1fe">Select Project</asp:ListItem>--%>
+                                </asp:DropDownList>
+                                                                                                       </ContentTemplate>
+                                                                                            </asp:UpdatePanel>
+                            </td>
+                            <td  style="width:25%; font-family:'ARIAL';font-size:14px;font-weight:bold; color: #0567AE;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
+                              Select Dependency Task
+                            </td>
+                            <td style="text-align: left ;width:20%" class="ControlDrpBorder">
+                                 <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
+                                                                                                <ContentTemplate>
+                                <asp:DropDownList ID="drpdependencytask" runat="server" DataTextField="Task_Name" DataValueField="Task_Id"  CssClass="drpDownListMedium" BackColor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px" Width="100%" AppendDataBoundItems="True">
+                                </asp:DropDownList>
+                                                                                                           </ContentTemplate>
+                                                                                            </asp:UpdatePanel>
+
+                            </td>
+
+
+                           
+                          
+                            <td style="width:10%">
+                            </td>
+                        </tr>
+                      
+                        <tr style="height: 2px;"/> 
+                        <tr>
+                             <td  style="width:25%; font-family:'ARIAL';font-size:14px;font-weight:bold; color: #0567AE;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                                Select the Employee
                             </td>
                             <td style="text-align: left; width:20%" class="ControlDrpBorder">
@@ -69,91 +121,7 @@
                                                                                             </asp:UpdatePanel>
 
                             </td>
-                          
-                            <td style="width:10%">
-                            </td>
-                        </tr>
-                        <tr style="height: 2px;"/> 
-                        <tr>
-                              <td  style="width:25%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
-                                Select the Project
-                            </td>
-                            <td style="text-align: left; width:20%" class="ControlDrpBorder">
-                                  <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
-                                                                                                <ContentTemplate>
-                                <asp:DropDownList ID="drpproject" OnSelectedIndexChanged="drpproject_SelectedIndexChanged" AutoPostBack="true" runat="server" DataTextField="Project_Name" DataValueField="Project_Id"  BackColor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px" Width="100%"
-                                    CssClass="textbox">
-                                    <%--<asp:ListItem Selected="True" Value="0" style="background-color: #bce1fe">Select Project</asp:ListItem>--%>
-                                </asp:DropDownList>
-                                                                                                       </ContentTemplate>
-                                                                                            </asp:UpdatePanel>
-                            </td>
-
-
-                            <td  style="width:25%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
-                                Blocked Task
-                            </td>
-                            <td style="text-align: left; width:20%" class="ControlDrpBorder">
-                                  <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
-                                                                                                <ContentTemplate>
-                               <asp:RadioButtonList id="radblocktask" OnSelectedIndexChanged="radblocktask_SelectedIndexChanged" AutoPostBack="true"  runat="server">
-                                   <asp:listitem   Text="NO"  value="N" ></asp:ListItem>
-                                   <asp:listitem   Text="YES" value="Y"></asp:ListItem>
-                                 <%--   <asp:listitem   Text="N/A" value="NA" selected="true"></asp:ListItem>--%>
-                                       </asp:RadioButtonList>
-                                                                                                        </ContentTemplate>
-                                                                                            </asp:UpdatePanel>
-                            </td>
-                          
-                            <td style="width:10%">
-                            </td>
-                        </tr>
-                      
-                        <tr style="height: 2px;"/> 
-                        <tr>
-                              <td  style="width:25%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
-                                Task Status
-                            </td>
-                            <td style="text-align: left; width:20%" class="ControlDrpBorder">
-                                <asp:DropDownList ID="drpTaskStatus" OnSelectedIndexChanged="drpTaskStatus_SelectedIndexChanged" AutoPostBack="true" TabIndex="5" Enabled="True" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
-                                                                                            runat="server" Width="100%" DataTextField="Task_Status_Name" backcolor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px"
-                                                                                            DataValueField="Task_Status_Id" >
-                                                                                           <%-- <asp:ListItem Text="Select Task Status" Value="0"></asp:ListItem>--%>
-                                                                                        </asp:DropDownList>
-                            </td>
-                            <td  style="width:25%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
-                            
-                                Select task
-                            </td>
-                            <td style="text-align: left; width:20%" class="ControlDrpBorder">
-                                 <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
-                                                                                                <ContentTemplate>
-                                <asp:DropDownList ID="drptask" runat="server" DataTextField="Task_Name" DataValueField="Task_Id"  CssClass="drpDownListMedium" BackColor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px" Width="100%" AppendDataBoundItems="True">
-                                </asp:DropDownList>
-                                                                                                          </ContentTemplate>
-                                                                                            </asp:UpdatePanel>
-                            </td>
-                        
-                            <td style="width:10%">
-                            </td>
-                        </tr>
-                        <tr style="height: 2px;"/> 
-                        <tr>
-
-                       
-                         <td  style="width:25%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
-                              Select Dependency Task
-                            </td>
-                            <td style="text-align: left ;width:20%" class="ControlDrpBorder">
-                                 <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
-                                                                                                <ContentTemplate>
-                                <asp:DropDownList ID="drpdependencytask" runat="server" DataTextField="Task_Name" DataValueField="Task_Id"  CssClass="drpDownListMedium" BackColor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px" Width="100%" AppendDataBoundItems="True">
-                                </asp:DropDownList>
-                                                                                                           </ContentTemplate>
-                                                                                            </asp:UpdatePanel>
-
-                            </td>
-                              <td  style="width:25%; font-family:'ARIAL';font-size:11px;font-weight:normal; color: #000000;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
+                                <td  style="width:25%; font-family:'ARIAL';font-size:14px;font-weight:bold; color: #0567AE;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
                                 Is Active
                             </td>
                             <td style="text-align: left; width:20%" class="ControlDrpBorder">
@@ -166,6 +134,44 @@
                                                                                                         </ContentTemplate>
                                                                                             </asp:UpdatePanel>
                             </td>
+
+                            
+                          
+                        
+                            <td style="width:10%">
+                            </td>
+                        </tr>
+                        <tr style="height: 2px;"/> 
+                        <tr>
+                              <td  style="width:25%; font-family:'ARIAL';font-size:14px;font-weight:bold; color: #0567AE;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
+                            
+                                Select task
+                            </td>
+                            <td style="text-align: left; width:20%" class="ControlDrpBorder">
+                                 <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+                                                                                                <ContentTemplate>
+                                <asp:DropDownList ID="drptask" runat="server" DataTextField="Task_Name" DataValueField="Task_Id"  CssClass="drpDownListMedium" BackColor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px" Width="100%" AppendDataBoundItems="True">
+                                </asp:DropDownList>
+                                                                                                          </ContentTemplate>
+                                                                                            </asp:UpdatePanel>
+                            </td>
+                             <td  style="width:25%; font-family:'ARIAL';font-size:14px;font-weight:bold; color: #0567AE;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
+                                Blocked Task
+                            </td>
+                            <td style="text-align: left; width:20%" class="ControlDrpBorder">
+                                  <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
+                                                                                                <ContentTemplate>
+                               <asp:RadioButtonList id="radblocktask" OnSelectedIndexChanged="radblocktask_SelectedIndexChanged" AutoPostBack="true"  runat="server">
+                                   <asp:listitem   Text="NO"  value="N" selected="true" ></asp:ListItem>
+                                   <asp:listitem   Text="YES" value="Y" ></asp:ListItem>
+                                 <%--   <asp:listitem   Text="N/A" value="NA" selected="true"></asp:ListItem>--%>
+                                       </asp:RadioButtonList>
+                                                                                                        </ContentTemplate>
+                                                                                            </asp:UpdatePanel>
+                            </td>
+                       
+                         
+                          
                              <td style="width:10%">
                             </td>
                             </tr>
@@ -182,7 +188,7 @@
             
             <tr>
                 <td colspan="4">
-                    <table style="width:100%">
+                    <table style="width:100%" >
                         <tr>
                             <td style="width:30%;" >
                             </td>

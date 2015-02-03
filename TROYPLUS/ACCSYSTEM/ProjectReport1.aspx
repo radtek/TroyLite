@@ -41,7 +41,7 @@
 
     </script>
 </head>
-<body style="font-family: 'Trebuchet MS'; font-size: 11px;">
+<body style="font-family: 'Trebuchet MS'; font-size: 18px;">
     <form id="form1" method="post" runat="server">
         <br />
         <div id="div1" visible="false" runat="server">
@@ -196,9 +196,9 @@
                 </tr>
             </table>
             <br />
-            <div id="divPrint" align="center" visible="false"  style="font-family: 'Trebuchet MS'; font-size: 11px; width: 100%"
+            <div id="divPrint" align="center" visible="false"  style="font-family: 'Trebuchet MS'; font-size: 18px; width: 100%"
                 runat="server">
-                <table width="600px" border="0" style="font-family: Trebuchet MS; font-size: 14px;">
+                <table width="600px" cellpadding="2" border="0" style="font-family: Trebuchet MS; font-size: 14px;">
                     <tr>
                         <td width="140px" align="left">TIN#:
                         <asp:Label ID="lblTNGST" runat="server"></asp:Label>
@@ -256,133 +256,7 @@
                 </table>
                 <br />
                 <br />
-                <table width="1000px" visible="false" Enabled="false"  border="0" style="font-family: Trebuchet MS; font-size: 14px;">
-                    <tr>
-                        <td>
-                            <wc:ReportGridView runat="server" Visible="false" BorderWidth="1" ID="gvOuts1" GridLines="Both"
-                                AlternatingRowStyle-CssClass="even" AutoGenerateColumns="false"
-                                EmptyDataText="No Data Found" CssClass="someClass"
-                                Width="100%" OnRowDataBound="gvOuts1_RowDataBound">
-                                     <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small"/>
-                                <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE"/>
-                              <%--  <RowStyle CssClass="dataRow" />
-                                <SelectedRowStyle CssClass="SelectdataRow" />
-                                <AlternatingRowStyle CssClass="altRow" />
-                                <EmptyDataRowStyle CssClass="HeadataRow" Font-Bold="true" />
-                                <HeaderStyle CssClass="HeadataRow" Wrap="false" BorderStyle="Solid" BorderColor="Gray" BorderWidth="1px" />
-                                <FooterStyle CssClass="dataRow" />
-                                <PagerStyle CssClass="footer-row allPad" VerticalAlign="Middle" HorizontalAlign="Left" />--%>
-
-                                <Columns>
-                                    <asp:TemplateField HeaderText="Project name" ItemStyle-Width="62%" ItemStyle-HorizontalAlign="Left">
-                                        <ItemTemplate>
-                                            <br />
-
-                                            <a href="javascript:switchViews('div<%# Eval("ProjectName") %>', 'imgdiv<%# Eval("ProjectName") %>');"
-                                                style="text-decoration: none;">
-                                                <img id="imgdiv<%# Eval("ProjectName") %>" alt="Show" border="0" src="App_Themes/DefaultTheme/Images/plus.gif" />
-                                            </a>
-                                            <%--<a style="text-decoration:none" href='BalanceSheetLevel2.aspx?HeadingName=<%# Eval("HeadingName") %>&HeadingID=<%# Eval("HeadingID") %>'><asp:Label style="font-family:'Trebuchet MS'; font-size:11px;  " ID="lblparticulars" runat="server" Text = '<%# Eval("HeadingName") %>' /></a>--%>
-                                            <asp:Label Style="font-family: 'Trebuchet MS';" ID="lblprojectname" runat="server"
-                                                Text='<%# Eval("ProjectName") %>' />
-                                            <br />
-                                            <div id="div<%# Eval("ProjectName") %>" style="display: none; position: relative; left: 1px;">
-                                                <wc:ReportGridView runat="server" BorderWidth="1" ID="gvProducts" 
-                                                    AutoGenerateColumns="false" EmptyDataText="No Data Found"  Width="75%"
-                                                    OnRowDataBound="gvProducts_RowDataBound">
-                                                         <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small"/>
-                                <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE"/>
-                                                   <%-- <HeaderStyle CssClass="ReportHeadataRow" />
-                                                    <RowStyle CssClass="ReportdataRow" />
-                                                    <AlternatingRowStyle CssClass="ReportAltdataRow" />
-                                                    <FooterStyle CssClass="ReportFooterRow" />--%>
-                                                    <PageHeaderTemplate>
-                                                        <br />
-                                                        <br />
-                                                    </PageHeaderTemplate>
-                                                    <Columns>
-                                                        <asp:TemplateField HeaderText="Task Name" ItemStyle-Width="3%">
-                                                            <ItemTemplate>
-                                                                <asp:Label ID="lblItemCode" runat="server" Text='<%# Eval("Task_Name") %>' />
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Task Date" ItemStyle-Width="5%">
-                                                            <ItemTemplate>
-                                                                <asp:Label ID="lblProductName" runat="server" Text='<%# Eval("Task_Date","{0:dd/MM/yyyy}") %>' /><br />
-
-
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Expected start date" ItemStyle-Width="5%">
-                                                            <ItemTemplate>
-                                                                <asp:Label ID="lblQty" runat="server" Text='<%# Eval("Expected_Start_Date","{0:dd/MM/yyyy}") %>' />
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Expected End Date" ItemStyle-Width="10%">
-                                                            <ItemTemplate>
-                                                                <asp:Label ID="lblRate" runat="server" Text='<%# Eval("Expected_End_Date","{0:dd/MM/yyyy}") %>' />
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Owner" ItemStyle-Width="5%">
-                                                            <ItemTemplate>
-                                                                <asp:Label ID="lblDisc" runat="server" Text='<%# Eval("Ownername") %>' />
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Task Types" ItemStyle-Width="5%">
-                                                            <ItemTemplate>
-                                                                <asp:Label ID="lblVat" runat="server" Text='<%# Eval("TaskName") %>' />
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="IsActive" ItemStyle-Width="5%">
-                                                            <ItemTemplate>
-                                                                <asp:Label ID="lblCst" runat="server" Text='<%# Eval("IsActive") %>' />
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
-
-                                                    </Columns>
-                                                    <PagerTemplate>
-                                                    </PagerTemplate>
-                                                    <PageFooterTemplate>
-                                                        <br />
-                                                    </PageFooterTemplate>
-                                                </wc:ReportGridView>
-                                            </div>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <%-- <asp:BoundField ItemStyle-Width="15%" DataField="Managername" HeaderText="Manager Name" ItemStyle-HorizontalAlign="Center" />--%>
-                                    <%--  <asp:BoundField ItemStyle-Width="15%" DataField="empfirstname" HeaderText="Employee Name" ItemStyle-HorizontalAlign="Center" />--%>
-                                    <%--  <asp:BoundField ItemStyle-Width="12%" DataField="ProjectName" HeaderStyle-HorizontalAlign="Right"
-                                        HeaderText="Project Name" ItemStyle-HorizontalAlign="Right" />--%>
-                                    <%--  <asp:BoundField ItemStyle-Width="15%" DataField="Project_Date" HeaderText="Project date" ItemStyle-HorizontalAlign="Center" />--%>
-                                    <asp:TemplateField HeaderText="Project date" ItemStyle-Width="5%">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblProjectdate" runat="server" Text='<%# Eval("Project_Date","{0:dd/MM/yyyy}") %>' />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <%--  <asp:BoundField ItemStyle-Width="15%" DataField="Expected_Start_Date" HeaderText="Expected start date" ItemStyle-HorizontalAlign="Center" />--%>
-                                    <asp:TemplateField HeaderText="Expected Start Date" ItemStyle-Width="5%">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblExpectedStartDate" runat="server" Text='<%# Eval("Expected_Start_Date","{0:dd/MM/yyyy}") %>' />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <%-- <asp:BoundField ItemStyle-Width="15%" DataField="Expected_End_Date" HeaderText="Expected end date" ItemStyle-HorizontalAlign="Center" />--%>
-                                    <asp:TemplateField HeaderText="Expected End Date" ItemStyle-Width="5%">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblExpectedEndDate" runat="server" Text='<%# Eval("Expected_End_Date","{0:dd/MM/yyyy}") %>' />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:BoundField ItemStyle-Width="15%" DataField="Project_Status" HeaderText="Project status" ItemStyle-HorizontalAlign="Center" />
-
-
-                                    <%--<asp:BoundField ItemStyle-Width="15%" DataField="Project_Date" HeaderText="project date" ItemStyle-HorizontalAlign="Center" />--%>
-                                    <%-- <asp:BoundField ItemStyle-Width="12%" DataField="Task_Name" HeaderStyle-HorizontalAlign="Right"
-                            HeaderText="Task Name" DataFormatString="{0:f2}" ItemStyle-HorizontalAlign="Right" />--%>
-                                </Columns>
-
-                            </wc:ReportGridView>
-                        </td>
-                    </tr>
-                </table>
+            
             </div>
             &nbsp;
             
