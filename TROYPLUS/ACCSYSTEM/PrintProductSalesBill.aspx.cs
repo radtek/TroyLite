@@ -208,15 +208,15 @@ public partial class PrintProductSalesBill : System.Web.UI.Page
 
                 lbldespatched.Text = Convert.ToString(dr["despatchedfrom"]);
 
-                if ((Convert.ToString(dr["executivename"]) == "") || (Convert.ToString(dr["executivename"]) == "Select Executive"))
-                {
-                    rowexec.Visible = false;
-                }
-                else
-                {
-                    rowexec.Visible = true;
-                    lblexecutive.Text = Convert.ToString(dr["executivename"]);
-                }
+                //if ((Convert.ToString(dr["executivename"]) == "") || (Convert.ToString(dr["executivename"]) == "Select Executive"))
+                //{
+                //    rowexec.Visible = false;
+                //}
+                //else
+                //{
+                //    rowexec.Visible = true;
+                //    lblexecutive.Text = Convert.ToString(dr["executivename"]);
+                //}
 
                 if (Convert.ToString(dr["narration2"]) == "")
                 {
