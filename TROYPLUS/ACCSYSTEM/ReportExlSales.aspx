@@ -138,7 +138,7 @@
                                                 Display="None" CssClass="lblFont" ErrorMessage="Please Enter Start Date"></asp:RequiredFieldValidator>
                                         </td>
                                         <td class="ControlTextBox3" style="width: 25%;">
-                                            <asp:TextBox ID="txtStartDate" Enabled="false" CssClass="cssTextBox" MaxLength="10"
+                                            <asp:TextBox ID="txtStartDate" CssClass="cssTextBox" MaxLength="10"
                                                 runat="server" />
                                             <cc1:CalendarExtender ID="calStartDate" runat="server" Enabled="True" 
                                                 Format="dd/MM/yyyy"
@@ -162,7 +162,7 @@
                                                 CssClass="lblFont" Operator="GreaterThanEqual" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
                                         </td>
                                         <td class="ControlTextBox3" style="width: 25%;">
-                                            <asp:TextBox ID="txtEndDate" Enabled="false" CssClass="cssTextBox" MaxLength="10" runat="server" />
+                                            <asp:TextBox ID="txtEndDate" CssClass="cssTextBox" MaxLength="10" runat="server" />
                                             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True" 
                                                                                                 Format="dd/MM/yyyy"
                                                                                                 PopupButtonID="ImageButton1" TargetControlID="txtEndDate">
@@ -279,7 +279,7 @@
                                                     Display="None" CssClass="lblFont" ErrorMessage="Please Enter Start Date"></asp:RequiredFieldValidator>
                                             </td>
                                             <td class="ControlTextBox3" style="width: 18%;">
-                                                <asp:TextBox ID="txtstdate" Enabled="false" CssClass="cssTextBox" MaxLength="10"
+                                                <asp:TextBox ID="txtstdate" CssClass="cssTextBox" MaxLength="10"
                                                     runat="server" />
                                                 <cc1:CalendarExtender ID="CalendarExtender2" runat="server" Enabled="True" 
                                                     Format="dd/MM/yyyy"
@@ -301,7 +301,7 @@
                                                     CssClass="lblFont" Operator="GreaterThanEqual" SetFocusOnError="True" Type="Date"></asp:CompareValidator>
                                             </td>
                                             <td style="width: 18%;" class="ControlTextBox3">
-                                                <asp:TextBox ID="txteddate" Enabled="false" CssClass="cssTextBox" MaxLength="10" runat="server" />
+                                                <asp:TextBox ID="txteddate" CssClass="cssTextBox" MaxLength="10" runat="server" />
                                                 <cc1:CalendarExtender ID="CalendarExtender3" runat="server" Enabled="True" 
                                                                                                     Format="dd/MM/yyyy"
                                                                                                     PopupButtonID="ImageButton3" TargetControlID="txtedDate">

@@ -99,7 +99,7 @@
                                <asp:RadioButtonList id="radblocktask" OnSelectedIndexChanged="radblocktask_SelectedIndexChanged" AutoPostBack="true"  runat="server">
                                    <asp:listitem   Text="NO"  value="N" ></asp:ListItem>
                                    <asp:listitem   Text="YES" value="Y"></asp:ListItem>
-                                    <asp:listitem   Text="N/A" value="NA" selected="true"></asp:ListItem>
+                                 <%--   <asp:listitem   Text="N/A" value="NA" selected="true"></asp:ListItem>--%>
                                        </asp:RadioButtonList>
                                                                                                         </ContentTemplate>
                                                                                             </asp:UpdatePanel>

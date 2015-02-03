@@ -505,16 +505,27 @@ public partial class ProjectReport : System.Web.UI.Page
                 }
                 else
                 {
-                    htmlcode.Append("<td> " + dsVat.Tables[0].Rows[i].ItemArray[0].ToString() + "  Project Name");
+                    htmlcode.Append("<tr class=ReportdataRow>");
+                    htmlcode.Append("<td>" + dspro.Tables[0].Rows[j].ItemArray[0].ToString());
                     htmlcode.Append("</td>");
-                    htmlcode.Append("<td> " + dsVat.Tables[0].Rows[i].ItemArray[0].ToString() + "  Project Date");
+                    htmlcode.Append("<td>" + dspro.Tables[0].Rows[j].ItemArray[1].ToString());
                     htmlcode.Append("</td>");
-                    htmlcode.Append("<td> " + dsVat.Tables[0].Rows[i].ItemArray[0].ToString() + "  Expected Start Date");
+                    htmlcode.Append("<td>" + dspro.Tables[0].Rows[j].ItemArray[2].ToString());
                     htmlcode.Append("</td>");
-                    htmlcode.Append("<td> " + dsVat.Tables[0].Rows[i].ItemArray[0].ToString() + "  Expected End Date");
+                    htmlcode.Append("<td>" + dspro.Tables[0].Rows[j].ItemArray[3].ToString());
                     htmlcode.Append("</td>");
-                    htmlcode.Append("<td> " + dsVat.Tables[0].Rows[i].ItemArray[0].ToString() + "  Expected start date");
+                    htmlcode.Append("<td>" + dspro.Tables[0].Rows[j].ItemArray[4].ToString());
                     htmlcode.Append("</td>");
+                    //htmlcode.Append("<td> " + dsVat.Tables[0].Rows[i].ItemArray[0].ToString() + "  Project Name");
+                    //htmlcode.Append("</td>");
+                    //htmlcode.Append("<td> " + dsVat.Tables[0].Rows[i].ItemArray[0].ToString() + "  Project Date");
+                    //htmlcode.Append("</td>");
+                    //htmlcode.Append("<td> " + dsVat.Tables[0].Rows[i].ItemArray[0].ToString() + "  Expected Start Date");
+                    //htmlcode.Append("</td>");
+                    //htmlcode.Append("<td> " + dsVat.Tables[0].Rows[i].ItemArray[0].ToString() + "  Expected End Date");
+                    //htmlcode.Append("</td>");
+                    //htmlcode.Append("<td> " + dsVat.Tables[0].Rows[i].ItemArray[0].ToString() + "  Expected start date");
+                    //htmlcode.Append("</td>");
 
 
                     //htmlcode.Append("<td>" + dsVat.Tables[0].Rows[i].ItemArray[0].ToString() + " Purchase Value");
