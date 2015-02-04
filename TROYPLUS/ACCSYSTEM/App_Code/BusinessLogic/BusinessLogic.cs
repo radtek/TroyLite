@@ -66418,35 +66418,51 @@ public class BusinessLogic
 
                         manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
-                    }
-                }
-            }
 
 
-
-
-            if (dsBillNos != null)
-            {
-                foreach (DataRow dr in dsBillNos.Tables[0].Rows)
-                {
-                    if (dr["BillNo"].ToString() != "0")
-                    {
-                        if (Logsave == "YES")
+                        if (dsBillNos != null)
                         {
-                            //logdescription = string.Format("INSERT INTO tblReceivedAmount(ReceiptNo,BillNo,Amount) VALUES({0},{1},{2})", TransNo.ToString(), dr["BillNo"].ToString(), Convert.ToDouble(dr["Amount"]));
-                            //logdescription = logdescription.Trim();
-                            //description = string.Format("INSERT INTO tblLog(LogDate,LogDescription,LogUsername,LogKey,LogMethod) VALUES(Format('{0}', 'dd/mm/yyyy'),'{1}','{2}','{3}','{4}')",
-                            //     DateTime.Now.ToString(), logdescription.ToString(), usernam, TransNo, "InsertCustReceipt");
-                            //manager.ExecuteNonQuery(CommandType.Text, description);
+                            foreach (DataRow drd in dsBillNos.Tables[0].Rows)
+                            {
+                                if (drd["BillNo"].ToString() != "0")
+                                {
+                                    if (Logsave == "YES")
+                                    {
+                                        //logdescription = string.Format("INSERT INTO tblReceivedAmount(ReceiptNo,BillNo,Amount) VALUES({0},{1},{2})", TransNo.ToString(), dr["BillNo"].ToString(), Convert.ToDouble(dr["Amount"]));
+                                        //logdescription = logdescription.Trim();
+                                        //description = string.Format("INSERT INTO tblLog(LogDate,LogDescription,LogUsername,LogKey,LogMethod) VALUES(Format('{0}', 'dd/mm/yyyy'),'{1}','{2}','{3}','{4}')",
+                                        //     DateTime.Now.ToString(), logdescription.ToString(), usernam, TransNo, "InsertCustReceipt");
+                                        //manager.ExecuteNonQuery(CommandType.Text, description);
+                                    }
+
+                                    //double amount = 0;
+                                    //if (Convert.ToDouble(dr["Amount"]) >= Convert.ToDouble(drd["Amount"]))
+                                    //{
+                                        
+
+                                        dbQry = string.Format("INSERT INTO tblReceivedAmount(ReceiptNo,BillNo,Amount) VALUES({0},{1},{2})", TransNo.ToString(), drd["BillNo"].ToString(), Convert.ToDouble(dr["Amount"]));
+                                        manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                                    //    amount = Convert.ToDouble(dr["Amount"]) - Convert.ToDouble(drd["Amount"]);
+
+                                    //}
+
+                                   
+
+
+                                }
+                            }
                         }
 
-                        dbQry = string.Format("INSERT INTO tblReceivedAmount(ReceiptNo,BillNo,Amount) VALUES({0},{1},{2})", TransNo.ToString(), dr["BillNo"].ToString(), Convert.ToDouble(dr["Amount"]));
-                        manager.ExecuteNonQuery(CommandType.Text, dbQry);
-
 
                     }
                 }
             }
+
+
+
+
+            
 
             sAuditStr = "Receipt Transaction added. Record Details : User=" + usernam + " DateTime:" + DateTime.Now.ToString();
 
