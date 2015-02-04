@@ -136,8 +136,8 @@ public partial class CustReceipt : System.Web.UI.Page
                                 dst.Tables[0].Rows[i].Delete();
                             }
                         }
-                        GrdViewItems.DataSource = dst;
-                        GrdViewItems.DataBind();
+                        // GrdViewItems.DataSource = dst;
+                        //GrdViewItems.DataBind();
                     }
                 }
             }
@@ -195,17 +195,17 @@ public partial class CustReceipt : System.Web.UI.Page
             //cmdSaveProduct.Visible = true;
             //cmdUpdateProduct.Visible = false;
             //cmdCancelProduct.Visible = false;
-            GrdViewItems.DataSource = ds;
-            GrdViewItems.DataBind();
+            //GrdViewItems.DataSource = ds;
+            //GrdViewItems.DataBind();
 
-            for (int vLoop = 0; vLoop < GrdViewItems.Rows.Count; vLoop++)
-            {
-                Label txtttd = (Label)GrdViewItems.Rows[vLoop].FindControl("txtType");
-                if(txtttd.Text == "Cash")
-                {
+            //for (int vLoop = 0; vLoop < GrdViewItems.Rows.Count; vLoop++)
+            //{
+            //    Label txtttd = (Label)GrdViewItems.Rows[vLoop].FindControl("txtType");
+            //    if(txtttd.Text == "Cash")
+            //    {
 
-                }
-            }
+            //    }
+            //}
 
         }
         //UpdatePanel21.Update();
@@ -240,8 +240,8 @@ public partial class CustReceipt : System.Web.UI.Page
                                 dst.Tables[0].Rows[i].Delete();
                             }
                         }
-                        GrdViewItems.DataSource = dst;
-                        GrdViewItems.DataBind();
+                        //GrdViewItems.DataSource = dst;
+                        //GrdViewItems.DataBind();
                     }
                 }
                
@@ -300,8 +300,8 @@ public partial class CustReceipt : System.Web.UI.Page
             //cmdSaveProduct.Visible = true;
             //cmdUpdateProduct.Visible = false;
             //cmdCancelProduct.Visible = false;
-            GrdViewItems.DataSource = ds;
-            GrdViewItems.DataBind();
+            //GrdViewItems.DataSource = ds;
+            //GrdViewItems.DataBind();
         }
         //UpdatePanel21.Update();
     }
@@ -335,8 +335,8 @@ public partial class CustReceipt : System.Web.UI.Page
                                 dst.Tables[0].Rows[i].Delete();
                             }
                         }
-                        GrdViewItems.DataSource = dst;
-                        GrdViewItems.DataBind();
+                        //GrdViewItems.DataSource = dst;
+                        //GrdViewItems.DataBind();
                     }
                 }
             }
@@ -394,8 +394,8 @@ public partial class CustReceipt : System.Web.UI.Page
             //cmdSaveProduct.Visible = true;
             //cmdUpdateProduct.Visible = false;
             //cmdCancelProduct.Visible = false;
-            GrdViewItems.DataSource = ds;
-            GrdViewItems.DataBind();
+            //GrdViewItems.DataSource = ds;
+            //GrdViewItems.DataBind();
         }
         //UpdatePanel21.Update();
     }
@@ -487,7 +487,7 @@ public partial class CustReceipt : System.Web.UI.Page
             Response.Redirect("~/Login.aspx");
 
         BusinessLogic bl = new BusinessLogic();
-        var customerID = ddReceivedFrom.SelectedValue.Trim();
+        var customerID = drpLedger.SelectedValue.Trim();
 
         var dsSales = bl.ListCreditSales(connStr.Trim(), customerID);
 
@@ -518,9 +518,69 @@ public partial class CustReceipt : System.Web.UI.Page
             }
 
         }
-        GridView1.DataSource = dsSales;
-        GridView1.DataBind();
-        
+
+        if (dsSales != null && dsSales.Tables[0].Rows.Count > 0)
+        {
+            DataTable dttt;
+            DataRow drNew;
+            DataColumn dct;
+            DataSet dstd = new DataSet();
+            dttt = new DataTable();
+
+            dct = new DataColumn("Billno");
+            dttt.Columns.Add(dct);
+
+            dct = new DataColumn("Row");
+            dttt.Columns.Add(dct);
+
+            dct = new DataColumn("CustomerName");
+            dttt.Columns.Add(dct);
+
+            dct = new DataColumn("Amount");
+            dttt.Columns.Add(dct);
+
+            dct = new DataColumn("BillDate");
+            dttt.Columns.Add(dct);
+
+            dct = new DataColumn("AdjustAmount");
+            dttt.Columns.Add(dct);
+            
+            dstd.Tables.Add(dttt);
+
+            int sno = 1;
+            if (dsSales != null)
+            {
+                if (dsSales.Tables[0].Rows.Count > 0)
+                {
+                    for (int i = 0; i < dsSales.Tables[0].Rows.Count; i++)
+                    {
+                        drNew = dttt.NewRow();
+                        drNew["Row"] = sno;
+                        drNew["Billno"] = Convert.ToInt32(dsSales.Tables[0].Rows[i]["Billno"]);
+                        drNew["CustomerName"] = Convert.ToString(dsSales.Tables[0].Rows[i]["CustomerName"]);
+                        drNew["Amount"] = Convert.ToDouble(dsSales.Tables[0].Rows[i]["Amount"]);
+
+                        string dtaa = Convert.ToDateTime(dsSales.Tables[0].Rows[i]["BillDate"]).ToString("dd/MM/yyyy");
+
+                        drNew["BillDate"] = dtaa;
+                        drNew["AdjustAmount"] = 0;
+                        dstd.Tables[0].Rows.Add(drNew);
+                        sno = sno + 1;
+                    }
+                }
+            }
+
+            GridView1.DataSource = dstd;
+            GridView1.DataBind();
+        }
+        else
+        {
+            GridView1.DataSource = null;
+            GridView1.DataBind();
+        }
+
+
+        Panel4.Visible = true;
         //if (dsSales != null)
         //{
         //    hdPendingCount.Value = dsSales.Tables[0].Rows.Count.ToString();
@@ -993,10 +1053,17 @@ public partial class CustReceipt : System.Web.UI.Page
             UpdateButton.Visible = false;
             SaveButton.Visible = false;
             ClearPanel();
-            ShowPendingBills();
+            ShowPendingBillsAuto();
 
+            chk.Enabled = false;
+
+            FirstGridViewRow1();
+
+            Panel4.Visible = true;
             loadBanks();
             drpLedger.SelectedIndex = 0;
+
+            drpReceiptType.SelectedValue = "1";
 
             //txtTransDate.Text = DateTime.Now.ToShortDateString();
 
@@ -1005,10 +1072,18 @@ public partial class CustReceipt : System.Web.UI.Page
             txtTransDate.Text = dtaa;
             txtDate.Text = dtaa;
 
-            drpLedger.Focus();
-            chkPayTo.SelectedValue = "Cash";
-            div.Visible = false;
+            chkcard.Checked = false;
+            chkcash.Checked = false;
+            chkcheque.Checked = false;
 
+            txtAddress.Enabled = false;
+            txtAddress2.Enabled = false;
+            txtAddress3.Enabled = false;
+
+            //drpLedger.Focus();
+            chkPayTo.SelectedValue = "Cash";
+            div.Visible = true;
+            Panel4.Visible = false;
             if (chkPayTo.SelectedItem != null)
             {
                 if (chkPayTo.SelectedItem.Text == "Cheque")
@@ -1082,11 +1157,11 @@ public partial class CustReceipt : System.Web.UI.Page
 
     protected void UpdButton_Click(object sender, EventArgs e)
     {
-        if ((chkcard.Checked == false) && (chkcheque.Checked == false) && ( chkcash.Checked == false))
-        {
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select any one')", true);
-            return;
-        }
+        //if ((chkcard.Checked == false) && (chkcheque.Checked == false) && ( chkcash.Checked == false))
+        //{
+        //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select any one')", true);
+        //    return;
+        //}
 
         string connection = string.Empty;
         connection = Request.Cookies["Company"].Value;
@@ -1114,14 +1189,14 @@ public partial class CustReceipt : System.Web.UI.Page
 
         
 
-        for (int vLoop = 0; vLoop < GrdViewItems.Rows.Count; vLoop++)
+        for (int vLoop = 0; vLoop < GridView2.Rows.Count; vLoop++)
         {
-            Label txtttd = (Label)GrdViewItems.Rows[vLoop].FindControl("txtType");
-            TextBox txttt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtRefNo");
-            TextBox txt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtAmount");
-            TextBox txtt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtNarration");
-            DropDownList txttd = (DropDownList)GrdViewItems.Rows[vLoop].FindControl("drpBank");
-            TextBox txttdd = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtChequeNo");
+            DropDownList txtttd = (DropDownList)GridView2.Rows[vLoop].FindControl("txtType");
+            TextBox txttt = (TextBox)GridView2.Rows[vLoop].FindControl("txtRefNo");
+            TextBox txt = (TextBox)GridView2.Rows[vLoop].FindControl("txtAmount");
+            TextBox txtt = (TextBox)GridView2.Rows[vLoop].FindControl("txtNarration");
+            DropDownList txttd = (DropDownList)GridView2.Rows[vLoop].FindControl("drpBank");
+            TextBox txttdd = (TextBox)GridView2.Rows[vLoop].FindControl("txtChequeNo");
 
             int col = vLoop + 1;
 
@@ -1142,7 +1217,7 @@ public partial class CustReceipt : System.Web.UI.Page
             }
             else if (txttd.SelectedValue == "0")
             {
-                if (txtttd.Text != "Cash")
+                if (txtttd.SelectedItem.Text != "Cash")
                 {
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Bank in row " + col + " ')", true);
                     return;
@@ -1150,7 +1225,7 @@ public partial class CustReceipt : System.Web.UI.Page
             }
             else if (txttdd.Text == "")
             {
-                if (txtttd.Text != "Cash")
+                if (txtttd.SelectedItem.Text != "Cash")
                 {
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill ChequeNo in row " + col + " ')", true);
                     return;
@@ -1196,14 +1271,14 @@ public partial class CustReceipt : System.Web.UI.Page
 
         ds.Tables.Add(dt);
 
-        for (int vLoop = 0; vLoop < GrdViewItems.Rows.Count; vLoop++)
+        for (int vLoop = 0; vLoop < GridView2.Rows.Count; vLoop++)
         {
-            TextBox txttt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtRefNo");
-            Label txtttd = (Label)GrdViewItems.Rows[vLoop].FindControl("txtType");
-            TextBox txt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtAmount");
-            TextBox txtt = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtNarration");
-            DropDownList txttd = (DropDownList)GrdViewItems.Rows[vLoop].FindControl("drpBank");
-            TextBox txttdd = (TextBox)GrdViewItems.Rows[vLoop].FindControl("txtChequeNo");
+            TextBox txttt = (TextBox)GridView2.Rows[vLoop].FindControl("txtRefNo");
+            DropDownList txtttd = (DropDownList)GridView2.Rows[vLoop].FindControl("txtType");
+            TextBox txt = (TextBox)GridView2.Rows[vLoop].FindControl("txtAmount");
+            TextBox txtt = (TextBox)GridView2.Rows[vLoop].FindControl("txtNarration");
+            DropDownList txttd = (DropDownList)GridView2.Rows[vLoop].FindControl("drpBank");
+            TextBox txttdd = (TextBox)GridView2.Rows[vLoop].FindControl("txtChequeNo");
 
             sDate = txtDate.Text.Trim().Split(delimA);
             sBilldate = new DateTime(Convert.ToInt32(sDate[2].ToString()), Convert.ToInt32(sDate[1].ToString()), Convert.ToInt32(sDate[0].ToString()));
@@ -1213,17 +1288,17 @@ public partial class CustReceipt : System.Web.UI.Page
             drNew["Date"] = sBilldate;
             drNew["ChequeNo"] = txttdd.Text;
 
-            if (txtttd.Text == "Cash")
+            if (txtttd.SelectedItem.Text == "Cash")
             {
                 drNew["DebitorID"] = 1;
                 drNew["Paymode"] = "Cash";
             }
-            else if (txtttd.Text == "Cheque")
+            else if (txtttd.SelectedItem.Text == "Cheque")
             {
                 drNew["DebitorID"] = int.Parse(txttd.SelectedValue);
                 drNew["Paymode"] = "Cheque";
             }
-            else if (txtttd.Text == "Card")
+            else if (txtttd.SelectedItem.Text == "Card")
             {
                 drNew["DebitorID"] = int.Parse(txttd.SelectedValue);
                 drNew["Paymode"] = "Card";
@@ -1239,9 +1314,149 @@ public partial class CustReceipt : System.Web.UI.Page
         string conn = GetConnectionString();
 
         DataSet dst = (DataSet)Session["BillData"];
-        int CreditorID = int.Parse(drpLedger.SelectedValue);
 
-        bl.InsertMultipleCustReceipt(conn, ds, CreditorID, dst, usernam);
+
+        DataSet dstt;
+        DataTable dtt;
+        DataRow drNewt;
+
+        DataColumn dct;
+
+        dstt = new DataSet();
+
+        dtt = new DataTable();
+
+        dct = new DataColumn("Billno");
+        dtt.Columns.Add(dct);
+
+        dct = new DataColumn("Amount");
+        dtt.Columns.Add(dct);
+
+        dstt.Tables.Add(dtt);
+
+        for (int vLoop = 0; vLoop < GridView1.Rows.Count; vLoop++)
+        {
+            Label txttt = (Label)GridView1.Rows[vLoop].FindControl("txtBillno");
+            //Label txtttd = (Label)GridView1.Rows[vLoop].FindControl("txtBillDate");
+            //Label txt = (Label)GridView1.Rows[vLoop].FindControl("txtCustomerName");
+            //Label txtt = (Label)GridView1.Rows[vLoop].FindControl("txtAmount");
+            TextBox txttd = (TextBox)GridView1.Rows[vLoop].FindControl("txtAdjustAmount");
+
+            drNewt = dtt.NewRow();
+            drNewt["Billno"] = txttt.Text;
+            drNewt["Amount"] = txttd.Text;
+            dstt.Tables[0].Rows.Add(drNewt);
+        }
+
+
+
+        int CreditorID = 0;
+        string sCustomerName = string.Empty;
+
+        string CName = string.Empty;
+        string sCustomerAddress = string.Empty;
+        string sCustomerAddress2 = string.Empty;
+        string sCustomerAddress3 = string.Empty;
+        string sCustomerContact = string.Empty;
+
+        CName = txtCustomerName.Text;
+        sCustomerAddress = txtAddress.Text;
+        sCustomerAddress2 = txtAddress2.Text;
+        sCustomerAddress3 = txtAddress3.Text;
+        sCustomerContact = txtCustomerId.Text;
+
+        if (chk.Checked == false)
+        {
+            if (bl.IsLedgerAlreadyFound(connection, CName))
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Customer " + CName + " with this name already exists.');", true);
+                return;
+            }
+
+            CreditorID = bl.InsertCustomerInfoDirect(connection, CName, CName, 1, 0, 0, 0, "", CName, sCustomerAddress, sCustomerAddress2, sCustomerAddress3, "", "Customer", 0, "", sCustomerContact, 0, 0, "NO", "NO", "NO", CName, usernam, "YES", "", 3);
+            sCustomerName = txtCustomerName.Text;
+        }
+        else
+        {
+            sCustomerName = drpLedger.SelectedItem.Text;
+            CreditorID = int.Parse(drpLedger.SelectedValue);
+        }
+
+
+
+
+        DataSet dsttt;
+        DataTable dttt;
+        DataRow drNewtt;
+
+        DataColumn dctt;
+
+        dsttt = new DataSet();
+
+        dttt = new DataTable();
+
+        dctt = new DataColumn("Billno");
+        dttt.Columns.Add(dctt);
+
+        dctt = new DataColumn("Amount");
+        dttt.Columns.Add(dctt);
+
+        dctt = new DataColumn("Type");
+        dttt.Columns.Add(dctt);
+
+        dsttt.Tables.Add(dttt);
+
+
+
+            for (int vLoop1 = 0; vLoop1 < GridView2.Rows.Count; vLoop1++)
+            {
+                TextBox txt = (TextBox)GridView2.Rows[vLoop1].FindControl("txtAmount");
+                DropDownList txtttd = (DropDownList)GridView2.Rows[vLoop1].FindControl("txtType");
+
+                double adtotal = 0;
+
+                for (int vLoop = 0; vLoop < GridView1.Rows.Count; vLoop++)
+                {
+                    Label txttt = (Label)GridView1.Rows[vLoop].FindControl("txtBillno");
+                    //Label txtttd = (Label)GridView1.Rows[vLoop].FindControl("txtBillDate");
+                    //Label txt = (Label)GridView1.Rows[vLoop].FindControl("txtCustomerName");
+                    //Label txtt = (Label)GridView1.Rows[vLoop].FindControl("txtAmount");
+                    TextBox txttd = (TextBox)GridView1.Rows[vLoop].FindControl("txtAdjustAmount");
+
+                    drNewtt = dttt.NewRow();
+                    drNewtt["Billno"] = txttt.Text;
+                    drNewtt["Amount"] = txttd.Text;
+                    
+
+                    if (Convert.ToDouble(txt.Text) > Convert.ToDouble(txttd.Text))
+                    {
+                        drNewtt["Type"] = txtttd.Text;
+                        adtotal = Convert.ToDouble(txt.Text) - Convert.ToDouble(txttd.Text);
+                        dsttt.Tables[0].Rows.Add(drNewtt);
+                    }
+                    else if (Convert.ToDouble(txt.Text) < Convert.ToDouble(txttd.Text))
+                    {
+                        drNewtt["Type"] = txtttd.Text;
+                        adtotal = 0;
+                        dsttt.Tables[0].Rows.Add(drNewtt);
+                        break;
+                    }
+                    else if (Convert.ToDouble(txt.Text) == Convert.ToDouble(txttd.Text))
+                    {
+                        drNewtt["Type"] = txtttd.Text;
+                        adtotal = 0;
+                        dsttt.Tables[0].Rows.Add(drNewtt);
+                        break;
+                    }
+                   
+                }          
+            }
+
+
+
+
+
+        bl.InsertMultipleCustReceipt(conn, ds, CreditorID, dstt, usernam);
 
         ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Receipt Saved Successfully.');", true);
 
@@ -1253,6 +1468,91 @@ public partial class CustReceipt : System.Web.UI.Page
         UpdatePanelPage.Update();
     }
 
+    protected void txtAmount_TextChanged(object sender, EventArgs e)
+    {
+        double total = 0;
+        double adtotal=0;
+        for (int vLoop = 0; vLoop < GridView2.Rows.Count; vLoop++)
+        {            
+            TextBox txt = (TextBox)GridView2.Rows[vLoop].FindControl("txtAmount");
+            total = Convert.ToDouble(txt.Text) + total;
+            adtotal = Convert.ToDouble(txt.Text) + adtotal;
+        }
+        txttot.Text = Convert.ToString(total);
+
+
+        if (GridView1.Rows.Count > 0)
+        {
+            DataTable dttt;
+            DataRow drNew;
+            DataColumn dct;
+            DataSet dstd = new DataSet();
+            dttt = new DataTable();
+
+            dct = new DataColumn("Billno");
+            dttt.Columns.Add(dct);
+
+            dct = new DataColumn("Row");
+            dttt.Columns.Add(dct);
+
+            dct = new DataColumn("CustomerName");
+            dttt.Columns.Add(dct);
+
+            dct = new DataColumn("Amount");
+            dttt.Columns.Add(dct);
+
+            dct = new DataColumn("BillDate");
+            dttt.Columns.Add(dct);
+
+            dct = new DataColumn("AdjustAmount");
+            dttt.Columns.Add(dct);
+
+            dstd.Tables.Add(dttt);
+
+            int sno = 1;
+
+            for (int vLoop = 0; vLoop < GridView1.Rows.Count; vLoop++)
+            {
+                Label txttt = (Label)GridView1.Rows[vLoop].FindControl("txtBillno");
+                Label txt = (Label)GridView1.Rows[vLoop].FindControl("txtBillDate");
+                Label txtt = (Label)GridView1.Rows[vLoop].FindControl("txtCustomerName");
+                Label txttd = (Label)GridView1.Rows[vLoop].FindControl("txtAmount");
+                TextBox txttdd = (TextBox)GridView1.Rows[vLoop].FindControl("txtAdjustAmount");
+
+                        drNew = dttt.NewRow();
+                        drNew["Row"] = sno;
+                        drNew["Billno"] = txttt.Text;
+                        drNew["CustomerName"] = txtt.Text;
+                        drNew["Amount"] = txttd.Text;                       
+                        drNew["BillDate"] = txt.Text;
+                        if (adtotal > Convert.ToDouble(txttd.Text))
+                        {
+                            drNew["AdjustAmount"] = Convert.ToDouble(txttd.Text);
+                            adtotal = adtotal - Convert.ToDouble(txttd.Text);
+                        }
+                        else if (adtotal < Convert.ToDouble(txttd.Text))
+                        {
+                            drNew["AdjustAmount"] = adtotal;
+                            adtotal = 0;
+                        }
+                        else if (adtotal == Convert.ToDouble(txttd.Text))
+                        {
+                            drNew["AdjustAmount"] = adtotal;
+                            adtotal = 0;
+                        }
+                        dstd.Tables[0].Rows.Add(drNew);
+                        sno = sno + 1;
+                    }
+            GridView1.DataSource = dstd;
+            GridView1.DataBind();
+        }
+        else
+        {
+            GridView1.DataSource = null;
+            GridView1.DataBind();
+        }
+
+    }
 
     private void ClearPanel()
     {
@@ -1262,6 +1562,18 @@ public partial class CustReceipt : System.Web.UI.Page
         txtChequeNo.Text = "";
         txtAmount.Text = "";
         ddReceivedFrom.SelectedValue = "0";
+        drpLedger.SelectedIndex = 0;
+        txtAddress.Enabled = false;
+        txtAddress2.Enabled = false;
+        txtAddress3.Enabled = false;
+        txtAddress.Text= "";
+        txtAddress2.Text = "";
+        txtAddress3.Text = "";
+        drpMobile.SelectedIndex = 0;
+        txtCustomerId.Visible = false;
+        txtCustomerName.Visible = false;
+
+        txttot.Text = "0";
         txtMobile.Text = "";
         ddBanks.SelectedValue = "0";
         GrdBills.DataSource = null;
@@ -1349,7 +1661,8 @@ public partial class CustReceipt : System.Web.UI.Page
             }
 
             ShowPendingBillsAuto();
-            div1.Visible = true;
+            Panel4.Visible = true;
+            
         }
         catch (Exception ex)
         {
@@ -1568,6 +1881,10 @@ public partial class CustReceipt : System.Web.UI.Page
                 drpMobile.Visible = true;
                 txtCustomerId.Enabled = false;
                 txtCustomerName.Enabled = false;
+                chk.Checked = true;
+                chk.Enabled = false;
+                txtCustomerId.Visible = false;
+                txtCustomerName.Visible = false;
             }
             else
             {
@@ -1576,6 +1893,13 @@ public partial class CustReceipt : System.Web.UI.Page
                 txtAddress3.Enabled = true;
                 txtCustomerId.Enabled = true;
                 txtCustomerName.Enabled = true;
+                txtAddress.Text = "";
+                txtAddress2.Text = "";
+                txtAddress3.Text = "";
+                txtCustomerId.Text = "";
+                txtCustomerName.Text = "";
+                chk.Checked = true;
+                chk.Enabled = true;
             }
         }
         catch (Exception ex)
@@ -1626,7 +1950,7 @@ public partial class CustReceipt : System.Web.UI.Page
             }
 
             ShowPendingBillsAuto();
-            div1.Visible = true;
+            Panel4.Visible = true;
         }
         catch (Exception ex)
         {
@@ -2087,6 +2411,261 @@ public partial class CustReceipt : System.Web.UI.Page
             TroyLiteExceptionManager.HandleException(ex);
         }
     }
+
+    protected void Calc_Click(object sender, EventArgs e)
+    {
+        try
+        {
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+    protected void ButtonAdd1_Click(object sender, EventArgs e)
+    {
+        AddNewRow1();
+    }
+
+    private void AddNewRow1()
+    {
+        int rowIndex = 0;
+
+        if (ViewState["CurrentTable1"] != null)
+        {
+            DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable1"];
+            DataRow drCurrentRow = null;
+            if (dtCurrentTable.Rows.Count > 0)
+            {
+                for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                {
+
+                    DropDownList DrpCreditor =
+                     (DropDownList)GridView2.Rows[rowIndex].Cells[1].FindControl("txtType");
+                    TextBox TextBoxRefNo =
+                      (TextBox)GridView2.Rows[rowIndex].Cells[2].FindControl("txtRefNo");
+                    DropDownList DrpBank =
+                     (DropDownList)GridView2.Rows[rowIndex].Cells[1].FindControl("drpBank");
+                    TextBox TextBoxChequeNo =
+                      (TextBox)GridView2.Rows[rowIndex].Cells[3].FindControl("txtChequeNo");
+                    TextBox TextBoxAmount =
+                      (TextBox)GridView2.Rows[rowIndex].Cells[4].FindControl("txtAmount");
+                    TextBox TextBoxNarration =
+                     (TextBox)GridView2.Rows[rowIndex].Cells[4].FindControl("txtNarration");
+
+                    drCurrentRow = dtCurrentTable.NewRow();
+                    drCurrentRow["RowNumber"] = i + 1;
+
+                    dtCurrentTable.Rows[i - 1]["Col1"] = DrpCreditor.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["Col2"] = TextBoxRefNo.Text;
+                    dtCurrentTable.Rows[i - 1]["Col3"] = TextBoxAmount.Text;
+                    
+                    dtCurrentTable.Rows[i - 1]["Col4"] = DrpBank.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxChequeNo.Text;
+                    dtCurrentTable.Rows[i - 1]["Col6"] = TextBoxNarration.Text;
+
+
+                    rowIndex++;
+                }
+                dtCurrentTable.Rows.Add(drCurrentRow);
+                ViewState["CurrentTable1"] = dtCurrentTable;
+
+                GridView2.DataSource = dtCurrentTable;
+                GridView2.DataBind();
+            }
+        }
+        else
+        {
+            Response.Write("ViewState is null");
+        }
+        SetPreviousData1();
+    }
+
+    protected void GridView2_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        SetRowData1();
+        if (ViewState["CurrentTable1"] != null)
+        {
+            DataTable dt = (DataTable)ViewState["CurrentTable1"];
+            DataRow drCurrentRow = null;
+            int rowIndex = Convert.ToInt32(e.RowIndex);
+            if (dt.Rows.Count > 1)
+            {
+                dt.Rows.Remove(dt.Rows[rowIndex]);
+                drCurrentRow = dt.NewRow();
+                ViewState["CurrentTable1"] = dt;
+                GridView2.DataSource = dt;
+                GridView2.DataBind();
+
+                for (int i = 0; i < GridView2.Rows.Count - 1; i++)
+                {
+                    GridView2.Rows[i].Cells[0].Text = Convert.ToString(i + 1);
+                }
+                SetPreviousData1();
+            }
+        }
+    }
+
+    private void SetRowData1()
+    {
+        int rowIndex = 0;
+
+        if (ViewState["CurrentTable1"] != null)
+        {
+            DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable1"];
+            DataRow drCurrentRow = null;
+            if (dtCurrentTable.Rows.Count > 0)
+            {
+                for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                {
+
+                    DropDownList DrpCreditor =
+                     (DropDownList)GridView2.Rows[rowIndex].Cells[1].FindControl("txtType");
+                    TextBox TextBoxRefNo =
+                      (TextBox)GridView2.Rows[rowIndex].Cells[2].FindControl("txtRefNo");
+                    DropDownList TextBoxBank =
+                      (DropDownList)GridView2.Rows[rowIndex].Cells[3].FindControl("drpBank");
+                    TextBox TextBoxAmount =
+                      (TextBox)GridView2.Rows[rowIndex].Cells[4].FindControl("txtAmount");
+                    TextBox TextBoxChequeNo =
+                     (TextBox)GridView2.Rows[rowIndex].Cells[4].FindControl("txtChequeNo");
+                    TextBox TextBoxNarration =
+                     (TextBox)GridView2.Rows[rowIndex].Cells[4].FindControl("txtNarration");
+
+                    drCurrentRow = dtCurrentTable.NewRow();
+                    drCurrentRow["RowNumber"] = i + 1;
+
+                    dtCurrentTable.Rows[i - 1]["Col1"] = DrpCreditor.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["Col2"] = TextBoxRefNo.Text;
+                    dtCurrentTable.Rows[i - 1]["Col3"] = TextBoxAmount.Text;
+                    dtCurrentTable.Rows[i - 1]["Col4"] = TextBoxBank.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxChequeNo.Text;
+
+                    dtCurrentTable.Rows[i - 1]["Col6"] = TextBoxNarration.Text;
+
+                    rowIndex++;
+
+                }
+
+                ViewState["CurrentTable1"] = dtCurrentTable;
+                GridView2.DataSource = dtCurrentTable;
+                GridView2.DataBind();
+            }
+        }
+        else
+        {
+            Response.Write("ViewState is null");
+        }
+        SetPreviousData1();
+    }
+
+    private void FirstGridViewRow1()
+    {
+        DataTable dtt = new DataTable();
+        DataRow dr = null;
+        dtt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
+        dtt.Columns.Add(new DataColumn("Col1", typeof(string)));
+        dtt.Columns.Add(new DataColumn("Col2", typeof(string)));
+        dtt.Columns.Add(new DataColumn("Col3", typeof(string)));
+        dtt.Columns.Add(new DataColumn("Col4", typeof(string)));
+        dtt.Columns.Add(new DataColumn("Col5", typeof(string)));
+        dtt.Columns.Add(new DataColumn("Col6", typeof(string)));
+        dr = dtt.NewRow();
+        dr["RowNumber"] = 1;
+        dr["Col1"] = string.Empty;
+        dr["Col2"] = string.Empty;
+        dr["Col3"] = string.Empty;
+        dr["Col4"] = string.Empty;
+        dr["Col5"] = string.Empty;
+        dr["Col6"] = string.Empty;
+        dtt.Rows.Add(dr);
+
+        ViewState["CurrentTable1"] = dtt;
+
+
+        GridView2.DataSource = dtt;
+        GridView2.DataBind();
+    }
+
+
+    private void SetPreviousData1()
+    {
+        int rowIndex = 0;
+        if (ViewState["CurrentTable1"] != null)
+        {
+            DataTable dt = (DataTable)ViewState["CurrentTable1"];
+            if (dt.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    DropDownList DrpCreditor =
+                     (DropDownList)GridView2.Rows[rowIndex].Cells[1].FindControl("txtType");
+                    TextBox TextBoxRefNo =
+                      (TextBox)GridView2.Rows[rowIndex].Cells[2].FindControl("txtRefNo");
+                    DropDownList TextBoxBank =
+                      (DropDownList)GridView2.Rows[rowIndex].Cells[3].FindControl("drpBank");
+                    TextBox TextBoxAmount =
+                      (TextBox)GridView2.Rows[rowIndex].Cells[4].FindControl("txtAmount");
+                    TextBox TextBoxChequeNo =
+                     (TextBox)GridView2.Rows[rowIndex].Cells[4].FindControl("txtChequeNo");
+                    TextBox TextBoxNarration =
+                     (TextBox)GridView2.Rows[rowIndex].Cells[4].FindControl("txtNarration");
+
+                    DrpCreditor.SelectedValue = dt.Rows[i]["Col1"].ToString();
+                    TextBoxRefNo.Text = dt.Rows[i]["Col2"].ToString();
+                    TextBoxAmount.Text = dt.Rows[i]["Col3"].ToString();
+                    TextBoxBank.SelectedValue = dt.Rows[i]["Col4"].ToString();
+                    TextBoxChequeNo.Text = dt.Rows[i]["Col5"].ToString();
+                    TextBoxNarration.Text = dt.Rows[i]["Col6"].ToString();
+
+                    rowIndex++;
+
+                }
+            }
+        }
+    }
+
+
+    protected void GridView2_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        try
+        {
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+            DataSet ds = new DataSet();
+
+            ds = bl.ListBanks();
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                var ddl = (DropDownList)e.Row.FindControl("drpBank");
+                ddl.Items.Clear();
+                ListItem lifzzh = new ListItem("Select Ledger", "0");
+                lifzzh.Attributes.Add("style", "color:Black");
+                ddl.Items.Add(lifzzh);
+                ddl.DataSource = ds;
+                ddl.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+                ddl.DataBind();
+                ddl.DataTextField = "LedgerName";
+                ddl.DataValueField = "LedgerID";
+
+                var ddll = (Label)e.Row.FindControl("txtType");
+                if (ddll.Text == "Cash")
+                {
+                    var dd = (TextBox)e.Row.FindControl("txtChequeNo");
+                    dd.Enabled = false;
+
+                    var ddlll = (DropDownList)e.Row.FindControl("drpBank");
+                    ddlll.Enabled = false;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
     protected void SaveButton_Click(object sender, EventArgs e)
     {
         try

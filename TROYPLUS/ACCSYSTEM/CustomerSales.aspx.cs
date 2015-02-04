@@ -3055,7 +3055,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 sCustomerContact = txtCustPh.Text;
 
                 dTotalAmt = Convert.ToDouble(lblNet.Text);
-                executive = "1";// drpIncharge.SelectedValue;
+                //executive = drpIncharge.SelectedValue;
 
                 cuscategory = drpCustomerCategoryAdd.SelectedValue;
 
@@ -6705,26 +6705,26 @@ public partial class CustomerSales : System.Web.UI.Page
 
                     //if (ds.Tables[0].Rows[0]["Executive"] != null)
                     //{
-                    //drpIncharge.ClearSelection();
-                    //ListItem cli = drpIncharge.Items.FindByValue(Convert.ToString(ds.Tables[0].Rows[0]["Executive"]));
+                        //drpIncharge.ClearSelection();
+                        //ListItem cli = drpIncharge.Items.FindByValue(Convert.ToString(ds.Tables[0].Rows[0]["Executive"]));
 
-                    // if (cli != null) cli.Selected = true;
+                        // if (cli != null) cli.Selected = true;
                     //}
                     //else
-                    //drpIncharge.SelectedIndex = 0;
+                        //drpIncharge.SelectedIndex = 0;
 
 
 
-                    if (ds.Tables[0].Rows[0]["Freight"] != null)
-                    {
-                        if (Convert.ToString(ds.Tables[0].Rows[0]["Freight"]) != "")
-                            txtFreight.Text = Convert.ToString(ds.Tables[0].Rows[0]["Freight"]);
+                        if (ds.Tables[0].Rows[0]["Freight"] != null)
+                        {
+                            if (Convert.ToString(ds.Tables[0].Rows[0]["Freight"]) != "")
+                                txtFreight.Text = Convert.ToString(ds.Tables[0].Rows[0]["Freight"]);
+                            else
+                                txtFreight.Text = "0";
+
+                        }
                         else
                             txtFreight.Text = "0";
-
-                    }
-                    else
-                        txtFreight.Text = "0";
 
                     if (ds.Tables[0].Rows[0]["LoadUnload"] != null)
                     {
@@ -8447,7 +8447,7 @@ public partial class CustomerSales : System.Web.UI.Page
                     }
                     grvStudentDetails.DataSource = dtCurrentTable;
                     grvStudentDetails.DataBind();
-                }           
+                }
             }
             else
             {
@@ -8579,48 +8579,48 @@ public partial class CustomerSales : System.Web.UI.Page
             }
             else
             {
-                DataSet customerDs = bl.ListSalesProductPriceDetails(DrpProduct.SelectedItem.Value.Trim(), drpCustomerCategoryAdd.SelectedValue);
+            DataSet customerDs = bl.ListSalesProductPriceDetails(DrpProduct.SelectedItem.Value.Trim(), drpCustomerCategoryAdd.SelectedValue);
 
 
-                string address = string.Empty;
+            string address = string.Empty;
 
-                if (customerDs != null && customerDs.Tables[0].Rows.Count > 0)
-                {
+            if (customerDs != null && customerDs.Tables[0].Rows.Count > 0)
+            {
 
-                    if (customerDs.Tables[0].Rows[0]["ProductDesc"] != null)
-                        TextBoxDesc.Text = customerDs.Tables[0].Rows[0]["ProductDesc"].ToString() + Environment.NewLine;
+                if (customerDs.Tables[0].Rows[0]["ProductDesc"] != null)
+                    TextBoxDesc.Text = customerDs.Tables[0].Rows[0]["ProductDesc"].ToString() + Environment.NewLine;
 
-                    if (customerDs.Tables[0].Rows[0]["Rate"] != null)
-                        TextBoxRate.Text = address + customerDs.Tables[0].Rows[0]["Rate"].ToString() + Environment.NewLine;
+                if (customerDs.Tables[0].Rows[0]["Rate"] != null)
+                    TextBoxRate.Text = address + customerDs.Tables[0].Rows[0]["Rate"].ToString() + Environment.NewLine;
 
-                    if (customerDs.Tables[0].Rows[0]["Stock"] != null)
-                        TextBoxStock.Text = address + customerDs.Tables[0].Rows[0]["Stock"].ToString() + Environment.NewLine;
+                if (customerDs.Tables[0].Rows[0]["Stock"] != null)
+                    TextBoxStock.Text = address + customerDs.Tables[0].Rows[0]["Stock"].ToString() + Environment.NewLine;
 
-                    if (customerDs.Tables[0].Rows[0]["ExecutiveCommission"] != null)
-                        TextBoxExeComm.Text = address + customerDs.Tables[0].Rows[0]["ExecutiveCommission"].ToString() + Environment.NewLine;
+                if (customerDs.Tables[0].Rows[0]["ExecutiveCommission"] != null)
+                    TextBoxExeComm.Text = address + customerDs.Tables[0].Rows[0]["ExecutiveCommission"].ToString() + Environment.NewLine;
 
-                    if (customerDs.Tables[0].Rows[0]["Discount"] != null)
-                        TextBoxDisPre.Text = address + customerDs.Tables[0].Rows[0]["Discount"].ToString() + Environment.NewLine;
+                if (customerDs.Tables[0].Rows[0]["Discount"] != null)
+                    TextBoxDisPre.Text = address + customerDs.Tables[0].Rows[0]["Discount"].ToString() + Environment.NewLine;
 
-                    if (customerDs.Tables[0].Rows[0]["VAT"] != null)
-                        TextBoxVATPre.Text = address + customerDs.Tables[0].Rows[0]["VAT"].ToString() + Environment.NewLine;
+                if (customerDs.Tables[0].Rows[0]["VAT"] != null)
+                    TextBoxVATPre.Text = address + customerDs.Tables[0].Rows[0]["VAT"].ToString() + Environment.NewLine;
 
-                    if (customerDs.Tables[0].Rows[0]["CST"] != null)
-                        TextBoxCSTPre.Text = address + customerDs.Tables[0].Rows[0]["CST"].ToString() + Environment.NewLine;
-                }
-                else
-                {
-                    TextBoxDesc.Text = string.Empty;
-                    TextBoxRate.Text = string.Empty;
-                    TextBoxExeComm.Text = string.Empty;
-                    TextBoxDisPre.Text = string.Empty;
-                    TextBoxVATPre.Text = string.Empty;
-                    TextBoxCSTPre.Text = string.Empty;
-                }
-                TextBoxQty.Focus();
-                errPanel.Visible = false;
-                ErrMsg.Text = "";
+                if (customerDs.Tables[0].Rows[0]["CST"] != null)
+                    TextBoxCSTPre.Text = address + customerDs.Tables[0].Rows[0]["CST"].ToString() + Environment.NewLine;
             }
+            else
+            {
+                TextBoxDesc.Text = string.Empty;
+                TextBoxRate.Text = string.Empty;
+                TextBoxExeComm.Text = string.Empty;
+                TextBoxDisPre.Text = string.Empty;
+                TextBoxVATPre.Text = string.Empty;
+                TextBoxCSTPre.Text = string.Empty;
+            }
+            TextBoxQty.Focus();
+            errPanel.Visible = false;
+            ErrMsg.Text = "";
+        }
         }
         ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "$('.chzn-select').chosen(); $('.chzn-select-deselect').chosen({ allow_single_deselect: true });", true);
     }
@@ -8662,7 +8662,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 ddl1.DataBind();
                 ddl1.DataTextField = "empFirstName";
                 ddl1.DataValueField = "empno";
-            }
+        }
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "$('.chzn-select').chosen(); $('.chzn-select-deselect').chosen({ allow_single_deselect: true });", true);
         }
         catch (Exception ex)
@@ -8718,7 +8718,7 @@ public partial class CustomerSales : System.Web.UI.Page
                     dtCurrentTable.Rows[i - 1]["Col3"] = drpIncharge.SelectedValue;
                     dtCurrentTable.Rows[i - 1]["Col4"] = TextBoxDesc.Text;
                     dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxRate.Text;
-                    dtCurrentTable.Rows[i - 1]["Col6"] = TextBoxStock.Text;
+                    dtCurrentTable.Rows[i - 1]["Col6"] = TextBoxStock.Text;                  
                     dtCurrentTable.Rows[i - 1]["Col7"] = TextBoxExeComm.Text;
                     dtCurrentTable.Rows[i - 1]["Col8"] = TextBoxDisPre.Text;
                     dtCurrentTable.Rows[i - 1]["Col9"] = TextBoxVATPre.Text;
@@ -8815,7 +8815,7 @@ public partial class CustomerSales : System.Web.UI.Page
             TextBox TextBoxRate =
               (TextBox)grvStudentDetails.Rows[i - 1].Cells[5].FindControl("txtRate");
             TextBox TextBoxStock =
-            (TextBox)grvStudentDetails.Rows[i - 1].Cells[6].FindControl("txtStock");
+            (TextBox)grvStudentDetails.Rows[i - 1].Cells[6].FindControl("txtStock");            
             TextBox TextBoxExeComm =
               (TextBox)grvStudentDetails.Rows[i - 1].Cells[7].FindControl("txtExeComm");
             TextBox TextBoxDisPre =
@@ -8881,7 +8881,7 @@ public partial class CustomerSales : System.Web.UI.Page
             TextBox TextBoxRate =
               (TextBox)grvStudentDetails.Rows[i].Cells[5].FindControl("txtRate");
             TextBox TextBoxStock =
-            (TextBox)grvStudentDetails.Rows[i].Cells[6].FindControl("txtStock");
+            (TextBox)grvStudentDetails.Rows[i].Cells[6].FindControl("txtStock");           
             TextBox TextBoxExeComm =
               (TextBox)grvStudentDetails.Rows[i].Cells[7].FindControl("txtExeComm");
             TextBox TextBoxDisPre =
@@ -8986,8 +8986,8 @@ public partial class CustomerSales : System.Web.UI.Page
                     double sVatamount = (vatinclusiverate * vatper) / 100;
                     TextBoxVATAmt.Text = sVatamount.ToString("#0.00");
                     TextBoxRate.Text = vatinclusiverate.ToString("#0.00");// Convert.ToString(Convert.ToDouble(TextBoxTotal.Text) - Convert.ToDouble(TextBoxVATAmt.Text));
-                    if (TextBoxTotal.Text != null)
-                        sumAmt = Convert.ToDouble(GetTotal(Convert.ToDouble(TextBoxQty.Text), Convert.ToDouble(TextBoxRate.Text), Convert.ToDouble(TextBoxDisPre.Text), Convert.ToDouble(TextBoxVATPre.Text), Convert.ToDouble(TextBoxCSTPre.Text), Convert.ToDouble(TextBoxTotal.Text)));
+            if (TextBoxTotal.Text != null)
+                sumAmt = Convert.ToDouble(GetTotal(Convert.ToDouble(TextBoxQty.Text), Convert.ToDouble(TextBoxRate.Text), Convert.ToDouble(TextBoxDisPre.Text), Convert.ToDouble(TextBoxVATPre.Text), Convert.ToDouble(TextBoxCSTPre.Text), Convert.ToDouble(TextBoxTotal.Text)));
                     TextBoxTotal.Text = sumAmt.ToString("#0.00");
                 }
                 else if (Labelll.Text == "VAT EXCLUSIVE")
@@ -9040,36 +9040,36 @@ public partial class CustomerSales : System.Web.UI.Page
                     // sumAmt = Convert.ToDouble(GetTotal(Convert.ToDouble(TextBoxQty.Text), Convert.ToDouble(TextBoxRtVAT.Text), Convert.ToDouble(TextBoxDisPre.Text), Convert.ToDouble(TextBoxVATPre.Text), Convert.ToDouble(TextBoxCSTPre.Text), Convert.ToDouble(TextBoxTotal.Text)));
                     sumAmt = Convert.ToDouble(TextBoxTotal.Text);
 
-                sumDis = sumDis + GetDis();
-                sumVat = sumVat + GetVat();
-                sumCST = sumCST + GetCST();
-                sumRate = sumRate + GetTotalRate();
+            sumDis = sumDis + GetDis();
+            sumVat = sumVat + GetVat();
+            sumCST = sumCST + GetCST();
+            sumRate = sumRate + GetTotalRate();
 
-                double dFreight = 0;
-                double dLU = 0;
-                double sumLUFreight = 0;
-                if (txtFreight.Text.Trim() != "")
-                {
-                    dFreight = Convert.ToDouble(txtFreight.Text.Trim());
-                }
-                if (txtLU.Text.Trim() != "")
-                {
-                    dLU = Convert.ToDouble(txtLU.Text.Trim());
-                }
-                sumLUFreight = dFreight + dLU;
-                sumNet = sumNet + sumAmt + dFreight + dLU;
-                lblTotalSum.Text = sumAmt.ToString("#0.00");
-                lblTotalDis.Text = sumDis.ToString("#0.00");
-                lblDispTotalRate.Text = sumRate.ToString("#0.00");
-                lblTotalVAT.Text = sumVat.ToString("#0.00");
-                lblTotalCST.Text = sumCST.ToString("#0.00");
-                lblFreight.Text = sumLUFreight.ToString("#0.00"); // dFreight.ToString("#0.00");
-                lblNet.Text = sumNet.ToString("#0.00");
-                hdPrevSalesTotal.Value = lblNet.Text;
-                UpdatePanelTotalSummary.Update();
-                errPanel.Visible = false;
-                ErrMsg.Text = "";
+            double dFreight = 0;
+            double dLU = 0;
+            double sumLUFreight = 0;
+            if (txtFreight.Text.Trim() != "")
+            {
+                dFreight = Convert.ToDouble(txtFreight.Text.Trim());
             }
+            if (txtLU.Text.Trim() != "")
+            {
+                dLU = Convert.ToDouble(txtLU.Text.Trim());
+            }
+            sumLUFreight = dFreight + dLU;
+            sumNet = sumNet + sumAmt + dFreight + dLU;
+            lblTotalSum.Text = sumAmt.ToString("#0.00");
+            lblTotalDis.Text = sumDis.ToString("#0.00");
+            lblDispTotalRate.Text = sumRate.ToString("#0.00");
+            lblTotalVAT.Text = sumVat.ToString("#0.00");
+            lblTotalCST.Text = sumCST.ToString("#0.00");
+            lblFreight.Text = sumLUFreight.ToString("#0.00"); // dFreight.ToString("#0.00");
+            lblNet.Text = sumNet.ToString("#0.00");
+            hdPrevSalesTotal.Value = lblNet.Text;
+            UpdatePanelTotalSummary.Update();
+            errPanel.Visible = false;
+            ErrMsg.Text = "";
+        }
         }
         ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "$('.chzn-select').chosen(); $('.chzn-select-deselect').chosen({ allow_single_deselect: true });", true);
     }
@@ -9124,7 +9124,7 @@ public partial class CustomerSales : System.Web.UI.Page
             dFreight = Convert.ToDouble(txtFreight.Text.Trim());
         }
         if (txtLU.Text.Trim() != "")
-        {
+    {
             dLU = Convert.ToDouble(txtLU.Text.Trim());
         }
         sumLUFreight = dFreight + dLU;
