@@ -3055,7 +3055,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 sCustomerContact = txtCustPh.Text;
 
                 dTotalAmt = Convert.ToDouble(lblNet.Text);
-                //executive = drpIncharge.SelectedValue;
+                executive = "1";
 
                 cuscategory = drpCustomerCategoryAdd.SelectedValue;
 
