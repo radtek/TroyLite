@@ -101,9 +101,9 @@
                                             <asp:Button ValidationGroup="search" ID="btnSearch" OnClick="btnSearch_Click" runat="server"
                                                 Text="" EnableTheming="false" CssClass="ButtonSearch6" />
                                         </td>
-                                         <td style="width: 16%" class="tblLeftNoPad">
+                                     <%--    <td style="width: 16%" class="tblLeftNoPad">
                                         <asp:Button ID="BtnClearFilter" runat="server" OnClick="BtnClearFilter_Click" EnableTheming="false" Text="" CssClass="ClearFilter6" />
-                                    </td>
+                                    </td>--%>
                                         <%--<td style="width: 25%" class="tblLeftNoPad">--%>
                                             <%--<asp:RequiredFieldValidator ValidationGroup="search" ID="rqSearchBill" runat="server"
                                                 Text="Search Box is Empty" ControlToValidate="txtSearch"></asp:RequiredFieldValidator>--%>
@@ -209,9 +209,9 @@
                                                                                     <td class="ControlDrpBorder">
                                                                                         <div style="font-family: 'Trebuchet MS';">
                                                                                             <asp:DropDownList ID="cmbProdAdd" Width="100%" AppendDataBoundItems="True" CssClass="drpDownListMedium"
-                                                                                                runat="server" AutoPostBack="True" DataTextField="ProductName" DataValueField="ItemCode" BackColor = "#90C9FC" height="25px"
+                                                                                                runat="server" AutoPostBack="True" DataTextField="ProductName" DataValueField="ItemCode" BackColor = "#cccccc" height="25px"
                                                                                                 OnSelectedIndexChanged="cmbProdAdd_SelectedIndexChanged">
-                                                                                                <asp:ListItem style="background-color: #90C9FC" Text="Select Component" Value="0"></asp:ListItem>
+                                                                                                <asp:ListItem style="background-color: #cccccc" Text="Select Component" Value="0"></asp:ListItem>
                                                                                             </asp:DropDownList>
                                                                                         </div>
                                                                                     </td>
@@ -229,7 +229,7 @@
                                                                                     </td>
                                                                                     <td valign="top" class="ControlTextBox30">
                                                                                        
-                                                                                            <asp:DropDownList ID="ddType"  runat="server" CssClass="drpDownListMedium"  BackColor = "#90C9FC" Width="98%" height="25px" style="border:1px solid black">
+                                                                                            <asp:DropDownList ID="ddType"  runat="server" CssClass="drpDownListMedium"  BackColor = "#cccccc" Width="98%" height="25px" style="border:1px solid black">
                                                                                                 <asp:ListItem Text="Raw Material" Value="IN"></asp:ListItem>
                                                                                                 <asp:ListItem Text="Product" Value="OUT"></asp:ListItem>
                                                                                                   <asp:ListItem Text="By-Product" Value="OUT"></asp:ListItem>
@@ -239,7 +239,7 @@
                                                                                     <td valign="top" class="ControlTextBox30">
                                                                                         <div style="border-width: 1px; border-color: #bce1fe; border-style: solid; width: 100%;
                                                                                             font-family: 'Trebuchet MS';">
-                                                                                            <asp:DropDownList ID="ddUnit" runat="server"  DataTextField="Unit" DataValueField="Unit" DataSourceID="srcUnitMntAdd" CssClass="drpDownListMedium"  BackColor = "#90C9FC" height="25px" style="border:1px solid black">
+                                                                                            <asp:DropDownList ID="ddUnit" runat="server"  DataTextField="Unit" DataValueField="Unit" DataSourceID="srcUnitMntAdd" CssClass="drpDownListMedium"  BackColor = "#cccccc" height="25px" style="border:1px solid black">
                                                                                                
                                                                                             </asp:DropDownList>
                                                                                         </div>
@@ -285,17 +285,17 @@
                                                                                                             </asp:ObjectDataSource>
                                                                        
                                                                         <asp:Panel ID="PanelItems"  Height="50%" runat="server" Visible="False">
-                                                                            <asp:GridView ID="GrdViewItems" runat="server" AllowSorting="True" Width="100%"  DataKeyNames="FormulaID"
+                                                                            <asp:GridView ID="GrdViewItems" AutoGenerateColumns="false" runat="server" AllowSorting="True" Width="100%"  DataKeyNames="FormulaID"
                                                                                 AllowPaging="True" OnRowEditing="GrdViewItems_RowEditing" OnRowCancelingEdit="GrdViewItems_RowCancelingEdit"
                                                                                 EmptyDataText="No Product Added. Please add products by Clicking Define Specification." 
                                                                                 OnPageIndexChanging="GrdViewItems_PageIndexChanging" OnRowDataBound="GrdViewItems_RowDataBound"
                                                                                 OnRowUpdating="GrdViewItems_RowUpdating" OnRowDeleting="GrdViewItems_RowDeleting"
                                                                                 OnRowCreated="GrdViewItems_RowCreated" CssClass="someClass" >
-                                                                                    <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small"/>
+                                                                                    <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="14px"/>
                                                                                    <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE"/>
                                                                                 <EmptyDataRowStyle Font-Bold="false" /> 
                                                                                 <Columns>
-                                                                                    <asp:TemplateField HeaderText="Component ID" HeaderStyle-BackColor="#cccccc"  HeaderStyle-Font-Bold="true">
+                                                                                    <asp:TemplateField HeaderText="Component ID"  HeaderStyle-BackColor="#cccccc"  HeaderStyle-Font-Bold="true">
                                                                                         <ItemTemplate>
                                                                                             <%# Eval("itemcode")%>
                                                                                         </ItemTemplate>
@@ -356,6 +356,7 @@
                                                                                         <FooterTemplate>
                                                                                         </FooterTemplate>
                                                                                     </asp:TemplateField>
+                                                                                    
                                                                                     <asp:TemplateField HeaderText="Edit" HeaderStyle-BorderColor="Gray">
                                                                                         <ItemStyle Width="7%" HorizontalAlign="Center" />
                                                                                         <ItemTemplate>

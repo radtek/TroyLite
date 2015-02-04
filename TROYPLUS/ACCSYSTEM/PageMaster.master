@@ -513,7 +513,7 @@
                                                         <li class="color submenumenu"><a href="./CategryMaster.aspx" runat="server" id="lnkCategoryMast">Product Category</a></li>
                                                         <li class="color submenumenu"><a href="./BrandMaster.aspx" runat="server" id="lnkBrandMast">Brand</a></li>
                                                         <li class="color submenumenu"><a href="./PriceList.aspx" runat="server" id="A18">Manage Price Lists</a></li>
-                                                        <li class="color submenumenu"><a href="./ProdMaster.aspx" runat="server" id="lnkProductMast">Products</a></li>
+                                                        <li class="color submenumenu"><a href="./ProdMaster.aspx" runat="server" id="lnkProductMast">Manage Products</a></li>
                                                     </ul>
                                                 </li>
                                                 <li class="color submenumenu"><a href="#"><span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: right">►</span>Transactions</a>
