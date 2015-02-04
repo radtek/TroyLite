@@ -9144,12 +9144,12 @@ public partial class CustomerSales : System.Web.UI.Page
         ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "$('.chzn-select').chosen(); $('.chzn-select-deselect').chosen({ allow_single_deselect: true });", true);
     }
 
-    protected void tabs2_ActiveTabChanged(object sender, EventArgs e)
-    {
-        if (cmbCustomer.SelectedValue == "0")
-        {
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Select Customer Name in Invoice Header Details tab');", true);
-        }
-    }
+    //protected void tabs2_ActiveTabChanged(object sender, EventArgs e)
+    //{
+    //    if (cmbCustomer.SelectedValue == "0")
+    //    {
+    //        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Select Customer Name in Invoice Header Details tab');", true);
+    //    }
+    //}
 }
 
