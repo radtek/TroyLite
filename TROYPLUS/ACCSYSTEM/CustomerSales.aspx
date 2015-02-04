@@ -284,7 +284,7 @@
                                                                                             </tr>
                                                                                             <tr>
                                                                                                 <td>
-                                                                                                    <cc1:TabContainer ID="tabs2" runat="server" ActiveTabIndex="0" CssClass="fancy fancy-green" Width="1280px">
+                                                                                                    <cc1:TabContainer ID="tabs2" runat="server" ActiveTabIndex="0" CssClass="fancy fancy-green" Width="1280px" AutoPostBack="true" OnActiveTabChanged="tabs2_ActiveTabChanged">
                                                                                                         <cc1:TabPanel ID="tabMaster" runat="server" HeaderText="Sales Details" Width="1260px">
                                                                                                             <HeaderTemplate>
                                                                                                                 <div>
