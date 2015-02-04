@@ -1587,6 +1587,28 @@ h2
     text-align:center;
 }
 
+.ControlDrpBorderreport
+{
+    height:27px;    
+    padding-top:5px;
+    padding-left:5px;
+    padding-right:5px;
+    text-align:right;
+    vertical-align:middle;
+    color:#0567AE;
+    font-family:'ARIAL';
+    font-size:14px;
+    font-weight:bold;
+    text-decoration:none;
+
+    width:60%;
+    border:1px solid #c3c3c3;
+    background-color:#e7e7e7;
+    padding-left:0px;
+    padding-right:0px;
+    text-align:center;
+}
+
 .ControlDrpBorder3
 {
     width:63%;
@@ -2413,8 +2435,20 @@ option
     text-align: left;
     color: White;
     font-size: 11px;
-    padding: 3px 6px 5px 3px;
+   /*padding: 3px 6px 5px 3px;*/
     height: 22px;
+    font-weight: bold;
+}
+
+.ReportHeadingdataRow
+{
+    /*background-color: #858585;
+    text-align: left;*/
+    /*color: White;*/
+    font-size: 14px;
+   /*padding: 3px 6px 5px 3px;*/
+    /*height: 22px;
+    width:15%;*/
     font-weight: bold;
 }
 
@@ -6747,6 +6781,28 @@ h2
     text-align:center;
 }
 
+.ControlDrpBorderreport
+{
+    height:27px;    
+    padding-top:5px;
+    padding-left:5px;
+    padding-right:5px;
+    text-align:right;
+    vertical-align:middle;
+    color:#0567AE;
+    font-family:'ARIAL';
+    font-size:14px;
+    font-weight:bold;
+    text-decoration:none;
+
+    width:60%;
+    border:1px solid #c3c3c3;
+    background-color:#e7e7e7;
+    padding-left:0px;
+    padding-right:0px;
+    text-align:center;
+}
+
 .ControlDrpBorder3
 {
     width:63%;
@@ -7574,7 +7630,7 @@ option
     text-align: left;
     color: White;
     font-size: 11px;
-    padding: 3px 6px 5px 3px;
+    /*padding: 3px 6px 5px 3px;*/
     height: 22px;
     font-weight: bold;
 }

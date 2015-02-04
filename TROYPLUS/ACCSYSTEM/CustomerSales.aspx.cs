@@ -3055,7 +3055,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 sCustomerContact = txtCustPh.Text;
 
                 dTotalAmt = Convert.ToDouble(lblNet.Text);
-                executive = "1";
+                //executive = drpIncharge.SelectedValue;
 
                 cuscategory = drpCustomerCategoryAdd.SelectedValue;
 
@@ -3385,6 +3385,7 @@ public partial class CustomerSales : System.Web.UI.Page
                         for (int vLoop = 0; vLoop < grvStudentDetails.Rows.Count; vLoop++)
                         {
                             DropDownList drpProduct = (DropDownList)grvStudentDetails.Rows[vLoop].FindControl("drpPrd");
+                            DropDownList drpIncharge = (DropDownList)grvStudentDetails.Rows[vLoop].FindControl("drpIncharge");
                             TextBox txtDesc = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDesc");
                             TextBox txtRate = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRate");
                             TextBox txtStock = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtStock");
@@ -3402,6 +3403,11 @@ public partial class CustomerSales : System.Web.UI.Page
                             if (drpProduct.SelectedValue == "0")
                             {
                                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Product in row " + col + " ')", true);
+                                return;
+                            }
+                            else if (drpIncharge.SelectedValue == "0")
+                            {
+                                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Employee in row " + col + " ')", true);
                                 return;
                             }
                             else if (txtDesc.Text == "")
@@ -3475,6 +3481,9 @@ public partial class CustomerSales : System.Web.UI.Page
                         dc = new DataColumn("Prd");
                         dt.Columns.Add(dc);
 
+                        dc = new DataColumn("Emp");
+                        dt.Columns.Add(dc);
+
                         dc = new DataColumn("Desc");
                         dt.Columns.Add(dc);
 
@@ -3534,6 +3543,7 @@ public partial class CustomerSales : System.Web.UI.Page
                         for (int vLoop = 0; vLoop < grvStudentDetails.Rows.Count; vLoop++)
                         {
                             DropDownList drpProduct = (DropDownList)grvStudentDetails.Rows[vLoop].FindControl("drpPrd");
+                            DropDownList drpIncharge = (DropDownList)grvStudentDetails.Rows[vLoop].FindControl("drpIncharge");
                             TextBox txtDesc = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDesc");
                             TextBox txtRate = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRate");
                             TextBox txtStock = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtStock");
@@ -3549,6 +3559,7 @@ public partial class CustomerSales : System.Web.UI.Page
 
                             drNew = dt.NewRow();
                             drNew["Prd"] = Convert.ToString(drpProduct.SelectedItem.Value);
+                            drNew["Emp"] = Convert.ToString(drpIncharge.SelectedItem.Value);
                             drNew["Desc"] = txtDesc.Text;
                             drNew["Rate"] = txtRate.Text;
                             drNew["Stock"] = txtStock.Text;
@@ -3572,7 +3583,7 @@ public partial class CustomerSales : System.Web.UI.Page
                         }
                         //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
-                        int billNo = bl.InsertSalesNewSeries(Series, sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dTotalAmt, purchaseReturn, prReason, int.Parse(executive), dFreight, dLU, dss, sOtherCusName, intTrans, receiptData, MultiPayment, deliveryNote, sCustomerAddress2, sCustomerAddress3, executivename, despatchedfrom, fixedtotal, manualno, dTotalAmt, usernam, ManualSales, NormalSales, Types, snarr, DuplicateCopy, check, CustomerIdMobile, cuscategory);
+                        int billNo = bl.InsertSalesNewSeries(Series, sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dTotalAmt, purchaseReturn, prReason, dFreight, dLU, dss, sOtherCusName, intTrans, receiptData, MultiPayment, deliveryNote, sCustomerAddress2, sCustomerAddress3, executivename, despatchedfrom, fixedtotal, manualno, dTotalAmt, usernam, ManualSales, NormalSales, Types, snarr, DuplicateCopy, check, CustomerIdMobile, cuscategory);
 
 
 
@@ -6692,14 +6703,14 @@ public partial class CustomerSales : System.Web.UI.Page
                         rowReason.Visible = false;
                     }
 
-                    if (ds.Tables[0].Rows[0]["Executive"] != null)
-                    {
+                    //if (ds.Tables[0].Rows[0]["Executive"] != null)
+                    //{
                         //drpIncharge.ClearSelection();
                         //ListItem cli = drpIncharge.Items.FindByValue(Convert.ToString(ds.Tables[0].Rows[0]["Executive"]));
 
                         // if (cli != null) cli.Selected = true;
-                    }
-                    else
+                    //}
+                    //else
                         //drpIncharge.SelectedIndex = 0;
 
 
@@ -6783,6 +6794,7 @@ public partial class CustomerSales : System.Web.UI.Page
                     for (int vLoop = 0; vLoop < grvStudentDetails.Rows.Count; vLoop++)
                     {
                         DropDownList drpProduct = (DropDownList)grvStudentDetails.Rows[vLoop].FindControl("drpPrd");
+                        DropDownList drpIncharge = (DropDownList)grvStudentDetails.Rows[vLoop].FindControl("drpIncharge");
                         TextBox txtDesc = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDesc");
                         TextBox txtRate = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRate");
                         TextBox txtStock = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtStock");
@@ -6804,10 +6816,18 @@ public partial class CustomerSales : System.Web.UI.Page
                             if (li != null) li.Selected = true;
                         }
 
+                        if (itemDs.Tables[0].Rows[vLoop]["executivename"] != null)
+                        {
+                            sCustomer = Convert.ToString(itemDs.Tables[0].Rows[vLoop]["executivename"]);
+                            drpIncharge.ClearSelection();
+                            ListItem li = drpIncharge.Items.FindByValue(System.Web.HttpUtility.HtmlDecode(sCustomer));
+                            if (li != null) li.Selected = true;
+                        }
+
                         // drpProduct.Text = itemDs.Tables[0].Rows[vLoop]["ItemCode"].ToString();
                         txtDesc.Text = itemDs.Tables[0].Rows[vLoop]["ProductDesc"].ToString();
                         txtRate.Text = itemDs.Tables[0].Rows[vLoop]["Rate"].ToString();
-                        //txtStock.Text = itemDs.Tables[0].Rows[vLoop]["Stock"].ToString();
+                        txtStock.Text = itemDs.Tables[0].Rows[vLoop]["Stock"].ToString();
                         txtQty.Text = itemDs.Tables[0].Rows[vLoop]["Qty"].ToString();
                         txtExeComm.Text = itemDs.Tables[0].Rows[vLoop]["ExecCharge"].ToString();
                         txtDisPre.Text = itemDs.Tables[0].Rows[vLoop]["Discount"].ToString();
@@ -7001,6 +7021,7 @@ public partial class CustomerSales : System.Web.UI.Page
         double stock = 0;
         int billno = 0;
         string strItemCode = string.Empty;
+        string strEmpName = string.Empty;
         Session["roleDs"] = null;
         BusinessLogic bl = new BusinessLogic(sDataSource);
 
@@ -7012,6 +7033,9 @@ public partial class CustomerSales : System.Web.UI.Page
             dt = new DataTable();
 
             dc = new DataColumn("ItemCode");
+            dt.Columns.Add(dc);
+
+            dc = new DataColumn("executivename");
             dt.Columns.Add(dc);
 
             dc = new DataColumn("ProductDesc");
@@ -7065,6 +7089,9 @@ public partial class CustomerSales : System.Web.UI.Page
             dc = new DataColumn("billno");
             dt.Columns.Add(dc);
 
+            dc = new DataColumn("Stock");
+            dt.Columns.Add(dc);
+
             dc = new DataColumn("RowNumber");
             dt.Columns.Add(dc);
 
@@ -7085,6 +7112,11 @@ public partial class CustomerSales : System.Web.UI.Page
                     {
                         strItemCode = Convert.ToString(dR["ItemCode"]);
                         dr["ItemCode"] = strItemCode;
+                    }
+                    if (dR["executivename"] != null)
+                    {
+                        strEmpName = Convert.ToString(dR["executivename"]);
+                        dr["executivename"] = strEmpName;
                     }
                     if (dR["billno"] != null)
                     {
@@ -7160,6 +7192,9 @@ public partial class CustomerSales : System.Web.UI.Page
                         dr["IsRole"] = roleFlag;
 
                     }
+
+                    if (dR["Stock"] != null)
+                        dr["Stock"] = Convert.ToInt32(dR["Stock"]);
 
                     //
                     if (roleFlag == "Y")
@@ -7369,23 +7404,7 @@ public partial class CustomerSales : System.Web.UI.Page
         }
     }
 
-    protected void txtLU_TextChanged(object sender, EventArgs e)
-    {
-        try
-        {
-            if (Session["productDs"] != null)
-            {
-                GrdViewItems.DataSource = (DataSet)Session["productDs"];
-                GrdViewItems.DataBind();
-                calcSum();
-                UpdatePanelTotalSummary.Update();
-            }
-        }
-        catch (Exception ex)
-        {
-            TroyLiteExceptionManager.HandleException(ex);
-        }
-    }
+
     protected void txtFreight_TextChanged(object sender, EventArgs e)
     {
         try
@@ -8054,7 +8073,6 @@ public partial class CustomerSales : System.Web.UI.Page
             TextBox txtDesc = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDesc");
             TextBox txtRate = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRate");
             TextBox txtStock = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtStock");
-
             TextBox txtExeComm = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtExeComm");
             TextBox txtDisPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDisPre");
             TextBox txtVATPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtVATPre");
@@ -8068,30 +8086,49 @@ public partial class CustomerSales : System.Web.UI.Page
             if (drpProduct.SelectedValue == "0")
             {
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Product in row " + col + " ')", true);
+                drpProduct.Focus();
                 checkflag = true;
                 return;
             }
             else if (txtDesc.Text == "")
             {
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Description in row " + col + " ')", true);
+                txtDesc.Focus();
+                checkflag = true;
+                return;
+            }
+            if (drpIncharge.SelectedValue == "0")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please select Employee in row " + col + " ')", true);
+                drpIncharge.Focus();
                 checkflag = true;
                 return;
             }
             else if (txtRate.Text == "" || txtRate.Text == "0")
             {
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Rate in row " + col + " ')", true);
+                txtRate.Focus();
                 checkflag = true;
                 return;
             }
             else if (txtStock.Text == "")
             {
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Stock is empty in row " + col + " ')", true);
+                txtStock.Focus();
                 checkflag = true;
                 return;
             }
             else if (txtQty.Text == "")
             {
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Quantity in row " + col + " ')", true);
+                txtQty.Focus();
+                checkflag = true;
+                return;
+            }
+            else if (Convert.ToInt32(txtQty.Text) > Convert.ToInt32(txtStock.Text))
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Given qty is greater than stock in row " + col + " ')", true);
+                txtQty.Focus();
                 checkflag = true;
                 return;
             }
@@ -8137,7 +8174,6 @@ public partial class CustomerSales : System.Web.UI.Page
                 checkflag = true;
                 return;
             }
-
 
 
             if ((drpnormalsales.SelectedItem.Text == "YES") || (drpmanualsales.SelectedItem.Text == "YES"))
@@ -8266,6 +8302,42 @@ public partial class CustomerSales : System.Web.UI.Page
             }
         }
 
+        //int iq = 0;
+        //int ii = 0;
+        //string itemc = string.Empty;
+        //if (ViewState["CurrentTable"] != null)
+        //{
+        //    DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable"];
+        //    foreach (DataRow dr in dtCurrentTable.Rows)
+        //    {
+        //        itemc = Convert.ToString(dr["Col1"]);
+        //        if ((itemc == null) || (itemc == ""))
+        //        {
+        //        }
+        //        else
+        //        {
+        //            foreach (DataRow drd in dtCurrentTable.Rows)
+        //            {
+        //                if (ii == iq)
+        //                {
+        //                }
+        //                else
+        //                {
+        //                    if (itemc == Convert.ToString(drd["Col1"]))
+        //                    {
+        //                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product - " + itemc + " - already exists in the Grid.');", true);
+        //                        return;
+        //                    }
+        //                }
+        //                ii = ii + 1;
+        //            }
+        //        }
+        //        iq = iq + 1;
+        //        ii = 1;
+        //    }
+        //}     
+       
+
         if (checkflag == false)
         {
             // NEW Row Add
@@ -8279,7 +8351,6 @@ public partial class CustomerSales : System.Web.UI.Page
                 {
                     for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                     {
-
                         DropDownList DrpProduct =
                          (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("drpPrd");
                         TextBox TextBoxQty =
@@ -8308,11 +8379,11 @@ public partial class CustomerSales : System.Web.UI.Page
                        (TextBox)grvStudentDetails.Rows[rowIndex].Cells[12].FindControl("txtTotal");
 
 
-                        //if (Convert.ToInt32(TextBoxQty.Text) > Convert.ToInt32(TextBoxStock.Text))
-                        //{
-                        //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Given qty is greater than stock.Current Stock : " + TextBoxStock.Text + "')", true);                       
-                        //    return;
-                        //}
+                        if (Convert.ToInt32(TextBoxQty.Text) > Convert.ToInt32(TextBoxStock.Text))
+                        {
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Given qty is greater than stock.Current Stock : " + TextBoxStock.Text + "')", true);
+                            return;
+                        }
 
                         drCurrentRow = dtCurrentTable.NewRow();
                         drCurrentRow["RowNumber"] = i + 1;
@@ -8335,6 +8406,45 @@ public partial class CustomerSales : System.Web.UI.Page
                     dtCurrentTable.Rows.Add(drCurrentRow);
                     ViewState["CurrentTable"] = dtCurrentTable;
 
+                    //grvStudentDetails.DataSource = dtCurrentTable;
+                    //grvStudentDetails.DataBind();
+                }
+
+                int iq = 1;
+                int ii = 1;
+                string itemc = string.Empty;
+                if (ViewState["CurrentTable"] != null)
+                {
+                    DataTable dtCurrentTable1 = (DataTable)ViewState["CurrentTable"];
+                    foreach (DataRow dr in dtCurrentTable1.Rows)
+                    {
+                        itemc = Convert.ToString(dr["Col1"]);
+                        if ((itemc == null) || (itemc == ""))
+                        {
+                        }
+                        else
+                        {
+                            foreach (DataRow drd in dtCurrentTable1.Rows)
+                            {
+                                if (ii == iq)
+                                {
+                                }
+                                else
+                                {
+                                    if (itemc == Convert.ToString(drd["Col1"]))
+                                    {
+                                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product - " + itemc + " - already exists in the Grid.');", true);
+                                        ViewState["CurrentTable"] = null;
+                                        checkflag = true;                                       
+                                        return;
+                                    }
+                                }
+                                ii = ii + 1;
+                            }
+                        }
+                        iq = iq + 1;
+                        ii = 1;
+                    }
                     grvStudentDetails.DataSource = dtCurrentTable;
                     grvStudentDetails.DataBind();
                 }
@@ -8463,7 +8573,12 @@ public partial class CustomerSales : System.Web.UI.Page
 
             BusinessLogic bl = new BusinessLogic(sDataSource);
             // DataSet customerDs = bl.getProdInfo(Convert.ToString(DrpProduct.SelectedItem.Value));
-
+            if (cmbCustomer.SelectedValue == "0")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Select Customer Name in Invoice Header Details tab');", true);
+            }
+            else
+            {
             DataSet customerDs = bl.ListSalesProductPriceDetails(DrpProduct.SelectedItem.Value.Trim(), drpCustomerCategoryAdd.SelectedValue);
 
 
@@ -8506,6 +8621,7 @@ public partial class CustomerSales : System.Web.UI.Page
             errPanel.Visible = false;
             ErrMsg.Text = "";
         }
+        }
         ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "$('.chzn-select').chosen(); $('.chzn-select-deselect').chosen({ allow_single_deselect: true });", true);
     }
 
@@ -8515,8 +8631,10 @@ public partial class CustomerSales : System.Web.UI.Page
         {
             BusinessLogic bl = new BusinessLogic(sDataSource);
             DataSet ds = new DataSet();
+            DataSet dsEmp = new DataSet();
 
             ds = bl.ListProdForDynammicrow(sDataSource);
+            dsEmp = bl.ListExecutive();
 
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
@@ -8531,6 +8649,21 @@ public partial class CustomerSales : System.Web.UI.Page
                 ddl.DataTextField = "ProductName";
                 ddl.DataValueField = "ItemCode";
             }
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                var ddl1 = (DropDownList)e.Row.FindControl("drpIncharge");
+                ddl1.Items.Clear();
+                ListItem lifzzh1 = new ListItem("Select Employee", "0");
+                lifzzh1.Attributes.Add("style", "color:Black");
+                ddl1.Items.Add(lifzzh1);
+                ddl1.DataSource = dsEmp;
+                ddl1.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+                ddl1.DataBind();
+                ddl1.DataTextField = "empFirstName";
+                ddl1.DataValueField = "empno";
+        }
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "$('.chzn-select').chosen(); $('.chzn-select-deselect').chosen({ allow_single_deselect: true });", true);
         }
         catch (Exception ex)
         {
@@ -8698,6 +8831,14 @@ public partial class CustomerSales : System.Web.UI.Page
             TextBox TextBoxTotal =
               (TextBox)grvStudentDetails.Rows[i - 1].Cells[13].FindControl("txtTotal");
 
+
+            if (Convert.ToInt32(TextBoxQty.Text) > Convert.ToInt32(TextBoxStock.Text))
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Given qty is greater than Stock')", true);
+                return;
+            }
+
+
             if (Labelll.Text == "VAT INCLUSIVE")
             {
                 TextBoxTotal.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));
@@ -8707,16 +8848,26 @@ public partial class CustomerSales : System.Web.UI.Page
                 double vatinclusiverate = (((Convert.ToDouble(TextBoxRate.Text) * (Convert.ToDouble(TextBoxQty.Text))) - Convert.ToDouble(TextBoxDisPre.Text)) / vatper1);
                 double sVatamount = (vatinclusiverate * vatper) / 100;
                 TextBoxVATAmt.Text = sVatamount.ToString("#0.00");
-                TextBoxRate.Text = Convert.ToString(Convert.ToDouble(TextBoxTotal.Text) - Convert.ToDouble(TextBoxVATAmt.Text));
+                TextBoxRate.Text = vatinclusiverate.ToString("#0.00");// Convert.ToString(Convert.ToDouble(TextBoxTotal.Text) - Convert.ToDouble(TextBoxVATAmt.Text));
+                if (TextBoxTotal.Text != null)
+                    sumAmt = Convert.ToDouble(GetTotal(Convert.ToDouble(TextBoxQty.Text), Convert.ToDouble(TextBoxRate.Text), Convert.ToDouble(TextBoxDisPre.Text), Convert.ToDouble(TextBoxVATPre.Text), Convert.ToDouble(TextBoxCSTPre.Text), Convert.ToDouble(TextBoxTotal.Text)));
+                TextBoxTotal.Text = sumAmt.ToString("#0.00");
+
             }
             else if (Labelll.Text == "VAT EXCLUSIVE")
             {
                 TextBoxVATAmt.Text = Convert.ToString((Convert.ToDouble(TextBoxRate.Text) * (Convert.ToDouble(TextBoxVATPre.Text)) / 100));
                 TextBoxRtVAT.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));
-                TextBoxTotal.Text = Convert.ToString(Convert.ToDouble(TextBoxVATAmt.Text) + (Convert.ToDouble(TextBoxRtVAT.Text)));
+                //TextBoxTotal.Text = Convert.ToString(Convert.ToDouble(TextBoxVATAmt.Text) + (Convert.ToDouble(TextBoxRtVAT.Text)));
+                double vatinclusiverate = Convert.ToDouble(TextBoxRtVAT.Text) * Convert.ToDouble(TextBoxDisPre.Text) / 100;
+                double vatinclusiverate3 = Convert.ToDouble(TextBoxRtVAT.Text) - vatinclusiverate;
+                double vatinclusiverate1 = vatinclusiverate3 * Convert.ToDouble(TextBoxVATPre.Text) / 100;
+                double vatinclusiverate2 = vatinclusiverate1 + vatinclusiverate3;
+                TextBoxTotal.Text = vatinclusiverate2.ToString("#0.00");// Convert.ToDouble(TextBoxRtVAT.Text) * Convert.ToDouble(TextBoxDisPre.Text) / 100;
             }
 
         }
+        sumAmt = 0;
         for (int i = 0; i < grvStudentDetails.Rows.Count; i++)
         {
             DropDownList DrpProduct =
@@ -8744,11 +8895,12 @@ public partial class CustomerSales : System.Web.UI.Page
             TextBox TextBoxRtVAT =
               (TextBox)grvStudentDetails.Rows[i].Cells[12].FindControl("txtRtVAT");
             TextBox TextBoxTotal =
-              (TextBox)grvStudentDetails.Rows[i].Cells[1].FindControl("txtTotal");
+              (TextBox)grvStudentDetails.Rows[i].Cells[13].FindControl("txtTotal");
 
 
             if (TextBoxTotal.Text != null)
-                sumAmt = Convert.ToDouble(GetTotal(Convert.ToDouble(TextBoxQty.Text), Convert.ToDouble(TextBoxRate.Text), Convert.ToDouble(TextBoxDisPre.Text), Convert.ToDouble(TextBoxVATPre.Text), Convert.ToDouble(TextBoxCSTPre.Text), Convert.ToDouble(TextBoxTotal.Text)));
+                // sumAmt = Convert.ToDouble(GetTotal(Convert.ToDouble(TextBoxQty.Text), Convert.ToDouble(TextBoxRtVAT.Text), Convert.ToDouble(TextBoxDisPre.Text), Convert.ToDouble(TextBoxVATPre.Text), Convert.ToDouble(TextBoxCSTPre.Text), Convert.ToDouble(TextBoxTotal.Text)));
+                sumAmt = Convert.ToDouble(TextBoxTotal.Text);
 
             sumDis = sumDis + GetDis();
             sumVat = sumVat + GetVat();
@@ -8784,7 +8936,220 @@ public partial class CustomerSales : System.Web.UI.Page
     }
     protected void drpIncharge_SelectedIndexChanged(object sender, EventArgs e)
     {
+        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "$('.chzn-select').chosen(); $('.chzn-select-deselect').chosen({ allow_single_deselect: true });", true);
+    }
+    protected void txtRate_TextChanged(object sender, EventArgs e)
+    {
+        for (int i = grvStudentDetails.Rows.Count; i == grvStudentDetails.Rows.Count; i++)
+        {
+            DropDownList DrpProduct =
+              (DropDownList)grvStudentDetails.Rows[i - 1].Cells[1].FindControl("drpPrd");
+            TextBox TextBoxQty =
+              (TextBox)grvStudentDetails.Rows[i - 1].Cells[2].FindControl("txtQty");
+            DropDownList drpIncharge =
+            (DropDownList)grvStudentDetails.Rows[i - 1].Cells[3].FindControl("drpIncharge");
+            TextBox TextBoxDesc =
+              (TextBox)grvStudentDetails.Rows[i - 1].Cells[4].FindControl("txtDesc");
+            TextBox TextBoxRate =
+              (TextBox)grvStudentDetails.Rows[i - 1].Cells[5].FindControl("txtRate");
+            TextBox TextBoxStock =
+            (TextBox)grvStudentDetails.Rows[i - 1].Cells[6].FindControl("txtStock");
+            TextBox TextBoxExeComm =
+              (TextBox)grvStudentDetails.Rows[i - 1].Cells[7].FindControl("txtExeComm");
+            TextBox TextBoxDisPre =
+              (TextBox)grvStudentDetails.Rows[i - 1].Cells[8].FindControl("txtDisPre");
+            TextBox TextBoxVATPre =
+              (TextBox)grvStudentDetails.Rows[i - 1].Cells[9].FindControl("txtVATPre");
+            TextBox TextBoxCSTPre =
+              (TextBox)grvStudentDetails.Rows[i - 1].Cells[10].FindControl("txtCSTPre");
+            TextBox TextBoxVATAmt =
+              (TextBox)grvStudentDetails.Rows[i - 1].Cells[11].FindControl("txtVATAmt");
+            TextBox TextBoxRtVAT =
+              (TextBox)grvStudentDetails.Rows[i - 1].Cells[12].FindControl("txtRtVAT");
+            TextBox TextBoxTotal =
+              (TextBox)grvStudentDetails.Rows[i - 1].Cells[13].FindControl("txtTotal");
 
+            //if (Convert.ToInt32(TextBoxQty.Text) > Convert.ToInt32(TextBoxStock.Text))
+            //{
+            //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Given qty is greater than stock.Current Stock : " + TextBoxStock.Text + "')", true);
+            //    return;
+            //}
+            if (TextBoxRate.Text != "")
+            {
+                if (Labelll.Text == "VAT INCLUSIVE")
+                {
+                    TextBoxTotal.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));
+                    TextBoxRtVAT.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));
+                    double vatper = Convert.ToDouble(TextBoxVATPre.Text);
+                    double vatper1 = ((vatper) + 100) / 100;
+                    double vatinclusiverate = (((Convert.ToDouble(TextBoxRate.Text) * (Convert.ToDouble(TextBoxQty.Text))) - Convert.ToDouble(TextBoxDisPre.Text)) / vatper1);
+                    double sVatamount = (vatinclusiverate * vatper) / 100;
+                    TextBoxVATAmt.Text = sVatamount.ToString("#0.00");
+                    TextBoxRate.Text = vatinclusiverate.ToString("#0.00");// Convert.ToString(Convert.ToDouble(TextBoxTotal.Text) - Convert.ToDouble(TextBoxVATAmt.Text));
+            if (TextBoxTotal.Text != null)
+                sumAmt = Convert.ToDouble(GetTotal(Convert.ToDouble(TextBoxQty.Text), Convert.ToDouble(TextBoxRate.Text), Convert.ToDouble(TextBoxDisPre.Text), Convert.ToDouble(TextBoxVATPre.Text), Convert.ToDouble(TextBoxCSTPre.Text), Convert.ToDouble(TextBoxTotal.Text)));
+                    TextBoxTotal.Text = sumAmt.ToString("#0.00");
+                }
+                else if (Labelll.Text == "VAT EXCLUSIVE")
+                {
+                    TextBoxVATAmt.Text = Convert.ToString((Convert.ToDouble(TextBoxRate.Text) * (Convert.ToDouble(TextBoxVATPre.Text)) / 100));
+                    TextBoxRtVAT.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));
+                    //TextBoxTotal.Text = Convert.ToString(Convert.ToDouble(TextBoxVATAmt.Text) + (Convert.ToDouble(TextBoxRtVAT.Text)));
+                    double vatinclusiverate = Convert.ToDouble(TextBoxRtVAT.Text) * Convert.ToDouble(TextBoxDisPre.Text) / 100;
+                    double vatinclusiverate3 = Convert.ToDouble(TextBoxRtVAT.Text) - vatinclusiverate;
+                    double vatinclusiverate1 = vatinclusiverate3 * Convert.ToDouble(TextBoxVATPre.Text) / 100;
+                    double vatinclusiverate2 = vatinclusiverate1 + vatinclusiverate3;
+                    TextBoxTotal.Text = vatinclusiverate2.ToString("#0.00");// Convert.ToDouble(TextBoxRtVAT.Text) * Convert.ToDouble(TextBoxDisPre.Text) / 100;
+                }
+            }
+        }
+        sumAmt = 0;
+        sumNet = 0;
+        for (int i = 0; i < grvStudentDetails.Rows.Count; i++)
+        {
+            DropDownList DrpProduct =
+              (DropDownList)grvStudentDetails.Rows[i].Cells[1].FindControl("drpPrd");
+            TextBox TextBoxQty =
+             (TextBox)grvStudentDetails.Rows[i].Cells[2].FindControl("txtQty");
+            DropDownList drpIncharge =
+             (DropDownList)grvStudentDetails.Rows[i].Cells[3].FindControl("drpIncharge");
+            TextBox TextBoxDesc =
+              (TextBox)grvStudentDetails.Rows[i].Cells[4].FindControl("txtDesc");
+            TextBox TextBoxRate =
+              (TextBox)grvStudentDetails.Rows[i].Cells[5].FindControl("txtRate");
+            TextBox TextBoxStock =
+            (TextBox)grvStudentDetails.Rows[i].Cells[6].FindControl("txtStock");
+            TextBox TextBoxExeComm =
+              (TextBox)grvStudentDetails.Rows[i].Cells[7].FindControl("txtExeComm");
+            TextBox TextBoxDisPre =
+              (TextBox)grvStudentDetails.Rows[i].Cells[8].FindControl("txtDisPre");
+            TextBox TextBoxVATPre =
+              (TextBox)grvStudentDetails.Rows[i].Cells[9].FindControl("txtVATPre");
+            TextBox TextBoxCSTPre =
+              (TextBox)grvStudentDetails.Rows[i].Cells[10].FindControl("txtCSTPre");
+            TextBox TextBoxVATAmt =
+              (TextBox)grvStudentDetails.Rows[i].Cells[11].FindControl("txtVATAmt");
+            TextBox TextBoxRtVAT =
+              (TextBox)grvStudentDetails.Rows[i].Cells[12].FindControl("txtRtVAT");
+            TextBox TextBoxTotal =
+              (TextBox)grvStudentDetails.Rows[i].Cells[13].FindControl("txtTotal");
+
+            if (TextBoxRate.Text != "")
+            {
+                if (TextBoxTotal.Text != null)
+                    // sumAmt = Convert.ToDouble(GetTotal(Convert.ToDouble(TextBoxQty.Text), Convert.ToDouble(TextBoxRtVAT.Text), Convert.ToDouble(TextBoxDisPre.Text), Convert.ToDouble(TextBoxVATPre.Text), Convert.ToDouble(TextBoxCSTPre.Text), Convert.ToDouble(TextBoxTotal.Text)));
+                    sumAmt = Convert.ToDouble(TextBoxTotal.Text);
+
+            sumDis = sumDis + GetDis();
+            sumVat = sumVat + GetVat();
+            sumCST = sumCST + GetCST();
+            sumRate = sumRate + GetTotalRate();
+
+            double dFreight = 0;
+            double dLU = 0;
+            double sumLUFreight = 0;
+            if (txtFreight.Text.Trim() != "")
+            {
+                dFreight = Convert.ToDouble(txtFreight.Text.Trim());
+            }
+            if (txtLU.Text.Trim() != "")
+            {
+                dLU = Convert.ToDouble(txtLU.Text.Trim());
+            }
+            sumLUFreight = dFreight + dLU;
+            sumNet = sumNet + sumAmt + dFreight + dLU;
+            lblTotalSum.Text = sumAmt.ToString("#0.00");
+            lblTotalDis.Text = sumDis.ToString("#0.00");
+            lblDispTotalRate.Text = sumRate.ToString("#0.00");
+            lblTotalVAT.Text = sumVat.ToString("#0.00");
+            lblTotalCST.Text = sumCST.ToString("#0.00");
+            lblFreight.Text = sumLUFreight.ToString("#0.00"); // dFreight.ToString("#0.00");
+            lblNet.Text = sumNet.ToString("#0.00");
+            hdPrevSalesTotal.Value = lblNet.Text;
+            UpdatePanelTotalSummary.Update();
+            errPanel.Visible = false;
+            ErrMsg.Text = "";
+        }
+        }
+        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "$('.chzn-select').chosen(); $('.chzn-select-deselect').chosen({ allow_single_deselect: true });", true);
+    }
+
+    protected void txtLU_TextChanged(object sender, EventArgs e)
+    {
+        sumAmt = 0;
+        for (int i = 0; i < grvStudentDetails.Rows.Count; i++)
+        {
+            DropDownList DrpProduct =
+              (DropDownList)grvStudentDetails.Rows[i].Cells[1].FindControl("drpPrd");
+            TextBox TextBoxQty =
+             (TextBox)grvStudentDetails.Rows[i].Cells[2].FindControl("txtQty");
+            DropDownList drpIncharge =
+             (DropDownList)grvStudentDetails.Rows[i].Cells[3].FindControl("drpIncharge");
+            TextBox TextBoxDesc =
+              (TextBox)grvStudentDetails.Rows[i].Cells[4].FindControl("txtDesc");
+            TextBox TextBoxRate =
+              (TextBox)grvStudentDetails.Rows[i].Cells[5].FindControl("txtRate");
+            TextBox TextBoxStock =
+            (TextBox)grvStudentDetails.Rows[i].Cells[6].FindControl("txtStock");
+            TextBox TextBoxExeComm =
+              (TextBox)grvStudentDetails.Rows[i].Cells[7].FindControl("txtExeComm");
+            TextBox TextBoxDisPre =
+              (TextBox)grvStudentDetails.Rows[i].Cells[8].FindControl("txtDisPre");
+            TextBox TextBoxVATPre =
+              (TextBox)grvStudentDetails.Rows[i].Cells[9].FindControl("txtVATPre");
+            TextBox TextBoxCSTPre =
+              (TextBox)grvStudentDetails.Rows[i].Cells[10].FindControl("txtCSTPre");
+            TextBox TextBoxVATAmt =
+              (TextBox)grvStudentDetails.Rows[i].Cells[11].FindControl("txtVATAmt");
+            TextBox TextBoxRtVAT =
+              (TextBox)grvStudentDetails.Rows[i].Cells[12].FindControl("txtRtVAT");
+            TextBox TextBoxTotal =
+              (TextBox)grvStudentDetails.Rows[i].Cells[1].FindControl("txtTotal");
+
+
+            if (TextBoxTotal.Text != null)
+                // sumAmt = Convert.ToDouble(GetTotal(Convert.ToDouble(TextBoxQty.Text), Convert.ToDouble(TextBoxRtVAT.Text), Convert.ToDouble(TextBoxDisPre.Text), Convert.ToDouble(TextBoxVATPre.Text), Convert.ToDouble(TextBoxCSTPre.Text), Convert.ToDouble(TextBoxTotal.Text)));
+                sumAmt = sumAmt + Convert.ToDouble(TextBoxTotal.Text);
+        }
+        sumDis = sumDis + GetDis();
+        sumVat = sumVat + GetVat();
+        sumCST = sumCST + GetCST();
+        sumRate = sumRate + GetTotalRate();
+
+        double dFreight = 0;
+        double dLU = 0;
+        double sumLUFreight = 0;
+        if (txtFreight.Text.Trim() != "")
+        {
+            dFreight = Convert.ToDouble(txtFreight.Text.Trim());
+        }
+        if (txtLU.Text.Trim() != "")
+    {
+            dLU = Convert.ToDouble(txtLU.Text.Trim());
+        }
+        sumLUFreight = dFreight + dLU;
+        sumNet = sumNet + sumAmt + dFreight + dLU;
+        lblTotalSum.Text = sumAmt.ToString("#0.00");
+        lblTotalDis.Text = sumDis.ToString("#0.00");
+        lblDispTotalRate.Text = sumRate.ToString("#0.00");
+        lblTotalVAT.Text = sumVat.ToString("#0.00");
+        lblTotalCST.Text = sumCST.ToString("#0.00");
+        lblFreight.Text = sumLUFreight.ToString("#0.00"); // dFreight.ToString("#0.00");
+        lblNet.Text = sumNet.ToString("#0.00");
+        hdPrevSalesTotal.Value = lblNet.Text;
+        UpdatePanelTotalSummary.Update();
+        errPanel.Visible = false;
+        ErrMsg.Text = "";
+
+        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "$('.chzn-select').chosen(); $('.chzn-select-deselect').chosen({ allow_single_deselect: true });", true);
+    }
+
+    protected void tabs2_ActiveTabChanged(object sender, EventArgs e)
+    {
+        if (cmbCustomer.SelectedValue == "0")
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Select Customer Name in Invoice Header Details tab');", true);
+        }
     }
 }
 

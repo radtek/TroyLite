@@ -99,14 +99,14 @@ public partial class ProjectReport1 : System.Web.UI.Page
 
 
 
-                cond = "1=1 and ";
+                cond = "1=1  ";
 
 
                 if ((pro_Id != 0))
                 {
 
 
-                    cond += "  tblProjects.Project_Id=" + pro_Id + "";
+                    cond += " and tblProjects.Project_Id=" + pro_Id + "";
                 }
 
 
@@ -122,20 +122,20 @@ public partial class ProjectReport1 : System.Web.UI.Page
                     if (ds.Tables[0].Rows.Count > 0)
                     {
 
-                        gvOuts1.DataSource = ds;
-                        gvOuts1.DataBind();
+                        //gvOuts1.DataSource = ds;
+                        //gvOuts1.DataBind();
                     }
                     else
                     {
-                        gvOuts1.DataSource = null;
-                        gvOuts1.DataBind();
+                        //gvOuts1.DataSource = null;
+                        //gvOuts1.DataBind();
                     }
                 }
                 else
                 {
 
-                    gvOuts1.DataSource = null;
-                    gvOuts1.DataBind();
+                    //gvOuts1.DataSource = null;
+                    //gvOuts1.DataBind();
                 }
 
             }
@@ -328,13 +328,86 @@ public partial class ProjectReport1 : System.Web.UI.Page
             string condtask = string.Empty;
             string condtaskupdate = string.Empty;
 
-
-
+  
 
             System.Text.StringBuilder htmlcode = new System.Text.StringBuilder();
             htmlcode.Append("<html><body>");
             //htmlcode.Append("<form id=form1 runat=server>");
-            htmlcode.Append("<div id=divPrint style=font-family:'Trebuchet MS'; font-size:10px;  >");
+            htmlcode.Append("<div id=divPrint1 style=font-family:'Trebuchet MS'; font-size:11px;  >");
+
+            DataSet companyInfo = new DataSet();
+           // string connection = Request.Cookies["Company"].Value;
+           
+            lblBillDate.Text = DateTime.Now.ToShortDateString();
+            if (Request.Cookies["Company"] != null)
+            {
+                BusinessLogic bl1 = new BusinessLogic(sDataSource);
+                companyInfo = bl1.getCompanyInfo(Request.Cookies["Company"].Value);
+                int l = 0;
+                if (companyInfo != null)
+                {
+                    if (companyInfo.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in companyInfo.Tables[0].Rows)
+                        {
+                            lblTNGST.Text = Convert.ToString(dr["TINno"]);
+                            lblCompany.Text = Convert.ToString(dr["CompanyName"]);
+                            lblPhone.Text = Convert.ToString(dr["Phone"]);
+                            lblGSTno.Text = Convert.ToString(dr["GSTno"]);
+
+                            lblAddress.Text = Convert.ToString(dr["Address"]);
+                            lblCity.Text = Convert.ToString(dr["city"]);
+                            lblPincode.Text = Convert.ToString(dr["Pincode"]);
+                            lblState.Text = Convert.ToString(dr["state"]);
+                            //htmlcode.Append("<Table id = table4  >");
+                            //htmlcode.Append("<tr>");
+                            //htmlcode.Append("<td align=center width=320px style=font-size: 20px;>company name ");
+                            //htmlcode.Append("</td>");
+                            //htmlcode.Append("<td align=Centre>" + companyInfo.Tables[0].Rows[l].ItemArray[0].ToString());
+                            //htmlcode.Append("</td>");
+                            //htmlcode.Append("<tr>");
+                            //htmlcode.Append("<tr>");
+                            //htmlcode.Append("<td align=center width=320px >Address");
+                            //htmlcode.Append("</td>");
+                            //htmlcode.Append("</td>");
+                            //htmlcode.Append("<td width=320px>" + companyInfo.Tables[0].Rows[l].ItemArray[1].ToString());
+                            //htmlcode.Append("</td>");
+                            //htmlcode.Append("<tr>");
+                            //htmlcode.Append("<td align=center>City");
+                            //htmlcode.Append("</td>");
+                            //htmlcode.Append("<td>" + companyInfo.Tables[0].Rows[l].ItemArray[2].ToString());
+                            //htmlcode.Append("</td>");
+                            //htmlcode.Append("</tr>");
+                            //htmlcode.Append("<tr>");
+                            //htmlcode.Append("<td align=center> State");
+                            //htmlcode.Append("</td>");
+                            //htmlcode.Append("<td>" + companyInfo.Tables[0].Rows[l].ItemArray[3].ToString());
+                            //htmlcode.Append("</td>");
+                            //htmlcode.Append("</tr>");
+                            //htmlcode.Append("<tr>");                           
+                            //htmlcode.Append("<td width=140px align=left> Pincode");
+                            //htmlcode.Append("</td>");
+                            //htmlcode.Append("<td>" + companyInfo.Tables[0].Rows[l].ItemArray[5].ToString());
+                            //htmlcode.Append("</td>");
+                            //htmlcode.Append("</tr>");
+                            //htmlcode.Append("<td width=140px align=left>Tin Number");
+                            //htmlcode.Append("</td>");
+                            //htmlcode.Append("<td>" + companyInfo.Tables[0].Rows[l].ItemArray[4].ToString());
+                            //htmlcode.Append("</td>");
+
+                          
+                         
+                           
+                         
+                           
+                           
+                           
+
+                        }
+                    }
+                }
+            }
+            divPrint.Visible = true;
 
           
             DataSet dsVat = new DataSet();
@@ -396,12 +469,12 @@ public partial class ProjectReport1 : System.Web.UI.Page
                 isactive = Convert.ToString(Request.QueryString["isactive"].ToString());
             }
             //  string cond = string.Empty;
-
+            cond = " 1=1 ";
             if ((pro_Id != 0))
             {
 
 
-                cond += "  tblProjects.Project_Id=" + pro_Id + "";
+                cond += " and  tblProjects.Project_Id=" + pro_Id + "";
             }
 
 
@@ -427,36 +500,35 @@ public partial class ProjectReport1 : System.Web.UI.Page
                     {
                         htmlcode.Append("<Table id = table1 border=1px solid blue cellpadding=0 cellspacing=0 class=tblLeft width=100% >");
                         htmlcode.Append("<tr class=ReportHeadataRow style=text-align:left>");
-                      
-                        htmlcode.Append("<td> Manager Name");
+                        htmlcode.Append("<td style=width:15%> Project Name");
                         htmlcode.Append("</td>");
-                        htmlcode.Append("<td> Project Name");
+                        htmlcode.Append("<td style=width:15%> Manager Name");
                         htmlcode.Append("</td>");
-                        htmlcode.Append("<td> Project Date");
+                        htmlcode.Append("<td style=width:15%> Project Date");
                         htmlcode.Append("</td>");
-                        htmlcode.Append("<td> Expected Start Date");
+                        htmlcode.Append("<td style=width:15%> Expected Start Date");
                         htmlcode.Append("</td>");
-                        htmlcode.Append("<td> Expected End Date");
+                        htmlcode.Append("<td style=width:15%> Expected End Date");
                         htmlcode.Append("</td>");
-                        htmlcode.Append("<td> Project Status");
+                        htmlcode.Append("<td style=width:15%> Project Status");
                         htmlcode.Append("</td>");
 
                         htmlcode.Append("<tr class=ReportdataRow>");
-                        htmlcode.Append("<td>" + dspro.Tables[0].Rows[j].ItemArray[1].ToString());
+                        htmlcode.Append("<td>" + dspro.Tables[0].Rows[i].ItemArray[0].ToString());
                         htmlcode.Append("</td>");
-                        htmlcode.Append("<td>" + dspro.Tables[0].Rows[j].ItemArray[0].ToString());
+                        htmlcode.Append("<td>" + dspro.Tables[0].Rows[i].ItemArray[1].ToString());
                         htmlcode.Append("</td>");
-                        htmlcode.Append("<td>" + dspro.Tables[0].Rows[j].ItemArray[2].ToString());
+                        htmlcode.Append("<td>" + dspro.Tables[0].Rows[i].ItemArray[2].ToString());
                         htmlcode.Append("</td>");
-                        htmlcode.Append("<td>" + dspro.Tables[0].Rows[j].ItemArray[3].ToString());
+                        htmlcode.Append("<td>" + dspro.Tables[0].Rows[i].ItemArray[3].ToString());
                         htmlcode.Append("</td>");
-                        htmlcode.Append("<td>" + dspro.Tables[0].Rows[j].ItemArray[5].ToString());
+                        htmlcode.Append("<td>" + dspro.Tables[0].Rows[i].ItemArray[5].ToString());
                         htmlcode.Append("</td>");
-                        htmlcode.Append("<td>" + dspro.Tables[0].Rows[j].ItemArray[4].ToString());
+                        htmlcode.Append("<td>" + dspro.Tables[0].Rows[i].ItemArray[4].ToString());
                         htmlcode.Append("</td>");
 
 
-                        projectid = Convert.ToInt32(dspro.Tables[0].Rows[j].ItemArray[6].ToString());
+                        projectid = Convert.ToInt32(dspro.Tables[0].Rows[i].ItemArray[6].ToString());
 
 
 
@@ -528,19 +600,22 @@ public partial class ProjectReport1 : System.Web.UI.Page
                                     }
                                     else
                                     {
-                                        htmlcode.Append("<Table id = table2 border=1px solid blue cellpadding=0 cellspacing=0 class=tblLeft width=100% >");
+                                        
+                                        htmlcode.Append("<Table id = table2 border=1px solid blue cellpadding=0 cellspacing=50px class=tblLeft width=100% >");
+                                        htmlcode.Append("<tr  font-size:15% style=width:15% >Task and its Updates");
+                                        htmlcode.Append("</tr>");
                                         htmlcode.Append("<tr class=ReportHeadataRow style=text-align:left>");
-                                        htmlcode.Append("<td> Task Name");
+                                        htmlcode.Append("<td style=width:15%> Task Name");
                                         htmlcode.Append("</td>");
-                                        htmlcode.Append("<td> Expected Start Date");
+                                        htmlcode.Append("<td style=width:15%> Expected Start Date");
                                         htmlcode.Append("</td>");
-                                        htmlcode.Append("<td> Expected End Date");
+                                        htmlcode.Append("<td style=width:15%> Expected End Date");
                                         htmlcode.Append("</td>");
-                                        htmlcode.Append("<td> Owner");
+                                        htmlcode.Append("<td style=width:15%> Owner");
                                         htmlcode.Append("</td>");
-                                        htmlcode.Append("<td> Task Type");
+                                        htmlcode.Append("<td style=width:15%> Task Type");
                                         htmlcode.Append("</td>");
-                                        htmlcode.Append("<td> Is Active");
+                                        htmlcode.Append("<td style=width:15%> Is Active");
                                         htmlcode.Append("</td>");
 
 
@@ -668,7 +743,9 @@ public partial class ProjectReport1 : System.Web.UI.Page
                             //htmlcode.Append("</td>");
                             //htmlcode.Append("</tr>");
                         }
-                       
+                        //htmlcode.Append("</tr>");
+                        //htmlcode.Append("<tr height=12px > ");
+                        //htmlcode.Append("</tr>");
                         htmlcode.Append("</Table>");
     
                     }
@@ -680,6 +757,9 @@ public partial class ProjectReport1 : System.Web.UI.Page
             {
                 //Label.text="Error";
             }
+            htmlcode.Append("<tr height=12px > ");
+            htmlcode.Append("</tr>");
+            htmlcode.Append("</Table>");
             htmlcode.Append("</Table>");
             
             htmlcode.Append("</div>");
