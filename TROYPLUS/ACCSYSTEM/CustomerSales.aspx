@@ -9,19 +9,41 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="cplhControlPanel" runat="Server">
-    <%-- <script type="text/javascript">      
-        function OnChangetxt() {
-            debugger;
-            alert("test");
-        }
-        var button1 = document.getElementById('Textbox4');  
+    <%-- <script type="text/javascript">
+        //function OnChangetxt() {
+        //    debugger;
+        //    alert("test");
+        //}
+        //var button1 = document.getElementById('Textbox4');  
 
-        button1.onchange = OnChangetxt;
-      
-
+        //button1.onchange = OnChangetxt;      
     </script>--%>
+    <script type="text/javascript">
+        function confirmDelete() {
+            var x = confirm("Selected Customer category is different from previous.Do you want to continue?");
+            if (x) {               
+                var xx = document.getElementById('HiddenField1');
+                xx.value = 'true';              
+            }
+            else {                
+               <%-- document.getElementById('<%= HiddenField1.Value %>');--%>
+                var xx = document.getElementById('HiddenField1');
+                xx.value = 'false';              
+            }
+        }
 
-
+        function Confirm() {
+            var confirm_value = document.createElement("INPUT");
+            confirm_value.type = "hidden";
+            confirm_value.name = "confirm_value";
+            if (confirm("Selected Customer category is different from previous.Do you want to continue1?")) {
+                confirm_value.value = "Yes";               
+            } else {
+                confirm_value.value = "No";              
+            }
+            document.forms[0].appendChild(confirm_value);
+        }
+    </script>
 
     <style id="Style1" runat="server">
         .someClass td {
@@ -76,8 +98,9 @@
             width: 98.5%;
         }
     </style>
+    
     <asp:UpdatePanel ID="UpdatePnlMaster" runat="server" UpdateMode="Conditional">
-        <ContentTemplate>
+        <ContentTemplate>                  
             <%--<cc1:ToolkitScriptManager runat="server" />--%>
             <table style="width: 998px;" align="center">
                 <tr style="width: 100%">
@@ -264,6 +287,7 @@
                                                                 RepositionMode="RepositionOnWindowResizeAndScroll" CancelControlID="BtnPopUpCancel"
                                                                 DynamicServicePath="" Enabled="True" PopupControlID="pnlSalesForm" TargetControlID="dummySales">
                                                             </cc1:ModalPopupExtender>
+                                                              
                                                             <asp:Panel ID="pnlSalesForm" runat="server" Style="width: 99%; display: none">
                                                                 <asp:UpdatePanel ID="updatePnlSales" runat="server" UpdateMode="Conditional">
                                                                     <ContentTemplate>
@@ -286,7 +310,7 @@
                                                                                                 <td>
                                                                                                     <cc1:TabContainer ID="tabs2" runat="server" ActiveTabIndex="0" CssClass="fancy fancy-green" Width="1280px">
                                                                                                         <cc1:TabPanel ID="tabMaster" runat="server" HeaderText="Sales Details" Width="1260px">
-                                                                                                            <HeaderTemplate>
+                                                                                                            <HeaderTemplate>                                                                                                                
                                                                                                                 <div>
                                                                                                                     <table>
                                                                                                                         <tr>
@@ -1007,7 +1031,7 @@
                                                                                                                                                                     <ItemTemplate>
                                                                                                                                                                         <asp:DropDownList ID="drpPrd" Width="200px" runat="server" AppendDataBoundItems="true" BackColor="White" ForeColor="#0567AE" Font-Bold="true" AutoPostBack="true" CssClass="chzn-select" DataTextField="ProductName" DataValueField="ItemCode" OnSelectedIndexChanged="drpPrd_SelectedIndexChanged">
                                                                                                                                                                         </asp:DropDownList>
-                                                                                                                                                                    </ItemTemplate>                                                                                                                                                                    
+                                                                                                                                                                    </ItemTemplate>
                                                                                                                                                                 </asp:TemplateField>
                                                                                                                                                                 <asp:TemplateField HeaderText="Quantity" ItemStyle-Width="50px" ItemStyle-Font-Size="15px" HeaderStyle-ForeColor="Black">
                                                                                                                                                                     <ItemTemplate>
@@ -1024,7 +1048,7 @@
                                                                                                                                                                     <ItemTemplate>
                                                                                                                                                                         <asp:TextBox ID="txtDesc" runat="server" ReadOnly="true" Width="150px" ForeColor="#0567AE" Font-Bold="true"></asp:TextBox>
                                                                                                                                                                     </ItemTemplate>
-                                                                                                                                                                     <FooterStyle HorizontalAlign="Left" />
+                                                                                                                                                                    <FooterStyle HorizontalAlign="Left" />
                                                                                                                                                                     <FooterTemplate>
                                                                                                                                                                         <asp:Button ID="ButtonAdd" runat="server" AutoPostback="true" EnableTheming="false" Width="150px"
                                                                                                                                                                             ValidationGroup="DynRowAdd" Text="Add New Product" OnClick="ButtonAdd_Click" />
@@ -1037,7 +1061,7 @@
                                                                                                                                                                 </asp:TemplateField>
                                                                                                                                                                 <asp:TemplateField HeaderText="Stock" ItemStyle-Width="50px" ItemStyle-Font-Size="15px" HeaderStyle-ForeColor="Black">
                                                                                                                                                                     <ItemTemplate>
-                                                                                                                                                                       <%-- <asp:CompareValidator ID="cvCustomer" runat="server" ControlToValidate="txtStock" ControlToCompare="txtQty" Display="Dynamic" ErrorMessage="Quantity is greater than Stock" Operator="GreaterThan" Text="*" ValidationGroup="DynRowAdd"></asp:CompareValidator>--%>
+                                                                                                                                                                        <%-- <asp:CompareValidator ID="cvCustomer" runat="server" ControlToValidate="txtStock" ControlToCompare="txtQty" Display="Dynamic" ErrorMessage="Quantity is greater than Stock" Operator="GreaterThan" Text="*" ValidationGroup="DynRowAdd"></asp:CompareValidator>--%>
                                                                                                                                                                         <asp:TextBox ID="txtStock" Style="text-align: right" ReadOnly="true" runat="server" Width="50px" ForeColor="#0567AE" Font-Bold="true"></asp:TextBox>
                                                                                                                                                                     </ItemTemplate>
                                                                                                                                                                 </asp:TemplateField>
@@ -1075,7 +1099,7 @@
                                                                                                                                                                     <ItemTemplate>
                                                                                                                                                                         <asp:TextBox ID="txtTotal" Style="text-align: right" runat="server" ReadOnly="true" Width="50px" ForeColor="#0567AE" Font-Bold="true"></asp:TextBox>
                                                                                                                                                                     </ItemTemplate>
-                                                                                                                                                                   <%-- <FooterStyle HorizontalAlign="Left" />
+                                                                                                                                                                    <%-- <FooterStyle HorizontalAlign="Left" />
                                                                                                                                                                     <FooterTemplate>
                                                                                                                                                                         <asp:Button ID="ButtonAdd" runat="server" AutoPostback="true" EnableTheming="false"
                                                                                                                                                                             ValidationGroup="DynRowAdd" Text="Add New" OnClick="ButtonAdd_Click" />
@@ -1220,8 +1244,8 @@
                                                                                                                                                                 <td style="width: 14%;">
                                                                                                                                                                     <asp:TextBox ID="txtFreight" Style="text-align: right" runat="server" AutoPostBack="True" BorderWidth="1px" OnTextChanged="txtLU_TextChanged" SkinID="skinTxtBox" TabIndex="6" Text="0" ValidationGroup="product" Width="200px"></asp:TextBox>
                                                                                                                                                                     <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender6" runat="server" Enabled="True" FilterType="Custom, Numbers" TargetControlID="txtFreight" ValidChars="." />
-                                                                                                                                                                </td>     
-                                                                                                                                                                     <td style="width: 6%;"></td>
+                                                                                                                                                                </td>
+                                                                                                                                                                    <td style="width: 6%;"></td>
                                                                                                                                                             </tr>
                                                                                                                                                             <tr>
                                                                                                                                                                 <td></td>
@@ -1232,20 +1256,18 @@
                                                                                                                                                                     <asp:TextBox ID="txtLU" Style="text-align: right" runat="server" AutoPostBack="True" BorderWidth="1px" OnTextChanged="txtLU_TextChanged" SkinID="skinTxtBox" TabIndex="7" Text="0" ValidationGroup="product" Width="200px"></asp:TextBox>
                                                                                                                                                                     <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender7" runat="server" Enabled="True" FilterType="Custom, Numbers" TargetControlID="txtLU" ValidChars="." />
                                                                                                                                                                 </td>
-                                                                                                                                                                   <td style="width: 6%;"></td>
-                                                                                                                                                                
+                                                                                                                                                                    <td style="width: 6%;"></td>
                                                                                                                                                             </tr>
                                                                                                                                                             <tr>
                                                                                                                                                                 <td></td>
                                                                                                                                                                 <td style="width: 40%;"></td>
-                                                                                                                                                                <td style="width:15%"></td>
+                                                                                                                                                                <td style="width: 15%"></td>
                                                                                                                                                                 <td style="width: 25%;" class="ControlLabelproject">Grand Total(INR)   
                                                                                                                                                                 <td style="width: 14%;">
                                                                                                                                                                     <asp:TextBox ID="lblNet" Style="text-align: right" runat="server" AutoPostBack="True" SkinID="skinTxtBox" TabIndex="7" Text="0" Width="200px"></asp:TextBox>
                                                                                                                                                                     <%--  <asp:Label ID="lblNet" Style="text-align: right" runat="server" CssClass="ControlLabelproject" Text="0"></asp:Label>--%>
                                                                                                                                                                 </td>
-                                                                                                                                                                     <td style="width: 6%;"></td>
-                                                                                                                                                               
+                                                                                                                                                                    <td style="width: 6%;"></td>
                                                                                                                                                             </tr>
                                                                                                                                                         </table>
                                                                                                                                                     </asp:Panel>
@@ -1712,6 +1734,7 @@
                         <asp:HiddenField ID="hdSMS" runat="server" Value="NO" />
                         <asp:HiddenField ID="hdSMSRequired" runat="server" Value="NO" />
                         <asp:HiddenField ID="hdEmailRequired" runat="server" Value="NO" />
+                        <asp:HiddenField ID="HiddenField1" Value="true" runat="server" /> 
                         <asp:Button ID="cmdDelete" runat="server" Enabled="false" Visible="false" SkinID="skinBtnDelete"
                             Text="Delete" ValidationGroup="salesval" />
                         <cc1:ConfirmButtonExtender ID="CnrfmDel" TargetControlID="cmdDelete" ConfirmText="Are you sure you want to Delete this Sales?"
