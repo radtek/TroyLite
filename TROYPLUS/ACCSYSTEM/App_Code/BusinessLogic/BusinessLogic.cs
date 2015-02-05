@@ -66392,6 +66392,7 @@ public class BusinessLogic
                 //manager.ExecuteNonQuery(CommandType.Text, description);
             }
 
+            int paymodeno = 0;
             int TransNo = 0;
             if (ds != null)
             {
@@ -66410,7 +66411,18 @@ public class BusinessLogic
 
                         manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
-
+                        if (Convert.ToString(dr["Paymode"]) == "Cash")
+                        {
+                            paymodeno = 1;
+                        }
+                        else if (Convert.ToString(dr["Paymode"]) == "Cheque")
+                        {
+                            paymodeno = 2;
+                        }
+                        else if (Convert.ToString(dr["Paymode"]) == "Card")
+                        {
+                            paymodeno = 3;
+                        }
 
                         if (dsBillNos != null)
                         {
@@ -66430,10 +66442,15 @@ public class BusinessLogic
                                     //double amount = 0;
                                     //if (Convert.ToDouble(dr["Amount"]) >= Convert.ToDouble(drd["Amount"]))
                                     //{
-                                        
 
-                                        dbQry = string.Format("INSERT INTO tblReceivedAmount(ReceiptNo,BillNo,Amount) VALUES({0},{1},{2})", TransNo.ToString(), drd["BillNo"].ToString(), Convert.ToDouble(dr["Amount"]));
-                                        manager.ExecuteNonQuery(CommandType.Text, dbQry);
+                                    if (paymodeno == Convert.ToInt32(drd["Type"]))
+                                    {
+                                        if (Convert.ToDouble(drd["Amount"]) != 0)
+                                        {
+                                            dbQry = string.Format("INSERT INTO tblReceivedAmount(ReceiptNo,BillNo,Amount) VALUES({0},{1},{2})", TransNo.ToString(), drd["BillNo"].ToString(), Convert.ToDouble(drd["Amount"]));
+                                            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+                                        }
+                                    }
 
                                     //    amount = Convert.ToDouble(dr["Amount"]) - Convert.ToDouble(drd["Amount"]);
 
