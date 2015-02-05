@@ -18493,22 +18493,24 @@ public class BusinessLogic
 
             if ((name != null) && (name != ""))
             {
-                dbQry.Append("SELECT FormulaName ,(Select count(*) from tblFormula where A.FormulaID>=FormulaID) as Row ");
-                dbQry.Append("  from tblFormula as A ");
+               // dbQry.Append("SELECT FormulaName ,(Select count(*) from tblFormula where A.FormulaID>=FormulaID) as Row ");
+                //dbQry.Append("  from tblFormula as A ");
+                dbQry.Append("SELECT FormulaName");
+                dbQry.Append(" FROM tblFormula");
                 dbQry.Append(" Where FormulaName like %" + name + "%");
-               // dbQry.Append(" Group By A.FormulaID ");
+                dbQry.Append(" Group By FormulaName ");
             }
             else
             {
-                dbQry.Append("SELECT FormulaName ,(Select count(*) from tblFormula where A.FormulaID>=FormulaID) as Row ");
-                dbQry.Append("  from tblFormula as A ");
-               // dbQry.Append(" Group By A.FormulaID ");
-                //dbQry.Append("SELECT FormulaName");
-                //dbQry.Append(" FROM tblFormula");
-                //dbQry.Append(" Group By FormulaName ");
+                //dbQry.Append("SELECT FormulaName ,(Select count(*) from tblFormula where A.FormulaID>=FormulaID) as Row ");
+                //dbQry.Append("  from tblFormula as A ");
+                //dbQry.Append(" Group By A.FormulaName ");
+                dbQry.Append("SELECT FormulaName");
+                dbQry.Append(" FROM tblFormula");
+                dbQry.Append(" Group By FormulaName ");
             }
 
-            dbQry.Append(" ORDER BY A.FormulaID Asc");
+            //dbQry.Append(" ORDER BY FormulaID Asc ");
 
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
 
@@ -18735,6 +18737,7 @@ public class BusinessLogic
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
         string dbQry = string.Empty;
+       // DataRow dr = new DataRow();
 
         try
         {
@@ -18747,7 +18750,7 @@ public class BusinessLogic
                 {
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        dbQry = string.Format("Insert Into tblFormula(FormulaName,ItemCode,Qty,InOut,Unit_Of_Measure) Values('{0}','{1}',{2},'{3}','{4}')", FormulaName, dr["ItemCode"].ToString(), Convert.ToDouble(dr["Qty"].ToString()), dr["InOut"].ToString(), dr["Unit_Of_Measure"].ToString());
+                    dbQry = string.Format("Insert Into tblFormula(FormulaName,ItemCode,Qty,InOut,Unit_Of_Measure) Values('{0}','{1}',{2},'{3}','{4}')", FormulaName, dr["ItemCode"].ToString(), Convert.ToDouble(dr["Qty"].ToString()), dr["InOut"].ToString(), dr["Unit_Of_Measure"].ToString());
                         manager.ExecuteNonQuery(CommandType.Text, dbQry);
                     }
                 }
@@ -18810,10 +18813,15 @@ public class BusinessLogic
             {
                 if (ds.Tables.Count > 0)
                 {
+
+                    dbQry = string.Format("Delete from tblFormula Where FormulaName = '"+ FormulaName +"' ");
+                    manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
+                        dbQry = string.Format("Insert Into tblFormula(FormulaName,ItemCode,Qty,InOut,Unit_Of_Measure) Values('{0}','{1}',{2},'{3}','{4}')", FormulaName, dr["ItemCode"].ToString(), Convert.ToDouble(dr["Qty"].ToString()), dr["InOut"].ToString(), dr["Unit_Of_Measure"].ToString());
                         //dbQry = string.Format("Insert Into tblFormula(FormulaName,ItemCode,Qty,InOut) Values('{0}','{1}',{2},'{3}')", FormulaName, dr["ItemCode"].ToString(), Convert.ToInt32(dr["Qty"].ToString()), dr["InOut"].ToString());
-                        dbQry = string.Format("Update tblFormula Set FormulaName='{0}', ItemCode='{1}', Qty={2}, InOut='{3}',Unit_Of_Measure='{4}' Where FormulaID={5}", FormulaName, dr["ItemCode"].ToString(), Convert.ToInt32(dr["Qty"].ToString()), dr["InOut"].ToString(),dr["Unit_Of_Measure"].ToString(), dr["FormulaID"].ToString());
+                       // dbQry = string.Format("Update tblFormula Set FormulaName='{0}', ItemCode='{1}', Qty={2}, InOut='{3}',Unit_Of_Measure='{4}' Where FormulaID={5}", FormulaName, dr["ItemCode"].ToString(), Convert.ToInt32(dr["Qty"].ToString()), dr["InOut"].ToString(),dr["Unit_Of_Measure"].ToString(), dr["FormulaID"].ToString());
                         manager.ExecuteNonQuery(CommandType.Text, dbQry);
                     }
                 }

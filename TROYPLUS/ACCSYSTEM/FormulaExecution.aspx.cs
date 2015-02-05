@@ -623,8 +623,8 @@ public partial class FormulaExecution : System.Web.UI.Page
                             if (double.Parse(StockLimit) < double.Parse(txtStock.Text))
                             {
                                 transaction.Rollback();
-                                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Stock you entered is more than the Product Quantity Limit. Product ItemCode is "+ itemCode +"');", true);
-                                Error.Text = "Stock you entered is more than the Product Quantity Limit. Product ItemCode is " + itemCode + "";
+                                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Stock you entered is more than the Product Quantity Limit. Product ItemCode is "+ itemCode +"');", true);
+                              ///  Error.Text = "Stock you entered is more than the Product Quantity Limit. Product ItemCode is " + itemCode + "";
                                 return;
                             }
 

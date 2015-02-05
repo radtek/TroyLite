@@ -312,15 +312,18 @@
                                                                                             OnDataBound="grdIn_DataBound" OnRowDataBound="grdIn_RowDataBound">
                                                                                             <EmptyDataRowStyle Font-Bold="False" />
 
-                                                                                                <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="15px" />
-                                                                                               <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="15px" ForeColor="#0567AE" />
+                                                                                                <HeaderStyle Height="30px" Width="20%"  HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="15px" />
+                                                                                               <RowStyle Font-Bold="true"  HorizontalAlign="Center" Height="30px" Font-Size="15px" ForeColor="#0567AE" />
 
                                                                                             <Columns>
-                                                                                                <asp:BoundField HeaderText="Item Code" ReadOnly="True" DataField="itemCode" HeaderStyle-BorderColor="Gray" />
-                                                                                                <asp:BoundField HeaderText="Description" ReadOnly="True" DataField="ProductDesc" HeaderStyle-BorderColor="Gray" />
-                                                                                                <asp:BoundField HeaderText="Name" ReadOnly="True" DataField="ProductName" HeaderStyle-BorderColor="Gray" />
+                                                                                                <asp:BoundField HeaderText="Component ID" ReadOnly="True" DataField="itemCode" HeaderStyle-Width="20%" HeaderStyle-BorderColor="Gray" />
+                                                                                               
+                                                                                                <asp:BoundField HeaderText="Description" ReadOnly="True" HeaderStyle-Width="20%" DataField="ProductDesc" HeaderStyle-BorderColor="Gray" />
+                                                                                              
+                                                                                                <asp:BoundField HeaderText="Component Name" ReadOnly="True" HeaderStyle-Width="20%" DataField="ProductName" HeaderStyle-BorderColor="Gray" />
+                                                                                             
                                                                                                 <asp:TemplateField HeaderText="Qty." HeaderStyle-BorderColor="Gray">
-                                                                                                    <ItemStyle Width="25%" />
+                                                                                                    <ItemStyle Width="20%" />
                                                                                                     <ItemTemplate>
                                                                                                         <br />
                                                                                                         <asp:TextBox ID="txtQty" runat="server" Text='<%# Bind("Qty") %>' CssClass="cssTextBox"
@@ -332,7 +335,7 @@
                                                                                                         <br />
                                                                                                     </ItemTemplate>
                                                                                                 </asp:TemplateField>
-                                                                                                <asp:BoundField HeaderText="Stock Limit" ReadOnly="True" DataField="Stock" HeaderStyle-BorderColor="Gray" />
+                                                                                                <asp:BoundField HeaderText="Stock Limit" HeaderStyle-Width="20%" ReadOnly="True" DataField="Stock" HeaderStyle-BorderColor="Gray" />
                                                                                             </Columns>
                                                                                             <PagerTemplate>
                                                                                                 <table style="border-color: white">
@@ -381,15 +384,18 @@
                                                                                                <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="15px" ForeColor="#0567AE" />
 
                                                                                             <Columns>
-                                                                                                <asp:BoundField HeaderText="Item Code" ReadOnly="True" DataField="itemCode" HeaderStyle-BorderColor="Gray" />
-                                                                                                <asp:BoundField HeaderText="Description" ReadOnly="True" DataField="ProductDesc" HeaderStyle-BorderColor="Gray" />
-                                                                                                <asp:BoundField HeaderText="Name" ReadOnly="True" DataField="ProductName" HeaderStyle-BorderColor="Gray" />
-                                                                                                <asp:TemplateField HeaderText="Qty." HeaderStyle-BorderColor="Gray">
-                                                                                                    <ItemStyle Width="25%" />
+                                                                                                
+                                                                                                <asp:BoundField HeaderText="Component ID" HeaderStyle-Width="20%" ReadOnly="True" DataField="itemCode" HeaderStyle-BorderColor="Gray" />
+                                                                                                <asp:BoundField HeaderText="Description" HeaderStyle-Width="20%" ReadOnly="True" DataField="ProductDesc" HeaderStyle-BorderColor="Gray" />
+                                                                                                <asp:BoundField HeaderText="Component Name" ReadOnly="True" HeaderStyle-Width="20%" DataField="ProductName" HeaderStyle-BorderColor="Gray" />
+                                                                                               
+                                                                                                <asp:TemplateField HeaderText="Qty." HeaderStyle-Width="20%" HeaderStyle-BorderColor="Gray">
+                                                                                                    
+                                                                                                    <ItemStyle Width="20%" />
                                                                                                     <ItemTemplate>
                                                                                                         <br />
                                                                                                         <asp:TextBox ID="txtQty" runat="server" Text='<%# Bind("Qty") %>' CssClass="cssTextBox"
-                                                                                                            Width="40px"></asp:TextBox>
+                                                                                                            Width="50px"></asp:TextBox>
                                                                                                         <asp:HiddenField ID="hdStockLimlt" runat="Server" Value='<%# Bind("Stock") %>' />
                                                                                                         <asp:RequiredFieldValidator ValidationGroup="FormulaInfo" ID="rqQty" runat="server"
                                                                                                             Display="Dynamic" ControlToValidate="txtQty" ErrorMessage="*"></asp:RequiredFieldValidator>
@@ -399,6 +405,7 @@
                                                                                                             ID="cmpValtxtDate"></asp:CompareValidator>
                                                                                                     </ItemTemplate>
                                                                                                 </asp:TemplateField>
+                                                                                                  <asp:BoundField HeaderText="  " ReadOnly="True" HeaderStyle-Width="20%" HeaderStyle-BorderColor="Gray" />
                                                                                             </Columns>
                                                                                             <PagerTemplate>
                                                                                                 <table style="border-color: white">

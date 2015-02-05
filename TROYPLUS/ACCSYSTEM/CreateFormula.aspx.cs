@@ -109,14 +109,51 @@ public partial class CreateFormula : System.Web.UI.Page
         //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
         BusinessLogic bl = new BusinessLogic(sDataSource);
 
-        ds = bl.GetFormulaForName(strFormName);
+        DataSet dstt = bl.GetFormulaForName(strFormName);
 
 
-        if (ds != null)
+        if (dstt != null)
         {
-            if (ds.Tables[0].Rows.Count > 0)
+            DataTable dttt;
+            DataRow drNew;
+            DataColumn dct;
+            DataSet dstd = new DataSet();
+            dttt = new DataTable();
+
+
+
+            dct = new DataColumn("Row");
+            dttt.Columns.Add(dct);
+
+            dct = new DataColumn("FormulaName");
+            dttt.Columns.Add(dct);
+
+            dstd.Tables.Add(dttt);
+
+            int sno = 1;
+
+            if (dstt != null)
             {
-                GridViewFormula.DataSource = ds.Tables[0].DefaultView;
+                if (dstt.Tables[0].Rows.Count > 0)
+                {
+                    for (int i = 0; i < dstt.Tables[0].Rows.Count; i++)
+                    {
+                        drNew = dttt.NewRow();
+                        drNew["Row"] = sno;
+                        drNew["FormulaName"] = Convert.ToString(dstt.Tables[0].Rows[i]["FormulaName"]);
+                        dstd.Tables[0].Rows.Add(drNew);
+                        //if (ds.Tables[0].Rows.Count > 0)
+                        //{
+                        //    drNew = dttt.NewRow();
+                        //    drNew["Row"] = sno;
+                        sno = sno + 1;
+                        //}
+                    }
+                }
+
+
+
+                GridViewFormula.DataSource = dstd.Tables[0].DefaultView;
                 GridViewFormula.DataBind();
                 PanelBill.Visible = true;
             }
@@ -140,9 +177,9 @@ public partial class CreateFormula : System.Web.UI.Page
 
             DataSet ds = new DataSet();
             BusinessLogic bl = new BusinessLogic(sDataSource);
-            
+
             ds = bl.CreateFormulaSearch(seach);
-            
+
             if (ds != null)
             {
                 if (ds.Tables[0].Rows.Count > 0)
@@ -157,7 +194,7 @@ public partial class CreateFormula : System.Web.UI.Page
                 GridViewFormula.DataSource = null;
                 GridViewFormula.DataBind();
                 PanelBill.Visible = true;
-                
+
             }
 
 
@@ -204,16 +241,17 @@ public partial class CreateFormula : System.Web.UI.Page
     {
         try
         {
-           
+
             string formulaName = txtFormulaName.Text.Trim().ToUpper();
             string ItemCode = cmbProdAdd.SelectedValue.Trim();
             string Qty = txtQtyAdd.Text;
             string inOut = ddType.SelectedValue;
             string unit = ddUnit.SelectedValue;
-            
+
             BindItemsGrid();
             ModalPopupExtender1.Show();
             DataSet ds = (DataSet)GrdViewItems.DataSource;
+            // DataSet ds = new DataSet();
             DataRow dr;
             DataColumn dc;
 
@@ -239,6 +277,8 @@ public partial class CreateFormula : System.Web.UI.Page
                 dc = new DataColumn("Unit_Of_Measure");
                 dt.Columns.Add(dc);
 
+
+
                 drNew["FormulaId"] = hdTempId.Value;
                 drNew["ProductDesc"] = lblProdDescAdd.Text;
                 drNew["ProductName"] = lblProdNameAdd.Text;
@@ -247,8 +287,11 @@ public partial class CreateFormula : System.Web.UI.Page
                 drNew["Qty"] = Qty;
                 drNew["InOut"] = inOut;
                 drNew["Unit_Of_Measure"] = unit;
+                //if (dc["Row"] != null)
+                //    dc["Row"] = co;// dr["Row"].ToString();
 
-             
+
+
                 ds.Tables.Add(dt);
                 ds.Tables[0].Rows.Add(drNew);
                 //ds.WriteXml(Server.MapPath("Reports\\" + hdFilename.Value + "_Formula.xml"));
@@ -279,13 +322,13 @@ public partial class CreateFormula : System.Web.UI.Page
                 dr["Unit_Of_Measure"] = ddUnit.SelectedValue;
 
                 ds.Tables[0].Rows.Add(dr);
-               
+
                 //ds.WriteXml(Server.MapPath("Reports\\" + hdFilename.Value + "_template.xml"));
                 Session["TemplateItems"] = ds;
 
                 BindItemsGrid();
                 ResetProduct();
-              
+
 
             }
 
@@ -437,7 +480,7 @@ public partial class CreateFormula : System.Web.UI.Page
         {
             if (Page.IsValid)
             {
-                
+
 
                 if (GrdViewItems.EditIndex != -1)
                 {
@@ -506,7 +549,7 @@ public partial class CreateFormula : System.Web.UI.Page
                     //MyAccordion.Visible = true;
                     UpdatePanelFormula.Update();
                     ModalPopupExtender1.Hide();
-                   
+
                     UpdatePanel16.Update();
                     //tabContol.Visible = false;
                 }
@@ -716,7 +759,7 @@ public partial class CreateFormula : System.Web.UI.Page
     }
     protected void GrdViewItems_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        
+
         //if (hdMode.Value == "Edit")
         //{
         //    GrdViewItems.Columns[6].Visible = false;
@@ -857,7 +900,7 @@ public partial class CreateFormula : System.Web.UI.Page
             hdMode.Value = "Edit";
             hdFormula.Value = formName;
             formXml();
-            
+
             BindItemsGrid();
             cmdSaveProduct.Visible = false;
             GrdViewItems.Columns[6].Visible = true;
@@ -938,7 +981,7 @@ public partial class CreateFormula : System.Web.UI.Page
         lblProdDescAdd.Text = "";
 
         txtQtyAdd.Text = "";
-        ddUnit.SelectedValue = "";
+        // ddUnit.SelectedValue = "";
 
         foreach (Control control in cmbProdAdd.Controls)
         {
@@ -1057,7 +1100,7 @@ public partial class CreateFormula : System.Web.UI.Page
     //private void loadEmp()
     //{
     //    BusinessLogic bl = new BusinessLogic(sDataSource);
-        
+
 
 
     //    string connection = Request.Cookies["Company"].Value;
