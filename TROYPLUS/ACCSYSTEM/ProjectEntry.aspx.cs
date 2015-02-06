@@ -40,16 +40,17 @@ public partial class ProjectEntry : System.Web.UI.Page
                 string connection = Request.Cookies["Company"].Value;
                 string usernam = Request.Cookies["LoggedUserName"].Value;
 
-                //if (bl.CheckUserHaveAdd(usernam, "WMENTRY"))
-                //{
-                //    lnkBtnAdd.Enabled = false;
-                //    lnkBtnAdd.ToolTip = "You are not allowed to make Add New ";
-                //}
-                //else
-                //{
-                //    lnkBtnAdd.Enabled = true;
-                //    lnkBtnAdd.ToolTip = "Click to Add New item ";
-                //}
+                if (bl.CheckUserHaveAdd(usernam, "Project"))
+                {
+                    lnkBtnAdd.Enabled = false;
+                    lnkBtnAdd.ToolTip = "You are not allowed to make Add New ";
+
+                }
+                else
+                {
+                    lnkBtnAdd.Enabled = true;
+                    lnkBtnAdd.ToolTip = "Click to Add New item ";
+                }
 
 
             }
@@ -486,6 +487,23 @@ public partial class ProjectEntry : System.Web.UI.Page
                     ((ImageButton)e.Row.FindControl("btnEdit")).Visible = false;
                     ((ImageButton)e.Row.FindControl("btnEditDisabled")).Visible = true;
                 }
+           
+                //BusinessLogic bl = new BusinessLogic(sDataSource);
+                string connection = Request.Cookies["Company"].Value;
+                string usernam = Request.Cookies["LoggedUserName"].Value;
+
+                if (bl.CheckUserHaveEdit(usernam, "Project"))
+                {
+                    ((ImageButton)e.Row.FindControl("btnEdit")).Visible = false;
+                    ((ImageButton)e.Row.FindControl("btnEditDisabled")).Visible = true;
+                }
+
+                if (bl.CheckUserHaveDelete(usernam, "Project"))
+                {
+                    ((ImageButton)e.Row.FindControl("lnkB")).Visible = false;
+                    ((ImageButton)e.Row.FindControl("lnkBDisabled")).Visible = true;
+                }
+               
             }
         }
 

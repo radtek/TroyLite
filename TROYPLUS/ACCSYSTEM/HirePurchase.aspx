@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true" CodeFile="HirePurchase.aspx.cs" Inherits="HirePurchase" EnableEventValidation="false" %>
+﻿<%@ Page Title="Sales > HirePurchase" Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true" CodeFile="HirePurchase.aspx.cs" Inherits="HirePurchase" EnableEventValidation="false" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="RealWorld.Grids" Namespace="RealWorld.Grids" TagPrefix="rwg" %>
@@ -1052,6 +1052,8 @@
                                             OnSelectedIndexChanged="GrdViewLead_SelectedIndexChanged" OnRowDeleting="GrdViewLead_RowDeleting"
                                             OnRowDeleted="GrdViewLead_RowDeleted" CssClass="someClass">
                                             <EmptyDataRowStyle CssClass="GrdContent" />
+                                             <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                                <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                             <Columns>
                                                 <asp:BoundField DataField="SlNo" HeaderText="SlNo" HeaderStyle-BorderColor="Gray" />
                                                 <asp:BoundField DataField="BranchRefNo" HeaderText="Ref No" HeaderStyle-BorderColor="Gray" />

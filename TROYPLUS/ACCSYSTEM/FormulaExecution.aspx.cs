@@ -318,7 +318,7 @@ public partial class FormulaExecution : System.Web.UI.Page
 
                         transaction.Commit();
                         BindProductsGrid(txtStartDate.Text, txtEndDate.Text, rdoIsPros.Checked);
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Stock Released Successfully');", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product Released Successfully');", true);
 
                     }
                     catch (Exception ex)
@@ -520,7 +520,7 @@ public partial class FormulaExecution : System.Web.UI.Page
 
                         transaction.Commit();
                         //BindProductsGrid(string.Empty);
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Stock Released Successfully');", true);
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product Released Successfully');", true);
 
                     }
                     catch (Exception ex)
@@ -623,7 +623,7 @@ public partial class FormulaExecution : System.Web.UI.Page
                             if (double.Parse(StockLimit) < double.Parse(txtStock.Text))
                             {
                                 transaction.Rollback();
-                                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Stock you entered is more than the Product Quantity Limit. Product ItemCode is "+ itemCode +"');", true);
+                                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Quantity you entered is more than the Product Quantity Limit.For Product ItemCode is "+ itemCode +"');", true);
                               ///  Error.Text = "Stock you entered is more than the Product Quantity Limit. Product ItemCode is " + itemCode + "";
                                 return;
                             }
@@ -680,9 +680,9 @@ public partial class FormulaExecution : System.Web.UI.Page
                         ModalPopupExtender1.Hide();
 
                         if (stockHold == "N")
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Stock Processed Successfully. However the stock is not Released.');", true);
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product Processed Successfully. However the Product is not Released.');", true);
                         else
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Stock Processed and Released Successfully');", true);
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product Processed and Released Successfully');", true);
 
                     }
                     catch (Exception ex)
@@ -760,7 +760,7 @@ public partial class FormulaExecution : System.Web.UI.Page
                             if (double.Parse(StockLimit) < double.Parse(txtStock.Text))
                             {
                                 transaction.Rollback();
-                                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Stock you entered is more than the Limit for ItemCode : " + itemCode + "');", true);
+                                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Quantity you entered is more than the Limit for ItemCode : " + itemCode + "');", true);
                                 return;
                             }
 

@@ -124,10 +124,7 @@
                                     </td>
                                     <td style="width: 12%">
                                         <div style="text-align: right;">
-                                            <asp:Panel ID="pnlSearch" runat="server" Width="100px">
-                                                <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
-                                                    EnableTheming="false" Width="80px" Text=""></asp:Button>
-                                            </asp:Panel>
+                                          
                                         </div>
                                     </td>
                                     <td style="width: 13%; color: White;" align="right">Search
@@ -194,21 +191,21 @@
                                                                     <asp:TextBox ID="txtLdgrName" TabIndex="1" runat="server" Text='<%# Bind("LedgerName") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                 </td>
-                                                                <td style="width:7%"></td>
-                                                                 <td class="ControlLabel" style="width: 13%">Address 3
+                                                                <td style="width: 7%"></td>
+                                                                <td class="ControlLabel" style="width: 13%">Address 3
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width: 26%">
                                                                     <asp:TextBox ID="txtAdd3" TabIndex="9" runat="server" Text='<%# Bind("Add3") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                 </td>
 
-                                                               
+
                                                                 <td style="width: 8%"></td>
                                                             </tr>
                                                             <tr style="height: 3px">
                                                             </tr>
                                                             <tr>
-                                                                 <td class="ControlLabel" style="width: 20%">Alias Name
+                                                                <td class="ControlLabel" style="width: 20%">Alias Name
                                                                     <%--<asp:RequiredFieldValidator ID="rvAliasName" runat="server" ControlToValidate="txtAliasName"
                                                                         Display="Dynamic" EnableClientScript="True" ErrorMessage="Alias is mandatory">*</asp:RequiredFieldValidator>--%>
                                                                 </td>
@@ -216,8 +213,8 @@
                                                                     <asp:TextBox ID="txtAliasName" TabIndex="2" runat="server" Text='<%# Bind("AliasName") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                 </td>
-                                                                <td style="width:7%"></td>
-                                                                 <td class="ControlLabel" style="width: 13%">Mode of Contact *
+                                                                <td style="width: 7%"></td>
+                                                                <td class="ControlLabel" style="width: 13%">Mode of Contact *
                                                                     <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="drpModeofContact"
                                                                         Text="*" Display="Dynamic" EnableClientScript="True" ErrorMessage="Mode of Contact is mandatory"
                                                                         Operator="GreaterThan" ValueToCompare="0" />
@@ -231,14 +228,14 @@
                                                                         <asp:ListItem Text="Paper" Value="3"></asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </td>
-                                                              
-                                                              
+
+
                                                                 <td style="width: 8%"></td>
                                                             </tr>
                                                             <tr style="height: 3px">
                                                             </tr>
                                                             <tr>
-                                                                  <td class="ControlLabel" style="width: 20%">Opening Balance *
+                                                                <td class="ControlLabel" style="width: 20%">Opening Balance *
                                                                     <asp:CompareValidator ID="cvOpenBal" runat="server" ControlToValidate="txtOpenBal"
                                                                         Display="Dynamic" EnableClientScript="True" ErrorMessage="Open Balance should be numeric value"
                                                                         Operator="DataTypeCheck" Type="Double">*</asp:CompareValidator>
@@ -254,8 +251,8 @@
                                                                         <asp:ListItem Text="DR" Value="DR"></asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </td>
-                                                                <td style="width:7%"></td>
-                                                             
+                                                                <td style="width: 7%"></td>
+
                                                                 <td class="ControlLabel" style="width: 13%">Phone No.
                                                                     <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender5" runat="server" FilterType="Custom, Numbers"
                                                                         TargetControlID="txtPhone" ValidChars="+" />
@@ -269,54 +266,54 @@
                                                             <tr style="height: 3px">
                                                             </tr>
                                                             <tr>
-                                                                 <td class="ControlLabel" style="width: 20%">OB DueDate</td>
-                                                                <td class="ControlTextBox3" style="width:26%">
-                                                                    <asp:TextBox ID="txtdueDate" Enabled="false" MaxLength="10"    TabIndex="5" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
+                                                                <td class="ControlLabel" style="width: 20%">OB DueDate</td>
+                                                                <td class="ControlTextBox3" style="width: 26%">
+                                                                    <asp:TextBox ID="txtdueDate" Enabled="false" MaxLength="10" TabIndex="5" Width="150%" BackColor="#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
-                                                                    <cc1:CalendarExtender ID="calBillDate"  runat="server" Enabled="True" Format="dd/MM/yyyy" PopupButtonID="btnBillDate" TargetControlID="txtdueDate">
-                                                                                </cc1:CalendarExtender>
+                                                                    <cc1:CalendarExtender ID="calBillDate" runat="server" Enabled="True" Format="dd/MM/yyyy" PopupButtonID="btnBillDate" TargetControlID="txtdueDate">
+                                                                    </cc1:CalendarExtender>
                                                                 </td>
                                                                 <td style="width: 7%;" align="left">
-                                                                       <asp:ImageButton ID="btnBillDate" runat="server" CausesValidation="False" ImageUrl="App_Themes/NewTheme/images/cal.gif" Width="20px" />
+                                                                    <asp:ImageButton ID="btnBillDate" runat="server" CausesValidation="False" ImageUrl="App_Themes/NewTheme/images/cal.gif" Width="20px" />
                                                                 </td>
-                                                                 <td class="ControlLabel" style="width: 13%">Mobile
+                                                                <td class="ControlLabel" style="width: 13%">Mobile
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width: 26%">
                                                                     <asp:TextBox ID="txtMobile" MaxLength="12" TabIndex="12" runat="server" Text='<%# Bind("Mobile") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                 </td>
-                                                               
-                                                               
-                                                                <td style="width:8%"></td>
+
+
+                                                                <td style="width: 8%"></td>
                                                             </tr>
                                                             <tr style="height: 3px">
                                                             </tr>
                                                             <tr>
-                                                                 <td class="ControlLabel" style="width: 20%">Address 1
+                                                                <td class="ControlLabel" style="width: 20%">Address 1
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width: 26%">
                                                                     <asp:TextBox ID="txtAdd1" TabIndex="7" runat="server" Text='<%# Bind("Add1") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                 </td>
-                                                                <td style="width:7%"></td>
+                                                                <td style="width: 7%"></td>
                                                                 <td class="ControlLabel" style="width: 13%">Email Id
                                                                 </td>
                                                                 <td style="width: 26%" class="ControlTextBox3">
                                                                     <asp:TextBox ID="txtEmailId" TabIndex="13" runat="server" Text='<%# Bind("EmailId") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                 </td>
-                                                               <td style="width:8%"></td>
+                                                                <td style="width: 8%"></td>
                                                             </tr>
                                                             <tr style="height: 3px">
                                                             </tr>
                                                             <tr>
-                                                                   <td class="ControlLabel" style="width: 20%">Address 2
+                                                                <td class="ControlLabel" style="width: 20%">Address 2
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width: 26%">
                                                                     <asp:TextBox ID="txtAdd2" TabIndex="8" runat="server" Text='<%# Bind("Add2") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                 </td>
-                                                                <td style="width:7%"></td>
+                                                                <td style="width: 7%"></td>
                                                                 <td class="ControlLabel" style="width: 13%">Is Active
                                                                 </td>
                                                                 <td class="ControlDrpBorder" style="width: 26%">
@@ -326,8 +323,8 @@
                                                                         <asp:ListItem Text="YES" Value="YES"></asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </td>
-                                                                <td style="width:8%"></td>
-                                                               
+                                                                <td style="width: 8%"></td>
+
                                                             </tr>
                                                             <tr style="height: 5px">
                                                                 <td style="width: 20%"></td>
@@ -335,22 +332,22 @@
                                                                     <asp:TextBox ID="txtContName" runat="server" Text='<%# Bind("ContactName") %>'
                                                                         SkinID="skinTxtBoxGrid" TabIndex="3" Visible="False"></asp:TextBox>
                                                                 </td>
-                                                                 <td style="width:7%"></td>
+                                                                <td style="width: 7%"></td>
                                                                 <td style="width: 13%">
 
                                                                     <%--<asp:CompareValidator ID="cvLedger" runat="server" ControlToValidate="drpLedgerCat"
                                                                         Text="*" Display="Dynamic" EnableClientScript="True" ErrorMessage="Category is mandatory"
                                                                         Operator="GreaterThan" ValueToCompare="0" />--%>
                                                                 </td>
-                                                               
+
                                                                 <td style="width: 26%">
                                                                     <asp:DropDownList ID="drpLedgerCat" Width="99%" EnableTheming="false" TabIndex="10" Style="border: 1px solid #90c9fc" Height="26px" BackColor="#90c9fc" CssClass="drpDownListMedium"
                                                                         runat="server" OnDataBound="drpLedgerCatAdd_DataBound" Visible="False">
                                                                         <asp:ListItem Text="Select Category" Value="0"></asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </td>
-                                                               
-                                                                <td style="width:8%"></td>
+
+                                                                <td style="width: 8%"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 20%">
@@ -367,7 +364,7 @@
                                                                         <asp:ListItem Text="Select Executive" Value="0" Selected="True"></asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </td>
-                                                                <td style="width:7%"></td>
+                                                                <td style="width: 7%"></td>
                                                                 <td style="width: 13%">
                                                                     <asp:TextBox ID="txtChequeName" TabIndex="15" runat="server" Width="150%" BackColor="#90c9fc" Text='<%# Bind("ChequeName") %>'
                                                                         SkinID="skinTxtBoxGrid" Visible="False"></asp:TextBox>
@@ -376,7 +373,7 @@
                                                                     <asp:TextBox ID="txtTin" TabIndex="12" runat="server" Width="150%" BackColor="#90c9fc" Text='<%# Bind("TINnumber") %>'
                                                                         SkinID="skinTxtBoxGrid" Visible="False"></asp:TextBox>
                                                                 </td>
-                                                                <td style="width:8%"></td>
+                                                                <td style="width: 8%"></td>
                                                             </tr>
                                                             <tr style="height: 5px">
                                                                 <td>
@@ -393,16 +390,16 @@
                                                                         <asp:ListItem Text="YES" Value="YES"></asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </td>
-                                                                 <td style="width:7%"></td>
+                                                                <td style="width: 7%"></td>
                                                                 <td>
                                                                     <asp:DropDownList ID="ddAccGroup" DataSourceID="srcGroupInfo" Height="24px" CssClass="drpDownListMedium" BackColor="#90c9fc"
                                                                         runat="server" SelectedValue='<%# Bind("GroupID") %>' DataTextField="GroupName"
                                                                         DataValueField="GroupID" Width="98%" AppendDataBoundItems="True" Visible="False">
                                                                     </asp:DropDownList>
                                                                 </td>
-                                                               
-                                                                <td style="width:26%"></td>
-                                                                <td style="width:8%"></td>
+
+                                                                <td style="width: 26%"></td>
+                                                                <td style="width: 8%"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td colspan="4">
@@ -414,20 +411,20 @@
                                                                                     CssClass="Updatebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClientClick="Mobile_Validator();Check();"
                                                                                     OnClick="UpdateButton_Click"></asp:Button>
                                                                             </td>
-                                                                             <td style="width:7%"></td>
+                                                                            <td style="width: 7%"></td>
                                                                             <td align="right" style="width: 19%;">
                                                                                 <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
                                                                                     CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click"></asp:Button>
                                                                             </td>
                                                                             <td style="width: 29%;"></td>
-                                                                            
-                                                                             <td style="width:7%"></td>
+
+                                                                            <td style="width: 7%"></td>
                                                                         </tr>
                                                                     </table>
                                                                 </td>
                                                             </tr>
 
-                                                           <%-- <tr>
+                                                            <%-- <tr>
                                                                         <td colspan="4">
                                                                        <asp:UpdatePanel ID="UP" runat="server" UpdateMode="Conditional">
                                                                        <Triggers>
@@ -439,8 +436,6 @@
                                                                              </asp:UpdatePanel>
                                                                              </td>
                                                                            </tr>--%>
-
-
                                                         </table>
                                                     </div>
                                                     <table cellspacing="0">
@@ -460,12 +455,12 @@
                                                                 <td></td>
                                                                 <td></td>
                                                         </tr>
-                                                         
+
                                                     </table>
                                                 </EditItemTemplate>
                                                 <FooterTemplate>
                                                 </FooterTemplate>
-                                               <InsertItemTemplate>
+                                                <InsertItemTemplate>
                                                     <div class="divArea">
                                                         <table cellpadding="1" cellspacing="1" style="border: 1px solid #86b2d1; width: 100%;">
                                                             <tr>
@@ -483,14 +478,14 @@
                                                                     <asp:TextBox ID="txtLdgrNameAdd" TabIndex="1" runat="server" Height="26px" Text='<%# Bind("LedgerName") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                 </td>
-                                                                 <td style="width:7%"></td>
-                                                               <td class="ControlLabel" style="width: 13%">Address 3
+                                                                <td style="width: 7%"></td>
+                                                                <td class="ControlLabel" style="width: 13%">Address 3
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width: 26%">
                                                                     <asp:TextBox ID="txtAdd3Add" TabIndex="9" runat="server" Text='<%# Bind("Add3") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                 </td>
-                                                                <td style="width:8%"></td>
+                                                                <td style="width: 8%"></td>
                                                             </tr>
                                                             <tr style="height: 3px">
                                                             </tr>
@@ -503,9 +498,9 @@
                                                                     <asp:TextBox ID="txtAliasNameAdd" TabIndex="2" runat="server" Height="26px" Text='<%# Bind("AliasName") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                 </td>
-                                                                 <td style="width:7%"></td>
+                                                                <td style="width: 7%"></td>
 
-                                                                  <td class="ControlLabel" style="width: 13%">Mode of Contact *
+                                                                <td class="ControlLabel" style="width: 13%">Mode of Contact *
                                                                     <asp:CompareValidator ID="CompareValidator213" runat="server" ControlToValidate="drpModeofContactAdd"
                                                                         Text="*" Display="Dynamic" EnableClientScript="True" ErrorMessage="Mode of Contact is mandatory"
                                                                         Operator="GreaterThan" ValueToCompare="0" />
@@ -519,15 +514,15 @@
                                                                         <asp:ListItem Text="Paper" Value="3" Selected="True"></asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </td>
-                                                               
-                                                            
-                                                                 <td style="width:8%"></td>
+
+
+                                                                <td style="width: 8%"></td>
 
                                                             </tr>
                                                             <tr style="height: 3px">
                                                             </tr>
                                                             <tr>
-                                                                     <td class="ControlLabel" style="width: 20%">Opening Balance *
+                                                                <td class="ControlLabel" style="width: 20%">Opening Balance *
                                                                     <asp:CompareValidator ID="cvOpenBalAdd" runat="server" ControlToValidate="txtOpenBalAdd"
                                                                         Display="Dynamic" EnableClientScript="True" ErrorMessage="Open Balance should be numeric value"
                                                                         Operator="DataTypeCheck" Type="Double">*</asp:CompareValidator>
@@ -544,7 +539,7 @@
                                                                         <asp:ListItem Text="DR" Value="DR"></asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </td>
-                                                                <td style="width:7%"></td>
+                                                                <td style="width: 7%"></td>
                                                                 <td class="ControlLabel" style="width: 13%">Phone No.
                                                                     <cc1:FilteredTextBoxExtender ID="FTBoxE5Add" runat="server" FilterType="Custom,Numbers"
                                                                         TargetControlID="txtPhoneAdd" ValidChars="+" />
@@ -553,70 +548,70 @@
                                                                     <asp:TextBox ID="txtPhoneAdd" TabIndex="11" runat="server" Text='<%# Bind("Phone") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                 </td>
-                                                                 <td style="width:8%"></td>
+                                                                <td style="width: 8%"></td>
 
                                                             </tr>
                                                             <tr style="height: 3px">
                                                             </tr>
                                                             <tr>
-                                                                 <td class="ControlLabel" style="width: 20%">OB DueDate</td>
-                                                                <td class="ControlTextBox3" style="width:26%">
-                                                                    <asp:TextBox ID="txtdueDateadd" Enabled="false" MaxLength="10"  TabIndex="5" Width="150%" BackColor = "#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
+                                                                <td class="ControlLabel" style="width: 20%">OB DueDate</td>
+                                                                <td class="ControlTextBox3" style="width: 26%">
+                                                                    <asp:TextBox ID="txtdueDateadd" Enabled="false" MaxLength="10" TabIndex="5" Width="150%" BackColor="#e7e7e7" runat="server" Text='<%# Bind("OpDueDate") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                     <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True" Format="dd/MM/yyyy" PopupButtonID="btnBillDate1" TargetControlID="txtdueDateadd">
-                                                                                </cc1:CalendarExtender>
+                                                                    </cc1:CalendarExtender>
                                                                 </td>
-                                                                 
+
                                                                 <td style="width: 7%" align="left">
-                                                                       <asp:ImageButton ID="btnBillDate1" runat="server" CausesValidation="False" ImageUrl="App_Themes/NewTheme/images/cal.gif" Width="20px" />
-                                                                   
+                                                                    <asp:ImageButton ID="btnBillDate1" runat="server" CausesValidation="False" ImageUrl="App_Themes/NewTheme/images/cal.gif" Width="20px" />
+
                                                                 </td>
-                                                               
-                                                                 <td class="ControlLabel" style="width: 13%">Mobile
+
+                                                                <td class="ControlLabel" style="width: 13%">Mobile
                                                                 </td>
-                                                                 
+
                                                                 <td class="ControlTextBox3" style="width: 26%">
                                                                     <asp:TextBox ID="txtMobileAdd" MaxLength="10" TabIndex="12" runat="server" Text='<%# Bind("Mobile") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                 </td>
-                                                                  <td style="width:8%"></td>
+                                                                <td style="width: 8%"></td>
 
-                                                                         
+
                                                             </tr>
                                                             <tr style="height: 3px">
                                                             </tr>
                                                             <tr>
-                                                                  <td class="ControlLabel" style="width: 20%">Address 1
+                                                                <td class="ControlLabel" style="width: 20%">Address 1
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width: 26%">
                                                                     <asp:TextBox ID="txtAdd1Add" TabIndex="7" runat="server" Text='<%# Bind("Add1") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                 </td>
-                                                                 
-                                                                 <td style="width:7%"></td>
 
-                                                               
+                                                                <td style="width: 7%"></td>
+
+
                                                                 <td class="ControlLabel" style="width: 13%">Email Id
                                                                 </td>
-                                                              
+
                                                                 <td style="width: 26%" class="ControlTextBox3">
                                                                     <asp:TextBox ID="txtEmailIdAdd" MaxLength="10" TabIndex="13" Width="150%" BackColor="#e7e7e7" runat="server" Text='<%# Bind("EmailId") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                 </td>
-                                                                 <td style="width:8%"></td>
+                                                                <td style="width: 8%"></td>
 
                                                             </tr>
                                                             <tr style="height: 3px">
                                                             </tr>
                                                             <tr>
 
-                                                                  <td class="ControlLabel" style="width: 20%">Address 2
+                                                                <td class="ControlLabel" style="width: 20%">Address 2
                                                                 </td>
                                                                 <td class="ControlTextBox3" style="width: 26%">
                                                                     <asp:TextBox ID="txtAdd2Add" TabIndex="8" runat="server" Text='<%# Bind("Add2") %>'
                                                                         SkinID="skinTxtBoxGrid"></asp:TextBox>
                                                                 </td>
-                                                                <td style="width:7%"></td>
+                                                                <td style="width: 7%"></td>
                                                                 <td class="ControlLabel" style="width: 10%">Is Active
                                                                     
                                                                 </td>
@@ -627,17 +622,17 @@
                                                                         <asp:ListItem Text="YES" Value="YES" Selected="True"></asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </td>
-                                                                  <td style="width:8%"></td>
+                                                                <td style="width: 8%"></td>
 
-                                                                
+
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 20%"></td>
                                                                 <td style="width: 26%">
                                                                     <asp:TextBox ID="txtContNameAdd" runat="server" Text='<%# Bind("ContactName") %>'
-                                                                        SkinID="skinTxtBoxGrid"  Visible="False"></asp:TextBox>
+                                                                        SkinID="skinTxtBoxGrid" Visible="False"></asp:TextBox>
                                                                 </td>
-                                                                  <td style="width:7%"></td>
+                                                                <td style="width: 7%"></td>
                                                                 <td style="width: 13%">
                                                                     <%--<asp:CompareValidator ID="cvLedgerAdd" runat="server" ControlToValidate="drpLedgerCatAdd"
                                                                         Text="*" Display="Dynamic" EnableClientScript="True" ErrorMessage="Category is mandatory"
@@ -649,7 +644,7 @@
                                                                         <asp:ListItem Text="Select Category" Value="0"></asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </td>
-                                                                 <td style="width:8%"></td>
+                                                                <td style="width: 8%"></td>
                                                             </tr>
                                                             <tr style="height: 3px">
                                                             </tr>
@@ -668,7 +663,7 @@
                                                                         <asp:ListItem Text="Select Executive" Value="0" Selected="True"></asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </td>
-                                                                 <td style="width:7%"></td>
+                                                                <td style="width: 7%"></td>
                                                                 <td style="width: 13%">
                                                                     <asp:TextBox ID="txtChequeNameAdd" TabIndex="15" runat="server" Width="150%" BackColor="#90c9fc" Text='<%# Bind("ChequeName") %>'
                                                                         SkinID="skinTxtBoxGrid" Visible="False"></asp:TextBox>
@@ -677,7 +672,7 @@
                                                                     <asp:TextBox ID="txtTinAdd" TabIndex="12" runat="server" Width="150%" BackColor="#90c9fc" Text='<%# Bind("TINnumber") %>'
                                                                         SkinID="skinTxtBoxGrid" Visible="False"></asp:TextBox>
                                                                 </td>
-                                                                 <td style="width:8%"></td>
+                                                                <td style="width: 8%"></td>
                                                             </tr>
                                                             <tr style="height: 3px">
                                                             </tr>
@@ -697,15 +692,15 @@
                                                                         <asp:ListItem Text="YES" Value="YES"></asp:ListItem>
                                                                     </asp:DropDownList>
                                                                 </td>
-                                                                 <td style="width:7%"></td>
+                                                                <td style="width: 7%"></td>
                                                                 <td>
                                                                     <asp:DropDownList ID="ddAccGroupAdd" DataSourceID="srcGroupInfoAdd" Height="24px" CssClass="drpDownListMedium" BackColor="#90c9fc"
                                                                         runat="server" SelectedValue='<%# Bind("GroupID") %>' DataTextField="GroupName"
                                                                         DataValueField="GroupID" Width="98%" AppendDataBoundItems="True" Visible="False">
                                                                     </asp:DropDownList>
                                                                 </td>
-                                                                 <td style="width:26%"></td>
-                                                                 <td style="width:8%"></td>
+                                                                <td style="width: 26%"></td>
+                                                                <td style="width: 8%"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td colspan="4">
@@ -713,7 +708,7 @@
                                                                         <tr>
                                                                             <td align="right" style="width: 55%;"></td>
                                                                             <td style="width: 19%;">
-                                                                                <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert" 
+                                                                                <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert"
                                                                                     CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave" OnClientClick="Mobile_Validator();CheckMode();"
                                                                                     OnClick="InsertButton_Click"></asp:Button>
                                                                             </td>
@@ -742,7 +737,7 @@
                                                                         <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
                                                                     </SelectParameters>
                                                                 </asp:ObjectDataSource>
-                                                                 <asp:HiddenField ID="hddate" runat="server" Value="0" />
+                                                                <asp:HiddenField ID="hddate" runat="server" Value="0" />
                                                             </td>
                                                         </tr>
 
@@ -758,7 +753,6 @@
                                                                      </asp:UpdatePanel>
                                                                        </td>
                                                                        </tr>--%>
-
                                                     </table>
                                                 </InsertItemTemplate>
                                             </asp:FormView>
@@ -780,6 +774,8 @@
                                             AllowPaging="True" DataKeyNames="LedgerID" EmptyDataText="No Bank Data Found."
                                             OnRowCommand="GrdViewLedger_RowCommand" OnRowDataBound="GrdViewLedger_RowDataBound" OnRowDeleting="GrdViewLedger_RowDeleting"
                                             OnRowDeleted="GrdViewLedger_RowDeleted">
+                                            <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                            <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                             <Columns>
                                                 <asp:BoundField DataField="LedgerName" HeaderText="Bank Name" HeaderStyle-BorderColor="Gray" />
                                                 <asp:BoundField DataField="AliasName" HeaderText="Alias Name" HeaderStyle-BorderColor="Gray" />
@@ -939,7 +935,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 100%"></td>
+                    <td style="width: 100%" align="center">
+                          <asp:Panel ID="pnlSearch" runat="server" Width="100px">
+                                                <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
+                                                    EnableTheming="false" Width="80px" Text=""></asp:Button>
+                                            </asp:Panel>
+                    </td>
                 </tr>
             </table>
         </ContentTemplate>

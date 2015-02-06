@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
-    CodeFile="HRAdminPayComponent.aspx.cs" Inherits="PayComponent_HRAdminPay" %>
+    CodeFile="HRAdminPayComponent.aspx.cs" Inherits="PayComponent_HRAdminPay" Title="Human Resources > Admin PayComponent" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
@@ -73,10 +73,7 @@
                                     </td>
                                     <td style="width: 12%">
                                         <div style="text-align: right;">
-                                            <asp:Panel ID="pnlSearch" runat="server" Width="100px">
-                                                <asp:Button ID="lnkBtnAddPayComp" runat="server" CssClass="ButtonAdd66"
-                                                    EnableTheming="false" Width="80px" Text="" OnClick="lnkBtnAddPayComp_Click"></asp:Button>
-                                            </asp:Panel>
+                                          
                                         </div>
                                     </td>
 
@@ -120,6 +117,8 @@
                                             OnRowCommand="grdViewPayCompSummary_RowCommand" OnRowDataBound="grdViewPayCompSummary_RowDataBound"
                                             OnRowDeleted="grdViewPayCompSummary_RowDeleted" OnRowDeleting="grdViewPayCompSummary_RowDeleting"
                                             EmptyDataText="No Pay Component List Found." Font-Names="Trebuchet MS" CssClass="someClass">
+                                            <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                            <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                             <Columns>
 
                                                 <asp:BoundField DataField="PayComponentID" HeaderText="Pay Component ID" Visible="false" HeaderStyle-BorderColor="Gray" />
@@ -260,7 +259,7 @@
 
                                                                                             <asp:DropDownList ID="ddlPayCompType" DataSourceID="ddPayCompSource" runat="server" Width="154px"
                                                                                                 DataTextField="PayComponentType" DataValueField="PayComponentTypeID" SelectedValue='<%# Bind("PayComponentTypeID") %>'
-                                                                                                AutoPostBack="false" BackColor="#BBCAFB" Height="23px" Style="text-align: center; border: 1px solid #BBCAFB">                                                                                                
+                                                                                                AutoPostBack="false" BackColor="#BBCAFB" Height="23px" Style="text-align: center; border: 1px solid #BBCAFB">
                                                                                             </asp:DropDownList>
 
                                                                                         </td>
@@ -327,8 +326,8 @@
                                                                     <table width="100%">
                                                                         <tr>
                                                                             <td align="right" style="width: 32%;"></td>
-                                                                            <td style="width: 19%;">                                                                               
-                                                                                 <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update"
+                                                                            <td style="width: 19%;">
+                                                                                <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update"
                                                                                     CssClass="Updatebutton1231" EnableTheming="false" SkinID="skinBtnSave"
                                                                                     OnClick="UpdateButton_Click"></asp:Button>
                                                                             </td>
@@ -403,7 +402,7 @@
                                                                                             <asp:DropDownList ID="ddlPayCompTypeAdd" DataSourceID="ddPayCompSource" runat="server" Width="154px"
                                                                                                 DataTextField="PayComponentType" DataValueField="PayComponentTypeID" SelectedValue='<%# Bind("PayComponentTypeID") %>'
                                                                                                 AutoPostBack="false" BackColor="#BBCAFB" Height="23px" Style="text-align: center; border: 1px solid #BBCAFB">
-                                                                                            </asp:DropDownList>                                                                                        
+                                                                                            </asp:DropDownList>
                                                                                         </td>
                                                                                         <td style="width: 10%"></td>
                                                                                     </tr>
@@ -469,13 +468,13 @@
                                                                     <table width="100%">
                                                                         <tr>
                                                                             <td align="right" style="width: 33%;"></td>
-                                                                            <td style="width: 19%;">                                                                               
+                                                                            <td style="width: 19%;">
                                                                                 <asp:Button ID="InsertButton" runat="server" CausesValidation="True" CommandName="Insert"
                                                                                     CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave"
                                                                                     OnClick="InsertButton_Click"></asp:Button>
                                                                             </td>
                                                                             <td style="width: 19%;">
-                                                                                 <asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                                <asp:Button ID="InsertCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
                                                                                     CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="InsertCancelButton_Click"></asp:Button>
                                                                             </td>
                                                                             <td style="width: 29%;"></td>
@@ -523,7 +522,7 @@
                             <SelectParameters>
                                 <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
                             </SelectParameters>
-                         
+
                         </asp:ObjectDataSource>
 
                         <asp:ObjectDataSource ID="PayCompSummaryGridSource" runat="server" SelectMethod="GetPayCompSummary"
@@ -567,6 +566,16 @@
                     </td>
                 </tr>
 
+            </table>
+            <table width="100%">
+                <tr>
+                    <td align="center">
+                          <asp:Panel ID="pnlSearch" runat="server" Width="100px">
+                                                <asp:Button ID="lnkBtnAddPayComp" runat="server" CssClass="ButtonAdd66"
+                                                    EnableTheming="false" Width="80px" Text="" OnClick="lnkBtnAddPayComp_Click"></asp:Button>
+                                            </asp:Panel>
+                    </td>
+                </tr>
             </table>
         </ContentTemplate>
 

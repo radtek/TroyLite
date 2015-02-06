@@ -23,6 +23,21 @@ public partial class ProjectReport : System.Web.UI.Page
                 sDataSource = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
                 loadEmp();
                 loadmanager();
+
+                BusinessLogic bl = new BusinessLogic(sDataSource);
+                string connection = Request.Cookies["Company"].Value;
+                string usernam = Request.Cookies["LoggedUserName"].Value;
+
+                if (bl.CheckUserHaveAdd(usernam, "Treport"))
+                {
+                    btnprojectreport.Enabled = false;
+                    btnprojectreport.ToolTip = "You are not allowed to make Add New ";
+                }
+                else
+                {
+                    btnprojectreport.Enabled = true;
+                    btnprojectreport.ToolTip = "Click to Add New item ";
+                }
             }
            
         }

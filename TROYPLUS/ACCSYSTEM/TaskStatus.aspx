@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
-    CodeFile="TaskStatus.aspx.cs" Inherits="TaskStatus" Title="Inventory > Task Status" %>
+    CodeFile="TaskStatus.aspx.cs" Inherits="TaskStatus" Title="Project > Task Status" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">
@@ -60,14 +60,12 @@
                             <table style="width: 99.8%; margin: -1px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
                                 <tr style="height: 25px; vertical-align: middle">
                                     <td style="width: 2%;"></td>
-                                    <td style="width: 75%; font-size: 22px; color: white;">Defined List of Task Status
+                                    <td style="width: 70%; font-size: 22px; color: white;">Defined List of Task Status
                                     </td>
-                                    <td style="width: 14%">
-                                      
-                                    </td>
+                                  
                                     <td style="width: 10%; color: white;" align="right">Search
                                     </td>
-                                    <td style="width: 20%" class="NewBox">
+                                    <td style="width: 41%" class="NewBox">
                                         <asp:TextBox ID="txtSearch" runat="server" SkinID="skinTxtBoxSearch"></asp:TextBox>
                                     </td>
                                     <td style="width: 20%" class="NewBox">

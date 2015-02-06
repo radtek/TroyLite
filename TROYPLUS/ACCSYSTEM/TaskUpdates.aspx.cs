@@ -40,16 +40,16 @@ public partial class TaskUpdates : System.Web.UI.Page
                 string connection = Request.Cookies["Company"].Value;
                 string usernam = Request.Cookies["LoggedUserName"].Value;
 
-                //if (bl.CheckUserHaveAdd(usernam, "WMENTRY"))
-                //{
-                //    lnkBtnAdd.Enabled = false;
-                //    lnkBtnAdd.ToolTip = "You are not allowed to make Add New ";
-                //}
-                //else
-                //{
-                //    lnkBtnAdd.Enabled = true;
-                //    lnkBtnAdd.ToolTip = "Click to Add New item ";
-                //}
+                if (bl.CheckUserHaveAdd(usernam, "Tupdate"))
+                {
+                    lnkBtnAdd.Enabled = false;
+                    lnkBtnAdd.ToolTip = "You are not allowed to make Add New ";
+                }
+                else
+                {
+                    lnkBtnAdd.Enabled = true;
+                    lnkBtnAdd.ToolTip = "Click to Add New item ";
+                }
 
 
             }
@@ -546,24 +546,24 @@ public partial class TaskUpdates : System.Web.UI.Page
         {
             GridView gridView = (GridView)sender;
 
-            //if (e.Row.RowType == DataControlRowType.DataRow)
-            //{
-            //    BusinessLogic bl = new BusinessLogic(sDataSource);
-            //    string connection = Request.Cookies["Company"].Value;
-            //    string usernam = Request.Cookies["LoggedUserName"].Value;
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                BusinessLogic bl = new BusinessLogic(sDataSource);
+                string connection = Request.Cookies["Company"].Value;
+                string usernam = Request.Cookies["LoggedUserName"].Value;
 
-            //    if (bl.CheckUserHaveEdit(usernam, "WMENTRY"))
-            //    {
-            //        ((ImageButton)e.Row.FindControl("btnEdit")).Visible = false;
-            //        ((ImageButton)e.Row.FindControl("btnEditDisabled")).Visible = true;
-            //    }
+                if (bl.CheckUserHaveEdit(usernam, "Tupdate"))
+                {
+                    ((ImageButton)e.Row.FindControl("btnEdit")).Visible = false;
+                    ((ImageButton)e.Row.FindControl("btnEditDisabled")).Visible = true;
+                }
 
-            //    if (bl.CheckUserHaveDelete(usernam, "WMENTRY"))
-            //    {
-            //        ((ImageButton)e.Row.FindControl("lnkB")).Visible = false;
-            //        ((ImageButton)e.Row.FindControl("lnkBDisabled")).Visible = true;
-            //    }
-            //}
+                if (bl.CheckUserHaveDelete(usernam, "Tupdate"))
+                {
+                    ((ImageButton)e.Row.FindControl("lnkB")).Visible = false;
+                    ((ImageButton)e.Row.FindControl("lnkBDisabled")).Visible = true;
+                }
+            }
         }
         catch (Exception ex)
         {

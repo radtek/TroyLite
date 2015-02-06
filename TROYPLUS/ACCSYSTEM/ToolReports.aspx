@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
-    CodeFile="ToolReports.aspx.cs" Inherits="ToolReports" Title="Tools" %>
+    CodeFile="ToolReports.aspx.cs" Inherits="ToolReports" Title="Administration > Tools" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">
 </asp:Content>

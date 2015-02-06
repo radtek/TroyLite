@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
-    CodeFile="ChangePassword.aspx.cs" Inherits="ChangePassword" Title="Security > Change Password" %>
+    CodeFile="ChangePassword.aspx.cs" Inherits="ChangePassword" Title="Administration > Change Password" %>
 
 <%@ Register Src="~/SMS/UserControls/errordisplay.ascx" TagName="errorDisplay" TagPrefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">

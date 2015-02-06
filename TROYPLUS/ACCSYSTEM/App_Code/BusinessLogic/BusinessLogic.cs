@@ -50963,6 +50963,10 @@ public class BusinessLogic
             {
                 dbQry = "Select * from tblRoleMaster where Area = 'SECURITY' order by orderno";
             }
+            else if (Types == "PROJECT")
+            {
+                dbQry = "Select * from tblRoleMaster where Area = 'PROJECT' order by orderno";
+            }
             else if (Types == "CONFIG")
             {
                 dbQry = "Select * from tblRoleMaster where Area = 'CONFIG' order by orderno";
@@ -51121,6 +51125,10 @@ public class BusinessLogic
             else if (Types == "SECURITY")
             {
                 dbQry = "select * from tblUserOptions where username like '" + userId + "' And Area = 'SECURITY' order by orderno";
+            }
+            else if (Types == "PROJECT")
+            {
+                dbQry = "select * from tblUserOptions where username like '" + userId + "' And Area = 'PROJECT' order by orderno";
             }
             else if (Types == "CONFIG")
             {

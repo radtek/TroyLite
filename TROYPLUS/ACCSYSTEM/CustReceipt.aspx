@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Customer > Customer / Dealer Receipt" Language="C#" MasterPageFile="~/PageMaster.master"
+﻿<%@ Page Title="Sales > Customer / Dealer Receipt" Language="C#" MasterPageFile="~/PageMaster.master"
     AutoEventWireup="true" CodeFile="CustReceipt.aspx.cs" Inherits="CustReceipt" %>
 
 <%@ Register Assembly="RealWorld.Grids" Namespace="RealWorld.Grids" TagPrefix="rwg" %>
@@ -339,10 +339,7 @@
                                     </td>
                                     <td style="width: 15%">
                                         <div style="text-align: right;">
-                                            <asp:Panel ID="pnlSearch" runat="server" Width="60px">
-                                                <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CausesValidation="false" CssClass="ButtonAdd66" ForeColor="White" EnableTheming="false"
-                                                    Width="60px"></asp:Button>
-                                            </asp:Panel>
+                                           
                                         </div>
                                     </td>
                                     <td style="width: 10%; color: White;" align="right">Search
@@ -1505,7 +1502,13 @@
     </asp:UpdatePanel>
     <table align="center">
         <tr>
-            <td>
+            <td style="width:50%">
+                 <asp:Panel ID="pnlSearch" runat="server" Width="60px">
+                                                <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CausesValidation="false" CssClass="ButtonAdd66" ForeColor="White" EnableTheming="false"
+                                                    Width="60px"></asp:Button>
+                                            </asp:Panel>
+            </td>
+            <td style="width:50%">
                 <asp:Button ID="btnrec" runat="server"
                     CssClass="exportexl6" EnableTheming="false" CausesValidation="false"
                     OnClientClick="window.open('ReportExcelReceipts.aspx?ID=CustRec','Summary', 'toolbar=no,status=no,menu=no,location=no,height=280,width=650,left=405,top=220 ,resizable=yes, scrollbars=yes');"></asp:Button>

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
-    CodeFile="TaskUpdates.aspx.cs" Inherits="TaskUpdates" Title="Resource > Task Updates" %>
+    CodeFile="TaskUpdates.aspx.cs" Inherits="TaskUpdates" Title="Project > TaskUpdates" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">

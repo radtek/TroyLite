@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
     EnableEventValidation="false" CodeFile="CustomerSales.aspx.cs" Inherits="CustomerSales"
-    Title="Customer > Sales" %>
+    Title="Sales > CustomerSales" %>
 
 <%@ Register Assembly="RealWorld.Grids" Namespace="RealWorld.Grids" TagPrefix="rwg" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
@@ -124,12 +124,7 @@
                                         <td style="width: 14%; font-size: 22px; color: White;">SALES
                                         </td>
                                         <td style="width: 16%">
-                                            <div style="text-align: right;">
-                                                <asp:Panel ID="pnlSearch" runat="server" Width="100px">
-                                                    <asp:Button ID="lnkBtnAdd" ForeColor="White" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
-                                                        EnableTheming="false" Width="80px" Font-Bold="True"></asp:Button>
-                                                </asp:Panel>
-                                            </div>
+                                         
                                         </td>
                                         <td style="width: 15%; color: White;" align="right">
                                             <%--Bill No.--%>
@@ -1748,11 +1743,19 @@
 
     <table align="center">
         <tr>
+            <td style="width:50%">
+                   <div style="text-align: right;">
+                                                <asp:Panel ID="pnlSearch" runat="server" Width="100px">
+                                                    <asp:Button ID="lnkBtnAdd" ForeColor="White" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
+                                                        EnableTheming="false" Width="80px" Font-Bold="True"></asp:Button>
+                                                </asp:Panel>
+                                            </div>
+            </td>
             <%--<td>
                 <asp:Button ID="Button1" runat="server" CssClass="NewReport6" Font-Bold="True" ForeColor="White"
                      EnableTheming="false" Width="80px"  OnClientClick="window.open('ReportExlSales.aspx','CSTSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=550,width=790,left=290,top=60, scrollbars=yes');"></asp:Button>
             </td>--%>
-            <td>
+            <td style="width:50%">
                 <asp:Button ID="btnSale" runat="server"
                     CssClass="exportexl6" EnableTheming="false" CausesValidation="false"
                     OnClientClick="window.open('ReportXlSales.aspx','CSTSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=360,width=610,left=400,top=220, scrollbars=no');" Font-Bold="True" ForeColor="White"></asp:Button>

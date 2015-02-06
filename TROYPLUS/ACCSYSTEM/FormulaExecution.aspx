@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
-    CodeFile="FormulaExecution.aspx.cs" Inherits="FormulaExecution" Title="Inventory > Manufacturing/Transfers" %>
+    CodeFile="FormulaExecution.aspx.cs" Inherits="FormulaExecution" Title="Manufacture > Process Manufacturing" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajX" %>

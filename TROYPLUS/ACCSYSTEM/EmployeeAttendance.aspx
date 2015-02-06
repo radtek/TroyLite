@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true" CodeFile="EmployeeAttendance.aspx.cs" Inherits="Attendance_EmployeeAttendance" %>
+﻿<%@ Page Title="Human Resource > Employee Attendance" Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true" CodeFile="EmployeeAttendance.aspx.cs" Inherits="Attendance_EmployeeAttendance" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
@@ -65,10 +65,7 @@
                                     </td>
                                     <td style="width: 14%">
                                         <div style="text-align: right;">
-                                            <asp:Panel ID="pnlSearch" runat="server" Width="100px">
-                                                <asp:Button ID="lnkBtnAddAttendance" runat="server" CssClass="ButtonAdd66"
-                                                    EnableTheming="false" Width="80px" Text="" OnClick="lnkBtnAddAttendance_Click"></asp:Button>
-                                            </asp:Panel>
+                                         
                                         </div>
                                     </td>
                                     <td style="width: 13%; color: #000080;" align="right"></td>
@@ -105,6 +102,8 @@
                                         <asp:GridView ID="grdViewAttendanceSummary" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                                             Width="99.9%" AllowPaging="True" DataKeyNames="AttendanceId"
                                             EmptyDataText="No Attendance Data Found." OnRowCommand="grdViewAttendanceSummary_RowCommand" Font-Names="Trebuchet MS" CssClass="someClass">
+                                            <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                            <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                             <Columns>
                                                 <asp:BoundField DataField="AttendanceID" HeaderText="AttendanceID" Visible="false" HeaderStyle-BorderColor="Gray" />
                                                 <asp:BoundField DataField="AttendanceYear" HeaderText="Year" Visible="false" />
@@ -217,6 +216,8 @@
                                                                             Width="99.9%" AllowPaging="false" EmptyDataText="No Reportees Found." AutoGenerateColumns="false"
                                                                             DataKeyNames="EmployeeNo"
                                                                             Font-Names="Trebuchet MS" Visible="false" CssClass="someClass" OnRowDataBound="GridViewAttendanceDetail_RowDataBound">
+                                                                            <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                                                            <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                                                             <Columns>
                                                                                 <asp:BoundField HeaderText="EmployeeNo" AccessibleHeaderText="EmployeeNo" DataField="EmployeeNo" ReadOnly="true" Visible="false" />
                                                                                 <asp:BoundField HeaderText="Employee" AccessibleHeaderText="Employee" DataField="Employee" ReadOnly="true" />
@@ -554,6 +555,16 @@
 
                             </div>
                         </asp:Panel>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%">
+                <tr>
+                    <td align="center">
+                           <asp:Panel ID="pnlSearch" runat="server" Width="100px">
+                                                <asp:Button ID="lnkBtnAddAttendance" runat="server" CssClass="ButtonAdd66"
+                                                    EnableTheming="false" Width="80px" Text="" OnClick="lnkBtnAddAttendance_Click"></asp:Button>
+                                            </asp:Panel>
                     </td>
                 </tr>
             </table>

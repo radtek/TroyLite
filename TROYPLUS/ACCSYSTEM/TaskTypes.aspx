@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
-    CodeFile="TaskTypes.aspx.cs" Inherits="TaskTypes" Title="Inventory > Task Types" %>
+    CodeFile="TaskTypes.aspx.cs" Inherits="TaskTypes" Title="Project > Task Types" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">
@@ -60,16 +60,14 @@
                                 <table style="width: 99.8%; margin: -1px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
                                     <tr style="height: 25px; vertical-align: middle">
                                         <td style="width: 2%;"></td>
-                                        <td style="width: 80%; font-size: 22px; color: white;" >
+                                        <td style="width: 70%; font-size: 22px; color: white;" >
                                             Defined Types of Task
                                         </td>
-                                        <td style="width: 13%">
-                                          
-                                        </td>
+                                       
                                         <td style="width:10%; color: white;" align="right">
                                                 Search
                                             </td>
-                                        <td style="width: 20%" class="NewBox">
+                                        <td style="width: 30%" class="NewBox">
                                             <asp:TextBox ID="txtSearch" runat="server" SkinID="skinTxtBoxSearch"></asp:TextBox>
                                         </td>
                                         <td style="width: 20%" class="NewBox">
@@ -98,7 +96,7 @@
                             TargetControlID="dummy">
                         </cc1:ModalPopupExtender>
                         
-                              <asp:Panel runat="server" ID="popUp" Style="width: 40%">
+                              <asp:Panel runat="server" ID="popUp" Style="width: 60%">
                                  <div id="contentPopUp">
                                     <table style="width: 100%;" align="center">
                                         <tr style="width: 100%">
@@ -116,14 +114,18 @@
                                                     Height="25px" BorderColor="#cccccc" VerticalAlign="Middle" />
                                                 <EditItemTemplate>
                                                     <div class="divArea">
-                                                        <table cellpadding="1" cellspacing="1" style="border: 1px solid #86b2d1; width: 100%;">
+                                                        <table cellpadding="1" cellspacing="1" style="border: 1px solid #86b2d1; height:250px; width: 100%;">
                                                             <tr>
                                                                 <td colspan="4" class="headerPopUp">
                                                                     Task Types
                                                                 </td>
                                                             </tr>
-                                                            <tr style="height:5px">
-                                                            </tr> 
+                                                            <tr style="height: 25px">
+                                                            </tr>
+                                                              <tr style="height: 5px">
+                                                            </tr>
+                                                              <tr style="height: 5px">
+                                                            </tr>
                                                             <tr>
                                                                 <td class="ControlLabelproject" style="width:40%">
                                                                     Task Type *
@@ -146,20 +148,20 @@
                                                                 <td colspan="4">
                                                                     <table style="width:100%">
                                                                         <tr>
-                                                                            <td style="width:20%">
+                                                                            <td style="width:30%">
                                                                             
                                                                             </td>
-                                                                            <td align="center" style="width:30%">                                                                                
+                                                                            <td align="center" style="width:20%">                                                                                
                                                                                  <asp:Button ID="UpdateButton" runat="server" CausesValidation="True" CommandName="Update"
                                                                                     CssClass="Updatebutton1231" EnableTheming="false" SkinID="skinBtnSave"
                                                                                     OnClick="UpdateButton_Click"></asp:Button>
                                                                             </td>
-                                                                            <td align="center" style="width:30%">
+                                                                            <td align="center" style="width:20%">
                                                                                <asp:Button ID="UpdateCancelButton" runat="server" CausesValidation="False" CommandName="Cancel"
                                                                                     CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel" OnClick="UpdateCancelButton_Click">
                                                                                 </asp:Button>
                                                                             </td>
-                                                                            <td style="width:20%">
+                                                                            <td style="width:30%">
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -192,13 +194,17 @@
                                                 </FooterTemplate>
                                                 <InsertItemTemplate>
                                                     <div class="divArea">
-                                                        <table cellpadding="1" cellspacing="1" style="border: 1px solid #86b2d1; width: 100%;">
+                                                        <table cellpadding="1" cellspacing="1" style="height:250px; border: 1px solid #86b2d1; width: 100%;">
                                                             <tr>
                                                                 <td colspan="4" class="headerPopUp">
                                                                     Task Types
                                                                 </td>
                                                             </tr>
-                                                            <tr style="height:5px"> 
+                                                           <tr style="height: 25px">
+                                                            </tr>
+                                                             <tr style="height: 5px">
+                                                            </tr>
+                                                             <tr style="height: 5px">
                                                             </tr>
                                                             <tr>
                                                                 <td class="ControlLabelproject" style="width:40%">

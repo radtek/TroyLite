@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
-    CodeFile="ReconDate.aspx.cs" Inherits="ReconDate" Title="Security > Last Verified Date" %>
+    CodeFile="ReconDate.aspx.cs" Inherits="ReconDate" Title="Administration > Last Verified Date" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">
 </asp:Content>

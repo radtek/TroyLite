@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true" CodeFile="TimeSheet.aspx.cs" Inherits="TimeSheet" Title="Resource > Timesheet Entry" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true" CodeFile="TimeSheet.aspx.cs" Inherits="TimeSheet" Title="Human Resource > Timesheet Entry" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">
@@ -179,10 +179,7 @@
                                                 <tr style="vertical-align: middle">
                                                     <td style="width: 25%">
                                                         <div style="text-align: right;">
-                                                            <asp:Panel ID="pnlSearch" runat="server" Width="100px">
-                                                                <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
-                                                                    EnableTheming="False" Width="80px"></asp:Button>
-                                                            </asp:Panel>
+                                                           
                                                         </div>
                                                     </td>
                                                     <td style="width: 14%; color: white;" align="right">Search
@@ -211,9 +208,9 @@
                                                         <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click"
                                                             CssClass="ButtonSearch6" EnableTheming="False" />
                                                     </td>
-                                                     <td style="width: 20%" class="tblLeftNoPad">
-                                            <asp:Button ID="BtnClearFilter" runat="server"  OnClick="BtnClearFilter_Click"  EnableTheming="false" Text="" CssClass="ClearFilter6" />
-                                        </td>
+                                                    <td style="width: 20%" class="tblLeftNoPad">
+                                                        <asp:Button ID="BtnClearFilter" runat="server" OnClick="BtnClearFilter_Click" EnableTheming="false" Text="" CssClass="ClearFilter6" />
+                                                    </td>
                                                 </tr>
                                                 <tr id="ErrMessage">
                                                     <td colspan="7">
@@ -320,7 +317,7 @@
                                         </td>
                                         <td style="width: 5%; color: white;" align="right">Search
                                         </td>
-                                        
+
                                         <td style="width: 15%" class="NewBox">
                                             <asp:TextBox ID="txtTimeSheetApproval" runat="server" SkinID="skinTxtBoxSearch" MaxLength="50" />
                                         </td>
@@ -344,7 +341,7 @@
                                                 CssClass="ButtonSearch6" EnableTheming="False" />
                                         </td>
                                         <td style="width: 20%" class="tblLeftNoPad">
-                                            <asp:Button ID="BtnClrFilter" runat="server"  OnClick="BtnClrFilter_Click"  EnableTheming="false" Text="" CssClass="ClearFilter6" />
+                                            <asp:Button ID="BtnClrFilter" runat="server" OnClick="BtnClrFilter_Click" EnableTheming="false" Text="" CssClass="ClearFilter6" />
                                         </td>
                                     </tr>
                                     <tr id="tblMaster2ErrMessage">
@@ -361,6 +358,8 @@
                                                             EmptyDataText="No Subordinate Details for Approval" OnRowDataBound="GrdSubTSe_RowDataBound">
                                                             <%--OnPageIndexChanging="" OnRowCreated=""  OnSelectedIndexChanged="" OnRowDeleting="" OnRowDataBound=""--%>
                                                             <EmptyDataRowStyle CssClass="GrdContent" />
+                                                            <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                                            <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                                             <Columns>
                                                                 <asp:BoundField DataField="EmployeeName" HeaderText="Employee Name">
                                                                     <HeaderStyle BorderColor="Gray" />
@@ -520,6 +519,16 @@
             <div style="visibility: hidden">
                 <asp:Button ID="tabClickButton" runat="server" OnClick="tbMain_ActiveTabChanged" />
             </div>
+            <table width="100%">
+                <tr>
+                    <td align="center">
+                         <asp:Panel ID="pnlSearch" runat="server" Width="100px">
+                                                                <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
+                                                                    EnableTheming="False" Width="80px"></asp:Button>
+                                                            </asp:Panel>
+                    </td>
+                </tr>
+            </table>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>
