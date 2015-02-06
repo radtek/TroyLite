@@ -19,27 +19,14 @@
         //button1.onchange = OnChangetxt;      
     </script>--%>
     <script type="text/javascript">
-        function confirmDelete() {
-            var x = confirm("Selected Customer category is different from previous.Do you want to continue?");
-            if (x) {               
-                var xx = document.getElementById('HiddenField1');
-                xx.value = 'true';              
-            }
-            else {                
-               <%-- document.getElementById('<%= HiddenField1.Value %>');--%>
-                var xx = document.getElementById('HiddenField1');
-                xx.value = 'false';              
-            }
-        }
-
         function Confirm() {
             var confirm_value = document.createElement("INPUT");
             confirm_value.type = "hidden";
             confirm_value.name = "confirm_value";
-            if (confirm("Selected Customer category is different from previous.Do you want to continue1?")) {
-                confirm_value.value = "Yes";               
+            if (confirm("Selected Customer category is different from previous.Do you want to continue?")) {
+                confirm_value.value = "Yes";
             } else {
-                confirm_value.value = "No";              
+                confirm_value.value = "No";
             }
             document.forms[0].appendChild(confirm_value);
         }
@@ -98,9 +85,9 @@
             width: 98.5%;
         }
     </style>
-    
+
     <asp:UpdatePanel ID="UpdatePnlMaster" runat="server" UpdateMode="Conditional">
-        <ContentTemplate>                  
+        <ContentTemplate>
             <%--<cc1:ToolkitScriptManager runat="server" />--%>
             <table style="width: 998px;" align="center">
                 <tr style="width: 100%">
@@ -287,7 +274,7 @@
                                                                 RepositionMode="RepositionOnWindowResizeAndScroll" CancelControlID="BtnPopUpCancel"
                                                                 DynamicServicePath="" Enabled="True" PopupControlID="pnlSalesForm" TargetControlID="dummySales">
                                                             </cc1:ModalPopupExtender>
-                                                              
+
                                                             <asp:Panel ID="pnlSalesForm" runat="server" Style="width: 99%; display: none">
                                                                 <asp:UpdatePanel ID="updatePnlSales" runat="server" UpdateMode="Conditional">
                                                                     <ContentTemplate>
@@ -310,7 +297,7 @@
                                                                                                 <td>
                                                                                                     <cc1:TabContainer ID="tabs2" runat="server" ActiveTabIndex="0" CssClass="fancy fancy-green" Width="1280px">
                                                                                                         <cc1:TabPanel ID="tabMaster" runat="server" HeaderText="Sales Details" Width="1260px">
-                                                                                                            <HeaderTemplate>                                                                                                                
+                                                                                                            <HeaderTemplate>
                                                                                                                 <div>
                                                                                                                     <table>
                                                                                                                         <tr>
@@ -531,21 +518,6 @@
                                                                                                                                             <td class="ControlLabel" style="width: 10%;"></td>
                                                                                                                                             <td style="width: 24%">
                                                                                                                                                 <div>
-                                                                                                                                                    <%-- <link href="chosen/chosen.css" rel="stylesheet" type="text/css" />
-                                                                                                                                                <script src="chosen/jquery-1.6.1.min.js" type="text/javascript"></script>
-                                                                                                                                                <script src="chosen/chosen.jquery.js" type="text/javascript"></script>
-                                                                                                                                                <script src="chosen/chosen.proto.js" type="text/javascript"></script>
-
-                                                                                                                                                <script type="text/javascript">
-                                                                                                                                                    $(document).ready(function () {
-                                                                                                                                                        debugger;
-                                                                                                                                                        var ddl = $(".chzn-select");
-                                                                                                                                                        alert($(".chzn-select").value);
-                                                                                                                                                        $(".chzn-select").chosen();
-                                                                                                                                                        $(".chzn-select-deselect").chosen({ allow_single_deselect: true });
-                                                                                                                                                    });
-                                                                                                                                                   onclick="$('.chzn-select').chosen(); $('.chzn-select-deselect').chosen({ allow_single_deselect: true });"
-                                                                                                                                                   </script>--%>
 
                                                                                                                                                     <asp:DropDownList ID="drpMobile1" runat="server" TabIndex="2" CssClass="chzn-select" Width="313px" Visible="false">
                                                                                                                                                         <%-- <asp:DropDownList ID="drpMobile1" runat="server" TabIndex="2" CssClass="chzn-select" Width="313px">--%>
@@ -568,21 +540,20 @@
                                                                                                                                                         <tr style="height: 2px;">
                                                                                                                                                         </tr>
                                                                                                                                                         <tr>
-                                                                                                                                                            <td class="ControlLabelproject" style="width: 25%;"><%--<asp:Label ID="Label98" runat="server" Text="Cheque / Credit Card No.*" Width="120px"
-                                                                                                                    ></asp:Label>--%>
+                                                                                                                                                            <td class="ControlLabelproject" style="width: 25%;" valign="middle"><%--<asp:Label ID="Label98" runat="server" Text="Cheque / Credit Card No.*" Width="120px"                                                                                                                    ></asp:Label>--%>
                                                                                                                                                                 <asp:RequiredFieldValidator ID="rvCredit" runat="server" ControlToValidate="txtCreditCardNo" Enabled="false" ErrorMessage="Cheque\Card number is mandatory" Text="*" ValidationGroup="salesval" />
                                                                                                                                                                 Cheque / Credit Card No.* </td>
                                                                                                                                                             <td class="ControlTextBox3" style="width: 24%;">
-                                                                                                                                                                <asp:TextBox ID="txtCreditCardNo" runat="server" CssClass="cssTextBox" Height="20px" TabIndex="10" ValidationGroup="salesval" Width="100px"></asp:TextBox>
+                                                                                                                                                                <asp:TextBox ID="txtCreditCardNo" runat="server" CssClass="cssTextBox" Height="20px" TabIndex="10" ValidationGroup="salesval" Width="500px"></asp:TextBox>
                                                                                                                                                             </td>
                                                                                                                                                             <td style="width: 7%;"></td>
-                                                                                                                                                            <td class="ControlLabelproject" style="width: 13%;"><%--Bank Name*--%><%--<asp:Label ID="Label888" runat="server" Text="Bank Name*" Width="120px"
+                                                                                                                                                            <td class="ControlLabelproject" style="width: 10%;"><%--Bank Name*--%><%--<asp:Label ID="Label888" runat="server" Text="Bank Name*" Width="120px"
                                                                                                                     ></asp:Label>--%>
                                                                                                                                                                 <asp:RequiredFieldValidator ID="rvbank" runat="server" ControlToValidate="drpBankName" Enabled="false" ErrorMessage="Bankname is mandatory" InitialValue="0" Text="*" ValidationGroup="salesval" />
                                                                                                                                                                 Bank Name* </td>
 
                                                                                                                                                             <td class="ControlDrpBorder" style="width: 24%;">
-                                                                                                                                                                <asp:DropDownList ID="drpBankName" runat="server" AppendDataBoundItems="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="LedgerName" DataValueField="LedgerID" Height="26px" Style="border: 1px solid #e7e7e7" TabIndex="11" ValidationGroup="salesval" Width="100%">
+                                                                                                                                                                <asp:DropDownList ID="drpBankName" runat="server" AppendDataBoundItems="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="LedgerName" DataValueField="LedgerID" Height="26px" Style="border: 1px solid #e7e7e7" TabIndex="11" ValidationGroup="salesval" Width="313px">
                                                                                                                                                                     <asp:ListItem style="background-color: #e7e7e7" Text="Select Bank" Value="0"></asp:ListItem>
                                                                                                                                                                 </asp:DropDownList>
                                                                                                                                                             </td>
@@ -1734,7 +1705,7 @@
                         <asp:HiddenField ID="hdSMS" runat="server" Value="NO" />
                         <asp:HiddenField ID="hdSMSRequired" runat="server" Value="NO" />
                         <asp:HiddenField ID="hdEmailRequired" runat="server" Value="NO" />
-                        <asp:HiddenField ID="HiddenField1" Value="true" runat="server" /> 
+                        <asp:HiddenField ID="HiddenField1" Value="true" runat="server" />
                         <asp:Button ID="cmdDelete" runat="server" Enabled="false" Visible="false" SkinID="skinBtnDelete"
                             Text="Delete" ValidationGroup="salesval" />
                         <cc1:ConfirmButtonExtender ID="CnrfmDel" TargetControlID="cmdDelete" ConfirmText="Are you sure you want to Delete this Sales?"
