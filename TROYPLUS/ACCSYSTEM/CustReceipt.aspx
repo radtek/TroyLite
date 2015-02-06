@@ -1139,8 +1139,8 @@
                                                                                                                                                         <asp:BoundField DataField="RowNumber" HeaderText="SNo" ItemStyle-Width="5px" ItemStyle-HorizontalAlign="Center" />
                                                                                                                                                         <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Type" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="50px">
                                                                                                                                                             <ItemTemplate>
-                                                                                                                                                                <asp:DropDownList ID="txtType" runat="server" CssClass="drpDownListMedium" Width="100%"
-                                                                                                                                                                    style="border:1px solid #cccccc" height="25px" ForeColor="#006699"
+                                                                                                                                                                <asp:DropDownList ID="txtType" runat="server" CssClass="drpDownListMedium" Width="100%" BackColor="White" 
+                                                                                                                                                                    style="border:1px solid #cccccc" height="25px" ForeColor="#006699" OnSelectedIndexChanged="txtType_SelectedIndexChanged" AutoPostBack="True"
                                                                                                                                                                     AppendDataBoundItems="true">
                                                                                                                                                                     <asp:ListItem Text="Select Type" Value="0"></asp:ListItem>
                                                                                                                                                                     <asp:ListItem Text="Cash"  Value="1"></asp:ListItem>
@@ -1171,7 +1171,7 @@
                                                                                                                                                                 <asp:DropDownList ID="drpBank" runat="server" BackColor="White" CssClass="drpDownListMedium" Width="100%" AutoPostBack="False"
                                                                                                                                                                     DataValueField="LedgerID" DataTextField="LedgerName" Style="border: 1px solid #cccccc" Height="25px" ForeColor="#006699"
                                                                                                                                                                     AppendDataBoundItems="true" ValidationGroup="editVal">
-                                                                                                                                                                    <asp:ListItem Text="Select Creditor" style="background-color: White" Value="0"></asp:ListItem>
+                                                                                                                                                                    <%--<asp:ListItem Text="Select Creditor" style="background-color: White; color:#006699" Value="0"></asp:ListItem>--%>
                                                                                                                                                                 </asp:DropDownList>
                                                                                                                                                             </ItemTemplate>
                                                                                                                                                            
@@ -1215,7 +1215,7 @@
                                                                                                                                 
                                                                                                                             </td>
                                                                                                                             <td class="ControlTextBox3" style="width: 22%">
-                                                                                                                                <asp:TextBox ID="txttot" runat="server" BackColor="#e7e7e7" CssClass="cssTextBox" ></asp:TextBox>
+                                                                                                                                <asp:TextBox ID="txttot" runat="server" BackColor="#e7e7e7" CssClass="cssTextBox" Enabled="false" ></asp:TextBox>
                                                                                                                             </td>
                                                                                                                             <td >
                                                                                                                                 <%--<asp:Button ID="Calc" runat="server" CausesValidation="true"

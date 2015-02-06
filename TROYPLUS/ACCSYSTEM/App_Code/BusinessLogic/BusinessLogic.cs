@@ -18717,6 +18717,34 @@ public class BusinessLogic
     }
 
 
+
+
+    public void ReportFormulaItem(string connection)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        DataSet ds = new DataSet();
+        StringBuilder dbQry = new StringBuilder();
+        //DBManager manager = new DBManager(DataProvider.OleDb);
+        //manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        //DataSet ds = new DataSet();
+        //string dbQry = string.Empty;
+
+        try
+        {
+            dbQry.Append ("Select * from tblExecution");
+            manager.Open();
+            manager.ExecuteNonQuery(CommandType.Text, dbQry.ToString());
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+
+    }
+
+
+
     public void UpdateFormulaItem(string ID, string Qty, string inOut)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
@@ -18869,6 +18897,53 @@ public class BusinessLogic
             dbQry.Append(" AND CDate <= #" + endDate.ToString("MM/dd/yyyy").Trim() + "# ");
 
             dbQry.Append(" Order By CDate Desc");
+
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+
+    }
+
+
+
+
+
+
+
+    public DataSet listCompProductsreport()
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        DataSet ds = new DataSet();
+        StringBuilder dbQry = new StringBuilder();
+
+        string dbQry2 = string.Empty;
+        try
+        {
+            manager.Open();
+
+            dbQry.Append("SELECT tblExecution.CompID, tblExecution.FormulaName,tblExecution.CompID,tblExecution.ItemCode,tblExecution.Qty,tblExecution.InOut,tblCompProduct.CDate,tblCompProduct.Comments,tblCompProduct.IsReleased FROM tblCompProduct inner join tblExecution on tblExecution.CompId=tblCompProduct.CompId ");
+
+            //if (isProcessed)
+            //    dbQry.Append(" Where IsReleased ='Y' ");
+            //else
+            //    dbQry.Append(" Where IsReleased ='N' ");
+
+
+            //dbQry.Append(" AND CDate >= #" + startDate.ToString("MM/dd/yyyy").Trim() + "# ");
+
+            //dbQry.Append(" AND CDate <= #" + endDate.ToString("MM/dd/yyyy").Trim() + "# ");
+
+            //dbQry.Append(" Order By CDate Desc");
 
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
 
