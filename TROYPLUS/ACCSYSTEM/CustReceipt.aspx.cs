@@ -1711,8 +1711,12 @@ public partial class CustReceipt : System.Web.UI.Page
         for (int vLoop = 0; vLoop < GridView2.Rows.Count; vLoop++)
         {            
             TextBox txt = (TextBox)GridView2.Rows[vLoop].FindControl("txtAmount");
-            total = Convert.ToDouble(txt.Text) + total;
-            adtotal = Convert.ToDouble(txt.Text) + adtotal;
+            if (txt.Text != "")
+            {
+                total = Convert.ToDouble(txt.Text) + total;
+                adtotal = Convert.ToDouble(txt.Text) + adtotal;
+            }
+            
         }
         txttot.Text = Convert.ToString(total);
 
@@ -1863,6 +1867,85 @@ public partial class CustReceipt : System.Web.UI.Page
             ModalPopupExtender2.Show();
 
             GrdViewSales.PageSize = 6;
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+    protected void txtType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            for (int vLoop = 0; vLoop < GridView2.Rows.Count; vLoop++)
+            {
+                DropDownList txt = (DropDownList)GridView2.Rows[vLoop].FindControl("txtType");
+                DropDownList txtt = (DropDownList)GridView2.Rows[vLoop].FindControl("drpBank");
+                TextBox txttt = (TextBox)GridView2.Rows[vLoop].FindControl("txtChequeNo");
+
+                if (txt.SelectedItem.Text == "Cash")
+                {
+                    txtt.Enabled = false;
+                    txttt.Enabled = false;
+                }
+                else
+                {
+                    txtt.Enabled = true;
+                    txttt.Enabled = true;
+                }
+            }
+
+
+            int iq = 1;
+            int ii = 1;
+            string itemc = string.Empty;
+            string itemcd = string.Empty;
+            if (ViewState["CurrentTable1"] != null)
+            {
+                DataTable dtCurrentTable1 = (DataTable)ViewState["CurrentTable1"];
+                for (int vLoop = 0; vLoop < GridView2.Rows.Count; vLoop++)
+                {
+                    DropDownList txt = (DropDownList)GridView2.Rows[vLoop].FindControl("txtType");
+                    itemc = txt.Text;
+                    itemcd = txt.SelectedItem.Text;
+
+                    if ((itemc == null) || (itemc == ""))
+                    {
+                    }
+                    else
+                    {
+                        for (int vLoop1 = 0; vLoop1 < GridView2.Rows.Count; vLoop1++)
+                        {
+                            DropDownList txt1 = (DropDownList)GridView2.Rows[vLoop1].FindControl("txtType");
+
+                            if (ii == iq)
+                            {
+                            }
+                            else
+                            {
+                                if (itemc == txt1.Text)
+                                {
+                                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('" + itemcd + " - already exists in the Grid.');", true);
+                                    return;
+                                }
+                            }
+                            ii = ii + 1;
+                        }
+                    }
+                    iq = iq + 1;
+                    ii = 1;
+                }
+                //GridView2.DataSource = dtCurrentTable1;
+                //GridView2.DataBind();
+            }
+
+
+
+
+
+
+            //if(txtType)
         }
         catch (Exception ex)
         {
@@ -2713,6 +2796,14 @@ public partial class CustReceipt : System.Web.UI.Page
                     dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxChequeNo.Text;
                     dtCurrentTable.Rows[i - 1]["Col6"] = TextBoxNarration.Text;
 
+                    //if (DrpCreditor.SelectedValue =="1")
+                    //{
+                    //    DrpBank.Enabled = false;
+                    //}
+                    //else
+                    //{
+                    //    DrpBank.Enabled = true;
+                    //}
 
                     rowIndex++;
                 }
@@ -2746,11 +2837,16 @@ public partial class CustReceipt : System.Web.UI.Page
                 GridView2.DataSource = dt;
                 GridView2.DataBind();
 
+
+                
+
                 for (int i = 0; i < GridView2.Rows.Count - 1; i++)
                 {
                     GridView2.Rows[i].Cells[0].Text = Convert.ToString(i + 1);
                 }
                 SetPreviousData1();
+
+                txtAmount_TextChanged(sender, e);
             }
         }
     }
@@ -2867,6 +2963,17 @@ public partial class CustReceipt : System.Web.UI.Page
                     TextBoxChequeNo.Text = dt.Rows[i]["Col5"].ToString();
                     TextBoxNarration.Text = dt.Rows[i]["Col6"].ToString();
 
+                    if (DrpCreditor.SelectedValue == "1")
+                    {
+                        TextBoxBank.Enabled = false;
+                        TextBoxChequeNo.Enabled = false;
+                    }
+                    else
+                    {
+                        TextBoxBank.Enabled = true;
+                        TextBoxChequeNo.Enabled = true;
+                    }
+
                     rowIndex++;
 
                 }
@@ -2889,15 +2996,15 @@ public partial class CustReceipt : System.Web.UI.Page
                 var ddl = (DropDownList)e.Row.FindControl("drpBank");
                 ddl.Items.Clear();
                 ListItem lifzzh = new ListItem("Select Ledger", "0");
-                lifzzh.Attributes.Add("style", "color:Black");
+                lifzzh.Attributes.Add("style", "color:#006699");
                 ddl.Items.Add(lifzzh);
                 ddl.DataSource = ds;
-                ddl.Items[0].Attributes.Add("background-color", "color:#bce1fe");
+                ddl.Items[0].Attributes.Add("background-color", "color:White");
                 ddl.DataBind();
                 ddl.DataTextField = "LedgerName";
                 ddl.DataValueField = "LedgerID";
 
-                var ddll = (Label)e.Row.FindControl("txtType");
+                var ddll = (DropDownList)e.Row.FindControl("txtType");
                 if (ddll.Text == "Cash")
                 {
                     var dd = (TextBox)e.Row.FindControl("txtChequeNo");
