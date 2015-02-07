@@ -10247,6 +10247,17 @@ fieldset
    
 }
 
+.ControlBorderRadio
+{
+    width:60%;
+    height:24px;
+    border:1px solid #c3c3c3;
+    background-color:#c0c0c0;
+    padding-left:0px;
+    padding-right:0px;
+    text-align:center;
+}
+
 /* Navigation MENU */
 #Menu1 {
     margin-left:4px;

@@ -932,7 +932,7 @@
                                                                                                                         <tr>
                                                                                                                             <td class="ControlLabelNew" style="width: 19%">Receipt Type
                                                                                                                             </td>
-                                                                                                                            <td style="width: 22%">
+                                                                                                                            <td class="ControlBorderRadio" style="width: 22%">
                                                                                                                                 <%--<asp:DropDownList ID="drpReceiptType" runat="server" Width="100%" CssClass="drpDownListMedium" BackColor = "#e7e7e7" AutoPostBack="true"
                                                                                                                     style="border: 1px solid #e7e7e7" height="26px"  OnSelectedIndexChanged="drpReceiptType_SelectedIndexChanged"
                                                                                                                     AppendDataBoundItems="True">
@@ -941,19 +941,37 @@
                                                                                                                     
                                                                                                                 </asp:DropDownList>--%>
                                                                                                                                 <asp:RadioButtonList ID="drpReceiptType" runat="server" AutoPostBack="true" RepeatDirection="Horizontal"
-                                                                                                                                    Width="100%" OnSelectedIndexChanged="drpReceiptType_SelectedIndexChanged">
+                                                                                                                                    Width="100%" OnSelectedIndexChanged="drpReceiptType_SelectedIndexChanged" BackColor="#c0c0c0" Font-Bold="true">
                                                                                                                                     <asp:ListItem Text="Against Bill" Value="1" Selected="True"></asp:ListItem>
                                                                                                                                     <asp:ListItem Text="Advance" Value="2"></asp:ListItem>
                                                                                                                                 </asp:RadioButtonList>
                                                                                                                             </td>
                                                                                                                             <td style="width: 15%;" align="left"></td>
-                                                                                                                            <td></td>
-                                                                                                                            <td style="width: 22%">
+                                                                                                                            
+                                                                                                                                
+                                                                                                                            
+                                                                                                                            <td style="width: 15%;" class="ControlLabelNew">
+                                                                                                                                        <asp:CompareValidator ID="cvCustomer" runat="server" ControlToValidate="drpCustomerCategoryAdd" Display="Dynamic" ErrorMessage="Please Select Customer Category" Operator="GreaterThan" Text="*" ValidationGroup="salesval" ValueToCompare="0"></asp:CompareValidator>
+                                                                                                                                        Customer Category *
+                                                                                                                                    </td>
+                                                                                                                                    <td class="ControlDrpBorder" style="width: 22%">
+                                                                                                                                        <asp:UpdatePanel ID="UpdatePanel10" runat="server" UpdateMode="Conditional">
+                                                                                                                                            <ContentTemplate>
+                                                                                                                                                <asp:DropDownList ID="drpCustomerCategoryAdd" runat="server" AppendDataBoundItems="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="CusCategory_Name" DataValueField="CusCategory_Value" Height="26px" Style="border: 1px solid #e7e7e7" TabIndex="2" ValidationGroup="salesval" Width="100%">
+                                                                                                                                                    <asp:ListItem style="background-color: #e7e7e7" Text="Select Customer Category" Value="0"></asp:ListItem>
+                                                                                                                                                </asp:DropDownList>
+                                                                                                                                            </ContentTemplate>
+                                                                                                                                            <Triggers>
+                                                                                                                                                <asp:AsyncPostBackTrigger ControlID="drpLedger" EventName="SelectedIndexChanged" />
+                                                                                                                                                <asp:AsyncPostBackTrigger ControlID="drpMobile" EventName="SelectedIndexChanged" />
+                                                                                                                                            </Triggers>
+                                                                                                                                        </asp:UpdatePanel>
+                                                                                                                                    </td>
+                                                                                                                            <td>
                                                                                                                                 <asp:CheckBox ID="chkcash" runat="server" Text="Cash" OnCheckedChanged="chkcash_CheckedChanged" AutoPostBack="true"  Visible="false"/>
                                                                                                                                 <asp:CheckBox ID="chkcheque" runat="server" Text="Cheque" OnCheckedChanged="chkcheque_CheckedChanged" AutoPostBack="true"  Visible="false" />
                                                                                                                                 <asp:CheckBox ID="chkcard" runat="server" Text="Card" OnCheckedChanged="chkcard_CheckedChanged" AutoPostBack="true"  Visible="false" />
                                                                                                                             </td>
-                                                                                                                            <td></td>
 
                                                                                                                         </tr>
                                                                                                                         <tr style="height: 2px">

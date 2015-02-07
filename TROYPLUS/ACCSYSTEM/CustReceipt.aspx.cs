@@ -746,6 +746,18 @@ public partial class CustReceipt : System.Web.UI.Page
             //hd.Value = Convert.ToString(GrdViewReceipt.SelectedDataKey.Value);
             loadBanksEdit();
 
+           
+            connection = Request.Cookies["Company"].Value;
+            DataSet dsd = new DataSet();
+            dsd = bl.ListCusCategory(connection);
+            drpCustomerCategoryAdd.Items.Clear();
+            drpCustomerCategoryAdd.Items.Add(new ListItem("Select Customer Category", "0"));
+            drpCustomerCategoryAdd.DataSource = dsd;
+            drpCustomerCategoryAdd.DataBind();
+            drpCustomerCategoryAdd.DataTextField = "CusCategory_Name";
+            drpCustomerCategoryAdd.DataValueField = "CusCategory_Value";
+
+
             if (!bl.IsValidDate(connection, Convert.ToDateTime(recondate)))
             {
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Date is invalid')", true);
@@ -1111,6 +1123,20 @@ public partial class CustReceipt : System.Web.UI.Page
 
             //Button clickedbutton = (Button)sender;
             //clickedbutton.Enabled = true;
+
+            BusinessLogic bl = new BusinessLogic(sDataSource);
+            string connection = string.Empty;
+            connection = Request.Cookies["Company"].Value;
+            DataSet dsd = new DataSet();
+            dsd = bl.ListCusCategory(connection);
+            drpCustomerCategoryAdd.Items.Clear();
+            drpCustomerCategoryAdd.Items.Add(new ListItem("Select Customer Category", "0"));
+            drpCustomerCategoryAdd.DataSource = dsd;
+            drpCustomerCategoryAdd.DataBind();
+            drpCustomerCategoryAdd.DataTextField = "CusCategory_Name";
+            drpCustomerCategoryAdd.DataValueField = "CusCategory_Value";
+
+
         }
         catch (Exception ex)
         {
@@ -1241,6 +1267,37 @@ public partial class CustReceipt : System.Web.UI.Page
             }                       
         }
 
+
+
+        double tot = 0;
+
+        for (int vLoop = 0; vLoop < GridView1.Rows.Count; vLoop++)
+        {
+            Label txttt = (Label)GridView1.Rows[vLoop].FindControl("txtBillno");
+            Label txt = (Label)GridView1.Rows[vLoop].FindControl("txtBillDate");
+            Label txtt = (Label)GridView1.Rows[vLoop].FindControl("txtCustomerName");
+            Label txttd = (Label)GridView1.Rows[vLoop].FindControl("txtAmount");
+            TextBox txttdd = (TextBox)GridView1.Rows[vLoop].FindControl("txtAdjustAmount");
+            Label txttddd = (Label)GridView1.Rows[vLoop].FindControl("txtCompleted");
+            Label txttdddd = (Label)GridView1.Rows[vLoop].FindControl("txtAmount1");
+
+            tot = tot + Convert.ToDouble(txttdd.Text);
+
+            int coll = vLoop + 1;
+
+            if (Convert.ToDouble(txttd.Text) < Convert.ToDouble(txttdd.Text))
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Adjust Amount can not be greater than Amount in row " + coll + " ')", true);
+                return;
+            }
+
+        }
+
+        if (tot > Convert.ToDouble(txttot.Text))
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Total Adjust Amount can not be total receipt Amount ')", true);
+            return;
+        }
 
 
         DataSet ds;
@@ -1498,6 +1555,9 @@ public partial class CustReceipt : System.Web.UI.Page
         sCustomerAddress3 = txtAddress3.Text;
         sCustomerContact = txtCustomerId.Text;
 
+        string cuscat = string.Empty;
+        cuscat = drpCustomerCategoryAdd.SelectedItem.Text;
+
         if (chk.Checked == false)
         {
             if (bl.IsLedgerAlreadyFound(connection, CName))
@@ -1506,7 +1566,7 @@ public partial class CustReceipt : System.Web.UI.Page
                 return;
             }
 
-            CreditorID = bl.InsertCustomerInfoDirect(connection, CName, CName, 1, 0, 0, 0, "", CName, sCustomerAddress, sCustomerAddress2, sCustomerAddress3, "", "Customer", 0, "", sCustomerContact, 0, 0, "NO", "NO", "NO", CName, usernam, "YES", "", 3);
+            CreditorID = bl.InsertCustomerInfoDirect(connection, CName, CName, 1, 0, 0, 0, "", CName, sCustomerAddress, sCustomerAddress2, sCustomerAddress3, "", cuscat, 0, "", sCustomerContact, 0, 0, "NO", "NO", "NO", CName, usernam, "YES", "", 3);
             sCustomerName = txtCustomerName.Text;
         }
         else
@@ -1982,6 +2042,8 @@ public partial class CustReceipt : System.Web.UI.Page
                 ListItem lit = drpMobile.Items.FindByValue(Convert.ToString(debtorID));
                 if (lit != null) lit.Selected = true;
 
+                drpCustomerCategoryAdd.SelectedValue = Convert.ToString(customerDs.Tables[0].Rows[0]["LedgerCategory"]);
+
             }
             else
             {
@@ -2017,6 +2079,7 @@ public partial class CustReceipt : System.Web.UI.Page
             txtCustomerId.Enabled = true;
             txtCustomerName.Enabled = true;
 
+            drpCustomerCategoryAdd.Enabled = true;
         }
         else
         {
@@ -2031,6 +2094,8 @@ public partial class CustReceipt : System.Web.UI.Page
             txtAddress3.Enabled = false;
             txtCustomerId.Enabled = false;
             txtCustomerName.Enabled = false;
+
+            drpCustomerCategoryAdd.Enabled = false;
         }
         //UpdatePanel21.Update();
     }
@@ -2208,6 +2273,9 @@ public partial class CustReceipt : System.Web.UI.Page
                 txtAddress.Enabled = false;
                 txtAddress2.Enabled = false;
                 txtAddress3.Enabled = false;
+
+                drpCustomerCategoryAdd.Enabled = false;
+
                 drpLedger.Visible = true;
                 drpMobile.Visible = true;
                 txtCustomerId.Enabled = false;
@@ -2231,6 +2299,8 @@ public partial class CustReceipt : System.Web.UI.Page
                 txtCustomerName.Text = "";
                 chk.Checked = true;
                 chk.Enabled = true;
+
+                drpCustomerCategoryAdd.Enabled = true;
             }
         }
         catch (Exception ex)
@@ -2270,6 +2340,8 @@ public partial class CustReceipt : System.Web.UI.Page
                 drpLedger.ClearSelection();
                 ListItem lit = drpLedger.Items.FindByValue(Convert.ToString(iLedgerID));
                 if (lit != null) lit.Selected = true;
+
+                drpCustomerCategoryAdd.SelectedValue = Convert.ToString(customerDs.Tables[0].Rows[0]["LedgerCategory"]);
 
             }
             else
