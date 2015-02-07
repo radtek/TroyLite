@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
-    CodeFile="LeadReference.aspx.cs" Inherits="LeadReference" Title="Lead Management > Lead Reference " %>
+    CodeFile="LeadReference.aspx.cs" Inherits="LeadReference" Title="Sale Leads  > Lead Reference " %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">

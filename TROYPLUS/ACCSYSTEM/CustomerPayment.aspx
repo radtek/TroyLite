@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
-    CodeFile="CustomerPayment.aspx.cs" Inherits="CustomerPayment" Title="Customer > Customer Payment" %>
+    CodeFile="CustomerPayment.aspx.cs" Inherits="CustomerPayment" Title="Sales > Customer Payment" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">
@@ -201,10 +201,7 @@
                                     </td>
                                     <td style="width: 10%">
                                         <div style="text-align: right;">
-                                            <asp:Panel ID="pnlSearch" runat="server" Width="100px">
-                                                <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
-                                                    EnableTheming="false" Width="80px" Text=""></asp:Button>
-                                            </asp:Panel>
+                                           
                                         </div>
                                     </td>
                                     <td style="width: 13%; color: White;" align="right">Search
@@ -864,6 +861,8 @@
                                             OnSelectedIndexChanged="GrdViewPayment_SelectedIndexChanged" OnRowDeleting="GrdViewPayment_RowDeleting"
                                             OnRowDeleted="GrdViewPayment_RowDeleted" CssClass="someClass">
                                             <EmptyDataRowStyle CssClass="GrdContent" />
+                                             <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                                <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                             <Columns>
                                                 <asp:BoundField DataField="TransNo" HeaderStyle-Wrap="false" HeaderText="Trans. No." HeaderStyle-BorderColor="Gray" />
                                                 <asp:BoundField DataField="RefNo" HeaderStyle-Wrap="false" HeaderText="Ref. No." HeaderStyle-BorderColor="Gray" />
@@ -1004,7 +1003,13 @@
     </asp:UpdatePanel>
     <table align="center">
         <tr>
-            <td>
+            <td style="width:50%">
+                 <asp:Panel ID="pnlSearch" runat="server" Width="100px">
+                                                <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
+                                                    EnableTheming="false" Width="80px" Text=""></asp:Button>
+                                            </asp:Panel>
+            </td>
+            <td style="width:50%">
                 <asp:Button ID="btnpay" runat="server"
                     CssClass="exportexl6" EnableTheming="false" CausesValidation="false"
                     OnClientClick="window.open('ReportExcelPayments.aspx?ID=CustPay','Summary', 'toolbar=no,status=no,menu=no,location=no,height=280,width=650,left=405,top=220 ,resizable=yes, scrollbars=yes');"></asp:Button>

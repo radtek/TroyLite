@@ -99,9 +99,11 @@ public partial class Password_Expiry : System.Web.UI.Page
                     objBus.ChangePassword(Request.Cookies["LoggedUserName"].Value, txtNewPwd.Text, Request.Cookies["Company"].Value, ts);
                     //errorDisplay.AddItem("Your password has been changed successfully.", DisplayIcons.GreenTick, false);
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Your password has been changed successfully.');", true);
+                    
                     txtOldPwd.Text = string.Empty;
                     txtNewPwd.Text = string.Empty;
                     txtConPwd.Text = string.Empty;
+                    Response.Redirect("DashBoard.aspx");
                     //return;
                 }
             }

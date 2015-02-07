@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true" CodeFile="EmployeePermission.aspx.cs" Inherits="EmployeePermission" %>
+﻿<%@ Page Title="Human Resource > Employee Permission" Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true" CodeFile="EmployeePermission.aspx.cs" Inherits="EmployeePermission" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">
@@ -51,7 +51,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr style="width: 100%; height:100%">
+                <tr style="width: 100%; height: 100%">
                     <td style="width: 100%">
                         <table width="100%" style="margin: -3px 0px 0px 0px;">
                             <tr style="width: 100%">
@@ -60,6 +60,8 @@
                                         <asp:GridView ID="grdViewPermissionSummary" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                                             Width="99.9%" AllowPaging="True" DataKeyNames="PermissionId"
                                             EmptyDataText="No Permission Found." OnRowCommand="grdViewPermissionSummary_RowCommand" Font-Names="Trebuchet MS" CssClass="someClass">
+                                            <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                            <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                             <Columns>
                                                 <asp:BoundField DataField="PermissionId" HeaderText="PermissionId" Visible="false" HeaderStyle-BorderColor="Gray" />
                                                 <asp:BoundField DataField="TimeRange" HeaderText="Time Range" HeaderStyle-BorderColor="Gray" />
@@ -81,9 +83,9 @@
                                                     <ItemTemplate>
                                                         <asp:ImageButton ID="btnCancelPermission" runat="server" SkinID="delete" CommandName="CancelPermission" CommandArgument='<%#Eval("PermissionId")%>' CausesValidation="false" />
                                                         <asp:ImageButton ID="btnCancelPermissionDisabled" Enabled="false" SkinID="deleteDisable" runat="Server"></asp:ImageButton>
-                                                         <cc1:ConfirmButtonExtender ID="CnrfmDel" TargetControlID="btnCancelPermission" ConfirmText="Are you sure to Cancel this Leave ?"
+                                                        <cc1:ConfirmButtonExtender ID="CnrfmDel" TargetControlID="btnCancelPermission" ConfirmText="Are you sure to Cancel this Leave ?"
                                                             runat="server">
-                                            </cc1:ConfirmButtonExtender>
+                                                        </cc1:ConfirmButtonExtender>
                                                     </ItemTemplate>
                                                     <ItemStyle CssClass="command" Width="50px"></ItemStyle>
                                                 </asp:TemplateField>
@@ -125,7 +127,7 @@
                         </table>
                     </td>
                 </tr>
-               
+
                 <tr>
                     <td>
                         <input id="FakeCancelBtn" type="button" style="display: none" runat="server" />
@@ -139,7 +141,7 @@
                                 <table style="width: 100%;" align="center">
                                     <tr style="width: 100%">
                                         <td style="width: 100%">
-                                           <%-- <asp:FormView ID="frmViewApplyLeave" runat="server" Width="100%" DataSourceID="frmViewSource"
+                                            <%-- <asp:FormView ID="frmViewApplyLeave" runat="server" Width="100%" DataSourceID="frmViewSource"
                                                 DataKeyNames="LedgerID" OnItemCommand="frmViewApplyLeave_ItemCommand" DefaultMode="Edit"
                                                 OnItemCreated="frmViewApplyLeave_ItemCreated" Visible="False" OnItemInserting="frmViewApplyLeave_ItemInserting"
                                                 OnItemUpdating="frmViewApplyLeave_ItemUpdating" EmptyDataText="No Records" OnItemInserted="frmViewApplyLeave_ItemInserted"
@@ -151,263 +153,260 @@
                                                 <HeaderStyle HorizontalAlign="left" CssClass="GrdHeaderbgClr GrdHdrContent allPad"
                                                     Height="25px" BorderColor="#cccccc" VerticalAlign="Middle" />
                                                 <InsertItemTemplate>--%>
-                                                    <div class="divArea">
-                                                        <table cellpadding="1" cellspacing="1" style="border: 1px solid #86b2d1; width: 100%;">
-                                                            <tr>
-                                                                <td colspan="4" class="headerPopUp">Apply Permission
-                                                                </td>
-                                                            </tr>
-                                                            <tr style="height: 5px">
-                                                                <asp:HiddenField ID="hdfPermissionId" runat="server" />
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="ControlLabel" style="width: 40%">Approver                                                                    
-                                                                </td>
-                                                                <td class="ControlTextBox3" style="width: 30%">
-                                                                    <asp:Label ID="lblApproverName" runat="server"
-                                                                        TabIndex="1"></asp:Label>
-                                                                    <asp:HiddenField ID="hdfApproverEmpNo" runat="server" />
-                                                                </td>
-                                                                <td style="width: 30%"></td>
-                                                                
-                                                            </tr>
-                                                            <tr style="height: 3px">
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="ControlLabel" style="width: 40%">Permission Date
+                                            <div class="divArea">
+                                                <table cellpadding="1" cellspacing="1" style="border: 1px solid #86b2d1; width: 100%;">
+                                                    <tr>
+                                                        <td colspan="4" class="headerPopUp">Apply Permission
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="height: 5px">
+                                                        <asp:HiddenField ID="hdfPermissionId" runat="server" />
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="ControlLabel" style="width: 40%">Approver                                                                    
+                                                        </td>
+                                                        <td class="ControlTextBox3" style="width: 30%">
+                                                            <asp:Label ID="lblApproverName" runat="server"
+                                                                TabIndex="1"></asp:Label>
+                                                            <asp:HiddenField ID="hdfApproverEmpNo" runat="server" />
+                                                        </td>
+                                                        <td style="width: 30%"></td>
+
+                                                    </tr>
+                                                    <tr style="height: 3px">
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="ControlLabel" style="width: 40%">Permission Date
                                                                     <asp:RequiredFieldValidator ID="rfvPermissionDate" runat="server" ControlToValidate="txtPermissionDate"
                                                                         Display="Dynamic" EnableClientScript="True" ErrorMessage="Start Date is mandatory">*</asp:RequiredFieldValidator>
-                                                                </td>
-                                                                <td class="ControlNumberBox3" style="width: 30%">
-                                                                    <asp:TextBox ID="txtPermissionDate" runat="server" 
-                                                                        SkinID="skinTxtBox" TabIndex="4"></asp:TextBox>                                                                   
-                                                                    <cc1:CalendarExtender ID="calExtenderStartDate" runat="server" Animated="true" Format="dd/MM/yyyy"
-                                                                                PopupButtonID="btnStartDate" PopupPosition="BottomLeft" TargetControlID="txtPermissionDate">
-                                                                            </cc1:CalendarExtender>
-                                                                    <%--<asp:DropDownList ID="ddlStartDateSession" runat="server" Width="55px" BackColor="#90c9fc" Style="border: 1px solid blue" Height="26px" CssClass="drpDownListMedium"
+                                                        </td>
+                                                        <td class="ControlNumberBox3" style="width: 30%">
+                                                            <asp:TextBox ID="txtPermissionDate" runat="server"
+                                                                SkinID="skinTxtBox" TabIndex="4"></asp:TextBox>
+                                                            <cc1:CalendarExtender ID="calExtenderStartDate" runat="server" Animated="true" Format="dd/MM/yyyy"
+                                                                PopupButtonID="btnStartDate" PopupPosition="BottomLeft" TargetControlID="txtPermissionDate">
+                                                            </cc1:CalendarExtender>
+                                                            <%--<asp:DropDownList ID="ddlStartDateSession" runat="server" Width="55px" BackColor="#90c9fc" Style="border: 1px solid blue" Height="26px" CssClass="drpDownListMedium"
                                                                         TabIndex="3">
                                                                         <asp:ListItem Text="FN" Value="FN"></asp:ListItem>
                                                                         <asp:ListItem Text="AN" Value="AN"></asp:ListItem>
                                                                     </asp:DropDownList>--%>
-                                                                </td>
+                                                        </td>
 
-                                                                <td style="width: 30%" align="left">
-                                                                     <asp:ImageButton ID="btnStartDate" ImageUrl="App_Themes/NewTheme/images/cal.gif" CausesValidation="false"
-                                                                                Width="20px" runat="server" />
-                                                                </td>
-                                                                
-                                                            </tr>
-                                                            <tr style="height: 3px">
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="ControlLabel" style="width: 40%">Start Time
+                                                        <td style="width: 30%" align="left">
+                                                            <asp:ImageButton ID="btnStartDate" ImageUrl="App_Themes/NewTheme/images/cal.gif" CausesValidation="false"
+                                                                Width="20px" runat="server" />
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr style="height: 3px">
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="ControlLabel" style="width: 40%">Start Time
                                                                     <asp:RequiredFieldValidator ID="rfvStartTime" runat="server" ControlToValidate="txtStartTime"
-                                                                        Display="Dynamic" EnableClientScript="True" ErrorMessage="Start Time is mandatory">*</asp:RequiredFieldValidator>                                                                                                                                      
+                                                                        Display="Dynamic" EnableClientScript="True" ErrorMessage="Start Time is mandatory">*</asp:RequiredFieldValidator>
 
-                                                                </td>
-                                                                <td class="ControlNumberBox3" style="width: 30%">
-                                                                    <%--<asp:TextBox ID="txtStartTime" runat="server" 
+                                                        </td>
+                                                        <td class="ControlNumberBox3" style="width: 30%">
+                                                            <%--<asp:TextBox ID="txtStartTime" runat="server" 
                                                                         SkinID="skinTxtBoxGrid" TabIndex="4"></asp:TextBox> --%>
-                                                                    
-                                                                    <asp:DropDownList ID="txtStartTime" runat="server" Width="55px" BackColor="#90c9fc" Style="border: 1px solid blue" Height="26px" CssClass="drpDownListMedium"
-                                                                        TabIndex="3">
-                                                                        <asp:ListItem Text="01" Value="01:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="02" Value="02:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="03" Value="03:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="04" Value="04:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="05" Value="05:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="06" Value="06:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="07" Value="07:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="08" Value="08:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="09" Value="09:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="10" Value="10:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="11" Value="11:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="12" Value="12:00"></asp:ListItem>
-                                                                        
-                                                                    </asp:DropDownList>
-                                                                                                                                       
-                                                                    <asp:DropDownList ID="ddlStartTimeSession" runat="server" Width="55px" BackColor="#90c9fc" Style="border: 1px solid blue" Height="26px" CssClass="drpDownListMedium"
-                                                                        TabIndex="3">
-                                                                        <asp:ListItem Text="AM" Value="AM"></asp:ListItem>
-                                                                        <asp:ListItem Text="PM" Value="PM"></asp:ListItem>
-                                                                    </asp:DropDownList>
-                                                                </td>
 
-                                                                 <%--<td style="width: 30%" align="left">
+                                                            <asp:DropDownList ID="txtStartTime" runat="server" Width="55px" BackColor="#90c9fc" Style="border: 1px solid blue" Height="26px" CssClass="drpDownListMedium"
+                                                                TabIndex="3">
+                                                                <asp:ListItem Text="01" Value="01:00"></asp:ListItem>
+                                                                <asp:ListItem Text="02" Value="02:00"></asp:ListItem>
+                                                                <asp:ListItem Text="03" Value="03:00"></asp:ListItem>
+                                                                <asp:ListItem Text="04" Value="04:00"></asp:ListItem>
+                                                                <asp:ListItem Text="05" Value="05:00"></asp:ListItem>
+                                                                <asp:ListItem Text="06" Value="06:00"></asp:ListItem>
+                                                                <asp:ListItem Text="07" Value="07:00"></asp:ListItem>
+                                                                <asp:ListItem Text="08" Value="08:00"></asp:ListItem>
+                                                                <asp:ListItem Text="09" Value="09:00"></asp:ListItem>
+                                                                <asp:ListItem Text="10" Value="10:00"></asp:ListItem>
+                                                                <asp:ListItem Text="11" Value="11:00"></asp:ListItem>
+                                                                <asp:ListItem Text="12" Value="12:00"></asp:ListItem>
+
+                                                            </asp:DropDownList>
+
+                                                            <asp:DropDownList ID="ddlStartTimeSession" runat="server" Width="55px" BackColor="#90c9fc" Style="border: 1px solid blue" Height="26px" CssClass="drpDownListMedium"
+                                                                TabIndex="3">
+                                                                <asp:ListItem Text="AM" Value="AM"></asp:ListItem>
+                                                                <asp:ListItem Text="PM" Value="PM"></asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </td>
+
+                                                        <%--<td style="width: 30%" align="left">
                                                                      <asp:ImageButton ID="btnEndDate" ImageUrl="App_Themes/NewTheme/images/cal.gif" CausesValidation="false"
                                                                                 Width="20px" runat="server" />
                                                                 </td>--%>
-                                                                
-                                                                <td>
-                                                                 <%--<asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtStartTime" 
+
+                                                        <td>
+                                                            <%--<asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtStartTime" 
                                                                         runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+">
                                                                     </asp:RegularExpressionValidator>--%>
-                                                                </td>
-                                                            </tr>
-                                                            <tr style="height: 3px">
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="ControlLabel" style="width: 40%">End Time
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="height: 3px">
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="ControlLabel" style="width: 40%">End Time
                                                                     <asp:RequiredFieldValidator ID="rfvEndTime" runat="server" ControlToValidate="txtEndTime"
-                                                                        Display="Dynamic" EnableClientScript="True" ErrorMessage="End Time is mandatory">*</asp:RequiredFieldValidator>                                                                    
+                                                                        Display="Dynamic" EnableClientScript="True" ErrorMessage="End Time is mandatory">*</asp:RequiredFieldValidator>
 
-                                                                    <%--<asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtEndTime"
+                                                            <%--<asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtEndTime"
                                                                         Display="Dynamic" EnableClientScript="True" ErrorMessage="End Time should not be less than Start Time."
                                                                         Operator="GreaterThanEqual" ControlToCompare="txtStartTime" Type="Date">*</asp:CompareValidator>--%>
-                                                                </td>
-                                                                <td class="ControlNumberBox3" style="width: 30%">
-                                                                    <%--<asp:TextBox ID="txtEndTime" runat="server" 
+                                                        </td>
+                                                        <td class="ControlNumberBox3" style="width: 30%">
+                                                            <%--<asp:TextBox ID="txtEndTime" runat="server" 
                                                                         SkinID="skinTxtBoxGrid" TabIndex="4"></asp:TextBox>--%>
-                                                                    
-                                                                    <asp:DropDownList ID="txtEndTime" runat="server" Width="55px" BackColor="#90c9fc" Style="border: 1px solid blue" Height="26px" CssClass="drpDownListMedium"
-                                                                        TabIndex="3">
-                                                                        <asp:ListItem Text="01" Value="01:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="02" Value="02:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="03" Value="03:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="04" Value="04:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="05" Value="05:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="06" Value="06:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="07" Value="07:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="08" Value="08:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="09" Value="09:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="10" Value="10:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="11" Value="11:00"></asp:ListItem>
-                                                                        <asp:ListItem Text="12" Value="12:00"></asp:ListItem>
-                                                                        
-                                                                    </asp:DropDownList> 
 
-                                                                    <asp:DropDownList ID="ddlEndTimeSession" runat="server" Width="55px" BackColor="#90c9fc" Style="border: 1px solid blue" Height="26px" CssClass="drpDownListMedium"
-                                                                        TabIndex="3">
-                                                                        <asp:ListItem Text="AM" Value="AM"></asp:ListItem>
-                                                                        <asp:ListItem Text="PM" Value="PM"></asp:ListItem>
-                                                                    </asp:DropDownList>
-                                                                </td>
+                                                            <asp:DropDownList ID="txtEndTime" runat="server" Width="55px" BackColor="#90c9fc" Style="border: 1px solid blue" Height="26px" CssClass="drpDownListMedium"
+                                                                TabIndex="3">
+                                                                <asp:ListItem Text="01" Value="01:00"></asp:ListItem>
+                                                                <asp:ListItem Text="02" Value="02:00"></asp:ListItem>
+                                                                <asp:ListItem Text="03" Value="03:00"></asp:ListItem>
+                                                                <asp:ListItem Text="04" Value="04:00"></asp:ListItem>
+                                                                <asp:ListItem Text="05" Value="05:00"></asp:ListItem>
+                                                                <asp:ListItem Text="06" Value="06:00"></asp:ListItem>
+                                                                <asp:ListItem Text="07" Value="07:00"></asp:ListItem>
+                                                                <asp:ListItem Text="08" Value="08:00"></asp:ListItem>
+                                                                <asp:ListItem Text="09" Value="09:00"></asp:ListItem>
+                                                                <asp:ListItem Text="10" Value="10:00"></asp:ListItem>
+                                                                <asp:ListItem Text="11" Value="11:00"></asp:ListItem>
+                                                                <asp:ListItem Text="12" Value="12:00"></asp:ListItem>
 
-                                                                <%-- <td style="width: 30%" align="left">
+                                                            </asp:DropDownList>
+
+                                                            <asp:DropDownList ID="ddlEndTimeSession" runat="server" Width="55px" BackColor="#90c9fc" Style="border: 1px solid blue" Height="26px" CssClass="drpDownListMedium"
+                                                                TabIndex="3">
+                                                                <asp:ListItem Text="AM" Value="AM"></asp:ListItem>
+                                                                <asp:ListItem Text="PM" Value="PM"></asp:ListItem>
+                                                            </asp:DropDownList>
+                                                        </td>
+
+                                                        <%-- <td style="width: 30%" align="left">
                                                                      <asp:ImageButton ID="ImageButton1" ImageUrl="App_Themes/NewTheme/images/cal.gif" CausesValidation="false"
                                                                                 Width="20px" runat="server" />
                                                                 </td>--%>
 
-                                                                <td>
-                                                                    <%--<asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtEndTime" 
+                                                        <td>
+                                                            <%--<asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtEndTime" 
                                                                         runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+">
                                                                     </asp:RegularExpressionValidator>--%>
-                                                                </td>
-                                                                
-                                                            </tr>
-                                                            <tr style="height: 3px">
-                                                            </tr>                                                          
+                                                        </td>
 
-                                                            <tr>
-                                                                <td class="ControlLabel" style="width: 40%">Permission Reason 
+                                                    </tr>
+                                                    <tr style="height: 3px">
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="ControlLabel" style="width: 40%">Permission Reason 
                                                                      <asp:RequiredFieldValidator ID="rfvReason" runat="server" ControlToValidate="txtReason"
                                                                          Display="Dynamic" EnableClientScript="True" ErrorMessage="Reason is mandatory">*</asp:RequiredFieldValidator>
-                                                                </td>
-                                                                <td class="ControlTextBox3" style="width: 30%">
-                                                                    <asp:TextBox ID="txtReason" runat="server"
-                                                                        SkinID="skinTxtBoxGrid" TabIndex="4"></asp:TextBox>
-                                                                </td>
-                                                                <td style="width: 30%"></td>
-                                                                
-                                                            </tr>
-                                                            <tr style="height: 3px">
-                                                            </tr>
-                                                            <tr style="height: 5px">
-                                                                <td style="width: 30%" align="right">
-                                                                    Contact details for Emergency:
-                                                                </td>
-                                                                <td colspan="2" align="left">
-                                                                    
-                                                                </td>
-                                                            </tr>
-                                                            <tr style="height: 5px">
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="ControlLabel" style="width: 40%">Mobile No
+                                                        </td>
+                                                        <td class="ControlTextBox3" style="width: 30%">
+                                                            <asp:TextBox ID="txtReason" runat="server"
+                                                                SkinID="skinTxtBoxGrid" TabIndex="4"></asp:TextBox>
+                                                        </td>
+                                                        <td style="width: 30%"></td>
+
+                                                    </tr>
+                                                    <tr style="height: 3px">
+                                                    </tr>
+                                                    <tr style="height: 5px">
+                                                        <td style="width: 30%" align="right">Contact details for Emergency:
+                                                        </td>
+                                                        <td colspan="2" align="left"></td>
+                                                    </tr>
+                                                    <tr style="height: 5px">
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="ControlLabel" style="width: 40%">Mobile No
                                                                      
-                                                                </td>
-                                                                <td class="ControlTextBox3" style="width: 30%">
-                                                                    <asp:TextBox ID="txtPhoneContact" runat="server"
-                                                                        SkinID="skinTxtBoxGrid" TabIndex="4"></asp:TextBox>
+                                                        </td>
+                                                        <td class="ControlTextBox3" style="width: 30%">
+                                                            <asp:TextBox ID="txtPhoneContact" runat="server"
+                                                                SkinID="skinTxtBoxGrid" TabIndex="4"></asp:TextBox>
 
-                                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server"
-                                                                        ControlToValidate="txtPhoneContact" ErrorMessage="Mobile No is required"
-                                                                        SetFocusOnError="True" ></asp:RequiredFieldValidator>
+                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server"
+                                                                ControlToValidate="txtPhoneContact" ErrorMessage="Mobile No is required"
+                                                                SetFocusOnError="True"></asp:RequiredFieldValidator>
 
-                                                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtPhoneContact" 
-                                                                        runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="[0-9]{10}" >
-                                                                    </asp:RegularExpressionValidator>
-                                                                </td>
-                                                                <td style="width: 30%"></td>
-                                                                
-                                                            </tr>
-                                                            <tr style="height: 3px">
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="ControlLabel" style="width: 40%">Email address
+                                                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtPhoneContact"
+                                                                runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="[0-9]{10}">
+                                                            </asp:RegularExpressionValidator>
+                                                        </td>
+                                                        <td style="width: 30%"></td>
+
+                                                    </tr>
+                                                    <tr style="height: 3px">
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="ControlLabel" style="width: 40%">Email address
                                                                      
-                                                                </td>
-                                                                <td class="ControlTextBox3" style="width: 30%">
-                                                                    <asp:TextBox ID="txtEmailContact" runat="server"
-                                                                        SkinID="skinTxtBoxGrid" TabIndex="4"></asp:TextBox>
-                                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
-                                                                        ControlToValidate="txtEmailContact" ErrorMessage="Email is required"
-                                                                        SetFocusOnError="True" ></asp:RequiredFieldValidator>
-                                                                </td>
+                                                        </td>
+                                                        <td class="ControlTextBox3" style="width: 30%">
+                                                            <asp:TextBox ID="txtEmailContact" runat="server"
+                                                                SkinID="skinTxtBoxGrid" TabIndex="4"></asp:TextBox>
+                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
+                                                                ControlToValidate="txtEmailContact" ErrorMessage="Email is required"
+                                                                SetFocusOnError="True"></asp:RequiredFieldValidator>
+                                                        </td>
 
-                                                                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server"
-                                                                             ErrorMessage="Invalid Email" ControlToValidate="txtEmailContact"
-                                                                             SetFocusOnError="True"
-                                                                             ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">
-                                                                </asp:RegularExpressionValidator>
+                                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server"
+                                                            ErrorMessage="Invalid Email" ControlToValidate="txtEmailContact"
+                                                            SetFocusOnError="True"
+                                                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">
+                                                        </asp:RegularExpressionValidator>
 
-                                                                <td style="width: 30%"></td>
-                                                                
-                                                            </tr>
-                                                            <tr style="height: 3px">
-                                                            </tr>
-                                                                                                                                                                             
-                                                            
-                                                            <tr>
-                                                                <td colspan="4">
-                                                                    <table style="width: 100%">
-                                                                        <tr>
-                                                                            <td align="right" style="width: 15%"></td>
-                                                                            <td align="right" style="width: 30%">
-                                                                                <asp:Button ID="btnCancelNew" runat="server" CausesValidation="False" CommandName="Cancel"
-                                                                                    CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel"></asp:Button>
-                                                                            </td>
-                                                                            <td align="center" style="width: 30%">
-                                                                                <asp:Button ID="btnApplyPermission" runat="server" CausesValidation="True" 
-                                                                                    CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave"
-                                                                                    OnClick="btnApplyPermission_Click"></asp:Button>
-                                                                            </td>
-                                                                            <td align="right" style="width: 15%"></td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </td>
+                                                        <td style="width: 30%"></td>
 
-                                                            </tr>
-                                                        </table>
-                                                    </div>
-                                                    <table cellspacing="0">
-                                                        <tr>
-                                                            <td colspan="2">
-                                                                <asp:ValidationSummary ID="valSumAdd" DisplayMode="BulletList" ShowMessageBox="true"
-                                                                    ShowSummary="false" HeaderText="Validation Messages" Font-Names="'Trebuchet MS'"
-                                                                    Font-Size="12" runat="server" />
-                                                            </td>
-                                                            <td colspan="2">
-                                                                <asp:ObjectDataSource ID="dataSrcLeaveTypes" runat="server" SelectMethod="ListPermissionTypes"
-                                                                    TypeName="BusinessLogic" OldValuesParameterFormatString="original_{0}">
-                                                                    <SelectParameters>
-                                                                        <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
-                                                                    </SelectParameters>
-                                                                </asp:ObjectDataSource>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                <%--</InsertItemTemplate>
+                                                    </tr>
+                                                    <tr style="height: 3px">
+                                                    </tr>
+
+
+                                                    <tr>
+                                                        <td colspan="4">
+                                                            <table style="width: 100%">
+                                                                <tr>
+                                                                    <td align="right" style="width: 15%"></td>
+                                                                    <td align="right" style="width: 30%">
+                                                                        <asp:Button ID="btnCancelNew" runat="server" CausesValidation="False" CommandName="Cancel"
+                                                                            CssClass="cancelbutton6" EnableTheming="false" SkinID="skinBtnCancel"></asp:Button>
+                                                                    </td>
+                                                                    <td align="center" style="width: 30%">
+                                                                        <asp:Button ID="btnApplyPermission" runat="server" CausesValidation="True"
+                                                                            CssClass="savebutton1231" EnableTheming="false" SkinID="skinBtnSave"
+                                                                            OnClick="btnApplyPermission_Click"></asp:Button>
+                                                                    </td>
+                                                                    <td align="right" style="width: 15%"></td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <table cellspacing="0">
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <asp:ValidationSummary ID="valSumAdd" DisplayMode="BulletList" ShowMessageBox="true"
+                                                            ShowSummary="false" HeaderText="Validation Messages" Font-Names="'Trebuchet MS'"
+                                                            Font-Size="12" runat="server" />
+                                                    </td>
+                                                    <td colspan="2">
+                                                        <asp:ObjectDataSource ID="dataSrcLeaveTypes" runat="server" SelectMethod="ListPermissionTypes"
+                                                            TypeName="BusinessLogic" OldValuesParameterFormatString="original_{0}">
+                                                            <SelectParameters>
+                                                                <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
+                                                            </SelectParameters>
+                                                        </asp:ObjectDataSource>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <%--</InsertItemTemplate>
 
                                                 <FooterTemplate>
                                                 </FooterTemplate>

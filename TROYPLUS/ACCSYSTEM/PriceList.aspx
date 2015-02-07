@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
+<%@ Page Title="Inventory > PriceList" Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
     CodeFile="PriceList.aspx.cs" Inherits="PriceList"  %>
 
 

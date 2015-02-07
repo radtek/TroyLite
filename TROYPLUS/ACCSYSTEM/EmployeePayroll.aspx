@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="EmployeePayroll.aspx.cs" Inherits="EmployeePayroll" MasterPageFile="~/PageMaster.master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Title="Human Resource > Employee Payroll" CodeFile="EmployeePayroll.aspx.cs" Inherits="EmployeePayroll" MasterPageFile="~/PageMaster.master" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">
@@ -74,7 +74,7 @@
                                     <td style="width: 60%;" align="left">
                                         <table>
                                             <tr>
-                                                <td style="width:155px;">
+                                                <td style="width: 155px;">
                                                     <asp:Button ID="btnQueuePayroll" runat="server" Text="Generate Payroll" Enabled="false" EnableTheming="false" OnClick="btnQueuePayroll_Click" />
                                                 </td>
                                                 <td style="width: 10px;"></td>
@@ -102,6 +102,8 @@
                                             Width="99.9%" AllowPaging="true" DataKeyNames="PayslipId" OnPageIndexChanging="grdViewPaySlipInfo_PageIndexChanging"
                                             OnRowCreated="grdViewPaySlipInfo_RowCreated"
                                             EmptyDataText="No payslip associated with this payroll." Font-Names="Trebuchet MS" CssClass="someClass">
+                                            <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                            <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                             <Columns>
                                                 <asp:BoundField DataField="PayslipId" HeaderText="PayslipId" Visible="false" HeaderStyle-BorderColor="Gray" />
                                                 <asp:BoundField DataField="EmpFirstName" HeaderText="Employee Name" Visible="true" />
@@ -109,7 +111,7 @@
                                                 <asp:BoundField DataField="EmpDOJ" HeaderText="Date of Joining" Visible="true" />
                                                 <asp:BoundField DataField="PayrollDate" HeaderText="PayrollDate" Visible="false" />
                                                 <asp:BoundField DataField="Payments" HeaderText="Payments" HeaderStyle-BorderColor="Gray" />
-                                                <asp:BoundField DataField="Deductions" HeaderText="Deductions" HeaderStyle-BorderColor="Gray" />                                                
+                                                <asp:BoundField DataField="Deductions" HeaderText="Deductions" HeaderStyle-BorderColor="Gray" />
                                                 <asp:BoundField DataField="TotalPayable" HeaderText="Total Salary" HeaderStyle-BorderColor="Gray" NullDisplayText="NA" />
                                             </Columns>
                                             <PagerTemplate>

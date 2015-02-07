@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
-    CodeFile="DBYearEnd.aspx.cs" Inherits="DBYearEnd" Title="Year End Updation" %>
+    CodeFile="DBYearEnd.aspx.cs" Inherits="DBYearEnd" Title="Administration > Year End Updation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">
 </asp:Content>

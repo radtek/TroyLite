@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true" CodeFile="ProdMaster.aspx.cs" Inherits="ProdMaster" EnableEventValidation="false" %>
+﻿<%@ Page Title="Inventory > ProductMaster" Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true" CodeFile="ProdMaster.aspx.cs" Inherits="ProdMaster" EnableEventValidation="false" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="RealWorld.Grids" Namespace="RealWorld.Grids" TagPrefix="rwg" %>

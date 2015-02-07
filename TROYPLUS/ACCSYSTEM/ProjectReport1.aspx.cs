@@ -602,7 +602,7 @@ public partial class ProjectReport1 : System.Web.UI.Page
                                     {
                                         
                                         htmlcode.Append("<Table id = table2 border=1px solid blue cellpadding=0 cellspacing=50px class=tblLeft width=100% >");
-                                        htmlcode.Append("<tr  font-size:15% style=width:15% >Task and its Updates");
+                                        htmlcode.Append("<tr class=Titlereport style=width:15% >Task and its Updates");
                                         htmlcode.Append("</tr>");
                                         htmlcode.Append("<tr class=ReportHeadataRow style=text-align:left>");
                                         htmlcode.Append("<td style=width:15%> Task Name");

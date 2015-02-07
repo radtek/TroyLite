@@ -110,6 +110,6 @@ public partial class HR_AdminSettings : System.Web.UI.Page
 
     protected void btnSettingsCancel_Click(object sender, EventArgs e)
     {
-
+        Response.Redirect("DashBoard.aspx");
     }
 }

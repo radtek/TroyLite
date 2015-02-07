@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true" CodeFile="LeadMgmt.aspx.cs" Inherits="LeadMgmt" EnableEventValidation="false" %>
+﻿<%@ Page Title="Sale Leads  > Manage Sale Leads" Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true" CodeFile="LeadMgmt.aspx.cs" Inherits="LeadMgmt" EnableEventValidation="false" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">

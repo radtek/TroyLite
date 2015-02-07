@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
     EnableEventValidation="false" CodeFile="Purchase.aspx.cs" Inherits="Purchase"
-    Title="Supplier > Purchase" %>
+    Title="Purchases > Supplier Purchase" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">
@@ -81,10 +81,7 @@
                                             </td>
                                             <td style="width: 15%">
                                                 <div style="text-align: right;">
-                                                    <asp:Panel ID="pnlSearch" runat="server" Width="100px">
-                                                        <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
-                                                            EnableTheming="false" Width="80px" ForeColor="White"></asp:Button>
-                                                    </asp:Panel>
+                                                
                                                 </div>
                                             </td>
                                             <td style="width: 12%; color: #000000;" align="right">
@@ -508,7 +505,7 @@
                                                                                                                                                 <td class="ControlDrpBorder" style="width: 24%;"><%--<asp:Panel ID="Panel21" runat="server" Width="20%">--%>
                                                                                                                                                     <asp:TextBox ID="txtChequeNo" runat="server" BackColor="#e7e7e7" CssClass="cssTextBox" MaxLength="1" Width="0%" Visible="false"></asp:TextBox>
                                                                                                                                                     <asp:DropDownList ID="cmbChequeNo" runat="server" AppendDataBoundItems="True" AutoPostBack="true" BackColor="#e7e7e7" DataTextField="ChequeNo" DataValueField="ChequeNo" CssClass="drpDownListMedium" Height="26px" Style="border: 1px solid #e7e7e7" Width="100%">
-                                                                                                                                                        <asp:ListItem Selected="True" style="height:1px; background-color: #e7e7e7" Value="0">Select Cheque No</asp:ListItem>
+                                                                                                                                                        <asp:ListItem Selected="True" style="height: 1px; background-color: #e7e7e7" Value="0">Select Cheque No</asp:ListItem>
                                                                                                                                                     </asp:DropDownList>
                                                                                                                                                     <%--</asp:Panel> --%></td>
                                                                                                                                                 <td style="width: 13%;"></td>
@@ -1314,6 +1311,8 @@
                                                 OnRowCommand="GrdViewPurchase_RowCommand" OnRowEditing="GrdViewPurchase_RowEditing"
                                                 OnSelectedIndexChanged="GrdViewPurchase_SelectedIndexChanged" OnRowCreated="GrdViewPurchase_RowCreated"
                                                 OnRowDataBound="GrdViewPurchase_RowDataBound" OnRowDeleting="GrdViewPurchase_RowDeleting">
+                                                <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                                <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                                 <Columns>
                                                     <asp:BoundField DataField="PurchaseID" HeaderText="Voucher No" HeaderStyle-Width="50px" HeaderStyle-Wrap="false" HeaderStyle-BorderColor="Gray" />
                                                     <asp:BoundField DataField="TransNo" HeaderText="Trans. No." HeaderStyle-Wrap="false" HeaderStyle-BorderColor="Gray"
@@ -1412,11 +1411,17 @@
     </asp:UpdatePanel>
     <table align="center">
         <tr>
+            <td style="width:50%">
+                    <asp:Panel ID="pnlSearch" runat="server" Width="100px">
+                                                        <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
+                                                            EnableTheming="false" Width="80px" ForeColor="White"></asp:Button>
+                                                    </asp:Panel>
+            </td>
             <%--<td>
                 <asp:Button ID="btnpurchase" runat="server" CssClass="NewReport6"
                      EnableTheming="false" Width="80px"  OnClientClick="window.open('ReportExlPurchase.aspx','CSTSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=550,width=790,left=290,top=60, scrollbars=yes');"></asp:Button>
             </td>--%>
-            <td>
+            <td style="width:50%">
                 <asp:Button ID="btnpur" runat="server"
                     CssClass="exportexl6" EnableTheming="false" CausesValidation="false"
                     OnClientClick="window.open('ReportXLPurchase.aspx','CSTSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=360,width=650,left=370,top=220, scrollbars=yes');"></asp:Button>

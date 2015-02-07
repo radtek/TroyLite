@@ -2440,6 +2440,16 @@ option
     font-weight: bold;
 }
 
+.Titlereport{
+    /*background-color: #0567AE;*/
+    text-align: center;
+    /*color: White;*/
+    font-size: 11px;
+   /*padding: 3px 6px 5px 3px;*/
+    height: 22px;
+    font-weight: bold;
+}
+
 .ReportHeadingdataRow
 {
     /*background-color: #858585;

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Accounts > Credit/Debit Notes" Language="C#" MasterPageFile="~/PageMaster.master"
+﻿<%@ Page Title="Financials > Credit/Debit Notes" Language="C#" MasterPageFile="~/PageMaster.master"
     AutoEventWireup="true" CodeFile="CreditDebitNote.aspx.cs" Inherits="CreditDebitNote" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
@@ -156,10 +156,7 @@
                                     </td>
                                     <td style="width: 12%">
                                         <div style="text-align: right;">
-                                            <asp:Panel ID="pnlSearch" runat="server" Width="100px">
-                                                <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66" OnClientClick="javascript:CheckNoteBill();"
-                                                    EnableTheming="false" Text=""></asp:Button>
-                                            </asp:Panel>
+                                           
                                         </div>
                                     </td>
                                     <td style="width: 10%; color: white;" align="right">Search
@@ -565,6 +562,8 @@
                                             OnRowDataBound="GrdViewNote_RowDataBound" OnSelectedIndexChanged="GrdViewNote_SelectedIndexChanged"
                                             OnRowDeleting="GrdViewNote_RowDeleting" OnRowDeleted="GrdViewNote_RowDeleted" CssClass="someClass">
                                             <EmptyDataRowStyle CssClass="GrdContent" />
+                                            <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                            <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                             <Columns>
                                                 <asp:BoundField DataField="NoteID" HeaderStyle-Wrap="false" HeaderText="Note ID" HeaderStyle-BorderColor="Gray" />
                                                 <asp:BoundField DataField="RefNo" HeaderStyle-Wrap="false" HeaderText="Ref. No." HeaderStyle-BorderColor="Gray" />
@@ -704,7 +703,13 @@
     </asp:UpdatePanel>
     <table align="center">
         <tr>
-            <td>
+            <td style="width:50%">
+                 <asp:Panel ID="pnlSearch" runat="server" Width="100px">
+                                                <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66" OnClientClick="javascript:CheckNoteBill();"
+                                                    EnableTheming="false" Text=""></asp:Button>
+                                            </asp:Panel>
+            </td>
+            <td style="width:50%">
                 <asp:Button ID="Creditnote" runat="server"
                     CssClass="exportexl6" EnableTheming="false" CausesValidation="false"
                     OnClientClick="window.open('ReportExcelCreditnote.aspx ','Summary', 'toolbar=no,status=no,menu=no,location=no,height=310,width=500,left=425,top=220 ,resizable=yes, scrollbars=yes');"></asp:Button>

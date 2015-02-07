@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
-    CodeFile="NewDBCreation.aspx.cs" Inherits="NewDBCreation" Title="Year End Updation" %>
+    CodeFile="NewDBCreation.aspx.cs" Inherits="NewDBCreation" Title="Administration > Year End Updation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">
 </asp:Content>

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
-    CodeFile="HRAdminEmployeeRoleList.aspx.cs" Inherits="EmployeeRole_HRAdminRoleList" EnableEventValidation="false" %>
+    CodeFile="HRAdminEmployeeRoleList.aspx.cs" Inherits="EmployeeRole_HRAdminRoleList" EnableEventValidation="false" Title="Human Resources > EmployeeRoleList" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
@@ -73,10 +73,7 @@
                                     </td>
                                     <td style="width: 12%">
                                         <div style="text-align: right;">
-                                            <asp:Panel ID="pnlSearch" runat="server" Width="100px">
-                                                <asp:Button ID="lnkBtnAddEmpRole" runat="server" CssClass="ButtonAdd66"
-                                                    EnableTheming="false" Width="80px" Text="" OnClick="lnkBtnAddEmpRole_Click"></asp:Button>
-                                            </asp:Panel>
+                                           
                                         </div>
                                     </td>
                                     <td style="width: 10%; color: white;" align="right">Search
@@ -117,6 +114,8 @@
                                             OnRowCommand="grdViewEmpRoleSummary_RowCommand" OnRowDataBound="grdViewEmpRoleSummary_RowDataBound"
                                             OnRowDeleted="grdViewEmpRoleSummary_RowDeleted" OnRowDeleting="grdViewEmpRoleSummary_RowDeleting"
                                             EmptyDataText="No Employee Role List Found." Font-Names="Trebuchet MS" CssClass="someClass">
+                                            <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                            <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                             <Columns>
                                                 <asp:BoundField DataField="ID" HeaderText="Role ID" Visible="false" HeaderStyle-BorderColor="Gray" />
                                                 <asp:BoundField DataField="Role_Name" HeaderText="Role Name" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="20%" />
@@ -528,6 +527,8 @@
                                                                                 <asp:GridView ID="ManageLeaveGridView" runat="server" Visible="true" AllowSorting="True" AutoGenerateColumns="False"
                                                                                     Width="99.9%" AllowPaging="True" DataKeyNames="LeaveType_ID"
                                                                                     EmptyDataText="No Leave List Found." Font-Names="Trebuchet MS" CssClass="someClass">
+                                                                                    <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                                                                    <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                                                                     <Columns>
 
                                                                                         <asp:BoundField DataField="LeaveType_ID" HeaderText="LeaveType ID" Visible="false" HeaderStyle-BorderColor="Gray" />
@@ -1036,6 +1037,16 @@
                     </td>
                 </tr>
 
+            </table>
+            <table width="100%">
+                <tr>
+                    <td align="center">
+                         <asp:Panel ID="pnlSearch" runat="server" Width="100px">
+                                                <asp:Button ID="lnkBtnAddEmpRole" runat="server" CssClass="ButtonAdd66"
+                                                    EnableTheming="false" Width="80px" Text="" OnClick="lnkBtnAddEmpRole_Click"></asp:Button>
+                                            </asp:Panel>
+                    </td>
+                </tr>
             </table>
         </ContentTemplate>
 

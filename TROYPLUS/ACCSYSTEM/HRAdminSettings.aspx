@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
-    CodeFile="HRAdminSettings.aspx.cs" Inherits="HR_AdminSettings" %>
+    CodeFile="HRAdminSettings.aspx.cs" Inherits="HR_AdminSettings" Title="Human Resources > Admin Settings" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 

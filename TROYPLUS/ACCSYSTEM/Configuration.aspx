@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
-    CodeFile="Configuration.aspx.cs" Inherits="Configuration" Title="Security > System Configuration" %>
+    CodeFile="Configuration.aspx.cs" Inherits="Configuration" Title="Administration > System Configuration" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">
 </asp:Content>

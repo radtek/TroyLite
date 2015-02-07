@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
-    CodeFile="CompanyInfo.aspx.cs" Inherits="CompanyInfo" Title="Others > Basic Settings" %>
+    CodeFile="CompanyInfo.aspx.cs" Inherits="CompanyInfo" Title="Administration > General Settings" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">
@@ -485,11 +485,7 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width: 955px" align="center">
-                                                                    <asp:Button ID="BtnAddDivision" runat="server" OnClick="BtnAddDivision_Click" CssClass="ButtonAdd66"
-                                                                        Text="" EnableTheming="false"></asp:Button>
-                                                                    <asp:HiddenField ID="hdDivision" runat="server" Value="0" />
-                                                                </td>
+                                                                
                                                             </tr>
                                                             <tr style="width: 977px">
                                                                 <td style="width: 977px">
@@ -500,6 +496,8 @@
                                                                             PageSize="10" EmptyDataText="No Divisions found." OnSelectedIndexChanged="GrdDiv_SelectedIndexChanged"
                                                                             OnRowDeleting="GrdDiv_RowDeleting">
                                                                             <EmptyDataRowStyle CssClass="GrdHeaderbgClr" Font-Bold="true" Height="25px" />
+                                                                              <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                                                             <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                                                             <Columns>
                                                                                 <asp:BoundField DataField="DivisionName" HeaderText="Division" HeaderStyle-BorderColor="Gray" />
                                                                                 <asp:BoundField DataField="Address" HeaderText="Address" HeaderStyle-BorderColor="Gray" />
@@ -537,6 +535,15 @@
                                                                             </PagerTemplate>
                                                                         </asp:GridView>
                                                                     </div>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        <table width="100%">
+                                                            <tr>
+                                                                <td style="width: 955px" align="center">
+                                                                    <asp:Button ID="BtnAddDivision" runat="server" OnClick="BtnAddDivision_Click" CssClass="ButtonAdd66"
+                                                                        Text="" EnableTheming="false"></asp:Button>
+                                                                    <asp:HiddenField ID="hdDivision" runat="server" Value="0" />
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -1072,13 +1079,14 @@
                                                     <tr>
                                                         <td>
                                                             <div style="width: 100%" align="center">
-                                                                <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
-                                                                    Text="" EnableTheming="false"></asp:Button>
+                                                              
                                                                 <asp:GridView ID="GrdUnitMnt" runat="server" CssClass="someClass" DataSourceID="srcGridView"
                                                                     AutoGenerateColumns="False" OnRowCreated="GrdUnitMnt_RowCreated" Width="50%"
                                                                     PageSize="5" EmptyDataText="No Units Found" Style="font-family: 'Trebuchet MS';
                                                                     font-size: 11px;" OnRowCommand="GrdUnitMnt_RowCommand" AllowPaging="True" DataKeyNames="ID"
                                                                     EnableViewState="False" OnRowUpdating="GrdUnitMnt_RowUpdating" OnRowUpdated="GrdUnitMnt_RowUpdated">
+                                                                      <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                                                     <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                                                     <Columns>
                                                                         <asp:TemplateField HeaderText="Unit" HeaderStyle-BorderColor="Gray">
                                                                             <ItemStyle Width="80%" HorizontalAlign="Left" />
@@ -1160,6 +1168,14 @@
                                                         </td>
                                                     </tr>
                                                 </table>
+                                                <table width="100%">
+                                                    <tr>
+                                                        <td align="center">
+                                                              <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
+                                                                    Text="" EnableTheming="false"></asp:Button>
+                                                        </td>
+                                                    </tr>
+                                                </table>
                                             </div>
                                         </ContentTemplate>
                                     </cc1:TabPanel>
@@ -1173,14 +1189,15 @@
                                                             <tr>
                                                                 <td>
                                                                     <div style="width: 100%" align="center">
-                                                                        <asp:Button ID="lnkBtnAddTransporter" runat="server" OnClick="lnkBtnAddTransporter_Click"
-                                                                            EnableTheming="false" CssClass="ButtonAdd66" Text=""></asp:Button>
+                                                                      
                                                                         <asp:GridView ID="GrdTransporter" runat="server" DataSourceID="srcGridTransporter"
                                                                             AutoGenerateColumns="False" OnRowCreated="GrdTransporter_RowCreated" Width="50%"
                                                                             CssClass="someClass" PageSize="5" Style="font-family: 'Trebuchet MS'; font-size: 11px;"
                                                                             OnRowCommand="GrdTransporter_RowCommand" AllowPaging="True" DataKeyNames="TransporterID"
                                                                             OnRowUpdating="GrdTransporter_RowUpdating" EnableViewState="False" OnRowUpdated="GrdTransporter_RowUpdated"
                                                                             OnDataBound="GrdTransporter_DataBound">
+                                                                              <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                                                              <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                                                             <Columns>
                                                                                 <asp:TemplateField HeaderText="Transporter" HeaderStyle-BorderColor="Gray">
                                                                                     <ItemStyle Width="80%" HorizontalAlign="Left" />
@@ -1262,6 +1279,14 @@
                                                                 </td>
                                                             </tr>
                                                         </table>
+                                                        <table width="100%">
+                                                            <tr>
+                                                                <td align="center">
+                                                                      <asp:Button ID="lnkBtnAddTransporter" runat="server" OnClick="lnkBtnAddTransporter_Click"
+                                                                            EnableTheming="false" CssClass="ButtonAdd66" Text=""></asp:Button>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
                                                     </div>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
@@ -1313,6 +1338,8 @@
                                                                 <asp:GridView ID="GridPosting" CssClass="someClass" runat="server" EmptyDataText="No Ledger found!"
                                                                     DataKeyNames="Ledger" AutoGenerateColumns="False" AllowPaging="True" Width="50%"
                                                                     OnRowCreated="GridPosting_RowCreated" OnRowDeleted="GridPosting_RowDeleted" DataSourceID="sourceposting">
+                                                                      <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                                                    <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                                                     <Columns>
                                                                         <asp:BoundField DataField="Ledger" HeaderText="Ledger" HeaderStyle-BorderColor="Gray">
                                                                             <ItemStyle Width="70%" Wrap="False" />

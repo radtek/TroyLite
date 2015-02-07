@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true"
-    CodeFile="EmailSMSConfig.aspx.cs" Inherits="EmailSMSConfig" Title="Others > Email/SMS Config" %>
+    CodeFile="EmailSMSConfig.aspx.cs" Inherits="EmailSMSConfig" Title="Administration > Email/SMS Config" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">
@@ -160,6 +160,8 @@
                                                                     PageSize="5" EmptyDataText="No Screens Found" Style="font-family: 'Trebuchet MS';
                                                                     font-size: 11px;" OnRowCommand="GrdScreen_RowCommand" AllowPaging="True" DataKeyNames="ScreenID"
                                                                     EnableViewState="False" OnRowUpdating="GrdScreen_RowUpdating" OnRowUpdated="GrdScreen_RowUpdated">
+                                                                      <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                                                       <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                                                     <Columns>
                                                                         <asp:TemplateField HeaderText="Screen No" HeaderStyle-BorderColor="Gray">
                                                                             <ItemStyle Width="5%" HorizontalAlign="Left" />
@@ -420,6 +422,8 @@
                                                                             PageSize="8" EmptyDataText="No Email Config found." OnSelectedIndexChanged="GrdDiv_SelectedIndexChanged"
                                                                             OnRowDeleting="GrdDiv_RowDeleting">
                                                                             <EmptyDataRowStyle CssClass="GrdHeaderbgClr" Font-Bold="true" Height="25px" />
+                                                                              <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                                                               <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                                                             <Columns>
                                                                                 <asp:BoundField DataField="ScreenNo" HeaderText="Screen No" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="15%" />
                                                                                 <asp:BoundField DataField="EmailID" HeaderText="Email ID" HeaderStyle-BorderColor="Gray"  HeaderStyle-Width="50%" />
@@ -603,6 +607,8 @@
                                                                             PageSize="8" EmptyDataText="No SMS Config found." OnSelectedIndexChanged="GridView1_SelectedIndexChanged"
                                                                             OnRowDeleting="GridView1_RowDeleting">
                                                                             <EmptyDataRowStyle CssClass="GrdHeaderbgClr" Font-Bold="true" Height="25px" />
+                                                                              <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
+                                                                             <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                                                             <Columns>
                                                                                 <asp:BoundField DataField="ScreenNo" HeaderText="Screen No" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="15%" />
                                                                                 <asp:BoundField DataField="EmailID" HeaderText="Email ID" HeaderStyle-BorderColor="Gray"  HeaderStyle-Width="50%" />

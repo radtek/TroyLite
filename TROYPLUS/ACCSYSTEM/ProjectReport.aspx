@@ -9,7 +9,7 @@
     <div align="center">
     <br />
     <div id="div1" runat="server">
-        <table style="border: 1px solid blue; background-color:White;" width="700px">
+        <table style="border: 1px solid blue; background-color:White;" width="60%">
             <%--<tr>
                 <td colspan="5">
                     
