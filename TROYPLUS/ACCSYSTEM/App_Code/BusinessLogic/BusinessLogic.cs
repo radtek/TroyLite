@@ -16156,7 +16156,7 @@ public class BusinessLogic
         try
         {
             manager.Open();
-            dbQry = "SELECT LedgerName,ContactName,Add1,Add2,Add3,phone,tinnumber,Mobile FROM tblLedger Where LedgerID=" + ledgerID;
+            dbQry = "SELECT LedgerName,ContactName,Add1,Add2,Add3,phone,tinnumber,Mobile,LedgerCategory FROM tblLedger Where LedgerID=" + ledgerID;
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
             if (ds.Tables[0].Rows.Count > 0)
                 return ds;
