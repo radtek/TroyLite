@@ -2374,7 +2374,7 @@ public class BusinessLogic
 
         try
         {
-            dbQry = "Select BillNo,BillDate,CustomerName,Amount from tblSales inner join tblDayBook on tblSales.JournalID = tblDayBook.TransNo Where PayMode = 3 AND CustomerID=" + CustomerID;
+            dbQry = "Select BillNo,BillDate,CustomerName,Amount as BillAmount, Amount as PendingAmount from tblSales inner join tblDayBook on tblSales.JournalID = tblDayBook.TransNo Where PayMode = 3 AND CustomerID=" + CustomerID;
 
             manager.Open();
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
@@ -66460,7 +66460,7 @@ public class BusinessLogic
         string logdescription = string.Empty;
         string description = string.Empty;
         string Logsave = string.Empty;
-
+        string cheque = string.Empty;
         try
         {
 
@@ -66520,6 +66520,7 @@ public class BusinessLogic
                         {
                             paymodeno = 3;
                         }
+                        cheque = Convert.ToString(dr["ChequeNo"]);
 
                         if (dsBillNos != null)
                         {
@@ -66544,8 +66545,11 @@ public class BusinessLogic
                                     {
                                         if (Convert.ToDouble(drd["Amount"]) != 0)
                                         {
-                                            dbQry = string.Format("INSERT INTO tblReceivedAmount(ReceiptNo,BillNo,Amount) VALUES({0},{1},{2})", TransNo.ToString(), drd["BillNo"].ToString(), Convert.ToDouble(drd["Amount"]));
-                                            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+                                            if (cheque == drd["ChequeNo"].ToString())
+                                            {
+                                                dbQry = string.Format("INSERT INTO tblReceivedAmount(ReceiptNo,BillNo,Amount) VALUES({0},{1},{2})", TransNo.ToString(), drd["BillNo"].ToString(), Convert.ToDouble(drd["Amount"]));
+                                                manager.ExecuteNonQuery(CommandType.Text, dbQry);
+                                            }
                                         }
                                     }
 
