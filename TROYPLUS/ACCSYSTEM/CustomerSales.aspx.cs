@@ -7638,7 +7638,7 @@ public partial class CustomerSales : System.Web.UI.Page
                     if (hdStock.Value != "")
                         stock = Convert.ToDouble(hdStock.Value);
                     dr["RoleID"] = strRole;
-                    dr["Subtotal"] = Convert.ToString(dTotal);
+                    dr["Subtotal"] = Convert.ToDouble(dR["Totalmrp"]);// Convert.ToString(dTotal);
                     itemDs.Tables[0].Rows.Add(dr);
                     strRole = "";
                 }
