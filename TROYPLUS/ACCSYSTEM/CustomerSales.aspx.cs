@@ -1341,7 +1341,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 }
                 else
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ajax", "<script language='javascript'>Confirm();</script>", false);                 
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ajax", "<script language='javascript'>Confirm();</script>", false);
                     string confirmValue = Request.Form["confirm_value"];
 
                     //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Selected Customer category is different from previous.Do you want to continue?')", true);
@@ -3460,6 +3460,9 @@ public partial class CustomerSales : System.Web.UI.Page
                     CustomerIdMobile = 0;
                 }
 
+                string discType = GetDiscType();
+                
+
                 string usernam = Request.Cookies["LoggedUserName"].Value;
 
                 //ds = (DataSet)GrdViewItems.DataSource;
@@ -3585,13 +3588,18 @@ public partial class CustomerSales : System.Web.UI.Page
                             {
                                 double EXCLUSIVErate1 = 0;
                                 double EXCrate1 = 0;
+                                double ratewithqty = 0;                              
                                 if (Labelll.Text == "VAT EXCLUSIVE")
                                 {
-                                    EXCLUSIVErate1 = (Convert.ToDouble(txtRate.Text)) + ((Convert.ToDouble(txtRate.Text)) * (Convert.ToDouble(txtVATAmt.Text) / 100));
+                                    ratewithqty = Convert.ToDouble(txtRate.Text) * Convert.ToInt32(txtQty.Text) / Convert.ToInt32(txtQty.Text);
+                                    //EXCLUSIVErate1 = (Convert.ToDouble(txtRate.Text)) + ((Convert.ToDouble(txtRate.Text)) * (Convert.ToDouble(txtVATAmt.Text) / 100));
+                                    EXCLUSIVErate1 = (Convert.ToDouble(ratewithqty)) + ((Convert.ToDouble(ratewithqty)) * (Convert.ToDouble(txtVATPre.Text) / 100));
                                 }
                                 else
                                 {
-                                    EXCLUSIVErate1 = (Convert.ToDouble(txtRate.Text));
+                                    // EXCLUSIVErate1 = Convert.ToDouble(txtRate.Text);
+                                    ratewithqty = Convert.ToDouble(txtRate.Text) * Convert.ToInt32(txtQty.Text) / Convert.ToInt32(txtQty.Text);
+                                    EXCLUSIVErate1 = Convert.ToDouble(ratewithqty);
                                 }
 
                                 DataSet dst = bl.ListProductMRPPrices(drpProduct.SelectedItem.Value.Trim());
@@ -3649,14 +3657,14 @@ public partial class CustomerSales : System.Web.UI.Page
                                                 dp = Convert.ToDouble(dr["dealerrate"]);
                                                 per = Convert.ToDouble(dr["deviation"]);
                                                 rate2 = (dp * per) / 100;
-                                                rate1 = Convert.ToDouble(txtRate.Text);
-                                                //rate2 = dp - overall;
+                                                // rate1 = Convert.ToDouble(txtRate.Text);
 
-                                                //rate2 = dp + overall;
+                                                rate1 = Convert.ToDouble(txtRate.Text) * Convert.ToInt32(txtQty.Text) / Convert.ToInt32(txtQty.Text);
 
                                                 if (Labelll.Text == "VAT EXCLUSIVE")
                                                 {
-                                                    rate1 = (Convert.ToDouble(txtRate.Text)) + ((Convert.ToDouble(txtRate.Text)) * (Convert.ToDouble(txtVATAmt.Text) / 100));
+                                                    // rate1 = (Convert.ToDouble(txtRate.Text)) + ((Convert.ToDouble(txtRate.Text)) * (Convert.ToDouble(txtVATAmt.Text) / 100));
+                                                    rate1 = (Convert.ToDouble(rate1)) + ((Convert.ToDouble(rate1)) * (Convert.ToDouble(txtVATPre.Text) / 100));
                                                 }
 
                                                 if (rate1 < rate2)
@@ -3683,20 +3691,19 @@ public partial class CustomerSales : System.Web.UI.Page
                                                 dp = Convert.ToDouble(dr["dealerrate"]);
                                                 per = Convert.ToDouble(dr["deviation"]);
                                                 rate2 = (dp * per) / 100;
-                                                rate1 = Convert.ToDouble(txtRate.Text);
-                                                //rate2 = dp - overall;
+                                                // rate1 = Convert.ToDouble(txtRate.Text);
 
-                                                //rate2 = dp + overall;
+                                                rate1 = Convert.ToDouble(txtRate.Text) * Convert.ToInt32(txtQty.Text) / Convert.ToInt32(txtQty.Text);
 
                                                 if (Labelll.Text == "VAT EXCLUSIVE")
                                                 {
-                                                    rate1 = (Convert.ToDouble(txtRate.Text)) + ((Convert.ToDouble(txtRate.Text)) * (Convert.ToDouble(txtVATAmt.Text) / 100));
+                                                    // rate1 = (Convert.ToDouble(txtRate.Text)) + ((Convert.ToDouble(txtRate.Text)) * (Convert.ToDouble(txtVATAmt.Text) / 100));
+                                                    rate1 = (Convert.ToDouble(rate1)) + ((Convert.ToDouble(rate1)) * (Convert.ToDouble(txtVATPre.Text) / 100));
                                                 }
 
                                                 if (rate1 < rate2)
                                                 {
                                                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Rate cannot be less than dealer rate Rs. " + rate2 + " ')", true);
-                                                    checkflag = true;
                                                     return;
                                                 }
                                             }
@@ -3822,7 +3829,7 @@ public partial class CustomerSales : System.Web.UI.Page
                         }
                         //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
-                        int billNo = bl.InsertSalesNewSeries(Series, sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dTotalAmt, purchaseReturn, prReason, dFreight, dLU, dss, sOtherCusName, intTrans, receiptData, MultiPayment, deliveryNote, sCustomerAddress2, sCustomerAddress3, executivename, despatchedfrom, fixedtotal, manualno, dTotalAmt, usernam, ManualSales, NormalSales, Types, snarr, DuplicateCopy, check, CustomerIdMobile, cuscategory);
+                        int billNo = bl.InsertSalesNewSeries(Series, sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dTotalAmt, purchaseReturn, prReason, dFreight, dLU, dss, sOtherCusName, intTrans, receiptData, MultiPayment, deliveryNote, sCustomerAddress2, sCustomerAddress3, executivename, despatchedfrom, fixedtotal, manualno, dTotalAmt, usernam, ManualSales, NormalSales, Types, snarr, DuplicateCopy, check, CustomerIdMobile, cuscategory, discType);
 
 
 
@@ -4656,7 +4663,7 @@ public partial class CustomerSales : System.Web.UI.Page
                                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Description in row " + col + " ')", true);
                                     return;
                                 }
-                                else if (txtRate.Text == "")
+                                else if (txtRate.Text == "" || txtRate.Text == "0")
                                 {
                                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Rate in row " + col + " ')", true);
                                     return;
@@ -4666,9 +4673,14 @@ public partial class CustomerSales : System.Web.UI.Page
                                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Stock is empty in row " + col + " ')", true);
                                     return;
                                 }
-                                else if (txtQty.Text == "")
+                                else if (txtQty.Text == "" || txtQty.Text == "0")
                                 {
                                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Quantity in row " + col + " ')", true);
+                                    return;
+                                }
+                                else if (Convert.ToInt32(txtQty.Text) > Convert.ToInt32(txtStock.Text))
+                                {
+                                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Given qty is greater than stock in row " + col + " ')", true);
                                     return;
                                 }
                                 else if (txtExeComm.Text == "")
@@ -4705,6 +4717,135 @@ public partial class CustomerSales : System.Web.UI.Page
                                 {
                                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Total in row " + col + " ')", true);
                                     return;
+                                }
+
+                                if ((drpnormalsales.SelectedItem.Text == "YES") || (drpmanualsales.SelectedItem.Text == "YES"))
+                                {
+                                    double EXCLUSIVErate1 = 0;
+                                    double EXCrate1 = 0;
+                                    double ratewithqty = 0;
+                                    if (Labelll.Text == "VAT EXCLUSIVE")
+                                    {
+                                        ratewithqty = Convert.ToDouble(txtRate.Text) * Convert.ToInt32(txtQty.Text) / Convert.ToInt32(txtQty.Text);
+                                        //EXCLUSIVErate1 = (Convert.ToDouble(txtRate.Text)) + ((Convert.ToDouble(txtRate.Text)) * (Convert.ToDouble(txtVATAmt.Text) / 100));
+                                        EXCLUSIVErate1 = (Convert.ToDouble(ratewithqty)) + ((Convert.ToDouble(ratewithqty)) * (Convert.ToDouble(txtVATPre.Text) / 100));
+                                    }
+                                    else
+                                    {
+                                        // EXCLUSIVErate1 = Convert.ToDouble(txtRate.Text);
+                                        ratewithqty = Convert.ToDouble(txtRate.Text) * Convert.ToInt32(txtQty.Text) / Convert.ToInt32(txtQty.Text);
+                                        EXCLUSIVErate1 = Convert.ToDouble(ratewithqty);
+                                    }
+
+                                    DataSet dst = bl.ListProductMRPPrices(drpProduct.SelectedItem.Value.Trim());
+                                    if (dst != null)
+                                    {
+                                        if (dst.Tables[0].Rows.Count > 0)
+                                        {
+                                            foreach (DataRow drt in dst.Tables[0].Rows)
+                                            {
+                                                EXCrate1 = Convert.ToDouble(drt["rate"]);
+                                            }
+                                        }
+                                    }
+                                    if (EXCLUSIVErate1 > EXCrate1)
+                                    {
+                                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Rate cannot be greater than " + EXCrate1 + " in row " + col + "')", true);
+                                        checkflag = true;
+                                        return;
+                                    }
+                                }
+
+
+                                //string usernam = Request.Cookies["LoggedUserName"].Value;
+                                if (bl.CheckIfUserCanDoDeviation(usernam))
+                                {
+
+                                }
+                                else
+                                {
+                                    if ((drpnormalsales.SelectedItem.Text == "YES") || (drpmanualsales.SelectedItem.Text == "YES"))
+                                    {
+                                        double devvalue = 0;
+
+                                        DataSet dsd = bl.getRateInformation(drpProduct.SelectedValue);
+                                        if (dsd.Tables[0].Rows.Count > 0)
+                                        {
+                                            foreach (DataRow drt in dsd.Tables[0].Rows)
+                                            {
+                                                devvalue = Convert.ToDouble(drt["deviation"]);
+                                            }
+                                        }
+
+                                        if (devvalue == 0)
+                                        {
+                                            DataSet dsrate = bl.getRateInfo(drpProduct.SelectedValue);
+                                            double rate1 = 0;
+                                            double dp = 0;
+                                            double overall = 0;
+                                            double per = 0;
+                                            double rate2 = 0;
+
+                                            if (dsrate.Tables[0].Rows.Count > 0)
+                                            {
+                                                foreach (DataRow dr in dsrate.Tables[0].Rows)
+                                                {
+                                                    dp = Convert.ToDouble(dr["dealerrate"]);
+                                                    per = Convert.ToDouble(dr["deviation"]);
+                                                    rate2 = (dp * per) / 100;
+                                                    // rate1 = Convert.ToDouble(txtRate.Text);
+
+                                                    rate1 = Convert.ToDouble(txtRate.Text) * Convert.ToInt32(txtQty.Text) / Convert.ToInt32(txtQty.Text);
+
+                                                    if (Labelll.Text == "VAT EXCLUSIVE")
+                                                    {
+                                                        // rate1 = (Convert.ToDouble(txtRate.Text)) + ((Convert.ToDouble(txtRate.Text)) * (Convert.ToDouble(txtVATAmt.Text) / 100));
+                                                        rate1 = (Convert.ToDouble(rate1)) + ((Convert.ToDouble(rate1)) * (Convert.ToDouble(txtVATPre.Text) / 100));
+                                                    }
+
+                                                    if (rate1 < rate2)
+                                                    {
+                                                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Rate cannot be less than dealer rate Rs. " + rate2 + " ')", true);
+                                                        return;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            DataSet dsrate = bl.getRateInformation(drpProduct.SelectedValue);
+                                            double rate1 = 0;
+                                            double dp = 0;
+                                            double overall = 0;
+                                            double per = 0;
+                                            double rate2 = 0;
+
+                                            if (dsrate.Tables[0].Rows.Count > 0)
+                                            {
+                                                foreach (DataRow dr in dsrate.Tables[0].Rows)
+                                                {
+                                                    dp = Convert.ToDouble(dr["dealerrate"]);
+                                                    per = Convert.ToDouble(dr["deviation"]);
+                                                    rate2 = (dp * per) / 100;
+                                                    // rate1 = Convert.ToDouble(txtRate.Text);
+
+                                                    rate1 = Convert.ToDouble(txtRate.Text) * Convert.ToInt32(txtQty.Text) / Convert.ToInt32(txtQty.Text);
+
+                                                    if (Labelll.Text == "VAT EXCLUSIVE")
+                                                    {
+                                                        // rate1 = (Convert.ToDouble(txtRate.Text)) + ((Convert.ToDouble(txtRate.Text)) * (Convert.ToDouble(txtVATAmt.Text) / 100));
+                                                        rate1 = (Convert.ToDouble(rate1)) + ((Convert.ToDouble(rate1)) * (Convert.ToDouble(txtVATPre.Text) / 100));
+                                                    }
+
+                                                    if (rate1 < rate2)
+                                                    {
+                                                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Rate cannot be less than dealer rate Rs. " + rate2 + " ')", true);
+                                                        return;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
 
@@ -8448,14 +8589,18 @@ public partial class CustomerSales : System.Web.UI.Page
             {
                 double EXCLUSIVErate1 = 0;
                 double EXCrate1 = 0;
+                double ratewithqty = 0;
                 if (Labelll.Text == "VAT EXCLUSIVE")
                 {
-                    EXCLUSIVErate1 = (Convert.ToDouble(txtRate.Text)) + ((Convert.ToDouble(txtRate.Text)) * (Convert.ToDouble(txtVATAmt.Text) / 100));
+                    ratewithqty = Convert.ToDouble(txtRate.Text) * Convert.ToInt32(txtQty.Text) / Convert.ToInt32(txtQty.Text);
+                    //EXCLUSIVErate1 = (Convert.ToDouble(txtRate.Text)) + ((Convert.ToDouble(txtRate.Text)) * (Convert.ToDouble(txtVATAmt.Text) / 100));
+                    EXCLUSIVErate1 = (Convert.ToDouble(ratewithqty)) + ((Convert.ToDouble(ratewithqty)) * (Convert.ToDouble(txtVATPre.Text) / 100));
                 }
                 else
                 {
-                    EXCLUSIVErate1 = Convert.ToDouble(txtRate.Text);
-                    //EXCLUSIVErate1 = tablerate;
+                    // EXCLUSIVErate1 = Convert.ToDouble(txtRate.Text);
+                    ratewithqty = Convert.ToDouble(txtRate.Text) * Convert.ToInt32(txtQty.Text) / Convert.ToInt32(txtQty.Text);
+                    EXCLUSIVErate1 = Convert.ToDouble(ratewithqty);
                 }
 
                 DataSet dst = bl.ListProductMRPPrices(drpProduct.SelectedItem.Value.Trim());
@@ -8488,7 +8633,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 if ((drpnormalsales.SelectedItem.Text == "YES") || (drpmanualsales.SelectedItem.Text == "YES"))
                 {
                     double devvalue = 0;
-
+                    // for product deviation
                     DataSet dsd = bl.getRateInformation(drpProduct.SelectedValue);
                     if (dsd.Tables[0].Rows.Count > 0)
                     {
@@ -8500,6 +8645,7 @@ public partial class CustomerSales : System.Web.UI.Page
 
                     if (devvalue == 0)
                     {
+                        //for brand deviation
                         DataSet dsrate = bl.getRateInfo(drpProduct.SelectedValue);
                         double rate1 = 0;
                         double dp = 0;
@@ -8514,14 +8660,14 @@ public partial class CustomerSales : System.Web.UI.Page
                                 dp = Convert.ToDouble(dr["dealerrate"]);
                                 per = Convert.ToDouble(dr["deviation"]);
                                 rate2 = (dp * per) / 100;
-                                rate1 = Convert.ToDouble(txtRate.Text);
-                                //rate2 = dp - overall;
+                               // rate1 = Convert.ToDouble(txtRate.Text);
 
-                                //rate2 = dp + overall;
+                                rate1 = Convert.ToDouble(txtRate.Text) * Convert.ToInt32(txtQty.Text) / Convert.ToInt32(txtQty.Text);
 
                                 if (Labelll.Text == "VAT EXCLUSIVE")
                                 {
-                                    rate1 = (Convert.ToDouble(txtRate.Text)) + ((Convert.ToDouble(txtRate.Text)) * (Convert.ToDouble(txtVATAmt.Text) / 100));
+                                   // rate1 = (Convert.ToDouble(txtRate.Text)) + ((Convert.ToDouble(txtRate.Text)) * (Convert.ToDouble(txtVATAmt.Text) / 100));
+                                    rate1 = (Convert.ToDouble(rate1)) + ((Convert.ToDouble(rate1)) * (Convert.ToDouble(txtVATPre.Text) / 100));
                                 }
 
                                 if (rate1 < rate2)
@@ -8548,14 +8694,13 @@ public partial class CustomerSales : System.Web.UI.Page
                                 dp = Convert.ToDouble(dr["dealerrate"]);
                                 per = Convert.ToDouble(dr["deviation"]);
                                 rate2 = (dp * per) / 100;
-                                rate1 = Convert.ToDouble(txtRate.Text);
-                                //rate2 = dp - overall;
-
-                                //rate2 = dp + overall;
+                               // rate1 = Convert.ToDouble(txtRate.Text);
+                                rate1 = Convert.ToDouble(txtRate.Text) * Convert.ToInt32(txtQty.Text) / Convert.ToInt32(txtQty.Text);
 
                                 if (Labelll.Text == "VAT EXCLUSIVE")
                                 {
-                                    rate1 = (Convert.ToDouble(txtRate.Text)) + ((Convert.ToDouble(txtRate.Text)) * (Convert.ToDouble(txtVATAmt.Text) / 100));
+                                   // rate1 = (Convert.ToDouble(txtRate.Text)) + ((Convert.ToDouble(txtRate.Text)) * (Convert.ToDouble(txtVATAmt.Text) / 100));
+                                    rate1 = (Convert.ToDouble(rate1)) + ((Convert.ToDouble(rate1)) * (Convert.ToDouble(txtVATPre.Text) / 100));
                                 }
 
                                 if (rate1 < rate2)
@@ -8726,71 +8871,6 @@ public partial class CustomerSales : System.Web.UI.Page
                 grvStudentDetails.DataSource = dt;
                 grvStudentDetails.DataBind();
 
-                //sumAmt = 0;
-                //for (int i = 0; i < grvStudentDetails.Rows.Count; i++)
-                //{
-                //    DropDownList DrpProduct =
-                //      (DropDownList)grvStudentDetails.Rows[i].Cells[1].FindControl("drpPrd");
-                //    TextBox TextBoxQty =
-                //     (TextBox)grvStudentDetails.Rows[i].Cells[2].FindControl("txtQty");
-                //    DropDownList drpIncharge =
-                //     (DropDownList)grvStudentDetails.Rows[i].Cells[3].FindControl("drpIncharge");
-                //    TextBox TextBoxDesc =
-                //      (TextBox)grvStudentDetails.Rows[i].Cells[4].FindControl("txtDesc");
-                //    TextBox TextBoxRate =
-                //      (TextBox)grvStudentDetails.Rows[i].Cells[5].FindControl("txtRate");
-                //    TextBox TextBoxStock =
-                //    (TextBox)grvStudentDetails.Rows[i].Cells[6].FindControl("txtStock");
-                //    TextBox TextBoxExeComm =
-                //      (TextBox)grvStudentDetails.Rows[i].Cells[7].FindControl("txtExeComm");
-                //    TextBox TextBoxDisPre =
-                //      (TextBox)grvStudentDetails.Rows[i].Cells[8].FindControl("txtDisPre");
-                //    TextBox TextBoxVATPre =
-                //      (TextBox)grvStudentDetails.Rows[i].Cells[9].FindControl("txtVATPre");
-                //    TextBox TextBoxCSTPre =
-                //      (TextBox)grvStudentDetails.Rows[i].Cells[10].FindControl("txtCSTPre");
-                //    TextBox TextBoxVATAmt =
-                //      (TextBox)grvStudentDetails.Rows[i].Cells[11].FindControl("txtVATAmt");
-                //    TextBox TextBoxRtVAT =
-                //      (TextBox)grvStudentDetails.Rows[i].Cells[12].FindControl("txtRtVAT");
-                //    TextBox TextBoxTotal =
-                //      (TextBox)grvStudentDetails.Rows[i].Cells[13].FindControl("txtTotal");
-
-
-                //    if (TextBoxTotal.Text != null)
-                //        // sumAmt = Convert.ToDouble(GetTotal(Convert.ToDouble(TextBoxQty.Text), Convert.ToDouble(TextBoxRtVAT.Text), Convert.ToDouble(TextBoxDisPre.Text), Convert.ToDouble(TextBoxVATPre.Text), Convert.ToDouble(TextBoxCSTPre.Text), Convert.ToDouble(TextBoxTotal.Text)));
-                //        sumAmt = sumAmt + Convert.ToDouble(TextBoxTotal.Text);
-                //}
-                //sumDis = sumDis + GetDis();
-                //sumVat = sumVat + GetVat();
-                //sumCST = sumCST + GetCST();
-                //sumRate = sumRate + GetTotalRate();
-
-                //double dFreight = 0;
-                //double dLU = 0;
-                //double sumLUFreight = 0;
-                //if (txtFreight.Text.Trim() != "")
-                //{
-                //    dFreight = Convert.ToDouble(txtFreight.Text.Trim());
-                //}
-                //if (txtLU.Text.Trim() != "")
-                //{
-                //    dLU = Convert.ToDouble(txtLU.Text.Trim());
-                //}
-                //sumLUFreight = dFreight + dLU;
-                //sumNet = sumNet + sumAmt + dFreight + dLU;
-                //lblTotalSum.Text = sumAmt.ToString("#0.00");
-                //lblTotalDis.Text = sumDis.ToString("#0.00");
-                //lblDispTotalRate.Text = sumRate.ToString("#0.00");
-                //lblTotalVAT.Text = sumVat.ToString("#0.00");
-                //lblTotalCST.Text = sumCST.ToString("#0.00");
-                //lblFreight.Text = sumLUFreight.ToString("#0.00"); // dFreight.ToString("#0.00");
-                //lblNet.Text = sumNet.ToString("#0.00");
-                //hdPrevSalesTotal.Value = lblNet.Text;
-                //UpdatePanelTotalSummary.Update();
-                //errPanel.Visible = false;
-                //ErrMsg.Text = "";
-
                 for (int i = 0; i < grvStudentDetails.Rows.Count; i++)
                 {
                     grvStudentDetails.Rows[i].Cells[0].Text = Convert.ToString(i + 1);
@@ -8807,6 +8887,8 @@ public partial class CustomerSales : System.Web.UI.Page
         int iq = 1;
         int ii = 1;
         string itemc = string.Empty;
+        BusinessLogic bll = new BusinessLogic(sDataSource);
+        EnableDiscount = bll.getEnableDiscountConfig();
         if (ViewState["CurrentTable"] != null)
         {
             DataTable dtCurrentTable1 = (DataTable)ViewState["CurrentTable"];
@@ -8898,15 +8980,23 @@ public partial class CustomerSales : System.Web.UI.Page
 
                     if (customerDs.Tables[0].Rows[0]["Rate"] != null)
                         TextBoxRate.Text = address + customerDs.Tables[0].Rows[0]["Rate"].ToString() + Environment.NewLine;
-                       tablerate =Convert.ToDouble(TextBoxRate.Text);
+
                     if (customerDs.Tables[0].Rows[0]["Stock"] != null)
                         TextBoxStock.Text = address + customerDs.Tables[0].Rows[0]["Stock"].ToString() + Environment.NewLine;
 
                     if (customerDs.Tables[0].Rows[0]["ExecutiveCommission"] != null)
                         TextBoxExeComm.Text = address + customerDs.Tables[0].Rows[0]["ExecutiveCommission"].ToString() + Environment.NewLine;
 
-                    if (customerDs.Tables[0].Rows[0]["Discount"] != null)
-                        TextBoxDisPre.Text = address + customerDs.Tables[0].Rows[0]["Discount"].ToString() + Environment.NewLine;
+                    if (EnableDiscount == "YES")
+                    {
+                        if (customerDs.Tables[0].Rows[0]["Discount"] != null)
+                            TextBoxDisPre.Text = address + customerDs.Tables[0].Rows[0]["Discount"].ToString() + Environment.NewLine;
+                    }
+                    else
+                    {
+                        if (customerDs.Tables[0].Rows[0]["Discount"] != null)
+                            TextBoxDisPre.Text = address + "0";// customerDs.Tables[0].Rows[0]["Discount"].ToString() + Environment.NewLine;
+                    }
 
                     if (customerDs.Tables[0].Rows[0]["VAT"] != null)
                         TextBoxVATPre.Text = address + customerDs.Tables[0].Rows[0]["VAT"].ToString() + Environment.NewLine;
@@ -9056,6 +9146,10 @@ public partial class CustomerSales : System.Web.UI.Page
 
     private void FirstGridViewRow()
     {
+        BusinessLogic bll = new BusinessLogic(sDataSource);
+        EnableDiscount = bll.getEnableDiscountConfig();
+        string discType = GetDiscType();
+
         DataTable dt = new DataTable();
         DataRow dr = null;
         dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
@@ -9088,11 +9182,28 @@ public partial class CustomerSales : System.Web.UI.Page
         dr["Col12"] = string.Empty;
         dr["Col13"] = string.Empty;
         dt.Rows.Add(dr);
-
         ViewState["CurrentTable"] = dt;
 
-
         grvStudentDetails.DataSource = dt;
+
+        if (EnableDiscount == "YES")
+        {
+            grvStudentDetails.Columns[8].Visible = true;
+        }
+        else
+        {
+            grvStudentDetails.Columns[8].Visible = false;
+        }
+
+        if (discType == "PERCENTAGE")
+        {
+            grvStudentDetails.Columns[8].HeaderText = "Disc(%)";           
+        }
+        else if (discType == "RUPEE")
+        {
+            grvStudentDetails.Columns[8].HeaderText = "Disc(INR)";    
+        }
+
         grvStudentDetails.DataBind();
     }
 
@@ -9105,9 +9216,13 @@ public partial class CustomerSales : System.Web.UI.Page
     Double sumDis = 0;
     Double sumNet = 0;
     bool vatcheck = false;
+    double caldisamt;
+    double vatinclusiverate;
 
     protected void txtQty_TextChanged(object sender, EventArgs e)
     {
+        string discType = GetDiscType();
+
         for (int i = grvStudentDetails.Rows.Count; i == grvStudentDetails.Rows.Count; i++)
         {
             DropDownList DrpProduct =
@@ -9144,17 +9259,24 @@ public partial class CustomerSales : System.Web.UI.Page
                 return;
             }
 
+
             if (Labelll.Text == "VAT INCLUSIVE")
             {
                 vatcheck = true;
                 TextBoxTotal.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));
                 TextBoxRtVAT.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));
-                double caldisamt = Convert.ToDouble(TextBoxTotal.Text) * Convert.ToDouble(TextBoxDisPre.Text) / 100;
+                if (discType == "PERCENTAGE")
+                {
+                    caldisamt = Convert.ToDouble(TextBoxTotal.Text) * Convert.ToDouble(TextBoxDisPre.Text) / 100;
+                }
+                else if (discType == "RUPEE")
+                {
+                    caldisamt = Convert.ToDouble(TextBoxDisPre.Text);
+                }
                 double calnet = Convert.ToDouble(TextBoxTotal.Text) - caldisamt;
                 double vatper = Convert.ToDouble(TextBoxVATPre.Text);
                 double vatper1 = vatper + 100;
-                double vatinclusiverate = calnet * vatper / vatper1;
-                //double vatinclusiverate = (((Convert.ToDouble(TextBoxRate.Text) * (Convert.ToDouble(TextBoxQty.Text))) - Convert.ToDouble(TextBoxDisPre.Text)) / vatper1);
+                double vatinclusiverate = calnet * vatper / vatper1;                
                 double sVatamount = calnet - vatinclusiverate;
                 TextBoxVATAmt.Text = vatinclusiverate.ToString("#0.00");
                 TextBoxRtVAT.Text = calnet.ToString("#0.00");
@@ -9164,8 +9286,15 @@ public partial class CustomerSales : System.Web.UI.Page
             else if (Labelll.Text == "VAT EXCLUSIVE")
             {
                 vatcheck = true;
-                TextBoxRtVAT.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));
-                double vatinclusiverate = Convert.ToDouble(TextBoxRtVAT.Text) * Convert.ToDouble(TextBoxDisPre.Text) / 100;
+                TextBoxRtVAT.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));                
+                if (discType == "PERCENTAGE")
+                {
+                    vatinclusiverate = Convert.ToDouble(TextBoxRtVAT.Text) * Convert.ToDouble(TextBoxDisPre.Text) / 100;
+                }
+                else if (discType == "RUPEE")
+                {
+                    vatinclusiverate = Convert.ToDouble(TextBoxDisPre.Text);
+                }
                 double vatinclusiverate3 = Convert.ToDouble(TextBoxRtVAT.Text) - vatinclusiverate;
                 double vatinclusiverate1 = Convert.ToDouble(vatinclusiverate3) * Convert.ToDouble(TextBoxVATPre.Text) / 100;
                 double vatinclusiverate2 = vatinclusiverate1 + vatinclusiverate3;
@@ -9173,6 +9302,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 TextBoxRtVAT.Text = vatinclusiverate2.ToString("#0.00");
                 TextBoxTotal.Text = vatinclusiverate2.ToString("#0.00");
             }
+
         }
         sumAmt = 0;
         for (int i = 0; i < grvStudentDetails.Rows.Count; i++)
@@ -9247,6 +9377,8 @@ public partial class CustomerSales : System.Web.UI.Page
     }
     protected void txtRate_TextChanged(object sender, EventArgs e)
     {
+        string discType = GetDiscType();
+
         for (int i = grvStudentDetails.Rows.Count; i == grvStudentDetails.Rows.Count; i++)
         {
             DropDownList DrpProduct =
@@ -9290,7 +9422,14 @@ public partial class CustomerSales : System.Web.UI.Page
                         vatcheck = true;
                         TextBoxTotal.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));
                         TextBoxRtVAT.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));
-                        double caldisamt = Convert.ToDouble(TextBoxTotal.Text) * Convert.ToDouble(TextBoxDisPre.Text) / 100;
+                        if (discType == "PERCENTAGE")
+                        {
+                            caldisamt = Convert.ToDouble(TextBoxTotal.Text) * Convert.ToDouble(TextBoxDisPre.Text) / 100;
+                        }
+                        else if (discType == "RUPEE")
+                        {
+                            caldisamt = Convert.ToDouble(TextBoxDisPre.Text);
+                        }
                         double calnet = Convert.ToDouble(TextBoxTotal.Text) - caldisamt;
                         double vatper = Convert.ToDouble(TextBoxVATPre.Text);
                         double vatper1 = vatper + 100;
@@ -9308,7 +9447,14 @@ public partial class CustomerSales : System.Web.UI.Page
                     if (vatcheck == false)
                     {
                         TextBoxRtVAT.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));
-                        double vatinclusiverate = Convert.ToDouble(TextBoxRtVAT.Text) * Convert.ToDouble(TextBoxDisPre.Text) / 100;
+                        if (discType == "PERCENTAGE")
+                        {
+                            vatinclusiverate = Convert.ToDouble(TextBoxRtVAT.Text) * Convert.ToDouble(TextBoxDisPre.Text) / 100;
+                        }
+                        else if (discType == "RUPEE")
+                        {
+                            vatinclusiverate = Convert.ToDouble(TextBoxDisPre.Text);
+                        }
                         double vatinclusiverate3 = Convert.ToDouble(TextBoxRtVAT.Text) - vatinclusiverate;
                         double vatinclusiverate1 = Convert.ToDouble(vatinclusiverate3) * Convert.ToDouble(TextBoxVATPre.Text) / 100;
                         double vatinclusiverate2 = vatinclusiverate1 + vatinclusiverate3;
