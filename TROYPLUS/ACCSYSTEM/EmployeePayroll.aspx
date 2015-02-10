@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" Title="Human Resource > Employee Payroll" CodeFile="EmployeePayroll.aspx.cs" Inherits="EmployeePayroll" MasterPageFile="~/PageMaster.master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="EmployeePayroll.aspx.cs" Inherits="EmployeePayroll" MasterPageFile="~/PageMaster.master" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">
@@ -80,6 +80,7 @@
                                                 <td style="width: 10px;"></td>
 
                                                 <td>
+                                                    <asp:Button ID="btnViewLog" runat="server" Text="View Log" Enabled="true" OnClick="btnViewLog_Click" Visible="false" EnableTheming="false" />
                                                     <asp:Button ID="btnViewPayslips" runat="server" Text="View Payslip" Enabled="false" EnableTheming="false" OnClick="btnViewPayslips_Click" />
                                                 </td>
                                             </tr>
@@ -102,8 +103,6 @@
                                             Width="99.9%" AllowPaging="true" DataKeyNames="PayslipId" OnPageIndexChanging="grdViewPaySlipInfo_PageIndexChanging"
                                             OnRowCreated="grdViewPaySlipInfo_RowCreated"
                                             EmptyDataText="No payslip associated with this payroll." Font-Names="Trebuchet MS" CssClass="someClass">
-                                            <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
-                                            <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                             <Columns>
                                                 <asp:BoundField DataField="PayslipId" HeaderText="PayslipId" Visible="false" HeaderStyle-BorderColor="Gray" />
                                                 <asp:BoundField DataField="EmpFirstName" HeaderText="Employee Name" Visible="true" />
@@ -149,6 +148,49 @@
                                 </td>
                             </tr>
                         </table>
+                    </td>
+                </tr>
+                <tr style="width: 100%; height: 100%">
+                    <td style="width: 100%">
+                        <input id="FakeCancelBtn" type="button" style="display: none" runat="server" />
+                        <input id="FakeTargetBtn" type="button" style="display: none" runat="server" />
+                        <cc1:ModalPopupExtender ID="modelPopupLogViewer" runat="server" BackgroundCssClass="modalBackground"
+                            CancelControlID="FakeCancelBtn" Enabled="True" PopupControlID="LogDetailPopUp"
+                            TargetControlID="FakeTargetBtn">
+                        </cc1:ModalPopupExtender>
+                        <asp:Panel runat="server" ID="LogDetailPopUp" Style="width: 60%" Visible="true">
+                            <div id="contentPopUp">
+                                <table style="width: 100%;" align="center">
+                                    <tr style="width: 100%">
+                                        <td style="width: 100%">
+                                            <div class="divArea" style="overflow-y:scroll">
+                                                <table cellpadding="1" cellspacing="1" style="border: 1px solid #86b2d1; width: 100%;">
+                                                    <tr>
+                                                        <td colspan="3" class="headerPopUp">Payroll Generation Log
+                                                            
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <asp:GridView ID="grdViewPayrollLog" runat="server" AutoGenerateColumns="false">
+                                                                <Columns>
+                                                                    <asp:BoundField HeaderText="Employee Name" DataField="EmpFirstName" NullDisplayText="NA" ItemStyle-HorizontalAlign="Left" />
+                                                                    <asp:BoundField HeaderText="Log Info" DataField="Message" NullDisplayText="NA" ItemStyle-HorizontalAlign="Left" ItemStyle-Wrap="true" />
+                                                                </Columns>
+                                                            </asp:GridView>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="right">
+                                                            <asp:Button ID="btnClosePopup" runat="server" EnableTheming="false" UseSubmitBehavior="true" Text="Ok" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                        </asp:Panel>
                     </td>
                 </tr>
             </table>
