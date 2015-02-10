@@ -1,17 +1,10 @@
 ﻿﻿using System;
-using System.Collections;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Web;
-using System.Web.Security;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
 
 public partial class EmployeeMaster : System.Web.UI.Page
 {
@@ -46,7 +39,7 @@ public partial class EmployeeMaster : System.Web.UI.Page
 
                 BindEmp();
                 loadEmp();
-
+                loadEmployeeRoles();
                 string connection = Request.Cookies["Company"].Value;
                 string usernam = Request.Cookies["LoggedUserName"].Value;
                 BusinessLogic bl = new BusinessLogic(sDataSource);
@@ -150,6 +143,20 @@ public partial class EmployeeMaster : System.Web.UI.Page
 
     }
 
+    private void loadEmployeeRoles()
+    {
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        
+        string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
+        ddlRole.Items.Clear();
+        ddlRole.Items.Add(new ListItem("Select Role", "0"));
+
+        ddlRole.DataSource = bl.ListEmployeeRoles();
+        ddlRole.DataTextField = "RoleName";
+        ddlRole.DataValueField = "ID";
+        ddlRole.DataBind();
+    }
+
     protected void lnkBtnAdd_Click(object sender, EventArgs e)
     {
         try
@@ -173,6 +180,7 @@ public partial class EmployeeMaster : System.Web.UI.Page
             string dtaa = Convert.ToDateTime(indianStd).ToString("dd/MM/yyyy");
             txtDoj.Text = dtaa;
             loadEmp();
+            loadEmployeeRoles();
             ModalPopupExtender2.Show();
             //BusinessLogic bl = new BusinessLogic(sDataSource);
             //int empnum = bl.GetNextEmpno();
@@ -211,6 +219,7 @@ public partial class EmployeeMaster : System.Web.UI.Page
             string sRemarks = string.Empty;
             string sTitle = string.Empty;
             int ManagerId = 0;
+            int roleId = 0;
 
             string dDOJ = string.Empty;
             string dDOB = string.Empty;
@@ -238,9 +247,11 @@ public partial class EmployeeMaster : System.Web.UI.Page
                 if (txtRemarks.Text.Trim() != string.Empty)
                     sRemarks = txtRemarks.Text.Trim();
                 if (drpIncharge.Text.Trim() != string.Empty)
-                    ManagerId = Convert.ToInt32(drpIncharge.SelectedValue);
+                    ManagerId = Convert.ToInt32(drpIncharge.SelectedValue);                
                 if (txtUserGroup.Text.Trim() != string.Empty)
                     UserGroup = txtUserGroup.Text.Trim();
+                if (!string.IsNullOrEmpty(ddlRole.SelectedValue))
+                    int.TryParse(ddlRole.SelectedValue, out roleId);
 
                 sTitle = drpTitle.SelectedItem.Text;
                 string stype = drptype.SelectedItem.Text;
@@ -253,7 +264,7 @@ public partial class EmployeeMaster : System.Web.UI.Page
                 if (checkemp == null || checkemp.Tables[0].Rows.Count == 0)
                 {
                     //int empno = bl.InsertEmpDetails(empNO, sTitle, sEmpFName, sEmpMName, sEmpSName, sDesig, sRemarks, dDOJ, dDOB, stype);
-                    int empno = bl.InsertEmpDetails(empNO, sTitle, sEmpFName, sEmpMName, sEmpSName, sDesig, sRemarks, dDOJ, dDOB, ManagerId, UserGroup);
+                    int empno = bl.InsertEmpDetails(empNO, sTitle, sEmpFName, sEmpMName, sEmpSName, sDesig, sRemarks, dDOJ, dDOB, ManagerId, UserGroup,roleId);
 
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Business Partner Details Saved Successfully.');", true);
                     Reset();
@@ -293,6 +304,7 @@ public partial class EmployeeMaster : System.Web.UI.Page
             string sRemarks = string.Empty;
             string sTitle = string.Empty;
             int ManagerId = 0;
+            int roleId = 0;
             string UserGroup = string.Empty;
             string dDOJ = string.Empty;
             string dDOB = string.Empty;
@@ -323,9 +335,11 @@ public partial class EmployeeMaster : System.Web.UI.Page
                     ManagerId = Convert.ToInt32(drpIncharge.SelectedValue);
                 if (txtUserGroup.Text.Trim() != string.Empty)
                     UserGroup = txtUserGroup.Text.Trim();
+                if (!string.IsNullOrEmpty(ddlRole.SelectedValue))
+                    int.TryParse(ddlRole.SelectedValue, out roleId);
 
                 //int empno = bl.UpdateEmpDetails(empNO, sTitle, sEmpFName, sEmpMName, sEmpSName, sDesig, sRemarks, dDOJ, dDOB, stype);
-                int empno = bl.UpdateEmpDetails(empNO, sTitle, sEmpFName, sEmpMName, sEmpSName, sDesig, sRemarks, dDOJ, dDOB, ManagerId, UserGroup);
+                int empno = bl.UpdateEmpDetails(empNO, sTitle, sEmpFName, sEmpMName, sEmpSName, sDesig, sRemarks, dDOJ, dDOB, ManagerId, UserGroup,roleId);
 
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Business Partner Details Updated Successfully. Partner No " + empno + "');", true);
 

@@ -17251,7 +17251,7 @@ public class BusinessLogic
         StringBuilder dbQry = new StringBuilder();
         String searchStr = string.Empty;
 
-        dbQry.Append("SELECT empno,empTitle,empFirstName,empMiddleName,empSurName,empdesig,empDOJ,empDOB,empRemarks,ManagerId,UserGroup FROM tblEmployee Where empno=" + empNO.ToString());
+        dbQry.Append("SELECT empno,empTitle,empFirstName,empMiddleName,empSurName,empdesig,empDOJ,empDOB,empRemarks,ManagerId,UserGroup,EmployeeRoleId FROM tblEmployee Where empno=" + empNO.ToString());
 
         try
         {
@@ -17359,7 +17359,7 @@ public class BusinessLogic
     //    //}
     //}
 
-    public int InsertEmpDetails(int empno, string sTitle, string sEmpFName, string sEmpMName, string sEmpSName, string sDesig, string sRemarks, string dDOJ, string dDOB, int ManagerId, string UserGroup)
+    public int InsertEmpDetails(int empno, string sTitle, string sEmpFName, string sEmpMName, string sEmpSName, string sDesig, string sRemarks, string dDOJ, string dDOB, int ManagerId, string UserGroup,int roleId)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString); // System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
@@ -17371,8 +17371,8 @@ public class BusinessLogic
             manager.Open();
             manager.ProviderType = DataProvider.OleDb;
 
-            dbQry = string.Format("INSERT INTO tblEmployee(empno,empTitle,empFirstName,empMiddleName,empSurName,empDOJ,empDOB,empDesig,empRemarks,ManagerId,UserGroup) VALUES({0},'{1}','{2}','{3}','{4}',Format('{5}', 'dd/mm/yyyy'),Format('{6}', 'dd/mm/yyyy'),'{7}','{8}',{9},'{10}')",
-            empno, sTitle, sEmpFName, sEmpMName, sEmpSName, dDOJ, dDOB, sDesig, sRemarks, ManagerId, UserGroup);
+            dbQry = string.Format("INSERT INTO tblEmployee(empno,empTitle,empFirstName,empMiddleName,empSurName,empDOJ,empDOB,empDesig,empRemarks,ManagerId,UserGroup,EmployeeRoleId) VALUES({0},'{1}','{2}','{3}','{4}',Format('{5}', 'dd/mm/yyyy'),Format('{6}', 'dd/mm/yyyy'),'{7}','{8}',{9},'{10}',{11})",
+            empno, sTitle, sEmpFName, sEmpMName, sEmpSName, dDOJ, dDOB, sDesig, sRemarks, ManagerId, UserGroup,roleId);
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
             int NewEmpNo = (Int32)manager.ExecuteScalar(CommandType.Text, "SELECT MAX(empno) FROM tblEmployee");
 
@@ -17393,7 +17393,7 @@ public class BusinessLogic
     }
 
     //UpdateEmpDetails
-    public int UpdateEmpDetails(int empno, string sTitle, string sEmpFName, string sEmpMName, string sEmpSName, string sDesig, string sRemarks, string dDOJ, string dDOB, int ManagerId, string UserGroup)
+    public int UpdateEmpDetails(int empno, string sTitle, string sEmpFName, string sEmpMName, string sEmpSName, string sDesig, string sRemarks, string dDOJ, string dDOB, int ManagerId, string UserGroup,int roleId)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString); // System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
@@ -17404,8 +17404,8 @@ public class BusinessLogic
         {
             manager.Open();
             manager.ProviderType = DataProvider.OleDb;
-            dbQry = string.Format("UPDATE tblEmployee SET empno={0},empTitle='{1}',empFirstName='{2}',empMiddleName='{3}',empSurName='{4}',empDOJ=Format('{5}', 'dd/mm/yyyy'),empDOB=Format('{6}', 'dd/mm/yyyy'),empDesig='{7}',empRemarks='{8}',ManagerId={9},UserGroup='{10}' Where empno={0}",
-            empno, sTitle, sEmpFName, sEmpMName, sEmpSName, dDOJ, dDOB, sDesig, sRemarks, ManagerId, UserGroup);
+            dbQry = string.Format("UPDATE tblEmployee SET empno={0},empTitle='{1}',empFirstName='{2}',empMiddleName='{3}',empSurName='{4}',empDOJ=Format('{5}', 'dd/mm/yyyy'),empDOB=Format('{6}', 'dd/mm/yyyy'),empDesig='{7}',empRemarks='{8}',ManagerId={9},UserGroup='{10}',EmployeeRoleId={11} Where empno={0}",
+            empno, sTitle, sEmpFName, sEmpMName, sEmpSName, dDOJ, dDOB, sDesig, sRemarks, ManagerId, UserGroup,roleId);
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
 
@@ -65858,6 +65858,34 @@ public class BusinessLogic
             {
                 throw new Exception("Pay Component Not Exists");
             }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
+    public DataTable ListEmployeeRoles()
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+        dbQry = "Select ID,Role_Name AS RoleName FROM tblEmployeeRoles WHERE IsActive = True";
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables.Count > 0)
+                return ds.Tables[0];
+            else
+                return null;
         }
         catch (Exception ex)
         {
