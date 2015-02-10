@@ -113,14 +113,6 @@ public partial class TaskStatus : System.Web.UI.Page
             {
                 StringBuilder script = new StringBuilder();
                script.Append("alert('Task Status with this name already exists, Please try with a different name.');");
-               // Response.Write("Task Status with this name already exists, Please try with a different name.");
-               
-                //Response.Write("TaskStatus.aspx");
-               
-                
-
-               // tbMain.Visible = true;
-                //return;
 
                 if (e.Exception.InnerException != null)
                 {
@@ -130,14 +122,14 @@ public partial class TaskStatus : System.Web.UI.Page
                    
 
                    
-                    return;
+                   // return;
                 }
                 else
                 {
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "Exception: " + e.Exception.Message + e.Exception.StackTrace, true);
                 }
             }
-            Response.Redirect("TaskStatus.aspx");
+           // Response.Redirect("TaskStatus.aspx");
            // this.frmViewAdd_ItemInserting(sender, e);
             e.KeepInInsertMode = true;
             e.ExceptionHandled = true;
