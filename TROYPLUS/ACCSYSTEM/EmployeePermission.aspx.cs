@@ -145,7 +145,7 @@ public partial class EmployeePermission : System.Web.UI.Page
                 {
                     ModalPopupExtender1.Show();
                     PermissionDetailPopUp.Visible = true;
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('"+ errorMsg +"');", true);
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('" + errorMsg + "');", true);
                 }
             }
             else if (ViewState["PopupMode"] != null && ViewState["PopupMode"].ToString() == "UPDATE")
@@ -207,7 +207,7 @@ public partial class EmployeePermission : System.Web.UI.Page
 
         DateTime StartTime = new DateTime();
         DateTime.TryParse(txtStartTime.Text.Trim() + StartTimeSession, out StartTime);
- 
+
         //DateTime EndTime = DateTime.Parse(txtEndTime.Text.Trim());
 
         string EndTimeSession = ddlEndTimeSession.SelectedValue.Trim();
@@ -222,7 +222,7 @@ public partial class EmployeePermission : System.Web.UI.Page
         }
 
         DateTime DateApplied = DateTime.Now;
-        
+
         string Reason = txtReason.Text.Trim();
         string Approver = hdfApproverEmpNo.Value.Trim();
         string EmailContact = txtEmailContact.Text.Trim();
@@ -230,13 +230,21 @@ public partial class EmployeePermission : System.Web.UI.Page
 
         BusinessLogic bl = new BusinessLogic(connection);
 
-        
-        if (bl.IsPermissionValid(EmployeeNo, DateApplied))
+        TimeSpan tr = EndTime - StartTime;
+
+        if (bl.IsPermissionValid(EmployeeNo, PermissionDate))
         {
-            int leaveId = bl.ApplyPermission(EmployeeNo, StartTime, EndTime, PermissionDate, Reason, Approver, EmailContact, PhoneContact);
-            if (leaveId > 0)
+            if (bl.IsPermissionHourValid(EmployeeNo, Convert.ToInt32(tr.Hours)))
             {
-                return true;
+                int leaveId = bl.ApplyPermission(EmployeeNo, StartTime, EndTime, PermissionDate, Reason, Approver, EmailContact, PhoneContact);
+                if (leaveId > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
@@ -247,7 +255,7 @@ public partial class EmployeePermission : System.Web.UI.Page
         {
             return false;
         }
-        
+
     }
 
     private bool UpdatePermission(ref string ErrorMsg)
@@ -337,7 +345,7 @@ public partial class EmployeePermission : System.Web.UI.Page
         {
             txtStartTime.SelectedValue = date.ToString("hh:mm");
             ddlStartTimeSession.SelectedValue = date.ToString("tt");
-        }        
+        }
 
         if (DateTime.TryParse(dt.Rows[0]["EndTime"].ToString(), out date))
         {
@@ -347,7 +355,7 @@ public partial class EmployeePermission : System.Web.UI.Page
 
         if (DateTime.TryParse(dt.Rows[0]["DateApplied"].ToString(), out date))
         {
-            txtPermissionDate.Text = date.ToString(); 
+            txtPermissionDate.Text = date.ToString();
         }
 
         txtReason.Text = dt.Rows[0]["Reason"].ToString();
