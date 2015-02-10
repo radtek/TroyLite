@@ -9280,7 +9280,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 double sVatamount = calnet - vatinclusiverate;
                 TextBoxVATAmt.Text = vatinclusiverate.ToString("#0.00");
                 TextBoxRtVAT.Text = calnet.ToString("#0.00");
-                TextBoxRate.Text = sVatamount.ToString("#0.00");
+               // TextBoxRate.Text = sVatamount.ToString("#0.00");
                 TextBoxTotal.Text = calnet.ToString("#0.00");
             }
             else if (Labelll.Text == "VAT EXCLUSIVE")
@@ -9438,7 +9438,7 @@ public partial class CustomerSales : System.Web.UI.Page
                         double sVatamount = calnet - vatinclusiverate;
                         TextBoxVATAmt.Text = vatinclusiverate.ToString("#0.00");
                         TextBoxRtVAT.Text = calnet.ToString("#0.00");
-                        TextBoxRate.Text = sVatamount.ToString("#0.00");
+                        //TextBoxRate.Text = sVatamount.ToString("#0.00");
                         TextBoxTotal.Text = calnet.ToString("#0.00");
                     }
                 }
