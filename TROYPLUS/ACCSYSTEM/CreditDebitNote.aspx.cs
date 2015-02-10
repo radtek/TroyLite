@@ -141,7 +141,36 @@ public partial class CreditDebitNote : System.Web.UI.Page
 
             }
         }
+        else
+        {
+            BusinessLogic bl = new BusinessLogic();
+            DataSet ds = bl.GetAppSettings(Request.Cookies["Company"].Value);
 
+            if (ds != null)
+                Session["AppSettings"] = ds;
+
+            appSettings = (DataSet)Session["AppSettings"];
+
+            for (int i = 0; i < appSettings.Tables[0].Rows.Count; i++)
+            {
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "SMSREQ")
+                {
+                    smsRequired = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                    Session["SMSREQUIRED"] = smsRequired.Trim().ToUpper();
+                }
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "EMAILREQ")
+                {
+                    emailRequired = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                    Session["EMAILREQUIRED"] = emailRequired.Trim().ToUpper();
+                }
+
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "OWNERMOB")
+                {
+                    Session["OWNERMOB"] = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                }
+
+            }
+        }
     }
 
 
@@ -484,6 +513,9 @@ public partial class CreditDebitNote : System.Web.UI.Page
             int ScreenNo = 0;
             string ScreenName = string.Empty;
 
+            string content = string.Empty;
+            string Subject1 = string.Empty;
+            StringBuilder emailcontent = new StringBuilder();
 
             salestype = "Credit/Debit Note";
             ScreenName = "Credit/Debit Note";
@@ -495,6 +527,8 @@ public partial class CreditDebitNote : System.Web.UI.Page
                     foreach (DataRow dr in dsddd.Tables[0].Rows)
                     {
                         ScreenNo = Convert.ToInt32(dr["ScreenNo"]);
+                        content = Convert.ToString(dr["Content"]);
+                        Subject1= (Convert.ToString(dr["Subject"]));
                     }
                 }
             }
@@ -541,15 +575,41 @@ public partial class CreditDebitNote : System.Web.UI.Page
 
                                 if (ModeofContact == 2)
                                 {
-                                    string subject = "Added - " + rdoCDTypeAdd.SelectedItem.Text + " Note in Branch " + Request.Cookies["Company"].Value;
+                                    //string subject = Subject1 + " Added - " + rdoCDTypeAdd.SelectedItem.Text + " Note in Branch " + Request.Cookies["Company"].Value;
+                                    string subject = Subject1 ;
 
-                                    string body = "\n";
-                                    body += " Branch           : " + Request.Cookies["Company"].Value + "\n";
-                                    body += " Ledger           : " + ComboBox2Add.SelectedItem.Text +"\n";
-                                    body += " Bill Date        : " + txtTransDateAdd.Text + "\n";
-                                    body += " Type             : " + rdoCDTypeAdd.SelectedItem.Text + "\n";
-                                    body += " User Name        : " + usernam + "\n";
-                                    body += " Total Amount     : " + txtAmountAdd.Text + "\n";
+                                    string body = string.Empty;
+
+                                    int index123 = content.IndexOf("@B");
+                                    body = Request.Cookies["Company"].Value;
+                                    content = content.Remove(index123, 2).Insert(index123, body);
+
+                                    int index132 = content.IndexOf("@N");
+                                    body = txtNarrationAdd.Text;
+                                    content = content.Remove(index132, 2).Insert(index132, body);
+
+                                    int index312 = content.IndexOf("@U");
+                                    body = usernam;
+                                    content = content.Remove(index312, 2).Insert(index312, body);
+
+                                    int index2 = content.IndexOf("@T");
+                                    body = rdoCDTypeAdd.SelectedItem.Text;
+                                    content = content.Remove(index2, 2).Insert(index2, body);
+
+                                    int index = content.IndexOf("@L");
+                                    body = ComboBox2Add.SelectedItem.Text ;
+                                    content = content.Remove(index, 2).Insert(index, body);
+
+                                    int index1 = content.IndexOf("@A");
+                                    body = txtAmountAdd.Text;
+                                    content = content.Remove(index1, 2).Insert(index1, body);
+
+                                    //body += " Branch           : " + Request.Cookies["Company"].Value + "\n";
+                                    //body += " Ledger           : " + ComboBox2Add.SelectedItem.Text +"\n";
+                                    //body += " Bill Date        : " + txtTransDateAdd.Text + "\n";
+                                    //body += " Type             : " + rdoCDTypeAdd.SelectedItem.Text + "\n";
+                                    //body += " User Name        : " + usernam + "\n";
+                                    //body += " Total Amount     : " + txtAmountAdd.Text + "\n";
 
                                     string smtphostname = ConfigurationManager.AppSettings["SmtpHostName"].ToString();
                                     int smtpport = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPortNumber"]);
@@ -557,7 +617,7 @@ public partial class CreditDebitNote : System.Web.UI.Page
 
                                     string fromPassword = ConfigurationManager.AppSettings["FromPassword"].ToString();
 
-                                    EmailLogic.SendEmail(smtphostname, smtpport, fromAddress, toAddress, subject, body, fromPassword);
+                                    EmailLogic.SendEmail(smtphostname, smtpport, fromAddress, toAddress, subject, content, fromPassword);
 
                                     //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Email sent successfully')", true);
                                 }

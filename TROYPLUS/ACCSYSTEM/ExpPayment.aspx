@@ -685,9 +685,9 @@
                         </asp:Panel>
                     </td>
                 </tr>
-                <tr style="width: 100%; margin: -4px 0px 0px 0px;">
+                <tr style="width: 100%; margin: -2px 0px 0px 0px;">
                     <td style="width: 100%">
-                        <table width="100%" style="margin: -4px 0px 0px 0px;">
+                        <table width="100%" style="margin: -2px 0px 0px 0px;">
                             <tr style="width: 100%">
                                 <td>
                                     <div class="mainGridHold" id="searchGrid">
@@ -697,7 +697,7 @@
                                             OnRowCommand="GrdViewPayment_RowCommand" OnRowDataBound="GrdViewPayment_RowDataBound"
                                             OnSelectedIndexChanged="GrdViewPayment_SelectedIndexChanged" OnRowDeleting="GrdViewPayment_RowDeleting"
                                             OnRowDeleted="GrdViewPayment_RowDeleted" CssClass="someClass">
-                                            <EmptyDataRowStyle CssClass="GrdContent" />
+                                            <EmptyDataRowStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small"  />
                                             <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
                                             <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                             <Columns>
