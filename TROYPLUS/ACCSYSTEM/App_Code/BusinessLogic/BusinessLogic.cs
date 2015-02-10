@@ -67593,6 +67593,8 @@ public class BusinessLogic
 
         try
         {
+            EmpNo = GetUserInfoByName(EmpNo).EmpNo.ToString();
+
             manager.Open();
             manager.ProviderType = DataProvider.OleDb;
 
@@ -67600,13 +67602,59 @@ public class BusinessLogic
 
             object totPermission = manager.ExecuteScalar(CommandType.Text, "SELECT Monthly_Permission_Count FROM tblHRAdminSettings");
 
-            object actualPermission = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblEmployeePermissions WHERE Month(DateApplied) = " + applyMonth.Month);
+            dbQry = string.Format("SELECT Count(*) FROM tblEmployeePermissions WHERE EmployeeNo ='{0}' AND a.AttendanceYear='{0}' AND Month(DateApplied) = {1}", EmpNo, applyMonth.Month);
+
+            object actualPermission = manager.ExecuteScalar(CommandType.Text, dbQry);
 
             if (totPermission.ToString() != string.Empty)
             {
                 if (int.Parse(totPermission.ToString()) <= int.Parse(actualPermission.ToString()))
                 {
                     throw new Exception("Maximum Permission count per month is " + totPermission.ToString());
+                }
+            }
+
+            return true;
+
+            //int resultId = manager.ExecuteNonQuery(CommandType.Text, dbQry);
+            //return resultId;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+
+        return false;
+    }
+
+    public bool IsPermissionHourValid(string EmpNo, int hour)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+
+        string dbQry = string.Empty;
+
+        try
+        {
+            manager.Open();
+            manager.ProviderType = DataProvider.OleDb;
+
+            manager.BeginTransaction();
+
+            object totPermissionHr = manager.ExecuteScalar(CommandType.Text, "SELECT Daily_Permission_Thresold FROM tblHRAdminSettings");
+
+            //object actualPermissionHr = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblEmployeePermissions WHERE Month(DateApplied) = " + applyMonth.Month);
+
+            if (totPermissionHr.ToString() != string.Empty)
+            {
+                if (int.Parse(totPermissionHr.ToString()) <= hour)
+                {
+                    throw new Exception("Maximum Permission hour allowed per day is " + totPermissionHr.ToString());
                 }
             }
 

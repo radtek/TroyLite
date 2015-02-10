@@ -13,7 +13,7 @@
                             <table style="width: 100%; margin: -1px 0px 0px 1px;" cellpadding="3" cellspacing="2" class="searchbg">
                                 <tr style="height: 25px; vertical-align: middle">
                                     <td style="width: 2%"></td>
-                                    <td style="width: 16%; font-size: 22px; color: #000000;">Attendance
+                                    <td style="width: 16%; font-size: 22px; color: #000000;">Permission
                                     </td>
                                     <td style="width: 14%">
                                         <div style="text-align: right;">
