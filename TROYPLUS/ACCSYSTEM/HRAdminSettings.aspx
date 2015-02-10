@@ -137,6 +137,8 @@
                                                         </td>                                                         
                                                         
                                                         <td style="width: 25%">
+                                                            <asp:RangeValidator ValidationGroup="adminInfo" ControlToValidate="txtHolidayCount" MinimumValue="1" MaximumValue="365" Type="Integer" EnableClientScript="false"
+                                                                Text="Holiday cannot be more than 365 Days!" runat="server" />
                                                             <asp:RegularExpressionValidator runat="server" id="rexNumber" controltovalidate="txtHolidayCount" 
                                                                Display="Static" EnableClientScript="true" validationexpression="\d+" errormessage="Holiday count should be number" />
                                                         </td>
@@ -154,6 +156,8 @@
                                                                 ControlToValidate="txtPermissionHr"></asp:RequiredFieldValidator>                                                             
                                                         </td>
                                                         <td style="width: 25%">
+                                                            <asp:RangeValidator ValidationGroup="adminInfo" ControlToValidate="txtPermissionHr" MinimumValue="1" MaximumValue="4" Type="Integer" EnableClientScript="false"
+                                                                Text="Permission cannot be more than 4 hours!" runat="server" />
                                                             <asp:RegularExpressionValidator runat="server" id="RegularExpressionValidator1" controltovalidate="txtPermissionHr" 
                                                               Display="Static" EnableClientScript="true"  validationexpression="\d+" errormessage="Permission hour should be number" />
                                                         </td>
@@ -208,6 +212,8 @@
                                                         </td>                                                         
                                                         
                                                         <td style="width: 25%">
+                                                            <asp:RangeValidator ValidationGroup="adminInfo" ControlToValidate="txtWorkDays" MinimumValue="1" MaximumValue="6" Type="Integer" EnableClientScript="false"
+                                                                Text="Work days per week cannot be more than 6 days!" runat="server" />
                                                             <asp:RegularExpressionValidator runat="server" id="RegularExpressionValidator4" controltovalidate="txtWorkDays" 
                                                            Display="Static" EnableClientScript="true"  validationexpression="\d+" errormessage="Work days should be number" />
                                                         </td>
