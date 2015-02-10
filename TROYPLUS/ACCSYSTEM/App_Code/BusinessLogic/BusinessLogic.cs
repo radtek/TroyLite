@@ -65875,7 +65875,7 @@ public class BusinessLogic
         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
         DataSet ds = new DataSet();
         string dbQry = string.Empty;
-        dbQry = "Select ID,Role_Name AS RoleName FROM tblEmployeeRoles WHERE IsActive = True";
+        dbQry = "Select ID,Role_Name AS RoleName FROM tblEmployeeRoles WHERE Is_Active = True";
 
         try
         {
