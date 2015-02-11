@@ -109,6 +109,8 @@ public partial class ProjectReport1 : System.Web.UI.Page
                     cond += " and tblProjects.Project_Id=" + pro_Id + "";
                 }
 
+             
+
 
 
 
@@ -218,6 +220,12 @@ public partial class ProjectReport1 : System.Web.UI.Page
             cond += " and  tblTaskUpdates.Blocked_Flag ='" + flag + "'";
         }
 
+        if (isactive != "NA")
+        {
+
+            cond += " and tblTasks.IsActive ='" + isactive + "'";
+        }
+
         if ((status != 0))
         {
 
@@ -237,7 +245,7 @@ public partial class ProjectReport1 : System.Web.UI.Page
         }
 
 
-        cond += " and tblTasks.IsActive ='" + isactive + "' ";
+       // cond += " and tblTasks.IsActive ='" + isactive + "' ";
 
 
 
@@ -580,8 +588,16 @@ public partial class ProjectReport1 : System.Web.UI.Page
                             condtask += " and tblTasks.Dependency_Task =" + Convert.ToInt32(deptask) + " ";
                         }
 
+                     
 
-                        condtask += " and tblTasks.IsActive ='" + isactive + "' ";
+                        if (isactive != "NA")
+                        {
+
+                            condtask += " and tblTasks.IsActive ='" + isactive + "'";
+                        }
+
+
+                       // condtask += " and tblTasks.IsActive ='" + isactive + "' ";
                         //  int Project_Id = Convert.ToInt32(pro_Id);
 
                         DataSet dstask = bl.GettaskforProjectNamereport(connection, projectid, isactive, status, condtask);
@@ -615,6 +631,8 @@ public partial class ProjectReport1 : System.Web.UI.Page
                                         htmlcode.Append("</td>");
                                         htmlcode.Append("<td style=width:15%> Task Type");
                                         htmlcode.Append("</td>");
+                                        htmlcode.Append("<td style=width:15%> Dependency Task");
+                                        htmlcode.Append("</td>");
                                         htmlcode.Append("<td style=width:15%> Is Active");
                                         htmlcode.Append("</td>");
 
@@ -632,8 +650,10 @@ public partial class ProjectReport1 : System.Web.UI.Page
                                         htmlcode.Append("</td>");
                                         htmlcode.Append("<td>" + dstask.Tables[0].Rows[j].ItemArray[5].ToString());
                                         htmlcode.Append("</td>");
+                                        htmlcode.Append("<td>" + dstask.Tables[0].Rows[j].ItemArray[6].ToString());
+                                        htmlcode.Append("</td>");
 
-                                        tasksid = Convert.ToInt32(dstask.Tables[0].Rows[j].ItemArray[6].ToString());
+                                        tasksid = Convert.ToInt32(dstask.Tables[0].Rows[j].ItemArray[7].ToString());
 
                                        
 

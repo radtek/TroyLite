@@ -556,8 +556,8 @@
                                                                             <tr>
                                                                                 <td>
                                                                                     <asp:GridView ID="PayCompRolePayGrid" runat="server" Visible="true" AllowSorting="True" AutoGenerateColumns="False"
-                                                                                        Width="99.9%" AllowPaging="True" DataKeyNames="PayComponent_ID"
-                                                                                        EmptyDataText="No Pay Component for Roles List Found." Font-Names="Trebuchet MS">
+                                                                                        Width="99.9%" AllowPaging="True" DataKeyNames="PayComponent_ID" OnSelectedIndexChanged="PayCompRolePayGrid_SelectedIndexChanged"
+                                                                                        OnRowDataBound="PayCompRolePayGrid_RowDataBound"  EmptyDataText="No Pay Component for Roles List Found." Font-Names="Trebuchet MS">
                                                                                         <Columns>
                                                                                             <asp:BoundField DataField="PayComponent_ID" HeaderText="PayComponent ID" Visible="false" HeaderStyle-BorderColor="Gray" />
                                                                                             <asp:BoundField DataField="Role_ID" HeaderText="Role ID" Visible="false" HeaderStyle-BorderColor="Gray" />

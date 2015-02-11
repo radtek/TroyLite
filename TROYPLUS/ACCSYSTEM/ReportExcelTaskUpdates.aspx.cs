@@ -44,6 +44,8 @@ public partial class ReportExcelTaskUpdates : System.Web.UI.Page
                     dt.Columns.Add(new DataColumn("Task Status"));
                     dt.Columns.Add(new DataColumn("Per of Completion"));
                     dt.Columns.Add(new DataColumn("Task Update"));
+                    //dt.Columns.Add(new DataColumn("Effort Spend Last Update"));
+                    //dt.Columns.Add(new DataColumn("Effort Remaining"));
                     dt.Columns.Add(new DataColumn("Blocked Flag"));
                     dt.Columns.Add(new DataColumn("Blocking Reason"));
 
@@ -67,6 +69,8 @@ public partial class ReportExcelTaskUpdates : System.Web.UI.Page
                         dr_final1["Actual End Date"] = dtaat;
 
                         dr_final1["Per of Completion"] = dr["Per_of_Completion"];
+                        //dr_final1["Effort Spend Last Update"] = dr["Effort_Spend_Last_Update"];
+                        //dr_final1["Effort Remaining"] = dr["Effort_Remaining"];
                         dr_final1["Task Update"] = dr["Task_Update"];
                         dr_final1["Task Status"] = dr["Task_Status_Name"];
                         dr_final1["Blocked Flag"] = dr["Blocked_Flag"];

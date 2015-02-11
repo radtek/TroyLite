@@ -4045,7 +4045,6 @@ public class BusinessLogic
         }
 
     }
-
     public bool CheckIfCategoryUsed(int CategoryID)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
@@ -4084,6 +4083,83 @@ public class BusinessLogic
 
     }
 
+    public bool CheckIfTaskStatusUsed(int TaskID)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        int qty = 0;
+        string dbQry = string.Empty;
+        try
+        {
+            manager.Open();
+            dbQry = "SELECT Count(*) FROM tblTaskUpdatesHistory Where Task_Status =" + TaskID.ToString();
+
+            object qtyObj = manager.ExecuteScalar(CommandType.Text, dbQry);
+
+            if (qtyObj != null && qtyObj != DBNull.Value)
+            {
+                qty = (int)qtyObj;
+
+                if (qty > 0)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
+
+
+    public bool CheckIfTaskTypeUsed(int TaskID)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        int qty = 0;
+        string dbQry = string.Empty;
+        try
+        {
+            manager.Open();
+            dbQry = "SELECT Count(*) FROM tblTasks Where Task_Type =" + TaskID.ToString();
+
+            object qtyObj = manager.ExecuteScalar(CommandType.Text, dbQry);
+
+            if (qtyObj != null && qtyObj != DBNull.Value)
+            {
+                qty = (int)qtyObj;
+
+                if (qty > 0)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
+   
     public bool CheckIfBrandUsed(string Brand)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
@@ -60823,7 +60899,7 @@ public class BusinessLogic
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
             sAuditStr = "Task Status : " + Task_Status_Name + " added. Record Details :  User :" + Username;
-            dbQry = string.Format("INSERT INTO  tblAudit(Description,Command,auditdate) VALUES('{0}','{1}',Format('{2}', 'dd/mm/yyyy'))", sAuditStr, "Add New", DateTime.Now.ToString());
+            dbQry = string.Format("INSERT INTO  tblAudit(Description,Command,auditdate) VALUES('{0}','{1}',Format('{2}', 'dd/mm/yyyy hh:mm:ss'))", sAuditStr, "Add New", DateTime.Now.ToString());
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
             manager.CommitTransaction();
@@ -61952,18 +62028,18 @@ public class BusinessLogic
             {
                 if (dsOld.Tables[0].Rows.Count > 0)
                 {
-                    dbQry = string.Format("UPDATE tblTaskUpdates SET Task_Update_Date=Format('{0}', 'dd/mm/yyyy'),Actual_Start_Date=Format('{1}', 'dd/mm/yyyy'),Actual_End_Date=Format('{2}', 'dd/mm/yyyy'),Per_of_Completion={3},Task_Status={4},Blocked_Flag='{5}',Task_update='{6}',Blocking_Reason='{7}',Effort_Spend_Last_Update={8},Effort_Remaining={9} Where Task_Id={10}",
+                    dbQry = string.Format("UPDATE tblTaskUpdates SET Task_Update_Date=Format('{0}', 'dd/mm/yyyy'),Actual_Start_Date=Format('{1}', 'dd/mm/yyyy'),Actual_End_Date='{2}',Per_of_Completion={3},Task_Status={4},Blocked_Flag='{5}',Task_update='{6}',Blocking_Reason='{7}',Effort_Spend_Last_Update={8},Effort_Remaining={9} Where Task_Id={10}",
                     TaskUpdateDate, ActualStartDate, ActualEndDate, Per, TaskStatus, Blockedflag, Taskupdate, BlockingReason, effortlastupdate, effortremain, Task_Id);
                 }
                 else
                 {
-                    dbQry = string.Format("INSERT INTO tblTaskUpdates(Task_Update_Date,Actual_Start_Date,Actual_End_Date,Per_of_Completion,Task_Status,Blocked_Flag,Task_update,Blocking_Reason,Effort_Spend_Last_Update,Effort_Remaining,Task_id) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),{3},{4},'{5}','{6}','{7}',{8},{9},{10})",
+                    dbQry = string.Format("INSERT INTO tblTaskUpdates(Task_Update_Date,Actual_Start_Date,Actual_End_Date,Per_of_Completion,Task_Status,Blocked_Flag,Task_update,Blocking_Reason,Effort_Spend_Last_Update,Effort_Remaining,Task_id) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),'{2}',{3},{4},'{5}','{6}','{7}',{8},{9},{10})",
                     TaskUpdateDate, ActualStartDate, ActualEndDate, Per, TaskStatus, Blockedflag, Taskupdate, BlockingReason, effortlastupdate, effortremain, Task_Id);
                 }
             }
             else
             {
-                dbQry = string.Format("INSERT INTO tblTaskUpdates(Task_Update_Date,Actual_Start_Date,Actual_End_Date,Per_of_Completion,Task_Status,Blocked_Flag,Task_update,Blocking_Reason,Effort_Spend_Last_Update,Effort_Remaining,Task_id) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),{3},{4},'{5}','{6}','{7}',{8},{9},{10})",
+                dbQry = string.Format("INSERT INTO tblTaskUpdates(Task_Update_Date,Actual_Start_Date,Actual_End_Date,Per_of_Completion,Task_Status,Blocked_Flag,Task_update,Blocking_Reason,Effort_Spend_Last_Update,Effort_Remaining,Task_id) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),'{2}',{3},{4},'{5}','{6}','{7}',{8},{9},{10})",
                 TaskUpdateDate, ActualStartDate, ActualEndDate, Per, TaskStatus, Blockedflag, Taskupdate, BlockingReason, effortlastupdate, effortremain, Task_Id);
             }
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
@@ -61981,12 +62057,12 @@ public class BusinessLogic
             }
 
 
-            dbQry = string.Format("INSERT INTO tblTaskUpdatesHistory(Task_Update_Date,Actual_Start_Date,Actual_End_Date,Per_of_Completion,Task_Status,Blocked_Flag,Task_update,Blocking_Reason,Effort_Spend_Last_Update,Effort_Remaining,Task_id,Task_Update_Id) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),{3},{4},'{5}','{6}','{7}',{8},{9},{10},{11})",
+            dbQry = string.Format("INSERT INTO tblTaskUpdatesHistory(Task_Update_Date,Actual_Start_Date,Actual_End_Date,Per_of_Completion,Task_Status,Blocked_Flag,Task_update,Blocking_Reason,Effort_Spend_Last_Update,Effort_Remaining,Task_id,Task_Update_Id) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),'{2}',{3},{4},'{5}','{6}','{7}',{8},{9},{10},{11})",
                 TaskUpdateDate, ActualStartDate, ActualEndDate, Per, TaskStatus, Blockedflag, Taskupdate, BlockingReason, effortlastupdate, effortremain, Task_Id, Task_Update_Id);
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
 
-            dbQry = string.Format("UPDATE tblTasks SET Actual_Start_Date=Format('{0}', 'dd/mm/yyyy'),Actual_End_Date=Format('{1}', 'dd/mm/yyyy') Where Task_Id={2}",
+            dbQry = string.Format("UPDATE tblTasks SET Actual_Start_Date=Format('{0}', 'dd/mm/yyyy'),Actual_End_Date='{1}' Where Task_Id={2}",
                     ActualStartDate, ActualEndDate, Task_Id);
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -62055,7 +62131,7 @@ public class BusinessLogic
 
             if (txtSearch == "History")
             {
-                dbQry.Append("SELECT tblTaskUpdatesHistory.Task_Update_Id,tblTaskUpdatesHistory.Task_Update_Date,tblTaskUpdatesHistory.Actual_Start_Date,tblTaskUpdatesHistory.Actual_End_Date,tblTaskStatus.Task_Status_Name,tblTaskUpdatesHistory.Per_of_Completion,tblTaskUpdatesHistory.Blocked_Flag,tblTaskUpdatesHistory.Blocking_Reason,tblTaskUpdatesHistory.Task_update ");
+                dbQry.Append("SELECT tblTaskUpdatesHistory.Task_Update_Id,tblTaskUpdatesHistory.Task_Update_Date,tblTaskUpdatesHistory.Actual_Start_Date,tblTaskUpdatesHistory.Actual_End_Date,tblTaskStatus.Task_Status_Name,tblTaskUpdatesHistory.Per_of_Completion,tblTaskUpdatesHistory.Blocked_Flag,tblTaskUpdatesHistory.Blocking_Reason,tblTaskUpdatesHistory.Effort_Spend_Last_Update,tblTaskUpdatesHistory.Effort_Remaining,tblTaskUpdatesHistory.Task_update ");
                 dbQry.Append(" FROM tblTaskUpdatesHistory INNER JOIN tblTaskStatus ON tblTaskUpdatesHistory.Task_Status = tblTaskStatus.Task_Status_Id ");
                 dbQry.Append(" ORDER BY tblTaskUpdatesHistory.Task_Update_Date Desc");
             }
@@ -65727,21 +65803,20 @@ public class BusinessLogic
                         manager.CommitTransaction();
                     }
                 }
-            }
-            else
-            {
-
-                foreach (DataRow dr in dt.Rows)
+                else
                 {
-                    dbQry = string.Format("INSERT INTO tblEmployeeRoleLeaveLimit(LeaveType_ID, Role_ID, EffectiveDate, AllowedCount) VALUES({0}, {1}, '{2}', {3})",
-                  dr.Field<int>("LeaveType_ID"), dr.Field<int>("Role_ID"), dr.Field<DateTime>("EffectiveDate"), dr.Field<int>("AllowedCount"));
 
-                    manager.ExecuteNonQuery(CommandType.Text, dbQry);
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        dbQry = string.Format("INSERT INTO tblEmployeeRoleLeaveLimit(LeaveType_ID, Role_ID, EffectiveDate, AllowedCount) VALUES({0}, {1}, '{2}', {3})",
+                      dr.Field<int>("LeaveType_ID"), dr.Field<int>("Role_ID"), dr.Field<DateTime>("EffectiveDate"), dr.Field<int>("AllowedCount"));
 
-                    manager.CommitTransaction();
+                        manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                        manager.CommitTransaction();
+                    }
                 }
-            }
-
+            }            
         }
         catch (Exception ex)
         {
@@ -65885,7 +65960,7 @@ public class BusinessLogic
         }
     }
 
-    public void DeleteRolePayComp(int role_ID)
+    public void DeleteRolePayComp(int pay_ID, int role_ID)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
@@ -65900,14 +65975,14 @@ public class BusinessLogic
 
             manager.BeginTransaction();
 
-            object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblPayComponentRoleMapping Where Role_ID =" + role_ID);
+            object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblPayComponentRoleMapping Where PayComponent_ID =" + pay_ID + " AND Role_ID = " + role_ID);
 
             if (exists.ToString() != string.Empty)
             {
                 if (int.Parse(exists.ToString()) > 0)
                 {
 
-                    dbQry = string.Format("Delete From tblPayComponentRoleMapping WHERE Role_ID = {0} ", role_ID);
+                    dbQry = string.Format("Delete From tblPayComponentRoleMapping WHERE PayComponent_ID = {0} AND Role_ID = {1}  ", pay_ID, role_ID);
 
                     manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -68094,7 +68169,7 @@ public class BusinessLogic
         }
     }
 
-    public void DeleteEmpPayComp(int EmpId)
+    public void DeleteEmpPayComp(int EmpId, int pay_ID)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
@@ -68109,14 +68184,14 @@ public class BusinessLogic
 
             manager.BeginTransaction();
 
-            object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblPayComponentEmployeeMapping Where EmpNo =" + EmpId);
+            object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblPayComponentEmployeeMapping Where EmpNo =" + EmpId + " AND PayComponent_ID = " + pay_ID);
 
             if (exists.ToString() != string.Empty)
             {
                 if (int.Parse(exists.ToString()) > 0)
                 {
 
-                    dbQry = string.Format("Delete From tblPayComponentEmployeeMapping WHERE EmpNo = {0} ", EmpId);
+                    dbQry = string.Format("Delete From tblPayComponentEmployeeMapping WHERE EmpNo = {0} AND PayComponent_ID = {1} ", EmpId, pay_ID);
 
                     manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -68773,7 +68848,7 @@ public class BusinessLogic
         //if (Isactive == "Y" && type == 0)
         //{
 
-        dbQry.Append("SELECT tblTasks.Task_Name ,tblTasks.Expected_Start_Date,tblTasks.Expected_End_Date,tblEmployee.empfirstname AS ownername,tblTaskTypes.Task_Type_Name as taskname,tblTasks.IsActive,tblTasks.Task_id,tblTasks.Task_Type,tblProjects.Project_Name ");
+        dbQry.Append("SELECT tblTasks.Task_Name ,tblTasks.Expected_Start_Date,tblTasks.Expected_End_Date,tblEmployee.empfirstname AS ownername,tblTaskTypes.Task_Type_Name as taskname,tblTaskTypes.Task_Type_Name as DependencyTask,tblTasks.IsActive,tblTasks.Task_id,tblTasks.Task_Type,tblProjects.Project_Name ");
 
             dbQry.Append("  from ((tblTasks Inner Join tblProjects On tblProjects.Project_Id = tblTasks.Project_Code) Inner join tblEmployee on tblEmployee.empno = tblTasks.Owner) Inner join tblTaskTypes on tblTaskTypes.Task_Type_Id = tblTasks.Task_Type ");
 

@@ -321,11 +321,11 @@ public partial class TaskTypes : System.Web.UI.Page
         {
             BusinessLogic bl = new BusinessLogic(GetConnectionString());
 
-            //if (bl.CheckIfCategoryUsed(int.Parse(((HiddenField)e.Row.FindControl("ldgID")).Value)))
-            //{
-            //    ((ImageButton)e.Row.FindControl("lnkB")).Visible = false;
-            //    ((ImageButton)e.Row.FindControl("lnkBDisabled")).Visible = true;
-            //}
+            if (bl.CheckIfTaskTypeUsed(int.Parse(((HiddenField)e.Row.FindControl("ldgID")).Value)))
+            {
+                ((ImageButton)e.Row.FindControl("lnkB")).Visible = false;
+                ((ImageButton)e.Row.FindControl("lnkBDisabled")).Visible = true;
+            }
 
             string connection = Request.Cookies["Company"].Value;
             string usernam = Request.Cookies["LoggedUserName"].Value;

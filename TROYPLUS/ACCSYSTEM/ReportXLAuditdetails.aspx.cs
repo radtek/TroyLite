@@ -135,7 +135,7 @@ public partial class ReportXLAuditdetails : System.Web.UI.Page
                   DataRow dr_final6 = dt.NewRow();
 
                   string aa = dr["AuditDate"].ToString().ToUpper().Trim();
-                  string dtaa = Convert.ToDateTime(aa).ToString("dd/MM/yyyy");
+                  string dtaa = Convert.ToDateTime(aa).ToString("dd/MM/yyyy hh:mm:ss");
                   dr_final6["Audit Date"] = dtaa;
 
                   dr_final6["Description"] = dr["Description"];

@@ -337,6 +337,12 @@ public partial class TaskStatus : System.Web.UI.Page
             string connection = Request.Cookies["Company"].Value;
             string usernam = Request.Cookies["LoggedUserName"].Value;
 
+            if (bl.CheckIfTaskStatusUsed(int.Parse(((HiddenField)e.Row.FindControl("ldgID")).Value)))
+            {
+                ((ImageButton)e.Row.FindControl("lnkB")).Visible = false;
+                ((ImageButton)e.Row.FindControl("lnkBDisabled")).Visible = true;
+            }
+
             if (bl.CheckUserHaveEdit(usernam, "Tstatus"))
             {
                 ((ImageButton)e.Row.FindControl("btnEdit")).Visible = false;

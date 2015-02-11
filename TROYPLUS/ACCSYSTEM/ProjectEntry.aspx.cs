@@ -166,7 +166,7 @@ public partial class ProjectEntry : System.Web.UI.Page
         int StartDelayDate = 0;
         int EndDueDate = 0;
         int OverDueDate = 0;
-    
+
 
         try
         {
@@ -179,16 +179,28 @@ public partial class ProjectEntry : System.Web.UI.Page
 
                 if (bl.IsProjectCodeAlreadyFound(connection, ProjectCode))
                 {
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert(' Project ID \\'"+txtProjectCode.Text+"\\' already exists');", true);
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert(' Project ID \\'" + txtProjectCode.Text + "\\' already exists');", true);
 
                     ModalPopupExtender1.Show();
                     tbMain.Visible = true;
                     return;
 
-                    
+
+                }
+                if (txtEffortDays.Text.Trim() != string.Empty)
+                    EffortDays = Convert.ToInt32(txtEffortDays.Text.Trim());
+
+                if (Convert.ToInt32(EffortDays) == 0  || Convert.ToInt32(EffortDays) == null)
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert(' Estimate Effort days should not Zero Or Blank');", true);
+
+                    ModalPopupExtender1.Show();
+                    tbMain.Visible = true;
+                    return;
+
                 }
 
-                
+
                 if (txtCDate.Text.Trim() != string.Empty)
                     ProjectDate = txtCDate.Text.Trim();
                 if (txtEWstartDate.Text.Trim() != string.Empty)
@@ -230,16 +242,16 @@ public partial class ProjectEntry : System.Web.UI.Page
 
                 //if (checkemp == null || checkemp.Tables[0].Rows.Count == 0)
                 //{
-                bl.InsertProjectEntry(ProjectCode, ProjectDate, EWStartDate, EWEndDate, empNO, ProjectName, EffortDays, Projectstatus, ProjectDesc, Username, ActStartDate, ActEndDate,unitofmeasure);
+                bl.InsertProjectEntry(ProjectCode, ProjectDate, EWStartDate, EWEndDate, empNO, ProjectName, EffortDays, Projectstatus, ProjectDesc, Username, ActStartDate, ActEndDate, unitofmeasure);
 
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('New Project Details Saved Successfully.');", true);
-                    Reset();
-                    ResetSearch();
-                    BindWME("", "");
-                    //MyAccordion.Visible = true;
-                    tbMain.Visible = false;
-                    GrdWME.Visible = true;
-                    lnkBtnAdd_Click(sender, e);
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('New Project Details Saved Successfully.');", true);
+                Reset();
+                ResetSearch();
+                BindWME("", "");
+                //MyAccordion.Visible = true;
+                tbMain.Visible = false;
+                GrdWME.Visible = true;
+                lnkBtnAdd_Click(sender, e);
                 //}
                 //else
                 //{
@@ -558,7 +570,7 @@ public partial class ProjectEntry : System.Web.UI.Page
             btnsavereturn.Visible = true;
             btnUpdate.Visible = false;
             btnSave.Enabled = true;
-            btnsavereturn.Enabled = true;
+           btnsavereturn.Enabled = true;
             drpunitmeasure.Visible = true;
             //estimateheading.Text = "Estimate duration in(Days)";
            
@@ -1086,7 +1098,7 @@ public partial class ProjectEntry : System.Web.UI.Page
             btnsavereturn.Enabled = false;
             tbMain.Visible = true;
             btnSave.Visible = false;
-            btnsavereturn.Visible = false;
+           btnsavereturn.Visible = false;
             btnUpdate.Visible = true;
             ModalPopupExtender1.Show();
         }
