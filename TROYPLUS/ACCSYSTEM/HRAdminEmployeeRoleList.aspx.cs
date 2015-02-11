@@ -587,12 +587,12 @@ public partial class EmployeeRole_HRAdminRoleList : System.Web.UI.Page
             }
             else
             {
-                txtDeclaredAmt.Text = null;
-                txtfrmDate.Text = null;
-                txtfrmDate.Enabled = false;
-                btnEditDate.Enabled = false;
-                txtDeclaredAmt.Enabled = false;
-                ManagePayComponentGrid.SelectedIndex = -1;
+                //txtDeclaredAmt.Text = null;
+                //txtfrmDate.Text = null;
+                //txtfrmDate.Enabled = false;
+                //btnEditDate.Enabled = false;
+                //txtDeclaredAmt.Enabled = false;
+                //ManagePayComponentGrid.SelectedIndex = -1;
 
                 ModalPopupExtender3.Show();
                 EmployeePayCompPopUp.Visible = true;
@@ -609,39 +609,52 @@ public partial class EmployeeRole_HRAdminRoleList : System.Web.UI.Page
 
     protected void CancelRolePayMapBtn_Click(object sender, EventArgs e)
     {
+       
+    }
+
+    protected void removeSelectedBtn_Click(object sender, EventArgs e)
+    {
         try
         {
-            int roleId = Convert.ToInt32(ManagePayRoleID.Value);
+            if (PayCompRolePayGrid.SelectedDataKey != null)
+            {
+                int roleId = Convert.ToInt32(ManagePayRoleID.Value);
 
-            BusinessLogic bL = new BusinessLogic(sDataSource);
+                int payCompId = Convert.ToInt32(PayCompRolePayGrid.SelectedDataKey.Value);
 
-            bL.DeleteRolePayComp(roleId);
+                BusinessLogic bL = new BusinessLogic(sDataSource);
 
-            txtDeclaredAmt.Text = null;
-            txtfrmDate.Text = null;
-            ManagePayComponentGrid.SelectedIndex = -1;
+                bL.DeleteRolePayComp(payCompId, roleId);
 
+                txtDeclaredAmt.Text = null;
+                txtfrmDate.Text = null;
+                txtfrmDate.Enabled = false;
+                btnEditDate.Enabled = false;
+                txtDeclaredAmt.Enabled = false;
+                PayCompRolePayGrid.SelectedIndex = -1;
+                roleSearch.Text = "";
+
+                GetPayComponent(string.Empty);
+
+                GetRolePayComponent(roleId);
+
+                ModalPopupExtender3.Show();
+                EmployeePayCompPopUp.Visible = true;
+
+            }
+            else
+            {
+                ModalPopupExtender3.Show();
+                EmployeePayCompPopUp.Visible = true;
+                StringBuilder scriptMsg = new StringBuilder();
+                scriptMsg.Append("alert('Please select paycomponent');");
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), scriptMsg.ToString(), true);
+            }
         }
         catch (Exception ex)
         {
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert(Failed :" + ex.Message.ToString() + "');", true);
         }
-    }
-
-    protected void removeSelectedBtn_Click(object sender, EventArgs e)
-    {
-        txtDeclaredAmt.Text = null;
-        txtfrmDate.Text = null;
-        txtfrmDate.Enabled = false;
-        btnEditDate.Enabled = false;
-        txtDeclaredAmt.Enabled = false;
-        ManagePayComponentGrid.SelectedIndex = -1;
-        roleSearch.Text = "";
-
-        GetPayComponent(string.Empty);
-
-        ModalPopupExtender3.Show();
-        EmployeePayCompPopUp.Visible = true;
     }
 
     #region Private Methods
@@ -762,5 +775,42 @@ public partial class EmployeeRole_HRAdminRoleList : System.Web.UI.Page
             EmployeePayCompPopUp.Visible = true;
         }
 
+    }
+    protected void PayCompRolePayGrid_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        foreach (GridViewRow row in PayCompRolePayGrid.Rows)
+        {
+            if (row.RowIndex == PayCompRolePayGrid.SelectedIndex)
+            {
+                row.BackColor = ColorTranslator.FromHtml("#A1DCF2");
+                row.ToolTip = string.Empty;
+
+                //ViewState["PayCompId"] = (int)ManagePayComponentGrid.DataKeys[ManagePayComponentGrid.SelectedIndex].Value;
+
+                //txtfrmDate.Enabled = true;
+                //btnEditDate.Enabled = true;
+                //txtDeclaredAmt.Enabled = true;
+
+                ModalPopupExtender3.Show();
+                EmployeePayCompPopUp.Visible = true;
+
+            }
+            else
+            {
+                row.BackColor = ColorTranslator.FromHtml("#FFFFFF");
+                row.ToolTip = "Click to select this row.";
+
+                ModalPopupExtender3.Show();
+                EmployeePayCompPopUp.Visible = true;
+            }
+        }
+    }
+    protected void PayCompRolePayGrid_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            e.Row.Attributes["onclick"] = Page.ClientScript.GetPostBackClientHyperlink(PayCompRolePayGrid, "Select$" + e.Row.RowIndex);
+            e.Row.ToolTip = "Click to select this row.";
+        }
     }
 }
