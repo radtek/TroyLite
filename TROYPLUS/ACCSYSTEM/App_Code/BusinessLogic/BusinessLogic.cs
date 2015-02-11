@@ -1816,6 +1816,31 @@ public class BusinessLogic
 
     }
 
+    public void ResetPassword(string userName, string password, string connection)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+
+        int retValue = 0;
+        string dbQry = string.Format("Update tblUserInfo Set Userpwd = '{0}' Where UserName = '{1}'", password, userName);
+
+        try
+        {
+            manager.Open();
+            retValue = manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
+
     public void ChangePassword(string userName, string password, string connection, string ts)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
@@ -2274,6 +2299,41 @@ public class BusinessLogic
             // ProductName + ' - ' + ItemCode + ' - ' + Model  As ProductName,
             //dbQry = string.Format("select LedgerId, LedgerName,Add1 from tblLedger inner join tblGroups on tblGroups.GroupID = tblLedger.GroupID Where tblGroups.GroupName IN ('{0}','{1}') Order By LedgerName Asc ", "Sundry Debtors", "Sundry Creditors");
             dbQry = string.Format("select LedgerId,LedgerName + ' - ' + Add1 + ' - ' + Add2 + ' - ' + Add3 + ' - '  + Mobile as LedgerName from tblLedger inner join tblGroups on tblGroups.GroupID = tblLedger.GroupID Order By ledgerName");
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
+
+    public DataSet ListUserName(string connection)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        if (connection.IndexOf("Provider=Microsoft.Jet.OLEDB.4.0;") > -1)
+            manager.ConnectionString = CreateConnectionString(connection);
+        else
+            manager.ConnectionString = CreateConnectionString(connection);
+
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+        try
+        {
+            // ProductName + ' - ' + ItemCode + ' - ' + Model  As ProductName,
+            //dbQry = string.Format("select LedgerId, LedgerName from tblLedger inner join tblGroups on tblGroups.GroupID = tblLedger.GroupID Where tblGroups.GroupName IN ('{0}','{1}') Order By LedgerName Asc ", "Sundry Debtors", "Sundry Creditors");
+            dbQry = string.Format("select UserID,UserName from tblUserInfo Order By UserName");
             manager.Open();
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
@@ -12562,7 +12622,7 @@ public class BusinessLogic
 
                             if (Logsave == "YES")
                             {
-                                logdescription = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,subtotal,executivename) VALUES({0},'{1}',{2},{3},{4},{5},{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15},{16})", salesID, Convert.ToString(dr["Prd"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["DisPre"]), Convert.ToDouble(dr["VATPre"]), iSno, Convert.ToString(dr["IsRole"]), Convert.ToDouble(dr["CSTPre"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExeComm"]), Convert.ToDouble(dr["VATAmt"]), Convert.ToDouble(dr["TotalMrp"]), 0, Convert.ToInt32(dr["Emp"]));
+                                logdescription = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,subtotal,executivename,TotalPrice) VALUES({0},'{1}',{2},{3},{4},{5},{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15},{16},{17})", salesID, Convert.ToString(dr["Prd"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["DisPre"]), Convert.ToDouble(dr["VATPre"]), iSno, Convert.ToString(dr["IsRole"]), Convert.ToDouble(dr["CSTPre"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExeComm"]), Convert.ToDouble(dr["VATAmt"]), Convert.ToDouble(dr["TotalMrp"]), 0, Convert.ToInt32(dr["Emp"]), Convert.ToDouble(dr["TotPrice"]));
                                 logdescription = logdescription.Trim();
                                 description = string.Format("INSERT INTO tblLog(LogDate,LogDescription,LogUsername,LogKey,LogMethod) VALUES(Format('{0}', 'dd/mm/yyyy'),'{1}','{2}','{3}','{4}')",
                                      DateTime.Now.ToString(), logdescription.ToString(), usernam, salesBillno, "InsertSalesNewSeries");
@@ -12575,7 +12635,7 @@ public class BusinessLogic
                                 manager.ExecuteNonQuery(CommandType.Text, description);
                             }
                             string dbQry1;
-                            dbQry1 = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,subtotal,executivename) VALUES({0},'{1}',{2},{3},{4},{5},{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15},{16})", salesID, Convert.ToString(dr["Prd"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["DisPre"]), Convert.ToDouble(dr["VATPre"]), iSno, Convert.ToString(dr["IsRole"]), Convert.ToDouble(dr["CSTPre"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExeComm"]), Convert.ToDouble(dr["VATAmt"]), Convert.ToDouble(dr["TotalMrp"]), 0, Convert.ToInt32(dr["Emp"]));
+                            dbQry1 = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,subtotal,executivename,TotalPrice) VALUES({0},'{1}',{2},{3},{4},{5},{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15},{16},{17})", salesID, Convert.ToString(dr["Prd"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["DisPre"]), Convert.ToDouble(dr["VATPre"]), iSno, Convert.ToString(dr["IsRole"]), Convert.ToDouble(dr["CSTPre"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExeComm"]), Convert.ToDouble(dr["VATAmt"]), Convert.ToDouble(dr["TotalMrp"]), 0, Convert.ToInt32(dr["Emp"]), Convert.ToDouble(dr["TotPrice"]));
                             manager.ExecuteNonQuery(CommandType.Text, dbQry1);
 
                             dbQry = string.Format("UPDATE tblProductMaster SET tblProductMaster.Stock =  tblProductMaster.Stock - {0} WHERE ItemCode='{1}'", Convert.ToDouble(dr["Qty"]), Convert.ToString(dr["Prd"]).Trim());
@@ -13777,7 +13837,7 @@ public class BusinessLogic
                             if (Logsave == "YES")
                             {
                                 //logdescription = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,Subtotal) VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15})", Billno, Convert.ToString(dr["ItemCode"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["Discount"]), Convert.ToDouble(dr["VAT"]), iSno, Convert.ToString(dr["isRole"]), Convert.ToDouble(dr["CST"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExecCharge"]), Convert.ToDouble(dr["Vatamount"]), rateinclu, 0);
-                                logdescription = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,subtotal,executivename) VALUES({0},'{1}',{2},{3},{4},{5},{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15},{16})", salesID, Convert.ToString(dr["Prd"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["DisPre"]), Convert.ToDouble(dr["VATPre"]), iSno, Convert.ToString(dr["IsRole"]), Convert.ToDouble(dr["CSTPre"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExeComm"]), Convert.ToDouble(dr["VATAmt"]), rateinclu, 0, Convert.ToInt32(dr["Emp"]));
+                                logdescription = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,subtotal,executivename,TotalPrice) VALUES({0},'{1}',{2},{3},{4},{5},{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15},{16},{17})", salesID, Convert.ToString(dr["Prd"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["DisPre"]), Convert.ToDouble(dr["VATPre"]), iSno, Convert.ToString(dr["IsRole"]), Convert.ToDouble(dr["CSTPre"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExeComm"]), Convert.ToDouble(dr["VATAmt"]), rateinclu, 0, Convert.ToInt32(dr["Emp"]),Convert.ToDouble(dr["TotPrice"]));
                                 logdescription = logdescription.ToString().Trim();
                                 description = string.Format("INSERT INTO tblLog(LogDate,LogDescription,LogUsername,LogKey,LogMethod) VALUES(Format('{0}', 'dd/mm/yyyy'),'{1}','{2}','{3}','{4}')",
                                      DateTime.Now.ToString(), logdescription, usernam, Billno, "UpdateSalesNew");
@@ -13792,7 +13852,7 @@ public class BusinessLogic
 
 
                             //dbQry = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,Subtotal) VALUES({0},'{1}',{2},{3},{4},{5},{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15})", Billno, Convert.ToString(dr["ItemCode"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["Discount"]), Convert.ToDouble(dr["VAT"]), iSno, Convert.ToString(dr["isRole"]), Convert.ToDouble(dr["CST"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExecCharge"]), Convert.ToDouble(dr["Vatamount"]), Convert.ToDouble(dr["TotalMrp"]), 0);
-                            dbQry = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,subtotal,executivename) VALUES({0},'{1}',{2},{3},{4},{5},{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15},{16})", salesID, Convert.ToString(dr["Prd"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["DisPre"]), Convert.ToDouble(dr["VATPre"]), iSno, Convert.ToString(dr["IsRole"]), Convert.ToDouble(dr["CSTPre"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExeComm"]), Convert.ToDouble(dr["VATAmt"]), rateinclu, 0, Convert.ToInt32(dr["Emp"]));
+                            dbQry = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,subtotal,executivename,TotalPrice) VALUES({0},'{1}',{2},{3},{4},{5},{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15},{16},{17})", salesID, Convert.ToString(dr["Prd"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["DisPre"]), Convert.ToDouble(dr["VATPre"]), iSno, Convert.ToString(dr["IsRole"]), Convert.ToDouble(dr["CSTPre"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExeComm"]), Convert.ToDouble(dr["VATAmt"]), rateinclu, 0, Convert.ToInt32(dr["Emp"]), Convert.ToDouble(dr["TotPrice"]));
                             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
                             dbQry = string.Format("UPDATE tblProductMaster SET tblProductMaster.Stock =  tblProductMaster.Stock - {0} WHERE ItemCode='{1}'", Convert.ToDouble(dr["Qty"]), Convert.ToString(dr["Prd"]).Trim());
@@ -15933,7 +15993,7 @@ public class BusinessLogic
         try
         {
             dbQry.Append("Select tblSalesitems.ItemCode,tblProductMaster.ProductName,tblProductMaster.ProductDesc,tblSalesitems.Rate,tblProductMaster.Measure_Unit, tblSalesitems.Qty,IIF(ISNULL(tblEmployee.empno),' --NA-- ',tblEmployee.empno) as executivename, ");
-            dbQry.Append("tblSalesitems.discount,tblSalesitems.Vat,tblSalesitems.CST,tblSalesitems.Vatamount,tblSalesitems.Totalmrp,tblSalesitems.subtotal,tblSalesitems.billno,tblSalesItems.SlNo,tblSalesItems.RoleID,tblSalesItems.isRole,tblProductMaster.Model,tblSalesItems.Bundles,tblSalesItems.Rods,tblSalesItems.ExecIncharge,tblProductmaster.Stock,tblSalesItems.ExecCharge FROM ((tblSalesitems INNER JOIN tblProductmaster ON tblSalesitems.itemCode = tblProductMaster.itemCode ) LEFT JOIN tblEmployee ON tblEmployee.empno = tblSalesItems.executivename)");
+            dbQry.Append("tblSalesitems.discount,tblSalesitems.Vat,tblSalesitems.CST,tblSalesitems.Vatamount,tblSalesitems.Totalmrp,tblSalesitems.subtotal,tblSalesitems.billno,tblSalesItems.SlNo,tblSalesItems.RoleID,tblSalesItems.isRole,tblSalesItems.TotalPrice,tblProductMaster.Model,tblSalesItems.Bundles,tblSalesItems.Rods,tblSalesItems.ExecIncharge,tblProductmaster.Stock,tblSalesItems.ExecCharge FROM ((tblSalesitems INNER JOIN tblProductmaster ON tblSalesitems.itemCode = tblProductMaster.itemCode ) LEFT JOIN tblEmployee ON tblEmployee.empno = tblSalesItems.executivename)");
             dbQry.Append(" Where tblSalesitems.Billno = " + Billno);
             manager.Open();
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
