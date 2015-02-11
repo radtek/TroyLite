@@ -65885,7 +65885,7 @@ public class BusinessLogic
         }
     }
 
-    public void DeleteRolePayComp(int role_ID)
+    public void DeleteRolePayComp(int pay_ID, int role_ID)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
@@ -65900,14 +65900,14 @@ public class BusinessLogic
 
             manager.BeginTransaction();
 
-            object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblPayComponentRoleMapping Where Role_ID =" + role_ID);
+            object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblPayComponentRoleMapping Where PayComponent_ID =" + pay_ID + " AND Role_ID = " + role_ID);
 
             if (exists.ToString() != string.Empty)
             {
                 if (int.Parse(exists.ToString()) > 0)
                 {
 
-                    dbQry = string.Format("Delete From tblPayComponentRoleMapping WHERE Role_ID = {0} ", role_ID);
+                    dbQry = string.Format("Delete From tblPayComponentRoleMapping WHERE PayComponent_ID = {0} AND Role_ID = {1}  ", pay_ID, role_ID);
 
                     manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -68094,7 +68094,7 @@ public class BusinessLogic
         }
     }
 
-    public void DeleteEmpPayComp(int EmpId)
+    public void DeleteEmpPayComp(int EmpId, int pay_ID)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
@@ -68109,14 +68109,14 @@ public class BusinessLogic
 
             manager.BeginTransaction();
 
-            object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblPayComponentEmployeeMapping Where EmpNo =" + EmpId);
+            object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblPayComponentEmployeeMapping Where EmpNo =" + EmpId + " AND PayComponent_ID = " + pay_ID);
 
             if (exists.ToString() != string.Empty)
             {
                 if (int.Parse(exists.ToString()) > 0)
                 {
 
-                    dbQry = string.Format("Delete From tblPayComponentEmployeeMapping WHERE EmpNo = {0} ", EmpId);
+                    dbQry = string.Format("Delete From tblPayComponentEmployeeMapping WHERE EmpNo = {0} AND PayComponent_ID = {1} ", EmpId, pay_ID);
 
                     manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
