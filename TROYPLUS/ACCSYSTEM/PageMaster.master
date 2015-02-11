@@ -788,7 +788,7 @@
                                                         </li>
                                                     </ul>
                                                 </li>
-                                                <li class="color submenumenu"><a href="#">Reports <span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: right">►</span></a>
+                                                <li class="color submenumenu"><a href="#" id="lnkprojectreport" runat="server">Reports <span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: right">►</span></a>
                                                     <ul>
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('ProjectReport.aspx','Summary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=310,width=700,left=359,top=220, scrollbars=no');">Project Report</a>
                                                     </ul>
