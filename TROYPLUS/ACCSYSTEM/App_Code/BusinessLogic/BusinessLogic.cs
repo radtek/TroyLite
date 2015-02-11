@@ -65727,21 +65727,20 @@ public class BusinessLogic
                         manager.CommitTransaction();
                     }
                 }
-            }
-            else
-            {
-
-                foreach (DataRow dr in dt.Rows)
+                else
                 {
-                    dbQry = string.Format("INSERT INTO tblEmployeeRoleLeaveLimit(LeaveType_ID, Role_ID, EffectiveDate, AllowedCount) VALUES({0}, {1}, '{2}', {3})",
-                  dr.Field<int>("LeaveType_ID"), dr.Field<int>("Role_ID"), dr.Field<DateTime>("EffectiveDate"), dr.Field<int>("AllowedCount"));
 
-                    manager.ExecuteNonQuery(CommandType.Text, dbQry);
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        dbQry = string.Format("INSERT INTO tblEmployeeRoleLeaveLimit(LeaveType_ID, Role_ID, EffectiveDate, AllowedCount) VALUES({0}, {1}, '{2}', {3})",
+                      dr.Field<int>("LeaveType_ID"), dr.Field<int>("Role_ID"), dr.Field<DateTime>("EffectiveDate"), dr.Field<int>("AllowedCount"));
 
-                    manager.CommitTransaction();
+                        manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                        manager.CommitTransaction();
+                    }
                 }
-            }
-
+            }            
         }
         catch (Exception ex)
         {
