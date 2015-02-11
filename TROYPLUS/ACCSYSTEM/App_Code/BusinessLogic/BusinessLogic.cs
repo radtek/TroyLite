@@ -4045,6 +4045,43 @@ public class BusinessLogic
         }
 
     }
+    public bool CheckIfCategoryUsed(int CategoryID)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        int qty = 0;
+        string dbQry = string.Empty;
+        try
+        {
+            manager.Open();
+            dbQry = "SELECT Count(*) FROM tblProductMaster Where CategoryID =" + CategoryID.ToString();
+
+            object qtyObj = manager.ExecuteScalar(CommandType.Text, dbQry);
+
+            if (qtyObj != null && qtyObj != DBNull.Value)
+            {
+                qty = (int)qtyObj;
+
+                if (qty > 0)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
 
     public bool CheckIfTaskStatusUsed(int TaskID)
     {
