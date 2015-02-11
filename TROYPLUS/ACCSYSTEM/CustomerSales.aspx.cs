@@ -4665,6 +4665,7 @@ public partial class CustomerSales : System.Web.UI.Page
                                 TextBox txtDisPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDisPre");
                                 TextBox txtVATPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtVATPre");
                                 TextBox txtCSTPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtCSTPre");
+                                TextBox txtPrBefVAT = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtPrBefVAT");
                                 TextBox txtVATAmt = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtVATAmt");
                                 TextBox txtRtVAT = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRtVAT");
                                 TextBox txtTotal = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtTotal");
@@ -4729,6 +4730,11 @@ public partial class CustomerSales : System.Web.UI.Page
                                 else if (txtCSTPre.Text == "")
                                 {
                                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill CST Percentage in row " + col + " ')", true);
+                                    return;
+                                }
+                                else if (txtPrBefVAT.Text == "")
+                                {
+                                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Price Before VAT Amount in row " + col + " ')", true);
                                     return;
                                 }
                                 else if (txtVATAmt.Text == "")
@@ -4921,6 +4927,10 @@ public partial class CustomerSales : System.Web.UI.Page
                             dc = new DataColumn("CSTPre");
                             dt.Columns.Add(dc);
 
+                            dc = new DataColumn("PrBefVATAmt");
+                            dt.Columns.Add(dc);
+
+
                             dc = new DataColumn("VATAmt");
                             dt.Columns.Add(dc);
 
@@ -4966,6 +4976,7 @@ public partial class CustomerSales : System.Web.UI.Page
                                 TextBox txtDisPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDisPre");
                                 TextBox txtVATPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtVATPre");
                                 TextBox txtCSTPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtCSTPre");
+                                TextBox txtPrBefVAT = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtPrBefVAT");
                                 TextBox txtVATAmt = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtVATAmt");
                                 TextBox txtRtVAT = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRtVAT");
                                 TextBox txtTotal = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtTotal");
@@ -4983,6 +4994,7 @@ public partial class CustomerSales : System.Web.UI.Page
                                 drNew["DisPre"] = txtDisPre.Text;
                                 drNew["VATPre"] = txtVATPre.Text;
                                 drNew["CSTPre"] = txtCSTPre.Text;
+                                drNew["PrBefVATAmt"] = txtPrBefVAT.Text;
                                 drNew["VATAmt"] = txtVATAmt.Text;
                                 drNew["RtVAT"] = txtRtVAT.Text;
                                 drNew["Tot"] = txtTotal.Text;
@@ -7050,7 +7062,7 @@ public partial class CustomerSales : System.Web.UI.Page
 
                     if (ds.Tables[0].Rows[0]["Amount"] != null)
                         txtfixedtotal.Text = Convert.ToString(ds.Tables[0].Rows[0]["Amount"]);
-                    lblNet.Text = Convert.ToString(ds.Tables[0].Rows[0]["Amount"]);
+                    lblNet.Text = Convert.ToDouble(ds.Tables[0].Rows[0]["Amount"]).ToString("#0.00");
 
                     if (Convert.ToInt32(ds.Tables[0].Rows[0]["manualNo"]) == 0)
                     {
@@ -7247,6 +7259,7 @@ public partial class CustomerSales : System.Web.UI.Page
                         TextBox txtVATPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtVATPre");
                         TextBox txtCSTPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtCSTPre");
                         TextBox txtVATAmt = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtVATAmt");
+                        TextBox txtPrBefVAT = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtPrBefVAT");
                         TextBox txtRtVAT = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRtVAT");
                         TextBox txtTotal = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtTotal");
 
@@ -7277,6 +7290,7 @@ public partial class CustomerSales : System.Web.UI.Page
                         txtDisPre.Text = itemDs.Tables[0].Rows[vLoop]["Discount"].ToString();
                         txtVATPre.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["Vat"].ToString()).ToString("#0.00");
                         txtCSTPre.Text = itemDs.Tables[0].Rows[vLoop]["CST"].ToString();
+                        txtPrBefVAT.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["PriceBeforeVATAmt"].ToString()).ToString("#0.00");
                         txtVATAmt.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["Vatamount"].ToString()).ToString("#0.00");
                         txtRtVAT.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["Subtotal"].ToString()).ToString("#0.00");
                         txtTotal.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["Totalmrp"].ToString()).ToString("#0.00");
@@ -7506,6 +7520,10 @@ public partial class CustomerSales : System.Web.UI.Page
             dc = new DataColumn("CST");
             dt.Columns.Add(dc);
 
+            dc = new DataColumn("PriceBeforeVATAmt");
+            dt.Columns.Add(dc);
+
+
             dc = new DataColumn("Vatamount");
             dt.Columns.Add(dc);
 
@@ -7606,6 +7624,10 @@ public partial class CustomerSales : System.Web.UI.Page
 
                     if (dR["Vat"] != null)
                         dr["Vat"] = Convert.ToString(dR["Vat"]);
+
+                    if (dR["PriceBeforeVATAmt"] != null)
+                        dr["PriceBeforeVATAmt"] = Convert.ToDouble(dR["PriceBeforeVATAmt"]);
+
 
                     if (dR["Totalmrp"] != null)
                         dr["Totalmrp"] = Convert.ToDouble(dR["Totalmrp"]);
@@ -8971,6 +8993,8 @@ public partial class CustomerSales : System.Web.UI.Page
                  (TextBox)grvStudentDetails.Rows[0].Cells[10].FindControl("txtVATPre");
                 TextBox TextBoxCSTPre =
                  (TextBox)grvStudentDetails.Rows[0].Cells[11].FindControl("txtCSTPre");
+                TextBox TextBoxPrBefVAT =
+                   (TextBox)grvStudentDetails.Rows[0].Cells[12].FindControl("txtPrBefVAT");
                 TextBox TextBoxVATAmt =
                     (TextBox)grvStudentDetails.Rows[0].Cells[12].FindControl("txtVATAmt");
                 TextBox TextBoxRtVAT =
@@ -8990,6 +9014,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 TextBoxDisPre.Text = "";
                 TextBoxVATPre.Text = "";
                 TextBoxCSTPre.Text = "";
+                TextBoxPrBefVAT.Text = "";
                 TextBoxVATAmt.Text = "";
                 TextBoxRtVAT.Text = "";
                 TextBoxTotal.Text = "";
@@ -9220,6 +9245,8 @@ public partial class CustomerSales : System.Web.UI.Page
                    (TextBox)grvStudentDetails.Rows[rowIndex].Cells[9].FindControl("txtVATPre");
                     TextBox TextBoxCSTPre =
                   (TextBox)grvStudentDetails.Rows[rowIndex].Cells[10].FindControl("txtCSTPre");
+                    TextBox TextBoxPrBefVAT =
+                 (TextBox)grvStudentDetails.Rows[0].Cells[12].FindControl("txtPrBefVAT");
                     TextBox TextBoxVATAmt =
                  (TextBox)grvStudentDetails.Rows[rowIndex].Cells[11].FindControl("txtVATAmt");
                     TextBox TextBoxRtVAT =
@@ -9241,9 +9268,10 @@ public partial class CustomerSales : System.Web.UI.Page
                     dtCurrentTable.Rows[i - 1]["Col9"] = TextBoxDisPre.Text;
                     dtCurrentTable.Rows[i - 1]["Col10"] = TextBoxVATPre.Text;
                     dtCurrentTable.Rows[i - 1]["Col11"] = TextBoxCSTPre.Text;
-                    dtCurrentTable.Rows[i - 1]["Col12"] = TextBoxVATAmt.Text;
-                    dtCurrentTable.Rows[i - 1]["Col13"] = TextBoxRtVAT.Text;
-                    dtCurrentTable.Rows[i - 1]["Col14"] = TextBoxTotal.Text;
+                    dtCurrentTable.Rows[i - 1]["Col12"] = TextBoxPrBefVAT.Text;
+                    dtCurrentTable.Rows[i - 1]["Col13"] = TextBoxVATAmt.Text;
+                    dtCurrentTable.Rows[i - 1]["Col14"] = TextBoxRtVAT.Text;
+                    dtCurrentTable.Rows[i - 1]["Col15"] = TextBoxTotal.Text;
                     rowIndex++;
 
                 }
@@ -9375,13 +9403,13 @@ public partial class CustomerSales : System.Web.UI.Page
             TextBox TextBoxCSTPre =
               (TextBox)grvStudentDetails.Rows[i].Cells[11].FindControl("txtCSTPre");
             TextBox txtPrBefVAT =
-              (TextBox)grvStudentDetails.Rows[i].Cells[11].FindControl("txtPrBefVAT");
+              (TextBox)grvStudentDetails.Rows[i].Cells[12].FindControl("txtPrBefVAT");
             TextBox TextBoxVATAmt =
-              (TextBox)grvStudentDetails.Rows[i].Cells[12].FindControl("txtVATAmt");
+              (TextBox)grvStudentDetails.Rows[i].Cells[13].FindControl("txtVATAmt");
             TextBox TextBoxRtVAT =
-              (TextBox)grvStudentDetails.Rows[i].Cells[13].FindControl("txtRtVAT");
+              (TextBox)grvStudentDetails.Rows[i].Cells[14].FindControl("txtRtVAT");
             TextBox TextBoxTotal =
-              (TextBox)grvStudentDetails.Rows[i].Cells[14].FindControl("txtTotal");
+              (TextBox)grvStudentDetails.Rows[i].Cells[15].FindControl("txtTotal");
 
 
             if (Convert.ToInt32(TextBoxQty.Text) > Convert.ToInt32(TextBoxStock.Text))
