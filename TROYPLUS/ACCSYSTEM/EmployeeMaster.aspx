@@ -89,7 +89,7 @@
                                         <td style="width: 16%">
                                             <div style="text-align: right;">
                                                 <%--<asp:Panel ID="pnlSearch" runat="server" Width="100px">--%>
-                                              
+
                                                 <%--</asp:Panel>--%>
                                             </div>
                                         </td>
@@ -315,8 +315,18 @@
                                                                                         <asp:TextBox ID="txtRemarks" Height="24px" TextMode="MultiLine" MaxLength="10"
                                                                                             runat="server" CssClass="cssTextBox" />
                                                                                     </td>
-                                                                                    <td style="width: 15%"></td>
-                                                                                    <td style="width: 25%"></td>
+                                                                                    <td style="width: 15%" class="ControlLabel">Role
+                                                                                        <asp:RequiredFieldValidator ValidationGroup="Save" ID="rqdValidatorRole" runat="server"
+                                                                                            ErrorMessage="Role is mandatory" Text="*" ControlToValidate="ddlRole"></asp:RequiredFieldValidator>
+
+                                                                                    </td>
+                                                                                    <td style="width: 25%" class="ControlDrpBorder">
+                                                                                        <asp:DropDownList ID="ddlRole" TabIndex="11" Enabled="True" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
+                                                                                            runat="server" Width="100%" DataTextField="RoleName" BackColor="#90c9fc" Style="border: 1px solid #90c9fc" Height="26px"
+                                                                                            DataValueField="Id">
+                                                                                            <asp:ListItem Text="Select Role" Value="0"></asp:ListItem>
+                                                                                        </asp:DropDownList>
+                                                                                    </td>
                                                                                 </tr>
                                                                             </table>
                                                                         </td>
@@ -747,11 +757,11 @@
     </asp:UpdatePanel>
     <table width="100%">
         <tr>
-            <td style="width:50%" align="right" >
-                  <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
-                                                    EnableTheming="false" Text=""></asp:Button>
+            <td style="width: 50%" align="right">
+                <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
+                    EnableTheming="false" Text=""></asp:Button>
             </td>
-            <td style="width:50%">
+            <td style="width: 50%">
                 <asp:Button ID="btnExportToExcel" runat="server" CssClass="exportexl6" OnClientClick="window.open('ReportExcelEmployee.aspx ','billSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=310,width=500,left=425,top=220, scrollbars=yes');"
                     EnableTheming="false"></asp:Button>
             </td>

@@ -818,6 +818,10 @@ public partial class PageMaster : System.Web.UI.MasterPage
         {
             lnkuserlock.Visible = false;
         }
+        if (!this.Page.User.IsInRole("Treport"))
+        {
+            lnkprojectreport.Visible = false;
+        }
 
         //if (Helper.GetDecryptedKey("InstallationType") != "ONLINE-OFFLINE-CLIENT")
         //{

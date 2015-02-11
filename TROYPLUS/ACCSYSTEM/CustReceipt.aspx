@@ -981,7 +981,7 @@
                                                                                                                                     ErrorMessage="Please enter a valid date" runat="server" ID="CompareValidator2">*</asp:CompareValidator>
                                                                                                                             </td>
                                                                                                                             <td class="ControlTextBox3" style="width: 22%">
-                                                                                                                                <asp:TextBox ID="txtDate" runat="server" Enabled="false" OnTextChanged="txtDate_TextChanged" AutoPostBack="true"
+                                                                                                                                <asp:TextBox ID="txtDate" runat="server" Font-Bold="true" ForeColor="Black" OnTextChanged="txtDate_TextChanged" AutoPostBack="true"
                                                                                                                                     CssClass="cssTextBox" Width="100px"></asp:TextBox>
                                                                                                                                 
                                                                                                                                 <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Animated="true" Format="dd/MM/yyyy"
@@ -1030,7 +1030,7 @@
                                                                                                                             </td>
 
                                                                                                                             <td style="width: 15%;" align="left">
-                                                                                                                                <asp:CheckBox runat="server" ID="chk" Text="Existing Customer" Checked="true" OnCheckedChanged="chk_CheckedChanged" AutoPostBack="true" />
+                                                                                                                                <asp:CheckBox runat="server" ID="chk" Text="Existing Customer"  Checked="true" OnCheckedChanged="chk_CheckedChanged"  Font-Bold="true" AutoPostBack="true" />
                                                                                                                             </td>
 
                                                                                                                             <td class="ControlLabelNew" style="width: 15%;">Address Line 2</td>
@@ -1170,7 +1170,7 @@
                                                                                                                                                             <ItemTemplate>
                                                                                                                                                                 <asp:DropDownList ID="txtType" runat="server" CssClass="drpDownListMedium" Width="98%" BackColor="White" 
                                                                                                                                                                     style="border:1px solid #cccccc" ForeColor="#006699" Height="22px" OnSelectedIndexChanged="txtType_SelectedIndexChanged" AutoPostBack="True"
-                                                                                                                                                                    AppendDataBoundItems="true">
+                                                                                                                                                                    AppendDataBoundItems="true"  Font-Bold="true">
                                                                                                                                                                     <asp:ListItem Text="Select Type" Value="0"></asp:ListItem>
                                                                                                                                                                     <asp:ListItem Text="Cash"  Value="1"></asp:ListItem>
                                                                                                                                                                     <asp:ListItem Text="Cheque"  Value="2"></asp:ListItem>
@@ -1181,7 +1181,7 @@
                                                                                                                                                         
                                                                                                                                                         <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Reference Number" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="24%">
                                                                                                                                                             <ItemTemplate>
-                                                                                                                                                                <asp:TextBox ID="txtRefNo" runat="server" Width="98%" Height="20px" BorderColor="#cccccc" BorderStyle="Solid" BorderWidth="1px" ForeColor="#006699"
+                                                                                                                                                                <asp:TextBox ID="txtRefNo" runat="server" Width="98%" Height="20px" BorderColor="#cccccc" BorderStyle="Solid" BorderWidth="1px" ForeColor="#006699"  Font-Bold="true"
                                                                                                                                                                     ></asp:TextBox>
 
                                                                                                                                                                 
@@ -1199,20 +1199,20 @@
                                                                                                                                                         
                                                                                                                                                         <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Amount" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="11%">
                                                                                                                                                             <ItemTemplate>
-                                                                                                                                                                <asp:TextBox ID="txtAmount" runat="server" Width="96%" Height="20px" BorderColor="#cccccc" BorderStyle="Solid" BorderWidth="1px" ForeColor="#006699" AutoPostBack="true" OnTextChanged="txtAmount_TextChanged"
+                                                                                                                                                                <asp:TextBox ID="txtAmount" Font-Bold="true" runat="server" Width="96%" Height="20px" BorderColor="#cccccc" BorderStyle="Solid" BorderWidth="1px" ForeColor="#006699" AutoPostBack="true" OnTextChanged="txtAmount_TextChanged"
                                                                                                                                                                     ></asp:TextBox>
                                                                                                                                                                 <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender312" runat="server" TargetControlID="txtAmount"
                                                                                                                                     ValidChars="." FilterType="Numbers, Custom" />
                                                                                                                                                             </ItemTemplate>
                                                                                                                                                             <FooterStyle HorizontalAlign="Right" />
                                                                                                                                                                                                         <FooterTemplate>
-                                                                                                                                                            <asp:TextBox ID="txttot" runat="server" BackColor="#e7e7e7" Text="0" Width="96%" Height="20px" BorderColor="#cccccc" BorderStyle="Solid" BorderWidth="1px" ForeColor="#006699"  Enabled="false" ></asp:TextBox>
+                                                                                                                                                            <asp:TextBox ID="txttot" runat="server" BackColor="#e7e7e7" Text="0" Width="96%" Height="20px" BorderColor="#cccccc" BorderStyle="Solid" BorderWidth="1px" ForeColor="#006699" ReadOnly="true"  Font-Bold="true" ></asp:TextBox>
                                                                                                                                                                                                             </FooterTemplate>
 
                                                                                                                                                         </asp:TemplateField>
                                                                                                                                                         <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Name of Bank" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="13%">
                                                                                                                                                             <ItemTemplate>
-                                                                                                                                                                <asp:DropDownList ID="drpBank" runat="server" BackColor="White" CssClass="drpDownListMedium" Width="98%" AutoPostBack="False"
+                                                                                                                                                                <asp:DropDownList ID="drpBank" runat="server" BackColor="White" CssClass="drpDownListMedium" Width="98%" AutoPostBack="False"  Font-Bold="true"
                                                                                                                                                                     DataValueField="LedgerID" DataTextField="LedgerName" Style="border: 1px solid #cccccc" ForeColor="#006699"
                                                                                                                                                                     AppendDataBoundItems="true" ValidationGroup="editVal">
                                                                                                                                                                     <%--<asp:ListItem Text="Select Creditor" style="background-color: White; color:#006699" Value="0"></asp:ListItem>--%>
@@ -1222,12 +1222,12 @@
                                                                                                                                                         </asp:TemplateField>
                                                                                                                                                          <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Cheque/Card Number" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="12%">
                                                                                                                                                             <ItemTemplate>
-                                                                                                                                                                <asp:TextBox ID="txtChequeNo" runat="server" Width="96%" Height="20px" BorderColor="#cccccc" BorderStyle="Solid" BorderWidth="1px" ForeColor="#006699"></asp:TextBox>
+                                                                                                                                                                <asp:TextBox ID="txtChequeNo" runat="server" Width="96%" Height="20px" BorderColor="#cccccc" BorderStyle="Solid" BorderWidth="1px" Font-Bold="true" ForeColor="#006699"></asp:TextBox>
                                                                                                                                                             </ItemTemplate>
                                                                                                                                                         </asp:TemplateField>
                                                                                                                                                         <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Remarks" HeaderStyle-BorderColor="Gray" HeaderStyle-Width="19%">
                                                                                                                                                             <ItemTemplate>
-                                                                                                                                                                <asp:TextBox ID="txtNarration" runat="server" Width="96%" Height="20px" BorderColor="#cccccc" BorderStyle="Solid" BorderWidth="1px" ForeColor="#006699"></asp:TextBox>
+                                                                                                                                                                <asp:TextBox ID="txtNarration" runat="server" Width="96%" Height="20px" BorderColor="#cccccc" BorderStyle="Solid" BorderWidth="1px" Font-Bold="true" ForeColor="#006699"></asp:TextBox>
                                                                                                                                                             </ItemTemplate>
                                                                                                                                                              <FooterStyle HorizontalAlign="Right" />
                                                                                                                                                                                                         <FooterTemplate>
@@ -1311,7 +1311,7 @@
                                                                                                                                                                 </asp:Label>
                                                                                                                                                             </ItemTemplate>
                                                                                                                                                         </asp:TemplateField>
-                                                                                                                                                        <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Name of Customer" HeaderStyle-BorderColor="Gray" ItemStyle-HorizontalAlign="Left" HeaderStyle-Width="20%">
+                                                                                                                                                        <asp:TemplateField FooterStyle-Font-Bold="True" HeaderText="Name of Customer" HeaderStyle-BorderColor="Gray" HeaderStyle-HorizontalAlign="Left" ItemStyle-HorizontalAlign="Left" HeaderStyle-Width="20%">
                                                                                                                                                             <ItemTemplate>
                                                                                                                                                                 <%--<asp:TextBox ID="txtCustomerName" runat="server" Width="90%"  Text='<%# Eval("CustomerName")%>' Height="26px"
                                                                                                                                                                     ></asp:TextBox>--%>
@@ -1420,17 +1420,17 @@
                                                                                                                             <td colspan="6">
                                                                                                                                 <table style="width: 100%">
                                                                                                                                     <tr>
-                                                                                                                                        <td style="width: 61%">
+                                                                                                                                        <td style="width: 57%">
                                                                                                                                             
                                                                                                                                         </td>
                                                                                                                                         <td class="ControlLabelNew" style="width: 20%">
                                                                                                                                             Total Amount Adjusted
                                                                                                                                 
                                                                                                                                         </td>
-                                                                                                                                        <td>
-                                                                                                                                            <asp:TextBox ID="TextBox1" runat="server"  BackColor="#e7e7e7" Height="20px" BorderColor="#cccccc" BorderStyle="Solid" BorderWidth="1px" ForeColor="#006699"  Enabled="false" ></asp:TextBox>
+                                                                                                                                        <td style="width: 16%">
+                                                                                                                                            <asp:TextBox ID="TextBox1" runat="server"  BackColor="#e7e7e7" Height="20px" Width="100%" BorderColor="#cccccc" BorderStyle="Solid" BorderWidth="1px" ForeColor="#006699" ReadOnly="true"  Font-Bold="true" ></asp:TextBox>
                                                                                                                                         </td>
-                                                                                                                                        <td style="width: 4%">
+                                                                                                                                        <td style="width: 8%">
                                                                                                                                             
                                                                                                                                         </td>
                                                                                                                                     </tr>

@@ -36,7 +36,7 @@ public partial class CustReceipt : System.Web.UI.Page
 
                 ddReceivedFrom.DataBind();
 
-                GrdViewReceipt.PageSize = 8;
+                GrdViewReceipt.PageSize = 11;
 
                 string dbfileName = connStr.Remove(0, connStr.LastIndexOf(@"App_Data\") + 9);
                 dbfileName = dbfileName.Remove(dbfileName.LastIndexOf(";Persist Security Info"));
@@ -1099,9 +1099,9 @@ public partial class CustReceipt : System.Web.UI.Page
             chkcash.Checked = false;
             chkcheque.Checked = false;
 
-            txtAddress.Enabled = false;
-            txtAddress2.Enabled = false;
-            txtAddress3.Enabled = false;
+            txtAddress.ReadOnly = true;
+            txtAddress2.ReadOnly = true;
+            txtAddress3.ReadOnly = true;
 
             //drpLedger.Focus();
             chkPayTo.SelectedValue = "Cash";
@@ -2060,9 +2060,9 @@ public partial class CustReceipt : System.Web.UI.Page
         txtAmount.Text = "";
         ddReceivedFrom.SelectedValue = "0";
         drpLedger.SelectedIndex = 0;
-        txtAddress.Enabled = false;
-        txtAddress2.Enabled = false;
-        txtAddress3.Enabled = false;
+        txtAddress.ReadOnly = true;
+        txtAddress2.ReadOnly = true;
+        txtAddress3.ReadOnly = true;
         txtAddress.Text= "";
         txtAddress2.Text = "";
         txtAddress3.Text = "";
@@ -2261,9 +2261,9 @@ public partial class CustReceipt : System.Web.UI.Page
             txtCustomerId.Visible = true;
             drpMobile.Visible = false;
 
-            txtAddress.Enabled = true;
-            txtAddress2.Enabled = true;
-            txtAddress3.Enabled = true;
+            txtAddress.ReadOnly = false;
+            txtAddress2.ReadOnly = false;
+            txtAddress3.ReadOnly = false;
             txtCustomerId.Enabled = true;
             txtCustomerName.Enabled = true;
 
@@ -2281,9 +2281,9 @@ public partial class CustReceipt : System.Web.UI.Page
             drpMobile.Visible = true;
             txtCustomerId.Visible = false;
 
-            txtAddress.Enabled = false;
-            txtAddress2.Enabled = false;
-            txtAddress3.Enabled = false;
+            txtAddress.ReadOnly = true;
+            txtAddress2.ReadOnly = true;
+            txtAddress3.ReadOnly = true;
             txtCustomerId.Enabled = false;
             txtCustomerName.Enabled = false;
 
@@ -2466,9 +2466,9 @@ public partial class CustReceipt : System.Web.UI.Page
         {
             if(drpReceiptType.SelectedValue == "1")
             {
-                txtAddress.Enabled = false;
-                txtAddress2.Enabled = false;
-                txtAddress3.Enabled = false;
+                txtAddress.ReadOnly = true;
+                txtAddress2.ReadOnly = true;
+                txtAddress3.ReadOnly = true;
 
                 drpCustomerCategoryAdd.Enabled = false;
 
@@ -2483,9 +2483,9 @@ public partial class CustReceipt : System.Web.UI.Page
             }
             else
             {
-                txtAddress.Enabled = true;
-                txtAddress2.Enabled = true;
-                txtAddress3.Enabled = true;
+                txtAddress.ReadOnly = false;
+                txtAddress2.ReadOnly = false;
+                txtAddress3.ReadOnly = false;
                 txtCustomerId.Enabled = true;
                 txtCustomerName.Enabled = true;
                 txtAddress.Text = "";

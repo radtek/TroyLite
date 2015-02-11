@@ -230,6 +230,7 @@ public partial class EmployeeLeave : System.Web.UI.Page
     protected void txtEndDate_TextChanged(object sender, EventArgs e)
     {
         txtTotalLeaveDays.Text = string.Empty;
+        ModalPopupExtender1.Show();
     }
 
     protected void btnCalculateTotalLeaveDays_Click(object sender, EventArgs e)
@@ -264,6 +265,7 @@ public partial class EmployeeLeave : System.Web.UI.Page
     protected void ddlStartDateSession_SelectedIndexChanged(object sender, EventArgs e)
     {
         txtTotalLeaveDays.Text = string.Empty;
+        ModalPopupExtender1.Show();
     }
 
     #region Private Methods
