@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -357,7 +354,7 @@ public partial class Attendance_EmployeeAttendance : System.Web.UI.Page
                 if (isUpdate)
                 {
                     DateTime requestDate = getDateValueForTheRequest(btnSender);
-                    if (bl.IsHoliday(requestDate, requestDate.Year))
+                    if (bl.IsHoliday(requestDate))
                     {
                         btnSender.Text = "Holiday";
                         btnSender.CssClass = "btnBts btnBts-info";

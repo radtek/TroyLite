@@ -120,7 +120,7 @@
                         <tr>
                             <td style="width: 1%">
                             </td>
-                            <td style="width: 25%; font-size: 22px; color: #000000;" >
+                            <td style="width: 25%; font-size: 22px; color: White;" >
                                  Email / SMS Config
                             </td>
                             <td style="width: 14%">
@@ -153,8 +153,7 @@
                                                     <tr>
                                                         <td>
                                                             <div style="width: 100%" align="center">
-                                                                <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
-                                                                    Text="" EnableTheming="false"></asp:Button>
+                                                                
                                                                 <asp:GridView ID="GrdScreen" runat="server" CssClass="someClass" DataSourceID="srcGridView"
                                                                     AutoGenerateColumns="False" OnRowCreated="GrdScreen_RowCreated" Width="98%"
                                                                     PageSize="5" EmptyDataText="No Screens Found" Style="font-family: 'Trebuchet MS';
@@ -293,6 +292,8 @@
                                                                         <asp:CookieParameter Name="connection" CookieName="Company" Type="String" />
                                                                     </SelectParameters>
                                                                 </asp:ObjectDataSource>
+                                                                <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
+                                                                    Text="" EnableTheming="false"></asp:Button>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -406,13 +407,7 @@
                                                                     </asp:Panel>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td style="width: 955px" align="center">
-                                                                    <asp:Button ID="BtnAddDivision" runat="server" OnClick="BtnAddDivision_Click" CssClass="ButtonAdd66"
-                                                                        Text="" EnableTheming="false"></asp:Button>
-                                                                    <asp:HiddenField ID="hdDivision" runat="server" Value="0" />
-                                                                </td>
-                                                            </tr>
+                                                            
                                                             <tr style="width: 977px">
                                                                 <td style="width: 977px">
                                                                     <div class="mainGridHold" id="searchGrid" style="width: 977px" align="center">
@@ -477,6 +472,13 @@
                                                                             </PagerTemplate>
                                                                         </asp:GridView>
                                                                     </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 955px" align="center">
+                                                                    <asp:Button ID="BtnAddDivision" runat="server" OnClick="BtnAddDivision_Click" CssClass="ButtonAdd66"
+                                                                        Text="" EnableTheming="false"></asp:Button>
+                                                                    <asp:HiddenField ID="hdDivision" runat="server" Value="0" />
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -591,13 +593,7 @@
                                                                     </asp:Panel>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td style="width: 955px" align="center">
-                                                                    <asp:Button ID="BtnAddConfig" runat="server" OnClick="BtnAddConfig_Click" CssClass="ButtonAdd66"
-                                                                        Text="" EnableTheming="false"></asp:Button>
-                                                                    <asp:HiddenField ID="HiddenField1" runat="server" Value="0" />
-                                                                </td>
-                                                            </tr>
+                                                            
                                                             <tr style="width: 977px">
                                                                 <td style="width: 977px">
                                                                     <div class="mainGridHold" id="searchGrid1" style="width: 977px" align="center">
@@ -662,6 +658,13 @@
                                                                             </PagerTemplate>
                                                                         </asp:GridView>
                                                                     </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 955px" align="center">
+                                                                    <asp:Button ID="BtnAddConfig" runat="server" OnClick="BtnAddConfig_Click" CssClass="ButtonAdd66"
+                                                                        Text="" EnableTheming="false"></asp:Button>
+                                                                    <asp:HiddenField ID="HiddenField1" runat="server" Value="0" />
                                                                 </td>
                                                             </tr>
                                                         </table>

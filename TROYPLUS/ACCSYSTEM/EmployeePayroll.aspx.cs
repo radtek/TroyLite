@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 public partial class EmployeePayroll : System.Web.UI.Page
 {
     public string sDataSource = string.Empty;
+
     private static string conStrIdentifier = string.Empty;
 
     protected void Page_Load(object sender, EventArgs e)
@@ -104,7 +102,6 @@ public partial class EmployeePayroll : System.Web.UI.Page
             TroyLiteExceptionManager.HandleException(ex);
         }
     }
-
 
     protected void btnQueuePayroll_Click(object sender, EventArgs e)
     {
@@ -215,6 +212,7 @@ public partial class EmployeePayroll : System.Web.UI.Page
                 int.TryParse(ddlMonth.SelectedValue, out month);
                 btnQueuePayroll.Enabled = false;
                 btnViewPayslips.Enabled = false;
+                btnViewLog.Visible = false;
                 lblPayrollStatus.Text = string.Empty;
                 grdViewPaySlipInfo.Visible = false;
 
@@ -232,8 +230,10 @@ public partial class EmployeePayroll : System.Web.UI.Page
                     }
                     else if (queueStatus == "Failed")
                     {
+                        hdfPayrollId.Value = dtPayrollQueue.Rows[0][0].ToString();
                         lblPayrollStatus.Text = string.Format("Payroll status: {0}. Please Contact Administrator.", queueStatus);
                         btnQueuePayroll.Enabled = true;
+                        btnViewLog.Visible = true;
                     }
                     else if (queueStatus == "Queued")
                     {
@@ -271,6 +271,7 @@ public partial class EmployeePayroll : System.Web.UI.Page
             TroyLiteExceptionManager.HandleException(ex);
         }
     }
+
     protected void ddlPageSelector_SelectedIndexChanged(object sender, EventArgs e)
     {
         try
@@ -283,6 +284,7 @@ public partial class EmployeePayroll : System.Web.UI.Page
             TroyLiteExceptionManager.HandleException(ex);
         }
     }
+
     protected void grdViewPaySlipInfo_RowCreated(object sender, GridViewRowEventArgs e)
     {
         try
@@ -295,6 +297,31 @@ public partial class EmployeePayroll : System.Web.UI.Page
         catch (Exception ex)
         {
             TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+    protected void btnViewLog_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            if (!string.IsNullOrEmpty(hdfPayrollId.Value))
+            {
+                int payrollId = 0;
+                if (int.TryParse(hdfPayrollId.Value, out payrollId))
+                {
+                    BusinessLogic bl = new BusinessLogic(sDataSource);
+                    DataTable dtPayslips = bl.GetPayrollProcessLog(payrollId);
+                    grdViewPayrollLog.DataSource = dtPayslips;
+                    grdViewPayrollLog.DataBind();
+                    grdViewPayrollLog.Visible = true;
+                    modelPopupLogViewer.Show();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            TroyLiteExceptionManager.HandleException(ex);
+            throw ex;
         }
     }
 }

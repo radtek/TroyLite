@@ -17251,7 +17251,7 @@ public class BusinessLogic
         StringBuilder dbQry = new StringBuilder();
         String searchStr = string.Empty;
 
-        dbQry.Append("SELECT empno,empTitle,empFirstName,empMiddleName,empSurName,empdesig,empDOJ,empDOB,empRemarks,ManagerId,UserGroup FROM tblEmployee Where empno=" + empNO.ToString());
+        dbQry.Append("SELECT empno,empTitle,empFirstName,empMiddleName,empSurName,empdesig,empDOJ,empDOB,empRemarks,ManagerId,UserGroup,EmployeeRoleId FROM tblEmployee Where empno=" + empNO.ToString());
 
         try
         {
@@ -17359,7 +17359,7 @@ public class BusinessLogic
     //    //}
     //}
 
-    public int InsertEmpDetails(int empno, string sTitle, string sEmpFName, string sEmpMName, string sEmpSName, string sDesig, string sRemarks, string dDOJ, string dDOB, int ManagerId, string UserGroup)
+    public int InsertEmpDetails(int empno, string sTitle, string sEmpFName, string sEmpMName, string sEmpSName, string sDesig, string sRemarks, string dDOJ, string dDOB, int ManagerId, string UserGroup,int roleId)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString); // System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
@@ -17371,8 +17371,8 @@ public class BusinessLogic
             manager.Open();
             manager.ProviderType = DataProvider.OleDb;
 
-            dbQry = string.Format("INSERT INTO tblEmployee(empno,empTitle,empFirstName,empMiddleName,empSurName,empDOJ,empDOB,empDesig,empRemarks,ManagerId,UserGroup) VALUES({0},'{1}','{2}','{3}','{4}',Format('{5}', 'dd/mm/yyyy'),Format('{6}', 'dd/mm/yyyy'),'{7}','{8}',{9},'{10}')",
-            empno, sTitle, sEmpFName, sEmpMName, sEmpSName, dDOJ, dDOB, sDesig, sRemarks, ManagerId, UserGroup);
+            dbQry = string.Format("INSERT INTO tblEmployee(empno,empTitle,empFirstName,empMiddleName,empSurName,empDOJ,empDOB,empDesig,empRemarks,ManagerId,UserGroup,EmployeeRoleId) VALUES({0},'{1}','{2}','{3}','{4}',Format('{5}', 'dd/mm/yyyy'),Format('{6}', 'dd/mm/yyyy'),'{7}','{8}',{9},'{10}',{11})",
+            empno, sTitle, sEmpFName, sEmpMName, sEmpSName, dDOJ, dDOB, sDesig, sRemarks, ManagerId, UserGroup,roleId);
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
             int NewEmpNo = (Int32)manager.ExecuteScalar(CommandType.Text, "SELECT MAX(empno) FROM tblEmployee");
 
@@ -17393,7 +17393,7 @@ public class BusinessLogic
     }
 
     //UpdateEmpDetails
-    public int UpdateEmpDetails(int empno, string sTitle, string sEmpFName, string sEmpMName, string sEmpSName, string sDesig, string sRemarks, string dDOJ, string dDOB, int ManagerId, string UserGroup)
+    public int UpdateEmpDetails(int empno, string sTitle, string sEmpFName, string sEmpMName, string sEmpSName, string sDesig, string sRemarks, string dDOJ, string dDOB, int ManagerId, string UserGroup,int roleId)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString); // System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
@@ -17404,8 +17404,8 @@ public class BusinessLogic
         {
             manager.Open();
             manager.ProviderType = DataProvider.OleDb;
-            dbQry = string.Format("UPDATE tblEmployee SET empno={0},empTitle='{1}',empFirstName='{2}',empMiddleName='{3}',empSurName='{4}',empDOJ=Format('{5}', 'dd/mm/yyyy'),empDOB=Format('{6}', 'dd/mm/yyyy'),empDesig='{7}',empRemarks='{8}',ManagerId={9},UserGroup='{10}' Where empno={0}",
-            empno, sTitle, sEmpFName, sEmpMName, sEmpSName, dDOJ, dDOB, sDesig, sRemarks, ManagerId, UserGroup);
+            dbQry = string.Format("UPDATE tblEmployee SET empno={0},empTitle='{1}',empFirstName='{2}',empMiddleName='{3}',empSurName='{4}',empDOJ=Format('{5}', 'dd/mm/yyyy'),empDOB=Format('{6}', 'dd/mm/yyyy'),empDesig='{7}',empRemarks='{8}',ManagerId={9},UserGroup='{10}',EmployeeRoleId={11} Where empno={0}",
+            empno, sTitle, sEmpFName, sEmpMName, sEmpSName, dDOJ, dDOB, sDesig, sRemarks, ManagerId, UserGroup,roleId);
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
 
@@ -63704,7 +63704,6 @@ public class BusinessLogic
 
     #endregion
 
-
     #region Attendance Methods
     public DataSet GetAttendanceDetails(int attendanceID, string createdByUserId)
     {
@@ -63837,7 +63836,7 @@ public class BusinessLogic
                 {
                     dtAttendanceDetail.Columns.Add(column);
                 }
-                if (IsHoliday(dateValue, year))
+                if (IsHoliday(dateValue))
                 {
                     rowDefaultAttendanceData.Add("Holiday");
                 }
@@ -63858,7 +63857,7 @@ public class BusinessLogic
             {
                 DataColumn column = new DataColumn("Day" + index.ToString(), typeof(string));
                 column.Caption = "NA";
-                if (dtAttendanceDetail != null)
+                if (dtAttendanceDetail != null && !dtAttendanceDetail.Columns.Contains(column.ColumnName))
                 {
                     dtAttendanceDetail.Columns.Add(column);
                 }
@@ -63925,7 +63924,7 @@ public class BusinessLogic
         dbQry = string.Format(@"SELECT a.LeaveId, a.EmployeeNo, a.StartDate,a.StartDateSession, a.EndDate,a.EndDateSession
                                 FROM tblEmployeeLeave a
                                 WHERE a.EmployeeNo ={0}
-                                AND (a.StartDate <= #{1}# AND a.EndDate >= #{1}#) AND (Status <>'Rejected' OR Status <> 'Cancelled')"
+                                AND ((a.StartDate)<=#{1}#) AND ((a.EndDate)>=#{1}#) AND (Status <>'Rejected' OR Status <> 'Cancelled')"
             , empNo.ToString(), dateValue.ToShortDateString());
 
         try
@@ -63948,10 +63947,10 @@ public class BusinessLogic
         }
     }
 
-    public bool IsHoliday(DateTime dateValue, int year)
+    public bool IsHoliday(DateTime dateValue)
     {
         //Get holidays list
-        DataTable dtHolidaysList = GetHolidayListForTheYear(year);
+        DataTable dtHolidaysList = GetHolidayListForTheYear(dateValue.Year);
 
         DataRow[] drHolidays = dtHolidaysList.Select(string.Format("Date = '{0}'", dateValue.ToShortDateString()));
         if (drHolidays.Length > 0)
@@ -64262,17 +64261,16 @@ public class BusinessLogic
                 int index = 1;
                 foreach (DataRow row in rows)
                 {
+                    DateTime dateValue = DateTime.Parse(row[1].ToString());
                     if (!columnCreated)
                     {
-                        DateTime dateValue = DateTime.Parse(row[1].ToString());
                         DataColumn column = new DataColumn("Day" + index.ToString(), typeof(string));
                         column.Caption = dateValue.ToShortDateString();
                         currentAttendancePeriod = dateValue;
                         dtAttendanceDetail.Columns.Add(column);
                         index++;
                     }
-                    rowDefaultAttendanceData.Add(row[2].ToString());
-
+                    rowDefaultAttendanceData.Add(GetAttendanceRemarks(dateValue, empNo, row[2].ToString()));
                 }
 
                 columnCreated = true;
@@ -64299,6 +64297,21 @@ public class BusinessLogic
         else { return null; }
     }
 
+    private string GetAttendanceRemarks(DateTime dateValue, string empNo, string currentRemarks)
+    {
+        if (HasAppliedleave(dateValue, empNo))
+        {
+            return "Leave";
+        }
+        else if (currentRemarks.ToUpper().Equals("LEAVE"))
+        {
+            return "Present";
+        }
+        else
+        {
+            return currentRemarks;
+        }
+    }
     private DataTable IncludeMissingRepotees(DataTable dtAvailableReportees, Dictionary<string, string> reportees, int year, int month)
     {
         foreach (string emp in reportees.Keys)
@@ -64337,8 +64350,6 @@ public class BusinessLogic
                                 INNER JOIN tblEmployee e on a.EmployeeNo = e.EmpNo)
                                 INNER JOIN tblEmployee e1 on a.Approver = e1.EmpNo
                                 WHERE a.EmployeeNo ={0} {1}", empNo, searchCriteria);
-
-
         try
         {
             manager.Open();
@@ -64351,6 +64362,7 @@ public class BusinessLogic
         }
         catch (Exception ex)
         {
+            TroyLiteExceptionManager.HandleException(ex);
             throw ex;
         }
         finally
@@ -64481,7 +64493,6 @@ public class BusinessLogic
                                         VALUES ({0},Format('{1}', 'dd/mm/yyyy'),'{2}',Format('{3}', 'dd/mm/yyyy'),'{4}',{5},'{6}',{7},'{8}','{9}',{10},'{11}','{12}','{13}')"
                                         , EmpNo, StartDate, StartDateSession, EndDate, EndDateSession, totalLeaveDays, DateApplied, LeaveTypeId, Reason
                                         , "Submitted", Approver, "", EmailContact, PhoneContact);
-
             int resultId = manager.ExecuteNonQuery(CommandType.Text, dbQry);
             return resultId;
         }
@@ -64862,6 +64873,40 @@ public class BusinessLogic
         }
     }
 
+    public DataTable GetPayrollProcessLog(int payrollId)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        string dbQry = string.Empty;
+        try
+        {
+            manager.Open();
+
+            dbQry = string.Format(@"SELECT EmployeeNo,e.EmpFirstName,l.Message FROM tblPayrollGenerationLog l
+                                    LEFT JOIN tblEmployee e ON e.EmpNo = l.EmployeeNo WHERE l.PayrollId ={0}", payrollId);
+            DataSet ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+            manager.Close();
+
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                return ds.Tables[0];
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
 
     public DataTable GetAllPaySlipForThePayroll(int payrolId)
     {
@@ -64910,12 +64955,156 @@ public class BusinessLogic
             double lopDays = 0;
             double.TryParse(drPaySlip["LossOfPayDays"].ToString(), out lopDays);
 
-            double totalDaysInMonth = DateTime.DaysInMonth(int.Parse(drPaySlip["PayrollYear"].ToString()), int.Parse(drPaySlip["PayrollMonth"].ToString()));
+            double totalDaysInMonth = 30;
 
             double newTotalPayable = (initialTotalPayable * (totalDaysInMonth - lopDays)) / totalDaysInMonth;
             drPaySlip["TotalPayable"] = newTotalPayable;
         }
     }
+    #endregion
+
+    #region Timesheet Entry
+
+    public DataSet GetTimesheetSummary(string TimesheetYear, string username)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+        if (TimesheetYear.ToUpper().Equals("ALL"))
+        {
+            dbQry = string.Format("SELECT a.Id, a.StartDate, a.EndDate, (a.StartDate + ' - ' +a.EndDate) as TimesheetPeroid, a.UserId,a.TotalHours, a.SubmittedDate, a.ApproverUserId, a.Status FROM tblTimesheetSummary a WHERE a.UserId ='{0}'", username);
+        }
+        else
+        {
+            dbQry = string.Format("SELECT a.Id, a.StartDate, a.EndDate, (a.StartDate + ' - ' +a.EndDate) as TimesheetPeroid, a.UserId,a.TotalHours, a.SubmittedDate, a.ApproverUserId, a.Status FROM tblTimesheetSummary a WHERE a.UserId ='{0}' AND (Year(a.StartDate)={1} OR YEAR(a.EndDate)={1}) ", username, TimesheetYear);
+        }
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
+
+    public bool IsTimesheetSummaryExists(string username, DateTime currentDate)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+        dbQry = string.Format("SELECT a.Id, a.StartDate, a.EndDate, (a.StartDate + ' - ' +a.EndDate) as TimesheetPeroid, a.UserId,a.TotalHours, a.SubmittedDate, a.ApproverUserId, a.Status FROM tblTimesheetSummary a WHERE a.UserId ='{0}' AND (a.StartDate >= #{1}# AND a.EndDate <= #{1}# ) ", username, currentDate);
+
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                return true;
+            else
+                return false;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
+    public List<DataTable> GetNewTimesheetDetailsForMonth(DateTime dateTime, string username)
+    {
+        List<DataTable> result = new List<DataTable>();
+        List<DateTime> lstWeekDates = GetWeekBoundaryDates(dateTime);
+
+        DataTable dtTimesheetForTheDate = new DataTable();
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+        dbQry = string.Format("SELECT Id, TimeSheetSummaryId, TsDate, StartTime, EndTime, TotalHours, Description, Status, ApproverComments, IsActive FROM tblTimesheetDetail WHERE (1=2) ");
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                foreach (DateTime date in lstWeekDates)
+                {
+                    dtTimesheetForTheDate = new DataTable();
+                    dtTimesheetForTheDate = ds.Tables[0].Clone();
+                    dtTimesheetForTheDate.TableName = date.ToShortDateString();
+                    dtTimesheetForTheDate.DisplayExpression = ((int)date.DayOfWeek).ToString();
+                    result.Add(dtTimesheetForTheDate);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+        return result;
+    }
+
+    public DataTable GetYearsConstant()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Year");
+        int year = 2010;
+        while (year <= DateTime.Today.Year)
+        {
+            DataRow row = dt.NewRow();
+            row[0] = year.ToString();
+            dt.Rows.Add(row);
+            year++;
+        }
+        return dt;
+    }
+
+    private List<DateTime> GetWeekBoundaryDates(DateTime dateTime)
+    {
+        List<DateTime> resultDates = new List<DateTime>(7);
+        int dayOfTheWeek = 0;
+        DateTime dtFirstDayOfWeek = dateTime.GetFirstDayOfWeek();
+        resultDates.Add(dtFirstDayOfWeek);
+        int dateIndex = 1;
+        while (dateIndex < 7)
+        {
+            resultDates.Add(dtFirstDayOfWeek.AddDays(dateIndex));
+            dateIndex++;
+        }
+        return resultDates;
+    }
+
+
     #endregion
 
     #region Commmon Methods
@@ -65126,8 +65315,6 @@ public class BusinessLogic
         }
     }
     #endregion
-
-
 
     public DataSet getRateInformation(string itemcode)
     {
@@ -65671,6 +65858,34 @@ public class BusinessLogic
             {
                 throw new Exception("Pay Component Not Exists");
             }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
+    public DataTable ListEmployeeRoles()
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+        dbQry = "Select ID,Role_Name AS RoleName FROM tblEmployeeRoles WHERE Is_Active = True";
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables.Count > 0)
+                return ds.Tables[0];
+            else
+                return null;
         }
         catch (Exception ex)
         {
