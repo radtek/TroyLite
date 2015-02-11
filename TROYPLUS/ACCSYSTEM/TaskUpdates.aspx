@@ -282,9 +282,9 @@
                                                                                             CausesValidation="false" Width="20px" runat="server" TabIndex="7"/>
                                                                                     </td>
                                                                                     <td class="ControlLabelproject" style="width: 20%">
-                                                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator10" Text="*" runat="server"
-                                                                                            ControlToValidate="txtActualEndDate" ValidationGroup="Save" ErrorMessage="Actual End Date is mandatory"></asp:RequiredFieldValidator>
-                                                                                       Task Actual End Date *
+                                                                                       <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator10" Text="*" runat="server"
+                                                                                            ControlToValidate="txtActualEndDate" ValidationGroup="Save" ErrorMessage="Actual End Date is mandatory"></asp:RequiredFieldValidator>--%>
+                                                                                       Task Actual End Date 
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlTextBox3">
                                                                                         <asp:TextBox ID="txtActualEndDate" Enabled="false" runat="server" CssClass="cssTextBox" Width="100px"
@@ -323,7 +323,12 @@
                                                                                         
                                                                                     </td>
                                                                                     <td class="ControlLabelproject" style="width: 27%">
-                                                                                        Effort Putin since last update in %
+                                                                                        Effort Putin since last update in
+                                                                                           <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
+                                                                                                <ContentTemplate>
+                                                                                              <asp:Label runat="server" ID="unitlastupdate"></asp:Label>
+                                                                                                     </ContentTemplate>
+                                                                                            </asp:UpdatePanel>
                                                                                      <%--   <asp:RequiredFieldValidator ID="RequiredFieldValidator12" Text="*" runat="server"
                                                                                             ControlToValidate="txtTaskUpdateDate" ValidationGroup="Save" ErrorMessage="Task Update Date is mandatory"></asp:RequiredFieldValidator>--%>
                                                                                        <%-- Task Update Date *--%>
@@ -360,7 +365,12 @@
                                                                                         
                                                                                     </td>
                                                                                     <td class="ControlLabelproject" style="width: 20%">
-                                                                                       Effort Remaining in %
+                                                                                       Effort Remaining in
+                                                                                           <asp:UpdatePanel ID="UpdatePanel6" runat="server" UpdateMode="Conditional">
+                                                                                                <ContentTemplate>
+                                                                                              <asp:Label runat="server" ID="Uniteffortremain"></asp:Label>
+                                                                                                     </ContentTemplate>
+                                                                                            </asp:UpdatePanel>
                                                                                     </td>
                                                                                     <td style="width: 25%" class="ControlTextBox3">
                                                                                          <asp:TextBox ID="TextBox1" MaxLength="10" runat="server" CssClass="cssTextBox" Width="100px" Visible="false" Enabled="false" />
@@ -396,25 +406,6 @@
                                                                                     <td style="width: 5%">
                                                                                         
                                                                                     </td>
-                                                                                  <td style="width: 20%"  class="ControlLabelproject">
-                                                                                        Task update Description
-                                                                                    </td>
-                                                                                   
-                                                                                          
-                                                                                                   <td class="ControlTextBoxforproject">
-                                                                                                         <asp:TextBox ID="txtTaskupdate" runat="server" BorderWidth="25px" BackColor="#E7E7E7" Height="27px" Style="overflow: hidden; padding: 0px; font-family: 'Trebuchet MS';border: 1px solid #e7e7e7; font-size: 13px;" TabIndex="5" TextMode="MultiLine" Width="99%"></asp:TextBox>
-                                                                                                     </td>
-                                                                                 <td style="width: 5%">
-                                                                                        
-                                                                                    </td>
-                                                                                                        
-                                                                                                 
-                                                                                
-                                                                                </tr>   
-                                                                            <tr style="height: 2px">
-                                                                                    </tr>
-                                                                             
-                                                                            <tr>
                                                                                  <td style="width: 20%" class="ControlLabelproject">
                                                                                         Blocking Reason
                                                                                     </td>
@@ -426,19 +417,40 @@
                                                                                             </ContentTemplate>
                                                                                           </asp:UpdatePanel>
                                                                                     </td>
-                                                                                 <td style="width:5%">
-                                                                                     </td>
-                                                                                 <td style="width:20%">
-                                                                                     </td>
-                                                                                 <td style="width:25%">
-                                                                                     </td>
-                                                                                 <td style="width:5%">
+                                                                               
+                                                                                 <td style="width: 5%">
+                                                                                        
+                                                                                    </td>
+                                                                                                        
+                                                                                                 
+                                                                                
+                                                                                </tr>   
+                                                                            <tr style="height: 2px">
+                                                                                    </tr>
+                                                                            <td colspan="6">
+                                                                            <div>
+                                                                               <table style="width: 100%;" align="center" cellpadding="2" cellspacing="2">
+                                                                            <tr>
+                                                                                   <td style="width: 18.5%"  class="ControlLabelproject">
+                                                                                        Task update Description
+                                                                                    </td>
+                                                                                   
+                                                                                          
+                                                                                                   <td style=" width: 56%" class="ControlTextBoxforproject1">
+                                                                                                         <asp:TextBox ID="txtTaskupdate" runat="server" BorderWidth="25px" BackColor="#E7E7E7" Height="27px" Style="overflow: hidden; padding: 0px; font-family: 'Trebuchet MS';border: 1px solid #e7e7e7; font-size: 13px;" TabIndex="5" TextMode="MultiLine" Width="99%"></asp:TextBox>
+                                                                                                     </td>
+                                                                                
+                                                                              
+                                                                                 <td style="width:2%">
                                                                                      </td>
                                                                                    
                                                                                       
                                                                                    
                                                                                   
                                                                                 </tr> 
+                                                                                   </table>
+                                                                                </div>
+                                                                                </td>
                                                                                                 
                                                                                  
                                                                             <tr style="height: 2px">

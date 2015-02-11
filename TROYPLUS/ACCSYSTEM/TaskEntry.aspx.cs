@@ -196,6 +196,7 @@ public partial class TaskEntry : System.Web.UI.Page
         int TaskType = 0;
         int DependencyTask = 0;
         int effortdays = 0;
+        drpIsActive.Enabled = false;
 
         try
         {
@@ -222,13 +223,13 @@ public partial class TaskEntry : System.Web.UI.Page
                             //tbMain.Visible = true;
                             //return;
                         }
-                        else if (Convert.ToDateTime(txtEWstartDate.Text) < Convert.ToDateTime(sss))
-                        {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert(' Task Start Date should be greater than or equal to selected Project Created Date');", true);
-                            ModalPopupExtender1.Show();
-                            tbMain.Visible = true;
-                            return;
-                        }
+                        //else if (Convert.ToDateTime(txtEWstartDate.Text) < Convert.ToDateTime(sss))
+                        //{
+                        //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert(' Task Start Date should be greater than or equal to selected Project Created Date');", true);
+                        //    ModalPopupExtender1.Show();
+                        //    tbMain.Visible = true;
+                        //    return;
+                        //}
                         //if (Convert.ToDateTime(txtEWEndDate.Text) < Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Project_Date"]))
                         //{
                         //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Validation Message(s) \\n\\n -Task End Date should be greater than or equal to Selected Task Start Date');", true);
@@ -497,6 +498,7 @@ public partial class TaskEntry : System.Web.UI.Page
         txtCDate.Text = "";
         txtEWstartDate.Text = "";
         txtEWEndDate.Text = "";
+        txtTaskName.Text = "";
         drpTaskType.SelectedIndex = 0;
        // drpDependencyTask.SelectedIndex = 0;
         drpProjectCode.SelectedIndex = 0;
@@ -609,6 +611,7 @@ public partial class TaskEntry : System.Web.UI.Page
             btnUpdate.Enabled = false;
             tbMain.Visible = true;
             pnsSave.Visible = true;
+            drpIsActive.Enabled = false;
             
             btnCancel.Enabled = true;
             btnSave.Visible = true;
@@ -635,6 +638,7 @@ public partial class TaskEntry : System.Web.UI.Page
             int Task_Id = 0;
             headtitle.Text = "Update Task Details";
             tabMaster.HeaderText = "Update Task Details";
+            drpIsActive.Enabled = true;
             string connection = Request.Cookies["Company"].Value;
 
             if (GrdWME.SelectedDataKey.Value != null && GrdWME.SelectedDataKey.Value.ToString() != "")

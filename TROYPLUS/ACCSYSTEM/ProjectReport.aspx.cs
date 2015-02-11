@@ -152,13 +152,13 @@ public partial class ProjectReport : System.Web.UI.Page
                 drptask.DataValueField = "Task_Id";
                 UpdatePanel2.Update();
 
-                drpdependencytask.Items.Clear();
-                drpdependencytask.Items.Add(new ListItem("---ALL---", "0"));
-                drpdependencytask.DataSource = ds;
-                drpdependencytask.DataBind();
-                drpdependencytask.DataTextField = "Task_Name";
-                drpdependencytask.DataValueField = "Task_Id";
-                UpdatePanel3.Update();
+                //drpdependencytask.Items.Clear();
+                //drpdependencytask.Items.Add(new ListItem("---ALL---", "0"));
+                //drpdependencytask.DataSource = ds;
+                //drpdependencytask.DataBind();
+                //drpdependencytask.DataTextField = "Task_Name";
+                //drpdependencytask.DataValueField = "Task_Id";
+                //UpdatePanel3.Update();
 
             
            
@@ -399,7 +399,7 @@ public partial class ProjectReport : System.Web.UI.Page
             BlockedTask = radblocktask.SelectedValue;
             CompletedTask = Convert.ToInt32(drpTaskStatus.SelectedValue);
             Task = Convert.ToInt32(drptask.SelectedValue);
-            DependencyTask = Convert.ToInt32(drpdependencytask.SelectedValue);
+          //  DependencyTask = Convert.ToInt32(drpdependencytask.SelectedValue);
             isactive = radisactive.SelectedValue;
             //string cond = getCond();
 

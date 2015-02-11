@@ -6645,6 +6645,16 @@ h2
     padding-right:1px;
 }
 
+.ControlTextBoxforproject1
+{
+    width:110px;
+    height:50px;
+    border:1px solid #c3c3c3;
+    background-color:#e7e7e7;
+    padding-left:1px;
+    padding-right:1px;
+}
+
 .ControlTextBox3
 {
     width:100%;
@@ -8710,7 +8720,8 @@ fieldset
 
 .saveandreturnbuttonforproject
 {
-    background: url(images/projectsaveandreturn.png) no-repeat !important;
+   
+    background:url(images/projectsaveandreturn.png) no-repeat !important;
     width: 100% !important;
     height: 28px !important;
     display: block !important;

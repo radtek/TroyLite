@@ -193,7 +193,7 @@ public partial class TaskUpdates : System.Web.UI.Page
         {
             if (Page.IsValid)
             {
-                
+
                 //string connection = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
 
                 //if (bl.IsProjectCodeAlreadyFound(connection, ProjectCode))
@@ -294,49 +294,73 @@ public partial class TaskUpdates : System.Web.UI.Page
                     string ss = Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Expected_End_Date"].ToString()).ToShortDateString();
                     if (dsttd.Tables[0].Rows.Count > 0)
                     {
-                        if (Convert.ToDateTime(txtActualStartDate.Text) == Convert.ToDateTime(sss))
-                      
+                        if ((drpTaskStatus.SelectedItem.Text == "Completed" || drpTaskStatus.SelectedItem.Text == "completed") && (txtActualEndDate.Text == null || txtActualEndDate.Text == ""))
                         {
-                            
-                        }
-                        else if (Convert.ToDateTime(txtActualStartDate.Text) < Convert.ToDateTime(sss))
-                        {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Task Actual Start Date should be greater than or equal to Task Expected Start Date');", true);
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Actual End Date Cannot be Left Blank');", true);
                             ModalPopupExtender1.Show();
                             tbMain.Visible = true;
                             return;
-                        }
+
+                            if (Convert.ToDateTime(txtActualStartDate.Text) == Convert.ToDateTime(sss))
+                            {
+
+                            }
+                            else if (Convert.ToDateTime(txtActualStartDate.Text) < Convert.ToDateTime(sss))
+                            {
+                                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Task Actual Start Date should be greater than or equal to Task Expected Start Date');", true);
+                                ModalPopupExtender1.Show();
+                                tbMain.Visible = true;
+                                return;
+                            }
 
 
-                        if (Convert.ToDateTime(txtActualEndDate.Text) == Convert.ToDateTime(ss))
-                        //if (Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Project_Date"]) => Convert.ToDateTime(txtEWstartDate.Text))
-                        {
+
                         }
-                        else if (Convert.ToDateTime(txtActualEndDate.Text) < Convert.ToDateTime(ss))
+                        //if (Convert.ToDateTime(txtActualEndDate.Text) == Convert.ToDateTime(ss))
+                        ////if (Convert.ToDateTime(dsttd.Tables[0].Rows[0]["Project_Date"]) => Convert.ToDateTime(txtEWstartDate.Text))
+                        //{
+                        //}
+                        //else if (Convert.ToDateTime(txtActualEndDate.Text) < Convert.ToDateTime(ss))
+                        //{
+                        //    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Task Actual End Date should be greater than or equal to Task Actual Start Date');", true);
+                        //    ModalPopupExtender1.Show();
+                        //    tbMain.Visible = true;
+                        //    return;
+                        //}
+
+                        if (drpBlockedflag.SelectedValue == "N")
                         {
-                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Task Actual End Date should be greater than or equal to Task Actual Start Date');", true);
+
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Enter Blocked Reason.It cannot be Left blank.');", true);
                             ModalPopupExtender1.Show();
                             tbMain.Visible = true;
                             return;
+
                         }
-                        int effremain=0;
+
+
+
+                        int effremain = 0;
                         if (txteffortremain.Text.Trim() != string.Empty)
                             effremain = Convert.ToInt32(txteffortremain.Text.Trim());
 
                         if (Convert.ToString(drpTaskStatus.SelectedItem.Text) == "Completed" || Convert.ToString(drpTaskStatus.SelectedItem.Text) == "completed")
                         {
                             if ((effremain == null) || (Convert.ToInt32(effremain) == 0))
-                         {
+                            {
 
-                         }
-                         else
-                         {
-                             ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Effort Remaining % Value should be either 0 or blank for the Task to be set as Completed');", true);
-                            ModalPopupExtender1.Show();
-                            tbMain.Visible = true;
-                            return;
+                            }
+                            else
+                            {
+                                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Effort Remaining Value should be either 0 or blank for the Task to be set as Completed');", true);
+                                ModalPopupExtender1.Show();
+                                tbMain.Visible = true;
+                                return;
 
-                         }
+                            }
                             //if(Convert.ToInt32(txteffortremain.Text) == 0)
                             //{
 
@@ -373,9 +397,11 @@ public partial class TaskUpdates : System.Web.UI.Page
                         //    tbMain.Visible = true;
                         //    return;
                         //}  
- 
+
+
 
                     }
+
 
 
 
@@ -398,15 +424,15 @@ public partial class TaskUpdates : System.Web.UI.Page
                 if (txtBlockingReason.Text.Trim() != string.Empty)
                     BlockingReason = txtBlockingReason.Text.Trim();
                 if (txtlastupdate.Text.Trim() != string.Empty)
-                    Effortlastupdate =Convert.ToInt32(txtlastupdate.Text.Trim());
+                    Effortlastupdate = Convert.ToInt32(txtlastupdate.Text.Trim());
                 if (txteffortremain.Text.Trim() != string.Empty)
-                    effortremain =Convert.ToInt32( txteffortremain.Text.Trim());
+                    effortremain = Convert.ToInt32(txteffortremain.Text.Trim());
 
                 string Username = Request.Cookies["LoggedUserName"].Value;
 
                 Task_Id = int.Parse(GrdWME.SelectedDataKey.Value.ToString());
 
-                bl.UpdateTaskUpdateEntry(TaskUpdateDate, ActualStartDate, ActualEndDate, Per, TaskStatus, Blockedflag, Taskupdate, BlockingReason, Username,Effortlastupdate,effortremain, Task_Id);
+                bl.UpdateTaskUpdateEntry(TaskUpdateDate, ActualStartDate, ActualEndDate, Per, TaskStatus, Blockedflag, Taskupdate, BlockingReason, Username, Effortlastupdate, effortremain, Task_Id);
 
 
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Task Update Details Updated Successfully');", true);
@@ -441,7 +467,7 @@ public partial class TaskUpdates : System.Web.UI.Page
 
     private void ResetSearch()
     {
-        
+
         txtStartDate.Text = "";
         txtEndDate.Text = "";
         txtsCreationDate.Text = "";
@@ -487,9 +513,9 @@ public partial class TaskUpdates : System.Web.UI.Page
     protected void GrdWME_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         try
-        { 
+        {
             GrdWME.PageIndex = e.NewPageIndex;
-            BindWME("","");
+            BindWME("", "");
         }
         catch (Exception ex)
         {
@@ -604,14 +630,14 @@ public partial class TaskUpdates : System.Web.UI.Page
             btnUpdate.Enabled = false;
             tbMain.Visible = true;
             pnsSave.Visible = true;
-            
+
             btnCancel.Enabled = true;
             btnSave.Visible = true;
             btnUpdate.Visible = false;
             btnSave.Enabled = true;
-            
+
             sDataSource = ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
-            
+
 
             ModalPopupExtender1.Show();
         }
@@ -650,7 +676,7 @@ public partial class TaskUpdates : System.Web.UI.Page
             txtlastupdate.Text = "";
             txteffortremain.Text = "0";
             Taskeffortdays.Text = "";
-            
+
 
             BusinessLogic bl = new BusinessLogic(sDataSource);
             int Task_Id = 0;
@@ -741,7 +767,7 @@ public partial class TaskUpdates : System.Web.UI.Page
                     UpdatePanel2.Update();
                     Project_Id = Convert.ToInt32(drpProjectCode.SelectedValue);
                     DataSet dst = bl.GetProjectForId(connection, Project_Id);
-                    if ( dst!= null)
+                    if (dst != null)
                     {
                         //if (dst.Tables[0].Rows.Count > 0)
                         //{
@@ -749,15 +775,23 @@ public partial class TaskUpdates : System.Web.UI.Page
                         //    UpdatePanel4.Update();
                         //}
                         //else
-                        
-                            unitofmeasureheading.Text = "(" + Convert.ToString(dst.Tables[0].Rows[0]["Unit_Of_Measure"].ToString()) + ")";
-                            UpdatePanel4.Update();
-                        
+
+                        unitofmeasureheading.Text = "(" + Convert.ToString(dst.Tables[0].Rows[0]["Unit_Of_Measure"].ToString()) + ")";
+                        UpdatePanel4.Update();
+                        Uniteffortremain.Text = "(" + Convert.ToString(dst.Tables[0].Rows[0]["Unit_Of_Measure"].ToString()) + ")";
+                        UpdatePanel6.Update();
+                        unitlastupdate.Text = "(" + Convert.ToString(dst.Tables[0].Rows[0]["Unit_Of_Measure"].ToString()) + ")";
+                        UpdatePanel5.Update();
+
                     }
                     else
                     {
                         unitofmeasureheading.Text = "(" + Convert.ToString(dst.Tables[0].Rows[0]["Unit_Of_Measure"].ToString()) + ")";
                         UpdatePanel4.Update();
+                        Uniteffortremain.Text = "(" + Convert.ToString(dst.Tables[0].Rows[0]["Unit_Of_Measure"].ToString()) + ")";
+                        UpdatePanel6.Update();
+                        unitlastupdate.Text = "(" + Convert.ToString(dst.Tables[0].Rows[0]["Unit_Of_Measure"].ToString()) + ")";
+                        UpdatePanel5.Update();
                     }
                 }
             }
@@ -773,7 +807,7 @@ public partial class TaskUpdates : System.Web.UI.Page
                         txtActualStartDate.Text = Convert.ToDateTime(dsd.Tables[0].Rows[0]["Actual_Start_Date"]).ToString("dd/MM/yyyy");
 
                     if (dsd.Tables[0].Rows[0]["Actual_End_Date"] != null)
-                        txtActualEndDate.Text = Convert.ToDateTime(dsd.Tables[0].Rows[0]["Actual_End_Date"]).ToString("dd/MM/yyyy");
+                        txtActualEndDate.Text = dsd.Tables[0].Rows[0]["Actual_End_Date"].ToString();
 
                     if (dsd.Tables[0].Rows[0]["Task_Update_Date"] != null)
                         txtTaskUpdateDate.Text = Convert.ToDateTime(dsd.Tables[0].Rows[0]["Task_Update_Date"]).ToString("dd/MM/yyyy");
@@ -813,6 +847,17 @@ public partial class TaskUpdates : System.Web.UI.Page
                         txtBlockingReason.Enabled = true;
                     }
                     UpdatePanel1.Update();
+                    txtActualEndDate.Text = "";
+                    txtActualStartDate.Text = "";
+                    txtBlockingReason.Text = "";
+                    txtPer.Text = "";
+                    txtTaskupdate.Text = "";
+                    drpBlockedflag.SelectedIndex = 0;
+                    drpTaskStatus.SelectedIndex = 0;
+                    // txtTaskUpdateDate.Text = "";
+                    txtlastupdate.Text = "";
+                    txteffortremain.Text = "0";
+                    Taskeffortdays.Text = "";
                 }
                 else
                 {
@@ -830,24 +875,24 @@ public partial class TaskUpdates : System.Web.UI.Page
 
             DataSet dsdtt = bl.GetTaskUpdateHistoryList(connection, Task_Id);
 
-             if (dsdtt != null)
-             {
-                 if (dsdtt.Tables[0].Rows.Count > 0)
-                 {
-                     GridView1.DataSource = dsdtt;
-                     GridView1.DataBind();
-                 }
-                 else
-                 {
-                     GridView1.DataSource = null;
-                     GridView1.DataBind();
-                 }
-             }
-             else
-             {
-                 GridView1.DataSource = null;
-                 GridView1.DataBind();
-             }
+            if (dsdtt != null)
+            {
+                if (dsdtt.Tables[0].Rows.Count > 0)
+                {
+                    GridView1.DataSource = dsdtt;
+                    GridView1.DataBind();
+                }
+                else
+                {
+                    GridView1.DataSource = null;
+                    GridView1.DataBind();
+                }
+            }
+            else
+            {
+                GridView1.DataSource = null;
+                GridView1.DataBind();
+            }
 
 
 
@@ -865,5 +910,5 @@ public partial class TaskUpdates : System.Web.UI.Page
             TroyLiteExceptionManager.HandleException(ex);
         }
     }
-    
+
 }
