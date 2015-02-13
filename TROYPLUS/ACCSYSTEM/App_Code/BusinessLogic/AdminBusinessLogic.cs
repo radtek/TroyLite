@@ -347,15 +347,15 @@ public class AdminBusinessLogic
             dbQry = string.Format(@"Select SUM(pcm.DeclaredAmount) as ComponentTotalPay,'EmployeePayComponent' as PayComponentType
                                     FROM tblPayComponentEmployeeMapping pcm
                                     INNER JOIN tblPayComponents pc ON pc.PayComponentId=pcm.PayComponent_Id                                    
-                                    WHERE pcm.EmpNo={0} AND pc.PayComponentType_id=2 AND pc.IsDeduction=False 
-                                    AND EffectiveDate<= #{1}# AND EffectiveEndDate >=#{1}#
+                                    WHERE pcm.EmpNo={0} AND pc.PayComponentType_id=1 AND pc.IsDeduction=False 
+                                    AND EffectiveDate<= #{1}#
                                     UNION
                                     Select SUM(pcm.DeclaredAmount) as ComponentTotalPay,'EmployeeRolePayComponent' as PayComponentType 
                                     FROM (( tblPayComponentRoleMapping pcm                                    
                                     INNER JOIN tblPayComponents pc ON pc.PayComponentId=pcm.PayComponent_Id )  
                                     INNER JOIN tblEmployee e ON e.EmployeeRoleId=pcm.Role_Id      )                           
-                                    WHERE e.EmpNo={0} AND pc.PayComponentType_id=1 AND pc.IsDeduction=False 
-                                    AND EffectiveDate<= #{1}# AND EffectiveEndDate >=#{1}#", employeeNo, string.Format("01-{0}-{1}", month, year));
+                                    WHERE e.EmpNo={0} AND pc.PayComponentType_id=2 AND pc.IsDeduction=False 
+                                    AND EffectiveDate<= #{1}#", employeeNo, string.Format("01-{0}-{1}", month, year));
 
 
             DataSet ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
@@ -404,15 +404,15 @@ public class AdminBusinessLogic
             dbQry = string.Format(@"Select SUM(pcm.DeclaredAmount) as ComponentTotalPay,'EmployeePayComponent' as PayComponentType
                                     FROM tblPayComponentEmployeeMapping pcm
                                     INNER JOIN tblPayComponents pc ON pc.PayComponentId=pcm.PayComponent_Id                                    
-                                    WHERE pcm.EmpNo={0} AND pc.PayComponentType_id=2 AND pc.IsDeduction=True 
-                                    AND EffectiveDate<= #{1}# AND EffectiveEndDate >=#{1}#
+                                    WHERE pcm.EmpNo={0} AND pc.PayComponentType_id=1 AND pc.IsDeduction=True 
+                                    AND EffectiveDate<= #{1}#
                                     UNION
                                     Select SUM(pcm.DeclaredAmount) as ComponentTotalPay,'EmployeeRolePayComponent' as PayComponentType 
                                     FROM (( tblPayComponentRoleMapping pcm                                    
                                     INNER JOIN tblPayComponents pc ON pc.PayComponentId=pcm.PayComponent_Id )  
                                     INNER JOIN tblEmployee e ON e.EmployeeRoleId=pcm.Role_Id      )                           
-                                    WHERE e.EmpNo={0} AND pc.PayComponentType_id=1 AND pc.IsDeduction=True 
-                                    AND EffectiveDate<= #{1}# AND EffectiveEndDate >=#{1}#", employeeNo, string.Format("01-{0}-{1}", month, year));
+                                    WHERE e.EmpNo={0} AND pc.PayComponentType_id=2 AND pc.IsDeduction=True 
+                                    AND EffectiveDate<= #{1}#", employeeNo, string.Format("01-{0}-{1}", month, year));
 
             DataSet ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
@@ -471,7 +471,7 @@ public class AdminBusinessLogic
 
     private bool HaveUnSubmittedAttendance(int year, int month)
     {
-        throw new NotImplementedException();
+        return false;
     }
 
     private bool HaveUnApprovedAttendanceBySupervisor(int year, int month, ref string logMessage)

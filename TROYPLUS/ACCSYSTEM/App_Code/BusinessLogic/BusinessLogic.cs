@@ -64174,10 +64174,6 @@ public class BusinessLogic
         return true;
     }
 
-
-
-
-
     public DataTable GetAttendanceYearList(string userId)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
@@ -64439,15 +64435,16 @@ public class BusinessLogic
         {
             return "Leave";
         }
-        else if (currentRemarks.ToUpper().Equals("LEAVE"))
-        {
-            return "Present";
-        }
+        //else if (currentRemarks.ToUpper().Equals("LEAVE"))
+        //{
+        //    return "Present";
+        //}
         else
         {
             return currentRemarks;
         }
     }
+
     private DataTable IncludeMissingRepotees(DataTable dtAvailableReportees, Dictionary<string, string> reportees, int year, int month)
     {
         foreach (string emp in reportees.Keys)
@@ -65839,11 +65836,11 @@ public class BusinessLogic
 
         if (SearchTxt != "")
         {
-            dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents WHERE PayComponentName LIKE '" + SearchTxt + "'";
+            dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents WHERE PayComponentType_Id =2 AND PayComponentName LIKE '" + SearchTxt + "'";
         }
         else
         {
-            dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents ";
+            dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents WHERE PayComponentType_Id =2";
         }
         try
         {
@@ -68076,11 +68073,11 @@ public class BusinessLogic
 
         if (SearchTxt != "")
         {
-            dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents WHERE PayComponentName LIKE '" + SearchTxt + "'";
+            dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents WHERE PayComponentType_Id =1 AND PayComponentName LIKE '" + SearchTxt + "'";
         }
         else
         {
-            dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents ";
+            dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents WHERE PayComponentType_Id =1";
         }
         try
         {

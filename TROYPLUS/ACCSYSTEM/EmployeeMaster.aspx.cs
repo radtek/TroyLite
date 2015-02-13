@@ -478,6 +478,7 @@ public partial class EmployeeMaster : System.Web.UI.Page
                 txtRemarks.Text = ds.Tables[0].Rows[0]["empRemarks"].ToString(); ;
                 rowremarks.Visible = true;
                 //BindEmp();
+                ddlRole.SelectedValue = ds.Tables[0].Rows[0]["EmployeeRoleId"].ToString();
                 btnUpdate.Visible = true;
                 btnUpdate.Enabled = true;
                 btnSave.Visible = false;
