@@ -3461,7 +3461,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 }
 
                 string discType = GetDiscType();
-                
+
 
                 string usernam = Request.Cookies["LoggedUserName"].Value;
 
@@ -3501,12 +3501,14 @@ public partial class CustomerSales : System.Web.UI.Page
                             DropDownList drpIncharge = (DropDownList)grvStudentDetails.Rows[vLoop].FindControl("drpIncharge");
                             TextBox txtDesc = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDesc");
                             TextBox txtRate = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRate");
+                            TextBox txtTotalPrice = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtTot");
                             TextBox txtStock = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtStock");
                             TextBox txtQty = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtQty");
                             TextBox txtExeComm = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtExeComm");
                             TextBox txtDisPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDisPre");
                             TextBox txtVATPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtVATPre");
                             TextBox txtCSTPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtCSTPre");
+                            TextBox txtPrBefVAT = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtPrBefVAT");
                             TextBox txtVATAmt = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtVATAmt");
                             TextBox txtRtVAT = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRtVAT");
                             TextBox txtTotal = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtTotal");
@@ -3531,6 +3533,11 @@ public partial class CustomerSales : System.Web.UI.Page
                             else if (txtRate.Text == "" || txtRate.Text == "0")
                             {
                                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Rate in row " + col + " ')", true);
+                                return;
+                            }
+                            else if (txtTotalPrice.Text == "" || txtTotalPrice.Text == "0")
+                            {
+                                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Total Price is empty in row " + col + " ')", true);
                                 return;
                             }
                             else if (txtStock.Text == "")
@@ -3568,6 +3575,11 @@ public partial class CustomerSales : System.Web.UI.Page
                                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill CST Percentage in row " + col + " ')", true);
                                 return;
                             }
+                            else if (txtPrBefVAT.Text == "")
+                            {
+                                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Price Before VAT Amount in row " + col + " ')", true);
+                                return;
+                            }
                             else if (txtVATAmt.Text == "")
                             {
                                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill VAT Amount in row " + col + " ')", true);
@@ -3588,7 +3600,7 @@ public partial class CustomerSales : System.Web.UI.Page
                             {
                                 double EXCLUSIVErate1 = 0;
                                 double EXCrate1 = 0;
-                                double ratewithqty = 0;                              
+                                double ratewithqty = 0;
                                 if (Labelll.Text == "VAT EXCLUSIVE")
                                 {
                                     ratewithqty = Convert.ToDouble(txtRate.Text) * Convert.ToInt32(txtQty.Text) / Convert.ToInt32(txtQty.Text);
@@ -3736,6 +3748,9 @@ public partial class CustomerSales : System.Web.UI.Page
                         dc = new DataColumn("Rate");
                         dt.Columns.Add(dc);
 
+                        dc = new DataColumn("TotPrice");
+                        dt.Columns.Add(dc);
+
                         dc = new DataColumn("Stock");
                         dt.Columns.Add(dc);
 
@@ -3752,6 +3767,9 @@ public partial class CustomerSales : System.Web.UI.Page
                         dt.Columns.Add(dc);
 
                         dc = new DataColumn("CSTPre");
+                        dt.Columns.Add(dc);
+
+                        dc = new DataColumn("PrBefVATAmt");
                         dt.Columns.Add(dc);
 
                         dc = new DataColumn("VATAmt");
@@ -3792,12 +3810,14 @@ public partial class CustomerSales : System.Web.UI.Page
                             DropDownList drpIncharge = (DropDownList)grvStudentDetails.Rows[vLoop].FindControl("drpIncharge");
                             TextBox txtDesc = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDesc");
                             TextBox txtRate = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRate");
+                            TextBox txtTotalPrice = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtTot");
                             TextBox txtStock = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtStock");
                             TextBox txtQty = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtQty");
                             TextBox txtExeComm = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtExeComm");
                             TextBox txtDisPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDisPre");
                             TextBox txtVATPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtVATPre");
                             TextBox txtCSTPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtCSTPre");
+                            TextBox txtPrBefVAT = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtPrBefVAT");
                             TextBox txtVATAmt = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtVATAmt");
                             TextBox txtRtVAT = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRtVAT");
                             TextBox txtTotal = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtTotal");
@@ -3808,12 +3828,14 @@ public partial class CustomerSales : System.Web.UI.Page
                             drNew["Emp"] = Convert.ToString(drpIncharge.SelectedItem.Value);
                             drNew["Desc"] = txtDesc.Text;
                             drNew["Rate"] = txtRate.Text;
+                            drNew["TotPrice"] = txtTotalPrice.Text;
                             drNew["Stock"] = txtStock.Text;
                             drNew["Qty"] = txtQty.Text;
                             drNew["ExeComm"] = txtExeComm.Text;
                             drNew["DisPre"] = txtDisPre.Text;
                             drNew["VATPre"] = txtVATPre.Text;
                             drNew["CSTPre"] = txtCSTPre.Text;
+                            drNew["PrBefVATAmt"] = txtPrBefVAT.Text;
                             drNew["VATAmt"] = txtVATAmt.Text;
                             drNew["RtVAT"] = txtRtVAT.Text;
                             drNew["Tot"] = txtTotal.Text;
@@ -4593,7 +4615,7 @@ public partial class CustomerSales : System.Web.UI.Page
                     CustomerIdMobile = 0;
                 }
 
-
+                string discType = GetDiscType();             
 
 
                 string usernam = Request.Cookies["LoggedUserName"].Value;
@@ -4636,12 +4658,14 @@ public partial class CustomerSales : System.Web.UI.Page
                                 DropDownList drpIncharge = (DropDownList)grvStudentDetails.Rows[vLoop].FindControl("drpIncharge");
                                 TextBox txtDesc = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDesc");
                                 TextBox txtRate = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRate");
+                                TextBox txtTotalPrice = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtTot");
                                 TextBox txtStock = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtStock");
                                 TextBox txtQty = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtQty");
                                 TextBox txtExeComm = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtExeComm");
                                 TextBox txtDisPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDisPre");
                                 TextBox txtVATPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtVATPre");
                                 TextBox txtCSTPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtCSTPre");
+                                TextBox txtPrBefVAT = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtPrBefVAT");
                                 TextBox txtVATAmt = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtVATAmt");
                                 TextBox txtRtVAT = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRtVAT");
                                 TextBox txtTotal = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtTotal");
@@ -4666,6 +4690,11 @@ public partial class CustomerSales : System.Web.UI.Page
                                 else if (txtRate.Text == "" || txtRate.Text == "0")
                                 {
                                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Rate in row " + col + " ')", true);
+                                    return;
+                                }
+                                else if (txtTotalPrice.Text == "" || txtTotalPrice.Text == "0")
+                                {
+                                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Total Price is empty in row " + col + " ')", true);
                                     return;
                                 }
                                 else if (txtStock.Text == "")
@@ -4701,6 +4730,11 @@ public partial class CustomerSales : System.Web.UI.Page
                                 else if (txtCSTPre.Text == "")
                                 {
                                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill CST Percentage in row " + col + " ')", true);
+                                    return;
+                                }
+                                else if (txtPrBefVAT.Text == "")
+                                {
+                                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Price Before VAT Amount in row " + col + " ')", true);
                                     return;
                                 }
                                 else if (txtVATAmt.Text == "")
@@ -4872,6 +4906,9 @@ public partial class CustomerSales : System.Web.UI.Page
                             dc = new DataColumn("Rate");
                             dt.Columns.Add(dc);
 
+                            dc = new DataColumn("TotPrice");
+                            dt.Columns.Add(dc);
+
                             dc = new DataColumn("Stock");
                             dt.Columns.Add(dc);
 
@@ -4889,6 +4926,10 @@ public partial class CustomerSales : System.Web.UI.Page
 
                             dc = new DataColumn("CSTPre");
                             dt.Columns.Add(dc);
+
+                            dc = new DataColumn("PrBefVATAmt");
+                            dt.Columns.Add(dc);
+
 
                             dc = new DataColumn("VATAmt");
                             dt.Columns.Add(dc);
@@ -4928,12 +4969,14 @@ public partial class CustomerSales : System.Web.UI.Page
                                 DropDownList drpIncharge = (DropDownList)grvStudentDetails.Rows[vLoop].FindControl("drpIncharge");
                                 TextBox txtDesc = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDesc");
                                 TextBox txtRate = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRate");
+                                TextBox txtTotalPrice = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtTot");
                                 TextBox txtStock = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtStock");
                                 TextBox txtQty = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtQty");
                                 TextBox txtExeComm = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtExeComm");
                                 TextBox txtDisPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDisPre");
                                 TextBox txtVATPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtVATPre");
                                 TextBox txtCSTPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtCSTPre");
+                                TextBox txtPrBefVAT = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtPrBefVAT");
                                 TextBox txtVATAmt = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtVATAmt");
                                 TextBox txtRtVAT = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRtVAT");
                                 TextBox txtTotal = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtTotal");
@@ -4944,12 +4987,14 @@ public partial class CustomerSales : System.Web.UI.Page
                                 drNew["Emp"] = Convert.ToString(drpIncharge.SelectedItem.Value);
                                 drNew["Desc"] = txtDesc.Text;
                                 drNew["Rate"] = txtRate.Text;
+                                drNew["TotPrice"] = txtTotalPrice.Text;
                                 drNew["Stock"] = txtStock.Text;
                                 drNew["Qty"] = txtQty.Text;
                                 drNew["ExeComm"] = txtExeComm.Text;
                                 drNew["DisPre"] = txtDisPre.Text;
                                 drNew["VATPre"] = txtVATPre.Text;
                                 drNew["CSTPre"] = txtCSTPre.Text;
+                                drNew["PrBefVATAmt"] = txtPrBefVAT.Text;
                                 drNew["VATAmt"] = txtVATAmt.Text;
                                 drNew["RtVAT"] = txtRtVAT.Text;
                                 drNew["Tot"] = txtTotal.Text;
@@ -4968,7 +5013,7 @@ public partial class CustomerSales : System.Web.UI.Page
                             //old code
                             //int billNo = bl.UpdateSalesNew(hdSeries.Value, bill, sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dTotalAmt, purchaseReturn, prReason, Convert.ToInt32(executive), dFreight, dLU, dss, sOtherCusName, intTrans, userID, deliveryNote, sCustomerAddress2, sCustomerAddress3, executivename, receiptData, despatchedfrom, fixedtotal, manualno, dTotalAmt, usernam, MultiPayment, Types, snarr, cuscategory);
 
-                            int billNo = bl.UpdateSalesNew(hdSeries.Value, bill, sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dTotalAmt, purchaseReturn, prReason, dFreight, dLU, dss, sOtherCusName, intTrans, userID, receiptData, MultiPayment, deliveryNote, sCustomerAddress2, sCustomerAddress3, executivename, despatchedfrom, fixedtotal, manualno, dTotalAmt, usernam, Types, snarr, DuplicateCopy, check, CustomerIdMobile, cuscategory);
+                            int billNo = bl.UpdateSalesNew(hdSeries.Value, bill, sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dTotalAmt, purchaseReturn, prReason, dFreight, dLU, dss, sOtherCusName, intTrans, userID, receiptData, MultiPayment, deliveryNote, sCustomerAddress2, sCustomerAddress3, executivename, despatchedfrom, fixedtotal, manualno, dTotalAmt, usernam, Types, snarr, DuplicateCopy, check, CustomerIdMobile, cuscategory, discType);
 
 
 
@@ -5721,7 +5766,7 @@ public partial class CustomerSales : System.Web.UI.Page
             }
 
             loadBanks();
-
+            FirstGridViewRow();
             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
             //    string connection = string.Empty;
@@ -5918,7 +5963,7 @@ public partial class CustomerSales : System.Web.UI.Page
             {
                 Labelll.Text = "VAT EXCLUSIVE";
             }
-
+            FirstGridViewRow();
             ModalPopupMethod.Show();
             //ModalPopupExtender1.Show();
         }
@@ -7017,7 +7062,7 @@ public partial class CustomerSales : System.Web.UI.Page
 
                     if (ds.Tables[0].Rows[0]["Amount"] != null)
                         txtfixedtotal.Text = Convert.ToString(ds.Tables[0].Rows[0]["Amount"]);
-                    lblNet.Text = Convert.ToString(ds.Tables[0].Rows[0]["Amount"]);
+                    lblNet.Text = Convert.ToDouble(ds.Tables[0].Rows[0]["Amount"]).ToString("#0.00");
 
                     if (Convert.ToInt32(ds.Tables[0].Rows[0]["manualNo"]) == 0)
                     {
@@ -7206,6 +7251,7 @@ public partial class CustomerSales : System.Web.UI.Page
                         DropDownList drpIncharge = (DropDownList)grvStudentDetails.Rows[vLoop].FindControl("drpIncharge");
                         TextBox txtDesc = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDesc");
                         TextBox txtRate = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRate");
+                        TextBox txtTotalPrice = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtTot");
                         TextBox txtStock = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtStock");
                         TextBox txtQty = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtQty");
                         TextBox txtExeComm = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtExeComm");
@@ -7213,6 +7259,7 @@ public partial class CustomerSales : System.Web.UI.Page
                         TextBox txtVATPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtVATPre");
                         TextBox txtCSTPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtCSTPre");
                         TextBox txtVATAmt = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtVATAmt");
+                        TextBox txtPrBefVAT = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtPrBefVAT");
                         TextBox txtRtVAT = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRtVAT");
                         TextBox txtTotal = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtTotal");
 
@@ -7235,16 +7282,18 @@ public partial class CustomerSales : System.Web.UI.Page
 
                         // drpProduct.Text = itemDs.Tables[0].Rows[vLoop]["ItemCode"].ToString();
                         txtDesc.Text = itemDs.Tables[0].Rows[vLoop]["ProductDesc"].ToString();
-                        txtRate.Text = itemDs.Tables[0].Rows[vLoop]["Rate"].ToString();
+                        txtRate.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["Rate"].ToString()).ToString("#0.00");
+                        txtTotalPrice.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["TotalPrice"].ToString()).ToString("#0.00");
                         txtStock.Text = itemDs.Tables[0].Rows[vLoop]["Stock"].ToString();
                         txtQty.Text = itemDs.Tables[0].Rows[vLoop]["Qty"].ToString();
                         txtExeComm.Text = itemDs.Tables[0].Rows[vLoop]["ExecCharge"].ToString();
                         txtDisPre.Text = itemDs.Tables[0].Rows[vLoop]["Discount"].ToString();
-                        txtVATPre.Text = itemDs.Tables[0].Rows[vLoop]["Vat"].ToString();
+                        txtVATPre.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["Vat"].ToString()).ToString("#0.00");
                         txtCSTPre.Text = itemDs.Tables[0].Rows[vLoop]["CST"].ToString();
-                        txtVATAmt.Text = itemDs.Tables[0].Rows[vLoop]["Vatamount"].ToString();
-                        txtRtVAT.Text = itemDs.Tables[0].Rows[vLoop]["Subtotal"].ToString();
-                        txtTotal.Text = itemDs.Tables[0].Rows[vLoop]["Totalmrp"].ToString();
+                        txtPrBefVAT.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["PriceBeforeVATAmt"].ToString()).ToString("#0.00");
+                        txtVATAmt.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["Vatamount"].ToString()).ToString("#0.00");
+                        txtRtVAT.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["Subtotal"].ToString()).ToString("#0.00");
+                        txtTotal.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["Totalmrp"].ToString()).ToString("#0.00");
                     }
 
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "$('.chzn-select').chosen(); $('.chzn-select-deselect').chosen({ allow_single_deselect: true });", true);
@@ -7453,6 +7502,9 @@ public partial class CustomerSales : System.Web.UI.Page
             dc = new DataColumn("Rate");
             dt.Columns.Add(dc);
 
+            dc = new DataColumn("TotalPrice");
+            dt.Columns.Add(dc);
+
             dc = new DataColumn("Qty");
             dt.Columns.Add(dc);
 
@@ -7467,6 +7519,10 @@ public partial class CustomerSales : System.Web.UI.Page
 
             dc = new DataColumn("CST");
             dt.Columns.Add(dc);
+
+            dc = new DataColumn("PriceBeforeVATAmt");
+            dt.Columns.Add(dc);
+
 
             dc = new DataColumn("Vatamount");
             dt.Columns.Add(dc);
@@ -7505,6 +7561,7 @@ public partial class CustomerSales : System.Web.UI.Page
             dt.Columns.Add(dc);
 
             itemDs.Tables.Add(dt);
+            ViewState["CurrentTable"] = dt;
             if (ds.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow dR in ds.Tables[0].Rows)
@@ -7557,6 +7614,9 @@ public partial class CustomerSales : System.Web.UI.Page
                     dr["Qty"] = dQty.ToString();
                     dr["Rate"] = dRate.ToString();
 
+                    if (dR["TotalPrice"] != null)
+                        dr["TotalPrice"] = Convert.ToString(dR["TotalPrice"]);
+
                     if (dR["Discount"] != null)
                         dr["Discount"] = Convert.ToString(dR["Discount"]);
 
@@ -7565,6 +7625,10 @@ public partial class CustomerSales : System.Web.UI.Page
 
                     if (dR["Vat"] != null)
                         dr["Vat"] = Convert.ToString(dR["Vat"]);
+
+                    if (dR["PriceBeforeVATAmt"] != null)
+                        dr["PriceBeforeVATAmt"] = Convert.ToDouble(dR["PriceBeforeVATAmt"]);
+
 
                     if (dR["Totalmrp"] != null)
                         dr["Totalmrp"] = Convert.ToDouble(dR["Totalmrp"]);
@@ -8481,12 +8545,14 @@ public partial class CustomerSales : System.Web.UI.Page
             DropDownList drpIncharge = (DropDownList)grvStudentDetails.Rows[vLoop].FindControl("drpIncharge");
             TextBox txtDesc = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDesc");
             TextBox txtRate = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRate");
+            TextBox txtTot = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtTot");
             TextBox txtStock = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtStock");
             TextBox txtExeComm = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtExeComm");
             TextBox txtDisPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDisPre");
             TextBox txtVATPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtVATPre");
             TextBox txtCSTPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtCSTPre");
             TextBox txtVATAmt = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtVATAmt");
+            TextBox txtPrBefVAT = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtPrBefVAT");
             TextBox txtRtVAT = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRtVAT");
             TextBox txtTotal = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtTotal");
 
@@ -8517,6 +8583,13 @@ public partial class CustomerSales : System.Web.UI.Page
             {
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Rate in row " + col + " ')", true);
                 txtRate.Focus();
+                checkflag = true;
+                return;
+            }
+            else if (txtTot.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Total Price is empty in row " + col + " ')", true);
+                txtStock.Focus();
                 checkflag = true;
                 return;
             }
@@ -8562,6 +8635,12 @@ public partial class CustomerSales : System.Web.UI.Page
             else if (txtCSTPre.Text == "")
             {
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill CST Percentage in row " + col + " ')", true);
+                checkflag = true;
+                return;
+            }
+            else if (txtPrBefVAT.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please fill Price Before VAT Amount in row " + col + " ')", true);
                 checkflag = true;
                 return;
             }
@@ -8660,13 +8739,13 @@ public partial class CustomerSales : System.Web.UI.Page
                                 dp = Convert.ToDouble(dr["dealerrate"]);
                                 per = Convert.ToDouble(dr["deviation"]);
                                 rate2 = (dp * per) / 100;
-                               // rate1 = Convert.ToDouble(txtRate.Text);
+                                // rate1 = Convert.ToDouble(txtRate.Text);
 
                                 rate1 = Convert.ToDouble(txtRate.Text) * Convert.ToInt32(txtQty.Text) / Convert.ToInt32(txtQty.Text);
 
                                 if (Labelll.Text == "VAT EXCLUSIVE")
                                 {
-                                   // rate1 = (Convert.ToDouble(txtRate.Text)) + ((Convert.ToDouble(txtRate.Text)) * (Convert.ToDouble(txtVATAmt.Text) / 100));
+                                    // rate1 = (Convert.ToDouble(txtRate.Text)) + ((Convert.ToDouble(txtRate.Text)) * (Convert.ToDouble(txtVATAmt.Text) / 100));
                                     rate1 = (Convert.ToDouble(rate1)) + ((Convert.ToDouble(rate1)) * (Convert.ToDouble(txtVATPre.Text) / 100));
                                 }
 
@@ -8694,12 +8773,12 @@ public partial class CustomerSales : System.Web.UI.Page
                                 dp = Convert.ToDouble(dr["dealerrate"]);
                                 per = Convert.ToDouble(dr["deviation"]);
                                 rate2 = (dp * per) / 100;
-                               // rate1 = Convert.ToDouble(txtRate.Text);
+                                // rate1 = Convert.ToDouble(txtRate.Text);
                                 rate1 = Convert.ToDouble(txtRate.Text) * Convert.ToInt32(txtQty.Text) / Convert.ToInt32(txtQty.Text);
 
                                 if (Labelll.Text == "VAT EXCLUSIVE")
                                 {
-                                   // rate1 = (Convert.ToDouble(txtRate.Text)) + ((Convert.ToDouble(txtRate.Text)) * (Convert.ToDouble(txtVATAmt.Text) / 100));
+                                    // rate1 = (Convert.ToDouble(txtRate.Text)) + ((Convert.ToDouble(txtRate.Text)) * (Convert.ToDouble(txtVATAmt.Text) / 100));
                                     rate1 = (Convert.ToDouble(rate1)) + ((Convert.ToDouble(rate1)) * (Convert.ToDouble(txtVATPre.Text) / 100));
                                 }
 
@@ -8732,29 +8811,33 @@ public partial class CustomerSales : System.Web.UI.Page
                         DropDownList DrpProduct =
                          (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("drpPrd");
                         TextBox TextBoxQty =
-                             (TextBox)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("txtQty");
+                             (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtQty");
                         DropDownList drpIncharge =
-                         (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("drpIncharge");
+                         (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("drpIncharge");
                         TextBox TextBoxDesc =
-                          (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtDesc");
+                          (TextBox)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("txtDesc");
                         TextBox TextBoxRate =
-                          (TextBox)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("txtRate");
+                          (TextBox)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("txtRate");
+                        TextBox TextBoxTotalPrice =
+                        (TextBox)grvStudentDetails.Rows[rowIndex].Cells[6].FindControl("txtTot");
                         TextBox TextBoxStock =
-                         (TextBox)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("txtStock");
+                         (TextBox)grvStudentDetails.Rows[rowIndex].Cells[7].FindControl("txtStock");
                         TextBox TextBoxExeComm =
-                             (TextBox)grvStudentDetails.Rows[rowIndex].Cells[6].FindControl("txtExeComm");
+                             (TextBox)grvStudentDetails.Rows[rowIndex].Cells[8].FindControl("txtExeComm");
                         TextBox TextBoxDisPre =
-                            (TextBox)grvStudentDetails.Rows[rowIndex].Cells[7].FindControl("txtDisPre");
+                            (TextBox)grvStudentDetails.Rows[rowIndex].Cells[9].FindControl("txtDisPre");
                         TextBox TextBoxVATPre =
-                           (TextBox)grvStudentDetails.Rows[rowIndex].Cells[8].FindControl("txtVATPre");
+                           (TextBox)grvStudentDetails.Rows[rowIndex].Cells[10].FindControl("txtVATPre");
                         TextBox TextBoxCSTPre =
-                          (TextBox)grvStudentDetails.Rows[rowIndex].Cells[9].FindControl("txtCSTPre");
+                          (TextBox)grvStudentDetails.Rows[rowIndex].Cells[11].FindControl("txtCSTPre");
+                        TextBox TextBoxPrBefVAT =
+                            (TextBox)grvStudentDetails.Rows[rowIndex].Cells[12].FindControl("txtPrBefVAT");
                         TextBox TextBoxVATAmt =
-                         (TextBox)grvStudentDetails.Rows[rowIndex].Cells[10].FindControl("txtVATAmt");
+                         (TextBox)grvStudentDetails.Rows[rowIndex].Cells[13].FindControl("txtVATAmt");
                         TextBox TextBoxRtVAT =
-                        (TextBox)grvStudentDetails.Rows[rowIndex].Cells[11].FindControl("txtRtVAT");
+                        (TextBox)grvStudentDetails.Rows[rowIndex].Cells[14].FindControl("txtRtVAT");
                         TextBox TextBoxTotal =
-                       (TextBox)grvStudentDetails.Rows[rowIndex].Cells[12].FindControl("txtTotal");
+                       (TextBox)grvStudentDetails.Rows[rowIndex].Cells[15].FindControl("txtTotal");
 
 
                         if (Convert.ToInt32(TextBoxQty.Text) > Convert.ToInt32(TextBoxStock.Text))
@@ -8766,19 +8849,22 @@ public partial class CustomerSales : System.Web.UI.Page
                         drCurrentRow = dtCurrentTable.NewRow();
                         drCurrentRow["RowNumber"] = i + 1;
 
-                        dtCurrentTable.Rows[i - 1]["Col1"] = DrpProduct.SelectedValue;
-                        dtCurrentTable.Rows[i - 1]["Col2"] = TextBoxQty.Text;
-                        dtCurrentTable.Rows[i - 1]["Col3"] = drpIncharge.SelectedValue;
-                        dtCurrentTable.Rows[i - 1]["Col4"] = TextBoxDesc.Text;
-                        dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxRate.Text;
-                        dtCurrentTable.Rows[i - 1]["Col6"] = TextBoxStock.Text;
-                        dtCurrentTable.Rows[i - 1]["Col7"] = TextBoxExeComm.Text;
-                        dtCurrentTable.Rows[i - 1]["Col8"] = TextBoxDisPre.Text;
-                        dtCurrentTable.Rows[i - 1]["Col9"] = TextBoxVATPre.Text;
-                        dtCurrentTable.Rows[i - 1]["Col10"] = TextBoxCSTPre.Text;
-                        dtCurrentTable.Rows[i - 1]["Col11"] = TextBoxVATAmt.Text;
-                        dtCurrentTable.Rows[i - 1]["Col12"] = TextBoxRtVAT.Text;
-                        dtCurrentTable.Rows[i - 1]["Col13"] = TextBoxTotal.Text;
+                        dtCurrentTable.Rows[i - 1]["ItemCode"] = DrpProduct.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["Qty"] = TextBoxQty.Text;
+                        dtCurrentTable.Rows[i - 1]["executivename"] = drpIncharge.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["ProductDesc"] = TextBoxDesc.Text;
+                        dtCurrentTable.Rows[i - 1]["Rate"] = TextBoxRate.Text;
+                        dtCurrentTable.Rows[i - 1]["TotalPrice"] = TextBoxTotalPrice.Text;
+                        dtCurrentTable.Rows[i - 1]["Stock"] = TextBoxStock.Text;
+                        dtCurrentTable.Rows[i - 1]["ExecCharge"] = TextBoxExeComm.Text;
+                        dtCurrentTable.Rows[i - 1]["Discount"] = TextBoxDisPre.Text;
+                        dtCurrentTable.Rows[i - 1]["Vat"] = TextBoxVATPre.Text;
+                        dtCurrentTable.Rows[i - 1]["CST"] = TextBoxCSTPre.Text;
+                        dtCurrentTable.Rows[i - 1]["PriceBeforeVATAmt"] = TextBoxPrBefVAT.Text;
+                        dtCurrentTable.Rows[i - 1]["Vatamount"] = TextBoxVATAmt.Text;
+                        dtCurrentTable.Rows[i - 1]["Subtotal"] = TextBoxRtVAT.Text;
+                        dtCurrentTable.Rows[i - 1]["Totalmrp"] = TextBoxTotal.Text;
+
                         rowIndex++;
                     }
                     dtCurrentTable.Rows.Add(drCurrentRow);
@@ -8816,37 +8902,43 @@ public partial class CustomerSales : System.Web.UI.Page
                       (TextBox)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("txtDesc");
                     TextBox TextBoxRate =
                       (TextBox)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("txtRate");
+                    TextBox TextBoxTotalPrice =
+                     (TextBox)grvStudentDetails.Rows[rowIndex].Cells[6].FindControl("txtTot");
                     TextBox TextBoxStock =
-                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[6].FindControl("txtStock");
+                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[7].FindControl("txtStock");
                     TextBox TextBoxExeComm =
-                     (TextBox)grvStudentDetails.Rows[rowIndex].Cells[7].FindControl("txtExeComm");
+                     (TextBox)grvStudentDetails.Rows[rowIndex].Cells[8].FindControl("txtExeComm");
                     TextBox TextBoxDisPre =
-                    (TextBox)grvStudentDetails.Rows[rowIndex].Cells[8].FindControl("txtDisPre");
+                    (TextBox)grvStudentDetails.Rows[rowIndex].Cells[9].FindControl("txtDisPre");
                     TextBox TextBoxVATPre =
-                   (TextBox)grvStudentDetails.Rows[rowIndex].Cells[9].FindControl("txtVATPre");
+                   (TextBox)grvStudentDetails.Rows[rowIndex].Cells[10].FindControl("txtVATPre");
                     TextBox TextBoxCSTPre =
-                  (TextBox)grvStudentDetails.Rows[rowIndex].Cells[10].FindControl("txtCSTPre");
+                  (TextBox)grvStudentDetails.Rows[rowIndex].Cells[11].FindControl("txtCSTPre");
+                    TextBox TextBoxPrBefVAT =
+                            (TextBox)grvStudentDetails.Rows[rowIndex].Cells[12].FindControl("txtPrBefVAT");
                     TextBox TextBoxVATAmt =
-                 (TextBox)grvStudentDetails.Rows[rowIndex].Cells[11].FindControl("txtVATAmt");
+                 (TextBox)grvStudentDetails.Rows[rowIndex].Cells[12].FindControl("txtVATAmt");
                     TextBox TextBoxRtVAT =
-                (TextBox)grvStudentDetails.Rows[rowIndex].Cells[12].FindControl("txtRtVAT");
+                (TextBox)grvStudentDetails.Rows[rowIndex].Cells[13].FindControl("txtRtVAT");
                     TextBox TextBoxTotal =
-               (TextBox)grvStudentDetails.Rows[rowIndex].Cells[13].FindControl("txtTotal");
+               (TextBox)grvStudentDetails.Rows[rowIndex].Cells[14].FindControl("txtTotal");
 
 
-                    DrpProduct.SelectedValue = dt.Rows[i]["Col1"].ToString();
-                    TextBoxQty.Text = dt.Rows[i]["Col2"].ToString();
-                    drpIncharge.SelectedValue = dt.Rows[i]["Col3"].ToString();
-                    TextBoxDesc.Text = dt.Rows[i]["Col4"].ToString();
-                    TextBoxRate.Text = dt.Rows[i]["Col5"].ToString();
-                    TextBoxStock.Text = dt.Rows[i]["Col6"].ToString();
-                    TextBoxExeComm.Text = dt.Rows[i]["Col7"].ToString();
-                    TextBoxDisPre.Text = dt.Rows[i]["Col8"].ToString();
-                    TextBoxVATPre.Text = dt.Rows[i]["Col9"].ToString();
-                    TextBoxCSTPre.Text = dt.Rows[i]["Col10"].ToString();
-                    TextBoxVATAmt.Text = dt.Rows[i]["Col11"].ToString();
-                    TextBoxRtVAT.Text = dt.Rows[i]["Col12"].ToString();
-                    TextBoxTotal.Text = dt.Rows[i]["Col13"].ToString();
+                    DrpProduct.SelectedValue = dt.Rows[i]["ItemCode"].ToString();
+                    TextBoxQty.Text = dt.Rows[i]["Qty"].ToString();
+                    drpIncharge.SelectedValue = dt.Rows[i]["executivename"].ToString();
+                    TextBoxDesc.Text = dt.Rows[i]["ProductDesc"].ToString();
+                    TextBoxRate.Text = dt.Rows[i]["Rate"].ToString();
+                    TextBoxTotalPrice.Text = dt.Rows[i]["TotalPrice"].ToString();
+                    TextBoxStock.Text = dt.Rows[i]["Stock"].ToString();
+                    TextBoxExeComm.Text = dt.Rows[i]["ExecCharge"].ToString();
+                    TextBoxDisPre.Text = dt.Rows[i]["Discount"].ToString();
+                    TextBoxVATPre.Text = dt.Rows[i]["Vat"].ToString();
+                    TextBoxCSTPre.Text = dt.Rows[i]["CST"].ToString();
+                    TextBoxPrBefVAT.Text = dt.Rows[i]["PriceBeforeVATAmt"].ToString();
+                    TextBoxVATAmt.Text = dt.Rows[i]["Vatamount"].ToString();
+                    TextBoxRtVAT.Text = dt.Rows[i]["Subtotal"].ToString();
+                    TextBoxTotal.Text = dt.Rows[i]["Totalmrp"].ToString();
                     rowIndex++;
 
                 }
@@ -8878,6 +8970,56 @@ public partial class CustomerSales : System.Web.UI.Page
 
                 SetPreviousData();
                 txtLU_TextChanged(sender, e);
+            }
+            else
+            {
+                DropDownList DrpProduct =
+                  (DropDownList)grvStudentDetails.Rows[0].Cells[1].FindControl("drpPrd");
+                TextBox TextBoxQty =
+                 (TextBox)grvStudentDetails.Rows[0].Cells[2].FindControl("txtQty");
+                DropDownList drpIncharge =
+                (DropDownList)grvStudentDetails.Rows[0].Cells[3].FindControl("drpIncharge");
+                TextBox TextBoxDesc =
+                  (TextBox)grvStudentDetails.Rows[0].Cells[4].FindControl("txtDesc");
+                TextBox TextBoxRate =
+                  (TextBox)grvStudentDetails.Rows[0].Cells[5].FindControl("txtRate");
+                TextBox TextBoxTotalPrice =
+                 (TextBox)grvStudentDetails.Rows[0].Cells[6].FindControl("txtTot");
+                TextBox TextBoxStock =
+                  (TextBox)grvStudentDetails.Rows[0].Cells[7].FindControl("txtStock");
+                TextBox TextBoxExeComm =
+                 (TextBox)grvStudentDetails.Rows[0].Cells[8].FindControl("txtExeComm");
+                TextBox TextBoxDisPre =
+                 (TextBox)grvStudentDetails.Rows[0].Cells[9].FindControl("txtDisPre");
+                TextBox TextBoxVATPre =
+                 (TextBox)grvStudentDetails.Rows[0].Cells[10].FindControl("txtVATPre");
+                TextBox TextBoxCSTPre =
+                 (TextBox)grvStudentDetails.Rows[0].Cells[11].FindControl("txtCSTPre");
+                TextBox TextBoxPrBefVAT =
+                   (TextBox)grvStudentDetails.Rows[0].Cells[12].FindControl("txtPrBefVAT");
+                TextBox TextBoxVATAmt =
+                    (TextBox)grvStudentDetails.Rows[0].Cells[12].FindControl("txtVATAmt");
+                TextBox TextBoxRtVAT =
+                   (TextBox)grvStudentDetails.Rows[0].Cells[13].FindControl("txtRtVAT");
+                TextBox TextBoxTotal =
+                    (TextBox)grvStudentDetails.Rows[0].Cells[14].FindControl("txtTotal");
+
+
+                DrpProduct.SelectedIndex = 0;
+                TextBoxQty.Text = "";
+                drpIncharge.SelectedIndex = 0;
+                TextBoxDesc.Text = "";
+                TextBoxRate.Text = "";
+                TextBoxTotalPrice.Text = "";
+                TextBoxStock.Text = "";
+                TextBoxExeComm.Text = "";
+                TextBoxDisPre.Text = "";
+                TextBoxVATPre.Text = "";
+                TextBoxCSTPre.Text = "";
+                TextBoxPrBefVAT.Text = "";
+                TextBoxVATAmt.Text = "";
+                TextBoxRtVAT.Text = "";
+                TextBoxTotal.Text = "";
             }
         }
     }
@@ -8942,28 +9084,32 @@ public partial class CustomerSales : System.Web.UI.Page
               (TextBox)grvStudentDetails.Rows[i - 1].Cells[4].FindControl("txtDesc");
             TextBox TextBoxRate =
               (TextBox)grvStudentDetails.Rows[i - 1].Cells[5].FindControl("txtRate");
+            TextBox TextBoxTotalPrice =
+              (TextBox)grvStudentDetails.Rows[i - 1].Cells[6].FindControl("txtTot");
             TextBox TextBoxStock =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[6].FindControl("txtStock");
+              (TextBox)grvStudentDetails.Rows[i - 1].Cells[7].FindControl("txtStock");
             TextBox TextBoxExeComm =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[7].FindControl("txtExeComm");
+              (TextBox)grvStudentDetails.Rows[i - 1].Cells[8].FindControl("txtExeComm");
             TextBox TextBoxDisPre =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[8].FindControl("txtDisPre");
+              (TextBox)grvStudentDetails.Rows[i - 1].Cells[9].FindControl("txtDisPre");
             TextBox TextBoxVATPre =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[9].FindControl("txtVATPre");
+              (TextBox)grvStudentDetails.Rows[i - 1].Cells[10].FindControl("txtVATPre");
             TextBox TextBoxCSTPre =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[10].FindControl("txtCSTPre");
+              (TextBox)grvStudentDetails.Rows[i - 1].Cells[11].FindControl("txtCSTPre");
             TextBox TextBoxVATAmt =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[11].FindControl("txtVATAmt");
+              (TextBox)grvStudentDetails.Rows[i - 1].Cells[12].FindControl("txtVATAmt");
             TextBox TextBoxRtVAT =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[12].FindControl("txtRtVAT");
+              (TextBox)grvStudentDetails.Rows[i - 1].Cells[13].FindControl("txtRtVAT");
             TextBox TextBoxTotal =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[13].FindControl("txtTotal");
+              (TextBox)grvStudentDetails.Rows[i - 1].Cells[14].FindControl("txtTotal");
 
             BusinessLogic bl = new BusinessLogic(sDataSource);
             // DataSet customerDs = bl.getProdInfo(Convert.ToString(DrpProduct.SelectedItem.Value));
             if (cmbCustomer.SelectedValue == "0")
             {
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Select Customer Name in Invoice Header Details tab');", true);
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "$('.chzn-select').chosen(); $('.chzn-select-deselect').chosen({ allow_single_deselect: true });", true);
+                DrpProduct.SelectedIndex = 0;
             }
             else
             {
@@ -8974,35 +9120,44 @@ public partial class CustomerSales : System.Web.UI.Page
 
                 if (customerDs != null && customerDs.Tables[0].Rows.Count > 0)
                 {
+                   
+                        if (customerDs.Tables[0].Rows[0]["ProductDesc"] != null)
+                            TextBoxDesc.Text = customerDs.Tables[0].Rows[0]["ProductDesc"].ToString();
 
-                    if (customerDs.Tables[0].Rows[0]["ProductDesc"] != null)
-                        TextBoxDesc.Text = customerDs.Tables[0].Rows[0]["ProductDesc"].ToString() + Environment.NewLine;
+                        if (ddDeliveryNote.SelectedValue != "YES")
+                        {
+                            if (customerDs.Tables[0].Rows[0]["Rate"] != null)
+                                TextBoxRate.Text = Convert.ToDouble(customerDs.Tables[0].Rows[0]["Rate"].ToString()).ToString("#0.00");
+                        }
+                        else
+                        {
+                            if (customerDs.Tables[0].Rows[0]["Rate"] != null)
+                                TextBoxRate.Text = "0.00";
+                        }
 
-                    if (customerDs.Tables[0].Rows[0]["Rate"] != null)
-                        TextBoxRate.Text = address + customerDs.Tables[0].Rows[0]["Rate"].ToString() + Environment.NewLine;
+                        if (customerDs.Tables[0].Rows[0]["Stock"] != null)
+                            TextBoxStock.Text = customerDs.Tables[0].Rows[0]["Stock"].ToString();
 
-                    if (customerDs.Tables[0].Rows[0]["Stock"] != null)
-                        TextBoxStock.Text = address + customerDs.Tables[0].Rows[0]["Stock"].ToString() + Environment.NewLine;
+                        if (customerDs.Tables[0].Rows[0]["ExecutiveCommission"] != null)
+                            TextBoxExeComm.Text = customerDs.Tables[0].Rows[0]["ExecutiveCommission"].ToString();
 
-                    if (customerDs.Tables[0].Rows[0]["ExecutiveCommission"] != null)
-                        TextBoxExeComm.Text = address + customerDs.Tables[0].Rows[0]["ExecutiveCommission"].ToString() + Environment.NewLine;
+                        if (EnableDiscount == "YES")
+                        {
+                            if (customerDs.Tables[0].Rows[0]["Discount"] != null)
+                                TextBoxDisPre.Text = customerDs.Tables[0].Rows[0]["Discount"].ToString();
+                        }
+                        else
+                        {
+                            if (customerDs.Tables[0].Rows[0]["Discount"] != null)
+                                TextBoxDisPre.Text = "0";// customerDs.Tables[0].Rows[0]["Discount"].ToString() + Environment.NewLine;
+                        }
 
-                    if (EnableDiscount == "YES")
-                    {
-                        if (customerDs.Tables[0].Rows[0]["Discount"] != null)
-                            TextBoxDisPre.Text = address + customerDs.Tables[0].Rows[0]["Discount"].ToString() + Environment.NewLine;
-                    }
-                    else
-                    {
-                        if (customerDs.Tables[0].Rows[0]["Discount"] != null)
-                            TextBoxDisPre.Text = address + "0";// customerDs.Tables[0].Rows[0]["Discount"].ToString() + Environment.NewLine;
-                    }
+                        if (customerDs.Tables[0].Rows[0]["VAT"] != null)
+                            TextBoxVATPre.Text = customerDs.Tables[0].Rows[0]["VAT"].ToString();
 
-                    if (customerDs.Tables[0].Rows[0]["VAT"] != null)
-                        TextBoxVATPre.Text = address + customerDs.Tables[0].Rows[0]["VAT"].ToString() + Environment.NewLine;
-
-                    if (customerDs.Tables[0].Rows[0]["CST"] != null)
-                        TextBoxCSTPre.Text = address + customerDs.Tables[0].Rows[0]["CST"].ToString() + Environment.NewLine;
+                        if (customerDs.Tables[0].Rows[0]["CST"] != null)
+                            TextBoxCSTPre.Text = customerDs.Tables[0].Rows[0]["CST"].ToString();
+                    
                 }
                 else
                 {
@@ -9089,6 +9244,8 @@ public partial class CustomerSales : System.Web.UI.Page
                       (TextBox)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("txtDesc");
                     TextBox TextBoxRate =
                       (TextBox)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("txtRate");
+                    TextBox TextBoxTotalPrice =
+                   (TextBox)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("txtTot");
                     TextBox TextBoxStock =
                      (TextBox)grvStudentDetails.Rows[rowIndex].Cells[6].FindControl("txtStock");
                     TextBox TextBoxExeComm =
@@ -9099,6 +9256,8 @@ public partial class CustomerSales : System.Web.UI.Page
                    (TextBox)grvStudentDetails.Rows[rowIndex].Cells[9].FindControl("txtVATPre");
                     TextBox TextBoxCSTPre =
                   (TextBox)grvStudentDetails.Rows[rowIndex].Cells[10].FindControl("txtCSTPre");
+                    TextBox TextBoxPrBefVAT =
+                 (TextBox)grvStudentDetails.Rows[0].Cells[12].FindControl("txtPrBefVAT");
                     TextBox TextBoxVATAmt =
                  (TextBox)grvStudentDetails.Rows[rowIndex].Cells[11].FindControl("txtVATAmt");
                     TextBox TextBoxRtVAT =
@@ -9109,19 +9268,21 @@ public partial class CustomerSales : System.Web.UI.Page
                     drCurrentRow = dtCurrentTable.NewRow();
                     drCurrentRow["RowNumber"] = i + 1;
 
-                    dtCurrentTable.Rows[i - 1]["Col1"] = DrpProduct.SelectedValue;
-                    dtCurrentTable.Rows[i - 1]["Col2"] = TextBoxQty.Text;
-                    dtCurrentTable.Rows[i - 1]["Col3"] = drpIncharge.SelectedValue;
-                    dtCurrentTable.Rows[i - 1]["Col4"] = TextBoxDesc.Text;
-                    dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxRate.Text;
-                    dtCurrentTable.Rows[i - 1]["Col6"] = TextBoxStock.Text;
-                    dtCurrentTable.Rows[i - 1]["Col7"] = TextBoxExeComm.Text;
-                    dtCurrentTable.Rows[i - 1]["Col8"] = TextBoxDisPre.Text;
-                    dtCurrentTable.Rows[i - 1]["Col9"] = TextBoxVATPre.Text;
-                    dtCurrentTable.Rows[i - 1]["Col10"] = TextBoxCSTPre.Text;
-                    dtCurrentTable.Rows[i - 1]["Col11"] = TextBoxVATAmt.Text;
-                    dtCurrentTable.Rows[i - 1]["Col12"] = TextBoxRtVAT.Text;
-                    dtCurrentTable.Rows[i - 1]["Col13"] = TextBoxTotal.Text;
+                    dtCurrentTable.Rows[i - 1]["ItemCode"] = DrpProduct.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["Qty"] = TextBoxQty.Text;
+                    dtCurrentTable.Rows[i - 1]["executivename"] = drpIncharge.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["ProductDesc"] = TextBoxDesc.Text;
+                    dtCurrentTable.Rows[i - 1]["Rate"] = TextBoxRate.Text;
+                    dtCurrentTable.Rows[i - 1]["TotalPrice"] = TextBoxTotalPrice.Text;
+                    dtCurrentTable.Rows[i - 1]["Stock"] = TextBoxStock.Text;
+                    dtCurrentTable.Rows[i - 1]["ExecCharge"] = TextBoxExeComm.Text;
+                    dtCurrentTable.Rows[i - 1]["Discount"] = TextBoxDisPre.Text;
+                    dtCurrentTable.Rows[i - 1]["Vat"] = TextBoxVATPre.Text;
+                    dtCurrentTable.Rows[i - 1]["CST"] = TextBoxCSTPre.Text;
+                    dtCurrentTable.Rows[i - 1]["PriceBeforeVATAmt"] = TextBoxPrBefVAT.Text;
+                    dtCurrentTable.Rows[i - 1]["Vatamount"] = TextBoxVATAmt.Text;
+                    dtCurrentTable.Rows[i - 1]["Subtotal"] = TextBoxRtVAT.Text;
+                    dtCurrentTable.Rows[i - 1]["Totalmrp"] = TextBoxTotal.Text;
                     rowIndex++;
 
                 }
@@ -9153,34 +9314,38 @@ public partial class CustomerSales : System.Web.UI.Page
         DataTable dt = new DataTable();
         DataRow dr = null;
         dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col1", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col2", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col3", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col4", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col5", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col6", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col7", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col8", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col9", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col10", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col11", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col12", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col13", typeof(string)));
+        dt.Columns.Add(new DataColumn("ItemCode", typeof(string)));
+        dt.Columns.Add(new DataColumn("Qty", typeof(string)));
+        dt.Columns.Add(new DataColumn("executivename", typeof(string)));
+        dt.Columns.Add(new DataColumn("ProductDesc", typeof(string)));
+        dt.Columns.Add(new DataColumn("Rate", typeof(string)));
+        dt.Columns.Add(new DataColumn("TotalPrice", typeof(string)));
+        dt.Columns.Add(new DataColumn("Stock", typeof(string)));
+        dt.Columns.Add(new DataColumn("ExecCharge", typeof(string)));
+        dt.Columns.Add(new DataColumn("Discount", typeof(string)));
+        dt.Columns.Add(new DataColumn("Vat", typeof(string)));
+        dt.Columns.Add(new DataColumn("CST", typeof(string)));
+        dt.Columns.Add(new DataColumn("PriceBeforeVATAmt", typeof(string)));
+        dt.Columns.Add(new DataColumn("Vatamount", typeof(string)));
+        dt.Columns.Add(new DataColumn("Subtotal", typeof(string)));
+        dt.Columns.Add(new DataColumn("Totalmrp", typeof(string)));
         dr = dt.NewRow();
         dr["RowNumber"] = 1;
-        dr["Col1"] = string.Empty;
-        dr["Col2"] = string.Empty;
-        dr["Col3"] = string.Empty;
-        dr["Col4"] = string.Empty;
-        dr["Col5"] = string.Empty;
-        dr["Col6"] = string.Empty;
-        dr["Col7"] = string.Empty;
-        dr["Col8"] = string.Empty;
-        dr["Col9"] = string.Empty;
-        dr["Col10"] = string.Empty;
-        dr["Col11"] = string.Empty;
-        dr["Col12"] = string.Empty;
-        dr["Col13"] = string.Empty;
+        dr["ItemCode"] = string.Empty;
+        dr["Qty"] = string.Empty;
+        dr["executivename"] = string.Empty;
+        dr["ProductDesc"] = string.Empty;
+        dr["Rate"] = string.Empty;
+        dr["TotalPrice"] = string.Empty;
+        dr["Stock"] = string.Empty;
+        dr["ExecCharge"] = string.Empty;
+        dr["Discount"] = string.Empty;
+        dr["Vat"] = string.Empty;
+        dr["CST"] = string.Empty;
+        dr["PriceBeforeVATAmt"] = string.Empty;
+        dr["Vatamount"] = string.Empty;
+        dr["Subtotal"] = string.Empty;
+        dr["Totalmrp"] = string.Empty;
         dt.Rows.Add(dr);
         ViewState["CurrentTable"] = dt;
 
@@ -9188,20 +9353,20 @@ public partial class CustomerSales : System.Web.UI.Page
 
         if (EnableDiscount == "YES")
         {
-            grvStudentDetails.Columns[8].Visible = true;
+            grvStudentDetails.Columns[9].Visible = true;
         }
         else
         {
-            grvStudentDetails.Columns[8].Visible = false;
+            grvStudentDetails.Columns[9].Visible = false;
         }
 
         if (discType == "PERCENTAGE")
         {
-            grvStudentDetails.Columns[8].HeaderText = "Disc(%)";           
+            grvStudentDetails.Columns[9].HeaderText = "Disc(%)";
         }
         else if (discType == "RUPEE")
         {
-            grvStudentDetails.Columns[8].HeaderText = "Disc(INR)";    
+            grvStudentDetails.Columns[9].HeaderText = "Disc(INR)";
         }
 
         grvStudentDetails.DataBind();
@@ -9223,38 +9388,44 @@ public partial class CustomerSales : System.Web.UI.Page
     {
         string discType = GetDiscType();
 
-        for (int i = grvStudentDetails.Rows.Count; i == grvStudentDetails.Rows.Count; i++)
+        //for (int i = grvStudentDetails.Rows.Count; i == grvStudentDetails.Rows.Count; i++)       
+        for (int i = 0; i < grvStudentDetails.Rows.Count; i++)
         {
             DropDownList DrpProduct =
-              (DropDownList)grvStudentDetails.Rows[i - 1].Cells[1].FindControl("drpPrd");
+              (DropDownList)grvStudentDetails.Rows[i].Cells[1].FindControl("drpPrd");
             TextBox TextBoxQty =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[2].FindControl("txtQty");
+              (TextBox)grvStudentDetails.Rows[i].Cells[2].FindControl("txtQty");
             DropDownList drpIncharge =
-            (DropDownList)grvStudentDetails.Rows[i - 1].Cells[3].FindControl("drpIncharge");
+            (DropDownList)grvStudentDetails.Rows[i].Cells[3].FindControl("drpIncharge");
             TextBox TextBoxDesc =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[4].FindControl("txtDesc");
+              (TextBox)grvStudentDetails.Rows[i].Cells[4].FindControl("txtDesc");
             TextBox TextBoxRate =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[5].FindControl("txtRate");
+              (TextBox)grvStudentDetails.Rows[i].Cells[5].FindControl("txtRate");
+            TextBox TextBoxTotalPrice =
+             (TextBox)grvStudentDetails.Rows[i].Cells[6].FindControl("txtTot");
             TextBox TextBoxStock =
-            (TextBox)grvStudentDetails.Rows[i - 1].Cells[6].FindControl("txtStock");
+            (TextBox)grvStudentDetails.Rows[i].Cells[7].FindControl("txtStock");
             TextBox TextBoxExeComm =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[7].FindControl("txtExeComm");
+              (TextBox)grvStudentDetails.Rows[i].Cells[8].FindControl("txtExeComm");
             TextBox TextBoxDisPre =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[8].FindControl("txtDisPre");
+              (TextBox)grvStudentDetails.Rows[i].Cells[9].FindControl("txtDisPre");
             TextBox TextBoxVATPre =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[9].FindControl("txtVATPre");
+              (TextBox)grvStudentDetails.Rows[i].Cells[10].FindControl("txtVATPre");
             TextBox TextBoxCSTPre =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[10].FindControl("txtCSTPre");
+              (TextBox)grvStudentDetails.Rows[i].Cells[11].FindControl("txtCSTPre");
+            TextBox txtPrBefVAT =
+              (TextBox)grvStudentDetails.Rows[i].Cells[12].FindControl("txtPrBefVAT");
             TextBox TextBoxVATAmt =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[11].FindControl("txtVATAmt");
+              (TextBox)grvStudentDetails.Rows[i].Cells[13].FindControl("txtVATAmt");
             TextBox TextBoxRtVAT =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[12].FindControl("txtRtVAT");
+              (TextBox)grvStudentDetails.Rows[i].Cells[14].FindControl("txtRtVAT");
             TextBox TextBoxTotal =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[13].FindControl("txtTotal");
+              (TextBox)grvStudentDetails.Rows[i].Cells[15].FindControl("txtTotal");
 
 
             if (Convert.ToInt32(TextBoxQty.Text) > Convert.ToInt32(TextBoxStock.Text))
             {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "$('.chzn-select').chosen(); $('.chzn-select-deselect').chosen({ allow_single_deselect: true });", true);
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Given qty is greater than Stock')", true);
                 return;
             }
@@ -9264,6 +9435,7 @@ public partial class CustomerSales : System.Web.UI.Page
             {
                 vatcheck = true;
                 TextBoxTotal.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));
+                TextBoxTotalPrice.Text = Convert.ToDouble(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text)).ToString("#0.00");
                 TextBoxRtVAT.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));
                 if (discType == "PERCENTAGE")
                 {
@@ -9276,17 +9448,18 @@ public partial class CustomerSales : System.Web.UI.Page
                 double calnet = Convert.ToDouble(TextBoxTotal.Text) - caldisamt;
                 double vatper = Convert.ToDouble(TextBoxVATPre.Text);
                 double vatper1 = vatper + 100;
-                double vatinclusiverate = calnet * vatper / vatper1;                
+                double vatinclusiverate = calnet * vatper / vatper1;
                 double sVatamount = calnet - vatinclusiverate;
                 TextBoxVATAmt.Text = vatinclusiverate.ToString("#0.00");
                 TextBoxRtVAT.Text = calnet.ToString("#0.00");
-               // TextBoxRate.Text = sVatamount.ToString("#0.00");
+                txtPrBefVAT.Text = sVatamount.ToString("#0.00");
                 TextBoxTotal.Text = calnet.ToString("#0.00");
             }
             else if (Labelll.Text == "VAT EXCLUSIVE")
             {
                 vatcheck = true;
-                TextBoxRtVAT.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));                
+                TextBoxRtVAT.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));
+                TextBoxTotalPrice.Text = Convert.ToDouble(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text)).ToString("#0.00");
                 if (discType == "PERCENTAGE")
                 {
                     vatinclusiverate = Convert.ToDouble(TextBoxRtVAT.Text) * Convert.ToDouble(TextBoxDisPre.Text) / 100;
@@ -9299,6 +9472,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 double vatinclusiverate1 = Convert.ToDouble(vatinclusiverate3) * Convert.ToDouble(TextBoxVATPre.Text) / 100;
                 double vatinclusiverate2 = vatinclusiverate1 + vatinclusiverate3;
                 TextBoxVATAmt.Text = vatinclusiverate1.ToString("#0.00");
+                txtPrBefVAT.Text = vatinclusiverate3.ToString("#0.00");
                 TextBoxRtVAT.Text = vatinclusiverate2.ToString("#0.00");
                 TextBoxTotal.Text = vatinclusiverate2.ToString("#0.00");
             }
@@ -9379,34 +9553,39 @@ public partial class CustomerSales : System.Web.UI.Page
     {
         string discType = GetDiscType();
 
-        for (int i = grvStudentDetails.Rows.Count; i == grvStudentDetails.Rows.Count; i++)
+        //for (int i = grvStudentDetails.Rows.Count; i == grvStudentDetails.Rows.Count; i++)
+        for (int i = 0; i < grvStudentDetails.Rows.Count; i++)
         {
             DropDownList DrpProduct =
-              (DropDownList)grvStudentDetails.Rows[i - 1].Cells[1].FindControl("drpPrd");
+              (DropDownList)grvStudentDetails.Rows[i].Cells[1].FindControl("drpPrd");
             TextBox TextBoxQty =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[2].FindControl("txtQty");
+              (TextBox)grvStudentDetails.Rows[i].Cells[2].FindControl("txtQty");
             DropDownList drpIncharge =
-            (DropDownList)grvStudentDetails.Rows[i - 1].Cells[3].FindControl("drpIncharge");
+            (DropDownList)grvStudentDetails.Rows[i].Cells[3].FindControl("drpIncharge");
             TextBox TextBoxDesc =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[4].FindControl("txtDesc");
+              (TextBox)grvStudentDetails.Rows[i].Cells[4].FindControl("txtDesc");
             TextBox TextBoxRate =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[5].FindControl("txtRate");
+              (TextBox)grvStudentDetails.Rows[i].Cells[5].FindControl("txtRate");
+            TextBox TextBoxTotalPrice =
+            (TextBox)grvStudentDetails.Rows[i].Cells[6].FindControl("txtTot");
             TextBox TextBoxStock =
-            (TextBox)grvStudentDetails.Rows[i - 1].Cells[6].FindControl("txtStock");
+            (TextBox)grvStudentDetails.Rows[i].Cells[7].FindControl("txtStock");
             TextBox TextBoxExeComm =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[7].FindControl("txtExeComm");
+              (TextBox)grvStudentDetails.Rows[i].Cells[8].FindControl("txtExeComm");
             TextBox TextBoxDisPre =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[8].FindControl("txtDisPre");
+              (TextBox)grvStudentDetails.Rows[i].Cells[9].FindControl("txtDisPre");
             TextBox TextBoxVATPre =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[9].FindControl("txtVATPre");
+              (TextBox)grvStudentDetails.Rows[i].Cells[10].FindControl("txtVATPre");
             TextBox TextBoxCSTPre =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[10].FindControl("txtCSTPre");
+              (TextBox)grvStudentDetails.Rows[i].Cells[11].FindControl("txtCSTPre");
+            TextBox txtPrBefVAT =
+            (TextBox)grvStudentDetails.Rows[i].Cells[12].FindControl("txtPrBefVAT");
             TextBox TextBoxVATAmt =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[11].FindControl("txtVATAmt");
+              (TextBox)grvStudentDetails.Rows[i].Cells[13].FindControl("txtVATAmt");
             TextBox TextBoxRtVAT =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[12].FindControl("txtRtVAT");
+              (TextBox)grvStudentDetails.Rows[i].Cells[14].FindControl("txtRtVAT");
             TextBox TextBoxTotal =
-              (TextBox)grvStudentDetails.Rows[i - 1].Cells[13].FindControl("txtTotal");
+              (TextBox)grvStudentDetails.Rows[i].Cells[15].FindControl("txtTotal");
 
             //if (Convert.ToInt32(TextBoxQty.Text) > Convert.ToInt32(TextBoxStock.Text))
             //{
@@ -9421,6 +9600,7 @@ public partial class CustomerSales : System.Web.UI.Page
                     {
                         vatcheck = true;
                         TextBoxTotal.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));
+                        TextBoxTotalPrice.Text = Convert.ToDouble(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text)).ToString("#0.00");
                         TextBoxRtVAT.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));
                         if (discType == "PERCENTAGE")
                         {
@@ -9438,15 +9618,18 @@ public partial class CustomerSales : System.Web.UI.Page
                         double sVatamount = calnet - vatinclusiverate;
                         TextBoxVATAmt.Text = vatinclusiverate.ToString("#0.00");
                         TextBoxRtVAT.Text = calnet.ToString("#0.00");
-                        //TextBoxRate.Text = sVatamount.ToString("#0.00");
+                        txtPrBefVAT.Text = sVatamount.ToString("#0.00");
                         TextBoxTotal.Text = calnet.ToString("#0.00");
+                        vatcheck = false;
                     }
                 }
                 else if (Labelll.Text == "VAT EXCLUSIVE")
                 {
                     if (vatcheck == false)
                     {
+                        vatcheck = true;
                         TextBoxRtVAT.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));
+                        TextBoxTotalPrice.Text = Convert.ToDouble(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text)).ToString("#0.00");
                         if (discType == "PERCENTAGE")
                         {
                             vatinclusiverate = Convert.ToDouble(TextBoxRtVAT.Text) * Convert.ToDouble(TextBoxDisPre.Text) / 100;
@@ -9459,8 +9642,10 @@ public partial class CustomerSales : System.Web.UI.Page
                         double vatinclusiverate1 = Convert.ToDouble(vatinclusiverate3) * Convert.ToDouble(TextBoxVATPre.Text) / 100;
                         double vatinclusiverate2 = vatinclusiverate1 + vatinclusiverate3;
                         TextBoxVATAmt.Text = vatinclusiverate1.ToString("#0.00");
+                        txtPrBefVAT.Text = vatinclusiverate3.ToString("#0.00");
                         TextBoxRtVAT.Text = vatinclusiverate2.ToString("#0.00");
                         TextBoxTotal.Text = vatinclusiverate2.ToString("#0.00");
+                        vatcheck = false;
                     }
                 }
             }
@@ -9470,31 +9655,35 @@ public partial class CustomerSales : System.Web.UI.Page
         for (int i = 0; i < grvStudentDetails.Rows.Count; i++)
         {
             DropDownList DrpProduct =
-              (DropDownList)grvStudentDetails.Rows[i].Cells[1].FindControl("drpPrd");
+             (DropDownList)grvStudentDetails.Rows[i].Cells[1].FindControl("drpPrd");
             TextBox TextBoxQty =
-             (TextBox)grvStudentDetails.Rows[i].Cells[2].FindControl("txtQty");
+              (TextBox)grvStudentDetails.Rows[i].Cells[2].FindControl("txtQty");
             DropDownList drpIncharge =
-             (DropDownList)grvStudentDetails.Rows[i].Cells[3].FindControl("drpIncharge");
+            (DropDownList)grvStudentDetails.Rows[i].Cells[3].FindControl("drpIncharge");
             TextBox TextBoxDesc =
               (TextBox)grvStudentDetails.Rows[i].Cells[4].FindControl("txtDesc");
             TextBox TextBoxRate =
               (TextBox)grvStudentDetails.Rows[i].Cells[5].FindControl("txtRate");
+            TextBox TextBoxTotalPrice =
+            (TextBox)grvStudentDetails.Rows[i].Cells[6].FindControl("txtTot");
             TextBox TextBoxStock =
-            (TextBox)grvStudentDetails.Rows[i].Cells[6].FindControl("txtStock");
+            (TextBox)grvStudentDetails.Rows[i].Cells[7].FindControl("txtStock");
             TextBox TextBoxExeComm =
-              (TextBox)grvStudentDetails.Rows[i].Cells[7].FindControl("txtExeComm");
+              (TextBox)grvStudentDetails.Rows[i].Cells[8].FindControl("txtExeComm");
             TextBox TextBoxDisPre =
-              (TextBox)grvStudentDetails.Rows[i].Cells[8].FindControl("txtDisPre");
+              (TextBox)grvStudentDetails.Rows[i].Cells[9].FindControl("txtDisPre");
             TextBox TextBoxVATPre =
-              (TextBox)grvStudentDetails.Rows[i].Cells[9].FindControl("txtVATPre");
+              (TextBox)grvStudentDetails.Rows[i].Cells[10].FindControl("txtVATPre");
             TextBox TextBoxCSTPre =
-              (TextBox)grvStudentDetails.Rows[i].Cells[10].FindControl("txtCSTPre");
+              (TextBox)grvStudentDetails.Rows[i].Cells[11].FindControl("txtCSTPre");
+            TextBox txtPrBefVAT =
+            (TextBox)grvStudentDetails.Rows[i].Cells[12].FindControl("txtPrBefVAT");
             TextBox TextBoxVATAmt =
-              (TextBox)grvStudentDetails.Rows[i].Cells[11].FindControl("txtVATAmt");
+              (TextBox)grvStudentDetails.Rows[i].Cells[13].FindControl("txtVATAmt");
             TextBox TextBoxRtVAT =
-              (TextBox)grvStudentDetails.Rows[i].Cells[12].FindControl("txtRtVAT");
+              (TextBox)grvStudentDetails.Rows[i].Cells[14].FindControl("txtRtVAT");
             TextBox TextBoxTotal =
-              (TextBox)grvStudentDetails.Rows[i].Cells[13].FindControl("txtTotal");
+              (TextBox)grvStudentDetails.Rows[i].Cells[15].FindControl("txtTotal");
 
             if (TextBoxRate.Text != "")
             {
@@ -9544,32 +9733,36 @@ public partial class CustomerSales : System.Web.UI.Page
             DropDownList DrpProduct =
               (DropDownList)grvStudentDetails.Rows[i].Cells[1].FindControl("drpPrd");
             TextBox TextBoxQty =
-             (TextBox)grvStudentDetails.Rows[i].Cells[2].FindControl("txtQty");
+              (TextBox)grvStudentDetails.Rows[i].Cells[2].FindControl("txtQty");
             DropDownList drpIncharge =
-             (DropDownList)grvStudentDetails.Rows[i].Cells[3].FindControl("drpIncharge");
+            (DropDownList)grvStudentDetails.Rows[i].Cells[3].FindControl("drpIncharge");
             TextBox TextBoxDesc =
               (TextBox)grvStudentDetails.Rows[i].Cells[4].FindControl("txtDesc");
             TextBox TextBoxRate =
               (TextBox)grvStudentDetails.Rows[i].Cells[5].FindControl("txtRate");
+            TextBox TextBoxTotalPrice =
+            (TextBox)grvStudentDetails.Rows[i].Cells[6].FindControl("txtTot");
             TextBox TextBoxStock =
-            (TextBox)grvStudentDetails.Rows[i].Cells[6].FindControl("txtStock");
+            (TextBox)grvStudentDetails.Rows[i].Cells[7].FindControl("txtStock");
             TextBox TextBoxExeComm =
-              (TextBox)grvStudentDetails.Rows[i].Cells[7].FindControl("txtExeComm");
+              (TextBox)grvStudentDetails.Rows[i].Cells[8].FindControl("txtExeComm");
             TextBox TextBoxDisPre =
-              (TextBox)grvStudentDetails.Rows[i].Cells[8].FindControl("txtDisPre");
+              (TextBox)grvStudentDetails.Rows[i].Cells[9].FindControl("txtDisPre");
             TextBox TextBoxVATPre =
-              (TextBox)grvStudentDetails.Rows[i].Cells[9].FindControl("txtVATPre");
+              (TextBox)grvStudentDetails.Rows[i].Cells[10].FindControl("txtVATPre");
             TextBox TextBoxCSTPre =
-              (TextBox)grvStudentDetails.Rows[i].Cells[10].FindControl("txtCSTPre");
+              (TextBox)grvStudentDetails.Rows[i].Cells[11].FindControl("txtCSTPre");
+            TextBox txtPrBefVAT =
+            (TextBox)grvStudentDetails.Rows[i].Cells[12].FindControl("txtPrBefVAT");
             TextBox TextBoxVATAmt =
-              (TextBox)grvStudentDetails.Rows[i].Cells[11].FindControl("txtVATAmt");
+              (TextBox)grvStudentDetails.Rows[i].Cells[13].FindControl("txtVATAmt");
             TextBox TextBoxRtVAT =
-              (TextBox)grvStudentDetails.Rows[i].Cells[12].FindControl("txtRtVAT");
+              (TextBox)grvStudentDetails.Rows[i].Cells[14].FindControl("txtRtVAT");
             TextBox TextBoxTotal =
-              (TextBox)grvStudentDetails.Rows[i].Cells[13].FindControl("txtTotal");
+              (TextBox)grvStudentDetails.Rows[i].Cells[15].FindControl("txtTotal");
 
 
-            if (TextBoxTotal.Text != null)
+            if (TextBoxTotal.Text != null && TextBoxTotal.Text != "")
                 // sumAmt = Convert.ToDouble(GetTotal(Convert.ToDouble(TextBoxQty.Text), Convert.ToDouble(TextBoxRtVAT.Text), Convert.ToDouble(TextBoxDisPre.Text), Convert.ToDouble(TextBoxVATPre.Text), Convert.ToDouble(TextBoxCSTPre.Text), Convert.ToDouble(TextBoxTotal.Text)));
                 sumAmt = sumAmt + Convert.ToDouble(TextBoxTotal.Text);
         }

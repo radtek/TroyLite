@@ -841,11 +841,19 @@
                                                     <tr style="height:2px">
                                                                                                </tr>
                                                     <tr>
-                                                        <td class="ControlLabel">
+                                                        <td style="width: 25%" class="ControlLabel">
                                                             Licence
                                                         </td>
-                                                        <td colspan="3" class="ControlTextBox3">
+                                                        <td style="width: 20%" class="ControlTextBox3">
                                                             <asp:Label ID="Label1" ForeColor="Black" runat="server"></asp:Label>
+                                                        </td>
+                                                         <td style="width: 15%" class="ControlLabel">
+                                                            Password Expiry Day
+                                                            <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" FilterType="Numbers"
+                                                                TargetControlID="txtExpDay" />
+                                                        </td>
+                                                        <td style="width: 20%" class="ControlTextBox3">
+                                                            <asp:TextBox ID="txtExpDay" MaxLength="10" runat="server" CssClass="cssTextBox" Width="165px"></asp:TextBox>
                                                         </td>
                                                     </tr>
                                                     <tr style="height: 5px">

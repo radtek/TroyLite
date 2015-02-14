@@ -85,17 +85,28 @@
                                                                                             </asp:UpdatePanel>
                             </td>
                             <td  style="width:25%; font-family:'ARIAL';font-size:14px;font-weight:bold; color: #0567AE;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
-                              Select Dependency Task
+                                Is Active
                             </td>
-                            <td style="text-align: left ;width:20%" class="ControlDrpBorder">
-                                 <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
+                            <td style="text-align: left; width:20%" class="ControlDrpBorder">
+                                  <asp:UpdatePanel ID="UpdatePanel7" runat="server" UpdateMode="Conditional">
+                                                                                                <ContentTemplate>
+                               <asp:RadioButtonList id="radisactive"  OnSelectedIndexChanged="radisactive_SelectedIndexChanged" AutoPostBack="true" runat="server">
+                                   <asp:listitem   Text="NO"  value="N"  ></asp:ListItem>
+                                   <asp:listitem   Text="YES" value="Y"></asp:ListItem>
+                                    <asp:listitem   Text="ALL" value="NA" selected="true"></asp:ListItem>
+                                       </asp:RadioButtonList>
+                                                                                                        </ContentTemplate>
+                                                                                            </asp:UpdatePanel>
+                            </td>
+                           
+                                 <%--<asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
                                                                                                 <ContentTemplate>
                                 <asp:DropDownList ID="drpdependencytask" runat="server" DataTextField="Task_Name" DataValueField="Task_Id"  CssClass="drpDownListMedium" BackColor = "#e7e7e7" style="border: 1px solid #e7e7e7" height="26px" Width="100%" AppendDataBoundItems="True">
                                 </asp:DropDownList>
                                                                                                            </ContentTemplate>
-                                                                                            </asp:UpdatePanel>
+                                                                                            </asp:UpdatePanel>--%>
 
-                            </td>
+                            
 
 
                            
@@ -121,19 +132,21 @@
                                                                                             </asp:UpdatePanel>
 
                             </td>
-                                <td  style="width:25%; font-family:'ARIAL';font-size:14px;font-weight:bold; color: #0567AE;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
-                                Is Active
+                               <td  style="width:25%; font-family:'ARIAL';font-size:14px;font-weight:bold; color: #0567AE;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
+                                Blocked Task
                             </td>
                             <td style="text-align: left; width:20%" class="ControlDrpBorder">
-                                  <asp:UpdatePanel ID="UpdatePanel7" runat="server" UpdateMode="Conditional">
+                                  <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
                                                                                                 <ContentTemplate>
-                               <asp:RadioButtonList id="radisactive"  OnSelectedIndexChanged="radisactive_SelectedIndexChanged" AutoPostBack="true" runat="server">
-                                   <asp:listitem   Text="NO"  value="N" ></asp:ListItem>
-                                   <asp:listitem   Text="YES" value="Y" selected="true"></asp:ListItem>
+                               <asp:RadioButtonList id="radblocktask" OnSelectedIndexChanged="radblocktask_SelectedIndexChanged" AutoPostBack="true"  runat="server">
+                                   <asp:listitem   Text="NO"  value="N" selected="true" ></asp:ListItem>
+                                   <asp:listitem   Text="YES" value="Y" ></asp:ListItem>
+                                    <asp:listitem   Text="ALL" value="NA" selected="true"></asp:ListItem>
                                        </asp:RadioButtonList>
                                                                                                         </ContentTemplate>
                                                                                             </asp:UpdatePanel>
                             </td>
+                               
 
                             
                           
@@ -155,21 +168,10 @@
                                                                                                           </ContentTemplate>
                                                                                             </asp:UpdatePanel>
                             </td>
-                             <td  style="width:25%; font-family:'ARIAL';font-size:14px;font-weight:bold; color: #0567AE;text-align:right;text-decoration:none;padding-right:5px;padding-left:5px;padding-top:5px;" height="27px">
-                                Blocked Task
-                            </td>
-                            <td style="text-align: left; width:20%" class="ControlDrpBorder">
-                                  <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
-                                                                                                <ContentTemplate>
-                               <asp:RadioButtonList id="radblocktask" OnSelectedIndexChanged="radblocktask_SelectedIndexChanged" AutoPostBack="true"  runat="server">
-                                   <asp:listitem   Text="NO"  value="N" selected="true" ></asp:ListItem>
-                                   <asp:listitem   Text="YES" value="Y" ></asp:ListItem>
-                                 <%--   <asp:listitem   Text="N/A" value="NA" selected="true"></asp:ListItem>--%>
-                                       </asp:RadioButtonList>
-                                                                                                        </ContentTemplate>
-                                                                                            </asp:UpdatePanel>
-                            </td>
-                       
+                          
+                       <td style="width:25%"> </td>
+                           <td style="width:20%">
+                               </td>
                          
                           
                              <td style="width:10%">
@@ -192,11 +194,14 @@
                         <tr>
                             <td style="width:30%;" >
                             </td>
+                            <td  style="width:10%;">
+                               
+                            </td>
                             <td style="width:20%;">
                                 <asp:Button ID="btnprojectreport" OnClick="btnprojectreport_Click" runat="server" CssClass="NewReport6"
                                     ValidationGroup="btnAgeing" EnableTheming="false"/>
                             </td>
-                            <td  style="width:20%;">
+                            <td  style="width:10%;">
                                
                             </td>
                             <td style="width:30%;">

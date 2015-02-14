@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Human Resource > Employee Leave" Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true" CodeFile="EmployeeLeave.aspx.cs" Inherits="EmployeeLeave" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PageMaster.master" AutoEventWireup="true" CodeFile="EmployeeLeave.aspx.cs" Inherits="EmployeeLeave" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cplhTab" runat="Server">
@@ -35,7 +35,7 @@
                                         <div style="width: 160px; font-family: 'Trebuchet MS';">
                                             <asp:DropDownList ID="ddlSearchCriteria" runat="server" Width="154px" BackColor="#BBCAFB" Height="23px" Style="text-align: center; border: 1px solid #BBCAFB" Visible="true">
                                                 <asp:ListItem Value="DateApplied" Text="Date Applied" Selected="True"></asp:ListItem>
-                                                <asp:ListItem Value="LeaveTypeName" Text="Leave Type"></asp:ListItem>
+                                                <asp:ListItem Value="LeaveTypeName" Text="Leave Type" ></asp:ListItem>
                                             </asp:DropDownList>
                                         </div>
                                     </td>
@@ -60,8 +60,6 @@
                                         <asp:GridView ID="grdViewLeaveSummary" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                                             Width="99.9%" AllowPaging="True" DataKeyNames="LeaveId"
                                             EmptyDataText="No Leaves Found." OnRowCommand="grdViewLeaveSummary_RowCommand" Font-Names="Trebuchet MS" CssClass="someClass">
-                                            <HeaderStyle Height="30px" HorizontalAlign="Center" Font-Bold="true" BackColor="#cccccc" BorderColor="Gray" Font-Size="Small" />
-                                            <RowStyle Font-Bold="true" HorizontalAlign="Center" Height="30px" Font-Size="Small" ForeColor="#0567AE" />
                                             <Columns>
                                                 <asp:BoundField DataField="LeaveId" HeaderText="LeaveId" Visible="false" HeaderStyle-BorderColor="Gray" />
                                                 <asp:BoundField DataField="DateRange" HeaderText="Date Range" HeaderStyle-BorderColor="Gray" />
@@ -198,14 +196,14 @@
                                                         </td>
                                                         <td class="ControlNumberBox3" style="width: 30%">
                                                             <asp:TextBox ID="txtStartDate" runat="server"
-                                                                SkinID="skinTxtBox" TabIndex="4" OnTextChanged="txtEndDate_TextChanged"></asp:TextBox>
+                                                                SkinID="skinTxtBox" TabIndex="4" OnTextChanged="txtEndDate_TextChanged" AutoPostBack="true" CausesValidation="false"></asp:TextBox>
                                                             <cc1:CalendarExtender ID="calExtenderStartDate" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                 PopupButtonID="btnStartDate" PopupPosition="BottomLeft" TargetControlID="txtStartDate">
                                                             </cc1:CalendarExtender>
 
                                                             <asp:DropDownList ID="ddlStartDateSession" runat="server" Width="55px" BackColor="#90c9fc" Style="border: 1px solid blue"
                                                                 Height="26px" CssClass="drpDownListMedium" OnSelectedIndexChanged="ddlStartDateSession_SelectedIndexChanged"
-                                                                TabIndex="3">
+                                                                TabIndex="3" AutoPostBack="true" CausesValidation="false">
                                                                 <asp:ListItem Text="FN" Value="FN" Selected="True"></asp:ListItem>
                                                                 <asp:ListItem Text="AN" Value="AN"></asp:ListItem>
                                                             </asp:DropDownList>
@@ -227,12 +225,12 @@
                                                                 Operator="GreaterThanEqual" ControlToCompare="txtStartDate" Type="Date">*</asp:CompareValidator>
                                                         </td>
                                                         <td class="ControlNumberBox3" style="width: 30%">
-                                                            <asp:TextBox ID="txtEndDate" runat="server" SkinID="skinTxtBoxGrid" TabIndex="4" OnTextChanged="txtEndDate_TextChanged"></asp:TextBox>
+                                                            <asp:TextBox ID="txtEndDate" runat="server" SkinID="skinTxtBoxGrid" TabIndex="4" OnTextChanged="txtEndDate_TextChanged" AutoPostBack="true" CausesValidation="false"></asp:TextBox>
                                                             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Animated="true" Format="dd/MM/yyyy"
                                                                 PopupButtonID="btnEndDate" PopupPosition="BottomLeft" TargetControlID="txtEndDate">
                                                             </cc1:CalendarExtender>
                                                             <asp:DropDownList ID="ddlEndDateSession" runat="server" Width="55px" BackColor="#90c9fc" Style="border: 1px solid blue" Height="26px" CssClass="drpDownListMedium"
-                                                                TabIndex="3" OnSelectedIndexChanged="ddlStartDateSession_SelectedIndexChanged">
+                                                                TabIndex="3" OnSelectedIndexChanged="ddlStartDateSession_SelectedIndexChanged" AutoPostBack="true" CausesValidation="false">
                                                                 <asp:ListItem Text="FN" Value="FN"></asp:ListItem>
                                                                 <asp:ListItem Text="AN" Value="AN" Selected="True"></asp:ListItem>
                                                             </asp:DropDownList>
@@ -263,7 +261,7 @@
                                                         </td>
                                                         <td style="width: 30%" align="left">
                                                             <asp:Button ID="btnCalculateTotalLeaveDays" runat="server" Text="Calculate Total Leave Days" OnClick="btnCalculateTotalLeaveDays_Click"
-                                                                UseSubmitBehavior="false" CausesValidation="false" />
+                                                                UseSubmitBehavior="false" CausesValidation="false" EnableTheming="false" />
                                                         </td>
                                                     </tr>
 

@@ -38,14 +38,16 @@ public partial class ReportExcelTasks : System.Web.UI.Page
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     DataTable dt = new DataTable();
+                    dt.Columns.Add(new DataColumn("Project Name"));
                     dt.Columns.Add(new DataColumn("Task Id"));
                     dt.Columns.Add(new DataColumn("Task Date"));
-                    dt.Columns.Add(new DataColumn("Expected Start Date"));
-                    dt.Columns.Add(new DataColumn("Expected End Date"));
-                    dt.Columns.Add(new DataColumn("Owner"));
-                    dt.Columns.Add(new DataColumn("Project Name"));
-                    dt.Columns.Add(new DataColumn("Is Active"));
+                    dt.Columns.Add(new DataColumn("Task Name"));
                     dt.Columns.Add(new DataColumn("Task Description"));
+                    dt.Columns.Add(new DataColumn("Expected Start Date"));
+                    dt.Columns.Add(new DataColumn("Expected End Date"));                 
+                    dt.Columns.Add(new DataColumn("Is Active"));
+                    dt.Columns.Add(new DataColumn("Owner"));
+                 
                 
                     DataRow dr_final123 = dt.NewRow();
                     dt.Rows.Add(dr_final123);
@@ -53,7 +55,9 @@ public partial class ReportExcelTasks : System.Web.UI.Page
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
                         DataRow dr_final1 = dt.NewRow();
-                        dr_final1["Task Id"] = dr["TaskId"];
+                        dr_final1["Task Id"] = dr["Task_Id"];
+
+                        dr_final1["Task Name"] = dr["Task_Name"];
 
                         string aa = dr["Task_Date"].ToString().ToUpper().Trim();
                         string dtaa = Convert.ToDateTime(aa).ToString("dd/MM/yyyy");

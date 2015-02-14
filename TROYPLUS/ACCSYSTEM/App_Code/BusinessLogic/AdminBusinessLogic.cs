@@ -89,14 +89,17 @@ public class AdminBusinessLogic
 
     public bool GeneratePayRoll(int payrollId, int year, int month)
     {
-        // Get all the employee list.
+        bool isPayrollGenerated = false;
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
-        bool isPayrollGenerated = false;
         try
         {
             if (payrollId > 0)
             {
+                // Clear prior log details.
+                ClearPayrollGenerationLog(payrollId);
+
+                // Get all the employee list.       
                 string dbQuery = "SELECT EmpNo, EmpFirstName FROM tblEmployee";
                 manager.Open();
                 DataSet ds = manager.ExecuteDataSet(CommandType.Text, dbQuery);
@@ -111,35 +114,58 @@ public class AdminBusinessLogic
                     dtPaySlipInfo.Columns.Add(new DataColumn("LossOfPayDays"));
                     UpdatePayrollStatus(payrollId, "In Progress");
 
-                    // Prepare payroll generation logtable.
+                    // Validate necessary payroll associated details
+                    bool validationResult = true;
                     foreach (DataRow drEmployee in ds.Tables[0].Rows)
                     {
                         int employeeNo = 0;
                         DataRow drPayslip = dtPaySlipInfo.NewRow();
                         if (int.TryParse(drEmployee[0].ToString(), out employeeNo))
                         {
-                            if (GetPayRollDetailsForEmployee(employeeNo, year, month, drPayslip, ref logMessage))
+                            // Validate payroll details for employee.
+                            if (!ValidatePayrollDetailsForEmployee(employeeNo, year, month, ref logMessage))
                             {
-                                dtPaySlipInfo.Rows.Add(drPayslip);
-                                InsertPayrollLog("Completed", payrollId, employeeNo);
-                                isPayrollGenerated = true;
-                            }
-                            else
-                            {
+                                validationResult = false;
                                 InsertPayrollLog(logMessage, payrollId, employeeNo);
                             }
                         }
                     }
 
-                    manager.BeginTransaction();
-                    if (InsertPayslipInfo(manager, dtPaySlipInfo, payrollId, month, year))
+                    if (validationResult)
                     {
-                        manager.CommitTransaction();
-                        UpdatePayrollStatus(payrollId, "Completed");
+                        // Prepare payroll generation logtable.
+                        bool payrollGenerationResult = true;
+                        foreach (DataRow drEmployee in ds.Tables[0].Rows)
+                        {
+                            int employeeNo = 0;
+                            DataRow drPayslip = dtPaySlipInfo.NewRow();
+                            if (int.TryParse(drEmployee[0].ToString(), out employeeNo))
+                            {
+                                if (GetPayRollDetailsForEmployee(employeeNo, year, month, drPayslip, ref logMessage))
+                                {
+                                    dtPaySlipInfo.Rows.Add(drPayslip);
+                                    InsertPayrollLog("Payroll processed", payrollId, employeeNo);
+                                }
+                                else
+                                {
+                                    payrollGenerationResult = false;
+                                    InsertPayrollLog(logMessage, payrollId, employeeNo);
+                                }
+                            }
+                        }
+
+                        if (payrollGenerationResult && InsertPayslipInfo(manager, dtPaySlipInfo, payrollId, month, year))
+                        {
+                            UpdatePayrollStatus(payrollId, "Completed");
+                            isPayrollGenerated = true;
+                        }
+                        else
+                        {
+                            UpdatePayrollStatus(payrollId, "Failed");
+                        }
                     }
                     else
                     {
-                        manager.RollbackTransaction();
                         UpdatePayrollStatus(payrollId, "Failed");
                     }
 
@@ -150,7 +176,7 @@ public class AdminBusinessLogic
         catch (Exception ex)
         {
             TroyLiteExceptionManager.HandleException(ex);
-            manager.RollbackTransaction();
+            InsertPayrollLog("Unknown Error - Please contact adminstrator", payrollId, 0);
             UpdatePayrollStatus(payrollId, "Failed");
             return false;
         }
@@ -162,12 +188,23 @@ public class AdminBusinessLogic
 
     }
 
+    private void ClearPayrollGenerationLog(int payrollId)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        string dbQuery = string.Format("DELETE * FROM tblPayrollGenerationLog l WHERE PayRollId={0}", payrollId);
+        manager.Open();
+        manager.ExecuteNonQuery(CommandType.Text, dbQuery);
+        manager.Close();
+    }
+
     private bool InsertPayslipInfo(DBManager manager, DataTable dtPaySlipInfo, int payrollId, int month, int year)
     {
         string dbQry = string.Empty;
-
+        bool result = true;
         try
         {
+            manager.BeginTransaction();
             foreach (DataRow dr in dtPaySlipInfo.Rows)
             {
                 int employeeNo = 0;
@@ -175,16 +212,27 @@ public class AdminBusinessLogic
                 dbQry = string.Format(@"INSERT INTO tblEmployeePayslip (EmployeeId,PayrollDate,PayrollMonth,Deductions,Payments,PayrollId,PayrollYear,LossOfPayDays) 
                                     VALUES ({0},'{1}',{2},{3},{4},{5},{6},{7})", employeeNo, DateTime.Now.Date, month, dr[1], dr[2], payrollId, year, dr["LossOfPayDays"]);
 
-                if (manager.ExecuteNonQuery(CommandType.Text, dbQry) > 0)
+                if (manager.ExecuteNonQuery(CommandType.Text, dbQry) <= 0)
                 {
-                    InsertPayrollLog("Payroll generated but payslip not inserted", payrollId, employeeNo);
+                    result = false;
+                    TroyLiteExceptionManager.HandleException(new Exception("Payslip not generated " + dbQry));
+                    InsertPayrollLog("Payroll processed but payslip not inserted. Please contact Administrator.", payrollId, employeeNo);
                 }
             }
-            return true;
+            if (result)
+            {
+                manager.CommitTransaction();
+            }
+            else
+            {
+                manager.RollbackTransaction();
+            }
+            return result;
 
         }
         catch (Exception ex)
         {
+            manager.RollbackTransaction();
             throw ex;
         }
 
@@ -254,9 +302,6 @@ public class AdminBusinessLogic
         logMessage = string.Empty;
         try
         {
-            // Validate payroll details for employee.
-            ValidatePayrollDetailsForEmployee(employeeNo, year, month, ref logMessage);
-
             // Get declared payable/deductiable amount for the employee.
             int totalPayable = GetEmployeeTotalPayComponent(employeeNo, year, month);
             int totalDeductions = GetEmployeeTotalDeduction(employeeNo, year, month);
@@ -302,15 +347,15 @@ public class AdminBusinessLogic
             dbQry = string.Format(@"Select SUM(pcm.DeclaredAmount) as ComponentTotalPay,'EmployeePayComponent' as PayComponentType
                                     FROM tblPayComponentEmployeeMapping pcm
                                     INNER JOIN tblPayComponents pc ON pc.PayComponentId=pcm.PayComponent_Id                                    
-                                    WHERE pcm.EmpNo={0} AND pc.PayComponentType_id=2 AND pc.IsDeduction=False 
-                                    AND EffectiveDate<= #{1}# AND EffectiveEndDate >=#{1}#
+                                    WHERE pcm.EmpNo={0} AND pc.PayComponentType_id=1 AND pc.IsDeduction=False 
+                                    AND EffectiveDate<= #{1}#
                                     UNION
                                     Select SUM(pcm.DeclaredAmount) as ComponentTotalPay,'EmployeeRolePayComponent' as PayComponentType 
                                     FROM (( tblPayComponentRoleMapping pcm                                    
                                     INNER JOIN tblPayComponents pc ON pc.PayComponentId=pcm.PayComponent_Id )  
                                     INNER JOIN tblEmployee e ON e.EmployeeRoleId=pcm.Role_Id      )                           
-                                    WHERE e.EmpNo={0} AND pc.PayComponentType_id=1 AND pc.IsDeduction=False 
-                                    AND EffectiveDate<= #{1}# AND EffectiveEndDate >=#{1}#", employeeNo, string.Format("01-{0}-{1}", month, year));
+                                    WHERE e.EmpNo={0} AND pc.PayComponentType_id=2 AND pc.IsDeduction=False 
+                                    AND EffectiveDate<= #{1}#", employeeNo, string.Format("01-{0}-{1}", month, year));
 
 
             DataSet ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
@@ -359,15 +404,15 @@ public class AdminBusinessLogic
             dbQry = string.Format(@"Select SUM(pcm.DeclaredAmount) as ComponentTotalPay,'EmployeePayComponent' as PayComponentType
                                     FROM tblPayComponentEmployeeMapping pcm
                                     INNER JOIN tblPayComponents pc ON pc.PayComponentId=pcm.PayComponent_Id                                    
-                                    WHERE pcm.EmpNo={0} AND pc.PayComponentType_id=2 AND pc.IsDeduction=True 
-                                    AND EffectiveDate<= #{1}# AND EffectiveEndDate >=#{1}#
+                                    WHERE pcm.EmpNo={0} AND pc.PayComponentType_id=1 AND pc.IsDeduction=True 
+                                    AND EffectiveDate<= #{1}#
                                     UNION
                                     Select SUM(pcm.DeclaredAmount) as ComponentTotalPay,'EmployeeRolePayComponent' as PayComponentType 
                                     FROM (( tblPayComponentRoleMapping pcm                                    
                                     INNER JOIN tblPayComponents pc ON pc.PayComponentId=pcm.PayComponent_Id )  
                                     INNER JOIN tblEmployee e ON e.EmployeeRoleId=pcm.Role_Id      )                           
-                                    WHERE e.EmpNo={0} AND pc.PayComponentType_id=1 AND pc.IsDeduction=True 
-                                    AND EffectiveDate<= #{1}# AND EffectiveEndDate >=#{1}#", employeeNo, string.Format("01-{0}-{1}", month, year));
+                                    WHERE e.EmpNo={0} AND pc.PayComponentType_id=2 AND pc.IsDeduction=True 
+                                    AND EffectiveDate<= #{1}#", employeeNo, string.Format("01-{0}-{1}", month, year));
 
             DataSet ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
@@ -404,16 +449,29 @@ public class AdminBusinessLogic
 
     public bool ValidatePayrollDetailsForEmployee(int empNo, int year, int month, ref string logMessage)
     {
-        logMessage = string.Empty;
-        if (HaveUnApprovedLeavesForTheMonth(empNo, year, month, ref  logMessage).Equals(false) ||
-            HaveAppliedTheLeavesTaken(empNo, year, month, ref  logMessage).Equals(false))
+        List<string> logMessageSummary = new List<string>();
+        bool result = true;
+        if (HaveUnApprovedLeavesForTheMonth(empNo, year, month, ref  logMessage))
         {
-            return false;
+            logMessageSummary.Add(logMessage);
+            result = false;
         }
-        else
+        if (HaveUnSubmittedAttendance(year, month))
         {
-            return true;
+
         }
+        if (!HaveAppliedTheLeavesTaken(empNo, year, month, ref  logMessage))
+        {
+            logMessageSummary.Add(logMessage);
+            result = false;
+        }
+        logMessage = string.Join(Environment.NewLine, logMessageSummary);
+        return result;
+    }
+
+    private bool HaveUnSubmittedAttendance(int year, int month)
+    {
+        return false;
     }
 
     private bool HaveUnApprovedAttendanceBySupervisor(int year, int month, ref string logMessage)
@@ -442,6 +500,7 @@ public class AdminBusinessLogic
 
     private bool HaveAppliedTheLeavesTaken(int empNo, int year, int month, ref string logMessage)
     {
+        logMessage = string.Empty;
         DataTable dtEmpAttendanceSummary = GetEmployeeAttendanceSummaryForTheMonth(empNo, year, month);
         DataTable dtEmpLeavesApplied = GetEmployeeLeavesAppliedForTheMonth(empNo, year, month);
         if (dtEmpAttendanceSummary != null && dtEmpAttendanceSummary != null)
@@ -450,7 +509,7 @@ public class AdminBusinessLogic
             double totalLeavesDaysAppliedLeaves = Math.Floor(GetTotalLeavesInTheLeaveSummary(dtEmpLeavesApplied, year, month));
             if (!totalLeaveDaysByAttendance.Equals(totalLeavesDaysAppliedLeaves))
             {
-                logMessage += string.Format("\r\nLeave entries and attendance mismatching for the employee '{0}{1}' (Attendance-{2} LeavesApplied-{3})", empNo, string.Empty, totalLeaveDaysByAttendance, totalLeavesDaysAppliedLeaves);
+                logMessage = string.Format("Leave entries and attendance records mismatching for the employee {1}({0}) [Attendance Leave Entry-{2} LeavesApplied-{3}]", empNo, string.Empty, totalLeaveDaysByAttendance, totalLeavesDaysAppliedLeaves);
                 return false;
             }
             else
@@ -508,12 +567,11 @@ public class AdminBusinessLogic
         DataSet ds = new DataSet();
         string dbQry = string.Empty;
 
-
         dbQry = string.Format(@"SELECT a.LeaveId, a.EmployeeNo, a.StartDate,a.StartDateSession, a.EndDate,a.EndDateSession,a.TotalDays
                                 FROM tblEmployeeLeave a
                                 WHERE a.EmployeeNo ={0}
-                                AND (YEAR(a.StartDate) = {1} AND MONTH(a.StartDate) = {2}) 
-                                        OR (YEAR(a.EndDate) = {1} AND MONTH(a.EndDate) = {2})", empNo, year, month);
+                                AND ((YEAR(a.StartDate) = {1} AND MONTH(a.StartDate) = {2}) 
+                                        OR (YEAR(a.EndDate) = {1} AND MONTH(a.EndDate) = {2}))", empNo, year, month);
 
         try
         {
@@ -549,8 +607,8 @@ public class AdminBusinessLogic
                                         INNER JOIN tblLeaveTypes l on a.LeaveTypeId = l.ID)
                                 WHERE a.EmployeeNo ={0}
                                 AND l.IsPayable=False
-                                AND (YEAR(a.StartDate) = {1} AND MONTH(a.StartDate) = {2}) 
-                                        OR (YEAR(a.EndDate) = {1} AND MONTH(a.EndDate) = {2})", empNo, year, month);
+                                AND ((YEAR(a.StartDate) = {1} AND MONTH(a.StartDate) = {2}) 
+                                        OR (YEAR(a.EndDate) = {1} AND MONTH(a.EndDate) = {2}))", empNo, year, month);
 
         try
         {
@@ -600,6 +658,7 @@ public class AdminBusinessLogic
 
     private bool HaveUnApprovedLeavesForTheMonth(int empNo, int year, int month, ref string logMessage)
     {
+        logMessage = string.Empty;
         string dbQuery = string.Format(@"Select a.EmployeeNo,e1.EmpFirstName as EmpName,a.Approver,e2.EmpFirstName as ApproverName from ((tblEmployeeLeave a
                                             INNER JOIN tblEmployee e1 ON a.EmployeeNo = e1.EmpNo)
                                             INNER JOIN tblEmployee e2 ON a.Approver = e2.EmpNo)
@@ -617,13 +676,11 @@ public class AdminBusinessLogic
             if (ds.Tables[0].Rows.Count > 0)
             {
                 DataRow dRow = ds.Tables[0].Rows[0];
-                logMessage += string.Format("\r\n Leaves are not approved for the employee '{0}-{1}'.Approver: {2}-{3}", dRow["EmployeeNo"].ToString(), dRow["EmpName"].ToString(), dRow["Approver"].ToString(), dRow["ApproverName"].ToString());
-                return false;
+                logMessage = string.Format("Leaves are not approved for the employee {1}({0}) [Approver: {3}({2})]", dRow["EmployeeNo"].ToString(), dRow["EmpName"].ToString(), dRow["Approver"].ToString(), dRow["ApproverName"].ToString());
+                return true;
             }
         }
-
-
-        return true;
+        return false;
     }
 
     private double CalculateTotalLeaveDays(DateTime StartDate, string StartDateSession, DateTime EndDate, string EndDateSession)

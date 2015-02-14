@@ -380,7 +380,7 @@
                                                                                         <td style="width: 25%" class="ControlDrpBorder">
                                                                                             <asp:DropDownList ID="drpIsActive" TabIndex="8" Enabled="True" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
                                                                                                 runat="server" Width="100%" BackColor="#e7e7e7" Style="border: 1px solid #e7e7e7" Height="26px">
-                                                                                                <asp:ListItem Text="Yes" Value="Y"></asp:ListItem>
+                                                                                                <asp:ListItem Text="Yes" Value="Y" Selected="True"></asp:ListItem>
                                                                                                 <asp:ListItem Text="No" Value="N"></asp:ListItem>
                                                                                             </asp:DropDownList>
                                                                                           <%--  <asp:CheckBoxList ID="drpIsActive" TabIndex="8" Enabled="True" EnableTheming="false" AppendDataBoundItems="true" 
@@ -433,13 +433,9 @@
                                                                                     </tr>
                                                                                     <tr>
                                                                                        
-                                                                                        <td style="width: 20%" class="ControlLabelproject">Description of the Task
-                                                                                                    </td>
-                                                                                                    <td class="ControlTextBoxforproject" style="width: 20%">
-                                                                                                         <asp:TextBox ID="txtTaskDesc" runat="server" BorderWidth="25px" BackColor="#E7E7E7" Height="27px" Style="overflow: hidden; padding: 0px; font-family: 'Trebuchet MS';border: 1px solid #e7e7e7; font-size: 13px;" TabIndex="5" TextMode="MultiLine" Width="99%"></asp:TextBox>
-                                                                                                     </td>
-                                                                                         <td style="width: 5%"></td>
-                                                                                          <td style="width: 27%" class="ControlLabelproject">
+                                                                                       
+                                                                                       
+                                                                                          <td style="width: 20%" class="ControlLabelproject">
                                                                                             Estimated Effort Duration
                                                                                                <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
                                                                                                 <ContentTemplate>
@@ -447,46 +443,34 @@
                                                                                                      </ContentTemplate>
                                                                                             </asp:UpdatePanel>
                                                                                          </td>
-                                                                                         <td style="width: 25%" class="ControlTextBox3">
+                                                                                         <td style="width: 20%" class="ControlTextBox3">
                                                                                                <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
                                                                                                 <ContentTemplate>
-                                                                                             <asp:TextBox ID="Taskeffortdays" Height="50px" runat="server"  MaxLength="10" SkinID="skinTxtBoxGrid" Text="0"/>
+                                                                                             <asp:TextBox ID="Taskeffortdays" runat="server"  MaxLength="10" SkinID="skinTxtBoxGrid" Text="0"/>
                                                                                                      </ContentTemplate>
                                                                                             </asp:UpdatePanel>
                                                                                          </td>
+                                                                                         <td style="width: 5%"></td>
+                                                                                         <td style="width: 27%"></td>
+                                                                                         <td style="width: 25%"></td>
 
                                                                                     </tr>
                                                                                     <tr style="height: 2px">
                                                                                     </tr>
+                                                                                    <td colspan="6">
+                                                                                        <div>
+                                                                                            <table>
                                                                                     <tr>
-                                                                                       
-                                                                                           
-                                                                                               <%-- <tr>
-                                                                                                      <td style="width: 20%;"></td>
-                                                                                                      <td style="width: 20%;"></td>
-                                                                                                      <td style="width: 5%;"></td>
-
-                                                                                                  <td style="width:27%" class="ControlLabelproject"> Unit of Measure</td>
-                                                                                                      <td class="ControlDrpBorder" style="width: 20%">
-                                                                                              <asp:UpdatePanel ID="UpdatePanel13" runat="server" UpdateMode="Conditional">
-                                                                                                    <ContentTemplate>
-                                                                                                        <asp:DropDownList ID="drpunitmeasure" TabIndex="11" Enabled="True" EnableTheming="false" AppendDataBoundItems="true" CssClass="drpDownListMedium"
-                                                                                                            runat="server" Width="100%" BackColor="#e7e7e7" Style="border: 1px solid Gray"  >
-                                                                                                             <asp:ListItem Text="Days" Value="Days" ></asp:ListItem>
-                                                                                                            <asp:ListItem Text="Months" Value="Months"></asp:ListItem>
-                                                                                                            <asp:ListItem Text="Hours" Value="Hours"></asp:ListItem>
-                                                                                                        </asp:DropDownList>
-                                                                                                    </ContentTemplate>
-                                                                                                </asp:UpdatePanel>
-                                                                                                          </td>
-                                                                                                      <td style="width: 5%;"></td>
-                                                                                                    
-
-                                                                                                </tr>--%>
-                                                                                           
-                                                                                    
+                                                                                         <td style="width: 177px" class="ControlLabelproject">Description of the Task
+                                                                                                    </td>
+                                                                                                     <td style=" width: 56%" class="ControlTextBoxforproject1">
+                                                                                                         <asp:TextBox ID="txtTaskDesc" runat="server" BorderWidth="25px" BackColor="#E7E7E7" Height="103px" Style="overflow: hidden; padding: 0px; font-family: 'Trebuchet MS';border: 1px solid #e7e7e7; font-size: 13px;" TabIndex="5" TextMode="MultiLine" Width="761px"></asp:TextBox>
+                                                                                                     </td>
 
                                                                                     </tr>
+                                                                                                </table>
+                                                                                        </div>
+                                                                                        </td>
                                                                                     <tr style="height: 2px">
                                                                                     </tr>
                                                                                 </table>

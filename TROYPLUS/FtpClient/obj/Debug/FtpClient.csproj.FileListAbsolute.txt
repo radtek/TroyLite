@@ -61,4 +61,9 @@ C:\Users\PRAKASH\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\bin\Debug\FtpClien
 C:\Users\PRAKASH\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\obj\Debug\FtpClient.csprojResolveAssemblyReference.cache
 C:\Users\PRAKASH\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\obj\Debug\FtpClient.dll
 C:\Users\PRAKASH\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\obj\Debug\FtpClient.pdb
+D:\TroyLite_11FEB\TroyLite\TROYPLUS\FtpClient\bin\Debug\FtpClient.dll
+D:\TroyLite_11FEB\TroyLite\TROYPLUS\FtpClient\bin\Debug\FtpClient.pdb
+D:\TroyLite_11FEB\TroyLite\TROYPLUS\FtpClient\obj\Debug\FtpClient.csprojResolveAssemblyReference.cache
+D:\TroyLite_11FEB\TroyLite\TROYPLUS\FtpClient\obj\Debug\FtpClient.dll
+D:\TroyLite_11FEB\TroyLite\TROYPLUS\FtpClient\obj\Debug\FtpClient.pdb
 C:\Users\Acer\Documents\GitHub\TroyLite\TROYPLUS\FtpClient\obj\Debug\FtpClient.csprojResolveAssemblyReference.cache

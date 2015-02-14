@@ -1816,6 +1816,31 @@ public class BusinessLogic
 
     }
 
+    public void ResetPassword(string userName, string password, string connection)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+
+        int retValue = 0;
+        string dbQry = string.Format("Update tblUserInfo Set Userpwd = '{0}' Where UserName = '{1}'", password, userName);
+
+        try
+        {
+            manager.Open();
+            retValue = manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
+
     public void ChangePassword(string userName, string password, string connection, string ts)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
@@ -2274,6 +2299,41 @@ public class BusinessLogic
             // ProductName + ' - ' + ItemCode + ' - ' + Model  As ProductName,
             //dbQry = string.Format("select LedgerId, LedgerName,Add1 from tblLedger inner join tblGroups on tblGroups.GroupID = tblLedger.GroupID Where tblGroups.GroupName IN ('{0}','{1}') Order By LedgerName Asc ", "Sundry Debtors", "Sundry Creditors");
             dbQry = string.Format("select LedgerId,LedgerName + ' - ' + Add1 + ' - ' + Add2 + ' - ' + Add3 + ' - '  + Mobile as LedgerName from tblLedger inner join tblGroups on tblGroups.GroupID = tblLedger.GroupID Order By ledgerName");
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
+
+    public DataSet ListUserName(string connection)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        if (connection.IndexOf("Provider=Microsoft.Jet.OLEDB.4.0;") > -1)
+            manager.ConnectionString = CreateConnectionString(connection);
+        else
+            manager.ConnectionString = CreateConnectionString(connection);
+
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+        try
+        {
+            // ProductName + ' - ' + ItemCode + ' - ' + Model  As ProductName,
+            //dbQry = string.Format("select LedgerId, LedgerName from tblLedger inner join tblGroups on tblGroups.GroupID = tblLedger.GroupID Where tblGroups.GroupName IN ('{0}','{1}') Order By LedgerName Asc ", "Sundry Debtors", "Sundry Creditors");
+            dbQry = string.Format("select UserID,UserName from tblUserInfo Order By UserName");
             manager.Open();
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
@@ -3985,7 +4045,6 @@ public class BusinessLogic
         }
 
     }
-
     public bool CheckIfCategoryUsed(int CategoryID)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
@@ -4024,6 +4083,83 @@ public class BusinessLogic
 
     }
 
+    public bool CheckIfTaskStatusUsed(int TaskID)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        int qty = 0;
+        string dbQry = string.Empty;
+        try
+        {
+            manager.Open();
+            dbQry = "SELECT Count(*) FROM tblTaskUpdatesHistory Where Task_Status =" + TaskID.ToString();
+
+            object qtyObj = manager.ExecuteScalar(CommandType.Text, dbQry);
+
+            if (qtyObj != null && qtyObj != DBNull.Value)
+            {
+                qty = (int)qtyObj;
+
+                if (qty > 0)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
+
+
+    public bool CheckIfTaskTypeUsed(int TaskID)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        int qty = 0;
+        string dbQry = string.Empty;
+        try
+        {
+            manager.Open();
+            dbQry = "SELECT Count(*) FROM tblTasks Where Task_Type =" + TaskID.ToString();
+
+            object qtyObj = manager.ExecuteScalar(CommandType.Text, dbQry);
+
+            if (qtyObj != null && qtyObj != DBNull.Value)
+            {
+                qty = (int)qtyObj;
+
+                if (qty > 0)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
+   
     public bool CheckIfBrandUsed(string Brand)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
@@ -12562,7 +12698,7 @@ public class BusinessLogic
 
                             if (Logsave == "YES")
                             {
-                                logdescription = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,subtotal,executivename) VALUES({0},'{1}',{2},{3},{4},{5},{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15},{16})", salesID, Convert.ToString(dr["Prd"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["DisPre"]), Convert.ToDouble(dr["VATPre"]), iSno, Convert.ToString(dr["IsRole"]), Convert.ToDouble(dr["CSTPre"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExeComm"]), Convert.ToDouble(dr["VATAmt"]), Convert.ToDouble(dr["TotalMrp"]), 0, Convert.ToInt32(dr["Emp"]));
+                                logdescription = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,subtotal,executivename,TotalPrice,PriceBeforeVATAmt) VALUES({0},'{1}',{2},{3},{4},{5},{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18})", salesID, Convert.ToString(dr["Prd"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["DisPre"]), Convert.ToDouble(dr["VATPre"]), iSno, Convert.ToString(dr["IsRole"]), Convert.ToDouble(dr["CSTPre"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExeComm"]), Convert.ToDouble(dr["VATAmt"]), Convert.ToDouble(dr["TotalMrp"]), 0, Convert.ToInt32(dr["Emp"]), Convert.ToDouble(dr["TotPrice"]), Convert.ToDouble(dr["PrBefVATAmt"]));
                                 logdescription = logdescription.Trim();
                                 description = string.Format("INSERT INTO tblLog(LogDate,LogDescription,LogUsername,LogKey,LogMethod) VALUES(Format('{0}', 'dd/mm/yyyy'),'{1}','{2}','{3}','{4}')",
                                      DateTime.Now.ToString(), logdescription.ToString(), usernam, salesBillno, "InsertSalesNewSeries");
@@ -12575,7 +12711,7 @@ public class BusinessLogic
                                 manager.ExecuteNonQuery(CommandType.Text, description);
                             }
                             string dbQry1;
-                            dbQry1 = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,subtotal,executivename) VALUES({0},'{1}',{2},{3},{4},{5},{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15},{16})", salesID, Convert.ToString(dr["Prd"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["DisPre"]), Convert.ToDouble(dr["VATPre"]), iSno, Convert.ToString(dr["IsRole"]), Convert.ToDouble(dr["CSTPre"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExeComm"]), Convert.ToDouble(dr["VATAmt"]), Convert.ToDouble(dr["TotalMrp"]), 0, Convert.ToInt32(dr["Emp"]));
+                            dbQry1 = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,subtotal,executivename,TotalPrice,PriceBeforeVATAmt) VALUES({0},'{1}',{2},{3},{4},{5},{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18})", salesID, Convert.ToString(dr["Prd"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["DisPre"]), Convert.ToDouble(dr["VATPre"]), iSno, Convert.ToString(dr["IsRole"]), Convert.ToDouble(dr["CSTPre"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExeComm"]), Convert.ToDouble(dr["VATAmt"]), Convert.ToDouble(dr["TotalMrp"]), 0, Convert.ToInt32(dr["Emp"]), Convert.ToDouble(dr["TotPrice"]), Convert.ToDouble(dr["PrBefVATAmt"]));
                             manager.ExecuteNonQuery(CommandType.Text, dbQry1);
 
                             dbQry = string.Format("UPDATE tblProductMaster SET tblProductMaster.Stock =  tblProductMaster.Stock - {0} WHERE ItemCode='{1}'", Convert.ToDouble(dr["Qty"]), Convert.ToString(dr["Prd"]).Trim());
@@ -13456,7 +13592,7 @@ public class BusinessLogic
 
     }
 
-    public int UpdateSalesNew(string Series, int Billno, string BillDate, int sCustomerID, string sCustomerName, string sCustomerAddress, string sCustomerContact, int paymode, string sCreditCardno, int BankName, double Amount, string purchasereturn, string prreason, double freight, double dLU, DataSet salesDS, String sOtherCusName, string intTrans, string UserID, DataSet receiptData, string MultiPayment, string deliveryNote, string sCustomerAddress2, string sCustomerAddress3, string executivename, string despatchedfrom, double fixedtotal, int manualno, double TotalWORndOff, string usernam, string Types, string narration2, string DuplicateCopy, string check, int CustomerIdMobile, string cuscategory)
+    public int UpdateSalesNew(string Series, int Billno, string BillDate, int sCustomerID, string sCustomerName, string sCustomerAddress, string sCustomerContact, int paymode, string sCreditCardno, int BankName, double Amount, string purchasereturn, string prreason, double freight, double dLU, DataSet salesDS, String sOtherCusName, string intTrans, string UserID, DataSet receiptData, string MultiPayment, string deliveryNote, string sCustomerAddress2, string sCustomerAddress3, string executivename, string despatchedfrom, double fixedtotal, int manualno, double TotalWORndOff, string usernam, string Types, string narration2, string DuplicateCopy, string check, int CustomerIdMobile, string cuscategory,string distype)
     {
 
         DBManager manager = new DBManager(DataProvider.OleDb);
@@ -13655,7 +13791,7 @@ public class BusinessLogic
                          DateTime.Now.ToString(), logdescription.ToString(), usernam, Billno, "UpdateSalesNew");
                     manager.ExecuteNonQuery(CommandType.Text, description);
 
-                    logdescription = string.Format("UPDATE tblSales SET SeriesID={28},BillDate={1},JournalID={2},CustomerID={3},CustomerName={4},CustomerAddress={5},CustomerContacts={6},Paymode={7},purchaseReturn={8},purchaseReturnReason={9},executive={10},freight={11},LoadUnload={12},OtherCusName={13}, InternalTransfer={15},DeliveryNote={16},CustomerAddress2={17},CustomerAddress3={18},executivename={19}, despatchedfrom ={20} , manualNo ={21},TotalWORndOff={22},Total={23},MultiPayment={24},narration2={25},cuscategory={26} WHERE Billno={0}",
+                    logdescription = string.Format("UPDATE tblSales SET SeriesID={28},BillDate={1},JournalID={2},CustomerID={3},CustomerName={4},CustomerAddress={5},CustomerContacts={6},Paymode={7},purchaseReturn={8},purchaseReturnReason={9},executive={10},freight={11},LoadUnload={12},OtherCusName={13}, InternalTransfer={15},DeliveryNote={16},CustomerAddress2={17},CustomerAddress3={18},executivename={19}, despatchedfrom ={20} , manualNo ={21},TotalWORndOff={22},Total={23},MultiPayment={24},narration2={25},cuscategory={26},Discounttype={27} WHERE Billno={0}",
                         Billno, sBilldate.ToShortDateString(), TransNo, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, paymode, purchasereturn, prreason, freight, dLU, sOtherCusName, Series, intTrans, deliveryNote, sCustomerAddress2, sCustomerAddress3, executivename, despatchedfrom, manualno, TotalWORndOff, Amount, MultiPayment, narration2, cuscategory, Series);
                     logdescription = logdescription.Trim();
 
@@ -13747,8 +13883,8 @@ public class BusinessLogic
                 sBilldate.ToShortDateString(), DebtorID, creditorID, Amount, sNarration, sVoucherType, sCreditCardno, 0, TransNo);
                 manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
-                dbQry = string.Format("UPDATE tblSales SET SeriesID={25},BillDate=Format('{1}', 'dd/mm/yyyy'),JournalID={2},CustomerID={3},CustomerName='{4}',CustomerAddress='{5}',CustomerContacts='{6}',Paymode={7},purchaseReturn='{8}',purchaseReturnReason='{9}',freight={10},LoadUnload={11},OtherCusName='{12}', InternalTransfer='{13}',DeliveryNote='{14}',CustomerAddress2='{15}',CustomerAddress3='{16}', despatchedfrom ='{17}' , manualNo ={18},TotalWORndOff={19},Total={20},MultiPayment='{21}',Types='{22}',narration2='{23}',cuscategory='{24}' WHERE Billno={0}",
-                Billno, sBilldate.ToShortDateString(), TransNo, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, paymode, purchasereturn, prreason,  freight, dLU, sOtherCusName,intTrans, deliveryNote, sCustomerAddress2, sCustomerAddress3, despatchedfrom, manualno, TotalWORndOff, Amount, MultiPayment, Types, narration2, cuscategory,Series);
+                dbQry = string.Format("UPDATE tblSales SET SeriesID={25},BillDate=Format('{1}', 'dd/mm/yyyy'),JournalID={2},CustomerID={3},CustomerName='{4}',CustomerAddress='{5}',CustomerContacts='{6}',Paymode={7},purchaseReturn='{8}',purchaseReturnReason='{9}',freight={10},LoadUnload={11},OtherCusName='{12}', InternalTransfer='{13}',DeliveryNote='{14}',CustomerAddress2='{15}',CustomerAddress3='{16}', despatchedfrom ='{17}' , manualNo ={18},TotalWORndOff={19},Total={20},MultiPayment='{21}',Types='{22}',narration2='{23}',cuscategory='{24}',Discounttype='{25}' WHERE Billno={0}",
+                Billno, sBilldate.ToShortDateString(), TransNo, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, paymode, purchasereturn, prreason,  freight, dLU, sOtherCusName,intTrans, deliveryNote, sCustomerAddress2, sCustomerAddress3, despatchedfrom, manualno, TotalWORndOff, Amount, MultiPayment, Types, narration2, cuscategory,Series,distype);
                 manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
                 //Adding the Sales Items Table
@@ -13777,7 +13913,7 @@ public class BusinessLogic
                             if (Logsave == "YES")
                             {
                                 //logdescription = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,Subtotal) VALUES({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15})", Billno, Convert.ToString(dr["ItemCode"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["Discount"]), Convert.ToDouble(dr["VAT"]), iSno, Convert.ToString(dr["isRole"]), Convert.ToDouble(dr["CST"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExecCharge"]), Convert.ToDouble(dr["Vatamount"]), rateinclu, 0);
-                                logdescription = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,subtotal,executivename) VALUES({0},'{1}',{2},{3},{4},{5},{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15},{16})", salesID, Convert.ToString(dr["Prd"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["DisPre"]), Convert.ToDouble(dr["VATPre"]), iSno, Convert.ToString(dr["IsRole"]), Convert.ToDouble(dr["CSTPre"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExeComm"]), Convert.ToDouble(dr["VATAmt"]), rateinclu, 0, Convert.ToInt32(dr["Emp"]));
+                                logdescription = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,subtotal,executivename,TotalPrice,PriceBeforeVATAmt) VALUES({0},'{1}',{2},{3},{4},{5},{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18})", salesID, Convert.ToString(dr["Prd"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["DisPre"]), Convert.ToDouble(dr["VATPre"]), iSno, Convert.ToString(dr["IsRole"]), Convert.ToDouble(dr["CSTPre"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExeComm"]), Convert.ToDouble(dr["VATAmt"]), rateinclu, 0, Convert.ToInt32(dr["Emp"]), Convert.ToDouble(dr["TotPrice"]),Convert.ToDouble(dr["PrBefVATAmt"]));
                                 logdescription = logdescription.ToString().Trim();
                                 description = string.Format("INSERT INTO tblLog(LogDate,LogDescription,LogUsername,LogKey,LogMethod) VALUES(Format('{0}', 'dd/mm/yyyy'),'{1}','{2}','{3}','{4}')",
                                      DateTime.Now.ToString(), logdescription, usernam, Billno, "UpdateSalesNew");
@@ -13792,7 +13928,7 @@ public class BusinessLogic
 
 
                             //dbQry = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,Subtotal) VALUES({0},'{1}',{2},{3},{4},{5},{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15})", Billno, Convert.ToString(dr["ItemCode"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["Discount"]), Convert.ToDouble(dr["VAT"]), iSno, Convert.ToString(dr["isRole"]), Convert.ToDouble(dr["CST"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExecCharge"]), Convert.ToDouble(dr["Vatamount"]), Convert.ToDouble(dr["TotalMrp"]), 0);
-                            dbQry = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,subtotal,executivename) VALUES({0},'{1}',{2},{3},{4},{5},{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15},{16})", salesID, Convert.ToString(dr["Prd"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["DisPre"]), Convert.ToDouble(dr["VATPre"]), iSno, Convert.ToString(dr["IsRole"]), Convert.ToDouble(dr["CSTPre"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExeComm"]), Convert.ToDouble(dr["VATAmt"]), rateinclu, 0, Convert.ToInt32(dr["Emp"]));
+                            dbQry = string.Format("INSERT INTO tblSalesItems(BillNo,ItemCode,Qty,Rate,Discount,Vat,SlNo,isrole,CST,Bundles,Rods,ExecIncharge,ExecCharge,Vatamount,TotalMrp,subtotal,executivename,TotalPrice,PriceBeforeVATAmt) VALUES({0},'{1}',{2},{3},{4},{5},{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18})", Billno, Convert.ToString(dr["Prd"]), Convert.ToDouble(dr["Qty"]), Convert.ToDouble(dr["Rate"]), Convert.ToDouble(dr["DisPre"]), Convert.ToDouble(dr["VATPre"]), iSno, Convert.ToString(dr["IsRole"]), Convert.ToDouble(dr["CSTPre"]), Convert.ToInt32(dr["Bundles"]), Convert.ToInt32(dr["Rods"]), 0, Convert.ToDouble(dr["ExeComm"]), Convert.ToDouble(dr["VATAmt"]), rateinclu, 0, Convert.ToInt32(dr["Emp"]), Convert.ToDouble(dr["TotPrice"]), Convert.ToDouble(dr["PrBefVATAmt"]));
                             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
                             dbQry = string.Format("UPDATE tblProductMaster SET tblProductMaster.Stock =  tblProductMaster.Stock - {0} WHERE ItemCode='{1}'", Convert.ToDouble(dr["Qty"]), Convert.ToString(dr["Prd"]).Trim());
@@ -15933,7 +16069,7 @@ public class BusinessLogic
         try
         {
             dbQry.Append("Select tblSalesitems.ItemCode,tblProductMaster.ProductName,tblProductMaster.ProductDesc,tblSalesitems.Rate,tblProductMaster.Measure_Unit, tblSalesitems.Qty,IIF(ISNULL(tblEmployee.empno),' --NA-- ',tblEmployee.empno) as executivename, ");
-            dbQry.Append("tblSalesitems.discount,tblSalesitems.Vat,tblSalesitems.CST,tblSalesitems.Vatamount,tblSalesitems.Totalmrp,tblSalesitems.subtotal,tblSalesitems.billno,tblSalesItems.SlNo,tblSalesItems.RoleID,tblSalesItems.isRole,tblProductMaster.Model,tblSalesItems.Bundles,tblSalesItems.Rods,tblSalesItems.ExecIncharge,tblProductmaster.Stock,tblSalesItems.ExecCharge FROM ((tblSalesitems INNER JOIN tblProductmaster ON tblSalesitems.itemCode = tblProductMaster.itemCode ) LEFT JOIN tblEmployee ON tblEmployee.empno = tblSalesItems.executivename)");
+            dbQry.Append("tblSalesitems.discount,tblSalesitems.Vat,tblSalesitems.CST,tblSalesitems.Vatamount,tblSalesitems.Totalmrp,tblSalesitems.subtotal,tblSalesitems.billno,tblSalesItems.SlNo,tblSalesItems.RoleID,tblSalesItems.isRole,tblSalesItems.TotalPrice,tblProductMaster.Model,tblSalesItems.Bundles,tblSalesItems.Rods,tblSalesItems.ExecIncharge,tblProductmaster.Stock,tblSalesItems.ExecCharge,tblSalesItems.PriceBeforeVATAmt FROM ((tblSalesitems INNER JOIN tblProductmaster ON tblSalesitems.itemCode = tblProductMaster.itemCode ) LEFT JOIN tblEmployee ON tblEmployee.empno = tblSalesItems.executivename)");
             dbQry.Append(" Where tblSalesitems.Billno = " + Billno);
             manager.Open();
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
@@ -17251,7 +17387,7 @@ public class BusinessLogic
         StringBuilder dbQry = new StringBuilder();
         String searchStr = string.Empty;
 
-        dbQry.Append("SELECT empno,empTitle,empFirstName,empMiddleName,empSurName,empdesig,empDOJ,empDOB,empRemarks,ManagerId,UserGroup FROM tblEmployee Where empno=" + empNO.ToString());
+        dbQry.Append("SELECT empno,empTitle,empFirstName,empMiddleName,empSurName,empdesig,empDOJ,empDOB,empRemarks,ManagerId,UserGroup,EmployeeRoleId FROM tblEmployee Where empno=" + empNO.ToString());
 
         try
         {
@@ -17359,7 +17495,7 @@ public class BusinessLogic
     //    //}
     //}
 
-    public int InsertEmpDetails(int empno, string sTitle, string sEmpFName, string sEmpMName, string sEmpSName, string sDesig, string sRemarks, string dDOJ, string dDOB, int ManagerId, string UserGroup)
+    public int InsertEmpDetails(int empno, string sTitle, string sEmpFName, string sEmpMName, string sEmpSName, string sDesig, string sRemarks, string dDOJ, string dDOB, int ManagerId, string UserGroup,int roleId)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString); // System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
@@ -17371,8 +17507,8 @@ public class BusinessLogic
             manager.Open();
             manager.ProviderType = DataProvider.OleDb;
 
-            dbQry = string.Format("INSERT INTO tblEmployee(empno,empTitle,empFirstName,empMiddleName,empSurName,empDOJ,empDOB,empDesig,empRemarks,ManagerId,UserGroup) VALUES({0},'{1}','{2}','{3}','{4}',Format('{5}', 'dd/mm/yyyy'),Format('{6}', 'dd/mm/yyyy'),'{7}','{8}',{9},'{10}')",
-            empno, sTitle, sEmpFName, sEmpMName, sEmpSName, dDOJ, dDOB, sDesig, sRemarks, ManagerId, UserGroup);
+            dbQry = string.Format("INSERT INTO tblEmployee(empno,empTitle,empFirstName,empMiddleName,empSurName,empDOJ,empDOB,empDesig,empRemarks,ManagerId,UserGroup,EmployeeRoleId) VALUES({0},'{1}','{2}','{3}','{4}',Format('{5}', 'dd/mm/yyyy'),Format('{6}', 'dd/mm/yyyy'),'{7}','{8}',{9},'{10}',{11})",
+            empno, sTitle, sEmpFName, sEmpMName, sEmpSName, dDOJ, dDOB, sDesig, sRemarks, ManagerId, UserGroup,roleId);
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
             int NewEmpNo = (Int32)manager.ExecuteScalar(CommandType.Text, "SELECT MAX(empno) FROM tblEmployee");
 
@@ -17393,7 +17529,7 @@ public class BusinessLogic
     }
 
     //UpdateEmpDetails
-    public int UpdateEmpDetails(int empno, string sTitle, string sEmpFName, string sEmpMName, string sEmpSName, string sDesig, string sRemarks, string dDOJ, string dDOB, int ManagerId, string UserGroup)
+    public int UpdateEmpDetails(int empno, string sTitle, string sEmpFName, string sEmpMName, string sEmpSName, string sDesig, string sRemarks, string dDOJ, string dDOB, int ManagerId, string UserGroup,int roleId)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString); // System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
@@ -17404,8 +17540,8 @@ public class BusinessLogic
         {
             manager.Open();
             manager.ProviderType = DataProvider.OleDb;
-            dbQry = string.Format("UPDATE tblEmployee SET empno={0},empTitle='{1}',empFirstName='{2}',empMiddleName='{3}',empSurName='{4}',empDOJ=Format('{5}', 'dd/mm/yyyy'),empDOB=Format('{6}', 'dd/mm/yyyy'),empDesig='{7}',empRemarks='{8}',ManagerId={9},UserGroup='{10}' Where empno={0}",
-            empno, sTitle, sEmpFName, sEmpMName, sEmpSName, dDOJ, dDOB, sDesig, sRemarks, ManagerId, UserGroup);
+            dbQry = string.Format("UPDATE tblEmployee SET empno={0},empTitle='{1}',empFirstName='{2}',empMiddleName='{3}',empSurName='{4}',empDOJ=Format('{5}', 'dd/mm/yyyy'),empDOB=Format('{6}', 'dd/mm/yyyy'),empDesig='{7}',empRemarks='{8}',ManagerId={9},UserGroup='{10}',EmployeeRoleId={11} Where empno={0}",
+            empno, sTitle, sEmpFName, sEmpMName, sEmpSName, dDOJ, dDOB, sDesig, sRemarks, ManagerId, UserGroup,roleId);
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
 
@@ -21892,7 +22028,7 @@ public class BusinessLogic
 
     #region table Settings
 
-    public void InsertSettings(string itemCode, string strIP, string strQtyReturn, string strDate, string strBillFormat, string Currency, string dealer, string barcode, string stockEdit, string SMSrequired, string BiltRequired, string OwnerMobile, string VATReconDate, string VATAmount, string DiscType, string exceedLimit, string strBillMethod, string strobsolute, string droundoff, string dsalesseries, string autolock, string savelog, string enablevat, string emailRequired, string macaddress, string tinnoman, string enabledate, string salesdiscount, string openingbalance, string deviationprice)
+    public void InsertSettings(string itemCode, string strIP, string strQtyReturn, string strDate, string strBillFormat, string Currency, string dealer, string barcode, string stockEdit, string SMSrequired, string BiltRequired, string OwnerMobile, string VATReconDate, string VATAmount, string DiscType, string exceedLimit, string strBillMethod, string strobsolute, string droundoff, string dsalesseries, string autolock, string savelog, string enablevat, string emailRequired, string macaddress, string tinnoman, string enabledate, string salesdiscount, string openingbalance, string deviationprice, string pwdexpday)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString); // System.Configuration.ConfigurationManager.ConnectionStrings[connection].ConnectionString;
@@ -22053,6 +22189,11 @@ public class BusinessLogic
             if (deviationprice.Trim() != "")
             {
                 dbQry = string.Format("UPDATE tblSettings SET KEYVALUE='{0}' WHERE KEY='PRICE' ", deviationprice.ToString());
+                manager.ExecuteNonQuery(CommandType.Text, dbQry);
+            }
+            if (pwdexpday.Trim() != "")
+            {
+                dbQry = string.Format("UPDATE tblSettings SET KEYVALUE='{0}' WHERE KEY='PWDEXPDAY' ", pwdexpday.ToUpper());
                 manager.ExecuteNonQuery(CommandType.Text, dbQry);
             }
 
@@ -60763,7 +60904,7 @@ public class BusinessLogic
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
             sAuditStr = "Task Status : " + Task_Status_Name + " added. Record Details :  User :" + Username;
-            dbQry = string.Format("INSERT INTO  tblAudit(Description,Command,auditdate) VALUES('{0}','{1}',Format('{2}', 'dd/mm/yyyy'))", sAuditStr, "Add New", DateTime.Now.ToString());
+            dbQry = string.Format("INSERT INTO  tblAudit(Description,Command,auditdate) VALUES('{0}','{1}',Format('{2}', 'dd/mm/yyyy hh:mm:ss'))", sAuditStr, "Add New", DateTime.Now.ToString());
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
             manager.CommitTransaction();
@@ -61892,18 +62033,18 @@ public class BusinessLogic
             {
                 if (dsOld.Tables[0].Rows.Count > 0)
                 {
-                    dbQry = string.Format("UPDATE tblTaskUpdates SET Task_Update_Date=Format('{0}', 'dd/mm/yyyy'),Actual_Start_Date=Format('{1}', 'dd/mm/yyyy'),Actual_End_Date=Format('{2}', 'dd/mm/yyyy'),Per_of_Completion={3},Task_Status={4},Blocked_Flag='{5}',Task_update='{6}',Blocking_Reason='{7}',Effort_Spend_Last_Update={8},Effort_Remaining={9} Where Task_Id={10}",
+                    dbQry = string.Format("UPDATE tblTaskUpdates SET Task_Update_Date=Format('{0}', 'dd/mm/yyyy'),Actual_Start_Date=Format('{1}', 'dd/mm/yyyy'),Actual_End_Date='{2}',Per_of_Completion={3},Task_Status={4},Blocked_Flag='{5}',Task_update='{6}',Blocking_Reason='{7}',Effort_Spend_Last_Update={8},Effort_Remaining={9} Where Task_Id={10}",
                     TaskUpdateDate, ActualStartDate, ActualEndDate, Per, TaskStatus, Blockedflag, Taskupdate, BlockingReason, effortlastupdate, effortremain, Task_Id);
                 }
                 else
                 {
-                    dbQry = string.Format("INSERT INTO tblTaskUpdates(Task_Update_Date,Actual_Start_Date,Actual_End_Date,Per_of_Completion,Task_Status,Blocked_Flag,Task_update,Blocking_Reason,Effort_Spend_Last_Update,Effort_Remaining,Task_id) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),{3},{4},'{5}','{6}','{7}',{8},{9},{10})",
+                    dbQry = string.Format("INSERT INTO tblTaskUpdates(Task_Update_Date,Actual_Start_Date,Actual_End_Date,Per_of_Completion,Task_Status,Blocked_Flag,Task_update,Blocking_Reason,Effort_Spend_Last_Update,Effort_Remaining,Task_id) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),'{2}',{3},{4},'{5}','{6}','{7}',{8},{9},{10})",
                     TaskUpdateDate, ActualStartDate, ActualEndDate, Per, TaskStatus, Blockedflag, Taskupdate, BlockingReason, effortlastupdate, effortremain, Task_Id);
                 }
             }
             else
             {
-                dbQry = string.Format("INSERT INTO tblTaskUpdates(Task_Update_Date,Actual_Start_Date,Actual_End_Date,Per_of_Completion,Task_Status,Blocked_Flag,Task_update,Blocking_Reason,Effort_Spend_Last_Update,Effort_Remaining,Task_id) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),{3},{4},'{5}','{6}','{7}',{8},{9},{10})",
+                dbQry = string.Format("INSERT INTO tblTaskUpdates(Task_Update_Date,Actual_Start_Date,Actual_End_Date,Per_of_Completion,Task_Status,Blocked_Flag,Task_update,Blocking_Reason,Effort_Spend_Last_Update,Effort_Remaining,Task_id) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),'{2}',{3},{4},'{5}','{6}','{7}',{8},{9},{10})",
                 TaskUpdateDate, ActualStartDate, ActualEndDate, Per, TaskStatus, Blockedflag, Taskupdate, BlockingReason, effortlastupdate, effortremain, Task_Id);
             }
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
@@ -61921,12 +62062,12 @@ public class BusinessLogic
             }
 
 
-            dbQry = string.Format("INSERT INTO tblTaskUpdatesHistory(Task_Update_Date,Actual_Start_Date,Actual_End_Date,Per_of_Completion,Task_Status,Blocked_Flag,Task_update,Blocking_Reason,Effort_Spend_Last_Update,Effort_Remaining,Task_id,Task_Update_Id) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),Format('{2}', 'dd/mm/yyyy'),{3},{4},'{5}','{6}','{7}',{8},{9},{10},{11})",
+            dbQry = string.Format("INSERT INTO tblTaskUpdatesHistory(Task_Update_Date,Actual_Start_Date,Actual_End_Date,Per_of_Completion,Task_Status,Blocked_Flag,Task_update,Blocking_Reason,Effort_Spend_Last_Update,Effort_Remaining,Task_id,Task_Update_Id) VALUES('{0}',Format('{1}', 'dd/mm/yyyy'),'{2}',{3},{4},'{5}','{6}','{7}',{8},{9},{10},{11})",
                 TaskUpdateDate, ActualStartDate, ActualEndDate, Per, TaskStatus, Blockedflag, Taskupdate, BlockingReason, effortlastupdate, effortremain, Task_Id, Task_Update_Id);
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
 
-            dbQry = string.Format("UPDATE tblTasks SET Actual_Start_Date=Format('{0}', 'dd/mm/yyyy'),Actual_End_Date=Format('{1}', 'dd/mm/yyyy') Where Task_Id={2}",
+            dbQry = string.Format("UPDATE tblTasks SET Actual_Start_Date=Format('{0}', 'dd/mm/yyyy'),Actual_End_Date='{1}' Where Task_Id={2}",
                     ActualStartDate, ActualEndDate, Task_Id);
             manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -61995,7 +62136,7 @@ public class BusinessLogic
 
             if (txtSearch == "History")
             {
-                dbQry.Append("SELECT tblTaskUpdatesHistory.Task_Update_Id,tblTaskUpdatesHistory.Task_Update_Date,tblTaskUpdatesHistory.Actual_Start_Date,tblTaskUpdatesHistory.Actual_End_Date,tblTaskStatus.Task_Status_Name,tblTaskUpdatesHistory.Per_of_Completion,tblTaskUpdatesHistory.Blocked_Flag,tblTaskUpdatesHistory.Blocking_Reason,tblTaskUpdatesHistory.Task_update ");
+                dbQry.Append("SELECT tblTaskUpdatesHistory.Task_Update_Id,tblTaskUpdatesHistory.Task_Update_Date,tblTaskUpdatesHistory.Actual_Start_Date,tblTaskUpdatesHistory.Actual_End_Date,tblTaskStatus.Task_Status_Name,tblTaskUpdatesHistory.Per_of_Completion,tblTaskUpdatesHistory.Blocked_Flag,tblTaskUpdatesHistory.Blocking_Reason,tblTaskUpdatesHistory.Effort_Spend_Last_Update,tblTaskUpdatesHistory.Effort_Remaining,tblTaskUpdatesHistory.Task_update ");
                 dbQry.Append(" FROM tblTaskUpdatesHistory INNER JOIN tblTaskStatus ON tblTaskUpdatesHistory.Task_Status = tblTaskStatus.Task_Status_Id ");
                 dbQry.Append(" ORDER BY tblTaskUpdatesHistory.Task_Update_Date Desc");
             }
@@ -63719,7 +63860,6 @@ public class BusinessLogic
 
     #endregion
 
-
     #region Attendance Methods
     public DataSet GetAttendanceDetails(int attendanceID, string createdByUserId)
     {
@@ -63852,7 +63992,7 @@ public class BusinessLogic
                 {
                     dtAttendanceDetail.Columns.Add(column);
                 }
-                if (IsHoliday(dateValue, year))
+                if (IsHoliday(dateValue))
                 {
                     rowDefaultAttendanceData.Add("Holiday");
                 }
@@ -63873,7 +64013,7 @@ public class BusinessLogic
             {
                 DataColumn column = new DataColumn("Day" + index.ToString(), typeof(string));
                 column.Caption = "NA";
-                if (dtAttendanceDetail != null)
+                if (dtAttendanceDetail != null && !dtAttendanceDetail.Columns.Contains(column.ColumnName))
                 {
                     dtAttendanceDetail.Columns.Add(column);
                 }
@@ -63940,7 +64080,7 @@ public class BusinessLogic
         dbQry = string.Format(@"SELECT a.LeaveId, a.EmployeeNo, a.StartDate,a.StartDateSession, a.EndDate,a.EndDateSession
                                 FROM tblEmployeeLeave a
                                 WHERE a.EmployeeNo ={0}
-                                AND (a.StartDate <= #{1}# AND a.EndDate >= #{1}#) AND (Status <>'Rejected' OR Status <> 'Cancelled')"
+                                AND ((a.StartDate)<=#{1}#) AND ((a.EndDate)>=#{1}#) AND (Status <>'Rejected' OR Status <> 'Cancelled')"
             , empNo.ToString(), dateValue.ToShortDateString());
 
         try
@@ -63963,10 +64103,10 @@ public class BusinessLogic
         }
     }
 
-    public bool IsHoliday(DateTime dateValue, int year)
+    public bool IsHoliday(DateTime dateValue)
     {
         //Get holidays list
-        DataTable dtHolidaysList = GetHolidayListForTheYear(year);
+        DataTable dtHolidaysList = GetHolidayListForTheYear(dateValue.Year);
 
         DataRow[] drHolidays = dtHolidaysList.Select(string.Format("Date = '{0}'", dateValue.ToShortDateString()));
         if (drHolidays.Length > 0)
@@ -64053,10 +64193,6 @@ public class BusinessLogic
         }
         return true;
     }
-
-
-
-
 
     public DataTable GetAttendanceYearList(string userId)
     {
@@ -64277,17 +64413,16 @@ public class BusinessLogic
                 int index = 1;
                 foreach (DataRow row in rows)
                 {
+                    DateTime dateValue = DateTime.Parse(row[1].ToString());
                     if (!columnCreated)
                     {
-                        DateTime dateValue = DateTime.Parse(row[1].ToString());
                         DataColumn column = new DataColumn("Day" + index.ToString(), typeof(string));
                         column.Caption = dateValue.ToShortDateString();
                         currentAttendancePeriod = dateValue;
                         dtAttendanceDetail.Columns.Add(column);
                         index++;
                     }
-                    rowDefaultAttendanceData.Add(row[2].ToString());
-
+                    rowDefaultAttendanceData.Add(GetAttendanceRemarks(dateValue, empNo, row[2].ToString()));
                 }
 
                 columnCreated = true;
@@ -64312,6 +64447,22 @@ public class BusinessLogic
             return dtAttendanceDetail;
         }
         else { return null; }
+    }
+
+    private string GetAttendanceRemarks(DateTime dateValue, string empNo, string currentRemarks)
+    {
+        if (HasAppliedleave(dateValue, empNo))
+        {
+            return "Leave";
+        }
+        //else if (currentRemarks.ToUpper().Equals("LEAVE"))
+        //{
+        //    return "Present";
+        //}
+        else
+        {
+            return currentRemarks;
+        }
     }
 
     private DataTable IncludeMissingRepotees(DataTable dtAvailableReportees, Dictionary<string, string> reportees, int year, int month)
@@ -64352,8 +64503,6 @@ public class BusinessLogic
                                 INNER JOIN tblEmployee e on a.EmployeeNo = e.EmpNo)
                                 INNER JOIN tblEmployee e1 on a.Approver = e1.EmpNo
                                 WHERE a.EmployeeNo ={0} {1}", empNo, searchCriteria);
-
-
         try
         {
             manager.Open();
@@ -64366,6 +64515,7 @@ public class BusinessLogic
         }
         catch (Exception ex)
         {
+            TroyLiteExceptionManager.HandleException(ex);
             throw ex;
         }
         finally
@@ -64496,7 +64646,6 @@ public class BusinessLogic
                                         VALUES ({0},Format('{1}', 'dd/mm/yyyy'),'{2}',Format('{3}', 'dd/mm/yyyy'),'{4}',{5},'{6}',{7},'{8}','{9}',{10},'{11}','{12}','{13}')"
                                         , EmpNo, StartDate, StartDateSession, EndDate, EndDateSession, totalLeaveDays, DateApplied, LeaveTypeId, Reason
                                         , "Submitted", Approver, "", EmailContact, PhoneContact);
-
             int resultId = manager.ExecuteNonQuery(CommandType.Text, dbQry);
             return resultId;
         }
@@ -64877,6 +65026,40 @@ public class BusinessLogic
         }
     }
 
+    public DataTable GetPayrollProcessLog(int payrollId)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        string dbQry = string.Empty;
+        try
+        {
+            manager.Open();
+
+            dbQry = string.Format(@"SELECT EmployeeNo,e.EmpFirstName,l.Message FROM tblPayrollGenerationLog l
+                                    LEFT JOIN tblEmployee e ON e.EmpNo = l.EmployeeNo WHERE l.PayrollId ={0}", payrollId);
+            DataSet ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+            manager.Close();
+
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                return ds.Tables[0];
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
 
     public DataTable GetAllPaySlipForThePayroll(int payrolId)
     {
@@ -64925,12 +65108,156 @@ public class BusinessLogic
             double lopDays = 0;
             double.TryParse(drPaySlip["LossOfPayDays"].ToString(), out lopDays);
 
-            double totalDaysInMonth = DateTime.DaysInMonth(int.Parse(drPaySlip["PayrollYear"].ToString()), int.Parse(drPaySlip["PayrollMonth"].ToString()));
+            double totalDaysInMonth = 30;
 
             double newTotalPayable = (initialTotalPayable * (totalDaysInMonth - lopDays)) / totalDaysInMonth;
             drPaySlip["TotalPayable"] = newTotalPayable;
         }
     }
+    #endregion
+
+    #region Timesheet Entry
+
+    public DataSet GetTimesheetSummary(string TimesheetYear, string username)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+        if (TimesheetYear.ToUpper().Equals("ALL"))
+        {
+            dbQry = string.Format("SELECT a.Id, a.StartDate, a.EndDate, (a.StartDate + ' - ' +a.EndDate) as TimesheetPeroid, a.UserId,a.TotalHours, a.SubmittedDate, a.ApproverUserId, a.Status FROM tblTimesheetSummary a WHERE a.UserId ='{0}'", username);
+        }
+        else
+        {
+            dbQry = string.Format("SELECT a.Id, a.StartDate, a.EndDate, (a.StartDate + ' - ' +a.EndDate) as TimesheetPeroid, a.UserId,a.TotalHours, a.SubmittedDate, a.ApproverUserId, a.Status FROM tblTimesheetSummary a WHERE a.UserId ='{0}' AND (Year(a.StartDate)={1} OR YEAR(a.EndDate)={1}) ", username, TimesheetYear);
+        }
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
+
+    public bool IsTimesheetSummaryExists(string username, DateTime currentDate)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+        dbQry = string.Format("SELECT a.Id, a.StartDate, a.EndDate, (a.StartDate + ' - ' +a.EndDate) as TimesheetPeroid, a.UserId,a.TotalHours, a.SubmittedDate, a.ApproverUserId, a.Status FROM tblTimesheetSummary a WHERE a.UserId ='{0}' AND (a.StartDate >= #{1}# AND a.EndDate <= #{1}# ) ", username, currentDate);
+
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                return true;
+            else
+                return false;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
+    public List<DataTable> GetNewTimesheetDetailsForMonth(DateTime dateTime, string username)
+    {
+        List<DataTable> result = new List<DataTable>();
+        List<DateTime> lstWeekDates = GetWeekBoundaryDates(dateTime);
+
+        DataTable dtTimesheetForTheDate = new DataTable();
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+        dbQry = string.Format("SELECT Id, TimeSheetSummaryId, TsDate, StartTime, EndTime, TotalHours, Description, Status, ApproverComments, IsActive FROM tblTimesheetDetail WHERE (1=2) ");
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                foreach (DateTime date in lstWeekDates)
+                {
+                    dtTimesheetForTheDate = new DataTable();
+                    dtTimesheetForTheDate = ds.Tables[0].Clone();
+                    dtTimesheetForTheDate.TableName = date.ToShortDateString();
+                    dtTimesheetForTheDate.DisplayExpression = ((int)date.DayOfWeek).ToString();
+                    result.Add(dtTimesheetForTheDate);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+        return result;
+    }
+
+    public DataTable GetYearsConstant()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Year");
+        int year = 2010;
+        while (year <= DateTime.Today.Year)
+        {
+            DataRow row = dt.NewRow();
+            row[0] = year.ToString();
+            dt.Rows.Add(row);
+            year++;
+        }
+        return dt;
+    }
+
+    private List<DateTime> GetWeekBoundaryDates(DateTime dateTime)
+    {
+        List<DateTime> resultDates = new List<DateTime>(7);
+        int dayOfTheWeek = 0;
+        DateTime dtFirstDayOfWeek = dateTime.GetFirstDayOfWeek();
+        resultDates.Add(dtFirstDayOfWeek);
+        int dateIndex = 1;
+        while (dateIndex < 7)
+        {
+            resultDates.Add(dtFirstDayOfWeek.AddDays(dateIndex));
+            dateIndex++;
+        }
+        return resultDates;
+    }
+
+
     #endregion
 
     #region Commmon Methods
@@ -65141,8 +65468,6 @@ public class BusinessLogic
         }
     }
     #endregion
-
-
 
     public DataSet getRateInformation(string itemcode)
     {
@@ -65495,21 +65820,20 @@ public class BusinessLogic
                         manager.CommitTransaction();
                     }
                 }
-            }
-            else
-            {
-
-                foreach (DataRow dr in dt.Rows)
+                else
                 {
-                    dbQry = string.Format("INSERT INTO tblEmployeeRoleLeaveLimit(LeaveType_ID, Role_ID, EffectiveDate, AllowedCount) VALUES({0}, {1}, '{2}', {3})",
-                  dr.Field<int>("LeaveType_ID"), dr.Field<int>("Role_ID"), dr.Field<DateTime>("EffectiveDate"), dr.Field<int>("AllowedCount"));
 
-                    manager.ExecuteNonQuery(CommandType.Text, dbQry);
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        dbQry = string.Format("INSERT INTO tblEmployeeRoleLeaveLimit(LeaveType_ID, Role_ID, EffectiveDate, AllowedCount) VALUES({0}, {1}, '{2}', {3})",
+                      dr.Field<int>("LeaveType_ID"), dr.Field<int>("Role_ID"), dr.Field<DateTime>("EffectiveDate"), dr.Field<int>("AllowedCount"));
 
-                    manager.CommitTransaction();
+                        manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                        manager.CommitTransaction();
+                    }
                 }
-            }
-
+            }            
         }
         catch (Exception ex)
         {
@@ -65532,11 +65856,11 @@ public class BusinessLogic
 
         if (SearchTxt != "")
         {
-            dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents WHERE PayComponentName LIKE '" + SearchTxt + "'";
+            dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents WHERE PayComponentType_Id =2 AND PayComponentName LIKE '" + SearchTxt + "'";
         }
         else
         {
-            dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents ";
+            dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents WHERE PayComponentType_Id =2";
         }
         try
         {
@@ -65653,7 +65977,7 @@ public class BusinessLogic
         }
     }
 
-    public void DeleteRolePayComp(int role_ID)
+    public void DeleteRolePayComp(int pay_ID, int role_ID)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
@@ -65668,14 +65992,14 @@ public class BusinessLogic
 
             manager.BeginTransaction();
 
-            object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblPayComponentRoleMapping Where Role_ID =" + role_ID);
+            object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblPayComponentRoleMapping Where PayComponent_ID =" + pay_ID + " AND Role_ID = " + role_ID);
 
             if (exists.ToString() != string.Empty)
             {
                 if (int.Parse(exists.ToString()) > 0)
                 {
 
-                    dbQry = string.Format("Delete From tblPayComponentRoleMapping WHERE Role_ID = {0} ", role_ID);
+                    dbQry = string.Format("Delete From tblPayComponentRoleMapping WHERE PayComponent_ID = {0} AND Role_ID = {1}  ", pay_ID, role_ID);
 
                     manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -65686,6 +66010,34 @@ public class BusinessLogic
             {
                 throw new Exception("Pay Component Not Exists");
             }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
+    public DataTable ListEmployeeRoles()
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+        dbQry = "Select ID,Role_Name AS RoleName FROM tblEmployeeRoles WHERE Is_Active = True";
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables.Count > 0)
+                return ds.Tables[0];
+            else
+                return null;
         }
         catch (Exception ex)
         {
@@ -67741,11 +68093,11 @@ public class BusinessLogic
 
         if (SearchTxt != "")
         {
-            dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents WHERE PayComponentName LIKE '" + SearchTxt + "'";
+            dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents WHERE PayComponentType_Id =1 AND PayComponentName LIKE '" + SearchTxt + "'";
         }
         else
         {
-            dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents ";
+            dbQry = "SELECT PayComponentID, PayComponentName, Description from tblPayComponents WHERE PayComponentType_Id =1";
         }
         try
         {
@@ -67834,7 +68186,7 @@ public class BusinessLogic
         }
     }
 
-    public void DeleteEmpPayComp(int EmpId)
+    public void DeleteEmpPayComp(int EmpId, int pay_ID)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(this.ConnectionString);
@@ -67849,14 +68201,14 @@ public class BusinessLogic
 
             manager.BeginTransaction();
 
-            object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblPayComponentEmployeeMapping Where EmpNo =" + EmpId);
+            object exists = manager.ExecuteScalar(CommandType.Text, "SELECT Count(*) FROM tblPayComponentEmployeeMapping Where EmpNo =" + EmpId + " AND PayComponent_ID = " + pay_ID);
 
             if (exists.ToString() != string.Empty)
             {
                 if (int.Parse(exists.ToString()) > 0)
                 {
 
-                    dbQry = string.Format("Delete From tblPayComponentEmployeeMapping WHERE EmpNo = {0} ", EmpId);
+                    dbQry = string.Format("Delete From tblPayComponentEmployeeMapping WHERE EmpNo = {0} AND PayComponent_ID = {1} ", EmpId, pay_ID);
 
                     manager.ExecuteNonQuery(CommandType.Text, dbQry);
 
@@ -68513,7 +68865,7 @@ public class BusinessLogic
         //if (Isactive == "Y" && type == 0)
         //{
 
-        dbQry.Append("SELECT tblTasks.Task_Name ,tblTasks.Expected_Start_Date,tblTasks.Expected_End_Date,tblEmployee.empfirstname AS ownername,tblTaskTypes.Task_Type_Name as taskname,tblTasks.IsActive,tblTasks.Task_id,tblTasks.Task_Type,tblProjects.Project_Name ");
+        dbQry.Append("SELECT tblTasks.Task_Name ,tblTasks.Expected_Start_Date,tblTasks.Expected_End_Date,tblEmployee.empfirstname AS ownername,tblTaskTypes.Task_Type_Name as taskname,tblTaskTypes.Task_Type_Name as DependencyTask,tblTasks.IsActive,tblTasks.Task_id,tblTasks.Task_Type,tblProjects.Project_Name ");
 
             dbQry.Append("  from ((tblTasks Inner Join tblProjects On tblProjects.Project_Id = tblTasks.Project_Code) Inner join tblEmployee on tblEmployee.empno = tblTasks.Owner) Inner join tblTaskTypes on tblTaskTypes.Task_Type_Id = tblTasks.Task_Type ");
 
