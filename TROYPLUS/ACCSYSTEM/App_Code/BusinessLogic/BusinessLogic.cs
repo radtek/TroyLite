@@ -62794,7 +62794,7 @@ public class BusinessLogic
 
     }
 
-    public DataSet GetScreen(string connection)
+    public DataSet GetScreen(string connection, string txtSearch)
     {
         if (connection == null)
         {
@@ -62806,9 +62806,24 @@ public class BusinessLogic
         DataSet ds = new DataSet();
         string dbQry = string.Empty;
 
+        //if (txtSearch == null || txtSearch == "")
+        //    txtSearch = "";
+        //else
+        //    txtSearch = "%" + txtSearch + "%";
+
         try
         {
-            dbQry = "select * from tblScreenMaster Order by ScreenNo Asc";
+
+
+            if (txtSearch == null || txtSearch == "")
+            {
+                dbQry = "select A.*, (Select count(*) from tblScreenMaster where A.Id<=Id) as RowNumber from tblScreenMaster as A Order by Id desc ";
+            }
+            else
+            {
+                dbQry = "select A.*, (Select count(*) from tblScreenMaster where A.Id<=Id) as RowNumber from tblScreenMaster as A where A.ScreenName like '%" + txtSearch + "%' Order by Id desc ";
+            }
+
             manager.Open();
 
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
@@ -68582,6 +68597,359 @@ public class BusinessLogic
         {
             if (manager != null)
                 manager.Dispose();
+        }
+    }
+
+    public DataSet ListScreens(string connection)
+    {
+        
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+        try
+        {
+            dbQry = "select * from tblScreens Order by ScreenNo Asc";
+            manager.Open();
+
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
+
+    public DataSet GetScreenForScreenId(string connection, int id)
+    {
+        if (connection == null)
+        {
+            throw new Exception("Connection Expired");
+        }
+
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+        try
+        {
+            dbQry = "select * from tblScreens where sno = " + id + " Order by ScreenNo Asc";
+            manager.Open();
+
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
+
+    public void InsertScreenConfig(string connection, int screenno, int screenid, string screenname, string smscontent, string emailsubject, string emailcontent, DataSet dsttN, string usernam, DataSet dsttNN)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+        string dbQry2 = string.Empty;
+
+        string sAuditStr = string.Empty;
+        try
+        {
+            manager.Open();
+            manager.ProviderType = DataProvider.OleDb;
+
+            manager.BeginTransaction();
+
+            dbQry = string.Format("INSERT INTO tblScreenMaster(screenno,screenid,screenname,emailsubject,smscontent,emailcontent) VALUES({0},{1},'{2}','{3}','{4}','{5}')",
+                screenno, screenid, screenname, emailsubject, smscontent, emailcontent);
+
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+            int Id = (Int32)manager.ExecuteScalar(CommandType.Text, "SELECT MAX(ID) FROM tblScreenMaster");
+
+            if (dsttN != null)
+            {
+                if (dsttN.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in dsttN.Tables[0].Rows)
+                    {
+                        dbQry = string.Format("INSERT INTO tblScreenConfig(Id,Name1,NameId,MobileNo,EmailId,Mobile,Email,Type,ScreenType) VALUES({0},'{1}',{2},'{3}','{4}',{5},{6},{7},{8})",
+                            Id, Convert.ToString(dr["Name"]), Convert.ToInt32(dr["NameId"]), Convert.ToString(dr["MobileNo"]), Convert.ToString(dr["EmailId"]), Convert.ToBoolean(dr["Mobile"]), Convert.ToBoolean(dr["Email"]), Convert.ToInt32(dr["Type"]), Convert.ToInt32(dr["ScreenType"]));
+
+                        manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                    }
+                }
+            }
+
+
+            if (dsttNN != null)
+            {
+                if (dsttNN.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in dsttNN.Tables[0].Rows)
+                    {
+                        dbQry = string.Format("INSERT INTO tblScreenConfig(Id,Name1,NameId,MobileNo,EmailId,Mobile,Email,Type,ScreenType) VALUES({0},'{1}',{2},'{3}','{4}',{5},{6},{7},{8})",
+                            Id, Convert.ToString(dr["Name"]), Convert.ToInt32(dr["NameId"]), "", "", Convert.ToBoolean(dr["Mobile"]), Convert.ToBoolean(dr["Email"]), Convert.ToInt32(dr["Type"]), Convert.ToInt32(dr["ScreenType"]));
+
+                        manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                    }
+                }
+            }
+
+            sAuditStr = "Screen Master For : " + screenname + " added. Record Details :  User :" + usernam;
+            dbQry = string.Format("INSERT INTO  tblAudit(Description,Command,auditdate) VALUES('{0}','{1}',Format('{2}', 'dd/mm/yyyy'))", sAuditStr, "Add New", DateTime.Now.ToString());
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+            
+            manager.CommitTransaction();
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
+    public DataSet GetScreenForId(string connection, int id)
+    {
+       
+
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+        try
+        {
+            dbQry = "select * from tblScreenMaster where id = " + id + " Order by ScreenNo Asc";
+            manager.Open();
+
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
+
+    public DataSet GetConfigSettingsForId(string connection, int id, int screentype)
+    {
+
+
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+        try
+        {
+            dbQry = "select A.Id,A.Name1,A.NameId,A.MobileNo,A.EmailId,A.Mobile,A.Email,A.Type, (Select count(*) from tblScreenConfig where A.SId<=SId and screentype =" + screentype + ") as RowNumber from tblScreenConfig as A where A.id = " + id + " and A.screentype =" + screentype + "  order by a.sid desc";
+            manager.Open();
+
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+
+    }
+
+    public void UpdateScreenConfig(string connection, int screenno, int screenid, string screenname, string smscontent, string emailsubject, string emailcontent, DataSet dsttN, string usernam, int Id, DataSet dsttNN)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+        string dbQry2 = string.Empty;
+
+        string sAuditStr = string.Empty;
+        try
+        {
+            manager.Open();
+            manager.ProviderType = DataProvider.OleDb;
+
+            manager.BeginTransaction();
+
+            //dbQry = string.Format("INSERT INTO tblScreenMaster(screenno,screenid,screenname,emailsubject,smscontent,emailcontent) VALUES({0},{1},'{2}','{3}','{4}','{5}')",
+            //    screenno, screenid, screenname, emailsubject, smscontent, emailcontent);
+
+            dbQry = string.Format("Update tblScreenMaster Set ScreenNo = {0}, screenid = {1}, ScreenName = '{2}', emailsubject = '{3}', smscontent = '{4}', emailcontent = '{5}' Where Id = {6}", screenno, screenid, screenname, emailsubject, smscontent, emailcontent, Id);
+
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+            dbQry = string.Format("Delete From tblScreenConfig Where Id = {0} ", Id);
+
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+            if (dsttN != null)
+            {
+                if (dsttN.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in dsttN.Tables[0].Rows)
+                    {
+                        dbQry = string.Format("INSERT INTO tblScreenConfig(Id,Name1,NameId,MobileNo,EmailId,Mobile,Email,Type,ScreenType) VALUES({0},'{1}',{2},'{3}','{4}',{5},{6},{7},{8})",
+                            Id, Convert.ToString(dr["Name"]), Convert.ToInt32(dr["NameId"]), Convert.ToString(dr["MobileNo"]), Convert.ToString(dr["EmailId"]), Convert.ToBoolean(dr["Mobile"]), Convert.ToBoolean(dr["Email"]), Convert.ToInt32(dr["Type"]), Convert.ToInt32(dr["ScreenType"]));
+
+                        manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                    }
+                }
+            }
+
+            if (dsttNN != null)
+            {
+                if (dsttNN.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in dsttNN.Tables[0].Rows)
+                    {
+                        dbQry = string.Format("INSERT INTO tblScreenConfig(Id,Name1,NameId,MobileNo,EmailId,Mobile,Email,Type,ScreenType) VALUES({0},'{1}',{2},'{3}','{4}',{5},{6},{7},{8})",
+                            Id, Convert.ToString(dr["Name"]), Convert.ToInt32(dr["NameId"]),"", "", Convert.ToBoolean(dr["Mobile"]), Convert.ToBoolean(dr["Email"]), Convert.ToInt32(dr["Type"]), Convert.ToInt32(dr["ScreenType"]));
+
+                        manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+                    }
+                }
+            }
+
+            sAuditStr = "Screen Master For : " + screenname + " got edited. Record Details :  User :" + usernam;
+            dbQry = string.Format("INSERT INTO  tblAudit(Description,Command,auditdate) VALUES('{0}','{1}',Format('{2}', 'dd/mm/yyyy'))", sAuditStr, "Add New", DateTime.Now.ToString());
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+            manager.CommitTransaction();
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
+    public DataSet ListExecutiveEmpNo(string connection, int empno)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        string dbQry = string.Empty;
+        DataSet ds = new DataSet();
+        dbQry = "Select * From tblEmployee Where empno=" + empno;
+
+        try
+        {
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
+    public void DeleteScreenConfig(string connection, int Id, string Username)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(connection);
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+        string sAuditStr = string.Empty;
+
+        string Bank = string.Empty;
+        string AccountNo = string.Empty;
+        string FromChequeNo = string.Empty;
+        string ToChequeNo = string.Empty;
+
+        string description = string.Empty;
+        string logdescription = string.Empty;
+        string Logsave = string.Empty;
+        DataSet dsd = new DataSet();
+        string dbQry2 = string.Empty;
+
+        try
+        {
+            manager.Open();
+            manager.ProviderType = DataProvider.OleDb;
+            manager.BeginTransaction();
+
+            dbQry = string.Format("Delete From tblScreenMaster Where Id = {0}", Id);
+
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+            dbQry = string.Format("Delete From tblScreenConfig Where Id = {0}", Id);
+
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+            sAuditStr = "Screen Master For : " + Id + " deleted. Record Details :  User :" + Username;
+            dbQry = string.Format("INSERT INTO  tblAudit(Description,Command,auditdate) VALUES('{0}','{1}',Format('{2}', 'dd/mm/yyyy'))", sAuditStr, "Delete", DateTime.Now.ToString());
+            manager.ExecuteNonQuery(CommandType.Text, dbQry);
+
+            manager.CommitTransaction();
+
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
         }
     }
 

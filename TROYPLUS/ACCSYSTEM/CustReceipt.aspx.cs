@@ -2046,9 +2046,27 @@ public partial class CustReceipt : System.Web.UI.Page
         }
         TextBox1.Text = Convert.ToString(tota);
 
-        totalrow1.Visible = true;
-        totalrow.Visible = true;
-        totalrow123.Visible = true;
+        if (chk.Checked == true)
+        {
+            if (drpReceiptType.SelectedValue == "1")
+            {
+                totalrow1.Visible = true;
+                totalrow.Visible = true;
+                totalrow123.Visible = true;
+            }
+            else
+            {
+                totalrow1.Visible = false;
+                totalrow.Visible = false;
+                totalrow123.Visible = false;
+            }
+        }
+        else
+        {
+            totalrow1.Visible = false;
+            totalrow.Visible = false;
+            totalrow123.Visible = false;
+        }
     }
 
     private void ClearPanel()
@@ -3122,7 +3140,7 @@ public partial class CustReceipt : System.Web.UI.Page
 
                 
 
-                for (int i = 0; i < GridView2.Rows.Count - 1; i++)
+                for (int i = 0; i < GridView2.Rows.Count; i++)
                 {
                     GridView2.Rows[i].Cells[0].Text = Convert.ToString(i + 1);
                 }
