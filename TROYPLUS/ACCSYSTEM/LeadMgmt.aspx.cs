@@ -2114,10 +2114,10 @@ public partial class LeadMgmt : System.Web.UI.Page
         {
             DataTable dt = (DataTable)ViewState["CurrentTable2"];
             DataRow drCurrentRow = null;
-            int rowIndex = Convert.ToInt32(e.RowIndex);
+            int rowIndex2 = Convert.ToInt32(e.RowIndex);
             if (dt.Rows.Count > 1)
             {
-                dt.Rows.Remove(dt.Rows[rowIndex]);
+                dt.Rows.Remove(dt.Rows[rowIndex2]);
                 drCurrentRow = dt.NewRow();
                 ViewState["CurrentTable2"] = dt;
                 GrdViewLeadCompetitor.DataSource = dt;
@@ -4069,7 +4069,7 @@ public partial class LeadMgmt : System.Web.UI.Page
 
     private void AddNewRowCompetitors()
     {
-        int rowIndex = 0;
+        int rowIndex2 = 0;
 
         if (ViewState["CurrentTable2"] != null)
         {
@@ -4080,15 +4080,15 @@ public partial class LeadMgmt : System.Web.UI.Page
                 for (int i = 1; i <= dtCurrentTable2.Rows.Count; i++)
                 {
                     TextBox txtComName =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[1].FindControl("txtComeName");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex2].Cells[1].FindControl("txtComeName");
                     TextBox txtThrlvl =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtThrLvl");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex2].Cells[2].FindControl("txtThrLvl");
                     TextBox txtOuestrweak =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[3].FindControl("txtOurStrWeakness");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex2].Cells[3].FindControl("txtOurStrWeakness");
                     TextBox txtComstrweak =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[4].FindControl("txtCompStrWeakness");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex2].Cells[4].FindControl("txtCompStrWeakness");
                     TextBox txtremarks =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[5].FindControl("txtRemarks");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex2].Cells[5].FindControl("txtRemarks");
 
 
                     drCurrentRow = dtCurrentTable2.NewRow();
@@ -4100,7 +4100,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                     dtCurrentTable2.Rows[i - 1]["ComStrWeak"] = txtComstrweak.Text;
                     dtCurrentTable2.Rows[i - 1]["Remarks"] = txtremarks.Text;
 
-                    rowIndex++;
+                    rowIndex2++;
                 }
                 dtCurrentTable2.Rows.Add(drCurrentRow);
                 ViewState["CurrentTable2"] = dtCurrentTable2;
@@ -4208,7 +4208,7 @@ public partial class LeadMgmt : System.Web.UI.Page
 
     private void SetPreviousDataCompetitors()
     {
-        int rowIndex = 0;
+        int rowIndex2 = 0;
         if (ViewState["CurrentTable2"] != null)
         {
             DataTable dt = (DataTable)ViewState["CurrentTable2"];
@@ -4217,15 +4217,15 @@ public partial class LeadMgmt : System.Web.UI.Page
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     TextBox txtComName =
-                     (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[1].FindControl("txtComeName");
+                     (TextBox)GrdViewLeadCompetitor.Rows[rowIndex2].Cells[1].FindControl("txtComeName");
                     TextBox txtThrlvl =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtThrLvl");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex2].Cells[2].FindControl("txtThrLvl");
                     TextBox txtOuestrweak =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[3].FindControl("txtOurStrWeakness");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex2].Cells[3].FindControl("txtOurStrWeakness");
                     TextBox txtComstrweak =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[4].FindControl("txtCompStrWeakness");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex2].Cells[4].FindControl("txtCompStrWeakness");
                     TextBox txtremarks =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[5].FindControl("txtRemarks");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex2].Cells[5].FindControl("txtRemarks");
 
 
                     txtComName.Text = dt.Rows[i]["ComName"].ToString();
@@ -4234,7 +4234,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                     txtComstrweak.Text = dt.Rows[i]["ComStrWeak"].ToString();
                     txtremarks.Text = dt.Rows[i]["Remarks"].ToString();
 
-                    rowIndex++;
+                    rowIndex2++;
                 }
             }
         }
@@ -4332,7 +4332,7 @@ public partial class LeadMgmt : System.Web.UI.Page
 
     private void SetRowDataCompetitors()
     {
-        int rowIndex = 0;
+        int rowIndex2 = 0;
 
         if (ViewState["CurrentTable2"] != null)
         {
@@ -4343,15 +4343,15 @@ public partial class LeadMgmt : System.Web.UI.Page
                 for (int i = 1; i <= dtCurrentTable2.Rows.Count; i++)
                 {
                     TextBox txtComName =
-                    (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[1].FindControl("txtComeName");
+                    (TextBox)GrdViewLeadCompetitor.Rows[rowIndex2].Cells[1].FindControl("txtComeName");
                     TextBox txtThrlvl =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[2].FindControl("txtThrLvl");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex2].Cells[2].FindControl("txtThrLvl");
                     TextBox txtOuestrweak =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[3].FindControl("txtOurStrWeakness");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex2].Cells[3].FindControl("txtOurStrWeakness");
                     TextBox txtComstrweak =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[4].FindControl("txtCompStrWeakness");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex2].Cells[4].FindControl("txtCompStrWeakness");
                     TextBox txtremarks =
-                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex].Cells[5].FindControl("txtRemarks");
+                      (TextBox)GrdViewLeadCompetitor.Rows[rowIndex2].Cells[5].FindControl("txtRemarks");
 
 
                     drCurrentRow = dtCurrentTable2.NewRow();
@@ -4362,7 +4362,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                     dtCurrentTable2.Rows[i - 1]["OurStrWeak"] = txtOuestrweak.Text;
                     dtCurrentTable2.Rows[i - 1]["ComStrWeak"] = txtComstrweak.Text;
                     dtCurrentTable2.Rows[i - 1]["Remarks"] = txtremarks.Text;
-                    rowIndex++;
+                    rowIndex2++;
 
                 }
 

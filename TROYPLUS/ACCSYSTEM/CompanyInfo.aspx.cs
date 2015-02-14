@@ -354,6 +354,11 @@ public partial class CompanyInfo : System.Web.UI.Page
                             if (dr["KeyValue"] != null)
                                 ddPriceList.SelectedValue = dr["KeyValue"].ToString();
                         }
+                        else if (dr["Key"].ToString() == "PWDEXPDAY")
+                        {
+                            if (dr["KeyValue"] != null)
+                                txtExpDay.Text = dr["KeyValue"].ToString();
+                        }
                     }
                 }
             }
@@ -487,6 +492,7 @@ public partial class CompanyInfo : System.Web.UI.Page
                 string salesdiscount = string.Empty;
                 string openingbalance = string.Empty;
                 string deviationprice = string.Empty;
+                string pwdexpday = string.Empty;
 
                 salesdiscount = RadioButtonDiscount.SelectedValue;
                 openingbalance  = RadioButtonOpening.SelectedValue;
@@ -534,6 +540,7 @@ public partial class CompanyInfo : System.Web.UI.Page
                 strVATAmount = txtVATAmount.Text;
                 discType = ddDiscType.SelectedValue;
                 exceedLimit = rdoExceedCreditLimit.SelectedItem.Text;
+                pwdexpday = txtExpDay.Text.Trim();
 
                 clsCompany clscmp = new clsCompany();
                 clscmp.Company = strCompany;
@@ -551,7 +558,7 @@ public partial class CompanyInfo : System.Web.UI.Page
 
                 try
                 {
-                    bl.InsertSettings(itemCode, strIP, strQtyReturn, strDate, strBillFormat, currency, dealer, barcode, stockEdit, smsRequired, blitRequired, strOwnerMob, strVATReconDate, strVATAmount, discType, exceedLimit, strBillMethod, strobsolute, droundoff, dsalesseries, autolock, savelog, enablevat, emailRequired, macaddress, tinnoman, enabledate, salesdiscount, openingbalance, deviationprice);
+                    bl.InsertSettings(itemCode, strIP, strQtyReturn, strDate, strBillFormat, currency, dealer, barcode, stockEdit, smsRequired, blitRequired, strOwnerMob, strVATReconDate, strVATAmount, discType, exceedLimit, strBillMethod, strobsolute, droundoff, dsalesseries, autolock, savelog, enablevat, emailRequired, macaddress, tinnoman, enabledate, salesdiscount, openingbalance, deviationprice, pwdexpday);
 
                     System.Threading.Thread.Sleep(1000);
 

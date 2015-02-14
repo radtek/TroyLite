@@ -4615,7 +4615,7 @@ public partial class CustomerSales : System.Web.UI.Page
                     CustomerIdMobile = 0;
                 }
 
-
+                string discType = GetDiscType();             
 
 
                 string usernam = Request.Cookies["LoggedUserName"].Value;
@@ -5013,7 +5013,7 @@ public partial class CustomerSales : System.Web.UI.Page
                             //old code
                             //int billNo = bl.UpdateSalesNew(hdSeries.Value, bill, sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dTotalAmt, purchaseReturn, prReason, Convert.ToInt32(executive), dFreight, dLU, dss, sOtherCusName, intTrans, userID, deliveryNote, sCustomerAddress2, sCustomerAddress3, executivename, receiptData, despatchedfrom, fixedtotal, manualno, dTotalAmt, usernam, MultiPayment, Types, snarr, cuscategory);
 
-                            int billNo = bl.UpdateSalesNew(hdSeries.Value, bill, sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dTotalAmt, purchaseReturn, prReason, dFreight, dLU, dss, sOtherCusName, intTrans, userID, receiptData, MultiPayment, deliveryNote, sCustomerAddress2, sCustomerAddress3, executivename, despatchedfrom, fixedtotal, manualno, dTotalAmt, usernam, Types, snarr, DuplicateCopy, check, CustomerIdMobile, cuscategory);
+                            int billNo = bl.UpdateSalesNew(hdSeries.Value, bill, sBilldate, sCustomerID, sCustomerName, sCustomerAddress, sCustomerContact, iPaymode, sCreditCardno, iBank, dTotalAmt, purchaseReturn, prReason, dFreight, dLU, dss, sOtherCusName, intTrans, userID, receiptData, MultiPayment, deliveryNote, sCustomerAddress2, sCustomerAddress3, executivename, despatchedfrom, fixedtotal, manualno, dTotalAmt, usernam, Types, snarr, DuplicateCopy, check, CustomerIdMobile, cuscategory, discType);
 
 
 
@@ -5963,7 +5963,7 @@ public partial class CustomerSales : System.Web.UI.Page
             {
                 Labelll.Text = "VAT EXCLUSIVE";
             }
-
+            FirstGridViewRow();
             ModalPopupMethod.Show();
             //ModalPopupExtender1.Show();
         }
@@ -7561,6 +7561,7 @@ public partial class CustomerSales : System.Web.UI.Page
             dt.Columns.Add(dc);
 
             itemDs.Tables.Add(dt);
+            ViewState["CurrentTable"] = dt;
             if (ds.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow dR in ds.Tables[0].Rows)
@@ -8848,21 +8849,22 @@ public partial class CustomerSales : System.Web.UI.Page
                         drCurrentRow = dtCurrentTable.NewRow();
                         drCurrentRow["RowNumber"] = i + 1;
 
-                        dtCurrentTable.Rows[i - 1]["Col1"] = DrpProduct.SelectedValue;
-                        dtCurrentTable.Rows[i - 1]["Col2"] = TextBoxQty.Text;
-                        dtCurrentTable.Rows[i - 1]["Col3"] = drpIncharge.SelectedValue;
-                        dtCurrentTable.Rows[i - 1]["Col4"] = TextBoxDesc.Text;
-                        dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxRate.Text;
-                        dtCurrentTable.Rows[i - 1]["Col6"] = TextBoxTotalPrice.Text;
-                        dtCurrentTable.Rows[i - 1]["Col7"] = TextBoxStock.Text;
-                        dtCurrentTable.Rows[i - 1]["Col8"] = TextBoxExeComm.Text;
-                        dtCurrentTable.Rows[i - 1]["Col9"] = TextBoxDisPre.Text;
-                        dtCurrentTable.Rows[i - 1]["Col10"] = TextBoxVATPre.Text;
-                        dtCurrentTable.Rows[i - 1]["Col11"] = TextBoxCSTPre.Text;
-                        dtCurrentTable.Rows[i - 1]["Col12"] = TextBoxPrBefVAT.Text;
-                        dtCurrentTable.Rows[i - 1]["Col13"] = TextBoxVATAmt.Text;
-                        dtCurrentTable.Rows[i - 1]["Col14"] = TextBoxRtVAT.Text;
-                        dtCurrentTable.Rows[i - 1]["Col15"] = TextBoxTotal.Text;
+                        dtCurrentTable.Rows[i - 1]["ItemCode"] = DrpProduct.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["Qty"] = TextBoxQty.Text;
+                        dtCurrentTable.Rows[i - 1]["executivename"] = drpIncharge.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["ProductDesc"] = TextBoxDesc.Text;
+                        dtCurrentTable.Rows[i - 1]["Rate"] = TextBoxRate.Text;
+                        dtCurrentTable.Rows[i - 1]["TotalPrice"] = TextBoxTotalPrice.Text;
+                        dtCurrentTable.Rows[i - 1]["Stock"] = TextBoxStock.Text;
+                        dtCurrentTable.Rows[i - 1]["ExecCharge"] = TextBoxExeComm.Text;
+                        dtCurrentTable.Rows[i - 1]["Discount"] = TextBoxDisPre.Text;
+                        dtCurrentTable.Rows[i - 1]["Vat"] = TextBoxVATPre.Text;
+                        dtCurrentTable.Rows[i - 1]["CST"] = TextBoxCSTPre.Text;
+                        dtCurrentTable.Rows[i - 1]["PriceBeforeVATAmt"] = TextBoxPrBefVAT.Text;
+                        dtCurrentTable.Rows[i - 1]["Vatamount"] = TextBoxVATAmt.Text;
+                        dtCurrentTable.Rows[i - 1]["Subtotal"] = TextBoxRtVAT.Text;
+                        dtCurrentTable.Rows[i - 1]["Totalmrp"] = TextBoxTotal.Text;
+
                         rowIndex++;
                     }
                     dtCurrentTable.Rows.Add(drCurrentRow);
@@ -8922,21 +8924,21 @@ public partial class CustomerSales : System.Web.UI.Page
                (TextBox)grvStudentDetails.Rows[rowIndex].Cells[14].FindControl("txtTotal");
 
 
-                    DrpProduct.SelectedValue = dt.Rows[i]["Col1"].ToString();
-                    TextBoxQty.Text = dt.Rows[i]["Col2"].ToString();
-                    drpIncharge.SelectedValue = dt.Rows[i]["Col3"].ToString();
-                    TextBoxDesc.Text = dt.Rows[i]["Col4"].ToString();
-                    TextBoxRate.Text = dt.Rows[i]["Col5"].ToString();
-                    TextBoxTotalPrice.Text = dt.Rows[i]["Col6"].ToString();
-                    TextBoxStock.Text = dt.Rows[i]["Col7"].ToString();
-                    TextBoxExeComm.Text = dt.Rows[i]["Col8"].ToString();
-                    TextBoxDisPre.Text = dt.Rows[i]["Col9"].ToString();
-                    TextBoxVATPre.Text = dt.Rows[i]["Col10"].ToString();
-                    TextBoxCSTPre.Text = dt.Rows[i]["Col11"].ToString();
-                    TextBoxPrBefVAT.Text = dt.Rows[i]["Col12"].ToString();
-                    TextBoxVATAmt.Text = dt.Rows[i]["Col13"].ToString();
-                    TextBoxRtVAT.Text = dt.Rows[i]["Col14"].ToString();
-                    TextBoxTotal.Text = dt.Rows[i]["Col15"].ToString();
+                    DrpProduct.SelectedValue = dt.Rows[i]["ItemCode"].ToString();
+                    TextBoxQty.Text = dt.Rows[i]["Qty"].ToString();
+                    drpIncharge.SelectedValue = dt.Rows[i]["executivename"].ToString();
+                    TextBoxDesc.Text = dt.Rows[i]["ProductDesc"].ToString();
+                    TextBoxRate.Text = dt.Rows[i]["Rate"].ToString();
+                    TextBoxTotalPrice.Text = dt.Rows[i]["TotalPrice"].ToString();
+                    TextBoxStock.Text = dt.Rows[i]["Stock"].ToString();
+                    TextBoxExeComm.Text = dt.Rows[i]["ExecCharge"].ToString();
+                    TextBoxDisPre.Text = dt.Rows[i]["Discount"].ToString();
+                    TextBoxVATPre.Text = dt.Rows[i]["Vat"].ToString();
+                    TextBoxCSTPre.Text = dt.Rows[i]["CST"].ToString();
+                    TextBoxPrBefVAT.Text = dt.Rows[i]["PriceBeforeVATAmt"].ToString();
+                    TextBoxVATAmt.Text = dt.Rows[i]["Vatamount"].ToString();
+                    TextBoxRtVAT.Text = dt.Rows[i]["Subtotal"].ToString();
+                    TextBoxTotal.Text = dt.Rows[i]["Totalmrp"].ToString();
                     rowIndex++;
 
                 }
@@ -9118,35 +9120,44 @@ public partial class CustomerSales : System.Web.UI.Page
 
                 if (customerDs != null && customerDs.Tables[0].Rows.Count > 0)
                 {
+                   
+                        if (customerDs.Tables[0].Rows[0]["ProductDesc"] != null)
+                            TextBoxDesc.Text = customerDs.Tables[0].Rows[0]["ProductDesc"].ToString();
 
-                    if (customerDs.Tables[0].Rows[0]["ProductDesc"] != null)
-                        TextBoxDesc.Text = customerDs.Tables[0].Rows[0]["ProductDesc"].ToString();
+                        if (ddDeliveryNote.SelectedValue != "YES")
+                        {
+                            if (customerDs.Tables[0].Rows[0]["Rate"] != null)
+                                TextBoxRate.Text = Convert.ToDouble(customerDs.Tables[0].Rows[0]["Rate"].ToString()).ToString("#0.00");
+                        }
+                        else
+                        {
+                            if (customerDs.Tables[0].Rows[0]["Rate"] != null)
+                                TextBoxRate.Text = "0.00";
+                        }
 
-                    if (customerDs.Tables[0].Rows[0]["Rate"] != null)
-                        TextBoxRate.Text = Convert.ToDouble(customerDs.Tables[0].Rows[0]["Rate"].ToString()).ToString("#0.00");
+                        if (customerDs.Tables[0].Rows[0]["Stock"] != null)
+                            TextBoxStock.Text = customerDs.Tables[0].Rows[0]["Stock"].ToString();
 
-                    if (customerDs.Tables[0].Rows[0]["Stock"] != null)
-                        TextBoxStock.Text = customerDs.Tables[0].Rows[0]["Stock"].ToString();
+                        if (customerDs.Tables[0].Rows[0]["ExecutiveCommission"] != null)
+                            TextBoxExeComm.Text = customerDs.Tables[0].Rows[0]["ExecutiveCommission"].ToString();
 
-                    if (customerDs.Tables[0].Rows[0]["ExecutiveCommission"] != null)
-                        TextBoxExeComm.Text = customerDs.Tables[0].Rows[0]["ExecutiveCommission"].ToString();
+                        if (EnableDiscount == "YES")
+                        {
+                            if (customerDs.Tables[0].Rows[0]["Discount"] != null)
+                                TextBoxDisPre.Text = customerDs.Tables[0].Rows[0]["Discount"].ToString();
+                        }
+                        else
+                        {
+                            if (customerDs.Tables[0].Rows[0]["Discount"] != null)
+                                TextBoxDisPre.Text = "0";// customerDs.Tables[0].Rows[0]["Discount"].ToString() + Environment.NewLine;
+                        }
 
-                    if (EnableDiscount == "YES")
-                    {
-                        if (customerDs.Tables[0].Rows[0]["Discount"] != null)
-                            TextBoxDisPre.Text = customerDs.Tables[0].Rows[0]["Discount"].ToString();
-                    }
-                    else
-                    {
-                        if (customerDs.Tables[0].Rows[0]["Discount"] != null)
-                            TextBoxDisPre.Text = "0";// customerDs.Tables[0].Rows[0]["Discount"].ToString() + Environment.NewLine;
-                    }
+                        if (customerDs.Tables[0].Rows[0]["VAT"] != null)
+                            TextBoxVATPre.Text = customerDs.Tables[0].Rows[0]["VAT"].ToString();
 
-                    if (customerDs.Tables[0].Rows[0]["VAT"] != null)
-                        TextBoxVATPre.Text = customerDs.Tables[0].Rows[0]["VAT"].ToString();
-
-                    if (customerDs.Tables[0].Rows[0]["CST"] != null)
-                        TextBoxCSTPre.Text = customerDs.Tables[0].Rows[0]["CST"].ToString();
+                        if (customerDs.Tables[0].Rows[0]["CST"] != null)
+                            TextBoxCSTPre.Text = customerDs.Tables[0].Rows[0]["CST"].ToString();
+                    
                 }
                 else
                 {
@@ -9257,21 +9268,21 @@ public partial class CustomerSales : System.Web.UI.Page
                     drCurrentRow = dtCurrentTable.NewRow();
                     drCurrentRow["RowNumber"] = i + 1;
 
-                    dtCurrentTable.Rows[i - 1]["Col1"] = DrpProduct.SelectedValue;
-                    dtCurrentTable.Rows[i - 1]["Col2"] = TextBoxQty.Text;
-                    dtCurrentTable.Rows[i - 1]["Col3"] = drpIncharge.SelectedValue;
-                    dtCurrentTable.Rows[i - 1]["Col4"] = TextBoxDesc.Text;
-                    dtCurrentTable.Rows[i - 1]["Col5"] = TextBoxRate.Text;
-                    dtCurrentTable.Rows[i - 1]["Col6"] = TextBoxTotalPrice.Text;
-                    dtCurrentTable.Rows[i - 1]["Col7"] = TextBoxStock.Text;
-                    dtCurrentTable.Rows[i - 1]["Col8"] = TextBoxExeComm.Text;
-                    dtCurrentTable.Rows[i - 1]["Col9"] = TextBoxDisPre.Text;
-                    dtCurrentTable.Rows[i - 1]["Col10"] = TextBoxVATPre.Text;
-                    dtCurrentTable.Rows[i - 1]["Col11"] = TextBoxCSTPre.Text;
-                    dtCurrentTable.Rows[i - 1]["Col12"] = TextBoxPrBefVAT.Text;
-                    dtCurrentTable.Rows[i - 1]["Col13"] = TextBoxVATAmt.Text;
-                    dtCurrentTable.Rows[i - 1]["Col14"] = TextBoxRtVAT.Text;
-                    dtCurrentTable.Rows[i - 1]["Col15"] = TextBoxTotal.Text;
+                    dtCurrentTable.Rows[i - 1]["ItemCode"] = DrpProduct.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["Qty"] = TextBoxQty.Text;
+                    dtCurrentTable.Rows[i - 1]["executivename"] = drpIncharge.SelectedValue;
+                    dtCurrentTable.Rows[i - 1]["ProductDesc"] = TextBoxDesc.Text;
+                    dtCurrentTable.Rows[i - 1]["Rate"] = TextBoxRate.Text;
+                    dtCurrentTable.Rows[i - 1]["TotalPrice"] = TextBoxTotalPrice.Text;
+                    dtCurrentTable.Rows[i - 1]["Stock"] = TextBoxStock.Text;
+                    dtCurrentTable.Rows[i - 1]["ExecCharge"] = TextBoxExeComm.Text;
+                    dtCurrentTable.Rows[i - 1]["Discount"] = TextBoxDisPre.Text;
+                    dtCurrentTable.Rows[i - 1]["Vat"] = TextBoxVATPre.Text;
+                    dtCurrentTable.Rows[i - 1]["CST"] = TextBoxCSTPre.Text;
+                    dtCurrentTable.Rows[i - 1]["PriceBeforeVATAmt"] = TextBoxPrBefVAT.Text;
+                    dtCurrentTable.Rows[i - 1]["Vatamount"] = TextBoxVATAmt.Text;
+                    dtCurrentTable.Rows[i - 1]["Subtotal"] = TextBoxRtVAT.Text;
+                    dtCurrentTable.Rows[i - 1]["Totalmrp"] = TextBoxTotal.Text;
                     rowIndex++;
 
                 }
@@ -9303,38 +9314,38 @@ public partial class CustomerSales : System.Web.UI.Page
         DataTable dt = new DataTable();
         DataRow dr = null;
         dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col1", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col2", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col3", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col4", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col5", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col6", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col7", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col8", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col9", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col10", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col11", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col12", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col13", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col14", typeof(string)));
-        dt.Columns.Add(new DataColumn("Col15", typeof(string)));
+        dt.Columns.Add(new DataColumn("ItemCode", typeof(string)));
+        dt.Columns.Add(new DataColumn("Qty", typeof(string)));
+        dt.Columns.Add(new DataColumn("executivename", typeof(string)));
+        dt.Columns.Add(new DataColumn("ProductDesc", typeof(string)));
+        dt.Columns.Add(new DataColumn("Rate", typeof(string)));
+        dt.Columns.Add(new DataColumn("TotalPrice", typeof(string)));
+        dt.Columns.Add(new DataColumn("Stock", typeof(string)));
+        dt.Columns.Add(new DataColumn("ExecCharge", typeof(string)));
+        dt.Columns.Add(new DataColumn("Discount", typeof(string)));
+        dt.Columns.Add(new DataColumn("Vat", typeof(string)));
+        dt.Columns.Add(new DataColumn("CST", typeof(string)));
+        dt.Columns.Add(new DataColumn("PriceBeforeVATAmt", typeof(string)));
+        dt.Columns.Add(new DataColumn("Vatamount", typeof(string)));
+        dt.Columns.Add(new DataColumn("Subtotal", typeof(string)));
+        dt.Columns.Add(new DataColumn("Totalmrp", typeof(string)));
         dr = dt.NewRow();
         dr["RowNumber"] = 1;
-        dr["Col1"] = string.Empty;
-        dr["Col2"] = string.Empty;
-        dr["Col3"] = string.Empty;
-        dr["Col4"] = string.Empty;
-        dr["Col5"] = string.Empty;
-        dr["Col6"] = string.Empty;
-        dr["Col7"] = string.Empty;
-        dr["Col8"] = string.Empty;
-        dr["Col9"] = string.Empty;
-        dr["Col10"] = string.Empty;
-        dr["Col11"] = string.Empty;
-        dr["Col12"] = string.Empty;
-        dr["Col13"] = string.Empty;
-        dr["Col14"] = string.Empty;
-        dr["Col15"] = string.Empty;
+        dr["ItemCode"] = string.Empty;
+        dr["Qty"] = string.Empty;
+        dr["executivename"] = string.Empty;
+        dr["ProductDesc"] = string.Empty;
+        dr["Rate"] = string.Empty;
+        dr["TotalPrice"] = string.Empty;
+        dr["Stock"] = string.Empty;
+        dr["ExecCharge"] = string.Empty;
+        dr["Discount"] = string.Empty;
+        dr["Vat"] = string.Empty;
+        dr["CST"] = string.Empty;
+        dr["PriceBeforeVATAmt"] = string.Empty;
+        dr["Vatamount"] = string.Empty;
+        dr["Subtotal"] = string.Empty;
+        dr["Totalmrp"] = string.Empty;
         dt.Rows.Add(dr);
         ViewState["CurrentTable"] = dt;
 
@@ -9414,6 +9425,7 @@ public partial class CustomerSales : System.Web.UI.Page
 
             if (Convert.ToInt32(TextBoxQty.Text) > Convert.ToInt32(TextBoxStock.Text))
             {
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "$('.chzn-select').chosen(); $('.chzn-select-deselect').chosen({ allow_single_deselect: true });", true);
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Given qty is greater than Stock')", true);
                 return;
             }
@@ -9460,7 +9472,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 double vatinclusiverate1 = Convert.ToDouble(vatinclusiverate3) * Convert.ToDouble(TextBoxVATPre.Text) / 100;
                 double vatinclusiverate2 = vatinclusiverate1 + vatinclusiverate3;
                 TextBoxVATAmt.Text = vatinclusiverate1.ToString("#0.00");
-                txtPrBefVAT.Text = vatinclusiverate2.ToString("#0.00");
+                txtPrBefVAT.Text = vatinclusiverate3.ToString("#0.00");
                 TextBoxRtVAT.Text = vatinclusiverate2.ToString("#0.00");
                 TextBoxTotal.Text = vatinclusiverate2.ToString("#0.00");
             }
@@ -9608,12 +9620,14 @@ public partial class CustomerSales : System.Web.UI.Page
                         TextBoxRtVAT.Text = calnet.ToString("#0.00");
                         txtPrBefVAT.Text = sVatamount.ToString("#0.00");
                         TextBoxTotal.Text = calnet.ToString("#0.00");
+                        vatcheck = false;
                     }
                 }
                 else if (Labelll.Text == "VAT EXCLUSIVE")
                 {
                     if (vatcheck == false)
                     {
+                        vatcheck = true;
                         TextBoxRtVAT.Text = Convert.ToString(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text));
                         TextBoxTotalPrice.Text = Convert.ToDouble(Convert.ToDouble(TextBoxRate.Text) * Convert.ToDouble(TextBoxQty.Text)).ToString("#0.00");
                         if (discType == "PERCENTAGE")
@@ -9628,9 +9642,10 @@ public partial class CustomerSales : System.Web.UI.Page
                         double vatinclusiverate1 = Convert.ToDouble(vatinclusiverate3) * Convert.ToDouble(TextBoxVATPre.Text) / 100;
                         double vatinclusiverate2 = vatinclusiverate1 + vatinclusiverate3;
                         TextBoxVATAmt.Text = vatinclusiverate1.ToString("#0.00");
-                        txtPrBefVAT.Text = vatinclusiverate2.ToString("#0.00");
+                        txtPrBefVAT.Text = vatinclusiverate3.ToString("#0.00");
                         TextBoxRtVAT.Text = vatinclusiverate2.ToString("#0.00");
                         TextBoxTotal.Text = vatinclusiverate2.ToString("#0.00");
+                        vatcheck = false;
                     }
                 }
             }

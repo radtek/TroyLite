@@ -30,7 +30,7 @@
                 </table>--%>
                 <div class="mainConBody">
                     <div>
-                        <table cellspacing="2px" cellpadding="3px" border="0" width="100.3%" style="margin: -3px 0px 0px 2px;"
+                        <table cellspacing="2px" cellpadding="3px" border="0" width="100%" style="margin: -3px 0px 0px 2px;"
                             class="searchbg">
                             <tr>
                                 <td style="width: 2%"></td>
@@ -48,13 +48,13 @@
                     </div>
                 </div>
                 <div class="mainConDiv" id="IdmainConDiv" align="center">
+                    <br /><br /><br />
                     <table align="center" width="50%" style="border: 1px solid #86b2d1" cellpadding="5"
                         cellspacing="1">
                         <tr style="height: 5px">
                         </tr>
                         <tr>
                             <td class="ControlLabel" style="width: 20%">
-
                                 <asp:RequiredFieldValidator ID="rvbank" runat="server" ControlToValidate="drpUserName" Display="Dynamic" EnableClientScript="False"  ErrorMessage="User Name is mandatory" InitialValue="0" Text="*"  />
                                 User Name*
                             </td>

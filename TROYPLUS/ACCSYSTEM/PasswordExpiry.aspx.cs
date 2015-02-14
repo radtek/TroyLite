@@ -5,6 +5,7 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
 
 public partial class Password_Expiry : System.Web.UI.Page
 {
@@ -40,6 +41,50 @@ public partial class Password_Expiry : System.Web.UI.Page
         }
     }
 
+    private string GetDiscType()
+    {
+        DataSet appSettings;
+        string discType = string.Empty;
+
+        if (Session["AppSettings"] != null)
+        {
+            appSettings = (DataSet)Session["AppSettings"];
+
+            for (int i = 0; i < appSettings.Tables[0].Rows.Count; i++)
+            {
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "PWDEXPDAY")
+                {
+                    discType = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                    Session["DISCTYPE"] = discType.Trim().ToUpper();
+                }
+
+            }
+        }
+        else if (Session["AppSettings"] == null)
+        {
+            BusinessLogic bl = new BusinessLogic();
+            DataSet ds = bl.GetAppSettings(Request.Cookies["Company"].Value);
+
+            if (ds != null)
+                Session["AppSettings"] = ds;
+
+            appSettings = (DataSet)Session["AppSettings"];
+
+            for (int i = 0; i < appSettings.Tables[0].Rows.Count; i++)
+            {
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "PWDEXPDAY")
+                {
+                    discType = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                    Session["DISCTYPE"] = discType.Trim().ToUpper();
+                }
+
+            }
+        }
+
+        return discType;
+
+    }
+    Int32 pwdexpday;
     protected void btnPwdSave_Click(object sender, EventArgs e)
     {
         try
@@ -89,17 +134,22 @@ public partial class Password_Expiry : System.Web.UI.Page
                 }
                 else
                 {
+                    string discType = GetDiscType();
+                    if (discType != "" && discType != "0")
+                    {
+                        pwdexpday = Convert.ToInt32(discType);
+                    }
                     DateTime dt = DateTime.Now;
 
                     //DateTime dt = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "India Standard Time").ToShortDateString("");
 
                     string ts;
-                    ts = dt.AddDays(30).ToString("MM/dd/yyyy");
+                    ts = dt.AddDays(pwdexpday).ToString("MM/dd/yyyy");
 
                     objBus.ChangePassword(Request.Cookies["LoggedUserName"].Value, txtNewPwd.Text, Request.Cookies["Company"].Value, ts);
                     //errorDisplay.AddItem("Your password has been changed successfully.", DisplayIcons.GreenTick, false);
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Your password has been changed successfully.');", true);
-                    
+
                     txtOldPwd.Text = string.Empty;
                     txtNewPwd.Text = string.Empty;
                     txtConPwd.Text = string.Empty;
@@ -119,5 +169,5 @@ public partial class Password_Expiry : System.Web.UI.Page
     {
         Response.Redirect("~/Login.aspx");
     }
-   
+
 }
