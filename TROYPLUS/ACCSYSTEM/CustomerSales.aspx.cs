@@ -5766,7 +5766,7 @@ public partial class CustomerSales : System.Web.UI.Page
             }
 
             loadBanks();
-
+            FirstGridViewRow();
             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
             //    string connection = string.Empty;
