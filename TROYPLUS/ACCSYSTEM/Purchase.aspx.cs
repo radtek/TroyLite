@@ -295,7 +295,7 @@ public partial class Purchase : System.Web.UI.Page
                 checkflag = true;
                 return;
             }
-            else if ((txtVATPre.Text == "" && txtCSTPre.Text == "") || ((Convert.ToDouble(txtVATPre.Text) <= 0) && (Convert.ToDouble(txtCSTPre.Text) <= 0)))
+            else if ((txtVATPre.Text == "" && txtCSTPre.Text == "") || ((Convert.ToDouble(txtVATPre.Text) <= 0) && (Convert.ToDouble(txtCSTPre.Text) <= 0)) || ((Convert.ToDouble(txtVATPre.Text) > 0) && (Convert.ToDouble(txtCSTPre.Text) > 0)))
             {
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please enter either VAT(%) or CST(%) in row " + col + " ')", true);
                 checkflag = true;
@@ -1292,7 +1292,7 @@ public partial class Purchase : System.Web.UI.Page
                                 txtVATPre.Text = "0";
                                 return;
                             }
-                            else if ((txtVATPre.Text == "" && txtCSTPre.Text == "") || ((Convert.ToDouble(txtVATPre.Text) <= 0) && (Convert.ToDouble(txtCSTPre.Text) <= 0)))
+                            else if ((txtVATPre.Text == "" && txtCSTPre.Text == "") || ((Convert.ToDouble(txtVATPre.Text) <= 0) && (Convert.ToDouble(txtCSTPre.Text) <= 0)) || ((Convert.ToDouble(txtVATPre.Text) > 0) && (Convert.ToDouble(txtCSTPre.Text) > 0)))
                             {
                                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please enter either VAT(%) or CST(%) in row " + col + " ')", true);
                                 return;
@@ -2059,7 +2059,7 @@ public partial class Purchase : System.Web.UI.Page
                                     txtVATPre.Text = "0";
                                     return;
                                 }
-                                else if ((txtVATPre.Text == "" && txtCSTPre.Text == "") || ((Convert.ToDouble(txtVATPre.Text) <= 0) && (Convert.ToDouble(txtCSTPre.Text) <= 0)))
+                                else if ((txtVATPre.Text == "" && txtCSTPre.Text == "") || ((Convert.ToDouble(txtVATPre.Text) <= 0) && (Convert.ToDouble(txtCSTPre.Text) <= 0)) || ((Convert.ToDouble(txtVATPre.Text) > 0) && (Convert.ToDouble(txtCSTPre.Text) > 0)))
                                 {
                                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Please enter either VAT(%) or CST(%) in row " + col + " ')", true);
                                     return;
