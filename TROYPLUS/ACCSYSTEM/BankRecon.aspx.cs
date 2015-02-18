@@ -60,6 +60,33 @@ public partial class BankRecon : System.Web.UI.Page
                 lnkBtnAdd.ToolTip = "Click to Add New ";
             }
 
+
+            CheckSMSRequired();
+
+            if (Session["SMSREQUIRED"] != null)
+            {
+                if (Session["SMSREQUIRED"].ToString() == "NO")
+                    hdSMSRequired.Value = "NO";
+                else
+                    hdSMSRequired.Value = "YES";
+            }
+            else
+            {
+                hdSMSRequired.Value = "NO";
+            }
+
+            if (Session["EMAILREQUIRED"] != null)
+            {
+                if (Session["EMAILREQUIRED"].ToString() == "NO")
+                    hdEmailRequired.Value = "NO";
+                else
+                    hdEmailRequired.Value = "YES";
+            }
+            else
+            {
+                hdEmailRequired.Value = "NO";
+            }
+
             if (!IsPostBack)
             {
                 BindCurrencyLabels();
@@ -101,6 +128,69 @@ public partial class BankRecon : System.Web.UI.Page
         catch (Exception ex)
         {
             TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+
+    private void CheckSMSRequired()
+    {
+        DataSet appSettings;
+        string smsRequired = string.Empty;
+        string emailRequired = string.Empty;
+
+        if (Session["AppSettings"] != null)
+        {
+            appSettings = (DataSet)Session["AppSettings"];
+
+            for (int i = 0; i < appSettings.Tables[0].Rows.Count; i++)
+            {
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "SMSREQ")
+                {
+                    smsRequired = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                    Session["SMSREQUIRED"] = smsRequired.Trim().ToUpper();
+                }
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "EMAILREQ")
+                {
+                    emailRequired = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                    Session["EMAILREQUIRED"] = emailRequired.Trim().ToUpper();
+                }
+
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "OWNERMOB")
+                {
+                    Session["OWNERMOB"] = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                }
+
+            }
+        }
+        else
+        {
+            BusinessLogic bl = new BusinessLogic();
+            DataSet ds = bl.GetAppSettings(Request.Cookies["Company"].Value);
+
+            if (ds != null)
+                Session["AppSettings"] = ds;
+
+            appSettings = (DataSet)Session["AppSettings"];
+
+            for (int i = 0; i < appSettings.Tables[0].Rows.Count; i++)
+            {
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "SMSREQ")
+                {
+                    smsRequired = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                    Session["SMSREQUIRED"] = smsRequired.Trim().ToUpper();
+                }
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "EMAILREQ")
+                {
+                    emailRequired = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                    Session["EMAILREQUIRED"] = emailRequired.Trim().ToUpper();
+                }
+
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "OWNERMOB")
+                {
+                    Session["OWNERMOB"] = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                }
+
+            }
         }
     }
 
@@ -2069,6 +2159,135 @@ public partial class BankRecon : System.Web.UI.Page
                     objBL = new BusinessLogic(ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString());
 
                     objBL.InsertBankReconciliation(ds, Userna, iLedgerID, startDate, iLedgerName, Types);
+
+
+                    //string salestype = string.Empty;
+                    //int ScreenNo = 0;
+                    //string ScreenName = string.Empty;
+
+                    //salestype = "Bank Reconciliation";
+                    //ScreenName = "Bank Reconciliation";
+
+                 
+                    //bool mobile = false;
+                    //bool Email = false;
+                    //string emailsubject = string.Empty;
+
+                    //string emailcontent = string.Empty;
+                    //if (hdEmailRequired.Value == "YES")
+                    //{
+                    //    DataSet dsd = objBL.GetLedgerInfoForId(connection, DebitorID);
+                    //    var toAddress = "";
+                    //    var toAdd = "";
+                    //    Int32 ModeofContact = 0;
+                    //    int ScreenType = 0;
+
+                    //    if (dsd != null)
+                    //    {
+                    //        if (dsd.Tables[0].Rows.Count > 0)
+                    //        {
+                    //            foreach (DataRow dr in dsd.Tables[0].Rows)
+                    //            {
+                    //                toAdd = dr["EmailId"].ToString();
+                    //                ModeofContact = Convert.ToInt32(dr["ModeofContact"]);
+                    //            }
+                    //        }
+                    //    }
+
+
+                    //    DataSet dsdd = bl.GetDetailsForScreenNo(connection, ScreenName, "");
+                    //    if (dsdd != null)
+                    //    {
+                    //        if (dsdd.Tables[0].Rows.Count > 0)
+                    //        {
+                    //            foreach (DataRow dr in dsdd.Tables[0].Rows)
+                    //            {
+                    //                ScreenType = Convert.ToInt32(dr["ScreenType"]);
+                    //                mobile = Convert.ToBoolean(dr["mobile"]);
+                    //                Email = Convert.ToBoolean(dr["Email"]);
+                    //                emailsubject = Convert.ToString(dr["emailsubject"]);
+                    //                emailcontent = Convert.ToString(dr["emailcontent"]);
+
+                    //                if (ScreenType == 1)
+                    //                {
+                    //                    if (dr["Name1"].ToString() == "Sales Executive")
+                    //                    {
+                    //                        toAddress = toAdd;
+                    //                    }
+                    //                    else if (dr["Name1"].ToString() == "Customer")
+                    //                    {
+                    //                        if (ModeofContact == 2)
+                    //                        {
+                    //                            toAddress = toAdd;
+                    //                        }
+                    //                        else
+                    //                        {
+                    //                            break;
+                    //                        }
+                    //                    }
+                    //                    else
+                    //                    {
+                    //                        toAddress = toAdd;
+                    //                    }
+                    //                }
+                    //                else
+                    //                {
+                    //                    toAddress = dr["EmailId"].ToString();
+                    //                }
+                    //                if (Email == true)
+                    //                {
+                    //                    //string subject = "Added - Customer Receipt in Branch " + Request.Cookies["Company"].Value;
+
+                    //                    string body = "\n";
+                    //                    //body += " Branch           : " + Request.Cookies["Company"].Value + "\n";
+                    //                    //body += " Trans No         : " + GrdViewReceipt.SelectedDataKey.Value + "\n";
+                    //                    //body += " User Name        : " + Request.Cookies["LoggedUserName"].Value + "\n";
+                    //                    //body += " Trans Date       : " + TransDate + "\n";
+                    //                    //body += " Amount           : " + Amount + "\n";
+                    //                    //body += " Narration        : " + Narration + "\n";
+                    //                    //body += " Customer         : " + ddReceivedFrom.SelectedItem.Text + "\n";
+
+                    //                    int index123 = emailcontent.IndexOf("@Branch");
+                    //                    body = Request.Cookies["Company"].Value;
+                    //                    emailcontent = emailcontent.Remove(index123, 7).Insert(index123, body);
+
+                    //                    int index132 = emailcontent.IndexOf("@Narration");
+                    //                    body = Narration;
+                    //                    emailcontent = emailcontent.Remove(index132, 10).Insert(index132, body);
+
+                    //                    int index312 = emailcontent.IndexOf("@User");
+                    //                    body = usernam;
+                    //                    emailcontent = emailcontent.Remove(index312, 5).Insert(index312, body);
+
+                    //                    int index2 = emailcontent.IndexOf("@Date");
+                    //                    body = TransDate.ToString();
+                    //                    emailcontent = emailcontent.Remove(index2, 5).Insert(index2, body);
+
+                    //                    int index = emailcontent.IndexOf("@Customer");
+                    //                    body = ddReceivedFrom.SelectedItem.Text;
+                    //                    emailcontent = emailcontent.Remove(index, 9).Insert(index, body);
+
+                    //                    int index1 = emailcontent.IndexOf("@Amount");
+                    //                    body = Convert.ToString(Amount);
+                    //                    emailcontent = emailcontent.Remove(index1, 7).Insert(index1, body);
+
+                    //                    string smtphostname = ConfigurationManager.AppSettings["SmtpHostName"].ToString();
+                    //                    int smtpport = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPortNumber"]);
+                    //                    var fromAddress = ConfigurationManager.AppSettings["FromAddress"].ToString();
+
+                    //                    string fromPassword = ConfigurationManager.AppSettings["FromPassword"].ToString();
+
+                    //                    EmailLogic.SendEmail(smtphostname, smtpport, fromAddress, toAddress, emailsubject, body, fromPassword);
+
+                    //                    //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Email sent successfully')", true);
+
+                    //                }
+
+                    //            }
+                    //        }
+                    //    }
+                    //}
+
 
                     //BindGrid("0", "0");
                     //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Bank Reconciliated Successfully');", true);

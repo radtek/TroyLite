@@ -1434,6 +1434,8 @@
                                 <input type="hidden" id="delFlag" value="0" runat="server" />
                                 <asp:HiddenField ID="hdToDelete" Value="0" runat="server" />
                                 <asp:HiddenField ID="hdDataSource" runat="server" />
+                                <asp:HiddenField ID="hdSMSRequired" runat="server" Value="NO" />
+            <asp:HiddenField ID="hdEmailRequired" runat="server" Value="NO" />
                             </asp:Panel>
                             <asp:Label ID="err" runat="server" Style="color: Red; font-weight: bold; font-family: 'Trebuchet MS'; font-size: 11px;"
                                 Text=""></asp:Label>

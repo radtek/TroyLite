@@ -10,6 +10,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Text;
+using SMSLibrary;
 
 public partial class CustomerPayment : System.Web.UI.Page
 {
@@ -28,6 +29,8 @@ public partial class CustomerPayment : System.Web.UI.Page
                     connStr = System.Configuration.ConfigurationManager.ConnectionStrings[Request.Cookies["Company"].Value].ToString();
                 else
                     Response.Redirect("~/Login.aspx");
+
+                CheckSMSRequired();
 
                 string dbfileName = connStr.Remove(0, connStr.LastIndexOf(@"App_Data\") + 9);
                 dbfileName = dbfileName.Remove(dbfileName.LastIndexOf(";Persist Security Info"));
@@ -57,6 +60,30 @@ public partial class CustomerPayment : System.Web.UI.Page
                 {
                     lnkBtnAdd.Enabled = true;
                     lnkBtnAdd.ToolTip = "Click to Add New item ";
+                }
+
+                if (Session["EMAILREQUIRED"] != null)
+                {
+                    if (Session["EMAILREQUIRED"].ToString() == "NO")
+                         hdEmailRequired.Value = "NO";
+                    else
+                        hdEmailRequired.Value = "YES";
+                }
+                else
+                {
+                    hdEmailRequired.Value = "NO";
+                }
+
+                if (Session["SMSREQUIRED"] != null)
+                {
+                    if (Session["SMSREQUIRED"].ToString() == "NO")
+                        hdSMSRequired.Value = "NO";
+                    else
+                        hdSMSRequired.Value = "YES";
+                }
+                else
+                {
+                    hdSMSRequired.Value = "NO";
                 }
 
                 //loadCustomer();
@@ -126,9 +153,44 @@ public partial class CustomerPayment : System.Web.UI.Page
                     emailRequired = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
                     Session["EMAILREQUIRED"] = emailRequired.Trim().ToUpper();
                 }
+
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "OWNERMOB")
+                {
+                    Session["OWNERMOB"] = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                }
+
             }
         }
+        else
+        {
+            BusinessLogic bl = new BusinessLogic();
+            DataSet ds = bl.GetAppSettings(Request.Cookies["Company"].Value);
 
+            if (ds != null)
+                Session["AppSettings"] = ds;
+
+            appSettings = (DataSet)Session["AppSettings"];
+
+            for (int i = 0; i < appSettings.Tables[0].Rows.Count; i++)
+            {
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "SMSREQ")
+                {
+                    smsRequired = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                    Session["SMSREQUIRED"] = smsRequired.Trim().ToUpper();
+                }
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "EMAILREQ")
+                {
+                    emailRequired = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                    Session["EMAILREQUIRED"] = emailRequired.Trim().ToUpper();
+                }
+
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "OWNERMOB")
+                {
+                    Session["OWNERMOB"] = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                }
+
+            }
+        }
     }
 
     protected override void OnInit(EventArgs e)
@@ -618,6 +680,235 @@ public partial class CustomerPayment : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('You are not allowed to Update Payment with this Date. Please contact Supervisor.');", true);
                 return;
             }
+
+            string salestype = string.Empty;
+            int ScreenNo = 0;
+            string ScreenName = string.Empty;
+
+
+            salestype = "Customer Payment";
+            ScreenName = "Customer Payment";
+
+            string emailcontent = string.Empty;
+            BusinessLogic bl = new BusinessLogic();
+
+            bool mobile = false;
+            bool Email = false;
+            string emailsubject = string.Empty;
+
+            string usernam = Request.Cookies["LoggedUserName"].Value;
+            if (hdEmailRequired.Value == "YES")
+            {
+                DataSet dsd = bl.GetLedgerInfoForId(connection, Convert.ToInt32(((DropDownList)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("ComboBox2")).SelectedValue));
+                var toAddress = "";
+                var toAdd = "";
+                Int32 ModeofContact = 0;
+                int ScreenType = 0;
+
+                if (dsd != null)
+                {
+                    if (dsd.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dsd.Tables[0].Rows)
+                        {
+                            toAdd = dr["EmailId"].ToString();
+                            ModeofContact = Convert.ToInt32(dr["ModeofContact"]);
+                        }
+                    }
+                }
+
+
+                DataSet dsdd = bl.GetDetailsForScreenNo(connection, ScreenName, "");
+                if (dsdd != null)
+                {
+                    if (dsdd.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dsdd.Tables[0].Rows)
+                        {
+                            ScreenType = Convert.ToInt32(dr["ScreenType"]);
+                            mobile = Convert.ToBoolean(dr["mobile"]);
+                            Email = Convert.ToBoolean(dr["Email"]);
+                            emailsubject = Convert.ToString(dr["emailsubject"]);
+                            emailcontent = Convert.ToString(dr["emailcontent"]);
+
+                            if (ScreenType == 1)
+                            {
+                                if (dr["Name1"].ToString() == "Sales Executive")
+                                {
+                                    toAddress = toAdd;
+                                }
+                                else if ((dr["Name1"].ToString() == "Customer") || (dr["Name1"].ToString() == "Ledger") || (dr["Name1"].ToString() == "Supplier"))
+                                {
+                                    if (ModeofContact == 2)
+                                    {
+                                        toAddress = toAdd;
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    toAddress = toAdd;
+                                }
+                            }
+                            else
+                            {
+                                toAddress = dr["EmailId"].ToString();
+                            }
+                            if (Email == true)
+                            {
+                                
+                                string body = "\n";
+
+
+                                int index123 = emailcontent.IndexOf("@Branch");
+                                body = Request.Cookies["Company"].Value;
+                                emailcontent = emailcontent.Remove(index123, 7).Insert(index123, body);
+
+                                int index132 = emailcontent.IndexOf("@Narration");
+                                body = ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtNarration")).Text;
+                                emailcontent = emailcontent.Remove(index132, 10).Insert(index132, body);
+
+                                int index312 = emailcontent.IndexOf("@User");
+                                body = usernam;
+                                emailcontent = emailcontent.Remove(index312, 5).Insert(index312, body);
+
+                                int index2 = emailcontent.IndexOf("@Date");
+                                body = ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtTransDate")).Text;
+                                emailcontent = emailcontent.Remove(index2, 5).Insert(index2, body);
+
+                                int index = emailcontent.IndexOf("@Ledger");
+                                body = ((DropDownList)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("ComboBox2")).SelectedItem.Text;
+                                emailcontent = emailcontent.Remove(index, 7).Insert(index, body);
+
+                                int index1 = emailcontent.IndexOf("@Amount");
+                                body = ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtAmount")).Text;
+                                emailcontent = emailcontent.Remove(index1, 7).Insert(index1, body);
+
+                                string smtphostname = ConfigurationManager.AppSettings["SmtpHostName"].ToString();
+                                int smtpport = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPortNumber"]);
+                                var fromAddress = ConfigurationManager.AppSettings["FromAddress"].ToString();
+
+                                string fromPassword = ConfigurationManager.AppSettings["FromPassword"].ToString();
+
+                                EmailLogic.SendEmail(smtphostname, smtpport, fromAddress, toAddress, emailsubject, emailcontent, fromPassword);
+
+                                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Email sent successfully')", true);
+
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            string conn = bl.CreateConnectionString(Request.Cookies["Company"].Value);
+            UtilitySMS utilSMS = new UtilitySMS(conn);
+            string UserID = Page.User.Identity.Name;
+
+            string smscontent = string.Empty;
+            if (hdSMSRequired.Value == "YES")
+            {
+                DataSet dsd = bl.GetLedgerInfoForId(connection, Convert.ToInt32(((DropDownList)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("ComboBox2")).SelectedValue));
+                var toAddress = "";
+                var toAdd = "";
+                Int32 ModeofContact = 0;
+                int ScreenType = 0;
+
+                if (dsd != null)
+                {
+                    if (dsd.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dsd.Tables[0].Rows)
+                        {
+                            toAdd = dr["Mobile"].ToString();
+                            ModeofContact = Convert.ToInt32(dr["ModeofContact"]);
+                        }
+                    }
+                }
+
+
+                DataSet dsdd = bl.GetDetailsForScreenNo(connection, ScreenName, "");
+                if (dsdd != null)
+                {
+                    if (dsdd.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dsdd.Tables[0].Rows)
+                        {
+                            ScreenType = Convert.ToInt32(dr["ScreenType"]);
+                            mobile = Convert.ToBoolean(dr["mobile"]);
+                            smscontent = Convert.ToString(dr["smscontent"]);
+
+                            if (ScreenType == 1)
+                            {
+                                if (dr["Name1"].ToString() == "Sales Executive")
+                                {
+                                    toAddress = toAdd;
+                                }
+                                else if ((dr["Name1"].ToString() == "Customer") || (dr["Name1"].ToString() == "Ledger") || (dr["Name1"].ToString() == "Supplier"))
+                                {
+                                    if (ModeofContact == 1)
+                                    {
+                                        toAddress = toAdd;
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    toAddress = toAdd;
+                                }
+                            }
+                            else
+                            {
+                                toAddress = dr["mobile"].ToString();
+                            }
+                            if (mobile == true)
+                            {
+
+                                string body = "\n";
+
+                                int index123 = smscontent.IndexOf("@Branch");
+                                body = Request.Cookies["Company"].Value;
+                                smscontent = smscontent.Remove(index123, 7).Insert(index123, body);
+
+                                int index132 = smscontent.IndexOf("@Narration");
+                                body = ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtNarration")).Text;
+                                smscontent = smscontent.Remove(index132, 10).Insert(index132, body);
+
+                                int index312 = smscontent.IndexOf("@User");
+                                body = usernam;
+                                smscontent = smscontent.Remove(index312, 5).Insert(index312, body);
+
+                                int index2 = smscontent.IndexOf("@Date");
+                                body = ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtTransDate")).Text;
+                                smscontent = smscontent.Remove(index2, 5).Insert(index2, body);
+
+                                int index = smscontent.IndexOf("@Ledger");
+                                body = ((DropDownList)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("ComboBox2")).SelectedItem.Text;
+                                smscontent = smscontent.Remove(index, 7).Insert(index, body);
+
+                                int index1 = smscontent.IndexOf("@Amount");
+                                body = ((TextBox)this.frmViewAdd.FindControl("tabEdit").FindControl("tabEditMain").FindControl("txtAmount")).Text;
+                                smscontent = smscontent.Remove(index1, 7).Insert(index1, body);
+                                
+                                if (Session["Provider"] != null)
+                                {
+                                    utilSMS.SendSMS(Session["Provider"].ToString(), Session["Priority"].ToString(), Session["SenderID"].ToString(), Session["UserName"].ToString(), Session["Password"].ToString(), toAddress, smscontent, true, UserID);
+                                }
+
+
+                            }
+
+                        }
+                    }
+                }
+            }
+
         }
         catch (Exception ex)
         {
@@ -670,6 +961,236 @@ public partial class CustomerPayment : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('You are not allowed to Insert Payment with this Date. Please contact Supervisor.');", true);
                 return;
             }
+
+            string salestype = string.Empty;
+            int ScreenNo = 0;
+            string ScreenName = string.Empty;
+
+
+            salestype = "Customer Payment";
+            ScreenName = "Customer Payment";
+
+            string emailcontent = string.Empty;
+            BusinessLogic bl = new BusinessLogic();
+
+            bool mobile = false;
+            bool Email = false;
+            string emailsubject = string.Empty;
+
+            string usernam = Request.Cookies["LoggedUserName"].Value;
+            if (hdEmailRequired.Value == "YES")
+            {
+                DataSet dsd = bl.GetLedgerInfoForId(connection, Convert.ToInt32(ComboBox2Add.SelectedValue));
+                var toAddress = "";
+                var toAdd = "";
+                Int32 ModeofContact = 0;
+                int ScreenType = 0;
+
+                if (dsd != null)
+                {
+                    if (dsd.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dsd.Tables[0].Rows)
+                        {
+                            toAdd = dr["EmailId"].ToString();
+                            ModeofContact = Convert.ToInt32(dr["ModeofContact"]);
+                        }
+                    }
+                }
+
+
+                DataSet dsdd = bl.GetDetailsForScreenNo(connection, ScreenName, "");
+                if (dsdd != null)
+                {
+                    if (dsdd.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dsdd.Tables[0].Rows)
+                        {
+                            ScreenType = Convert.ToInt32(dr["ScreenType"]);
+                            mobile = Convert.ToBoolean(dr["mobile"]);
+                            Email = Convert.ToBoolean(dr["Email"]);
+                            emailsubject = Convert.ToString(dr["emailsubject"]);
+                            emailcontent = Convert.ToString(dr["emailcontent"]);
+
+                            if (ScreenType == 1)
+                            {
+                                if (dr["Name1"].ToString() == "Sales Executive")
+                                {
+                                    toAddress = toAdd;
+                                }
+                                else if ((dr["Name1"].ToString() == "Customer") || (dr["Name1"].ToString() == "Ledger") || (dr["Name1"].ToString() == "Supplier"))
+                                {
+                                    if (ModeofContact == 2)
+                                    {
+                                        toAddress = toAdd;
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    toAddress = toAdd;
+                                }
+                            }
+                            else
+                            {
+                                toAddress = dr["EmailId"].ToString();
+                            }
+                            if (Email == true)
+                            {
+                                string body = "\n";
+
+                                int index123 = emailcontent.IndexOf("@Branch");
+                                body = Request.Cookies["Company"].Value;
+                                emailcontent = emailcontent.Remove(index123, 7).Insert(index123, body);
+
+                                int index132 = emailcontent.IndexOf("@Narration");
+                                body = ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtNarrationAdd")).Text;
+                                emailcontent = emailcontent.Remove(index132, 10).Insert(index132, body);
+
+                                int index312 = emailcontent.IndexOf("@User");
+                                body = usernam;
+                                emailcontent = emailcontent.Remove(index312, 5).Insert(index312, body);
+
+                                int index2 = emailcontent.IndexOf("@Date");
+                                body = ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtTransDateAdd")).Text;
+                                emailcontent = emailcontent.Remove(index2, 5).Insert(index2, body);
+
+                                int index = emailcontent.IndexOf("@Ledger");
+                                body = ((DropDownList)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("ComboBox2Add")).SelectedItem.Text;
+                                emailcontent = emailcontent.Remove(index, 7).Insert(index, body);
+
+                                int index1 = emailcontent.IndexOf("@Amount");
+                                body = ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtAmountAdd")).Text;
+                                emailcontent = emailcontent.Remove(index1, 7).Insert(index1, body);
+
+                                string smtphostname = ConfigurationManager.AppSettings["SmtpHostName"].ToString();
+                                int smtpport = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPortNumber"]);
+                                var fromAddress = ConfigurationManager.AppSettings["FromAddress"].ToString();
+
+                                string fromPassword = ConfigurationManager.AppSettings["FromPassword"].ToString();
+
+                                EmailLogic.SendEmail(smtphostname, smtpport, fromAddress, toAddress, emailsubject, emailcontent, fromPassword);
+
+                                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Email sent successfully')", true);
+
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            string conn = bl.CreateConnectionString(Request.Cookies["Company"].Value);
+            UtilitySMS utilSMS = new UtilitySMS(conn);
+            string UserID = Page.User.Identity.Name;
+
+            string smscontent = string.Empty;
+            if (hdSMSRequired.Value == "YES")
+            {
+                DataSet dsd = bl.GetLedgerInfoForId(connection, Convert.ToInt32(((DropDownList)this.frmViewAdd.FindControl("ComboBox2Add")).SelectedValue));
+                var toAddress = "";
+                var toAdd = "";
+                Int32 ModeofContact = 0;
+                int ScreenType = 0;
+
+                if (dsd != null)
+                {
+                    if (dsd.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dsd.Tables[0].Rows)
+                        {
+                            toAdd = dr["Mobile"].ToString();
+                            ModeofContact = Convert.ToInt32(dr["ModeofContact"]);
+                        }
+                    }
+                }
+
+
+                DataSet dsdd = bl.GetDetailsForScreenNo(connection, ScreenName, "");
+                if (dsdd != null)
+                {
+                    if (dsdd.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dsdd.Tables[0].Rows)
+                        {
+                            ScreenType = Convert.ToInt32(dr["ScreenType"]);
+                            mobile = Convert.ToBoolean(dr["mobile"]);
+                            smscontent = Convert.ToString(dr["smscontent"]);
+
+                            if (ScreenType == 1)
+                            {
+                                if (dr["Name1"].ToString() == "Sales Executive")
+                                {
+                                    toAddress = toAdd;
+                                }
+                                else if ((dr["Name1"].ToString() == "Customer") || (dr["Name1"].ToString() == "Ledger") || (dr["Name1"].ToString() == "Supplier"))
+                                {
+                                    if (ModeofContact == 1)
+                                    {
+                                        toAddress = toAdd;
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    toAddress = toAdd;
+                                }
+                            }
+                            else
+                            {
+                                toAddress = dr["mobile"].ToString();
+                            }
+                            if (mobile == true)
+                            {
+
+                                string body = "\n";
+
+                                int index123 = smscontent.IndexOf("@Branch");
+                                body = Request.Cookies["Company"].Value;
+                                smscontent = smscontent.Remove(index123, 7).Insert(index123, body);
+
+                                int index132 = smscontent.IndexOf("@Narration");
+                                body = ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtNarrationAdd")).Text;
+                                smscontent = smscontent.Remove(index132, 10).Insert(index132, body);
+
+                                int index312 = smscontent.IndexOf("@User");
+                                body = usernam;
+                                smscontent = smscontent.Remove(index312, 5).Insert(index312, body);
+
+                                int index2 = smscontent.IndexOf("@Date");
+                                body = ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtTransDateAdd")).Text;
+                                smscontent = smscontent.Remove(index2, 5).Insert(index2, body);
+
+                                int index = smscontent.IndexOf("@Ledger");
+                                body = ((DropDownList)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("ComboBox2Add")).SelectedItem.Text;
+                                smscontent = smscontent.Remove(index, 7).Insert(index, body);
+
+                                int index1 = smscontent.IndexOf("@Amount");
+                                body = ((TextBox)this.frmViewAdd.FindControl("tablInsert").FindControl("tabInsMain").FindControl("txtAmountAdd")).Text;
+                                smscontent = smscontent.Remove(index1, 7).Insert(index1, body);
+
+
+
+                                if (Session["Provider"] != null)
+                                {
+                                    utilSMS.SendSMS(Session["Provider"].ToString(), Session["Priority"].ToString(), Session["SenderID"].ToString(), Session["UserName"].ToString(), Session["Password"].ToString(), toAddress, smscontent, true, UserID);
+                                }
+
+
+                            }
+
+                        }
+                    }
+                }
+            }
+
+
         }
         catch (Exception ex)
         {
@@ -1241,6 +1762,250 @@ public partial class CustomerPayment : System.Web.UI.Page
                 e.InputParameters["TransNo"] = GrdViewPayment.SelectedDataKey.Value;
 
             e.InputParameters["Username"] = Request.Cookies["LoggedUserName"].Value;
+
+            string salestype = string.Empty;
+            int ScreenNo = 0;
+            string ScreenName = string.Empty;
+
+            string usernam = Request.Cookies["LoggedUserName"].Value;
+
+            BusinessLogic bl = new BusinessLogic();
+
+            string connection = Request.Cookies["Company"].Value;
+            salestype = "Customer Payment";
+            ScreenName = "Customer Payment";
+
+            int DebitorID = 0;
+            string TransDate = string.Empty;
+            double Amount = 0;
+            string PayTo = string.Empty;
+            DataSet ds = bl.GetPaymentForId(connection, int.Parse(GrdViewPayment.SelectedDataKey.Value.ToString()));
+            if (ds != null)
+            {
+                TransDate = Convert.ToString(ds.Tables[0].Rows[0]["TransDate"].ToString());
+                DebitorID = Convert.ToInt32(ds.Tables[0].Rows[0]["DebtorID"]);
+                Amount = Convert.ToDouble(ds.Tables[0].Rows[0]["Amount"]);
+                PayTo = ds.Tables[0].Rows[0]["paymode"].ToString();
+            }
+
+            bool mobile = false;
+            bool Email = false;
+            string emailsubject = string.Empty;
+
+            string emailcontent = string.Empty;
+            if (hdEmailRequired.Value == "YES")
+            {
+                DataSet dsd = bl.GetLedgerInfoForId(connection, DebitorID);
+                var toAddress = "";
+                var toAdd = "";
+                Int32 ModeofContact = 0;
+                int ScreenType = 0;
+
+                if (dsd != null)
+                {
+                    if (dsd.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dsd.Tables[0].Rows)
+                        {
+                            toAdd = dr["EmailId"].ToString();
+                            ModeofContact = Convert.ToInt32(dr["ModeofContact"]);
+                        }
+                    }
+                }
+                
+
+                DataSet dsdd = bl.GetDetailsForScreenNo(connection, ScreenName, "");
+                if (dsdd != null)
+                {
+                    if (dsdd.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dsdd.Tables[0].Rows)
+                        {
+                            ScreenType = Convert.ToInt32(dr["ScreenType"]);
+                            mobile = Convert.ToBoolean(dr["mobile"]);
+                            Email = Convert.ToBoolean(dr["Email"]);
+                            emailsubject = Convert.ToString(dr["emailsubject"]);
+                            emailcontent = Convert.ToString(dr["emailcontent"]);
+
+                            if (ScreenType == 1)
+                            {
+                                if (dr["Name1"].ToString() == "Sales Executive")
+                                {
+                                    toAddress = toAdd;
+                                }
+                                else if (dr["Name1"].ToString() == "Customer")
+                                {
+                                    if (ModeofContact == 2)
+                                    {
+                                        toAddress = toAdd;
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    toAddress = toAdd;
+                                }
+                            }
+                            else
+                            {
+                                toAddress = dr["EmailId"].ToString();
+                            }
+                            if (Email == true)
+                            {
+                                
+                                string body = "\n";
+                             
+
+                                int index123 = emailcontent.IndexOf("@Branch");
+                                body = Request.Cookies["Company"].Value;
+                                emailcontent = emailcontent.Remove(index123, 7).Insert(index123, body);
+
+                                int index132 = emailcontent.IndexOf("@PayMode");
+                                body = PayTo;
+                                emailcontent = emailcontent.Remove(index132, 10).Insert(index132, body);
+
+                                int index312 = emailcontent.IndexOf("@User");
+                                body = usernam;
+                                emailcontent = emailcontent.Remove(index312, 5).Insert(index312, body);
+
+                                int index2 = emailcontent.IndexOf("@Date");
+                                body = TransDate.ToString();
+                                emailcontent = emailcontent.Remove(index2, 5).Insert(index2, body);
+
+                                //int index = emailcontent.IndexOf("@Customer");
+                                //body = ddReceivedFrom.SelectedItem.Text;
+                                //emailcontent = emailcontent.Remove(index, 9).Insert(index, body);
+
+                                int index1 = emailcontent.IndexOf("@Amount");
+                                body = Convert.ToString(Amount);
+                                emailcontent = emailcontent.Remove(index1, 7).Insert(index1, body);
+
+                                string smtphostname = ConfigurationManager.AppSettings["SmtpHostName"].ToString();
+                                int smtpport = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPortNumber"]);
+                                var fromAddress = ConfigurationManager.AppSettings["FromAddress"].ToString();
+
+                                string fromPassword = ConfigurationManager.AppSettings["FromPassword"].ToString();
+
+                                EmailLogic.SendEmail(smtphostname, smtpport, fromAddress, toAddress, emailsubject, emailcontent, fromPassword);
+
+                                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Email sent successfully')", true);
+
+                            }
+
+                        }
+                    }
+                }
+            }
+
+
+            string conn = bl.CreateConnectionString(Request.Cookies["Company"].Value);
+            UtilitySMS utilSMS = new UtilitySMS(conn);
+            string UserID = Page.User.Identity.Name;
+
+            string smscontent = string.Empty;
+            if (hdSMSRequired.Value == "YES")
+            {
+                DataSet dsd = bl.GetLedgerInfoForId(connection, DebitorID);
+                var toAddress = "";
+                var toAdd = "";
+                Int32 ModeofContact = 0;
+                int ScreenType = 0;
+
+                if (dsd != null)
+                {
+                    if (dsd.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dsd.Tables[0].Rows)
+                        {
+                            toAdd = dr["Mobile"].ToString();
+                            ModeofContact = Convert.ToInt32(dr["ModeofContact"]);
+                        }
+                    }
+                }
+
+
+                DataSet dsdd = bl.GetDetailsForScreenNo(connection, ScreenName, "");
+                if (dsdd != null)
+                {
+                    if (dsdd.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dsdd.Tables[0].Rows)
+                        {
+                            ScreenType = Convert.ToInt32(dr["ScreenType"]);
+                            mobile = Convert.ToBoolean(dr["mobile"]);
+                            smscontent = Convert.ToString(dr["smscontent"]);
+
+                            if (ScreenType == 1)
+                            {
+                                if (dr["Name1"].ToString() == "Sales Executive")
+                                {
+                                    toAddress = toAdd;
+                                }
+                                else if (dr["Name1"].ToString() == "Customer")
+                                {
+                                    if (ModeofContact == 1)
+                                    {
+                                        toAddress = toAdd;
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    toAddress = toAdd;
+                                }
+                            }
+                            else
+                            {
+                                toAddress = dr["mobile"].ToString();
+                            }
+                            if (mobile == true)
+                            {
+
+                                string body = "\n";
+
+                                int index123 = smscontent.IndexOf("@Branch");
+                                body = Request.Cookies["Company"].Value;
+                                smscontent = smscontent.Remove(index123, 7).Insert(index123, body);
+
+                                int index132 = smscontent.IndexOf("@PayMode");
+                                body = PayTo;
+                                smscontent = smscontent.Remove(index132, 10).Insert(index132, body);
+
+                                int index312 = smscontent.IndexOf("@User");
+                                body = usernam;
+                                smscontent = smscontent.Remove(index312, 5).Insert(index312, body);
+
+                                int index2 = smscontent.IndexOf("@Date");
+                                body = TransDate.ToString();
+                                smscontent = smscontent.Remove(index2, 5).Insert(index2, body);
+
+                                //int index = emailcontent.IndexOf("@Customer");
+                                //body = ddReceivedFrom.SelectedItem.Text;
+                                //emailcontent = emailcontent.Remove(index, 9).Insert(index, body);
+
+                                int index1 = smscontent.IndexOf("@Amount");
+                                body = Convert.ToString(Amount);
+                                smscontent = smscontent.Remove(index1, 7).Insert(index1, body);
+
+                                if (Session["Provider"] != null)
+                                {
+                                    utilSMS.SendSMS(Session["Provider"].ToString(), Session["Priority"].ToString(), Session["SenderID"].ToString(), Session["UserName"].ToString(), Session["Password"].ToString(), toAddress, smscontent, true, UserID);
+                                }
+
+
+                            }
+
+                        }
+                    }
+                }
+            }
+
         }
         catch (Exception ex)
         {

@@ -15127,14 +15127,14 @@ public class BusinessLogic
             if ((retVal != null) && (retVal != DBNull.Value))
             {
 
-                dbQry.Append("SELECT tblDayBook.Transno,tblSales.Billno,tblSales.InternalTransfer,tblSales.SeriesID,Format(tblSales.Billdate, 'dd/mm/yyyy') As BillDate,tblSales.CustomerID,tblSales.CustomerName,tblSales.CustomerAddress,tblSales.CustomerContacts,tblSales.Paymode,tblDayBook.Amount,tblDayBook.narration,tblDayBook.CreditCardNo,tblSales.JournalID,Debtor.LedgerID As DebtorID, Debtor.LedgerName As Debtor,tblsales.executive,tblSales.purchasereturn,tblSales.purchasereturnreason,freight,LoadUnload,OtherCusName, Customer.ContactName, MultiPayment,tblSales.CustomerAddress2,tblSales.CustomerAddress3,tblSales.despatchedfrom,tblSales.manualNo");
+                dbQry.Append("SELECT tblDayBook.Transno,tblSales.Billno,tblSales.InternalTransfer,tblSales.SeriesID,Format(tblSales.Billdate, 'dd/mm/yyyy') As BillDate,tblSales.CustomerID,tblSales.CustomerName,tblSales.CustomerAddress,tblSales.CustomerContacts,tblSales.Paymode,tblDayBook.Amount,tblDayBook.narration,tblDayBook.CreditCardNo,tblSales.JournalID,Debtor.LedgerID As DebtorID, Debtor.LedgerName As Debtor,tblsales.executive,tblSales.purchasereturn,tblSales.purchasereturnreason,freight,LoadUnload,OtherCusName, Customer.ContactName, MultiPayment,tblSales.CustomerAddress2,tblSales.CustomerAddress3,tblSales.despatchedfrom,tblSales.manualNo,tblSales.NormalSales,tblSales.deliveryNote,tblSales.ManualSales");
                 dbQry.Append(" FROM ((((tblDayBook  INNER JOIN  tblSales ON tblSales.JournalID = tblDayBook.Transno)INNER JOIN tblLedger Debtor ON tblDaybook.DebtorID = Debtor.LedgerID) INNER JOIN tblLedger Customer ON tblSales.CustomerID = Customer.LedgerID))");
                 dbQry.Append(" Where tblSales.BillDate > #" + DateTime.Parse(retVal.ToString()).ToString("MM/dd/yyyy") + "# ");
 
             }
             else
             {
-                dbQry.Append("SELECT tblDayBook.Transno,tblSales.Billno,tblSales.InternalTransfer,tblSales.SeriesID,Format(tblSales.Billdate, 'dd/mm/yyyy') As BillDate,tblSales.CustomerID,tblSales.CustomerName,tblSales.CustomerAddress,tblSales.CustomerContacts,tblSales.Paymode,tblDayBook.Amount,tblDayBook.narration,tblDayBook.CreditCardNo,tblSales.JournalID,Debtor.LedgerID As DebtorID,Debtor.LedgerName As Debtor,tblsales.executive,tblSales.purchasereturn,tblSales.purchasereturnreason,freight,LoadUnload,OtherCusName, Customer.ContactName,MultiPayment,tblSales.CustomerAddress2,tblSales.CustomerAddress3,tblSales.despatchedfrom,tblSales.manualNo");
+                dbQry.Append("SELECT tblDayBook.Transno,tblSales.Billno,tblSales.InternalTransfer,tblSales.SeriesID,Format(tblSales.Billdate, 'dd/mm/yyyy') As BillDate,tblSales.CustomerID,tblSales.CustomerName,tblSales.CustomerAddress,tblSales.CustomerContacts,tblSales.Paymode,tblDayBook.Amount,tblDayBook.narration,tblDayBook.CreditCardNo,tblSales.JournalID,Debtor.LedgerID As DebtorID,Debtor.LedgerName As Debtor,tblsales.executive,tblSales.purchasereturn,tblSales.purchasereturnreason,freight,LoadUnload,OtherCusName, Customer.ContactName,MultiPayment,tblSales.CustomerAddress2,tblSales.CustomerAddress3,tblSales.despatchedfrom,tblSales.manualNo,tblSales.NormalSales,tblSales.deliveryNote,tblSales.ManualSales");
                 dbQry.Append(" FROM ((((tblDayBook  INNER JOIN  tblSales ON tblSales.JournalID = tblDayBook.Transno)INNER JOIN tblLedger Debtor ON tblDaybook.DebtorID = Debtor.LedgerID) INNER JOIN tblLedger Customer ON tblSales.CustomerID = Customer.LedgerID))");
                 dbQry.Append(" Where 1=1 ");
             }
@@ -63269,7 +63269,7 @@ public class BusinessLogic
 
     }
 
-    public DataSet GetDetailsForScreenNo(string connection, int ScreenNo, string type)
+    public DataSet GetDetailsForScreenNo(string connection, string ScreenName, string type)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
         manager.ConnectionString = CreateConnectionString(connection);
@@ -63278,19 +63278,19 @@ public class BusinessLogic
         DataSet dsd = new DataSet();
         string dbQry2 = string.Empty;
         string obsolute = string.Empty;
-
+        //string ScreenName = string.Empty;
         try
         {
             manager.Open();
 
-            if (type == "Email")
-            {
-                dbQry = "SELECT * FROM tblEmailConfig Where ScreenNo=" + ScreenNo + " Order By ScreenNo Asc";
-            }
-            else
-            {
-                dbQry = "SELECT * FROM tblSMSConfig Where ScreenNo=" + ScreenNo + " Order By ScreenNo Asc";
-            }
+            //if (type == "Email")
+            //{
+            dbQry = "SELECT tblScreenMaster.*,tblScreenConfig.* FROM tblScreenMaster inner join tblScreenConfig on tblScreenMaster.id = tblScreenConfig.id Where ScreenName='" + ScreenName + "' Order By ScreenNo Asc";
+            //}
+            //else
+            //{
+            //    dbQry = "SELECT * FROM tblSMSConfig Where ScreenNo=" + ScreenNo + " Order By ScreenNo Asc";
+            //}
 
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
@@ -63320,7 +63320,7 @@ public class BusinessLogic
         {
             manager.Open();
 
-            dbQry = "SELECT * FROM tblScreenMaster Where ScreenName = '" + ScreenName + "' Order By ScreenNo Asc";
+            dbQry = "SELECT * FROM tblScreens Where ScreenName = '" + ScreenName + "' Order By ScreenNo Asc";
 
             ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
 
