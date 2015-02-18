@@ -500,7 +500,7 @@
                                                     <ul>
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('PurchaseSummaryReport.aspx ','Summary', 'toolbar=no,status=yes,menu=no,location=no,resizable=yes,height=310,width=500,left=425,top=220, scrollbars=yes');">Purchase Summary</a></li>
                                                         <li class="color submenumenu"><a href="#" onclick="Popup=window.open('ReportExlPurchase.aspx','CSTSummary', 'toolbar=no,status=no,menu=no,location=no,height=570,width=805,resizable=yes,left=210,top=100, scrollbars=yes');">Purchase Comprehency</a></li>
-                                                      <%-- <li class="color submenumenu"><a href="#" onclick="Popup=window.open('PurchaseVatCstSummaryReport.aspx','VatSummary', 'toolbar=no,status=no,menu=no,location=no,height=570,width=805,resizable=yes,left=210,top=100, scrollbars=yes');">Purchase Comprehency</a></li>--%>
+                                                        <%-- <li class="color submenumenu"><a href="#" onclick="Popup=window.open('PurchaseVatCstSummaryReport.aspx','VatSummary', 'toolbar=no,status=no,menu=no,location=no,height=570,width=805,resizable=yes,left=210,top=100, scrollbars=yes');">Purchase Comprehency</a></li>--%>
                                                     </ul>
                                                 </li>
                                             </ul>
@@ -643,7 +643,7 @@
                                                 </li>
                                                 <li class="color submenumenu"><a href="#">Transactions<span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: right">►</span></a>
                                                     <ul style="left: -170px !important">
-                                                        <li class="color submenumenu"><a href="#">Employee Maintenance <span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: left">►</span>&nbsp;&nbsp;</a>
+                                                        <li class="color submenumenu"><a href="#">Employee Maintenance <span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: right">►</span>&nbsp;&nbsp;</a>
                                                             <ul>
                                                                 <li class="color submenumenu"><a href="./EmployeeAttendance.aspx" runat="server" id="A12">Attendance</a></li>
                                                                 <li class="color submenumenu"><a href="./EmployeeLeave.aspx" runat="server" id="A13">Leave Requests</a></li>
@@ -845,16 +845,19 @@
                                             <ul>
                                                 <li class="color submenumenu"><a href="./companyinfo.aspx" runat="server" id="lnkCompanyinfo">General Settings</a>
                                                 </li>
-                                                <li class="color submenumenu"><a href="./EmailSMSConfig.aspx" runat="server" id="A19">EMail/SMS Config</a></li>
-                                                <li class="color submenumenu"><a href="./NewDBCreation.aspx" runat="server" id="A1">Year End Process</a></li>
+                                                <li class="color submenumenu"><a href="./Config.aspx" runat="server" id="A19">EMail/SMS Config</a></li>
+                                                <%--<li class="color submenumenu"><a href="./NewDBCreation.aspx" runat="server" id="A1">Year End Process</a></li>--%>
                                                 <li class="color submenumenu"><a href="./DBYearEnd.aspx" runat="server" id="A20">Year End</a></li>
-                                                <li class="color submenumenu"><a href="./Configuration.aspx" runat="server" id="lnkConfiguration">Online & Offline Mode</a></li>
+                                                <%--<li class="color submenumenu"><a href="./Configuration.aspx" runat="server" id="lnkConfiguration">Online & Offline Mode</a></li>--%>
                                                 <li class="color submenumenu"><a href="./UserOptions.aspx" runat="server" id="lnkuserlock">User Access Control Settings</a></li>
                                                 <li class="color submenumenu"><a href="#">Security<span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: right">►</span> </a>
-                                                    <ul>
-                                                        <li class="color submenumenu"><a href="#">Password Administration</a></li>
-                                                        <li class="color submenumenu"><a href="./ResetPassword.aspx">Reset Password</a></li>
-                                                        <li class="color submenumenu"><a href="./ChangePassword.aspx" runat="server" id="lnkChangePassword">Change Password</a></li>
+                                                    <ul style="left: -170px !important">
+                                                        <li class="color submenumenu"><a href="#">Password Administration <span style="font-family: arial; font-size: 10px; position: relative; vertical-align: middle; top: 2px; text-align: right; float: right">►</span>&nbsp;&nbsp;</a>                                                            
+                                                            <ul>
+                                                                <li class="color submenumenu"><a href="./ResetPassword.aspx">Reset Password</a></li>
+                                                                <li class="color submenumenu"><a href="./ChangePassword.aspx" runat="server" id="lnkChangePassword">Change Password</a></li>
+                                                            </ul>
+                                                        </li>
                                                         <li class="color submenumenu"><a href="./ToolReports.aspx" runat="server" id="A8">Audit Log</a></li>
                                                         <li class="color submenumenu"><a href="./ReconDate.aspx" runat="server" id="lnkReconDate">Lock Transactions</a></li>
                                                     </ul>

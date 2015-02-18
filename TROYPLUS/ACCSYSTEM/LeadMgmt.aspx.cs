@@ -331,7 +331,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
         BusinessLogic bl = new BusinessLogic(sDataSource);
         DataSet ds = new DataSet();
-        ds = bl.ListCreditorDebitor(sDataSource);
+        ds = bl.ListSundryDebtorsExceptIsActive(sDataSource);
         cmbCustomer.DataSource = ds;
         cmbCustomer.DataBind();
         cmbCustomer.DataTextField = "LedgerName";
@@ -3581,7 +3581,7 @@ public partial class LeadMgmt : System.Web.UI.Page
 
                 
                 bl.UpdateLead(LeadNo, startDate, LeadName, address, mobile, Telephone, BpName, BpId, ContactName, EmpId, EmpName, Status, LeadStatus, ClosingDate, PredictedClosingDate, info1, info3, info4, businesstype, category, area, intLevel, usernam, dss1, dss2, dss, check);
-
+                               
 
                 string salestype = string.Empty;
                 int ScreenNo = 0;

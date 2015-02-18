@@ -803,7 +803,7 @@ public partial class PageMaster : System.Web.UI.MasterPage
         //}
         if (!this.Page.User.IsInRole("SYSCONF"))
         {
-            lnkConfiguration.Visible = false;
+          //  lnkConfiguration.Visible = false;
         }
         if (!this.Page.User.IsInRole("RECDATE"))
         {
@@ -825,7 +825,7 @@ public partial class PageMaster : System.Web.UI.MasterPage
 
         //if (Helper.GetDecryptedKey("InstallationType") != "ONLINE-OFFLINE-CLIENT")
         //{
-            lnkConfiguration.Visible = true;
+           // lnkConfiguration.Visible = true;
         //}
     }
 

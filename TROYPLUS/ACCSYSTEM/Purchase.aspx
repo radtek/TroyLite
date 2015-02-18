@@ -61,7 +61,7 @@
         <ContentTemplate>
 
             <div style="">
-                <table style="width: 100%;" align="center">
+                <table style="width: 998px;" align="center">
                     <tr style="width: 100%">
                         <td style="width: 100%" valign="middle">
                             <%--<table class="mainConHd" style="width: 994px;">
@@ -81,7 +81,6 @@
                                             </td>
                                             <td style="width: 15%">
                                                 <div style="text-align: right;">
-                                                
                                                 </div>
                                             </td>
                                             <td style="width: 12%; color: #000000;" align="right">
@@ -136,7 +135,7 @@
                                             </input>
                                             <asp:ValidationSummary ID="VSContact" runat="server" Font-Names="'Trebuchet MS'" Font-Size="12pt"
                                                 HeaderText="Validation Messages" ShowMessageBox="true" ShowSummary="true" ValidationGroup="contact" />
-                            <asp:Panel ID="pnlMethod" runat="server" Style="width: 55%; display: none">
+                            <asp:Panel ID="pnlMethod" runat="server" Style="width: 55%; display: none" CssClass="chzn-container">
                                 <asp:UpdatePanel ID="updatePnlMethod" runat="server" UpdateMode="Conditional">
                                     <ContentTemplate>
                                         <asp:Panel ID="pnlContactItems" CssClass="pnlPopUp" runat="server">
@@ -236,17 +235,17 @@
                                                                 CancelControlID="BtnPopUpCancel1" DynamicServicePath="" Enabled="True" PopupControlID="purchasePanel"
                                                                 RepositionMode="RepositionOnWindowResizeAndScroll" TargetControlID="dummyPurchase">
                                                             </cc1:ModalPopupExtender>
-                                                            <asp:Panel ID="purchasePanel" runat="server" Style="width: 62%; display: none">
+                                                            <asp:Panel ID="purchasePanel" runat="server" Style="width: 95%; display: none">
                                                                 <asp:UpdatePanel ID="updatePnlPurchase" runat="server" RenderMode="Block" UpdateMode="Conditional">
                                                                     <ContentTemplate>
-                                                                        <div id="Div1" style="background-color: White;" class="divArea">
+                                                                        <div id="Div1" style="background-color: White; width: 95%">
                                                                             <table style="width: 100%;" align="center">
                                                                                 <tr style="width: 100%">
                                                                                     <td style="width: 100%">
                                                                                         <table style="text-align: left;" width="100%" cellpadding="0" cellspacing="2">
                                                                                             <tr>
                                                                                                 <td>
-                                                                                                    <table class="headerPopUp" width="100%">
+                                                                                                    <table class="headerPopUp" width="95%">
                                                                                                         <tr>
                                                                                                             <td>Purchase Details
                                                                                                             </td>
@@ -256,41 +255,19 @@
                                                                                             </tr>
                                                                                             <tr>
                                                                                                 <td>
-                                                                                                    <cc1:TabContainer ID="tabs2" runat="server" Width="100%" CssClass="fancy fancy-green">
-                                                                                                        <cc1:TabPanel ID="tabMaster" runat="server" HeaderText="Purchase Details">
+                                                                                                    <cc1:TabContainer ID="tabs2" runat="server" Width="1225px" CssClass="fancy fancy-green">
+                                                                                                        <cc1:TabPanel ID="tabMaster" runat="server" HeaderText="Purchase Details" Width="1210px">
                                                                                                             <HeaderTemplate>
                                                                                                                 Purchase Details
                                                                                                             </HeaderTemplate>
                                                                                                             <ContentTemplate>
 
-                                                                                                                <table width="810px" cellpadding="0" cellspacing="1">
-                                                                                                                    <%--<tr>
-                                                                                                    <td class="ControlLabel" style="width:25%;">
-                                                                                                        
-                                                                                                        
-                                                                                                    </td>
-                                                                                                    <td style="width:24%;">--%>
-
-                                                                                                                    <%--<asp:TextBox ID="txtInvoiveNo" runat="server" MaxLength="8" CssClass="cssTextBox" BackColor = "#90c9fc" Width="80%"
-                                                                                                                    ValidationGroup="purchaseval" BorderStyle="NotSet" Height="23px"></asp:TextBox>--%>
-                                                                                                                    <%--</td>
-                                                                                                    <td class="ControlLabel" style="width:15%;">
-                                                                                                        
-                                                                                                        
-                                                                                                    </td>
-                                                                                                    <td class="ControlTextBox3" style="width:24%;">
-                                                                                                        
-                                                                                                   </td>
-                                                                                                   <td style="width:25%;">
-                                                                                                        &nbsp;--%>
-                                                                                                                    <%--<asp:ImageButton ID="ImageButton1" ImageUrl="App_Themes/NewTheme/images/cal.gif" CausesValidation="False"
-                                                                                                                Width="20px" runat="server" />--%>
-                                                                                                                    <%--</td> 
-                                                                                               </tr>
-                                                                                               <tr>
-                                                                                               </tr>--%>
+                                                                                                                <table width="1210px" cellpadding="0" cellspacing="1">
                                                                                                                     <tr>
-                                                                                                                        <td class="ControlLabel" style="width: 25%;">Invoice No. *
+                                                                                                                        <td colspan="5"></td>
+                                                                                                                    </tr>
+                                                                                                                    <tr>
+                                                                                                                        <td class="ControlLabelproject" style="width: 25%;">Invoice No. *
                                                                                                         <asp:RequiredFieldValidator ID="rvBill" runat="server" ControlToValidate="txtBillno"
                                                                                                             CssClass="lblFont" Display="Dynamic" ErrorMessage="Bill No. is mandatory" ValidationGroup="purchaseval">*</asp:RequiredFieldValidator>
                                                                                                                         </td>
@@ -298,8 +275,8 @@
                                                                                                                             <asp:TextBox ID="txtBillno" runat="server" MaxLength="8" CssClass="cssTextBox" BackColor="#e7e7e7" Width="80%"
                                                                                                                                 ValidationGroup="purchaseval" BorderStyle="NotSet" Height="23px"></asp:TextBox>
                                                                                                                         </td>
-                                                                                                                        <td style="width: 5%;"></td>
-                                                                                                                        <td class="ControlLabel" style="width: 15%;">Purchase Entry Date
+                                                                                                                        <td style="width: 10%;"></td>
+                                                                                                                        <td class="ControlLabelproject" style="width: 10%;">Purchase Entry Date
                                                                                                                         </td>
                                                                                                                         <td class="ControlTextBox3" style="width: 24%;">
                                                                                                                             <asp:TextBox ID="txtInvoiveDate" Enabled="false" runat="server" CssClass="cssTextBox" MaxLength="10" Height="23px" BackColor="#e7e7e7"
@@ -309,17 +286,14 @@
                                                                                                                                 OnClientDateSelectionChanged="checkDate" PopupButtonID="ImageButton1"
                                                                                                                                 TargetControlID="txtInvoiveDate" Enabled="True">
                                                                                                                             </cc1:CalendarExtender>
-
-
-
                                                                                                                         </td>
-                                                                                                                        <td style="width: 20%;"></td>
+                                                                                                                        <td style="width: 10%;"></td>
                                                                                                                     </tr>
                                                                                                                     <tr style="height: 2px">
                                                                                                                     </tr>
 
                                                                                                                     <tr>
-                                                                                                                        <td class="ControlLabel" style="width: 25%;">
+                                                                                                                        <td class="ControlLabelproject" style="width: 25%;">
                                                                                                                             <%--<asp:RequiredFieldValidator ID="reqSuppllier" runat="server" ControlToValidate="cmbSupplier"
                                                                                                             CssClass="lblFont" ErrorMessage="Supplier is mandatory" InitialValue="0" Text="*"
                                                                                                             ValidationGroup="purchaseval"></asp:RequiredFieldValidator>--%>
@@ -332,9 +306,7 @@
                                                                                                                                     <asp:AsyncPostBackTrigger ControlID="tabs2$TabPanel1$drpSalesReturn" EventName="SelectedIndexChanged" />
                                                                                                                                 </Triggers>
                                                                                                                                 <ContentTemplate>
-                                                                                                                                    <asp:DropDownList ID="cmbSupplier" runat="server" AppendDataBoundItems="true" AutoCompleteMode="Suggest"
-                                                                                                                                        AutoPostBack="true" DataTextField="LedgerName" DataValueField="LedgerID" Width="100%" CssClass="drpDownListMedium" BackColor="#e7e7e7"
-                                                                                                                                        ValidationGroup="purchaseval" OnSelectedIndexChanged="cmbSupplier_SelectedIndexChanged" Style="border: 1px solid #e7e7e7" Height="26px">
+                                                                                                                                    <asp:DropDownList ID="cmbSupplier" runat="server" AppendDataBoundItems="true" AutoPostBack="true" BackColor="#e7e7e7" CssClass="chzn-select" DataTextField="LedgerName" DataValueField="LedgerID" Height="26px" OnSelectedIndexChanged="cmbSupplier_SelectedIndexChanged" Style="border: 1px solid #e7e7e7" TabIndex="2" ValidationGroup="purchaseval" Width="313px">
                                                                                                                                         <asp:ListItem style="background-color: #90c9fc; color: Black" Text="Select Supplier"
                                                                                                                                             Value="0"></asp:ListItem>
                                                                                                                                     </asp:DropDownList>
@@ -343,10 +315,10 @@
                                                                                                                             </asp:UpdatePanel>
                                                                                                                             <%--</asp:Panel> --%>
                                                                                                                         </td>
-                                                                                                                        <td style="width: 5%;">
-                                                                                                                            <asp:CheckBox runat="server" ID="chk" Text="" OnCheckedChanged="chk_CheckedChanged" AutoPostBack="true" />
+                                                                                                                        <td style="width: 10%;">
+                                                                                                                            <asp:CheckBox runat="server" ID="chk" Text="Existing Supplier" OnCheckedChanged="chk_CheckedChanged" AutoPostBack="true" />
                                                                                                                         </td>
-                                                                                                                        <td class="ControlLabel" style="width: 15%;">
+                                                                                                                        <td class="ControlLabelproject" style="width: 10%;">
                                                                                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtBillDate"
                                                                                                                                 CssClass="lblFont" Display="Dynamic" ErrorMessage="BillDate is mandatory" Text="*"
                                                                                                                                 ValidationGroup="purchaseval"></asp:RequiredFieldValidator>
@@ -366,7 +338,7 @@
 
 
                                                                                                                         </td>
-                                                                                                                        <td style="width: 20%;">&nbsp;
+                                                                                                                        <td style="width: 10%;">&nbsp;
                                                                                                         <asp:ImageButton ID="btnBillDate" ImageUrl="App_Themes/NewTheme/images/cal.gif" CausesValidation="False"
                                                                                                             Width="20px" runat="server" />
                                                                                                                         </td>
@@ -374,7 +346,7 @@
                                                                                                                     <tr style="height: 2px">
                                                                                                                     </tr>
                                                                                                                     <tr>
-                                                                                                                        <td class="ControlLabel" style="width: 25%;" valign="middle">Address1 </td>
+                                                                                                                        <td class="ControlLabelproject" style="width: 25%;" valign="middle">Address1 </td>
                                                                                                                         <td class="ControlTextBox3" style="width: 24%;">
                                                                                                                             <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
                                                                                                                                 <ContentTemplate>
@@ -385,8 +357,8 @@
                                                                                                                                 </Triggers>
                                                                                                                             </asp:UpdatePanel>
                                                                                                                         </td>
-                                                                                                                        <td style="width: 5%;"></td>
-                                                                                                                        <td class="ControlLabel" style="width: 15%;">Address2 </td>
+                                                                                                                        <td style="width: 10%;"></td>
+                                                                                                                        <td class="ControlLabelproject" style="width: 10%;">Address2 </td>
                                                                                                                         <td class="ControlTextBox3" style="width: 24%">
                                                                                                                             <asp:UpdatePanel ID="UpdatePanel6" runat="server" UpdateMode="Conditional">
                                                                                                                                 <ContentTemplate>
@@ -397,12 +369,12 @@
                                                                                                                                 </Triggers>
                                                                                                                             </asp:UpdatePanel>
                                                                                                                         </td>
-                                                                                                                        <td style="width: 20%;"></td>
+                                                                                                                        <td style="width: 10%;"></td>
                                                                                                                     </tr>
                                                                                                                     <tr style="height: 2px">
                                                                                                                     </tr>
                                                                                                                     <tr>
-                                                                                                                        <td class="ControlLabel" style="width: 25%;" valign="middle">Mobile </td>
+                                                                                                                        <td class="ControlLabelproject" style="width: 25%;" valign="middle">Mobile </td>
                                                                                                                         <td class="ControlTextBox3" style="width: 24%;">
                                                                                                                             <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
                                                                                                                                 <ContentTemplate>
@@ -414,8 +386,8 @@
                                                                                                                                 </Triggers>
                                                                                                                             </asp:UpdatePanel>
                                                                                                                         </td>
-                                                                                                                        <td style="width: 5%;"></td>
-                                                                                                                        <td class="ControlLabel" style="width: 15%;">Address3 </td>
+                                                                                                                        <td style="width: 10%;"></td>
+                                                                                                                        <td class="ControlLabelproject" style="width: 10%;">Address3 </td>
                                                                                                                         <td class="ControlTextBox3" style="width: 24%">
                                                                                                                             <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
                                                                                                                                 <ContentTemplate>
@@ -426,13 +398,13 @@
                                                                                                                                 </Triggers>
                                                                                                                             </asp:UpdatePanel>
                                                                                                                         </td>
-                                                                                                                        <td style="width: 20%;"></td>
+                                                                                                                        <td style="width: 10%;"></td>
                                                                                                                     </tr>
 
                                                                                                                     <tr style="height: 2px">
                                                                                                                     </tr>
                                                                                                                     <tr>
-                                                                                                                        <td style="width: 25%" class="ControlLabel">Payment Mode
+                                                                                                                        <td style="width: 25%" class="ControlLabelproject">Payment Mode
 
                                                                                                                         </td>
                                                                                                                         <td style="width: 24%" class="ControlDrpBorder">
@@ -448,35 +420,33 @@
 
                                                                                                         
                                                                                                                         </td>
-                                                                                                                        <td style="width: 5%;"></td>
-                                                                                                                        <td style="width: 15%" class="ControlLabel">Over Disc %
-                                                                                                                        </td>
-                                                                                                                        <td style="width: 24%" class="ControlTextBox3">
-
-                                                                                                                            <asp:TextBox ID="txtdisc" runat="server" AutoPostBack="True" OnTextChanged="txtdisc_TextChanged" CssClass="cssTextBox" ValidationGroup="product" Text="0" Width="100%" BackColor="#e7e7e7"></asp:TextBox>
-                                                                                                                        </td>
-                                                                                                                        <td style="width: 20%"></td>
+                                                                                                                        <td style="width: 10%;"></td>
                                                                                                                     </tr>
                                                                                                                     <tr style="height: 2px">
                                                                                                                     </tr>
                                                                                                                     <tr>
-                                                                                                                        <td style="width: 25%" class="ControlLabel">
-                                                                                                                            <%--Round Off--%>
-                                                                                                        Over Disc Amount
-
-                                                                                                        
-                                                                                                                        </td>
-                                                                                                                        <td style="width: 24%" class="ControlTextBox3">
-                                                                                                                            <asp:TextBox ID="txtdiscamt" runat="server" AutoPostBack="True" OnTextChanged="txtdiscamt_TextChanged" CssClass="cssTextBox" ValidationGroup="product" Text="0" Width="100%" BackColor="#e7e7e7"></asp:TextBox>
-                                                                                                                        </td>
-                                                                                                                        <td style="width: 5%;"></td>
-                                                                                                                        <td style="width: 15%" class="ControlLabel">Fixed Total *
+                                                                                                                        <td style="width: 25%" class="ControlLabelproject">Fixed Total *
                                                                                                                         </td>
                                                                                                                         <td style="width: 24%" class="ControlTextBox3">
                                                                                                                             <%--<asp:TextBox ID="txtroundoff" runat="server" CssClass="cssTextBox" Width="100%" Height="23px"  BackColor = "#90c9fc"></asp:TextBox>--%>
                                                                                                                             <asp:TextBox ID="txtfixedtotal" runat="server" CssClass="cssTextBox" ValidationGroup="product" Text="0" Width="100%" BackColor="#e7e7e7"></asp:TextBox>
                                                                                                                         </td>
-                                                                                                                        <td style="width: 20%"></td>
+                                                                                                                        <td style="width: 10%"></td>
+                                                                                                                        <td style="width: 10%;" class="ControlLabelproject">                                                                                                                           
+                                                                                                                            Sales Delivery Invoice No *
+                                                                                                                        </td>
+                                                                                                                        <td class="ControlDrpBorder" style="width: 24%">
+                                                                                                                            <asp:UpdatePanel ID="UpdatePanel7" runat="server" UpdateMode="Conditional">
+                                                                                                                                <ContentTemplate>
+                                                                                                                                    <asp:DropDownList ID="drpSalesID" runat="server" AutoPostBack="true" AppendDataBoundItems="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="BillNo" DataValueField="BillNo" Height="26px" Style="border: 1px solid #e7e7e7" TabIndex="2" ValidationGroup="salesval" Width="100%" OnSelectedIndexChanged="drpSalesID_SelectedIndexChanged">
+                                                                                                                                        <asp:ListItem style="background-color: #e7e7e7" Text="Select Invoice No" Value="0"></asp:ListItem>
+                                                                                                                                    </asp:DropDownList>
+                                                                                                                                </ContentTemplate>
+                                                                                                                                <Triggers>
+                                                                                                                                  
+                                                                                                                                </Triggers>
+                                                                                                                            </asp:UpdatePanel>
+                                                                                                                        </td>
                                                                                                                     </tr>
                                                                                                                     <tr style="height: 2px">
                                                                                                                     </tr>
@@ -490,7 +460,7 @@
                                                                                                                                             <tr style="height: 2px;">
                                                                                                                                             </tr>
                                                                                                                                             <tr>
-                                                                                                                                                <td class="ControlLabel" style="width: 25%;">
+                                                                                                                                                <td class="ControlLabelproject" style="width: 25%;">
                                                                                                                                                     <asp:RequiredFieldValidator ID="rvbank" runat="server" ControlToValidate="cmbBankName" CssClass="lblFont" EnableClientScript="true" Enabled="false" ErrorMessage="Bank is mandatory" InitialValue="0" Text="*" ValidationGroup="purchaseval" />
                                                                                                                                                     Bank name * </td>
                                                                                                                                                 <td class="ControlDrpBorder" style="width: 24%;"><%--<asp:Panel ID="Panel21" runat="server" Width="20%">--%>
@@ -499,7 +469,7 @@
                                                                                                                                                     </asp:DropDownList>
                                                                                                                                                     <%--</asp:Panel> --%></td>
                                                                                                                                                 <td style="width: 7%;"></td>
-                                                                                                                                                <td class="ControlLabel" style="width: 13%">
+                                                                                                                                                <td class="ControlLabelproject" style="width: 13%">
                                                                                                                                                     <asp:RequiredFieldValidator ID="rvCheque" runat="server" ControlToValidate="cmbChequeNo" EnableClientScript="true" Enabled="false" ErrorMessage="Cheque No. is mandatory" Text="*" ValidationGroup="purchaseval" />
                                                                                                                                                     Cheque / Credit Card No.* </td>
                                                                                                                                                 <td class="ControlDrpBorder" style="width: 24%;"><%--<asp:Panel ID="Panel21" runat="server" Width="20%">--%>
@@ -558,7 +528,7 @@
                                                                                                                 Product Details
                                                                                                             </HeaderTemplate>
                                                                                                             <ContentTemplate>
-                                                                                                                <table width="810px" cellpadding="1" cellspacing="1">
+                                                                                                                <table width="600px" cellpadding="1" cellspacing="1" class="tblLeft">
 
                                                                                                                     <tr>
                                                                                                                         <td align="center" colspan="4">
@@ -591,7 +561,7 @@
                                                                                                                                                     &nbsp;
                                                                                                         <input id="CancelPopUp" runat="server" style="display: none" type="button"></input>
                                                                                                                                                     <asp:Panel ID="pnlItems" runat="server" CssClass="pnlPopUp" Width="700px">
-                                                                                                                                                        <asp:UpdatePanel ID="updatePnlProduct" runat="server" UpdateMode="Conditional">
+                                                                                                                                                        <asp:UpdatePanel ID="updatePnlProduct" runat="server" UpdateMode="Conditional" Visible="false">
                                                                                                                                                             <ContentTemplate>
                                                                                                                                                                 <div id="contentPopUp">
                                                                                                                                                                     <table cellpadding="0" cellspacing="3" class="tblLeft" style="border: 1px solid blue;"
@@ -890,8 +860,8 @@
                                                                                                                                                 </td>
                                                                                                                                             </tr>
                                                                                                                                             <tr>
-                                                                                                                                                <td>
-                                                                                                                                                    <asp:GridView ID="GrdViewItems" runat="server" BorderWidth="1px" DataKeyNames="itemcode"
+                                                                                                                                                <td style="width: 50%;">
+                                                                                                                                                    <asp:GridView ID="GrdViewItems" runat="server" BorderWidth="1px" DataKeyNames="itemcode" Visible="false"
                                                                                                                                                         EmptyDataText="No Purchase Items added." OnPageIndexChanging="GrdViewItems_PageIndexChanging"
                                                                                                                                                         OnRowCancelingEdit="GrdViewItems_RowCancelingEdit" OnRowCreated="GrdViewItems_RowCreated"
                                                                                                                                                         OnRowDataBound="GrdViewItems_RowDataBound" OnRowDeleting="GrdViewItems_RowDeleting"
@@ -958,6 +928,94 @@
                                                                                                                                                     </asp:GridView>
                                                                                                                                                 </td>
                                                                                                                                             </tr>
+                                                                                                                                            <tr>
+                                                                                                                                                <td colspan="4">
+                                                                                                                                                    <div style="height: 250px; width: 1190px; overflow: scroll">
+                                                                                                                                                        <center>
+                                                                                                                                                            <asp:GridView ID="grvStudentDetails" runat="server" Width="50%" AllowPaging="True"
+                                                                                                                                                                ShowFooter="True" AutoGenerateColumns="False" OnRowDeleting="grvStudentDetails_RowDeleting" OnRowDataBound="grvStudentDetails_RowDataBound"
+                                                                                                                                                                CellPadding="1"
+                                                                                                                                                                GridLines="None">
+
+                                                                                                                                                                <%--<RowStyle CssClass="dataRow" />
+                                                                                                                                                        <SelectedRowStyle CssClass="SelectdataRow" />
+                                                                                                                                                        <AlternatingRowStyle CssClass="altRow" />
+                                                                                                                                                        <EmptyDataRowStyle CssClass="HeadataRow" Font-Bold="true" />
+                                                                                                                                                        <HeaderStyle CssClass="HeadataRow" Wrap="false" />
+                                                                                                                                                        <FooterStyle CssClass="dataRow" />--%>
+
+                                                                                                                                                                <Columns>
+                                                                                                                                                                    <asp:BoundField DataField="RowNumber" HeaderText="#" ItemStyle-Width="45px" ItemStyle-Font-Size="15px" HeaderStyle-ForeColor="Black" />
+                                                                                                                                                                    <asp:TemplateField HeaderText="Product Code-Name-Model" ItemStyle-Width="1px" ItemStyle-Font-Size="10px" HeaderStyle-ForeColor="Black">
+                                                                                                                                                                        <ItemTemplate>
+                                                                                                                                                                            <asp:DropDownList ID="drpPrd" Width="300px" runat="server" AppendDataBoundItems="true" BackColor="White" ForeColor="#0567AE" Font-Bold="false" AutoPostBack="true" CssClass="chzn-select" DataTextField="ProductName" DataValueField="ItemCode" OnSelectedIndexChanged="drpPrd_SelectedIndexChanged">
+                                                                                                                                                                            </asp:DropDownList>
+                                                                                                                                                                        </ItemTemplate>
+                                                                                                                                                                    </asp:TemplateField>
+                                                                                                                                                                    <asp:TemplateField HeaderText="Quantity" ItemStyle-Width="65px" ItemStyle-Font-Size="10px" HeaderStyle-ForeColor="Black">
+                                                                                                                                                                        <ItemTemplate>
+                                                                                                                                                                            <asp:TextBox ID="txtQty" Style="text-align: right" runat="server" Width="65px" ForeColor="#0567AE" Font-Bold="false" AutoPostBack="true" OnTextChanged="txtQty_TextChanged"></asp:TextBox>
+                                                                                                                                                                        </ItemTemplate>
+                                                                                                                                                                    </asp:TemplateField>
+                                                                                                                                                                    <asp:TemplateField HeaderText="Return Quantity" ItemStyle-Width="65px" ItemStyle-Font-Size="10px" HeaderStyle-ForeColor="Black">
+                                                                                                                                                                        <ItemTemplate>
+                                                                                                                                                                            <asp:TextBox ID="txtRtnQty" Style="text-align: right" runat="server" Width="65px" ForeColor="#0567AE" Font-Bold="false" AutoPostBack="true" OnTextChanged="txtRtnQty_TextChanged"></asp:TextBox>
+                                                                                                                                                                        </ItemTemplate>
+                                                                                                                                                                    </asp:TemplateField>
+                                                                                                                                                                    <asp:TemplateField HeaderText="Rate" ItemStyle-Width="75px" ItemStyle-Font-Size="10px" HeaderStyle-ForeColor="Black">
+                                                                                                                                                                        <ItemTemplate>
+                                                                                                                                                                            <asp:TextBox ID="txtRate" Style="text-align: right" runat="server" Width="75px" ForeColor="#0567AE" Font-Bold="false" AutoPostBack="true" OnTextChanged="txtQty_TextChanged"></asp:TextBox>
+                                                                                                                                                                        </ItemTemplate>
+                                                                                                                                                                    </asp:TemplateField>
+                                                                                                                                                                    <asp:TemplateField HeaderText="NLP" ItemStyle-Width="75px" ItemStyle-Font-Size="10px" HeaderStyle-ForeColor="Black">
+                                                                                                                                                                        <ItemTemplate>
+                                                                                                                                                                            <asp:TextBox ID="txtNLP" Style="text-align: right" runat="server" Width="75px" ForeColor="#0567AE" Font-Bold="false"></asp:TextBox>
+                                                                                                                                                                        </ItemTemplate>
+                                                                                                                                                                    </asp:TemplateField>
+                                                                                                                                                                    <asp:TemplateField HeaderText="Disc(%)" ItemStyle-Width="50px" ItemStyle-Font-Size="10px" HeaderStyle-ForeColor="Black">
+                                                                                                                                                                        <ItemTemplate>
+                                                                                                                                                                            <asp:TextBox ID="txtDisPre" Style="text-align: right" runat="server" Width="50px" ForeColor="#0567AE" Font-Bold="false" AutoPostBack="true" OnTextChanged="txtQty_TextChanged"></asp:TextBox>
+                                                                                                                                                                        </ItemTemplate>
+                                                                                                                                                                    </asp:TemplateField>
+                                                                                                                                                                    <asp:TemplateField HeaderText="VAT(%)" ItemStyle-Width="50px" ItemStyle-Font-Size="10px" HeaderStyle-ForeColor="Black">
+                                                                                                                                                                        <ItemTemplate>
+                                                                                                                                                                            <asp:TextBox ID="txtVATPre" Style="text-align: right" runat="server" Width="50px" ForeColor="#0567AE" Font-Bold="false" AutoPostBack="true" OnTextChanged="txtQty_TextChanged"></asp:TextBox>
+                                                                                                                                                                        </ItemTemplate>
+                                                                                                                                                                    </asp:TemplateField>
+                                                                                                                                                                    <asp:TemplateField HeaderText="CST(%)" ItemStyle-Width="50px" ItemStyle-Font-Size="10px" HeaderStyle-ForeColor="Black">
+                                                                                                                                                                        <ItemTemplate>
+                                                                                                                                                                            <asp:TextBox ID="txtCSTPre" Style="text-align: right" runat="server" Width="50px" ForeColor="#0567AE" Font-Bold="false" AutoPostBack="true" OnTextChanged="txtQty_TextChanged"></asp:TextBox>
+                                                                                                                                                                        </ItemTemplate>
+                                                                                                                                                                    </asp:TemplateField>
+                                                                                                                                                                    <asp:TemplateField HeaderText="Discount Amount" ItemStyle-Width="70px" ItemStyle-Font-Size="10px" HeaderStyle-ForeColor="Black">
+                                                                                                                                                                        <ItemTemplate>
+                                                                                                                                                                            <asp:TextBox ID="txtDiscAmt" Style="text-align: right" runat="server" Width="70px" ForeColor="#0567AE" Font-Bold="false" AutoPostBack="true" OnTextChanged="txtQty_TextChanged"></asp:TextBox>
+                                                                                                                                                                        </ItemTemplate>
+                                                                                                                                                                    </asp:TemplateField>
+                                                                                                                                                                    <asp:TemplateField HeaderText="Row Total" ItemStyle-Width="100px" ItemStyle-Font-Size="10px" HeaderStyle-ForeColor="Black">
+                                                                                                                                                                        <ItemTemplate>
+                                                                                                                                                                            <asp:TextBox ID="txtTotal" Style="text-align: right" runat="server" ReadOnly="true" Width="100px" ForeColor="#0567AE" Font-Bold="false"></asp:TextBox>
+                                                                                                                                                                        </ItemTemplate>
+                                                                                                                                                                        <FooterStyle HorizontalAlign="Left" />
+                                                                                                                                                                        <FooterTemplate>
+                                                                                                                                                                            <asp:Button ID="ButtonAdd" runat="server" AutoPostback="true" EnableTheming="false" OnClick="ButtonAdd_Click"
+                                                                                                                                                                                ValidationGroup="DynRowAdd" Text="Add New" />
+                                                                                                                                                                        </FooterTemplate>
+                                                                                                                                                                    </asp:TemplateField>
+                                                                                                                                                                    <asp:CommandField ShowDeleteButton="True" ButtonType="Button" />
+                                                                                                                                                                </Columns>
+                                                                                                                                                                <%-- <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                                                                                                                                                        <RowStyle BackColor="#EFF3FB" />
+                                                                                                                                                        <EditRowStyle BackColor="#2461BF" />
+                                                                                                                                                        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                                                                                                                                                        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                                                                                                                                                        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                                                                                                                                                        <AlternatingRowStyle BackColor="White" />--%>
+                                                                                                                                                            </asp:GridView>
+                                                                                                                                                        </center>
+                                                                                                                                                    </div>
+                                                                                                                                                </td>
+                                                                                                                                            </tr>
                                                                                                                                         </table>
                                                                                                                                     </asp:Panel>
                                                                                                                                 </ContentTemplate>
@@ -980,64 +1038,65 @@
                                                                                                                                         <tr>
                                                                                                                                             <%--<td style="width:13px">
                                                                                                                         </td>--%>
-                                                                                                                                            <td class="uploadingbg312" style="text-align: left;">
+                                                                                                                                            <td style="text-align: left;">
                                                                                                                                                 <div>
                                                                                                                                                     <div>
                                                                                                                                                         <%--<div>--%>
                                                                                                                                                         <table border="0" cellpadding="0px" cellspacing="5px" style="margin: 0px auto;">
                                                                                                                                                             <tr style="display: none">
                                                                                                                                                                 <td align="left">
-                                                                                                                                                                    <asp:Label ID="lblDispTotal" runat="server" CssClass="item3"></asp:Label>
+                                                                                                                                                                    <asp:Label ID="lblDispTotal" runat="server" CssClass="item3" Visible="false"></asp:Label>
                                                                                                                                                                 </td>
                                                                                                                                                                 <td width="1px"></td>
                                                                                                                                                                 <td align="left">
-                                                                                                                                                                    <asp:Label ID="lblTotalSum" runat="server" CssClass="item3" Font-Bold="true"></asp:Label>
+                                                                                                                                                                    <asp:Label ID="lblTotalSum" runat="server" CssClass="item3" Font-Bold="true" Visible="false"></asp:Label>
                                                                                                                                                                 </td>
                                                                                                                                                             </tr>
                                                                                                                                                             <tr style="display: none">
                                                                                                                                                                 <td align="left">
-                                                                                                                                                                    <asp:Label ID="lblDispDisRate" runat="server" CssClass="item3"></asp:Label>
-                                                                                                                                                                    <asp:Label ID="lblDispTotalRate" runat="server" CssClass="item3"></asp:Label>
+                                                                                                                                                                    <asp:Label ID="lblDispDisRate" runat="server" CssClass="item3" Visible="false"></asp:Label>
+                                                                                                                                                                    <asp:Label ID="lblDispTotalRate" runat="server" CssClass="item3" Visible="false"></asp:Label>
                                                                                                                                                                 </td>
                                                                                                                                                                 <td width="1px"></td>
                                                                                                                                                                 <td align="left">
-                                                                                                                                                                    <asp:Label ID="lblTotalDis" runat="server" CssClass="item3" Font-Bold="true"></asp:Label>
+                                                                                                                                                                    <asp:Label ID="lblTotalDis" runat="server" CssClass="item3" Font-Bold="true" Visible="false"></asp:Label>
                                                                                                                                                                 </td>
                                                                                                                                                             </tr>
                                                                                                                                                             <tr>
                                                                                                                                                                 <td align="left">
-                                                                                                                                                                    <asp:Label ID="lblDispIncVAT" runat="server" CssClass="item3"></asp:Label>
+                                                                                                                                                                    <asp:Label ID="lblDispIncVAT" runat="server" CssClass="item3" Visible="false"></asp:Label>
                                                                                                                                                                 </td>
                                                                                                                                                                 <td width="1px"></td>
                                                                                                                                                                 <td align="right">
-                                                                                                                                                                    <asp:Label ID="lblTotalVAT" runat="server" CssClass="item2" Font-Bold="true"></asp:Label>
+                                                                                                                                                                    <asp:Label ID="lblTotalVAT" runat="server" CssClass="item2" Font-Bold="true" Visible="false"></asp:Label>
                                                                                                                                                                 </td>
                                                                                                                                                             </tr>
                                                                                                                                                             <tr style="display: none">
                                                                                                                                                                 <td align="left">
-                                                                                                                                                                    <asp:Label ID="lblDispIncCST" runat="server" CssClass="item"></asp:Label>
+                                                                                                                                                                    <asp:Label ID="lblDispIncCST" runat="server" CssClass="item" Visible="false"></asp:Label>
                                                                                                                                                                 </td>
                                                                                                                                                                 <td width="1px"></td>
                                                                                                                                                                 <td align="left">
-                                                                                                                                                                    <asp:Label ID="lblTotalCST" runat="server" CssClass="item3" Font-Bold="true"></asp:Label>
+                                                                                                                                                                    <asp:Label ID="lblTotalCST" runat="server" CssClass="item3" Font-Bold="true" Visible="false"></asp:Label>
                                                                                                                                                                 </td>
                                                                                                                                                             </tr>
                                                                                                                                                             <tr>
                                                                                                                                                                 <td align="left">
-                                                                                                                                                                    <asp:Label ID="lblDispLoad" runat="server" CssClass="item3"></asp:Label>
+                                                                                                                                                                    <asp:Label ID="lblDispLoad" runat="server" CssClass="item3" Visible="false"></asp:Label>
                                                                                                                                                                 </td>
                                                                                                                                                                 <td width="1px"></td>
                                                                                                                                                                 <td align="right">
-                                                                                                                                                                    <asp:Label ID="lblFreight" runat="server" CssClass="item2" Font-Bold="true"></asp:Label>
+                                                                                                                                                                    <asp:Label ID="lblFreight" runat="server" CssClass="item2" Font-Bold="true" Visible="false"></asp:Label>
                                                                                                                                                                 </td>
                                                                                                                                                             </tr>
+
                                                                                                                                                             <tr>
                                                                                                                                                                 <td align="left">
-                                                                                                                                                                    <asp:Label ID="lblDispGrandTtl" runat="server" CssClass="item3"></asp:Label>
+                                                                                                                                                                    <asp:Label ID="lblDispGrandTtl" runat="server" CssClass="item3" Visible="false"></asp:Label>
                                                                                                                                                                 </td>
                                                                                                                                                                 <td width="1px"></td>
                                                                                                                                                                 <td align="right">
-                                                                                                                                                                    <asp:Label ID="lblNet" runat="server" CssClass="item2" Font-Bold="true" Text="0"></asp:Label>
+                                                                                                                                                                    <asp:Label ID="lblNet1" runat="server" CssClass="item2" Font-Bold="true" Text="0" Visible="false"></asp:Label>
                                                                                                                                                                 </td>
                                                                                                                                                             </tr>
                                                                                                                                                         </table>
@@ -1055,7 +1114,7 @@
                                                                                                                                                                 <td></td>
                                                                                                                                                                 <td style="padding: 1px;">
                                                                                                                                                                     <asp:Button ID="AddNewProd" runat="server" Text="" CssClass="addproductbutton6" EnableTheming="false"
-                                                                                                                                                                        SkinID="skinBtnAddProduct" OnClick="lnkAddProduct_Click" />
+                                                                                                                                                                        SkinID="skinBtnAddProduct" OnClick="lnkAddProduct_Click" Visible="false" />
                                                                                                                                                                 </td>
                                                                                                                                                                 <td style="padding: 1px;"></td>
                                                                                                                                                                 <td style="width: 13px"></td>
@@ -1065,7 +1124,7 @@
                                                                                                                                                                 <td style="padding: 1px;">
                                                                                                                                                                     <asp:Button ID="CmdProd" runat="server" Text=""
                                                                                                                                                                         OnClick="CmdProd_Click" EnableTheming="false" CssClass="Newproductbutton6"
-                                                                                                                                                                        Width="28px" Height="27px" />
+                                                                                                                                                                        Width="28px" Height="27px" Visible="false" />
                                                                                                                                                                 </td>
                                                                                                                                                                 <td style="padding: 1px;"></td>
                                                                                                                                                                 <td style="width: 13px"></td>
@@ -1074,7 +1133,69 @@
                                                                                                                                                     </asp:Panel>
                                                                                                                                                 </div>
                                                                                                                                             </td>
-
+                                                                                                                                            <td style="text-align: right">
+                                                                                                                                                <div style="text-align: right">
+                                                                                                                                                    <asp:Panel ID="Panel7" runat="server">
+                                                                                                                                                        <table style="width: 100%;">
+                                                                                                                                                            <tr>
+                                                                                                                                                                <td></td>
+                                                                                                                                                                <td style="width: 30%;"></td>
+                                                                                                                                                                <td style="width: 15%"></td>
+                                                                                                                                                                <td style="width: 25%;" class="ControlLabel">Freight Charges                                                                                                                                                               
+                                                                                                                                                                <td style="width: 14%;">
+                                                                                                                                                                    <asp:TextBox ID="txtFreight" Style="text-align: right" runat="server" AutoPostBack="True" BorderWidth="1px" SkinID="skinTxtBox" TabIndex="6" Text="0" ValidationGroup="product" Width="200px" OnTextChanged="txtFreight_TextChanged1"></asp:TextBox>
+                                                                                                                                                                    <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender7" runat="server" Enabled="True" FilterType="Custom, Numbers" TargetControlID="txtFreight" ValidChars="." />
+                                                                                                                                                                </td>
+                                                                                                                                                                    <td style="width: 26%;"></td>
+                                                                                                                                                            </tr>
+                                                                                                                                                            <tr>
+                                                                                                                                                                <td></td>
+                                                                                                                                                                <td style="width: 30%;"></td>
+                                                                                                                                                                <td style="width: 15%"></td>
+                                                                                                                                                                <td style="width: 25%;" class="ControlLabel">Loading / Unloading Charges                                                                                                                                                               
+                                                                                                                                                                <td style="width: 14%;">
+                                                                                                                                                                    <asp:TextBox ID="txtLU" Style="text-align: right" runat="server" AutoPostBack="True" BorderWidth="1px" SkinID="skinTxtBox" TabIndex="7" Text="0" ValidationGroup="product" Width="200px" OnTextChanged="txtFreight_TextChanged1"></asp:TextBox>
+                                                                                                                                                                    <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender8" runat="server" Enabled="True" FilterType="Custom, Numbers" TargetControlID="txtLU" ValidChars="." />
+                                                                                                                                                                </td>
+                                                                                                                                                                    <td style="width: 26%;"></td>
+                                                                                                                                                            </tr>
+                                                                                                                                                            <tr>
+                                                                                                                                                                <td></td>
+                                                                                                                                                                <td style="width: 30%;"></td>
+                                                                                                                                                                <td style="width: 15%"></td>
+                                                                                                                                                                <td style="width: 25%" class="ControlLabel">Over Disc Amount                                                                                                        
+                                                                                                                                                                </td>
+                                                                                                                                                                <td style="width: 14%">
+                                                                                                                                                                    <asp:TextBox ID="txtdiscamt" Style="text-align: right" runat="server" AutoPostBack="True" BorderWidth="1px" SkinID="skinTxtBox" OnTextChanged="txtFreight_TextChanged1" ValidationGroup="product" Text="0" Width="100%"></asp:TextBox>
+                                                                                                                                                                </td>
+                                                                                                                                                                <td style="width: 26%;"></td>
+                                                                                                                                                            </tr>
+                                                                                                                                                            <tr>
+                                                                                                                                                                <td></td>
+                                                                                                                                                                <td style="width: 30%;"></td>
+                                                                                                                                                                <td style="width: 15%"></td>
+                                                                                                                                                                <td style="width: 25%" class="ControlLabel">Over Disc %
+                                                                                                                                                                </td>
+                                                                                                                                                                <td style="width: 14%">
+                                                                                                                                                                    <asp:TextBox ID="txtdisc" Style="text-align: right" runat="server" AutoPostBack="True" BorderWidth="1px" OnTextChanged="txtFreight_TextChanged1" CssClass="cssTextBox" ValidationGroup="product" Text="0" Width="100%"></asp:TextBox>
+                                                                                                                                                                </td>
+                                                                                                                                                                <td style="width: 26%"></td>
+                                                                                                                                                            </tr>
+                                                                                                                                                            <tr>
+                                                                                                                                                                <td></td>
+                                                                                                                                                                <td style="width: 30%;"></td>
+                                                                                                                                                                <td style="width: 15%"></td>
+                                                                                                                                                                <td style="width: 25%;" class="ControlLabel">Grand Total(INR)   
+                                                                                                                                                                <td style="width: 14%;">
+                                                                                                                                                                    <%--<asp:TextBox ID="TextBox3" Style="text-align: right" runat="server" AutoPostBack="True" SkinID="skinTxtBox" TabIndex="7" Text="0" Width="200px"></asp:TextBox>--%>
+                                                                                                                                                                    <asp:Label ID="lblNet" Style="text-align: right" runat="server" AutoPostBack="True" CssClass="ControlLabelproject" Text="0"></asp:Label>
+                                                                                                                                                                </td>
+                                                                                                                                                                    <td style="width: 26%;"></td>
+                                                                                                                                                            </tr>
+                                                                                                                                                        </table>
+                                                                                                                                                    </asp:Panel>
+                                                                                                                                                </div>
+                                                                                                                                            </td>
                                                                                                                                         </tr>
                                                                                                                                     </table>
 
@@ -1091,14 +1212,14 @@
                                                                                                         <cc1:TabPanel ID="TabPanel1" runat="server" HeaderText="Additional Details">
 
                                                                                                             <ContentTemplate>
-                                                                                                                <table class="tblLeft" width="810px" cellpadding="0" cellspacing="1">
+                                                                                                                <table class="tblLeft" width="1200px" cellpadding="0" cellspacing="1">
                                                                                                                     <tr>
-                                                                                                                        <td style="width: 20%" class="ControlLabel">Voucher No. *
+                                                                                                                        <td style="width: 20%" class="ControlLabelproject">Voucher No. *
                                                                                                                         </td>
                                                                                                                         <td class="ControlTextBox3" style="width: 23%">
                                                                                                                             <asp:Label ID="txtInvoiveNo" runat="server" Height="30px" BackColor="#e7e7e7"></asp:Label>
                                                                                                                         </td>
-                                                                                                                        <td class="ControlLabel" style="width: 20%">Narration
+                                                                                                                        <td class="ControlLabelproject" style="width: 20%">Narration
                                                                                                                         </td>
                                                                                                                         <td style="width: 23%" class="ControlTextBox3">
                                                                                                                             <asp:TextBox ID="txtnarr" runat="server" SkinID="skinTxtBox" Text="0" ValidationGroup="product" BackColor="#e7e7e7" TabIndex="6" Height="24px"
@@ -1108,7 +1229,7 @@
                                                                                                                     </tr>
                                                                                                                     <tr style="height: 2px">
                                                                                                                     </tr>
-                                                                                                                    <tr>
+                                                                                                                    <%-- <tr>
                                                                                                                         <td style="width: 20%" class="ControlLabel">Loading / Unloading
                                                                                                                         </td>
                                                                                                                         <td class="ControlTextBox3" style="width: 23%">
@@ -1125,18 +1246,18 @@
                                                                                                                                 TargetControlID="txtFreight" ValidChars="." />
                                                                                                                         </td>
                                                                                                                         <td style="width: 35%"></td>
-                                                                                                                    </tr>
+                                                                                                                    </tr>--%>
                                                                                                                     <tr style="height: 2px">
                                                                                                                     </tr>
                                                                                                                     <tr>
-                                                                                                                        <td style="width: 20%" class="ControlLabel">Bilits
+                                                                                                                        <td style="width: 20%" class="ControlLabelproject">Bilits
                                                                                                                         </td>
                                                                                                                         <td style="width: 23%" class="ControlDrpBorder">
                                                                                                                             <asp:DropDownList ID="ddBilts" AutoPostBack="false" AppendDataBoundItems="true" runat="server" BackColor="#e7e7e7" Width="100%"
                                                                                                                                 CssClass="drpDownListMedium" Style="border: 1px solid #e7e7e7" Height="26px">
                                                                                                                             </asp:DropDownList>
                                                                                                                         </td>
-                                                                                                                        <td class="ControlLabel" style="width: 20%">Internal Transfer
+                                                                                                                        <td class="ControlLabelproject" style="width: 20%">Internal Transfer
                                                                                                                         </td>
                                                                                                                         <td style="width: 23%" class="ControlDrpBorder">
                                                                                                                             <asp:DropDownList ID="drpIntTrans" AutoPostBack="false" runat="server" CssClass="drpDownListMedium" BackColor="#e7e7e7" Style="border: 1px solid #e7e7e7" Height="26px" Width="100%">
@@ -1149,7 +1270,7 @@
                                                                                                                     <tr style="height: 2px">
                                                                                                                     </tr>
                                                                                                                     <tr>
-                                                                                                                        <td style="width: 20%" class="ControlLabel">Sales Return
+                                                                                                                        <td style="width: 20%" class="ControlLabelproject">Sales Return
                                                                                                                         </td>
                                                                                                                         <td style="width: 23%" class="ControlDrpBorder">
                                                                                                                             <asp:DropDownList ID="drpSalesReturn" AutoPostBack="true" runat="server" OnSelectedIndexChanged="drpSalesReturn_SelectedIndexChanged"
@@ -1158,7 +1279,7 @@
                                                                                                                                 <asp:ListItem Text="YES" Value="YES"></asp:ListItem>
                                                                                                                             </asp:DropDownList>
                                                                                                                         </td>
-                                                                                                                        <td class="ControlLabel" style="width: 20%">Delivery Note
+                                                                                                                        <td class="ControlLabelproject" style="width: 20%">Delivery Note
                                                                                                                         </td>
                                                                                                                         <td style="width: 23%" class="ControlDrpBorder">
                                                                                                                             <asp:DropDownList ID="ddDeliveryNote" TabIndex="10" AutoPostBack="false" runat="server" BackColor="#e7e7e7" Width="100%"
@@ -1181,7 +1302,7 @@
                                                                                                                                         <tr style="height: 2px">
                                                                                                                                         </tr>
                                                                                                                                         <tr>
-                                                                                                                                            <td class="ControlLabel" style="width: 19.7%">
+                                                                                                                                            <td class="ControlLabelproject" style="width: 19.7%">
                                                                                                                                                 <asp:RequiredFieldValidator ID="rqSalesReturn" runat="server" ErrorMessage="Reason is mandatory"
                                                                                                                                                     Text="*" Enabled="false" ControlToValidate="txtSRReason" ValidationGroup="purchaseval" />
                                                                                                                                                 Sales Return Reason *
@@ -1212,7 +1333,7 @@
                                                                                                                                 <ContentTemplate>
                                                                                                                                     <table runat="server" id="rowdcnum" cellpadding="0" cellspacing="0" width="100%">
                                                                                                                                         <tr>
-                                                                                                                                            <td style="width: 19.7%" class="ControlLabel">
+                                                                                                                                            <td style="width: 19.7%" class="ControlLabelproject">
                                                                                                                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Dc No is mandatory"
                                                                                                                                                     Text="*" Enabled="false" ControlToValidate="txtdcbillno" ValidationGroup="purchaseval" />
                                                                                                                                                 DC Bill No *
@@ -1239,7 +1360,7 @@
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr>
-                                                                                                <td colspan="4">
+                                                                                                <td colspan="4" style="width: 1200px">
                                                                                                     <table style="width: 100%">
                                                                                                         <tr>
                                                                                                             <td style="width: 18%"></td>
@@ -1411,17 +1532,17 @@
     </asp:UpdatePanel>
     <table align="center">
         <tr>
-            <td style="width:50%">
-                    <asp:Panel ID="pnlSearch" runat="server" Width="100px">
-                                                        <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
-                                                            EnableTheming="false" Width="80px" ForeColor="White"></asp:Button>
-                                                    </asp:Panel>
+            <td style="width: 50%">
+                <asp:Panel ID="pnlSearch" runat="server" Width="100px">
+                    <asp:Button ID="lnkBtnAdd" runat="server" OnClick="lnkBtnAdd_Click" CssClass="ButtonAdd66"
+                        EnableTheming="false" Width="80px" ForeColor="White"></asp:Button>
+                </asp:Panel>
             </td>
             <%--<td>
                 <asp:Button ID="btnpurchase" runat="server" CssClass="NewReport6"
                      EnableTheming="false" Width="80px"  OnClientClick="window.open('ReportExlPurchase.aspx','CSTSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=550,width=790,left=290,top=60, scrollbars=yes');"></asp:Button>
             </td>--%>
-            <td style="width:50%">
+            <td style="width: 50%">
                 <asp:Button ID="btnpur" runat="server"
                     CssClass="exportexl6" EnableTheming="false" CausesValidation="false"
                     OnClientClick="window.open('ReportXLPurchase.aspx','CSTSummary', 'toolbar=no,status=no,menu=no,location=no,resizable=yes,height=360,width=650,left=370,top=220, scrollbars=yes');"></asp:Button>
