@@ -203,6 +203,7 @@ public partial class Purchase : System.Web.UI.Page
         dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
         dt.Columns.Add(new DataColumn("ItemCode", typeof(string)));
         dt.Columns.Add(new DataColumn("Qty", typeof(string)));
+        dt.Columns.Add(new DataColumn("RtnQty", typeof(string)));
         dt.Columns.Add(new DataColumn("Rate", typeof(string)));
         dt.Columns.Add(new DataColumn("NLP", typeof(string)));
         dt.Columns.Add(new DataColumn("Discount", typeof(string)));
@@ -214,6 +215,7 @@ public partial class Purchase : System.Web.UI.Page
         dr["RowNumber"] = 1;
         dr["ItemCode"] = string.Empty;
         dr["Qty"] = string.Empty;
+        dr["RtnQty"] = string.Empty;
         dr["Rate"] = string.Empty;
         dr["NLP"] = string.Empty;
         dr["Discount"] = string.Empty;
@@ -225,6 +227,15 @@ public partial class Purchase : System.Web.UI.Page
         ViewState["CurrentTable"] = dt;
 
         grvStudentDetails.DataSource = dt;
+
+        if (ddDeliveryNote.SelectedValue == "YES")
+        {
+            grvStudentDetails.Columns[3].Visible = true;
+        }
+        else
+        {
+            grvStudentDetails.Columns[3].Visible = false;
+        }
         grvStudentDetails.DataBind();
     }
 
@@ -236,6 +247,7 @@ public partial class Purchase : System.Web.UI.Page
         {
             DropDownList drpProduct = (DropDownList)grvStudentDetails.Rows[vLoop].FindControl("drpPrd");
             TextBox txtQty = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtQty");
+            TextBox txtRtnQty = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRtnQty");
             TextBox txtRate = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRate");
             TextBox txtNLP = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtNLP");
             TextBox txtDisPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDisPre");
@@ -331,6 +343,8 @@ public partial class Purchase : System.Web.UI.Page
                          (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("drpPrd");
                         TextBox TextBoxQty =
                              (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtQty");
+                        TextBox TextBoxRtnQty =
+                             (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtRtnQty");
                         TextBox TextBoxRate =
                           (TextBox)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("txtRate");
                         TextBox TextBoxNLP =
@@ -353,6 +367,7 @@ public partial class Purchase : System.Web.UI.Page
 
                         dtCurrentTable.Rows[i - 1]["ItemCode"] = DrpProduct.SelectedValue;
                         dtCurrentTable.Rows[i - 1]["Qty"] = TextBoxQty.Text;
+                        dtCurrentTable.Rows[i - 1]["RtnQty"] = TextBoxRtnQty.Text;
                         dtCurrentTable.Rows[i - 1]["Rate"] = TextBoxRate.Text;
                         dtCurrentTable.Rows[i - 1]["NLP"] = TextBoxNLP.Text;
                         dtCurrentTable.Rows[i - 1]["Discount"] = TextBoxDisPre.Text;
@@ -392,6 +407,8 @@ public partial class Purchase : System.Web.UI.Page
                         (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("drpPrd");
                     TextBox TextBoxQty =
                          (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtQty");
+                    TextBox TextBoxRtnQty =
+                       (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtRtnQty");
                     TextBox TextBoxRate =
                       (TextBox)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("txtRate");
                     TextBox TextBoxNLP =
@@ -411,6 +428,7 @@ public partial class Purchase : System.Web.UI.Page
 
                     DrpProduct.SelectedValue = dt.Rows[i]["ItemCode"].ToString();
                     TextBoxQty.Text = dt.Rows[i]["Qty"].ToString();
+                    TextBoxRtnQty.Text = dt.Rows[i]["RtnQty"].ToString();
                     TextBoxRate.Text = dt.Rows[i]["Rate"].ToString();
                     TextBoxNLP.Text = dt.Rows[i]["NLP"].ToString();
                     TextBoxDisPre.Text = dt.Rows[i]["Discount"].ToString();
@@ -440,6 +458,8 @@ public partial class Purchase : System.Web.UI.Page
                         (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("drpPrd");
                     TextBox TextBoxQty =
                          (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtQty");
+                    TextBox TextBoxRtnQty =
+                       (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtRtnQty");
                     TextBox TextBoxRate =
                       (TextBox)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("txtRate");
                     TextBox TextBoxNLP =
@@ -460,6 +480,7 @@ public partial class Purchase : System.Web.UI.Page
 
                     dtCurrentTable.Rows[i - 1]["ItemCode"] = DrpProduct.SelectedValue;
                     dtCurrentTable.Rows[i - 1]["Qty"] = TextBoxQty.Text;
+                    dtCurrentTable.Rows[i - 1]["RtnQty"] = TextBoxRtnQty.Text;
                     dtCurrentTable.Rows[i - 1]["Rate"] = TextBoxRate.Text;
                     dtCurrentTable.Rows[i - 1]["NLP"] = TextBoxNLP.Text;
                     dtCurrentTable.Rows[i - 1]["Discount"] = TextBoxDisPre.Text;
@@ -1239,6 +1260,7 @@ public partial class Purchase : System.Web.UI.Page
                         {
                             DropDownList drpProduct = (DropDownList)grvStudentDetails.Rows[vLoop].FindControl("drpPrd");
                             TextBox txtQty = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtQty");
+                            TextBox txtRtnQty = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRtnQty");
                             TextBox txtRate = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRate");
                             TextBox txtNLP = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtNLP");
                             TextBox txtDisPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDisPre");
@@ -1325,6 +1347,9 @@ public partial class Purchase : System.Web.UI.Page
                         dc = new DataColumn("Qty");
                         dt.Columns.Add(dc);
 
+                        dc = new DataColumn("RtnQty");
+                        dt.Columns.Add(dc);
+
                         dc = new DataColumn("Rate");
                         dt.Columns.Add(dc);
 
@@ -1358,6 +1383,7 @@ public partial class Purchase : System.Web.UI.Page
                         {
                             DropDownList drpProduct = (DropDownList)grvStudentDetails.Rows[vLoop].FindControl("drpPrd");
                             TextBox txtQty = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtQty");
+                            TextBox txtRtnQty = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRtnQty");
                             TextBox txtRate = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtRate");
                             TextBox txtNLP = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtNLP");
                             TextBox txtDisPre = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDisPre");
@@ -1370,6 +1396,7 @@ public partial class Purchase : System.Web.UI.Page
                             drNew = dt.NewRow();
                             drNew["Prd"] = Convert.ToString(drpProduct.SelectedItem.Value);
                             drNew["Qty"] = txtQty.Text;
+                            drNew["RtnQty"] = txtRtnQty.Text;
                             drNew["Rate"] = txtRate.Text;
                             drNew["NLP"] = txtNLP.Text;
                             drNew["DisPre"] = txtDisPre.Text;
@@ -2915,6 +2942,7 @@ public partial class Purchase : System.Web.UI.Page
             {
                 loadSupplier("Sundry Debtors");
             }
+            FirstGridViewRow();
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "$('.chzn-select').chosen(); $('.chzn-select-deselect').chosen({ allow_single_deselect: true });", true);
         }
         catch (Exception ex)

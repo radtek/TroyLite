@@ -7752,7 +7752,7 @@ public partial class CustomerSales : System.Web.UI.Page
         BusinessLogic bl = new BusinessLogic(sDataSource);
 
         //ds = bl.GetSalesItemsForId(salesID);
-         ds = bl.GetPurchaseItemsForId(salesID);
+        ds = bl.GetPurchaseItemsForId(salesID);
 
         if (ds != null)
         {
@@ -7970,7 +7970,7 @@ public partial class CustomerSales : System.Web.UI.Page
                     if (hdStock.Value != "")
                         stock = Convert.ToDouble(hdStock.Value);
                     dr["RoleID"] = strRole;
-                   // dr["Subtotal"] = Convert.ToDouble(dR["Totalmrp"]);// Convert.ToString(dTotal);
+                    // dr["Subtotal"] = Convert.ToDouble(dR["Totalmrp"]);// Convert.ToString(dTotal);
                     itemDs.Tables[0].Rows.Add(dr);
                     strRole = "";
                 }
@@ -9719,10 +9719,20 @@ public partial class CustomerSales : System.Web.UI.Page
                 double vatper1 = vatper + 100;
                 double vatinclusiverate = calnet * vatper / vatper1;
                 double sVatamount = calnet - vatinclusiverate;
-                TextBoxVATAmt.Text = vatinclusiverate.ToString("#0.00");
-                TextBoxRtVAT.Text = calnet.ToString("#0.00");
-                txtPrBefVAT.Text = sVatamount.ToString("#0.00");
-                TextBoxTotal.Text = calnet.ToString("#0.00");
+                if (ddDeliveryNote.SelectedValue != "YES")
+                {
+                    TextBoxVATAmt.Text = vatinclusiverate.ToString("#0.00");
+                    TextBoxRtVAT.Text = calnet.ToString("#0.00");
+                    txtPrBefVAT.Text = sVatamount.ToString("#0.00");
+                    TextBoxTotal.Text = calnet.ToString("#0.00");
+                }
+                else
+                {
+                    TextBoxVATAmt.Text = "0.00";
+                    TextBoxRtVAT.Text = "0.00";
+                    txtPrBefVAT.Text = "0.00";
+                    TextBoxTotal.Text = "0.00";
+                }
             }
             else if (Labelll.Text == "VAT EXCLUSIVE")
             {
@@ -9740,10 +9750,20 @@ public partial class CustomerSales : System.Web.UI.Page
                 double vatinclusiverate3 = Convert.ToDouble(TextBoxRtVAT.Text) - vatinclusiverate;
                 double vatinclusiverate1 = Convert.ToDouble(vatinclusiverate3) * Convert.ToDouble(TextBoxVATPre.Text) / 100;
                 double vatinclusiverate2 = vatinclusiverate1 + vatinclusiverate3;
-                TextBoxVATAmt.Text = vatinclusiverate1.ToString("#0.00");
-                txtPrBefVAT.Text = vatinclusiverate3.ToString("#0.00");
-                TextBoxRtVAT.Text = vatinclusiverate2.ToString("#0.00");
-                TextBoxTotal.Text = vatinclusiverate2.ToString("#0.00");
+                if (ddDeliveryNote.SelectedValue != "YES")
+                {
+                    TextBoxVATAmt.Text = vatinclusiverate1.ToString("#0.00");
+                    txtPrBefVAT.Text = vatinclusiverate3.ToString("#0.00");
+                    TextBoxRtVAT.Text = vatinclusiverate2.ToString("#0.00");
+                    TextBoxTotal.Text = vatinclusiverate2.ToString("#0.00");
+                }
+                else
+                {
+                    TextBoxVATAmt.Text = "0.00";
+                    txtPrBefVAT.Text = "0.00";
+                    TextBoxRtVAT.Text = "0.00";
+                    TextBoxTotal.Text = "0.00";
+                }
             }
 
         }
@@ -9885,11 +9905,23 @@ public partial class CustomerSales : System.Web.UI.Page
                         double vatinclusiverate = calnet * vatper / vatper1;
                         //double vatinclusiverate = (((Convert.ToDouble(TextBoxRate.Text) * (Convert.ToDouble(TextBoxQty.Text))) - Convert.ToDouble(TextBoxDisPre.Text)) / vatper1);
                         double sVatamount = calnet - vatinclusiverate;
-                        TextBoxVATAmt.Text = vatinclusiverate.ToString("#0.00");
-                        TextBoxRtVAT.Text = calnet.ToString("#0.00");
-                        txtPrBefVAT.Text = sVatamount.ToString("#0.00");
-                        TextBoxTotal.Text = calnet.ToString("#0.00");
-                        vatcheck = false;
+                        if (ddDeliveryNote.SelectedValue != "YES")
+                        {
+                            TextBoxVATAmt.Text = vatinclusiverate.ToString("#0.00");
+                            TextBoxRtVAT.Text = calnet.ToString("#0.00");
+                            txtPrBefVAT.Text = sVatamount.ToString("#0.00");
+                            TextBoxTotal.Text = calnet.ToString("#0.00");
+                            vatcheck = false;
+                        }
+                        else
+                        {
+                            TextBoxVATAmt.Text = "0.00";
+                            TextBoxRtVAT.Text = "0.00";
+                            txtPrBefVAT.Text = "0.00";
+                            TextBoxTotal.Text = "0.00";
+                            vatcheck = false;
+                        }
+
                     }
                 }
                 else if (Labelll.Text == "VAT EXCLUSIVE")
@@ -9910,11 +9942,22 @@ public partial class CustomerSales : System.Web.UI.Page
                         double vatinclusiverate3 = Convert.ToDouble(TextBoxRtVAT.Text) - vatinclusiverate;
                         double vatinclusiverate1 = Convert.ToDouble(vatinclusiverate3) * Convert.ToDouble(TextBoxVATPre.Text) / 100;
                         double vatinclusiverate2 = vatinclusiverate1 + vatinclusiverate3;
-                        TextBoxVATAmt.Text = vatinclusiverate1.ToString("#0.00");
-                        txtPrBefVAT.Text = vatinclusiverate3.ToString("#0.00");
-                        TextBoxRtVAT.Text = vatinclusiverate2.ToString("#0.00");
-                        TextBoxTotal.Text = vatinclusiverate2.ToString("#0.00");
-                        vatcheck = false;
+                        if (ddDeliveryNote.SelectedValue != "YES")
+                        {
+                            TextBoxVATAmt.Text = vatinclusiverate1.ToString("#0.00");
+                            txtPrBefVAT.Text = vatinclusiverate3.ToString("#0.00");
+                            TextBoxRtVAT.Text = vatinclusiverate2.ToString("#0.00");
+                            TextBoxTotal.Text = vatinclusiverate2.ToString("#0.00");
+                            vatcheck = false;
+                        }
+                        else
+                        {
+                            TextBoxVATAmt.Text = "0.00";
+                            txtPrBefVAT.Text = "0.00";
+                            TextBoxRtVAT.Text = "0.00";
+                            TextBoxTotal.Text = "0.00";
+                            vatcheck = false;
+                        }
                     }
                 }
             }
@@ -10441,16 +10484,16 @@ public partial class CustomerSales : System.Web.UI.Page
                     txtDesc.Text = itemDs.Tables[0].Rows[vLoop]["ProductDesc"].ToString();
                     //txtRate.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["Rate"].ToString()).ToString("#0.00");
                     //txtTotalPrice.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["TotalPrice"].ToString()).ToString("#0.00");
-                   // txtStock.Text = itemDs.Tables[0].Rows[vLoop]["Stock"].ToString();
+                    // txtStock.Text = itemDs.Tables[0].Rows[vLoop]["Stock"].ToString();
                     txtQty.Text = itemDs.Tables[0].Rows[vLoop]["Qty"].ToString();
                     //txtExeComm.Text = itemDs.Tables[0].Rows[vLoop]["ExecCharge"].ToString();
                     txtDisPre.Text = itemDs.Tables[0].Rows[vLoop]["Discount"].ToString();
                     txtVATPre.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["Vat"].ToString()).ToString("#0.00");
                     txtCSTPre.Text = itemDs.Tables[0].Rows[vLoop]["CST"].ToString();
-                   // txtPrBefVAT.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["PriceBeforeVATAmt"].ToString()).ToString("#0.00");
+                    // txtPrBefVAT.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["PriceBeforeVATAmt"].ToString()).ToString("#0.00");
                     //txtVATAmt.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["Vatamount"].ToString()).ToString("#0.00");
                     //txtRtVAT.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["Subtotal"].ToString()).ToString("#0.00");
-                   // txtTotal.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["Totalmrp"].ToString()).ToString("#0.00");
+                    // txtTotal.Text = Convert.ToDouble(itemDs.Tables[0].Rows[vLoop]["Totalmrp"].ToString()).ToString("#0.00");
                 }
 
 

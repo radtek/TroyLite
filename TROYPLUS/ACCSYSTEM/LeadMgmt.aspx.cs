@@ -69,6 +69,7 @@ public partial class LeadMgmt : System.Web.UI.Page
                 loadInterestlevel();
                 txtInformation1.Text = "";
                 txtContactName.Text = "";
+                //bl.ListCreditorDebitor(sDataSource);
             }
         }
         catch (Exception ex)
@@ -242,7 +243,7 @@ public partial class LeadMgmt : System.Web.UI.Page
         //string sDataSource = Server.MapPath(ConfigurationSettings.AppSettings["DataSource"].ToString());
         BusinessLogic bl = new BusinessLogic(sDataSource);
         DataSet ds = new DataSet();
-        ds = bl.ListCreditorDebitor(sDataSource);
+        ds = bl.ListSundryDebtorsExceptIsActive(sDataSource);
         cmbCustomer.DataSource = ds;
         cmbCustomer.DataBind();
         cmbCustomer.DataTextField = "LedgerName";

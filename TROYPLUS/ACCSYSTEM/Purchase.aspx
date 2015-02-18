@@ -432,6 +432,21 @@
                                                                                                                             <asp:TextBox ID="txtfixedtotal" runat="server" CssClass="cssTextBox" ValidationGroup="product" Text="0" Width="100%" BackColor="#e7e7e7"></asp:TextBox>
                                                                                                                         </td>
                                                                                                                         <td style="width: 10%"></td>
+                                                                                                                        <td style="width: 10%;" class="ControlLabelproject">                                                                                                                           
+                                                                                                                            Sales Invoice No *
+                                                                                                                        </td>
+                                                                                                                        <td class="ControlDrpBorder" style="width: 24%">
+                                                                                                                            <asp:UpdatePanel ID="UpdatePanel7" runat="server" UpdateMode="Conditional">
+                                                                                                                                <ContentTemplate>
+                                                                                                                                    <asp:DropDownList ID="drpSalesID" runat="server" AutoPostBack="true" AppendDataBoundItems="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="PurchaseID" DataValueField="PurchaseID" Height="26px" Style="border: 1px solid #e7e7e7" TabIndex="2" ValidationGroup="salesval" Width="100%">
+                                                                                                                                        <asp:ListItem style="background-color: #e7e7e7" Text="Select Invoice No" Value="0"></asp:ListItem>
+                                                                                                                                    </asp:DropDownList>
+                                                                                                                                </ContentTemplate>
+                                                                                                                                <Triggers>
+                                                                                                                                  
+                                                                                                                                </Triggers>
+                                                                                                                            </asp:UpdatePanel>
+                                                                                                                        </td>
                                                                                                                     </tr>
                                                                                                                     <tr style="height: 2px">
                                                                                                                     </tr>
@@ -942,6 +957,11 @@
                                                                                                                                                                             <asp:TextBox ID="txtQty" Style="text-align: right" runat="server" Width="65px" ForeColor="#0567AE" Font-Bold="false" AutoPostBack="true" OnTextChanged="txtQty_TextChanged"></asp:TextBox>
                                                                                                                                                                         </ItemTemplate>
                                                                                                                                                                     </asp:TemplateField>
+                                                                                                                                                                    <asp:TemplateField HeaderText="Return Quantity" ItemStyle-Width="65px" ItemStyle-Font-Size="10px" HeaderStyle-ForeColor="Black">
+                                                                                                                                                                        <ItemTemplate>
+                                                                                                                                                                            <asp:TextBox ID="txtRtnQty" Style="text-align: right" runat="server" Width="65px" ForeColor="#0567AE" Font-Bold="false" AutoPostBack="true" OnTextChanged="txtQty_TextChanged"></asp:TextBox>
+                                                                                                                                                                        </ItemTemplate>
+                                                                                                                                                                    </asp:TemplateField>
                                                                                                                                                                     <asp:TemplateField HeaderText="Rate" ItemStyle-Width="75px" ItemStyle-Font-Size="10px" HeaderStyle-ForeColor="Black">
                                                                                                                                                                         <ItemTemplate>
                                                                                                                                                                             <asp:TextBox ID="txtRate" Style="text-align: right" runat="server" Width="75px" ForeColor="#0567AE" Font-Bold="false" AutoPostBack="true" OnTextChanged="txtQty_TextChanged"></asp:TextBox>
@@ -1168,7 +1188,7 @@
                                                                                                                                                                 <td style="width: 25%;" class="ControlLabel">Grand Total(INR)   
                                                                                                                                                                 <td style="width: 14%;">
                                                                                                                                                                     <%--<asp:TextBox ID="TextBox3" Style="text-align: right" runat="server" AutoPostBack="True" SkinID="skinTxtBox" TabIndex="7" Text="0" Width="200px"></asp:TextBox>--%>
-                                                                                                                                                                      <asp:Label ID="lblNet" Style="text-align: right" runat="server" AutoPostBack="True" CssClass="ControlLabelproject" Text="0"></asp:Label>
+                                                                                                                                                                    <asp:Label ID="lblNet" Style="text-align: right" runat="server" AutoPostBack="True" CssClass="ControlLabelproject" Text="0"></asp:Label>
                                                                                                                                                                 </td>
                                                                                                                                                                     <td style="width: 26%;"></td>
                                                                                                                                                             </tr>
