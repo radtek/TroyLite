@@ -50989,6 +50989,44 @@ public class BusinessLogic
         }
     }
 
+    public DataSet ListDeliveryreturn(string connection)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        if (connection.IndexOf("Provider=Microsoft.Jet.OLEDB.4.0;") > -1)
+            manager.ConnectionString = CreateConnectionString(connection);
+        else
+            manager.ConnectionString = CreateConnectionString(connection);
+
+        DataSet ds = new DataSet();
+        string dbQry = string.Empty;
+
+        try
+        {
+            dbQry = string.Format(" SELECT tblSales.BillNo, tblSales.SeriesID, tblSales.BillDate, tblSales.JournalID, tblSales.CustomerID, tblSales.CustomerName, " +
+                                  " tblSales.PayMode, tblSales.Tax, tblSales.Discount, tblSales.Cancelled, tblSales.CustomerAddress, tblSales.CustomerContacts, " +
+                                  " tblSales.purchaseReturn, tblSales.purchaseReturnreason, tblSales.Freight, tblSales.LoadUnLoad, tblSales.OtherCusName, " +
+                                  " tblSales.InternalTransfer, tblSales.MultiPayment, tblSales.DeliveryNote, tblSales.CustomerAddress2, tblSales.CustomerAddress3, " +
+                                  " tblSales.despatchedfrom, tblSales.TotalWORndOff, tblSales.Total, tblSales.Manualsales, tblSales.NormalSales, tblSales.Types, " +
+                                  " tblSales.Narration2, tblSales.DuplicateCopy, tblSales.CustomerIdMobile, tblSales.Check1, tblSales.cuscategory, tblSales.Discounttype " +
+                                  " FROM tblSales where tblSales.DeliveryNote='YES'");
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry);
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            manager.Dispose();
+        }
+    }
+
     public DataSet ListSundryLedgersDcIsActive(string connection)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
