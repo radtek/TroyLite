@@ -194,7 +194,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 }
                 loadBanks();
                 loadEmp();
-                loadPurchaseID();
+                
                 //loadCustomer();
                 loadSupplier("Sundry Debtors");
                 loadCategories();
@@ -3383,7 +3383,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 {
                     //if (optionmethod.SelectedValue == "ManualSales")
                     //{
-                    if (drpmanualsales.SelectedValue == "YES")
+                    if (drpmanualsales.SelectedValue == "YES") 
                     {
                         ManualSales = "YES";
                         NormalSales = "NO";
@@ -5631,6 +5631,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 rowReason.Visible = false;
                 //lblVATAdd.Enabled = true;
                 rowmanual.Visible = false;
+                drpPurID.Items.Clear();
 
             }
             else if (optionmethod.SelectedValue == "InternalTransfer")
@@ -5666,6 +5667,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 rowmanual.Visible = false;
 
                 drpPaymode.SelectedValue = "3";
+                drpPurID.Items.Clear();
 
             }
             else if (optionmethod.SelectedValue == "DeliveryNote")
@@ -5701,6 +5703,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 rowmanual.Visible = false;
 
                 drpPaymode.SelectedValue = "3";
+                drpPurID.Items.Clear();
 
             }
             else if (optionmethod.SelectedValue == "PurchaseReturn")
@@ -5735,6 +5738,8 @@ public partial class CustomerSales : System.Web.UI.Page
                 rowReason.Visible = true;
                 rowmanual.Visible = false;
 
+                loadPurchaseID();
+
             }
             else if (optionmethod.SelectedValue == "ManualSales")
             {
@@ -5767,6 +5772,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 rowReason.Visible = false;
                 //lblVATAdd.Enabled = true;
                 rowmanual.Visible = true;
+                drpPurID.Items.Clear();
             }
 
             if (drpPurchaseReturn.SelectedValue == "NO")
@@ -9587,6 +9593,7 @@ public partial class CustomerSales : System.Web.UI.Page
         dt.Columns.Add(new DataColumn("Qty", typeof(string)));
         dt.Columns.Add(new DataColumn("executivename", typeof(string)));
         dt.Columns.Add(new DataColumn("ProductDesc", typeof(string)));
+        dt.Columns.Add(new DataColumn("RtnQty", typeof(string)));
         dt.Columns.Add(new DataColumn("Rate", typeof(string)));
         dt.Columns.Add(new DataColumn("TotalPrice", typeof(string)));
         dt.Columns.Add(new DataColumn("Stock", typeof(string)));
@@ -9604,6 +9611,7 @@ public partial class CustomerSales : System.Web.UI.Page
         dr["Qty"] = string.Empty;
         dr["executivename"] = string.Empty;
         dr["ProductDesc"] = string.Empty;
+        dr["RtnQty"] = string.Empty;
         dr["Rate"] = string.Empty;
         dr["TotalPrice"] = string.Empty;
         dr["Stock"] = string.Empty;
@@ -9622,22 +9630,32 @@ public partial class CustomerSales : System.Web.UI.Page
 
         if (EnableDiscount == "YES")
         {
-            grvStudentDetails.Columns[9].Visible = true;
+            grvStudentDetails.Columns[10].Visible = true;
         }
         else
         {
-            grvStudentDetails.Columns[9].Visible = false;
+            grvStudentDetails.Columns[10].Visible = false;
         }
 
         if (discType == "PERCENTAGE")
         {
-            grvStudentDetails.Columns[9].HeaderText = "Disc(%)";
+            grvStudentDetails.Columns[10].HeaderText = "Disc(%)";
         }
         else if (discType == "RUPEE")
         {
-            grvStudentDetails.Columns[9].HeaderText = "Disc(INR)";
+            grvStudentDetails.Columns[10].HeaderText = "Disc(INR)";
         }
-
+        
+        if (drpPurchaseReturn.SelectedValue != "YES")
+        {
+            grvStudentDetails.Columns[4].Visible = true;
+            grvStudentDetails.Columns[5].Visible = false;
+        }
+        else
+        {
+            grvStudentDetails.Columns[4].Visible = false;
+            grvStudentDetails.Columns[5].Visible = true;
+        }
         grvStudentDetails.DataBind();
     }
 

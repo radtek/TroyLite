@@ -500,22 +500,22 @@
                                                                                                                                         <asp:TextBox ID="txtdespatced" runat="server" BackColor="#e7e7e7" MaxLength="10" SkinID="skinTxtBoxGrid" TabIndex="8" Width="200px"></asp:TextBox>
                                                                                                                                     </td>
                                                                                                                                     <td style="width: 7%;"></td>
-                                                                                                                                     <td style="width: 10%;" class="ControlLabelproject">
-                                                                                                                                            <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="drpCustomerCategoryAdd" Display="Dynamic" ErrorMessage="Please Select Customer Category" Operator="GreaterThan" Text="*" ValidationGroup="salesval" ValueToCompare="0"></asp:CompareValidator>
-                                                                                                                                            Purchase InvoiceNo *
-                                                                                                                                        </td>
-                                                                                                                                        <td class="ControlDrpBorder" style="width: 24%">
-                                                                                                                                            <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
-                                                                                                                                                <ContentTemplate>
-                                                                                                                                                    <asp:DropDownList ID="drpPurID" runat="server" AutoPostBack="true" AppendDataBoundItems="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="PurchaseID" DataValueField="PurchaseID" Height="26px" Style="border: 1px solid #e7e7e7" TabIndex="2" ValidationGroup="salesval" Width="100%" OnSelectedIndexChanged="drpPurID_SelectedIndexChanged">
-                                                                                                                                                        <asp:ListItem style="background-color: #e7e7e7" Text="Select Invoice No" Value="0"></asp:ListItem> 
-                                                                                                                                                    </asp:DropDownList>
-                                                                                                                                                </ContentTemplate>
-                                                                                                                                                <Triggers>
-                                                                                                                                                    <asp:AsyncPostBackTrigger ControlID="cmbCustomer" EventName="SelectedIndexChanged" />
-                                                                                                                                                </Triggers>
-                                                                                                                                            </asp:UpdatePanel>
-                                                                                                                                        </td>
+                                                                                                                                    <td style="width: 10%;" class="ControlLabelproject">
+                                                                                                                                        <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="drpCustomerCategoryAdd" Display="Dynamic" ErrorMessage="Please Select Customer Category" Operator="GreaterThan" Text="*" ValidationGroup="salesval" ValueToCompare="0"></asp:CompareValidator>
+                                                                                                                                        Purchase InvoiceNo *
+                                                                                                                                    </td>
+                                                                                                                                    <td class="ControlDrpBorder" style="width: 24%">
+                                                                                                                                        <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+                                                                                                                                            <ContentTemplate>
+                                                                                                                                                <asp:DropDownList ID="drpPurID" runat="server" AutoPostBack="true" AppendDataBoundItems="true" BackColor="#e7e7e7" CssClass="drpDownListMedium" DataTextField="PurchaseID" DataValueField="PurchaseID" Height="26px" Style="border: 1px solid #e7e7e7" TabIndex="2" ValidationGroup="salesval" Width="100%" OnSelectedIndexChanged="drpPurID_SelectedIndexChanged">
+                                                                                                                                                    <asp:ListItem style="background-color: #e7e7e7" Text="Select Invoice No" Value="0"></asp:ListItem>
+                                                                                                                                                </asp:DropDownList>
+                                                                                                                                            </ContentTemplate>
+                                                                                                                                            <Triggers>
+                                                                                                                                                <asp:AsyncPostBackTrigger ControlID="cmbCustomer" EventName="SelectedIndexChanged" />
+                                                                                                                                            </Triggers>
+                                                                                                                                        </asp:UpdatePanel>
+                                                                                                                                    </td>
                                                                                                                                     <td style="width: 13%;"></td>
                                                                                                                                 </tr>
                                                                                                                                 <tr style="height: 2px;">
@@ -539,7 +539,7 @@
                                                                                                                                             </td>
 
                                                                                                                                         </td>
-                                                                                                                                       
+
                                                                                                                                         <td align="left" style="width: 13%;"></td>
                                                                                                                                 </tr>
                                                                                                                                 <%--<tr style="height: 2px;">
@@ -1020,6 +1020,7 @@
                                                                                                                                                                 </asp:TemplateField>
                                                                                                                                                                 <asp:TemplateField HeaderText="Quantity" ItemStyle-Width="40px" ItemStyle-Font-Size="10px" HeaderStyle-ForeColor="Black">
                                                                                                                                                                     <ItemTemplate>
+                                                                                                                                                                         <cc1:FilteredTextBoxExtender ID="Qty" runat="server" FilterType="Numbers" TargetControlID="txtQty" />
                                                                                                                                                                         <asp:TextBox ID="txtQty" Style="text-align: right" runat="server" Width="40px" ForeColor="#0567AE" Font-Bold="false" AutoPostBack="true" OnTextChanged="txtQty_TextChanged"></asp:TextBox>
                                                                                                                                                                     </ItemTemplate>
                                                                                                                                                                 </asp:TemplateField>
@@ -1039,8 +1040,15 @@
                                                                                                                                                                             ValidationGroup="DynRowAdd" Text="Add New Product" OnClick="ButtonAdd_Click" />
                                                                                                                                                                     </FooterTemplate>
                                                                                                                                                                 </asp:TemplateField>
+                                                                                                                                                                 <asp:TemplateField HeaderText="Return Quantity" ItemStyle-Width="40px" ItemStyle-Font-Size="10px" HeaderStyle-ForeColor="Black">
+                                                                                                                                                                    <ItemTemplate>
+                                                                                                                                                                         <cc1:FilteredTextBoxExtender ID="RtnQty" runat="server" FilterType="Numbers" TargetControlID="txtRtnQty" />
+                                                                                                                                                                        <asp:TextBox ID="txtRtnQty" Style="text-align: right" runat="server" Width="40px" ForeColor="#0567AE" Font-Bold="false" AutoPostBack="true" OnTextChanged="txtQty_TextChanged"></asp:TextBox>
+                                                                                                                                                                    </ItemTemplate>
+                                                                                                                                                                </asp:TemplateField>
                                                                                                                                                                 <asp:TemplateField HeaderText="Unit Price" ItemStyle-Width="63px" ItemStyle-Font-Size="10px" HeaderStyle-ForeColor="Black">
                                                                                                                                                                     <ItemTemplate>
+                                                                                                                                                                        <cc1:FilteredTextBoxExtender ID="rte" runat="server" Enabled="True" FilterType="Custom, Numbers" TargetControlID="txtRate" ValidChars="." />
                                                                                                                                                                         <asp:TextBox ID="txtRate" Style="text-align: right" runat="server" Width="63px" ForeColor="#0567AE" Font-Bold="false" AutoPostBack="true" OnTextChanged="txtRate_TextChanged"></asp:TextBox>
                                                                                                                                                                     </ItemTemplate>
                                                                                                                                                                 </asp:TemplateField>
