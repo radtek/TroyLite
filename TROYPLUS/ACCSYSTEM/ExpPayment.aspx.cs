@@ -1022,8 +1022,8 @@ public partial class ExpPayment : System.Web.UI.Page
 
             string usernam = Request.Cookies["LoggedUserName"].Value;
             string connection = Request.Cookies["Company"].Value;
-            salestype = "Customer Receipt";
-            ScreenName = "Customer Receipt";
+            salestype = "Expense Payment";
+            ScreenName = "Expense Payment";
             int DebitorID = 0;
             string TransDate = string.Empty;
             double Amount = 0;

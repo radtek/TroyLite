@@ -516,6 +516,8 @@
                             <asp:HiddenField ID="hdTempId" runat="server" Value="0" />
                             <asp:HiddenField ID="hdFilename" runat="server" Value="0" />
                             <asp:HiddenField ID="hdFormula" runat="server" Value="0" />
+                            <asp:HiddenField ID="hdSMSRequired" runat="server" Value="NO" />
+                            <asp:HiddenField ID="hdEmailRequired" runat="server" Value="NO" />
                         </div>
                     </td>
                 </tr>

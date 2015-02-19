@@ -396,6 +396,8 @@
                         <asp:HiddenField ID="hdCustomerID" runat="server" Value="0" />
                         <asp:HiddenField ID="hdDueDate" runat="server" Value="" />
                         <asp:HiddenField ID="hdRefNumber" runat="server" Value="" />
+                        <asp:HiddenField ID="hdSMSRequired" runat="server" Value="NO" />
+                        <asp:HiddenField ID="hdEmailRequired" runat="server" Value="NO" />
                     </td>
                 </tr>
                 <tr align="center">

@@ -10,6 +10,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Data.OleDb;
+using SMSLibrary;
 
 public partial class FormulaExecution : System.Web.UI.Page
 {
@@ -58,11 +59,101 @@ public partial class FormulaExecution : System.Web.UI.Page
                 GridViewProducts.PageSize = 8;
                 GridViewTemplates.PageSize = 7;
 
+                CheckSMSRequired();
+
+                if (Session["SMSREQUIRED"] != null)
+                {
+                    if (Session["SMSREQUIRED"].ToString() == "NO")
+                        hdSMSRequired.Value = "NO";
+                    else
+                        hdSMSRequired.Value = "YES";
+                }
+                else
+                {
+                    hdSMSRequired.Value = "NO";
+                }
+
+                if (Session["EMAILREQUIRED"] != null)
+                {
+                    if (Session["EMAILREQUIRED"].ToString() == "NO")
+                        hdEmailRequired.Value = "NO";
+                    else
+                        hdEmailRequired.Value = "YES";
+                }
+                else
+                {
+                    hdEmailRequired.Value = "NO";
+                }
+
+
             }
         }
         catch (Exception ex)
         {
             TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+
+
+    private void CheckSMSRequired()
+    {
+        DataSet appSettings;
+        string smsRequired = string.Empty;
+        string emailRequired = string.Empty;
+
+        if (Session["AppSettings"] != null)
+        {
+            appSettings = (DataSet)Session["AppSettings"];
+
+            for (int i = 0; i < appSettings.Tables[0].Rows.Count; i++)
+            {
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "SMSREQ")
+                {
+                    smsRequired = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                    Session["SMSREQUIRED"] = smsRequired.Trim().ToUpper();
+                }
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "EMAILREQ")
+                {
+                    emailRequired = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                    Session["EMAILREQUIRED"] = emailRequired.Trim().ToUpper();
+                }
+
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "OWNERMOB")
+                {
+                    Session["OWNERMOB"] = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                }
+
+            }
+        }
+        else
+        {
+            BusinessLogic bl = new BusinessLogic();
+            DataSet ds = bl.GetAppSettings(Request.Cookies["Company"].Value);
+
+            if (ds != null)
+                Session["AppSettings"] = ds;
+
+            appSettings = (DataSet)Session["AppSettings"];
+
+            for (int i = 0; i < appSettings.Tables[0].Rows.Count; i++)
+            {
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "SMSREQ")
+                {
+                    smsRequired = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                    Session["SMSREQUIRED"] = smsRequired.Trim().ToUpper();
+                }
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "EMAILREQ")
+                {
+                    emailRequired = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                    Session["EMAILREQUIRED"] = emailRequired.Trim().ToUpper();
+                }
+
+                if (appSettings.Tables[0].Rows[i]["KEY"].ToString() == "OWNERMOB")
+                {
+                    Session["OWNERMOB"] = appSettings.Tables[0].Rows[i]["KEYVALUE"].ToString();
+                }
+
+            }
         }
     }
 
@@ -318,6 +409,186 @@ public partial class FormulaExecution : System.Web.UI.Page
 
                         transaction.Commit();
                         BindProductsGrid(txtStartDate.Text, txtEndDate.Text, rdoIsPros.Checked);
+
+                        string connection1 = Request.Cookies["Company"].Value;
+
+                       
+                            string usernam = Request.Cookies["LoggedUserName"].Value;
+
+                            string salestype = string.Empty;
+                            int ScreenNo = 0;
+                            string ScreenName = string.Empty;
+
+
+                            salestype = "Formula Execution";
+                            ScreenName = "Formula Execution";
+
+
+                            bool mobile = false;
+                            bool Email = false;
+                            string emailsubject = string.Empty;
+
+                            string emailcontent = string.Empty;
+                            if (hdEmailRequired.Value == "YES")
+                            {
+                                var toAddress = "";
+                                var toAdd = "";
+                                Int32 ModeofContact = 0;
+                                int ScreenType = 0;
+
+
+                                DataSet dsdd = bl.GetDetailsForScreenNo(connection1, ScreenName, "");
+                                if (dsdd != null)
+                                {
+                                    if (dsdd.Tables[0].Rows.Count > 0)
+                                    {
+                                        foreach (DataRow dr in dsdd.Tables[0].Rows)
+                                        {
+                                            ScreenType = Convert.ToInt32(dr["ScreenType"]);
+                                            mobile = Convert.ToBoolean(dr["mobile"]);
+                                            Email = Convert.ToBoolean(dr["Email"]);
+                                            emailsubject = Convert.ToString(dr["emailsubject"]);
+                                            emailcontent = Convert.ToString(dr["emailcontent"]);
+
+                                            if (ScreenType == 1)
+                                            {
+
+                                                toAddress = toAdd;
+
+                                            }
+                                            else
+                                            {
+                                                toAddress = dr["EmailId"].ToString();
+                                            }
+                                            if (Email == true)
+                                            {
+
+                                                string body = "\n";
+
+                                                int index123 = emailcontent.IndexOf("@Branch");
+                                                body = Request.Cookies["Company"].Value;
+                                                emailcontent = emailcontent.Remove(index123, 7).Insert(index123, body);
+
+                                                int sno = 1;
+                                                string prd = string.Empty;
+                                                int index322 = emailcontent.IndexOf("@Product");
+                                                foreach (DataRow drd in ds.Tables[0].Rows)
+                                                {
+                                                    stock = drd["Qty"].ToString();
+                                                    itemCode = drd["ItemCode"].ToString();
+
+                                                    prd = "\n";
+                                                    prd = prd + itemCode + "  " + stock;
+                                                   
+                                                }
+
+                                                emailcontent = emailcontent.Remove(index322, 8).Insert(index322, prd);
+
+                                                int index312 = emailcontent.IndexOf("@User");
+                                                body = usernam;
+                                                emailcontent = emailcontent.Remove(index312, 5).Insert(index312, body);
+
+                                                int index2 = emailcontent.IndexOf("@FormulaName");
+                                                body = formula;
+                                                emailcontent = emailcontent.Remove(index2, 12).Insert(index2, body);
+
+                                                string smtphostname = ConfigurationManager.AppSettings["SmtpHostName"].ToString();
+                                                int smtpport = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPortNumber"]);
+                                                var fromAddress = ConfigurationManager.AppSettings["FromAddress"].ToString();
+
+                                                string fromPassword = ConfigurationManager.AppSettings["FromPassword"].ToString();
+
+                                                EmailLogic.SendEmail(smtphostname, smtpport, fromAddress, toAddress, emailsubject, emailcontent, fromPassword);
+
+                                                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Email sent successfully')", true);
+
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+
+                            string conn = bl.CreateConnectionString(Request.Cookies["Company"].Value);
+                            UtilitySMS utilSMS = new UtilitySMS(conn);
+                            string UserID = Page.User.Identity.Name;
+
+                            string smscontent = string.Empty;
+                            if (hdSMSRequired.Value == "YES")
+                            {
+                                var toAddress = "";
+                                var toAdd = "";
+                                Int32 ModeofContact = 0;
+                                int ScreenType = 0;
+
+                                DataSet dsdd = bl.GetDetailsForScreenNo(connection1, ScreenName, "");
+                                if (dsdd != null)
+                                {
+                                    if (dsdd.Tables[0].Rows.Count > 0)
+                                    {
+                                        foreach (DataRow dr in dsdd.Tables[0].Rows)
+                                        {
+                                            ScreenType = Convert.ToInt32(dr["ScreenType"]);
+                                            mobile = Convert.ToBoolean(dr["mobile"]);
+                                            smscontent = Convert.ToString(dr["smscontent"]);
+
+                                            if (ScreenType == 1)
+                                            {
+
+                                                toAddress = toAdd;
+
+                                            }
+                                            else
+                                            {
+                                                toAddress = dr["mobile"].ToString();
+                                            }
+                                            if (mobile == true)
+                                            {
+
+                                                string body = "\n";
+
+                                                int index123 = smscontent.IndexOf("@Branch");
+                                                body = Request.Cookies["Company"].Value;
+                                                smscontent = smscontent.Remove(index123, 7).Insert(index123, body);
+
+                                                int sno = 1;
+                                                string prd = string.Empty;
+                                                int index322 = smscontent.IndexOf("@Product");
+                                                foreach (DataRow drd in ds.Tables[0].Rows)
+                                                {
+                                                    stock = drd["Qty"].ToString();
+                                                    itemCode = drd["ItemCode"].ToString();
+
+                                                    prd = "\n";
+                                                    prd = prd + itemCode + "  " + stock;
+
+                                                }
+
+                                                smscontent = smscontent.Remove(index322, 8).Insert(index322, prd);
+
+                                                int index312 = smscontent.IndexOf("@User");
+                                                body = usernam;
+                                                smscontent = smscontent.Remove(index312, 5).Insert(index312, body);
+
+                                                int index2 = smscontent.IndexOf("@FormulaName");
+                                                body = formula;
+                                                smscontent = smscontent.Remove(index2, 12).Insert(index2, body);
+
+                                                if (Session["Provider"] != null)
+                                                {
+                                                    utilSMS.SendSMS(Session["Provider"].ToString(), Session["Priority"].ToString(), Session["SenderID"].ToString(), Session["UserName"].ToString(), Session["Password"].ToString(), toAddress, smscontent, true, UserID);
+                                                }
+
+
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+                      
+
+
                         ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product Released Successfully');", true);
 
                     }
@@ -683,6 +954,212 @@ public partial class FormulaExecution : System.Web.UI.Page
                             ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product Processed Successfully. However the Product is not Released.');", true);
                         else
                             ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Product Processed and Released Successfully');", true);
+
+
+                        BusinessLogic bl = new BusinessLogic(sDataSource);
+                        string connection1 = Request.Cookies["Company"].Value;
+
+                        if (stockHold == "Y")
+                        {
+                            string usernam = Request.Cookies["LoggedUserName"].Value;
+
+                            string salestype = string.Empty;
+                            int ScreenNo = 0;
+                            string ScreenName = string.Empty;
+
+                            
+                            salestype = "Formula Execution";
+                            ScreenName = "Formula Execution";
+
+
+                            bool mobile = false;
+                            bool Email = false;
+                            string emailsubject = string.Empty;
+
+                            string emailcontent = string.Empty;
+                            if (hdEmailRequired.Value == "YES")
+                            {
+                                var toAddress = "";
+                                var toAdd = "";
+                                Int32 ModeofContact = 0;
+                                int ScreenType = 0;
+
+
+                                DataSet dsdd = bl.GetDetailsForScreenNo(connection1, ScreenName, "");
+                                if (dsdd != null)
+                                {
+                                    if (dsdd.Tables[0].Rows.Count > 0)
+                                    {
+                                        foreach (DataRow dr in dsdd.Tables[0].Rows)
+                                        {
+                                            ScreenType = Convert.ToInt32(dr["ScreenType"]);
+                                            mobile = Convert.ToBoolean(dr["mobile"]);
+                                            Email = Convert.ToBoolean(dr["Email"]);
+                                            emailsubject = Convert.ToString(dr["emailsubject"]);
+                                            emailcontent = Convert.ToString(dr["emailcontent"]);
+
+                                            if (ScreenType == 1)
+                                            {
+
+                                                toAddress = toAdd;
+
+                                            }
+                                            else
+                                            {
+                                                toAddress = dr["EmailId"].ToString();
+                                            }
+                                            if (Email == true)
+                                            {
+                                                
+                                                string body = "\n";
+
+                                                int index123 = emailcontent.IndexOf("@Branch");
+                                                body = Request.Cookies["Company"].Value;
+                                                emailcontent = emailcontent.Remove(index123, 7).Insert(index123, body);
+
+                                                int sno = 1;
+                                                string prd = string.Empty;
+                                                int index322 = emailcontent.IndexOf("@Product");
+                                                foreach (GridViewRow gr in grdIn.Rows)
+                                                {
+                                                    TextBox txtStock = (TextBox)gr.Cells[3].FindControl("txtQty");
+                                                    itemCode = gr.Cells[0].Text;
+                                                    
+                                                    prd = "\n";
+                                                    prd = prd + itemCode + "  " + txtStock.Text;
+
+                                                                                                     
+                                                }
+
+                                                foreach (GridViewRow gr in grdOut.Rows)
+                                                {
+                                                    TextBox txtStock = (TextBox)gr.Cells[3].FindControl("txtQty");
+                                                    itemCode = gr.Cells[0].Text;
+
+                                                    prd = "\n";
+                                                    prd = prd + itemCode + "  " + txtStock.Text;
+
+                                                          
+                                                }
+
+                                                emailcontent = emailcontent.Remove(index322, 8).Insert(index322, prd);  
+
+                                                int index312 = emailcontent.IndexOf("@User");
+                                                body = usernam;
+                                                emailcontent = emailcontent.Remove(index312, 5).Insert(index312, body);
+
+                                                int index2 = emailcontent.IndexOf("@FormulaName");
+                                                body = formula;
+                                                emailcontent = emailcontent.Remove(index2, 12).Insert(index2, body);
+
+                                                string smtphostname = ConfigurationManager.AppSettings["SmtpHostName"].ToString();
+                                                int smtpport = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPortNumber"]);
+                                                var fromAddress = ConfigurationManager.AppSettings["FromAddress"].ToString();
+
+                                                string fromPassword = ConfigurationManager.AppSettings["FromPassword"].ToString();
+
+                                                EmailLogic.SendEmail(smtphostname, smtpport, fromAddress, toAddress, emailsubject, emailcontent, fromPassword);
+
+                                                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Email sent successfully')", true);
+
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+
+                            string conn = bl.CreateConnectionString(Request.Cookies["Company"].Value);
+                            UtilitySMS utilSMS = new UtilitySMS(conn);
+                            string UserID = Page.User.Identity.Name;
+
+                            string smscontent = string.Empty;
+                            if (hdSMSRequired.Value == "YES")
+                            {
+                                var toAddress = "";
+                                var toAdd = "";
+                                Int32 ModeofContact = 0;
+                                int ScreenType = 0;
+
+                                DataSet dsdd = bl.GetDetailsForScreenNo(connection1, ScreenName, "");
+                                if (dsdd != null)
+                                {
+                                    if (dsdd.Tables[0].Rows.Count > 0)
+                                    {
+                                        foreach (DataRow dr in dsdd.Tables[0].Rows)
+                                        {
+                                            ScreenType = Convert.ToInt32(dr["ScreenType"]);
+                                            mobile = Convert.ToBoolean(dr["mobile"]);
+                                            smscontent = Convert.ToString(dr["smscontent"]);
+
+                                            if (ScreenType == 1)
+                                            {
+
+                                                toAddress = toAdd;
+
+                                            }
+                                            else
+                                            {
+                                                toAddress = dr["mobile"].ToString();
+                                            }
+                                            if (mobile == true)
+                                            {
+
+                                                string body = "\n";
+
+                                                int index123 = smscontent.IndexOf("@Branch");
+                                                body = Request.Cookies["Company"].Value;
+                                                smscontent = smscontent.Remove(index123, 7).Insert(index123, body);
+
+                                                int sno = 1;
+                                                string prd = string.Empty;
+                                                int index322 = smscontent.IndexOf("@Product");
+                                                foreach (GridViewRow gr in grdIn.Rows)
+                                                {
+                                                    TextBox txtStock = (TextBox)gr.Cells[3].FindControl("txtQty");
+                                                    itemCode = gr.Cells[0].Text;
+
+                                                    prd = "\n";
+                                                    prd = prd + itemCode + "  " + txtStock.Text;
+
+
+                                                }
+
+                                                foreach (GridViewRow gr in grdOut.Rows)
+                                                {
+                                                    TextBox txtStock = (TextBox)gr.Cells[3].FindControl("txtQty");
+                                                    itemCode = gr.Cells[0].Text;
+
+                                                    prd = "\n";
+                                                    prd = prd + itemCode + "  " + txtStock.Text;
+
+
+                                                }
+
+                                                smscontent = smscontent.Remove(index322, 8).Insert(index322, prd);  
+
+                                                int index312 = smscontent.IndexOf("@User");
+                                                body = usernam;
+                                                smscontent = smscontent.Remove(index312, 5).Insert(index312, body);
+
+                                                int index2 = smscontent.IndexOf("@FormulaName");
+                                                body = formula;
+                                                smscontent = smscontent.Remove(index2, 12).Insert(index2, body);
+
+                                                if (Session["Provider"] != null)
+                                                {
+                                                    utilSMS.SendSMS(Session["Provider"].ToString(), Session["Priority"].ToString(), Session["SenderID"].ToString(), Session["UserName"].ToString(), Session["Password"].ToString(), toAddress, smscontent, true, UserID);
+                                                }
+
+
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
 
                     }
                     catch (Exception ex)
