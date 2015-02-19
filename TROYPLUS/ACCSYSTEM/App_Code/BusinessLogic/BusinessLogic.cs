@@ -68036,7 +68036,7 @@ public class BusinessLogic
 
             object totPermission = manager.ExecuteScalar(CommandType.Text, "SELECT Monthly_Permission_Count FROM tblHRAdminSettings");
 
-            dbQry = string.Format("SELECT Count(*) FROM tblEmployeePermissions WHERE EmployeeNo ='{0}' AND a.AttendanceYear='{0}' AND Month(DateApplied) = {1}", EmpNo, applyMonth.Month);
+            dbQry = string.Format("SELECT Count(*) FROM tblEmployeePermissions WHERE EmployeeNo ={0} AND Month(DateApplied) = {1}", EmpNo, applyMonth.Month);
 
             object actualPermission = manager.ExecuteScalar(CommandType.Text, dbQry);
 
@@ -68086,7 +68086,7 @@ public class BusinessLogic
 
             if (totPermissionHr.ToString() != string.Empty)
             {
-                if (int.Parse(totPermissionHr.ToString()) <= hour)
+                if (int.Parse(totPermissionHr.ToString()) < hour)
                 {
                     throw new Exception("Maximum Permission hour allowed per day is " + totPermissionHr.ToString());
                 }
