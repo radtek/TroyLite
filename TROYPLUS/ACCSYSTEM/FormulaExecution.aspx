@@ -577,6 +577,8 @@
                             </table>
                         </asp:Panel>
                         <asp:HiddenField ID="hdStockHold" runat="server" Value="N" />
+                        <asp:HiddenField ID="hdSMSRequired" runat="server" Value="NO" />
+                        <asp:HiddenField ID="hdEmailRequired" runat="server" Value="NO" />
                     </td>
                 </tr>
             </table>

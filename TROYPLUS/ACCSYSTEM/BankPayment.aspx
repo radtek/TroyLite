@@ -810,6 +810,8 @@
                 <tr>
                     <td style="width: 100%">
                         <asp:HiddenField ID="hdPayment" runat="server" />
+                        <asp:HiddenField ID="hdSMSRequired" runat="server" Value="NO" />
+                        <asp:HiddenField ID="hdEmailRequired" runat="server" Value="NO" />
                     </td>
                 </tr>
             </table>

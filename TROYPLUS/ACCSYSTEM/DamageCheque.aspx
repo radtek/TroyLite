@@ -425,6 +425,8 @@
                                 <asp:Parameter Name="Username" Type="String" />
                             </InsertParameters>
                         </asp:ObjectDataSource>
+                        <asp:HiddenField ID="hdSMSRequired" runat="server" Value="NO" />
+                        <asp:HiddenField ID="hdEmailRequired" runat="server" Value="NO" />
                     </td>
                 </tr>
                 <tr>

@@ -209,6 +209,7 @@
                                                 Display="Dynamic" EnableClientScript="False" Enabled="false">Search is mandatory</asp:RequiredFieldValidator>
                                     </td>
                                     <td style="width: 18%" class="NewBox">
+                                        
                                         <asp:TextBox ID="txtSearch" runat="server" SkinID="skinTxtBoxSearch"></asp:TextBox>
                                     </td>
                                     <td style="width: 18%" class="NewBox">
@@ -239,6 +240,7 @@
                             CancelControlID="Button1" DynamicServicePath="" Enabled="True" PopupControlID="popUp"
                             TargetControlID="dummy">
                         </cc1:ModalPopupExtender>
+                        
                         <asp:Panel runat="server" ID="popUp" Style="width: 60%">
                             <div id="contentPopUp">
                                 <table class="tblLeft" cellpadding="0" cellspacing="0" style="border: 0px solid #5078B3; background-color: #fff; color: #000;"
@@ -999,6 +1001,7 @@
                 </tr>
             </table>
             <input type="hidden" id="hidAdvancedState" runat="server" />
+            
         </ContentTemplate>
     </asp:UpdatePanel>
     <table align="center">

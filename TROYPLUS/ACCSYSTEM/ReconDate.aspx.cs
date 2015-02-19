@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Data.OleDb;
 using DataAccessLayer;
+using SMSLibrary;
 
 public partial class ReconDate : System.Web.UI.Page
 {
@@ -159,66 +160,158 @@ public partial class ReconDate : System.Web.UI.Page
 
             manager.ExecuteNonQuery(CommandType.Text, "UPDATE tblSettings SET KEYVALUE = '" + enabledate.ToString() + "' WHERE KEY='ENBLDATE' ");
 
-            //errorDisplay.AddItem("Recon Date updated successfully." , DisplayIcons.GreenTick,false);
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Recon Date updated successfully.');", true);
-            return;
-
             string salestype = string.Empty;
             int ScreenNo = 0;
             string ScreenName = string.Empty;
 
-            BusinessLogic bl = new BusinessLogic();
-            string connection = Request.Cookies["Company"].Value;
-
             salestype = "Lock Transaction";
             ScreenName = "Lock Transaction";
-            DataSet dsddd = bl.GetScreenNoForScreenName(connection, ScreenName);
-            if (dsddd != null)
-            {
-                if (dsddd.Tables[0].Rows.Count > 0)
-                {
-                    foreach (DataRow dr in dsddd.Tables[0].Rows)
-                    {
-                        ScreenNo = Convert.ToInt32(dr["ScreenNo"]);
-                    }
-                }
-            }
 
+
+            string usernam = Request.Cookies["LoggedUserName"].Value;
+
+            bool mobile = false;
+            bool Email = false;
+            string emailsubject = string.Empty;
+            string connection = Request.Cookies["Company"].Value;
+            BusinessLogic bl = new BusinessLogic();
+
+            string emailcontent = string.Empty;
             if (hdEmailRequired.Value == "YES")
             {
                 var toAddress = "";
-                
-                string usernam = Request.Cookies["LoggedUserName"].Value;
+                var toAdd = "";
+                Int32 ModeofContact = 0;
+                int ScreenType = 0;
 
-                DataSet dsdd = bl.GetDetailsForScreenNo(connection, ScreenNo, "Email");
+
+                
+
+                DataSet dsdd = bl.GetDetailsForScreenNo(connection, ScreenName, "");
                 if (dsdd != null)
                 {
                     if (dsdd.Tables[0].Rows.Count > 0)
                     {
                         foreach (DataRow dr in dsdd.Tables[0].Rows)
                         {
-                            
-                                    toAddress = dr["EmailId"].ToString();
+                            ScreenType = Convert.ToInt32(dr["ScreenType"]);
+                            mobile = Convert.ToBoolean(dr["mobile"]);
+                            Email = Convert.ToBoolean(dr["Email"]);
+                            emailsubject = Convert.ToString(dr["emailsubject"]);
+                            emailcontent = Convert.ToString(dr["emailcontent"]);
 
-                                    string subject = "Updated - " + txtReconDate.Text + " Lock Transaction in Branch " + Request.Cookies["Company"].Value;
+                            if (ScreenType == 1)
+                            {                           
+                                toAddress = toAdd;                               
+                            }
+                            else
+                            {
+                                toAddress = dr["EmailId"].ToString();
+                            }
+                            if (Email == true)
+                            {
+                                //string subject = "Added - Customer Receipt in Branch " + Request.Cookies["Company"].Value;
 
-                                    string body = "\n";
-                                    body += " Branch           : " + Request.Cookies["Company"].Value + "\n";
-                                    body += " Date           : " + txtReconDate.Text + "\n";
-                                    
-                                    string smtphostname = ConfigurationManager.AppSettings["SmtpHostName"].ToString();
-                                    int smtpport = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPortNumber"]);
-                                    var fromAddress = ConfigurationManager.AppSettings["FromAddress"].ToString();
+                                string body = "\n";
 
-                                    string fromPassword = ConfigurationManager.AppSettings["FromPassword"].ToString();
+                                int index123 = emailcontent.IndexOf("@Branch");
+                                body = Request.Cookies["Company"].Value;
+                                emailcontent = emailcontent.Remove(index123, 7).Insert(index123, body);
 
-                                    EmailLogic.SendEmail(smtphostname, smtpport, fromAddress, toAddress, subject, body, fromPassword);
+                                int index312 = emailcontent.IndexOf("@User");
+                                body = usernam;
+                                emailcontent = emailcontent.Remove(index312, 5).Insert(index312, body);
 
-                                    //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Email sent successfully')", true);
+                                int index2 = emailcontent.IndexOf("@Date");
+                                body = txtReconDate.Text;
+                                emailcontent = emailcontent.Remove(index2, 5).Insert(index2, body);
+
+                                string smtphostname = ConfigurationManager.AppSettings["SmtpHostName"].ToString();
+                                int smtpport = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPortNumber"]);
+                                var fromAddress = ConfigurationManager.AppSettings["FromAddress"].ToString();
+
+                                string fromPassword = ConfigurationManager.AppSettings["FromPassword"].ToString();
+
+                                EmailLogic.SendEmail(smtphostname, smtpport, fromAddress, toAddress, emailsubject, emailcontent, fromPassword);
+
+                                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Email sent successfully')", true);
+
+                            }
+
                         }
                     }
                 }
             }
+
+            string conn = bl.CreateConnectionString(Request.Cookies["Company"].Value);
+            UtilitySMS utilSMS = new UtilitySMS(conn);
+            string UserID = Page.User.Identity.Name;
+
+            string smscontent = string.Empty;
+            if (hdSMSRequired.Value == "YES")
+            {
+                var toAddress = "";
+                var toAdd = "";
+                Int32 ModeofContact = 0;
+                int ScreenType = 0;
+
+                DataSet dsdd = bl.GetDetailsForScreenNo(connection, ScreenName, "");
+                if (dsdd != null)
+                {
+                    if (dsdd.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dsdd.Tables[0].Rows)
+                        {
+                            ScreenType = Convert.ToInt32(dr["ScreenType"]);
+                            mobile = Convert.ToBoolean(dr["mobile"]);
+                            smscontent = Convert.ToString(dr["smscontent"]);
+
+                            if (ScreenType == 1)
+                            {
+
+                                toAddress = toAdd;
+
+                            }
+                            else
+                            {
+                                toAddress = dr["mobile"].ToString();
+                            }
+                            if (mobile == true)
+                            {
+
+                                string body = "\n";
+
+                                int index123 = smscontent.IndexOf("@Branch");
+                                body = Request.Cookies["Company"].Value;
+                                smscontent = emailcontent.Remove(index123, 7).Insert(index123, body);
+
+                                int index312 = smscontent.IndexOf("@User");
+                                body = usernam;
+                                smscontent = smscontent.Remove(index312, 5).Insert(index312, body);
+
+                                int index2 = smscontent.IndexOf("@Date");
+                                body = txtReconDate.Text;
+                                smscontent = smscontent.Remove(index2, 5).Insert(index2, body);
+
+                                if (Session["Provider"] != null)
+                                {
+                                    utilSMS.SendSMS(Session["Provider"].ToString(), Session["Priority"].ToString(), Session["SenderID"].ToString(), Session["UserName"].ToString(), Session["Password"].ToString(), toAddress, smscontent, true, UserID);
+                                }
+
+
+                            }
+
+                        }
+                    }
+                }
+            }
+
+
+            //errorDisplay.AddItem("Recon Date updated successfully." , DisplayIcons.GreenTick,false);
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Recon Date updated successfully.');", true);
+            return;
+
+            
 
         }
         catch (Exception ex)

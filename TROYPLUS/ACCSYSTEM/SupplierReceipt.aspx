@@ -790,6 +790,7 @@
             <asp:HiddenField ID="hdText" runat="server" />
             <asp:HiddenField ID="hdMobile" runat="server" />
             <asp:HiddenField ID="hdSMSRequired" runat="server" Value="NO" />
+            <asp:HiddenField ID="hdEmailRequired" runat="server" Value="NO" />
         </ContentTemplate>
     </asp:UpdatePanel>
     <table align="center">
