@@ -1442,7 +1442,37 @@ public partial class Purchase : System.Web.UI.Page
                             TextBox txtDiscAmt = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtDiscAmt");
                             TextBox txtTotal = (TextBox)grvStudentDetails.Rows[vLoop].FindControl("txtTotal");
 
-                            if (txtRtnQty.Text == "") txtRtnQty.Text = "0";
+                           
+                            if (ddDeliveryNote.SelectedValue != "YES" && drpSalesReturn.SelectedValue != "YES")
+                            {
+                                if (txtRtnQty.Text == "")
+                                    txtRtnQty.Text = "0";
+
+                                drNew = dt.NewRow();
+                                drNew["Prd"] = Convert.ToString(drpProduct.SelectedItem.Value);
+                                if (ddDeliveryNote.SelectedValue != "YES" && drpSalesReturn.SelectedValue != "YES")
+                                {
+                                    drNew["Qty"] = txtQty.Text;
+                                    drNew["RtnQty"] = txtRtnQty.Text;
+                                }
+                                else
+                                {
+                                    drNew["Qty"] = txtRtnQty.Text;
+                                    drNew["RtnQty"] = txtQty.Text;
+                                }
+                                drNew["Rate"] = txtRate.Text;
+                                drNew["NLP"] = txtNLP.Text;
+                                drNew["DisPre"] = txtDisPre.Text;
+                                drNew["VATPre"] = txtVATPre.Text;
+                                drNew["CSTPre"] = txtCSTPre.Text;
+                                drNew["DiscAmt"] = txtDiscAmt.Text;
+                                drNew["Tot"] = txtTotal.Text;
+                                drNew["Roles"] = "1";
+                                drNew["IsRole"] = "N";
+                                dss.Tables[0].Rows.Add(drNew);
+                            }
+                            else
+                            {
                             if (Convert.ToInt32(txtRtnQty.Text) > 0)
                             {
                             drNew = dt.NewRow();
@@ -1467,6 +1497,7 @@ public partial class Purchase : System.Web.UI.Page
                             drNew["Roles"] = "1";
                             drNew["IsRole"] = "N";
                             dss.Tables[0].Rows.Add(drNew);
+                        }
                         }
                         }
 
@@ -1740,7 +1771,7 @@ public partial class Purchase : System.Web.UI.Page
 
                                                 foreach (DataRow drd in ds.Tables[0].Rows)
                                                 {
-                                                    smsTEXT = smsTEXT + drd["PrdName"].ToString() + " " + drd["Qty"].ToString() + " Qty @ " + GetCurrencyType() + " Rate " +  double.Parse(drd["Rate"].ToString());
+                                                smsTEXT = smsTEXT + drd["PrdName"].ToString() + " " + drd["Qty"].ToString() + " Qty @ " + GetCurrencyType() + " Rate " + double.Parse(drd["Rate"].ToString());
                                                     i = i - 1;
 
                                                     if (i != 0)
