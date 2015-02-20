@@ -4409,34 +4409,45 @@ public partial class LeadMgmt : System.Web.UI.Page
                                     }
                                     if (Email == true)
                                     {
-                                        //string subject = "Added - Customer Receipt in Branch " + Request.Cookies["Company"].Value;
-
                                         string body = "\n";
                                         
                                         int index123 = emailcontent.IndexOf("@Branch");
                                         body = Request.Cookies["Company"].Value;
-                                        emailcontent = emailcontent.Remove(index123, 7).Insert(index123, body);
-
+                                        if (index123 >= 0)
+                                        {
+                                            emailcontent = emailcontent.Remove(index123, 7).Insert(index123, body);
+                                        }
                                         int index132 = emailcontent.IndexOf("@EmpName");
                                         body = EmpName;
-                                        emailcontent = emailcontent.Remove(index132, 8).Insert(index132, body);
+                                        if (index132 >= 0)
+                                        {
+                                            emailcontent = emailcontent.Remove(index132, 8).Insert(index132, body);
+                                        }
 
                                         int index312 = emailcontent.IndexOf("@User");
                                         body = usernam;
-                                        emailcontent = emailcontent.Remove(index312, 5).Insert(index312, body);
-
+                                        if (index312 >= 0)
+                                        {
+                                            emailcontent = emailcontent.Remove(index312, 5).Insert(index312, body);
+                                        }
                                         int index2 = emailcontent.IndexOf("@LeadName");
                                         body = LeadName;
-                                        emailcontent = emailcontent.Remove(index2, 9).Insert(index2, body);
-
+                                        if (index2 >= 0)
+                                        {
+                                            emailcontent = emailcontent.Remove(index2, 9).Insert(index2, body);
+                                        }
                                         int index = emailcontent.IndexOf("@BpName");
                                         body = BpName;
-                                        emailcontent = emailcontent.Remove(index, 7).Insert(index, body);
-
+                                        if (index >= 0)
+                                        {
+                                            emailcontent = emailcontent.Remove(index, 7).Insert(index, body);
+                                        }
                                         int index1 = emailcontent.IndexOf("@Status");
                                         body = Convert.ToString(Status);
-                                        emailcontent = emailcontent.Remove(index1, 7).Insert(index1, body);
-
+                                        if (index1 >= 0)
+                                        {
+                                            emailcontent = emailcontent.Remove(index1, 7).Insert(index1, body);
+                                        }
                                         string smtphostname = ConfigurationManager.AppSettings["SmtpHostName"].ToString();
                                         int smtpport = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPortNumber"]);
                                         var fromAddress = ConfigurationManager.AppSettings["FromAddress"].ToString();

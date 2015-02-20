@@ -4040,7 +4040,7 @@ public partial class CustomerSales : System.Web.UI.Page
                                                     }
                                                     else
                                                     {
-                                                        break;
+                                                        continue;
                                                     }
                                                 }
                                                 else
@@ -4054,8 +4054,6 @@ public partial class CustomerSales : System.Web.UI.Page
                                             }
                                             if (Email == true)
                                             {
-                                                //string subject = "Added - Customer Receipt in Branch " + Request.Cookies["Company"].Value;
-
                                                 string body = "\n";
                                                 
                                                 int index123 = emailcontent.IndexOf("@Branch");
@@ -4075,8 +4073,9 @@ public partial class CustomerSales : System.Web.UI.Page
                                                         {
                                                             
                                                             //body = drd["PrdName"].ToString() + "  " + drd["Qty"].ToString() + "  " + drd["Rate"].ToString();
-                                                            prd = "\n";
+                                                            prd = prd + "\n";
                                                             prd = prd + drd["PrdName"].ToString() + "  " + drd["Qty"].ToString() + "  " + drd["Rate"].ToString();
+                                                            prd = prd + "\n";
                                                             
                                                         }
 
@@ -5372,7 +5371,7 @@ public partial class CustomerSales : System.Web.UI.Page
                                                         }
                                                         else
                                                         {
-                                                            break;
+                                                            continue;
                                                         }
                                                     }
                                                     else
@@ -5386,8 +5385,6 @@ public partial class CustomerSales : System.Web.UI.Page
                                                 }
                                                 if (Email == true)
                                                 {
-                                                    //string subject = "Added - Customer Receipt in Branch " + Request.Cookies["Company"].Value;
-
                                                     string body = "\n";
 
                                                     int index123 = emailcontent.IndexOf("@Branch");
@@ -5407,8 +5404,9 @@ public partial class CustomerSales : System.Web.UI.Page
                                                             {
 
                                                                 //body = drd["PrdName"].ToString() + "  " + drd["Qty"].ToString() + "  " + drd["Rate"].ToString();
-                                                                prd = "\n";
+                                                                prd = prd + "\n";
                                                                 prd = prd + drd["PrdName"].ToString() + "  " + drd["Qty"].ToString() + "  " + drd["Rate"].ToString();
+                                                                prd = prd + "\n";
 
                                                             }
 
@@ -8717,7 +8715,7 @@ public partial class CustomerSales : System.Web.UI.Page
                                         }
                                         else
                                         {
-                                            break;
+                                            continue;
                                         }
                                     }
                                     else
@@ -8751,9 +8749,9 @@ public partial class CustomerSales : System.Web.UI.Page
                                             {
 
                                                 //body = drd["PrdName"].ToString() + "  " + drd["Qty"].ToString() + "  " + drd["Rate"].ToString();
-                                                prd = "\n";
+                                                prd = prd + "\n";
                                                 prd = prd + drd["Itemcode"].ToString() + "  " + drd["Qty"].ToString() + "  " + drd["Rate"].ToString();
-
+                                                prd = prd + "\n";
                                             }
 
                                             emailcontent = emailcontent.Remove(index322, 8).Insert(index322, prd);
