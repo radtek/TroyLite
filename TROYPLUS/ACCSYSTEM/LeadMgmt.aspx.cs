@@ -2709,9 +2709,9 @@ public partial class LeadMgmt : System.Web.UI.Page
                     DropDownList drpProduct = (DropDownList)GrdViewLeadproduct.Rows[vLoop].FindControl("drpproduct");
                     Label txtPrdID = (Label)GrdViewLeadproduct.Rows[vLoop].FindControl("txtPrdId");
 
-                    if (itemDs.Tables[0].Rows[vLoop]["Prd"] != null)
+                    if (itemDs.Tables[0].Rows[vLoop]["PrdID"] != null)
                     {
-                        sCustomer = Convert.ToString(itemDs.Tables[0].Rows[vLoop]["Prd"]);
+                        sCustomer = Convert.ToString(itemDs.Tables[0].Rows[vLoop]["PrdID"]);
                         drpProduct.ClearSelection();
                         ListItem li = drpProduct.Items.FindByValue(System.Web.HttpUtility.HtmlDecode(sCustomer));
                         if (li != null) li.Selected = true;
