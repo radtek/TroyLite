@@ -487,7 +487,7 @@
         }
 
         function PrintItem(ID) {
-            window.showModalDialog('./PrintProductSalesBill.aspx?Req=N&SID=' + ID, self, 'dialogWidth:800px;dialogHeight:530px;status:no;dialogHide:yes;unadorned:no;');
+            window.showModalDialog('./ProductSalesBill.aspx?Req=N&SID=' + ID, self, 'dialogWidth:800px;dialogHeight:530px;status:no;dialogHide:yes;unadorned:no;');
         }
 
         function Mobile_Validator() {
