@@ -4244,7 +4244,7 @@ public partial class CustomerSales : System.Web.UI.Page
                             Session["productDs"] = null;
                             //MyAccordion.Visible = true;
                             //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Sales Details Saved Successfully. Your Bill No. is " + billNo.ToString() + "')", true);
-                            Response.Redirect("PrintProductSalesBill.aspx?SID=" + billNo.ToString() + "&RT=" + purchaseReturn);
+                            Response.Redirect("ProductSalesBill.aspx?SID=" + billNo.ToString() + "&RT=" + purchaseReturn);
 
 
                         }
@@ -5574,7 +5574,7 @@ public partial class CustomerSales : System.Web.UI.Page
                                 Session["productDs"] = null;
                                 //MyAccordion.Visible = true;
                                 //ScriptManager.RegisterStartupScript(Page, Page.GetType(), Guid.NewGuid().ToString(), "alert('Sales Details Saved Successfully. Your Bill No. is " + billNo.ToString() + "')", true);
-                                Response.Redirect("PrintProductSalesBill.aspx?SID=" + billNo.ToString() + "&RT=" + purchaseReturn);
+                                Response.Redirect("ProductSalesBill.aspx?SID=" + billNo.ToString() + "&RT=" + purchaseReturn);
                             }
                         }
                         else
@@ -5626,7 +5626,7 @@ public partial class CustomerSales : System.Web.UI.Page
                 string purchaseReturn = drpPurchaseReturn.SelectedValue;
                 Session["salesID"] = hdsales.Value;
                 Session["roleDs"] = null;
-                Response.Redirect("PrintProductSalesBill.aspx?SID=" + hdsales.Value + "&RT=" + purchaseReturn);
+                Response.Redirect("ProductSalesBill.aspx?SID=" + hdsales.Value + "&RT=" + purchaseReturn);
             }
             errPanel.Visible = false;
             ErrMsg.Text = "";
