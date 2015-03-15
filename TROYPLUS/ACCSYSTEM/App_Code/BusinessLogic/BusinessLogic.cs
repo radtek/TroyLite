@@ -16124,6 +16124,36 @@ public class BusinessLogic
         }
     }
 
+    public DataSet GetTotalSalesForItem(int Billno)
+    {
+        DBManager manager = new DBManager(DataProvider.OleDb);
+        manager.ConnectionString = CreateConnectionString(this.ConnectionString); // +sPath; //System.Configuration.ConfigurationManager.ConnectionStrings["ACCSYS"].ToString();
+        DataSet ds = new DataSet();
+        StringBuilder dbQry = new StringBuilder();
+
+        try
+        {
+
+            dbQry.Append("SELECT PayMode, Tax, Discount, Total FROM tblSales Where tblSales.BillNo = " + Billno);
+            manager.Open();
+            ds = manager.ExecuteDataSet(CommandType.Text, dbQry.ToString());
+
+            if (ds.Tables[0].Rows.Count > 0)
+                return ds;
+            else
+                return null;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            if (manager != null)
+                manager.Dispose();
+        }
+    }
+
     public void DeleteSales(int Billno)
     {
         DBManager manager = new DBManager(DataProvider.OleDb);
