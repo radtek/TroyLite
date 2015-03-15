@@ -85,11 +85,11 @@ public partial class ProductSalesBill : System.Web.UI.Page
 
                 GetHeaderInfo();
                 GetSalesDetailsA4Format(iBillno);
-
+                GetTotalSales(iBillno);
                 GetCustomerCareDetails();
                 A4FORMAT.Visible = true;
 
-                string BillFormat = bl.getConfigInfo();                                              
+                string BillFormat = bl.getConfigInfo();
             }
             else
             {
@@ -188,6 +188,55 @@ public partial class ProductSalesBill : System.Web.UI.Page
 
                 lblCustomerID.Text = Convert.ToString(dr["CustomerID"]);
                 lblCustomerIDEx.Text = Convert.ToString(dr["CustomerID"]);
+
+                if (dr["paymode"].ToString() == "1")
+                {
+                    lblPayMode.Text = "Cash";
+                    divBankPaymode.Visible = false;
+
+                    lblPayModeEx.Text = "Cash";
+                    divBankPaymodeEx.Visible = false;
+                }
+                else if (dr["paymode"].ToString() == "2")
+                {
+                    lblPayMode.Text = "Bank / Credit Card";
+                    divBankPaymode.Visible = true;
+                    divCreditCardNo.InnerHtml = dr["CreditCardNo"].ToString();
+                    divBankName.InnerHtml = dr["Debtor"].ToString();
+
+                    lblPayModeEx.Text = "Bank / Credit Card";
+                    divBankPaymodeEx.Visible = true;
+                    divCreditCardNoEx.InnerHtml = dr["CreditCardNo"].ToString();
+                    divBankNameEx.InnerHtml = dr["Debtor"].ToString();
+                }
+                else if (dr["paymode"].ToString() == "3")
+                {
+                    lblPayMode.Text = "Payment Mode: Credit";
+                    divBankPaymode.Visible = false;
+
+                    lblPayModeEx.Text = "Payment Mode: Credit";
+                    divBankPaymodeEx.Visible = false;
+                }
+
+                if (dr["MultiPayment"].ToString() == "YES")
+                {
+                    lblPayMode.Text = "Multipayment";
+                    divMultiPayment.Visible = true;
+                    GrdViewReceipt.DataSource = bl.ListReceiptsForBillNoOrder(dr["billno"].ToString());
+                    //GrdViewReceipt.DataSource = bl.ListReceiptsForBillNo(dr["billno"].ToString());
+                    GrdViewReceipt.DataBind();
+
+                    lblPayModeEx.Text = "Multipayment";
+                    divMultiPaymentEx.Visible = true;
+                    GrdViewReceiptEx.DataSource = bl.ListReceiptsForBillNoOrder(dr["billno"].ToString());
+                    //GrdViewReceipt.DataSource = bl.ListReceiptsForBillNo(dr["billno"].ToString());
+                    GrdViewReceiptEx.DataBind();
+                }
+                else
+                {
+                    divMultiPayment.Visible = false;
+                    divMultiPaymentEx.Visible = false;
+                }
             }
 
             if ((dsBill != null) && (dsBill.Tables[0].Rows.Count > 0))
@@ -234,7 +283,7 @@ public partial class ProductSalesBill : System.Web.UI.Page
                 {
                     paymentMode = "Cash";
                 }
-                else if(payMode == 2)
+                else if (payMode == 2)
                 {
                     paymentMode = "Credit Card";
                 }
@@ -263,8 +312,8 @@ public partial class ProductSalesBill : System.Web.UI.Page
             gvGeneralEx.Visible = true;
             gvGeneralEx.DataSource = billSales;
             gvGeneralEx.DataBind();
-        }        
-    }   
+        }
+    }
 
     public void GetSalesDetailsA4Format(int salesID)
     {
@@ -286,6 +335,9 @@ public partial class ProductSalesBill : System.Web.UI.Page
             dt.Columns.Add(dc);
 
             dc = new DataColumn("ProductDesc");
+            dt.Columns.Add(dc);
+
+            dc = new DataColumn("ProductItem");
             dt.Columns.Add(dc);
 
             dc = new DataColumn("Particulars");
@@ -367,6 +419,9 @@ public partial class ProductSalesBill : System.Web.UI.Page
                     drNew["Particulars"] = sParticulars;
                     drNew["ProductName"] = Convert.ToString(dr["ProductName"]);
                     drNew["ProductDesc"] = Convert.ToString(dr["ProductDesc"]);
+
+                    drNew["ProductItem"] = Convert.ToString(dr["ProductName"]) + " - " + Convert.ToString(dr["ProductDesc"]);
+
                     drNew["Rate"] = dRate.ToString("f2");
                     drNew["NetRate"] = dNetRate.ToString("f2");
                     drNew["Bundles"] = Convert.ToString(dr["Bundles"]);
@@ -385,13 +440,13 @@ public partial class ProductSalesBill : System.Web.UI.Page
 
                 if (billDs.Tables[0].Rows.Count < 10)
                 {
-                    int currRowCnt = billDs.Tables[0].Rows.Count;                   
+                    int currRowCnt = billDs.Tables[0].Rows.Count;
 
                     for (int i = currRowCnt; i < 10; i++)
                     {
                         drNew = dt.NewRow();
 
-                        drNew["Particulars"] = string.Empty ;
+                        drNew["Particulars"] = string.Empty;
                         drNew["ProductName"] = string.Empty;
                         drNew["ProductDesc"] = string.Empty;
                         drNew["Rate"] = string.Empty;
@@ -410,7 +465,7 @@ public partial class ProductSalesBill : System.Web.UI.Page
                         billDs.Tables[0].Rows.Add(drNew);
                     }
                 }
-            }            
+            }
 
             gvItem.Visible = true;
             gvItem.DataSource = billDs;
@@ -420,6 +475,30 @@ public partial class ProductSalesBill : System.Web.UI.Page
             gvItemEx.DataSource = billDs;
             gvItemEx.DataBind();
         }
+    }
+
+    public void GetTotalSales(int BillNo)
+    {
+        DataSet ds = new DataSet();
+        BusinessLogic bl = new BusinessLogic(sDataSource);
+        ds = bl.GetTotalSalesForItem(BillNo);
+
+        int payMode;
+
+        if ((ds != null) && (ds.Tables[0].Rows.Count > 0))
+        {
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                lblSalesTax.Text = Convert.ToString(dr["Tax"]);
+
+                lblDiscount.Text = Convert.ToString(dr["Discount"]);
+
+                lblTotal.Text = Convert.ToString(dr["Total"]);
+
+                payMode = Convert.ToInt32(dr["PayMode"]);
+            }
+        }
+
     }
 
     protected void btnBack_Click(object sender, EventArgs e)
@@ -435,7 +514,7 @@ public partial class ProductSalesBill : System.Web.UI.Page
             TroyLiteExceptionManager.HandleException(ex);
         }
     }
-   
+
     public double GetSum(double rate, double vat, double cst)
     {
         double tot = 0;
@@ -454,8 +533,8 @@ public partial class ProductSalesBill : System.Web.UI.Page
     {
         cst = (rate * (cst / 100));
         return cst;
-    }  
-   
+    }
+
     private void BindCurrencyLabels()
     {
         DataSet appSettings;
@@ -505,7 +584,7 @@ public partial class ProductSalesBill : System.Web.UI.Page
 
             GetHeaderInfo();
             GetSalesDetailsA4Format(iBillno);
-
+            GetTotalSales(iBillno);
             GetCustomerCareDetails();
             A4FORMAT.Visible = true;
         }
@@ -538,7 +617,7 @@ public partial class ProductSalesBill : System.Web.UI.Page
             FillDivision();
 
             GetSalesDetailsA4Format(iBillno);
-
+            GetTotalSales(iBillno);
             GetCustomerCareDetails();
             A4FORMAT.Visible = true;
         }
@@ -603,22 +682,22 @@ public partial class ProductSalesBill : System.Web.UI.Page
                 e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Right;
                 e.Row.Cells[5].Text = dTot.ToString("f2");
 
-                lblSalesTax.Text = Math.Abs(vatTotal).ToString("f2");
+                //lblSalesTax.Text = Math.Abs(vatTotal).ToString("f2");
 
-                lblDiscount.Text = disTot.ToString("f2");
+                //lblDiscount.Text = disTot.ToString("f2");
 
                 //lblGrandCst.Text = dCST.ToString("f2");
 
-                lblTotal.Text = String.Format("{0:0,0}", sumNet);
+                //lblTotal.Text = String.Format("{0:0,0}", sumNet);
                 //lblCurrRs.Text = currencyType + " " + String.Format("{0:0,0}", sumNet);
 
                 lblSubTotal.Text = dTot.ToString("f2");
 
-                if (dDis > 0)
-                    lblDiscount.Visible = true;
-                else
-                    lblDiscount.Visible = false;
-                
+                //if (dDis > 0)
+                //    lblDiscount.Visible = true;
+                //else
+                //    lblDiscount.Visible = false;
+
             }
         }
         catch (Exception ex)
@@ -642,7 +721,7 @@ public partial class ProductSalesBill : System.Web.UI.Page
 
     private void FillDivision()
     {
-        
+
         BusinessLogic bl = new BusinessLogic(sDataSource);
         DataSet companyInfo = new DataSet();
 
@@ -668,11 +747,11 @@ public partial class ProductSalesBill : System.Web.UI.Page
 
                     lblPincode.Text = Convert.ToString(dr["Pincode"]);
                     lblPincodeEx.Text = Convert.ToString(dr["Pincode"]);
-                    
+
                     lblState.Text = Convert.ToString(dr["state"]);
                     lblStateEx.Text = Convert.ToString(dr["state"]);
                 }
-            }           
+            }
         }
     }
 
@@ -752,6 +831,19 @@ public partial class ProductSalesBill : System.Web.UI.Page
         catch (Exception ex)
         {
             TroyLiteExceptionManager.HandleException(ex);
+        }
+    }
+    protected void PrintDropDownList_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (PrintDropDownList.SelectedValue == "2")
+        {
+            divPrint.Visible = false;
+            divPrintEx.Visible = true;
+        }
+        else if (PrintDropDownList.SelectedValue == "1")
+        {
+            divPrint.Visible = true;
+            divPrintEx.Visible = false;
         }
     }
 }
